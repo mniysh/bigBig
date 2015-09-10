@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/popup_lay_lin"
+    android:layout_width="match_parent"
+    android:background="#fff"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+    <TextView 
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="提交信息成功，请等待审核"
+        android:textColor="#000"
+        android:textSize="15sp"
+        android:padding="10dp"
+        android:paddingLeft="30dp"
+        android:paddingRight="30dp"
+        android:background="@color/gray_back"
+        android:gravity="center_horizontal"
+        />
+    <LinearLayout 
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        >
+    <TextView 
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:layout_marginTop="20dp"
+        
+        android:textColor="#000"
+        android:text="        亿帮无忧工作人员会在五个工作日内审核您的信息，并及时反馈给您。"
+        />
+    </LinearLayout>
+    <Button
+        android:id="@+id/popup_lay_iv_back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/back_ima"
+        android:layout_marginTop="20dp"
+        android:layout_gravity="center_horizontal"
+        
+        />
+    <LinearLayout 
+        android:layout_width="fill_parent"
+        android:layout_height="30dp"
+        android:orientation="horizontal"
+        ></LinearLayout>
+
+</LinearLayout>

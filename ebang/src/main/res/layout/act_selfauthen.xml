@@ -1,0 +1,436 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="50dp"
+        android:background="#0075AA" >
+
+        <LinearLayout
+            android:id="@+id/act_chat_Lin_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:clickable="true"
+            android:orientation="horizontal" >
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="28dp"
+                android:paddingLeft="15dp"
+                android:src="@drawable/jiantou" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:text="返回"
+                android:textColor="#fff"
+                android:textSize="15sp" />
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="个人认证"
+            android:textColor="#fff"
+            android:textSize="20sp" />
+    </RelativeLayout>
+	<!-- 
+	<LinearLayout 
+	    android:layout_width="fill_parent"
+	    android:layout_height="fill_parent"
+	    android:orientation="vertical"
+	    android:background="#fff"
+	    >
+        
+    <TableLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="#fff"
+        android:orientation="vertical" >
+
+        <TableRow
+            android:gravity="center"
+            
+            android:padding="6dp" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="*"
+                android:textColor="@color/auther_red" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="真实姓名:"
+                android:layout_marginLeft="5dp"
+                android:textSize="20dp" />
+
+            <EditText
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:hint="请输入真实姓名"
+                android:layout_gravity="center_vertical"
+                android:textColor="@color/black" >
+
+                <requestFocus />
+            </EditText>
+        </TableRow>
+
+        <View style="@style/aaa_hor" />
+
+        <TableRow
+            android:gravity="center_horizontal"
+            android:padding="6dp" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="*"
+                android:textColor="@color/auther_red" />
+
+            <TextView
+                android:layout_marginLeft="5dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="身份证号:"
+                android:textSize="20dp" />
+
+            <EditText
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:hint="请输入身份证"
+                android:textColor="@color/black" />
+        </TableRow>
+
+        <View style="@style/aaa_hor" />
+
+        <TableRow android:gravity="center_horizontal" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="*"
+                android:textColor="@color/auther_red" />
+
+            <TextView
+                android:layout_marginLeft="5dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="手 机 号:"
+                android:textSize="20dp" />
+
+            <EditText
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:hint="请输入手机号"
+                android:textColor="@color/black" />
+        </TableRow>
+
+        <View style="@style/aaa_hor" />
+
+        <TableRow android:gravity="center_horizontal" 
+            android:padding="6dp"
+            >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="*"
+                android:textColor="@color/auther_red" />
+
+            <TextView
+                android:layout_marginLeft="5dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="性  别 :"
+                android:textSize="20dp" />
+            <RadioGroup 
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                
+                >
+                <RadioButton 
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:button="@drawable/check_selec"
+                    android:text="男"
+                    android:padding="5dp"
+                    android:checked="true"
+                    />
+                <RadioButton 
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:button="@drawable/check_selec"
+                    android:text="女"
+                    android:padding="5dp"
+                    />
+            </RadioGroup>
+
+        </TableRow>
+
+        <View style="@style/aaa_hor" />
+
+        <TableRow android:gravity="center_horizontal" android:padding="6dp" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="*"
+                android:textColor="@color/auther_red" />
+
+            <TextView
+                android:layout_marginLeft="5dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="籍  贯:"
+                android:textSize="20dp" />
+
+            <Spinner 
+                android:layout_width="50dp"
+                android:layout_height="25dp"
+                android:entries="@array/sheng"
+                android:background="@drawable/spin_jiguan"
+                />
+            <Spinner 
+                android:layout_width="50dp"
+                android:layout_height="25dp"
+                android:entries="@array/shi"
+                android:background="@drawable/spin_jiguan"
+                />
+            <Spinner 
+                android:layout_width="50dp"
+                android:layout_height="25dp"
+                android:entries="@array/qu"
+                android:background="@drawable/spin_jiguan"
+                />
+        </TableRow>
+
+        <View style="@style/aaa_hor" />
+    </TableLayout>
+     
+    
+    </LinearLayout>-->
+ 
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:background="@color/white"
+        android:orientation="vertical" >
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:padding="10dp"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="*"
+                android:textColor="@color/auther_red" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20dp"
+                android:layout_marginLeft="5dp"
+                android:text="真实姓名:" />
+            <EditText 
+                android:id="@+id/act_self_name"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:hint="请输入真实姓名"
+                android:layout_marginLeft="5dp"
+                android:singleLine="true"
+                android:background="#fff"
+                />
+        </LinearLayout>
+        <View 
+            style="@style/aaa_hor"
+            />
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:padding="10dp"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="*"
+                android:textColor="@color/auther_red" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20dp"
+                android:layout_marginLeft="5dp"
+                android:text="身份证号:" />
+            <EditText 
+                android:id="@+id/act_self_identityCard"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:hint="请输入身份证号"
+                android:layout_marginLeft="10dp"
+                android:maxLength="18"
+                android:textColor="@color/black"
+                android:background="#fff"
+                />
+        </LinearLayout>
+        <View 
+            style="@style/aaa_hor"
+            />
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:padding="10dp"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="*"
+                android:textColor="@color/auther_red" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20dp"
+                android:layout_marginLeft="5dp"
+                android:text="手机号:" />
+            <EditText 
+                android:id="@+id/act_self_phoneNum"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:hint="请输入手机号"
+                android:background="#fff"
+                android:inputType="number"
+                android:layout_marginLeft="5dp"
+                android:textColor="@color/black"
+                />
+        </LinearLayout>
+        <View 
+            style="@style/aaa_hor"
+            />
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:padding="10dp"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="*"
+                android:textColor="@color/auther_red" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20dp"
+                android:layout_marginLeft="5dp"
+                android:text="性别:" />
+            <RadioGroup 
+                android:id="@+id/act_self_rg_sex"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                
+                >
+                <RadioButton 
+                    android:id="@+id/act_self_rb_man"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:button="@drawable/check_selec"
+                    android:text="男"
+                    android:padding="5dp"
+                    android:layout_marginLeft="5dp"
+                    android:checked="true"
+                    />
+                <RadioButton 
+                    android:id="@+id/act_self_rb_women"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:button="@drawable/check_selec"
+                    android:text="女"
+                    android:padding="5dp"
+                    />
+            </RadioGroup>
+        </LinearLayout>
+        <View 
+            style="@style/aaa_hor"
+            />
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:padding="10dp"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="*"
+                android:textColor="@color/auther_red" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20dp"
+                android:layout_marginLeft="5dp"
+                android:text="籍贯:" />
+            <Spinner 
+                android:id="@+id/act_self_sp_sheng"
+                android:layout_width="60dp"
+                android:layout_height="25dp"
+                android:layout_marginLeft="5dp"
+                android:entries="@array/sheng"
+                android:background="@drawable/spin_jiguan"
+                />
+            <Spinner 
+                android:id="@+id/act_self_sp_shi"
+                android:layout_width="60dp"
+                android:layout_height="25dp"
+                android:entries="@array/shi"
+                android:background="@drawable/spin_jiguan"
+                android:layout_marginLeft="5dp"
+                />
+            <Spinner 
+                android:id="@+id/act_self_sp_qu"
+                android:layout_marginLeft="5dp"
+                android:layout_width="60dp"
+                android:layout_height="25dp"
+                android:entries="@array/qu"
+                android:background="@drawable/spin_jiguan"
+                />
+        </LinearLayout>
+        <View 
+            style="@style/aaa_hor"
+            />
+    <Button 
+        android:id="@+id/act_self_but_submit"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="50dp"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bk_but"
+        android:text="提交信息"
+        style="@style/textColor"
+        />
+    
+    </LinearLayout>
+
+</LinearLayout>

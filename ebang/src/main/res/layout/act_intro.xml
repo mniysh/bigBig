@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+     <RelativeLayout 
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:background="#0075AA"
+	        android:padding="8dp"
+	        >
+	        
+	        <LinearLayout 
+	            android:id="@+id/act_intro_Lin_back"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:orientation="horizontal"
+	            android:layout_centerVertical="true"
+	            android:clickable="true"
+	            >
+	            
+	            <ImageView 
+	                android:layout_width="30dp"
+	                android:layout_height="30dp"
+	                android:src="@drawable/jiantou"
+	                />
+	            
+	            <TextView 
+	                android:layout_width="wrap_content"
+	                android:layout_height="wrap_content"
+	                android:text="返回"
+	                android:textColor="#fff"
+	                android:layout_gravity="center_vertical"
+	                android:textSize="17sp"
+	                />
+	        </LinearLayout>
+	        <TextView 
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:text="企业简介"
+	            android:textSize="20sp"
+	            android:textColor="#fff"
+	            android:layout_centerInParent="true"
+	            
+	            />
+	    </RelativeLayout>
+	    <RelativeLayout 
+			        android:id="@+id/act_comment_company"
+			        android:layout_width="fill_parent"
+			        android:layout_height="150dp"
+			        android:background="@drawable/linshi"
+			        
+			        >
+			        <LinearLayout 
+			            android:layout_width="wrap_content"
+			            android:layout_height="wrap_content"
+			            android:orientation="horizontal"
+			            android:layout_alignParentRight="true"
+			            android:layout_marginRight="5dp"
+			            >
+			            <ImageView
+			                
+			                android:id="@+id/act_intro_share" 
+			                android:layout_width="wrap_content"
+			                android:layout_height="wrap_content"
+			                android:src="@drawable/fenxiang"
+			                android:layout_marginRight="5dp"
+			                android:clickable="true"
+			                
+			                />
+			            
+			            <ImageView
+			                
+			                android:clickable="true"
+			                android:id="@+id/act_comment_collect" 
+			                android:layout_width="wrap_content"
+			                android:layout_height="wrap_content"
+			                android:src="@drawable/shoucang"
+			                
+			                />
+			            
+			        </LinearLayout>
+			        <TextView 
+			            android:padding="5dp"
+			            android:layout_alignParentBottom="true"
+			            android:layout_width="wrap_content"
+			            android:layout_height="wrap_content"
+			            android:text="北京建筑公司"
+			            />
+			    </RelativeLayout>
+			    <TextView 
+			        android:layout_width="wrap_content"
+			        android:layout_height="wrap_content"
+			        android:text="企业简介内容"
+			        />
+
+</LinearLayout>

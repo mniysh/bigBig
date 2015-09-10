@@ -1,0 +1,203 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F7F4F4"
+    android:orientation="vertical" >
+	
+    <fragment
+        android:id="@+id/act_home_frag"
+        android:name="com.ms.ebangw.fragment.HomeFragment"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:src="@drawable/home_line" />
+    <LinearLayout 
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="5dp"
+        >
+        <LinearLayout 
+            android:id="@+id/act_home_homebutn"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_weight="1"
+            android:gravity="center_horizontal"
+            >
+            <ImageView 
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/homepager_click"
+                
+                />
+            <TextView 
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="主页"
+                android:textColor="#0075AA"
+                
+                />
+        </LinearLayout>
+        <LinearLayout 
+            android:id="@+id/act_home_foundbutn"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_weight="1"
+            android:gravity="center_horizontal"
+            >
+            <ImageView 
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/foundpager_unclick"
+                
+                />
+            <TextView 
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="发现"
+                android:textColor="#626262"
+                
+                />
+        </LinearLayout>
+        <LinearLayout 
+            android:id="@+id/act_home_releasebut"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_weight="1"
+            android:gravity="center_horizontal"
+            >
+            <ImageView 
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/releasepager_unclick"
+                
+                />
+            <TextView 
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="发布"
+                android:textColor="#626262"
+                
+                />
+        </LinearLayout>
+        <LinearLayout 
+            android:layout_weight="1"
+            android:gravity="center_horizontal"
+            android:id="@+id/act_home_serivicebut"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            >
+            <ImageView 
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/serivicepager_unclick"
+                
+                />
+            <TextView 
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="服务"
+                android:textColor="#626262"
+                
+                />
+        </LinearLayout>
+        <LinearLayout 
+            android:id="@+id/act_home_mainbut"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            
+            >
+            <ImageView 
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/mainpager_unclick"
+                
+                />
+            <TextView 
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="我的"
+                android:textColor="#626262"
+                
+                />
+        </LinearLayout>
+    </LinearLayout>
+    
+<!--  
+    <RadioGroup
+        android:id="@+id/act_home_radiog"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+
+        <RadioButton
+            android:id="@+id/act_home_homebutn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:button="@null"
+            android:checked="true"
+            android:drawableTop="@drawable/homepager_click"
+            android:gravity="center_horizontal"
+            android:text="主页"
+            android:textColor="@drawable/colorgray_blueselect" />
+
+        <RadioButton
+            android:id="@+id/act_home_foundbutn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:button="@null"
+            android:drawableTop="@drawable/foundpager_unclick"
+            android:gravity="center_horizontal"
+            android:text="发现"
+            android:textColor="@drawable/colorgray_blueselect" />
+
+        <RadioButton
+            android:id="@+id/act_home_releasebut"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:button="@null"
+            android:drawableTop="@drawable/releasepager_unclick"
+            android:gravity="center_horizontal"
+            android:text="发布"
+            android:textColor="@drawable/colorgray_blueselect" />
+
+        <RadioButton
+            android:id="@+id/act_home_serivicebut"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:button="@null"
+            android:drawableTop="@drawable/serivicepager_unclick"
+            android:gravity="center_horizontal"
+            android:text="服务"
+            android:textColor="@drawable/colorgray_blueselect" />
+
+        <RadioButton
+            android:id="@+id/act_home_mainbut"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:button="@null"
+            android:drawableTop="@drawable/mainpager_unclick"
+            android:gravity="center_horizontal"
+            android:text="我的"
+            android:textColor="@drawable/colorgray_blueselect" />
+    </RadioGroup>
+    -->
+
+</LinearLayout>

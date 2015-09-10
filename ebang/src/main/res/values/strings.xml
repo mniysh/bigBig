@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">ebang</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+	<!-- 区 -->
+	<string-array name="release_add_qu" >
+	    <item >--选区--</item>
+	    <item >东城区</item>
+	    <item >西城区</item>
+	    <item >朝阳区</item>
+	    <item >海淀区</item>
+	    <item >丰台区</item>
+	    <item >石景山区</item>
+	    <item >门头沟区</item>
+	    <item >房山区</item>
+	    <item >大兴区</item>
+	    <item >通州区</item>
+		<item >昌平区</item>
+		<item >平谷区</item>
+		<item >怀柔区</item>
+		<item >密云区</item>
+		<item >延庆区</item>
+	    
+	</string-array>
+	<!-- 路  -->
+	<string-array name="release_add_lu">
+	    <item >--选路--</item>
+	    <item >路1</item>
+	    <item >路2</item>
+	    <item >路3</item>
+	    <item >路4</item>
+	    <item >路5</item>
+	    <item >路6</item>
+	    <item >路7</item>
+	    <item >路8</item>
+	    <item >路9</item>
+	    <item >路10</item>
+	    <item >路11</item>
+	    <item >路12</item>
+	    
+	</string-array>
+	<!-- 类型  -->
+	<string-array name="release_add_style">
+	    <item >--类别--</item>
+	    <item >木工</item>
+	    <item >木工</item>
+	    <item >木工</item>
+	    <item >木工</item>
+	    <item >木工</item>
+	    <item >木工</item>
+	    <item >木工</item>
+	    <item >木工</item>
+	    <item >木工</item>
+	    <item >木工</item>
+	    
+	</string-array>
+	<!-- 主页发现部分的全部分类 -->
+	<string-array name="home_foundfragment_all_type">
+	    <item >全部分类</item>
+	    <item >分类1</item>
+	    <item >分类2</item>
+	    <item >分类3</item>
+	    <item >分类4</item>
+	    <item >分类5</item>
+	</string-array>
+	<!-- 主页发现部分的距离 -->
+	<string-array name="home_foundfragment_juli">
+	    <item >1KM</item>
+	    <item >分类1</item>
+	    <item >分类2</item>
+	    <item >分类3</item>
+	    <item >分类4</item>
+	    <item >分类5</item>
+	</string-array>
+	<!-- 主页发现部分的区域 -->
+	<string-array name="home_foundfragment_area">
+	    <item >区域</item>
+	    <item >区域1</item>
+	    <item >区域2</item>
+	    <item >区域3</item>
+	    <item >区域4</item>
+	    <item >区域5</item>
+	</string-array>
+	<!-- 籍贯 -->
+	<string-array name="sheng">
+	    <item >省</item>
+	    <item >省1</item>
+	    <item >省1</item>
+	    <item >省1</item>
+	</string-array>
+	<string-array name="shi">
+	    <item >市</item>
+	    <item >省1</item>
+	    <item >省1</item>
+	    <item >省1</item>
+	</string-array>
+	<string-array name="qu">
+	    <item >地区</item>
+	    <item >省1</item>
+	    <item >省1</item>
+	    <item >省1</item>
+	</string-array>
+	
+</resources>

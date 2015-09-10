@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@drawable/bk_comment_item"
+              android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="horizontal"
+        android:padding="10dp"
+        >
+
+        <ImageView
+            android:id="@+id/item_xlistview_iv_head"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/head"
+            />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            >
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:orientation="horizontal"
+                android:padding="5dp"
+                >
+
+                <TextView
+                    android:id="@+id/item_xlistview_tv_username"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="用户名"
+                    />
+                <!--  
+                <ImageView 
+                    android:id="@+id/act_comment_iv_star01"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/star"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="5dp"
+                    />
+                <ImageView 
+                    android:layout_gravity="center_vertical"
+                    android:id="@+id/act_comment_iv_star02"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/star"
+                    android:layout_marginLeft="5dp"
+                    android:visibility="invisible"
+                    />
+                <ImageView 
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="5dp"
+                    android:id="@+id/act_comment_iv_star03"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/star"
+                    android:visibility="invisible"
+                    />
+                <ImageView 
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="5dp"
+                    android:id="@+id/act_comment_iv_star04"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/star"
+                    android:visibility="invisible"
+                    />
+                <ImageView 
+                    android:layout_marginLeft="5dp"
+                    android:id="@+id/item_xlistview_iv_star05"
+                    android:layout_gravity="center_vertical"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/star"
+                    android:visibility="invisible"
+                    />
+                    -->
+                <RatingBar
+                    style="@style/ratingbar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="20dp"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="10dp"
+                    android:isIndicator="true"
+                    android:numStars="5"
+                    android:rating="1.2"
+                    android:stepSize="1.2"
+
+                    />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/item_xlistview_tv_content"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:padding="5dp"
+                android:text="评论内容"
+
+                />
+
+            <LinearLayout
+                android:id="@+id/item_xlistview_lin_iv"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:orientation="horizontal"
+                android:padding="5dp"
+                android:visibility="invisible"
+                >
+                <!--                    android:src="@drawable/abc_ab_share_pack_holo_light"
+-->
+                <ImageView
+                    android:id="@+id/item_xlistview_lin_iv_01"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+
+                    />
+
+                <ImageView
+                    android:id="@+id/item_xlistview_lin_iv_02"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+
+                    />
+
+                <ImageView
+                    android:id="@+id/item_xlistview_lin_iv_03"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    />
+
+                <ImageView
+                    android:id="@+id/item_xlistview_lin_iv_04"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+
+                >
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="5dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="1"
+                    />
+
+                <LinearLayout
+                    android:id="@+id/item_xlisview_lin_dianzan"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:clickable="true"
+                    android:orientation="horizontal"
+                    android:padding="5dp"
+                    >
+
+                    <TextView
+                        android:id="@+id/item_xlistview_tv_dianzan"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="点赞"
+                        />
+
+                    <TextView
+                        android:id="@+id/item_xlistview_tv_dianzan_number"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="(2)"
+                        />
+
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

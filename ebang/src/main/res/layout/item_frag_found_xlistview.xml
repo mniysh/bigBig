@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#fff"
+    android:padding="15dp"
+    android:orientation="horizontal" >
+    <ImageView 
+        android:id="@+id/item_frag_found_xlistview_head"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/head"
+        />
+    <LinearLayout 
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginLeft="10dp"
+        
+        >
+        <LinearLayout 
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            >
+            <TextView 
+                android:id="@+id/item_frag_found_xlistview_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="不锈钢玻璃隔断"
+                />
+            <View 
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                />
+            <TextView 
+                android:id="@+id/item_frag_found_xlistview_juli"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="公里数"
+                android:textColor="#FF9602"
+                
+                />
+        </LinearLayout>
+        <TextView 
+            android:id="@+id/item_frag_found_xlistview_content"
+            android:layout_marginTop="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="一些简单的简介"
+            />
+        <LinearLayout 
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="10dp"
+            >
+            <TextView 
+                android:id="@+id/item_frag_found_xlistview_money"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="价格"
+                android:textColor="#EE2225"
+                />
+            <TextView 
+                android:id="@+id/item_frag_found_xlistview_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="已有几人抢单"
+                android:layout_marginLeft="20dp"
+                
+                />
+            <Button 
+                android:id="@+id/item_frag_found_xlistview_qiangdan"
+                android:layout_marginLeft="20dp"
+                android:layout_width="50dp"
+                android:layout_height="25dp"
+                android:textColor="#fff"
+                android:background="@drawable/bk_but_qiangdan"
+                android:text="抢单"
+                />
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

@@ -1,0 +1,56 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <RelativeLayout 
+	        android:layout_width="fill_parent"
+	        android:layout_height="50dp"
+	        android:background="#0075AA"
+	        
+	        >
+	        
+	        <LinearLayout 
+	            android:id="@+id/act_chat_Lin_back"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:orientation="horizontal"
+	            android:layout_centerVertical="true"
+	            android:clickable="true"
+	            >
+	            
+	            <ImageView 
+	                android:layout_width="30dp"
+	                android:layout_height="28dp"
+	                android:src="@drawable/jiantou"
+	                android:paddingLeft="15dp"
+	                />
+	            
+		            <TextView 
+		                android:layout_width="wrap_content"
+		                android:layout_height="wrap_content"
+		                android:text="返回"
+		                android:textColor="#fff"
+		                android:layout_gravity="center_vertical"
+		                android:textSize="15sp"
+		                />
+	        </LinearLayout>
+	        <TextView 
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:text="查看周边其他工作"
+	            android:textSize="20sp"
+	            android:textColor="#fff"
+	            android:layout_centerInParent="true"
+	            
+	            />
+	</RelativeLayout>
+
+    <ms.example.ebang.creat.XListView
+        android:id="@+id/xlistview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+    </ms.example.ebang.creat.XListView>
+
+</LinearLayout>
