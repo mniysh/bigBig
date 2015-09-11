@@ -102,4 +102,13 @@ public class MainActivity extends BaseActivity implements OnClickListener, Anima
 	}
 	//=========================================
 
+//	@Override
+//	public boolean onKeyDown(int keyCode, KeyEvent event) {
+//		if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
+//			exitApp();
+//		}
+//		return false;
+//	}
+
+
 }

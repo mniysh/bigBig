@@ -5,7 +5,6 @@ import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.util.Log;
 import android.view.View;
@@ -27,7 +26,7 @@ import com.ms.ebangw.fragment.ReleaseFreament;
  * @author admin
  *
  */
-public class HomeActivity extends FragmentActivity implements OnClickListener {
+public class HomeActivity extends BaseActivity implements OnClickListener {
 	// RadioButton act_home_homebutn,act_home_foundbutn;
 	private RadioGroup act_home_radiog;
 	private FragmentManager fm;
@@ -76,6 +75,7 @@ public class HomeActivity extends FragmentActivity implements OnClickListener {
 			lin_click[4].performClick();
 		}
 		//lin_click[4].performClick();
+		showPoressDialog("aaa");
 	}
 
 	private void operation() {

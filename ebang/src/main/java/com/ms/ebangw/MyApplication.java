@@ -24,7 +24,6 @@ public class MyApplication extends Application {
     public void onCreate() {
         super.onCreate();
         instance = this;
-//        MyApplication.unDestroyActivityList.add(this);
     }
 
 
@@ -57,6 +56,20 @@ public class MyApplication extends Application {
     public static MyApplication getInstance() {
         return instance;
     }
+
+
+    /**
+     * 退出应用
+     */
+    public void quit() {
+        for (Activity activity : unDestroyActivityList) {
+            if (null != activity) {
+                activity.finish();
+            }
+        }
+        unDestroyActivityList.clear();
+    }
+
 }
 
 
