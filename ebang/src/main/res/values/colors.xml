@@ -3,4 +3,9 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+
+    <!--标题栏-->
+    <color name="titleBar_bg">#0075AA</color>
+    <color name="titleBar_arrow_pressed">@android:color/darker_gray</color> <!--标题栏返回箭头按下的颜色-->
+
 </resources>

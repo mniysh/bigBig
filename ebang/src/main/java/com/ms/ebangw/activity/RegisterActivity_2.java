@@ -9,7 +9,6 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
@@ -17,7 +16,6 @@ import com.loopj.android.http.RequestParams;
 import com.ms.ebangw.MyApplication;
 import com.ms.ebangw.R;
 import com.ms.ebangw.bean.User;
-import com.ms.ebangw.utils.OtherLogin;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -31,7 +29,7 @@ import java.util.regex.Pattern;
  *
  */
 public class RegisterActivity_2 extends BaseActivity implements OnClickListener {
-	private ImageView iv_back,iv_weixin,iv_weibo,iv_qq;
+//	private ImageView iv_back,iv_weixin,iv_weibo,iv_qq;
 	private EditText et_password01,et_password02;
 	private String et_passwordValue01,et_passwordValue02;
 	private Button but_register;
@@ -47,14 +45,16 @@ public class RegisterActivity_2 extends BaseActivity implements OnClickListener 
 		initView();
 		initViewOper();
 
+		initTitle("注册");
+
 	}
 
 	private void initView() {
 		// TODO Auto-generated method stub
-		iv_back=(ImageView) findViewById(R.id.act_register2_iv_back);
-		iv_qq=(ImageView) findViewById(R.id.act_register2_iv_qq);
-		iv_weibo=(ImageView) findViewById(R.id.act_register2_iv_weibo);
-		iv_weixin=(ImageView) findViewById(R.id.act_register2_iv_weixin);
+//		iv_back=(ImageView) findViewById(R.id.act_register2_iv_back);
+//		iv_qq=(ImageView) findViewById(R.id.act_register2_iv_qq);
+//		iv_weibo=(ImageView) findViewById(R.id.act_register2_iv_weibo);
+//		iv_weixin=(ImageView) findViewById(R.id.act_register2_iv_weixin);
 		et_password01=(EditText) findViewById(R.id.act_register_2_et_password);
 		et_password02=(EditText) findViewById(R.id.act_register_2_et_password2);
 		but_register=(Button) findViewById(R.id.act_register_2_but_register);
@@ -62,11 +62,11 @@ public class RegisterActivity_2 extends BaseActivity implements OnClickListener 
 	}
 
 	private void initViewOper() {
-		// TODO Auto-generated method stub
-		iv_back.setOnClickListener(this);
-		iv_qq.setOnClickListener(this);
-		iv_weibo.setOnClickListener(this);
-		iv_weixin.setOnClickListener(this);
+//		// TODO Auto-generated method stub
+//		iv_back.setOnClickListener(this);
+//		iv_qq.setOnClickListener(this);
+//		iv_weibo.setOnClickListener(this);
+//		iv_weixin.setOnClickListener(this);
 		but_register.setOnClickListener(this);
 	}
 	public void getDatas(){
@@ -77,18 +77,18 @@ public class RegisterActivity_2 extends BaseActivity implements OnClickListener 
 	public void onClick(View v) {
 		// TODO Auto-generated method stub
 		switch (v.getId()) {
-			case R.id.act_register2_iv_back:
-				finish();
-				break;
-			case R.id.act_register2_iv_qq:
-				OtherLogin.login_qq(RegisterActivity_2.this);
-				break;
-			case R.id.act_register2_iv_weibo:
-//				OtherLogin.login_weibo(RegisterActivity_2.this);
-				break;
-			case R.id.act_register2_iv_weixin:
-				OtherLogin.login_weixin(RegisterActivity_2.this);
-				break;
+//			case R.id.act_register2_iv_back:
+//				finish();
+//				break;
+//			case R.id.act_register2_iv_qq:
+//				OtherLogin.login_qq(RegisterActivity_2.this);
+//				break;
+//			case R.id.act_register2_iv_weibo:
+////				OtherLogin.login_weibo(RegisterActivity_2.this);
+//				break;
+//			case R.id.act_register2_iv_weixin:
+//				OtherLogin.login_weixin(RegisterActivity_2.this);
+//				break;
 			case R.id.act_register_2_but_register:
 				getDatas();
 				if(et_passwordValue01==null||et_passwordValue02==null){

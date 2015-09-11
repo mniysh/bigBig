@@ -44,7 +44,7 @@ public class LoadingDialog extends DialogFragment {
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         ProgressDialog progressDialog = new ProgressDialog(getActivity());
 //        if (!TextUtils.isEmpty(title)) {
-//            progressDialog.setTitle(title);
+//            progressDialog.initTitle(title);
 //        }
 
         if (!TextUtils.isEmpty(message)) {

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:background="@color/titleBar_bg"
+
+                android:orientation="vertical" >
+
+
+    <ImageView
+        android:id="@+id/iv_back"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:background="@drawable/selector_back_arrow"
+        android:src="@drawable/jiantou" />
+
+    <TextView
+        android:id="@+id/tv_left"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:textColor="@android:color/white"
+        android:layout_toRightOf="@+id/iv_back"
+        android:visibility="gone"
+        android:text="返回"
+        android:textSize="22sp" />
+
+
+    <TextView
+        android:id="@+id/tv_center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="75dp"
+        android:textColor="@android:color/white"
+        android:text="标题"
+        android:visibility="gone"
+        android:layout_centerInParent="true"
+        android:textSize="22sp" />
+
+    <TextView
+        android:id="@+id/tv_right"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:layout_centerVertical="true"
+        android:textColor="@android:color/white"
+        android:layout_alignParentRight="true"
+        android:background="@drawable/selector_back_arrow"
+        android:text="编辑"
+        android:visibility="gone"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:layout_centerInParent="true"
+        android:textSize="22sp" />
+
+
+</RelativeLayout>
