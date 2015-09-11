@@ -61,6 +61,7 @@ public class HomeActivity extends FragmentActivity implements OnClickListener {
 		lin_click[4]=(LinearLayout) findViewById(R.id.act_home_mainbut);
 
 
+
 	}
 	private void initFrament() {
 		// TODO Auto-generated method stub

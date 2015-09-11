@@ -5,12 +5,19 @@
     android:background="#F7F4F4"
     android:orientation="vertical" >
 	
-    <fragment
+ <!--   <fragment
         android:id="@+id/act_home_frag"
-        android:name="com.ms.ebangw.fragment.HomeFragment"
+        android:name="com.ms.ebangw.fragment.ReleaseFreament"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1" />
+    -->
+    <FrameLayout
+        android:id="@+id/act_home_frag"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        />
 
     <ImageView
         android:layout_width="match_parent"
