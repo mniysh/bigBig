@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.util.Log;
+import android.widget.LinearLayout;
 
 import com.ms.ebangw.fragment.ClassFragment;
 

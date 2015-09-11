@@ -22,6 +22,7 @@ import com.ms.ebangw.activity.RecommendActivity;
 import com.ms.ebangw.adapter.HomeClassAdapter;
 import com.ms.ebangw.adapter.HomeListAdapter;
 import com.ms.ebangw.adapter.HomeViewpagerAdapter;
+import com.ms.ebangw.bean.FoundBean;
 import com.ms.ebangw.utils.MyListView;
 
 import java.util.ArrayList;
@@ -45,6 +46,8 @@ public class HomeFragment extends BaseFragment implements OnClickListener   {
 	private HomeViewpagerAdapter adapter;
 	private View v1,v2,v3;
 	private LinearLayout lin01,lin02,lin03;
+	private List<FoundBean> datas;
+
 
 	@Override
 	public void onAttach(Activity activity) {
@@ -58,8 +61,10 @@ public class HomeFragment extends BaseFragment implements OnClickListener   {
 		View view = inflater.inflate(R.layout.fragment_home, container, false);
 
 
+
 		return view;
 	}
+
 	@Override
 	public void onStart() {
 		// TODO Auto-generated method stub
@@ -71,26 +76,39 @@ public class HomeFragment extends BaseFragment implements OnClickListener   {
 		// TODO Auto-generated method stub
 		super.onActivityCreated(savedInstanceState);
 		initView();
-		operation();
-	}
-	private void operation() {
-		pager = new ArrayList<View>();
 		initDatas();
+		initViewOper();
+	}
+	private void initViewOper() {
 
 
 		adapter=new HomeViewpagerAdapter(pager);
 		viewpager.setAdapter(adapter);
-
-		mylistview.setAdapter(new HomeListAdapter(act));
+		//下面设置adapter，暂时没数据
+		mylistview.setAdapter(new HomeListAdapter(act,datas));
 		dot();
 		viewpager.setOnPageChangeListener(new viewpagechangelistener());
-		act_home_class.setAdapter(new HomeClassAdapter(fm,act,imgclass,txtclass));
+		act_home_class.setAdapter(new HomeClassAdapter(fm, act, imgclass, txtclass));
 
 
 	}
 	//获取值并设置点击事件
 	private void initDatas() {
 		// TODO Auto-generated method stub
+		pager = new ArrayList<View>();
+		datas=new ArrayList<FoundBean>();
+		FoundBean fb=new FoundBean("标题","公里数","简单的内同介绍","价格","价格","现在已有多少人抢单了");
+		datas.add(fb);
+//		private String url;
+//		private String title;
+//		private String area;
+//		private String content;
+//		private String money;
+//		private String qiangdan;
+
+
+
+
 		v1=act.getLayoutInflater().inflate(R.layout.item_pager_baner, null);
 		((ImageView)v1.findViewById(R.id.item_pager_bager_iv)).setImageResource(R.drawable.linshi);
 		v2=act.getLayoutInflater().inflate(R.layout.item_pager_baner, null);
@@ -101,6 +119,11 @@ public class HomeFragment extends BaseFragment implements OnClickListener   {
 		 * 每个pager暂时不设置点击，若果设置点击要解决
 		 * 一下切换fragment点击还能响应的问题
 		 */
+
+
+
+
+
 
 		//		v1.setOnClickListener(new OnClickListener() {
 //

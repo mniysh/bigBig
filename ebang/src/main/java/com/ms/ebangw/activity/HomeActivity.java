@@ -27,11 +27,11 @@ import com.ms.ebangw.fragment.ReleaseFreament;
  * @author admin
  *
  */
-public class HomeActivity extends FragmentActivity implements OnClickListener {
+public class HomeActivity extends BaseActivity implements OnClickListener {
 	// RadioButton act_home_homebutn,act_home_foundbutn;
 	private RadioGroup act_home_radiog;
 	private FragmentManager fm;
-	private Fragment act_home_frag;
+
 	private FoundFragment foundFragment;
 	private ReleaseFreament releasefragment;
 	private LinearLayout lin_main;
@@ -48,6 +48,7 @@ public class HomeActivity extends FragmentActivity implements OnClickListener {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_home);
 		initView();
+		fm.beginTransaction().replace(R.id.act_home_frag,new HomeFragment()).commit();
 		initFrament();
 		operation();
 	}
@@ -60,7 +61,7 @@ public class HomeActivity extends FragmentActivity implements OnClickListener {
 		lin_click[2]=(LinearLayout) findViewById(R.id.act_home_releasebut);
 		lin_click[3]=(LinearLayout) findViewById(R.id.act_home_serivicebut);
 		lin_click[4]=(LinearLayout) findViewById(R.id.act_home_mainbut);
-
+		fm = getSupportFragmentManager();
 
 
 	}
