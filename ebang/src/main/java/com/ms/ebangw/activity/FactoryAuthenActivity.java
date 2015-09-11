@@ -11,7 +11,7 @@ import com.ms.ebangw.fragment.FactoryAutherCompleteFragment;
 import com.ms.ebangw.fragment.FactoryAutherFragment;
 
 
-public class FactoryAuthenActivity extends FragmentActivity implements OnCheckedChangeListener {
+public class FactoryAuthenActivity extends BaseActivity implements OnCheckedChangeListener {
 	private FragmentManager fManager;
 	private FactoryAutherFragment fFactory;
 	private FactoryAutherCompleteFragment fComplete;

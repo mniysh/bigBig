@@ -13,7 +13,7 @@ import com.ms.ebangw.view.XListView;
  *
  *
  */
-public class NearActivity extends Activity implements XListView.IXListViewListener {
+public class NearActivity extends BaseActivity implements XListView.IXListViewListener {
 
 	private XListView xlistview;
 	private Handler handler;

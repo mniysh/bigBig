@@ -11,7 +11,7 @@ import com.ms.ebangw.R;
  * @author admin
  *
  */
-public class SettlementActivity extends Activity {
+public class SettlementActivity extends BaseActivity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {

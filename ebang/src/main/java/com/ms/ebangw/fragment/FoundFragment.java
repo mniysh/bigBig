@@ -36,6 +36,7 @@ public class FoundFragment extends BaseFragment implements XListView.IXListViewL
 		//inflater.inflate(R.layout.fragment_found, container,false);
 		return inflater.inflate(R.layout.fragment_found, null);
 
+
 	}
 	@Override
 	public void onAttach(Activity activity) {
@@ -47,6 +48,8 @@ public class FoundFragment extends BaseFragment implements XListView.IXListViewL
 	public void onActivityCreated(@Nullable Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onActivityCreated(savedInstanceState);
+		Log.d("xxx", "fragment能不能进来");
+
 		initDatas();
 		initView();
 		initViewOper();

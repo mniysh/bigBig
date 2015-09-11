@@ -3,7 +3,7 @@ package com.ms.ebangw.bean;
 import java.io.Serializable;
 
 /*
- * ���ֵ�
+ * 发现的bean
  */
 public class FoundBean implements Serializable {
 	private int id;
@@ -14,8 +14,20 @@ public class FoundBean implements Serializable {
 	private String money;
 	private String qiangdan;
 	public FoundBean() {
+
 		super();
 		// TODO Auto-generated constructor stub
+	}
+
+
+	public FoundBean( String title, String area,
+					 String content, String money, String qiangdan) {
+		super();
+		this.title = title;
+		this.area = area;
+		this.content = content;
+		this.money = money;
+		this.qiangdan = qiangdan;
 	}
 	public FoundBean(int id, String url, String title, String area,
 			String content, String money, String qiangdan) {

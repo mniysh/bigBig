@@ -11,7 +11,7 @@ import com.ms.ebangw.fragment.ManagerBankFragment;
 import com.ms.ebangw.fragment.ManagerBaseFragment;
 
 
-public class ManagerAuthenActivity extends FragmentActivity implements OnCheckedChangeListener {
+public class ManagerAuthenActivity extends BaseActivity implements OnCheckedChangeListener {
 	private FragmentManager fManager;
 	private ManagerBankFragment mBank;
 	private ManagerBaseFragment mBase;

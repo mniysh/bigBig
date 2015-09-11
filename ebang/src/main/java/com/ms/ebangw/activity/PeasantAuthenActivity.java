@@ -13,7 +13,7 @@ import com.ms.ebangw.fragment.PeasantBankFeagment;
 import com.ms.ebangw.fragment.PeasantBaseFragment;
 
 
-public class PeasantAuthenActivity extends FragmentActivity implements OnClickListener, OnCheckedChangeListener {
+public class PeasantAuthenActivity extends BaseActivity implements OnClickListener, OnCheckedChangeListener {
 	private FragmentManager fm;
 	private PeasantBaseFragment pBase;
 	private PeasantBankFeagment pBank;

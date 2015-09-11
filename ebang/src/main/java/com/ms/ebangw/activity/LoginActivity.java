@@ -64,6 +64,7 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 		tv_findpassword.setOnClickListener(this);
 	}
 
+
 	private void initView() {
 		// TODO Auto-generated method stub
 		et_username=(EditText) findViewById(R.id.act_login_edit_user);
@@ -77,6 +78,7 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 		but_login=(Button) findViewById(R.id.act_login_but_login);
 
 	}
+
 	@Override
 	public void onClick(View v) {
 		// TODO Auto-generated method stub
@@ -90,13 +92,13 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 				this.finish();
 				break;
 			case R.id.act_login_iv_qq:
-				OtherLogin.login_qq(LoginActivity.this);
+				//OtherLogin.login_qq(LoginActivity.this);
 				break;
 			case R.id.act_login_iv_weibo:
 //				OtherLogin.login_weibo(LoginActivity.this);
 				break;
 			case R.id.act_login_iv_weixin:
-				OtherLogin.login_weixin(LoginActivity.this);
+				//OtherLogin.login_weixin(LoginActivity.this);
 				break;
 			case R.id.act_login_iv_back:
 				finish();

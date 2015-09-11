@@ -3,12 +3,12 @@ package com.ms.ebangw.bean;
 import java.io.Serializable;
 
 /**
- * ������Ϣ��bean�ļ�
+ * 发布信息的bean文件
  * @author admin
  *
  */
 public class PostMeassge implements Serializable {
-	private int _id;
+	private int id;
 	private String address;
 	private String type;
 	private String money;
@@ -21,10 +21,10 @@ public class PostMeassge implements Serializable {
 	// private int iv_01;
 	// private int iv_02;
 	// private int iv_03;
-	public PostMeassge(int _id, String address, String type, String money,
+	public PostMeassge(int id, String address, String type, String money,
 			String title, String content, String time, String name, String phone) {
 		super();
-		this._id = _id;
+		this.id = id;
 		this.address = address;
 		this.type = type;
 		this.money = money;
@@ -50,18 +50,18 @@ public class PostMeassge implements Serializable {
 
 	@Override
 	public String toString() {
-		return "PostMeassge [_id=" + _id + ", address=" + address + ", type="
+		return "PostMeassge [id=" + id + ", address=" + address + ", type="
 				+ type + ", money=" + money + ", title=" + title + ", content="
 				+ content + ", time=" + time + ", name=" + name + ", phone="
 				+ phone + "]";
 	}
 
-	public int get_id() {
-		return _id;
+	public int getId() {
+		return id;
 	}
 
-	public void set_id(int _id) {
-		this._id = _id;
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	public String getAddress() {
@@ -132,7 +132,7 @@ public class PostMeassge implements Serializable {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + _id;
+		result = prime * result + id;
 		result = prime * result + ((address == null) ? 0 : address.hashCode());
 		result = prime * result + ((content == null) ? 0 : content.hashCode());
 		result = prime * result + ((money == null) ? 0 : money.hashCode());
@@ -153,7 +153,7 @@ public class PostMeassge implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		PostMeassge other = (PostMeassge) obj;
-		if (_id != other._id)
+		if (id != other.id)
 			return false;
 		if (address == null) {
 			if (other.address != null)
