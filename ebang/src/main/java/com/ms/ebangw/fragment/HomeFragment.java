@@ -77,27 +77,7 @@ public class HomeFragment extends BaseFragment implements OnClickListener   {
 		pager = new ArrayList<View>();
 		initDatas();
 
-//		for (int i = 0; i < images.length; i++) {
-//			ImageView img = new ImageView(act);
-//			img.setBackgroundResource(images[i]);
-//			img.setOnClickListener(new OnClickListener() {// 图片点击监听
-//
-//				@Override
-//				public void onClick(View v) {
-////					switch (v.getId()) {
-//////					case value:
-////
-////						break;
-////
-////					default:
-////						break;
-////					}
-//
-//					Toast.makeText(act, "点击", Toast.LENGTH_SHORT).show();
-//				}
-//			});
-//			pager.add(img);
-//		}
+
 		adapter=new HomeViewpagerAdapter(pager);
 		viewpager.setAdapter(adapter);
 
@@ -105,6 +85,7 @@ public class HomeFragment extends BaseFragment implements OnClickListener   {
 		dot();
 		viewpager.setOnPageChangeListener(new viewpagechangelistener());
 		act_home_class.setAdapter(new HomeClassAdapter(fm,act,imgclass,txtclass));
+
 
 	}
 	//获取值并设置点击事件

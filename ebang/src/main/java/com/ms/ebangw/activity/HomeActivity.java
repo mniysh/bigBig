@@ -38,6 +38,7 @@ public class HomeActivity extends FragmentActivity implements OnClickListener {
 	private SharedPreferences sp;
 	private AuthenticationFragment authenticationfragment;
 
+
 	private int[] iv_chick={R.drawable.homepager_click,R.drawable.foundpager_click,R.drawable.releasepager_clic,R.drawable.serivicepager_click,R.drawable.mainpager_click};
 	private int[] iv_unchick={R.drawable.homepager_unclick,R.drawable.foundpager_unclick,R.drawable.releasepager_unclick,R.drawable.serivicepager_unclick,R.drawable.mainpager_unclick};
 	private LinearLayout[] lin_click=new LinearLayout[5];
@@ -82,29 +83,7 @@ public class HomeActivity extends FragmentActivity implements OnClickListener {
 		for (int i = 0; i < lin_click.length; i++) {
 			lin_click[i].setOnClickListener(this);
 		}
-//		act_home_radiog = (RadioGroup) findViewById(R.id.act_home_radiog);
-//		//radiogroup的监听
-//		act_home_radiog.setOnCheckedChangeListener(new OnCheckedChangeListener() {
-//
-//					@Override
-//					public void onCheckedChanged(RadioGroup group, int checkedId) {
-//						// TODO Auto-generated method stub
-//						switch (checkedId) {
-//						case R.id.act_home_homebutn:
-//
-//							fm.beginTransaction().replace(R.id.act_home_frag,new HomeFragment()).commit();// 首页
-//							break;
-//						case R.id.act_home_foundbutn:
-//
-//							fm.beginTransaction().replace(R.id.act_home_frag,foundFragment).commit();// 发现页
-//							break;
-//						default:
-//							break;
-//						}
-//					}
-//
-//
-//				});
+
 	}
 
 	@Override
@@ -138,7 +117,7 @@ public class HomeActivity extends FragmentActivity implements OnClickListener {
 				//判断现在是否是注册完的状态，没注册就跳转到注册的页面,暂时先放放
 				sp=getSharedPreferences("shuju", MODE_PRIVATE);
 				Log.i("aaa", "flag_int的值是"+sp.getInt("flag_int", -1));
-				if(sp.getInt("flag_int", -1)==1){
+				if(null == sp && sp.getInt("flag_int", -1)==1){
 					authenticationfragment=new AuthenticationFragment();
 					fm.beginTransaction().replace(R.id.act_home_frag, authenticationfragment).commit();
 				}else{
