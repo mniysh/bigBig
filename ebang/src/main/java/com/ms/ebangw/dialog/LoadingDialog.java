@@ -1,10 +1,14 @@
 package com.ms.ebangw.dialog;
 
-import android.app.Dialog;
 import android.app.DialogFragment;
-import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.TextView;
+
+import com.ms.ebangw.R;
 
 /**
  * 正在加载中 的提示ProgressDialog
@@ -40,28 +44,17 @@ public class LoadingDialog extends DialogFragment {
         }
     }
 
+
     @Override
-    public Dialog onCreateDialog(Bundle savedInstanceState) {
-        ProgressDialog progressDialog = new ProgressDialog(getActivity());
-//        if (!TextUtils.isEmpty(title)) {
-//            progressDialog.initTitle(title);
-//        }
-
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        View view = inflater.inflate(R.layout.fragment_loading, container, false);
+        TextView messageTv = (TextView) view.findViewById(R.id.txt_message);
         if (!TextUtils.isEmpty(message)) {
-            progressDialog.setMessage(message);
+            messageTv.setText(message);
         }
-//        progressDialog.setProgressStyle(STYLE_NO_TITLE);
-        return progressDialog;
-
+        return view;
     }
-
-//    @Override
-//    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-//                             Bundle savedInstanceState) {
-//        // Inflate the layout for this fragment
-//        return inflater.inflate(R.layout.fragment_loading, container, false);
-//    }
-
-
 
 }

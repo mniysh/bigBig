@@ -1,6 +1,7 @@
 package com.ms.ebangw.activity;
 
 import android.app.Application;
+import android.app.DialogFragment;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -92,22 +93,25 @@ public abstract class BaseActivity extends AppCompatActivity {
 	 * 显示进度对话框
 	 * @param message
 	 */
-	public void showPoressDialog(String message) {
+	public void showProgressDialog(String message) {
 		if (null != mLoadingDialog) {
 			mLoadingDialog.dismiss();
-			mLoadingDialog = null;
 		}
 		if (null == mLoadingDialog) {
 			mLoadingDialog = LoadingDialog.newInstance(message) ;
 		}
+		mLoadingDialog.setStyle(DialogFragment.STYLE_NO_TITLE, 0);
 		mLoadingDialog.show(getFragmentManager(), TAG);
+	}
+
+	public void showProgressDialog() {
+		showProgressDialog (null);
 	}
 
 	/**
 	 * 关闭进度对话框
 	 */
-	public void dismissmLoadingDialog() {
-		// && mLoadingDialog.isAdded()
+	public void dismissLoadingDialog() {
 		if (null != mLoadingDialog && null != mLoadingDialog.getActivity()&& mLoadingDialog.isVisible()) {
 			mLoadingDialog.dismiss();
 		}
@@ -168,6 +172,9 @@ public abstract class BaseActivity extends AppCompatActivity {
 	@Override
 	protected void onDestroy() {
 		super.onDestroy();
+		if (null != mLoadingDialog) {
+			mLoadingDialog.dismiss();
+		}
 		MyApplication.unDestroyActivityList.remove(this);
 	}
 

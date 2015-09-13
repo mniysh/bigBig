@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.util.Log;
 import android.view.View;
@@ -76,8 +75,6 @@ public class HomeActivity extends BaseActivity implements OnClickListener {
 		if(null != sp && sp.getInt("flag_int", -1)==1){
 			lin_click[4].performClick();
 		}
-		//lin_click[4].performClick();
-		showPoressDialog("aaa");
 	}
 
 	private void operation() {
@@ -86,13 +83,6 @@ public class HomeActivity extends BaseActivity implements OnClickListener {
 			lin_click[i].setOnClickListener(this);
 		}
 
-	}
-
-	@Override
-	public void onBackPressed() {
-		// TODO Auto-generated method stub
-		super.onBackPressed();
-		this.finish();
 	}
 
 	@Override
