@@ -12,8 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.ms.ebangw.R;
-import com.ms.ebangw.utils.OtherLogin;
-
+import com.ms.ebangw.utils.T;
 
 
 /**
@@ -107,13 +106,13 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 			case R.id.act_login_but_login:
 				getDatas();
 				if(et_username_content==null||et_password_content==null){
-					toast("账号密码不能为空");
+					T.show("账号密码不能为空");
 					return;
 				}
 				if(check_user(et_username_content,et_password_content)){
 					//这里应该跳转到用户中心
 				}else{
-					toast("输入的用户名或者密码错误，请重新输入");
+					T.show("输入的用户名或者密码错误，请重新输入");
 					empty_content();
 					return;
 				}

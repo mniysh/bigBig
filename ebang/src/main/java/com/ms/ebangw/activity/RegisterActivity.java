@@ -19,6 +19,7 @@ import com.ms.ebangw.MyApplication;
 import com.ms.ebangw.R;
 import com.ms.ebangw.service.MyService;
 import com.ms.ebangw.utils.OtherLogin;
+import com.ms.ebangw.utils.T;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -145,17 +146,17 @@ public class RegisterActivity extends BaseActivity implements OnClickListener {
 				getDatas();
 				//对手机号进行判断
 				if(et_phone_content==null){
-					toast("手机号不可为空，请输入");
+					T.show("手机号不可为空，请输入");
 					return;
 				}else{
 					if(et_phone_content.length()>11||et_phone_content.length()<11){
-						toast("手机号位数不正确");
+						T.show("手机号位数不正确");
 						et_phone.setText("");
 						return;
 					}
 					//正则判断手机号
 					if(!isNumeric(et_phone_content)){
-						toast("请输入正确的数字手机号");
+						T.show("请输入正确的数字手机号");
 						et_phone.setText("");
 						return;
 					}

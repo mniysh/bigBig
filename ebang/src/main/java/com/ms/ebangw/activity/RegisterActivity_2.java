@@ -16,6 +16,7 @@ import com.loopj.android.http.RequestParams;
 import com.ms.ebangw.MyApplication;
 import com.ms.ebangw.R;
 import com.ms.ebangw.bean.User;
+import com.ms.ebangw.utils.T;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -92,17 +93,17 @@ public class RegisterActivity_2 extends BaseActivity implements OnClickListener 
 			case R.id.act_register_2_but_register:
 				getDatas();
 				if(et_passwordValue01==null||et_passwordValue02==null){
-					toast("密码不能为空");
+					T.show("密码不能为空");
 					return;
 				}
 				if(isNumeric(et_passwordValue01)||isNumeric(et_passwordValue02)){
-					toast("密码只支持字母或数字");
+					T.show("密码只支持字母或数字");
 					et_password01.setText("");
 					et_password02.setText("");
 					return;
 				}
 				if(et_passwordValue01.length()<6||et_passwordValue01.length()>20){
-					toast("密码支持的长度为6到20");
+					T.show("密码支持的长度为6到20");
 					et_password01.setText("");
 					et_password02.setText("");
 					return;
@@ -112,7 +113,7 @@ public class RegisterActivity_2 extends BaseActivity implements OnClickListener 
 					Log.i("aaa", "电话号码"+getIntent().getStringExtra("phone_number"));
 					Log.i("aaa", "密码"+et_passwordValue01);
 					flag_log=true;
-					toast("注册成功");
+					T.show("注册成功");
 					sp=getSharedPreferences("shuju", Context.MODE_PRIVATE);
 					Editor editor=sp.edit();
 					editor.putString("phoneNumber", getIntent().getStringExtra("phone_number"));
@@ -128,7 +129,7 @@ public class RegisterActivity_2 extends BaseActivity implements OnClickListener 
 					user.setPassword(et_passwordValue01);
 
 				}else{
-					toast("两次输入的密码不一致，请重新输入");
+					T.show("两次输入的密码不一致，请重新输入");
 					et_password01.setText("");
 					et_password02.setText("");
 					return;
@@ -160,7 +161,7 @@ public class RegisterActivity_2 extends BaseActivity implements OnClickListener 
 				}
 
 				if(result==200){
-					toast("注册成功");
+					T.show("注册成功");
 					//注册成功，就缓存一下
 					sp=getSharedPreferences("shuju", Context.MODE_PRIVATE);
 					Editor editor=sp.edit();
@@ -172,7 +173,7 @@ public class RegisterActivity_2 extends BaseActivity implements OnClickListener 
 					finish();
 
 				}else{
-					toast("注册失败");
+					T.show("注册失败");
 				}
 
 			}
@@ -192,7 +193,7 @@ public class RegisterActivity_2 extends BaseActivity implements OnClickListener 
 	{
 		Pattern pattern = Pattern.compile("[0-9][a-zA-Z]");
 		Matcher isNum = pattern.matcher(str);
-		if( !isNum.matches() )
+		if(!isNum.matches() )
 		{
 			return false;
 		}

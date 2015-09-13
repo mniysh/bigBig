@@ -14,6 +14,7 @@ import android.widget.Toast;
 import com.ms.ebangw.MyApplication;
 import com.ms.ebangw.R;
 import com.ms.ebangw.dialog.LoadingDialog;
+import com.ms.ebangw.utils.T;
 
 public abstract class BaseActivity extends AppCompatActivity {
 	private final String TAG = getClass().getSimpleName();
@@ -105,7 +106,7 @@ public abstract class BaseActivity extends AppCompatActivity {
 	}
 
 	public void showProgressDialog() {
-		showProgressDialog (null);
+		showProgressDialog(null);
 	}
 
 	/**
@@ -117,58 +118,6 @@ public abstract class BaseActivity extends AppCompatActivity {
 		}
 	}
 
-	public void toast(String str){
-		Toast.makeText(this, str, Toast.LENGTH_LONG).show();
-	}
-
-	/**
-	 * 显示Toast提示，短时间
-	 *
-	 * @param message
-	 */
-	public void showToast(String message) {
-		if (toast == null) {
-			toast = Toast.makeText(mApplication, message, Toast.LENGTH_SHORT);
-		} else {
-			toast.setText(message);
-			toast.setDuration(Toast.LENGTH_SHORT);
-		}
-		toast.show();
-	}
-
-	/**
-	 * 显示Toast提示，短时间
-	 *
-	 * @param sid
-	 */
-	public void showToast(int sid) {
-		Toast.makeText(mActivity, sid, Toast.LENGTH_SHORT).show();
-	}
-
-	/**
-	 * 显示Toast提示，长时间
-	 *
-	 * @param message
-	 */
-	public void showToastLong(String message) {
-		if (toast == null) {
-			toast = Toast.makeText(mActivity, message, Toast.LENGTH_LONG);
-		} else {
-			toast.setText(message);
-			toast.setDuration(Toast.LENGTH_LONG);
-		}
-		toast.show();
-	}
-
-	/**
-	 * 显示Toast提示，长时间
-	 *
-	 * @param sid
-	 */
-	public void showToastLong(int sid) {
-		Toast.makeText(mActivity, sid, Toast.LENGTH_LONG).show();
-	}
-
 	@Override
 	protected void onDestroy() {
 		super.onDestroy();
@@ -178,13 +127,21 @@ public abstract class BaseActivity extends AppCompatActivity {
 		MyApplication.unDestroyActivityList.remove(this);
 	}
 
+	@Override
+	protected void onPause() {
+		super.onPause();
+		if (null != mLoadingDialog) {
+			mLoadingDialog.dismiss();
+		}
+	}
+
 	/**
 	 * 双击退出
 	 */
 	public void exitApp() {
 
 		if ((System.currentTimeMillis() - exitTime) > 2000) {
-			showToast("再按一次退出程序");
+            T.show("再按一次退出程序");
 			exitTime = System.currentTimeMillis();
 		} else {
 			MyApplication.getInstance().quit();

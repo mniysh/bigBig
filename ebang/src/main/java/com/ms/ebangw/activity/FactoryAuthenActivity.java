@@ -1,8 +1,7 @@
 package com.ms.ebangw.activity;
 
+import android.app.FragmentManager;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentManager;
 import android.widget.RadioGroup;
 import android.widget.RadioGroup.OnCheckedChangeListener;
 
@@ -36,7 +35,7 @@ public class FactoryAuthenActivity extends BaseActivity implements OnCheckedChan
 	private void initView() {
 		// TODO Auto-generated method stub
 		rGroup=(RadioGroup) findViewById(R.id.act_fac_rg);
-		fManager=getSupportFragmentManager();
+		fManager=getFragmentManager();
 		fFactory=new FactoryAutherFragment();
 		fComplete=new FactoryAutherCompleteFragment();
 		

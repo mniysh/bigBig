@@ -18,6 +18,7 @@ import android.widget.Spinner;
 
 import com.ms.ebangw.R;
 import com.ms.ebangw.bean.PostMeassge;
+import com.ms.ebangw.utils.T;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -156,7 +157,7 @@ public class ReleaseActivity extends BaseActivity implements OnClickListener, On
 				if(stringSubmit(address_xiangxi_value,money_value,title_value,content_value,name_value,phone_value)){
 
 					//此处为提交成功的没有后台，暂时搁置
-					toast("提交成功");
+					T.show("提交成功");
 					PostMeassge pm=new PostMeassge(address_complete, str_type,
 						money_value, title_value, content_value, time_value, name_value, phone_value);
 					Log.i("aaa", pm.toString());
@@ -197,46 +198,46 @@ public class ReleaseActivity extends BaseActivity implements OnClickListener, On
 			flag_count++;
 		}
 		if(flag_count>=2){
-			toast("内容不能为空");
+			T.show("内容不能为空");
 			flag_count=0;
 			return false;
 		}
 
 
 		if(money.equals("")||money==null){
-			toast("出价不能为空");
+			T.show("出价不能为空");
 			return false;
 		}
 		if(title.equals("")||title==null){
-			toast("标题不能为空");
+			T.show("标题不能为空");
 			return false;
 		}
 		if(name.equals("")||name==null){
-			toast("联系人不能为空");
+			T.show("联系人不能为空");
 			return false;
 		}
 		if(content.equals("")||content==null){
-			toast("内容描述不能为空");
+			T.show("内容描述不能为空");
 			return false;
 		}
 		if(phone.equals("")||phone==null){
-			toast("电话不能为空");
+			T.show("电话不能为空");
 			return false;
 		}
 		if(address.equals("")||address==null){
-			toast("详细地址不能为空");
+			T.show("详细地址不能为空");
 			return false;
 		}
 		if(str_add_qu=="--选区--"){
-			toast("未选择区");
+			T.show("未选择区");
 			return false;
 		}
 		if(str_add_lu=="--选路--"){
-			toast("未选择路");
+			T.show("未选择路");
 			return false;
 		}
 		if(str_type=="--类型--"){
-			toast("未选择类型");
+			T.show("未选择类型");
 			return false;
 		}
 

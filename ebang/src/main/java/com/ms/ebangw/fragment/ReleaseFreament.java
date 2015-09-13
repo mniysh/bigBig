@@ -1,6 +1,5 @@
 package com.ms.ebangw.fragment;
 
-import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.DatePickerDialog.OnDateSetListener;
 import android.os.Bundle;
@@ -21,15 +20,14 @@ import android.widget.LinearLayout;
 import android.widget.Spinner;
 
 import com.ms.ebangw.R;
-import com.ms.ebangw.activity.HomeActivity;
 import com.ms.ebangw.bean.PostMeassge;
+import com.ms.ebangw.utils.T;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 
 public class ReleaseFreament extends BaseFragment implements OnClickListener, OnItemSelectedListener, OnFocusChangeListener {
-	private HomeActivity act;
 	private LinearLayout lin_back;
 	private Spinner spi_qu,spi_lu,spi_style;
 	private String str_add_qu="--选区--";
@@ -48,20 +46,16 @@ public class ReleaseFreament extends BaseFragment implements OnClickListener, On
 	//拼接地址
 	private StringBuilder sb;
 	private Button but_submit;
+	private View mContentView;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater,
 							 @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-		// TODO Auto-generated method stub
-		return inflater.inflate(R.layout.frag_release, null);
+		mContentView = inflater.inflate(R.layout.frag_release, null);
+		return mContentView;
 	}
-	@Override
-	public void onAttach(Activity activity) {
-		// TODO Auto-generated method stub
-		super.onAttach(activity);
-		act=(HomeActivity) activity;
-	}
-	@Override
+
+    @Override
 	public void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
@@ -74,17 +68,18 @@ public class ReleaseFreament extends BaseFragment implements OnClickListener, On
 		initViewOper();
 	}
 	private void initView() {
-		spi_qu=(Spinner) findviewbyid(R.id.act_release_spinner_qu);
-		spi_lu=(Spinner) findviewbyid(R.id.act_release_spinner_lu);
-		spi_style=(Spinner) findviewbyid(R.id.act_release_spinner_style);
-		ed_add_xiangxi=(EditText) findviewbyid(R.id.act_release_ed_add);
-		ed_money=(EditText) findviewbyid(R.id.act_release_ed_money);
-		ed_name=(EditText) findviewbyid(R.id.act_release_ed_name);
-		ed_title=(EditText) findviewbyid(R.id.act_release_ed_title);
-		ed_content=(EditText) findviewbyid(R.id.act_release_ed_content);
-		ed_time=(EditText) findviewbyid(R.id.act_release_ed_time);
-		ed_phone=(EditText) findviewbyid(R.id.act_release_ed_phone);
-		but_submit=(Button) findviewbyid(R.id.act_release_but_submit);
+
+		spi_qu=(Spinner) mContentView.findViewById(R.id.act_release_spinner_qu);
+		spi_lu=(Spinner) mContentView.findViewById(R.id.act_release_spinner_lu);
+		spi_style=(Spinner) mContentView.findViewById(R.id.act_release_spinner_style);
+		ed_add_xiangxi=(EditText)mContentView. findViewById(R.id.act_release_ed_add);
+		ed_money=(EditText)mContentView.findViewById(R.id.act_release_ed_money);
+		ed_name=(EditText)mContentView.findViewById(R.id.act_release_ed_name);
+		ed_title=(EditText) mContentView.findViewById(R.id.act_release_ed_title);
+		ed_content=(EditText)mContentView.findViewById(R.id.act_release_ed_content);
+		ed_time=(EditText) mContentView.findViewById(R.id.act_release_ed_time);
+		ed_phone=(EditText) mContentView.findViewById(R.id.act_release_ed_phone);
+		but_submit=(Button) mContentView.findViewById(R.id.act_release_but_submit);
 	}
 	//取值
 	private void getDatas(){
@@ -112,9 +107,9 @@ public class ReleaseFreament extends BaseFragment implements OnClickListener, On
 		spi_lu.setOnItemSelectedListener(this);
 		spi_style.setOnItemSelectedListener(this);
 
-		ArrayAdapter<String> adapter01=new ArrayAdapter<String>(act, R.layout.sim_spinner_item);
-		ArrayAdapter<String> adapter02=new ArrayAdapter<String>(act, R.layout.sim_spinner_item);
-		ArrayAdapter<String> adapter03=new ArrayAdapter<String>(act, R.layout.sim_spinner_item);
+		ArrayAdapter<String> adapter01=new ArrayAdapter<String>(mActivity, R.layout.sim_spinner_item);
+		ArrayAdapter<String> adapter02=new ArrayAdapter<String>(mActivity, R.layout.sim_spinner_item);
+		ArrayAdapter<String> adapter03=new ArrayAdapter<String>(mActivity, R.layout.sim_spinner_item);
 
 		datas_qu=getResources().getStringArray(R.array.release_add_qu);
 		datas_lu=getResources().getStringArray(R.array.release_add_lu);
@@ -167,7 +162,7 @@ public class ReleaseFreament extends BaseFragment implements OnClickListener, On
 				if(stringSubmit(address_xiangxi_value,money_value,title_value,content_value,name_value,phone_value)){
 
 					//此处为提交成功的没有后台，暂时搁置
-					toast(act,"提交成功");
+					T.show("提交成功");
 					PostMeassge pm=new PostMeassge(address_complete, str_type,
 						money_value, title_value, content_value, time_value, name_value, phone_value);
 					Log.i("aaa", pm.toString());
@@ -208,46 +203,46 @@ public class ReleaseFreament extends BaseFragment implements OnClickListener, On
 			flag_count++;
 		}
 		if(flag_count>=2){
-			toast(act,"内容不能为空");
+			T.show("内容不能为空");
 			flag_count=0;
 			return false;
 		}
 
 
 		if(money.equals("")||money==null){
-			toast(act,"出价不能为空");
+			T.show("出价不能为空");
 			return false;
 		}
 		if(title.equals("")||title==null){
-			toast(act,"标题不能为空");
+			T.show("标题不能为空");
 			return false;
 		}
 		if(name.equals("")||name==null){
-			toast(act,"联系人不能为空");
+			T.show("联系人不能为空");
 			return false;
 		}
 		if(content.equals("")||content==null){
-			toast(act,"内容描述不能为空");
+			T.show("内容描述不能为空");
 			return false;
 		}
 		if(phone.equals("")||phone==null){
-			toast(act,"电话不能为空");
+			T.show("电话不能为空");
 			return false;
 		}
 		if(address.equals("")||address==null){
-			toast(act,"详细地址不能为空");
+			T.show("详细地址不能为空");
 			return false;
 		}
 		if(str_add_qu=="--选区--"){
-			toast(act,"未选择区");
+			T.show("未选择区");
 			return false;
 		}
 		if(str_add_lu=="--选路--"){
-			toast(act,"未选择路");
+			T.show("未选择路");
 			return false;
 		}
 		if(str_type=="--类型--"){
-			toast(act,"未选择类型");
+			T.show("未选择类型");
 			return false;
 		}
 
@@ -288,7 +283,7 @@ public class ReleaseFreament extends BaseFragment implements OnClickListener, On
 	public void onFocusChange(View v, boolean hasFocus) {
 		// TODO Auto-generated method stub
 		if(hasFocus){
-			new DatePickerDialog(act,  new OnDateSetListener() {
+			new DatePickerDialog(mActivity,  new OnDateSetListener() {
 
 				@Override
 				public void onDateSet(DatePicker view, int year, int monthOfYear,

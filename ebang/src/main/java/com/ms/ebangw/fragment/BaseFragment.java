@@ -1,17 +1,50 @@
 package com.ms.ebangw.fragment;
 
-import android.content.Context;
-import android.support.v4.app.Fragment;
-import android.view.View;
-import android.widget.Toast;
+import android.app.Activity;
+import android.app.DialogFragment;
+import android.app.Fragment;
+
+import com.ms.ebangw.dialog.LoadingDialog;
 
 public class BaseFragment extends Fragment {
-	public View findviewbyid(int id){
-		
-		return getView().findViewById(id);
-		
-	}
-	public void toast(Context context,String str){
-		Toast.makeText(context, str, Toast.LENGTH_SHORT).show();
-	}
+    private final String TAG = getClass().getSimpleName();
+    protected Activity mActivity;
+    private LoadingDialog mLoadingDialog;
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        mActivity = activity;
+    }
+
+    /**
+     * 显示进度对话框
+     * @param message
+     */
+    public void showProgressDialog(String message) {
+        if (null != mLoadingDialog) {
+            mLoadingDialog.dismiss();
+        }
+        if (null == mLoadingDialog) {
+            mLoadingDialog = LoadingDialog.newInstance(message) ;
+        }
+        mLoadingDialog.setStyle(DialogFragment.STYLE_NO_TITLE, 0);
+        mLoadingDialog.show(getFragmentManager(), TAG);
+    }
+
+    public void showProgressDialog() {
+        showProgressDialog(null);
+    }
+
+    /**
+     * 关闭进度对话框
+     */
+    public void dismissLoadingDialog() {
+        if (null != mLoadingDialog && null != mLoadingDialog.getActivity()&& mLoadingDialog.isVisible()) {
+            mLoadingDialog.dismiss();
+        }
+    }
+
+
+
 }

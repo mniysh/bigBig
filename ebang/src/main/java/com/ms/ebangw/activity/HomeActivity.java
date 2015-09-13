@@ -1,10 +1,10 @@
 package com.ms.ebangw.activity;
 
+import android.app.FragmentManager;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.v4.app.FragmentManager;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -59,7 +59,7 @@ public class HomeActivity extends BaseActivity implements OnClickListener {
 		lin_click[2]=(LinearLayout) findViewById(R.id.act_home_releasebut);
 		lin_click[3]=(LinearLayout) findViewById(R.id.act_home_serivicebut);
 		lin_click[4]=(LinearLayout) findViewById(R.id.act_home_mainbut);
-		fm = getSupportFragmentManager();
+		fm = getFragmentManager();
 
 
 	}
@@ -78,7 +78,7 @@ public class HomeActivity extends BaseActivity implements OnClickListener {
 	}
 
 	private void operation() {
-		fm = getSupportFragmentManager();
+		fm = getFragmentManager();
 		for (int i = 0; i < lin_click.length; i++) {
 			lin_click[i].setOnClickListener(this);
 		}

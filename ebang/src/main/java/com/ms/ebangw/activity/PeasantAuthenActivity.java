@@ -1,8 +1,7 @@
 package com.ms.ebangw.activity;
 
+import android.app.FragmentManager;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentManager;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.RadioGroup;
@@ -37,7 +36,7 @@ public class PeasantAuthenActivity extends BaseActivity implements OnClickListen
 
 	private void initView() {
 		// TODO Auto-generated method stub
-		fm=getSupportFragmentManager();
+		fm=getFragmentManager();
 		pBase=new PeasantBaseFragment();
 		pBank=new PeasantBankFeagment();
 		rGroup=(RadioGroup) findViewById(R.id.act_pea_rg);

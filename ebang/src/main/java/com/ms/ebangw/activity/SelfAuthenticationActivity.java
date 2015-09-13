@@ -19,6 +19,7 @@ import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.Spinner;
 
 import com.ms.ebangw.R;
+import com.ms.ebangw.utils.T;
 
 /**
  * 个人认证页面
@@ -130,34 +131,34 @@ public class SelfAuthenticationActivity extends BaseActivity implements OnChecke
 				Log.i("xxx","能进来吗");
 				getDatas();
 				if(et_name_value==null&&et_name_value.equals("")){
-					toast("姓名不能为空");
+					T.show("姓名不能为空");
 					return;
 				}
 				if(et_identity_value==null&&et_identity_value.equals("")){
-					toast("身份证不能为空");
+					T.show("身份证不能为空");
 					return;
 				}
 				if(phoneNum_value==null&&phoneNum_value.equals("")){
-					toast("手机号不能为空");
+					T.show("手机号不能为空");
 					return;
 				}
 				if(sheng_value=="省"){
-					toast("请选择省份");
+					T.show("请选择省份");
 					return;
 				}
 				if(shi_value=="市"){
-					toast("请选择城市");
+					T.show("请选择城市");
 					return;
 				}
 				if(qu_value=="区"){
-					toast("请选择城市");
+					T.show("请选择城市");
 					return;
 				}
 				Log.i("aaa", "长度是"+et_identity_value.length());
 				if(et_identity_value.length()==18||et_identity_value.length()==16){
 
 				}else{
-					toast("身份证号位数不正确");
+					T.show("身份证号位数不正确");
 				}
 				//验证合格后把所有的数据打包到bean里面
 

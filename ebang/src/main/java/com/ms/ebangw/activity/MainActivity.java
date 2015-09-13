@@ -15,8 +15,9 @@ import android.view.animation.Animation.AnimationListener;
 import android.widget.LinearLayout;
 
 import com.ms.ebangw.R;
-import com.ms.ebangw.utils.DensityUtil;
-import com.ms.ebangw.utils.SysUtils;
+import com.ms.ebangw.utils.DensityUtils;
+import com.ms.ebangw.utils.NetUtils;
+import com.ms.ebangw.utils.T;
 import com.ms.ebangw.view.Circle;
 
 /**
@@ -55,7 +56,6 @@ public class MainActivity extends BaseActivity implements OnClickListener, Anima
 
 	}
 //	private void initViewOper() {
-//		// TODO Auto-generated method stub
 //		//两个图片的点击事件
 ////		iv01.setOnClickListener(this);
 ////		iv02.setOnClickListener(this);
@@ -64,7 +64,6 @@ public class MainActivity extends BaseActivity implements OnClickListener, Anima
 //		animation.setAnimationListener(this);
 //	}
 	private void initView() {
-		// TODO Auto-generated method stub
 //		iv01=(ImageView) findViewById(R.id.act_main_iv01);
 //		iv02=(ImageView) findViewById(R.id.act_main_iv02);
 		lin=(LinearLayout) findViewById(R.id.main_Lin);
@@ -73,16 +72,15 @@ public class MainActivity extends BaseActivity implements OnClickListener, Anima
 
 	@Override
 	public void onClick(View v) {
-		// TODO Auto-generated method stub
 		switch (v.getId()) {
 			case R.id.act_main_iv01:
 			case R.id.act_main_iv02:
-				if(SysUtils.check(this)){
+				if(NetUtils.isConnected(this)){
 //				startActivity(new Intent(this,HomeActivity.class));
 					startActivity(new Intent(this,LoginActivity.class));
 					finish();
 				}else{
-					toast("当前设备网络不稳，请检查是否接入网络。");
+					T.show("当前设备网络不稳，请检查是否接入网络。");
 				}
 				break;
 			default:
@@ -92,18 +90,15 @@ public class MainActivity extends BaseActivity implements OnClickListener, Anima
 	//=================================
 	@Override
 	public void onAnimationStart(Animation animation) {
-		// TODO Auto-generated method stub
 
 	}
 	@Override
 	public void onAnimationEnd(Animation animation) {
-		// TODO Auto-generated method stub
 		startActivity(new Intent(this,HomeActivity.class));
 		this.finish();
 	}
 	@Override
 	public void onAnimationRepeat(Animation animation) {
-		// TODO Auto-generated method stub
 
 	}
 	//=========================================
@@ -119,8 +114,8 @@ public class MainActivity extends BaseActivity implements OnClickListener, Anima
 		final Circle circle3 = (Circle) findViewById(R.id.circle3);
 
 		// 计算起始半径和结束半径
-		int startRadius = DensityUtil.dip2px(this, 36);
-		int endRadius = DensityUtil.dip2px(this, 150);
+		int startRadius = DensityUtils.dp2px(this, 36);
+		int endRadius = DensityUtils.dp2px(this, 150);
 
 		PropertyValuesHolder pAlpha = PropertyValuesHolder.ofFloat("alpha",
 			1.0f, 0.0f);

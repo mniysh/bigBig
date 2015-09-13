@@ -47,6 +47,7 @@ public class HomeFragment extends BaseFragment implements OnClickListener   {
 	private View v1,v2,v3;
 	private LinearLayout lin01,lin02,lin03;
 	private List<FoundBean> datas;
+	private View mContentView;
 
 
 	@Override
@@ -58,30 +59,19 @@ public class HomeFragment extends BaseFragment implements OnClickListener   {
 	@Override
 	public View onCreateView(LayoutInflater inflater,
 							 @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-		View view = inflater.inflate(R.layout.fragment_home, container, false);
-
-
-
-		return view;
+		mContentView = inflater.inflate(R.layout.fragment_home, container, false);
+		return mContentView;
 	}
 
-	@Override
-	public void onStart() {
-		// TODO Auto-generated method stub
-		super.onStart();
 
-	}
 	@Override
 	public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-		// TODO Auto-generated method stub
 		super.onActivityCreated(savedInstanceState);
 		initView();
 		initDatas();
 		initViewOper();
 	}
 	private void initViewOper() {
-
-
 		adapter=new HomeViewpagerAdapter(pager);
 		viewpager.setAdapter(adapter);
 		//下面设置adapter，暂时没数据
@@ -173,9 +163,9 @@ public class HomeFragment extends BaseFragment implements OnClickListener   {
 		ldot = (LinearLayout) getView().findViewById(R.id.act_home_ldot);
 		viewpager = (ViewPager) getView().findViewById(R.id.act_home_viewpager);
 		act_home_class = (ViewPager)getView().findViewById(R.id.act_home_class);
-		lin01=(LinearLayout) findviewbyid(R.id.fragment_home_lin_recommend01);
-		lin02=(LinearLayout) findviewbyid(R.id.fragment_home_lin_recommend02);
-		lin03=(LinearLayout) findviewbyid(R.id.fragment_home_lin_recommend03);
+		lin01=(LinearLayout) mContentView.findViewById(R.id.fragment_home_lin_recommend01);
+		lin02=(LinearLayout) mContentView.findViewById(R.id.fragment_home_lin_recommend02);
+		lin03=(LinearLayout) mContentView.findViewById(R.id.fragment_home_lin_recommend03);
 		lin01.setOnClickListener(this);
 		lin02.setOnClickListener(this);
 		lin03.setOnClickListener(this);

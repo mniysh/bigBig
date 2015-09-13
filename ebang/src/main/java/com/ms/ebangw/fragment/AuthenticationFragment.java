@@ -1,6 +1,6 @@
 package com.ms.ebangw.fragment;
 
-import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -26,27 +26,24 @@ public class AuthenticationFragment extends BaseFragment implements OnClickListe
 
 	private HomeActivity act;
 	private Button but_self,but_worker,but_foreman,but_factory;
+	private View mContentView;
+
 
 	@Override
-	public void onAttach(Activity activity) {
-		// TODO Auto-generated method stub
-		super.onAttach(activity);
-		act=(HomeActivity) activity;
+	public void onAttach(Context context) {
+		super.onAttach(context);
+		act=(HomeActivity) context;
 	}
+
 	@Override
 	public View onCreateView(LayoutInflater inflater,
 							 @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-		// TODO Auto-generated method stub
-		return inflater.inflate(R.layout.frag_authen, null);
+		mContentView = inflater.inflate(R.layout.frag_authen, null);
+		return mContentView;
 	}
-	@Override
-	public void onCreate(Bundle savedInstanceState) {
-		// TODO Auto-generated method stub
-		super.onCreate(savedInstanceState);
-	}
+
 	@Override
 	public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-		// TODO Auto-generated method stub
 		super.onActivityCreated(savedInstanceState);
 		initView();
 		initViewOper();
@@ -54,7 +51,6 @@ public class AuthenticationFragment extends BaseFragment implements OnClickListe
 
 	}
 	private void initViewOper() {
-		// TODO Auto-generated method stub
 		but_self.setOnClickListener(this);
 		but_worker.setOnClickListener(this);
 		but_foreman.setOnClickListener(this);
@@ -62,15 +58,13 @@ public class AuthenticationFragment extends BaseFragment implements OnClickListe
 
 	}
 	private void initView() {
-		// TODO Auto-generated method stub
-		but_self=(Button) findviewbyid(R.id.frag_authen_but_self);
-		but_worker=(Button) findviewbyid(R.id.frag_authen_but_worker);
-		but_foreman=(Button) findviewbyid(R.id.frag_authen_but_foreman);
-		but_factory=(Button) findviewbyid(R.id.frag_authen_but_factory);
+		but_self=(Button) mContentView.findViewById(R.id.frag_authen_but_self);
+		but_worker=(Button) mContentView.findViewById(R.id.frag_authen_but_worker);
+		but_foreman=(Button) mContentView.findViewById(R.id.frag_authen_but_foreman);
+		but_factory=(Button) mContentView.findViewById(R.id.frag_authen_but_factory);
 	}
 	@Override
 	public void onClick(View v) {
-		// TODO Auto-generated method stub
 		switch (v.getId()) {
 			//个人认证
 			case R.id.frag_authen_but_self:
