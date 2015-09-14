@@ -11,7 +11,7 @@ import android.widget.RelativeLayout;
 import com.ms.ebangw.R;
 
 
-public class HomeViewpagerFragment extends BaseFragment {
+public class HomeViewpagerfragment extends BaseFragment {
 
 	@Override
 	public View onCreateView(LayoutInflater inflater,
