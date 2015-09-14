@@ -17,7 +17,7 @@ import com.ms.ebangw.R;
 import com.ms.ebangw.fragment.AuthenticationFragment;
 import com.ms.ebangw.fragment.FoundFragment;
 import com.ms.ebangw.fragment.HomeFragment;
-import com.ms.ebangw.fragment.ReleaseFreament;
+import com.ms.ebangw.fragment.ReleaseFragment;
 
 
 /**
@@ -26,20 +26,19 @@ import com.ms.ebangw.fragment.ReleaseFreament;
  *
  */
 public class HomeActivity extends BaseActivity implements OnClickListener {
-	// RadioButton act_home_homebutn,act_home_foundbutn;
 	private RadioGroup act_home_radiog;
 	private FragmentManager fm;
 
 	private FoundFragment foundFragment;
-	private ReleaseFreament releasefragment;
+	private ReleaseFragment releasefragment;
 	private LinearLayout lin_main;
 	private SharedPreferences sp;
 	private AuthenticationFragment authenticationfragment;
 
-
 	private int[] iv_chick={R.drawable.homepager_click,R.drawable.foundpager_click,R.drawable.releasepager_clic,R.drawable.serivicepager_click,R.drawable.mainpager_click};
 	private int[] iv_unchick={R.drawable.homepager_unclick,R.drawable.foundpager_unclick,R.drawable.releasepager_unclick,R.drawable.serivicepager_unclick,R.drawable.mainpager_unclick};
 	private LinearLayout[] lin_click=new LinearLayout[5];
+
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -62,6 +61,8 @@ public class HomeActivity extends BaseActivity implements OnClickListener {
 		fm = getFragmentManager();
 
 
+
+
 	}
 
 	@Override
@@ -72,7 +73,7 @@ public class HomeActivity extends BaseActivity implements OnClickListener {
 	private void initFrament() {
 		// TODO Auto-generated method stub
 		foundFragment=new FoundFragment();
-		releasefragment=new ReleaseFreament();
+		releasefragment=new ReleaseFragment();
 	}
 	@Override
 	protected void onResume() {
