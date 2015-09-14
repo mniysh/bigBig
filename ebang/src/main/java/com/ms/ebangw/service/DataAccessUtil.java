@@ -1,16 +1,10 @@
 package com.ms.ebangw.service;
 
-import com.google.gson.reflect.TypeToken;
 import com.lidroid.xutils.HttpUtils;
-import com.lidroid.xutils.exception.HttpException;
 import com.lidroid.xutils.http.RequestParams;
-import com.lidroid.xutils.http.ResponseInfo;
 import com.lidroid.xutils.http.callback.RequestCallBack;
-import com.lidroid.xutils.http.client.HttpRequest;
 import com.ms.ebangw.MyApplication;
-import com.ms.ebangw.bean.ResponseData;
 import com.ms.ebangw.bean.User;
-import com.ms.ebangw.utils.JsonUtil;
 import com.ms.ebangw.utils.NetUtils;
 import com.ms.ebangw.utils.T;
 
@@ -41,34 +35,35 @@ public class DataAccessUtil {
             return;
         }
 
-        mHttpUtils.send(HttpRequest.HttpMethod.POST, url, new RequestCallBack<String>() {
-            @Override
-            public void onSuccess(ResponseInfo<String> responseInfo) {
-                int statusCode = responseInfo.statusCode;
-                String result = responseInfo.result;
-                ResponseData responseData = JsonUtil.toObj(new TypeToken<ResponseData>() {
-                }, result);
-                if (200 == statusCode) {        //返回数据是正确
-                    String data = responseData.getDate();
 
-                } else {
-
-                    T.show(responseData.getMessage());
-
-                }
-
-            }
-
-            @Override
-            public void onFailure(HttpException error, String msg) {
-                T.show(error.getMessage());
-            }
-
-            @Override
-            public Object getUserTag() {
-                return super.getUserTag();
-            }
-        });
+//        mHttpUtils.send(HttpRequest.HttpMethod.POST, url, new RequestCallBack<String>() {
+//            @Override
+//            public void onSuccess(ResponseInfo<String> responseInfo) {
+//                int statusCode = responseInfo.statusCode;
+//                String result = responseInfo.result;
+//                ResponseData responseData = JsonUtil.toObj(new TypeToken<ResponseData>() {
+//                }, result);
+//                if (200 == statusCode) {        //返回数据是正确
+//                    String data = responseData.getDate();
+//
+//                } else {
+//
+//                    T.show(responseData.getMessage());
+//
+//                }
+//
+//            }
+//
+//            @Override
+//            public void onFailure(HttpException error, String msg) {
+//                T.show(error.getMessage());
+//            }
+//
+//            @Override
+//            public Object getUserTag() {
+//                return super.getUserTag();
+//            }
+//        });
 
 
     }
