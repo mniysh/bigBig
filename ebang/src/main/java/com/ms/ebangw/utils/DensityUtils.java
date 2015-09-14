@@ -19,7 +19,7 @@ public class DensityUtils {
 	 * 
 	 * @param context
 	 * @return
-	 */
+	*/
 	public static final float getHeightInPx(Context context) {
 		final float height = context.getResources().getDisplayMetrics().heightPixels;
 		return height;

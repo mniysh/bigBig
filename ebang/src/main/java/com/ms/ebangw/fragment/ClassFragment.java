@@ -14,9 +14,10 @@ public class ClassFragment extends Fragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater,
 			@Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-		// TODO Auto-generated method stub
 		View view = inflater.from(getActivity()).inflate(R.layout.class_item, container,false);
 		
 		return view;
 	}
+
+
 }

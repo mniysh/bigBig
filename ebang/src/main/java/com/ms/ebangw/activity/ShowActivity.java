@@ -10,7 +10,6 @@ import android.widget.ListView;
 
 import com.ms.ebangw.R;
 import com.ms.ebangw.adapter.ShowTableAdapter;
-import com.ms.ebangw.view.XListView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -55,12 +54,18 @@ public class ShowActivity extends BaseActivity implements View.OnClickListener {
 		lBack.setOnClickListener(this);
 	}
 
-	private void initView() {
+	public void initView() {
 		lTable= (ListView) findViewById(R.id.act_show_listview);
 		lBack= (LinearLayout) findViewById(R.id.act_show_Lin_back);
 		bQiangdan= (Button) findViewById(R.id.act_show_qiangdan);
 
 	}
+
+	@Override
+	public void initData() {
+
+	}
+
 	//重写listview的高度
 	private void setListView(ListView listview2) {
 		// TODO Auto-generated method stub

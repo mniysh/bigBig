@@ -7,11 +7,12 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.util.Log;
-import android.widget.LinearLayout;
+import android.view.View;
 
 import com.ms.ebangw.fragment.ClassFragment;
 
 public class HomeClassAdapter extends FragmentPagerAdapter {
+
 
 	private Context context;
 	private int[] imgclass;
@@ -25,7 +26,7 @@ public class HomeClassAdapter extends FragmentPagerAdapter {
 	}
 	@Override
 	public Fragment getItem(int arg0) {
-		Log.i("xxx", "当前的数据是"+arg0);
+		Log.i("xxx", "当前的数据是" + arg0);
 		Bundle b = new Bundle();
 		b.putInt("img", imgclass[arg0]);
 		b.putString("txt", txtclass[arg0]);
@@ -36,6 +37,11 @@ public class HomeClassAdapter extends FragmentPagerAdapter {
 	@Override
 	public int getCount() {
 		return 2;
+	}
+
+	@Override
+	public boolean isViewFromObject(View view, Object object) {
+		return false;
 	}
 
 

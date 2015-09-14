@@ -127,7 +127,7 @@ public class RegisterActivity extends BaseActivity implements OnClickListener {
 		iv_weixin.setOnClickListener(this);
 	}
 
-	private void initView() {
+	public void initView() {
 		// TODO Auto-generated method stub
 		but_check=(Button) this.findViewById(R.id.act_register_check);
 		but_register=(Button) this.findViewById(R.id.act_register_register);
@@ -138,6 +138,12 @@ public class RegisterActivity extends BaseActivity implements OnClickListener {
 		et_phone=(EditText) findViewById(R.id.act_register_et_phone);
 		et_code=(EditText) findViewById(R.id.act_register_et_code);
 	}
+
+	@Override
+	public void initData() {
+
+	}
+
 	@Override
 	public void onClick(View v) {
 		// TODO Auto-generated method stub

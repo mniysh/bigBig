@@ -63,11 +63,16 @@ public class MainActivity extends BaseActivity implements OnClickListener, Anima
 //		lin.setAnimation(animation);
 //		animation.setAnimationListener(this);
 //	}
-	private void initView() {
+public void initView() {
 //		iv01=(ImageView) findViewById(R.id.act_main_iv01);
 //		iv02=(ImageView) findViewById(R.id.act_main_iv02);
 		lin=(LinearLayout) findViewById(R.id.main_Lin);
 //		animation=(AlphaAnimation) AnimationUtils.loadAnimation(this, R.anim.alpha_shouye);
+	}
+
+	@Override
+	public void initData() {
+
 	}
 
 	@Override

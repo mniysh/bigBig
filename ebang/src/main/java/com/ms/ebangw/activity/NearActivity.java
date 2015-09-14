@@ -1,6 +1,5 @@
 package com.ms.ebangw.activity;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.os.Handler;
 
@@ -18,6 +17,8 @@ public class NearActivity extends BaseActivity implements XListView.IXListViewLi
 	private XListView xlistview;
 	private Handler handler;
 
+
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -29,6 +30,16 @@ public class NearActivity extends BaseActivity implements XListView.IXListViewLi
 
 	private void init() {
 		xlistview = (XListView) findViewById(R.id.xlistview);
+
+	}
+
+	@Override
+	public void initView() {
+
+	}
+
+	@Override
+	public void initData() {
 
 	}
 

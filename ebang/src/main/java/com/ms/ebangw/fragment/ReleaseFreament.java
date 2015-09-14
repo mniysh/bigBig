@@ -67,7 +67,7 @@ public class ReleaseFreament extends BaseFragment implements OnClickListener, On
 		initView();
 		initViewOper();
 	}
-	private void initView() {
+	public void initView() {
 
 		spi_qu=(Spinner) mContentView.findViewById(R.id.act_release_spinner_qu);
 		spi_lu=(Spinner) mContentView.findViewById(R.id.act_release_spinner_lu);
@@ -81,6 +81,12 @@ public class ReleaseFreament extends BaseFragment implements OnClickListener, On
 		ed_phone=(EditText) mContentView.findViewById(R.id.act_release_ed_phone);
 		but_submit=(Button) mContentView.findViewById(R.id.act_release_but_submit);
 	}
+
+	@Override
+	public void initData() {
+
+	}
+
 	//取值
 	private void getDatas(){
 		sb=new StringBuilder();
@@ -100,7 +106,6 @@ public class ReleaseFreament extends BaseFragment implements OnClickListener, On
 	}
 	//组件处理
 	private void initViewOper() {
-		// TODO Auto-generated method stub
 
 		//lin_back.setOnClickListener(this);
 		spi_qu.setOnItemSelectedListener(this);

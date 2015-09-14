@@ -30,13 +30,18 @@ public class ManagerAuthenActivity extends BaseActivity implements OnCheckedChan
 		rGroup.setOnCheckedChangeListener(this);
 	}
 
-	private void initView() {
+	public void initView() {
 		// TODO Auto-generated method stub
 		fManager=getFragmentManager();
 		mBank=new ManagerBankFragment();
 		mBase=new ManagerBaseFragment();
 		rGroup=(RadioGroup) findViewById(R.id.act_mana_rg);
 		
+	}
+
+	@Override
+	public void initData() {
+
 	}
 
 	@Override

@@ -20,7 +20,6 @@ public class RecommendActivity extends BaseActivity implements OnClickListener {
 	private TextView tv_more;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.act_recommend);
 		initView();
@@ -30,7 +29,6 @@ public class RecommendActivity extends BaseActivity implements OnClickListener {
 	}
 
 	private void initViewOper() {
-		// TODO Auto-generated method stub
 		lin_intro.setOnClickListener(this);
 		lin_back.setOnClickListener(this);
 		lin_know.setOnClickListener(this);
@@ -40,8 +38,7 @@ public class RecommendActivity extends BaseActivity implements OnClickListener {
 		tv_more.setOnClickListener(this);
 	}
 
-	private void initView() {
-		// TODO Auto-generated method stub
+	public void initView() {
 		lin_intro=(LinearLayout) findViewById(R.id.act_recomment_Lin_intro);
 		lin_back=(LinearLayout) findViewById(R.id.act_recommend_Lin_back);
 		lin_know=(LinearLayout) findViewById(R.id.act_recommend_lin_know);
@@ -49,6 +46,11 @@ public class RecommendActivity extends BaseActivity implements OnClickListener {
 		lin_zhoubian=(LinearLayout) findViewById(R.id.act_recommend_lin_zhoubian);
 		lin_comment=(LinearLayout) findViewById(R.id.act_recommend_lin_comment);
 		tv_more=(TextView) findViewById(R.id.act_recommend_tv_more);
+
+	}
+
+	@Override
+	public void initData() {
 
 	}
 

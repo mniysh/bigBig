@@ -96,7 +96,7 @@
         <activity android:name=".activity.FactoryAuthenActivity"></activity>
         <activity android:name=".activity.NearActivity"></activity>
         <activity android:name=".activity.SettlementActivity"></activity>
-        <activity android:name=".activity.SubmitSucceeActivity"></activity>
+        <activity android:name=".activity.SubmitSuccessActivity"></activity>
         <activity android:name=".activity.ReleaseActivity"></activity>
 
         <service android:name=".service.MyService"></service>

@@ -58,7 +58,7 @@ public class ReleaseActivity extends BaseActivity implements OnClickListener, On
 
 	}
 	//初始化
-	private void initView() {
+	public void initView() {
 		// TODO Auto-generated method stub
 //		lin_back=(LinearLayout) findViewById(R.id.act_release_Lin_back);
 		spi_qu=(Spinner) findViewById(R.id.act_release_spinner_qu);
@@ -75,6 +75,12 @@ public class ReleaseActivity extends BaseActivity implements OnClickListener, On
 
 
 	}
+
+	@Override
+	public void initData() {
+
+	}
+
 	//取值
 	private void getDatas(){
 		sb=new StringBuilder();

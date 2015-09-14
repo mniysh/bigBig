@@ -32,13 +32,18 @@ public class FactoryAuthenActivity extends BaseActivity implements OnCheckedChan
 		rGroup.setOnCheckedChangeListener(this);
 	}
 
-	private void initView() {
+	public void initView() {
 		// TODO Auto-generated method stub
 		rGroup=(RadioGroup) findViewById(R.id.act_fac_rg);
 		fManager=getFragmentManager();
 		fFactory=new FactoryAutherFragment();
 		fComplete=new FactoryAutherCompleteFragment();
 		
+	}
+
+	@Override
+	public void initData() {
+
 	}
 
 	@Override

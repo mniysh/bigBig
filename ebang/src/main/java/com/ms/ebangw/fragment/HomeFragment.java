@@ -157,7 +157,7 @@ public class HomeFragment extends BaseFragment implements OnClickListener   {
 		handler.removeMessages(1);// 停止viewpager图片切换
 	}
 
-	private void initView() {
+	public void initView() {
 		fm = act.getSupportFragmentManager();
 		mylistview = (MyListView) getView().findViewById(R.id.frag_home_listV);
 		ldot = (LinearLayout) getView().findViewById(R.id.act_home_ldot);
@@ -172,6 +172,11 @@ public class HomeFragment extends BaseFragment implements OnClickListener   {
 
 	}
 
+	@Override
+	public void initData() {
+
+	}
+
 	// viewpager滑动改变的监听
 	class viewpagechangelistener implements OnPageChangeListener {// 监听滑动
 
@@ -181,6 +186,7 @@ public class HomeFragment extends BaseFragment implements OnClickListener   {
 
 		@Override
 		public void onPageScrolled(int arg0, float arg1, int arg2) {
+
 		}
 
 		@Override

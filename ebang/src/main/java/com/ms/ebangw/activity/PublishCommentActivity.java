@@ -37,19 +37,25 @@ public class PublishCommentActivity extends BaseActivity {
 	private int REQUESTCODE02=2;
 	private Bitmap bit;
 
+
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_publish_comment);
-		init();
+		initView();
 		operation();
 	}
 
-	private void init() {
+	@Override
+	public void initView() {
 		camera = (ImageView) findViewById(R.id.camera);
-		layout = (LinearLayout) getLayoutInflater().inflate(
-			R.layout.popcontent, null, false);
+		layout = (LinearLayout) getLayoutInflater().inflate(R.layout.popcontent, null, false);
 		pic_pu01=(ImageView) findViewById(R.id.act_pu_iv01);
+	}
+
+	@Override
+	public void initData() {
 
 	}
 

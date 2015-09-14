@@ -22,9 +22,14 @@ public class ChatActivity extends BaseActivity {
 		initView();
 
 	}
-	private void initView() {
+	public void initView() {
 		// TODO Auto-generated method stub
 		iv_send=(ImageView) findViewById(R.id.act_chat_send);
+
+	}
+
+	@Override
+	public void initData() {
 
 	}
 }

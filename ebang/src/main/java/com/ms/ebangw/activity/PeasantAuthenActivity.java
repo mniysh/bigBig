@@ -34,7 +34,7 @@ public class PeasantAuthenActivity extends BaseActivity implements OnClickListen
 		
 	}
 
-	private void initView() {
+	public void initView() {
 		// TODO Auto-generated method stub
 		fm=getFragmentManager();
 		pBase=new PeasantBaseFragment();
@@ -42,6 +42,11 @@ public class PeasantAuthenActivity extends BaseActivity implements OnClickListen
 		rGroup=(RadioGroup) findViewById(R.id.act_pea_rg);
 		
 		
+	}
+
+	@Override
+	public void initData() {
+
 	}
 
 	@Override

@@ -69,7 +69,7 @@ public class SelfAuthenticationActivity extends BaseActivity implements OnChecke
 
 	}
 
-	private void initView() {
+	public void initView() {
 		// TODO Auto-generated method stub
 
 		et_name=(EditText) findViewById(R.id.act_self_name);
@@ -81,6 +81,11 @@ public class SelfAuthenticationActivity extends BaseActivity implements OnChecke
 		rg=(RadioGroup) findViewById(R.id.act_self_rg_sex);
 		but_submit=(Button) findViewById(R.id.act_self_but_submit);
 
+
+	}
+
+	@Override
+	public void initData() {
 
 	}
 

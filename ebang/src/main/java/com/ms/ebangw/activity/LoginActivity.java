@@ -64,8 +64,7 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 	}
 
 
-	private void initView() {
-		// TODO Auto-generated method stub
+	public void initView() {
 		et_username=(EditText) findViewById(R.id.act_login_edit_user);
 		et_password=(EditText) findViewById(R.id.act_login_edit_password);
 		tv_register=(TextView) findViewById(R.id.act_login_register);
@@ -77,6 +76,12 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 		but_login=(Button) findViewById(R.id.act_login_but_login);
 
 	}
+
+	@Override
+	public void initData() {
+
+	}
+
 
 	@Override
 	public void onClick(View v) {

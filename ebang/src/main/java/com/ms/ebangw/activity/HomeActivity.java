@@ -51,7 +51,7 @@ public class HomeActivity extends BaseActivity implements OnClickListener {
 		operation();
 	}
 
-	private void initView() {
+	public void initView() {
 		// TODO Auto-generated method stub
 
 		lin_click[0]=(LinearLayout) findViewById(R.id.act_home_homebutn);
@@ -63,6 +63,12 @@ public class HomeActivity extends BaseActivity implements OnClickListener {
 
 
 	}
+
+	@Override
+	public void initData() {
+
+	}
+
 	private void initFrament() {
 		// TODO Auto-generated method stub
 		foundFragment=new FoundFragment();

@@ -6,16 +6,26 @@ import android.app.Fragment;
 
 import com.ms.ebangw.dialog.LoadingDialog;
 
-public class BaseFragment extends Fragment {
+public abstract class BaseFragment extends Fragment {
     private final String TAG = getClass().getSimpleName();
     protected Activity mActivity;
     private LoadingDialog mLoadingDialog;
 
     @Override
-    public void onAttach(Activity activity) {
+      public void onAttach(Activity activity) {
         super.onAttach(activity);
         mActivity = activity;
     }
+
+    /**
+     * 初始化View
+     */
+    abstract public void initView();
+
+    /**
+     * 初始化数据
+     */
+    abstract public void initData();
 
     /**
      * 显示进度对话框

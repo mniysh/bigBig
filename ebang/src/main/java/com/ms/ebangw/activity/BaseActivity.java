@@ -26,6 +26,15 @@ public abstract class BaseActivity extends AppCompatActivity {
 	private long exitTime = 0;
 	private View.OnClickListener mLeftClickListener, mBackClickListener, mRightClickListener;
 
+	/**
+	 * 初始化View
+	 */
+	abstract public void initView();
+
+	/**
+	 * 初始化数据
+	 */
+	abstract public void initData();
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {

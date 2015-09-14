@@ -38,7 +38,7 @@ public class CommentActivity extends BaseActivity implements View.OnClickListene
 		initDatas();
 		initViewOper();
 	}
-	private void initView() {
+	public void initView() {
 		// TODO Auto-generated method stub
 
 		xlistview=(XListView) findViewById(R.id.act_comment_xlistview);
@@ -47,6 +47,12 @@ public class CommentActivity extends BaseActivity implements View.OnClickListene
 		lin_back=(LinearLayout) findViewById(R.id.act_comment_Lin_back);
 
 	}
+
+	@Override
+	public void initData() {
+
+	}
+
 	private void initViewOper() {
 		// TODO Auto-generated method stub
 		adapter=new CommentActivityAdapter(datas, this);

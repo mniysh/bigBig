@@ -28,7 +28,8 @@ public class DataAccessUtil {
         }
     }
 
-    public RequestHandle login(String phone, String password, AsyncHttpResponseHandler asyncHttpResponseHandler ) {
+    public static RequestHandle login(String phone, String password, AsyncHttpResponseHandler
+        asyncHttpResponseHandler ) {
         RequestParams params = new RequestParams();
         params.put("phone", phone);
         params.put("password", password);
@@ -37,7 +38,7 @@ public class DataAccessUtil {
     }
 
 
-    public RequestHandle doPost(String url, RequestParams params, AsyncHttpResponseHandler asyncHttpResponseHandler) {
+    public static RequestHandle doPost(String url, RequestParams params, AsyncHttpResponseHandler asyncHttpResponseHandler) {
 
         if (!NetUtils.isConnected(MyApplication.getInstance())) {
             T.show("网络异常");

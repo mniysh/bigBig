@@ -11,7 +11,7 @@ import android.widget.RelativeLayout;
 import com.ms.ebangw.R;
 
 
-public class HomeViewpagerfragment extends BaseFragment {
+public class HomeViewpagerFragment extends BaseFragment {
 
 	@Override
 	public View onCreateView(LayoutInflater inflater,
@@ -25,5 +25,15 @@ public class HomeViewpagerfragment extends BaseFragment {
 
 		img.setImageResource(getArguments().getInt("images"));
 		return img;
+	}
+
+	@Override
+	public void initView() {
+
+	}
+
+	@Override
+	public void initData() {
+
 	}
 }

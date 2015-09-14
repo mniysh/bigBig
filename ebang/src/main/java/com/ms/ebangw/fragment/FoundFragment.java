@@ -81,13 +81,18 @@ public class FoundFragment extends BaseFragment implements XListView.IXListViewL
 
     }
 
-    private void initView() {
+    public void initView() {
         spi_type = (Spinner) mContentView.findViewById(R.id.frag_fount_spinner_type);
         spi_KM = (Spinner) mContentView.findViewById(R.id.frag_fount_spinner_KM);
         spi_area = (Spinner) mContentView.findViewById(R.id.frag_fount_spinner_area);
         xlistview = (XListView) getView().findViewById(R.id.act_frag_found_xlistview);
         adapter = new FoundFragmentAdapter(mActivity, datas);
         xlistview.setAdapter(adapter);
+
+    }
+
+    @Override
+    public void initData() {
 
     }
 

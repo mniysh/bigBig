@@ -50,7 +50,7 @@ public class RegisterActivity_2 extends BaseActivity implements OnClickListener 
 
 	}
 
-	private void initView() {
+	public void initView() {
 		// TODO Auto-generated method stub
 //		iv_back=(ImageView) findViewById(R.id.act_register2_iv_back);
 //		iv_qq=(ImageView) findViewById(R.id.act_register2_iv_qq);
@@ -59,6 +59,11 @@ public class RegisterActivity_2 extends BaseActivity implements OnClickListener 
 		et_password01=(EditText) findViewById(R.id.act_register_2_et_password);
 		et_password02=(EditText) findViewById(R.id.act_register_2_et_password2);
 		but_register=(Button) findViewById(R.id.act_register_2_but_register);
+
+	}
+
+	@Override
+	public void initData() {
 
 	}
 

@@ -1,6 +1,5 @@
 package com.ms.ebangw.activity;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.view.MenuItem;
 
@@ -12,6 +11,16 @@ import com.ms.ebangw.R;
  *
  */
 public class SettlementActivity extends BaseActivity {
+
+	@Override
+	public void initView() {
+
+	}
+
+	@Override
+	public void initData() {
+
+	}
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {

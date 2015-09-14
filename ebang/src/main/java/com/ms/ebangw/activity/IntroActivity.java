@@ -16,19 +16,30 @@ public class IntroActivity extends BaseActivity implements OnClickListener {
 	private LinearLayout lin_back;
 	private ImageView iv_share;
 
+
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.act_intro);
+		initView();
+		initData();
+
+	}
+	@Override
+	public void initView() {
 		lin_back=(LinearLayout) findViewById(R.id.act_intro_Lin_back);
 		lin_back.setOnClickListener(this);
 		iv_share.setOnClickListener(this);
 
 		iv_share=(ImageView) findViewById(R.id.act_intro_share);
-
 	}
 
+	@Override
+	public void initData() {
+
+	}
 
 	@Override
 	public void onClick(View v) {

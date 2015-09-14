@@ -1,6 +1,5 @@
 package com.ms.ebangw.fragment;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -12,7 +11,6 @@ import android.widget.Button;
 
 import com.ms.ebangw.R;
 import com.ms.ebangw.activity.FactoryAuthenActivity;
-import com.ms.ebangw.activity.HomeActivity;
 import com.ms.ebangw.activity.ManagerAuthenActivity;
 import com.ms.ebangw.activity.PeasantAuthenActivity;
 import com.ms.ebangw.activity.SelfAuthenticationActivity;
@@ -24,16 +22,9 @@ import com.ms.ebangw.activity.SelfAuthenticationActivity;
  */
 public class AuthenticationFragment extends BaseFragment implements OnClickListener {
 
-	private HomeActivity act;
 	private Button but_self,but_worker,but_foreman,but_factory;
 	private View mContentView;
 
-
-	@Override
-	public void onAttach(Context context) {
-		super.onAttach(context);
-		act=(HomeActivity) context;
-	}
 
 	@Override
 	public View onCreateView(LayoutInflater inflater,
@@ -57,27 +48,33 @@ public class AuthenticationFragment extends BaseFragment implements OnClickListe
 		but_factory.setOnClickListener(this);
 
 	}
-	private void initView() {
+	public void initView() {
 		but_self=(Button) mContentView.findViewById(R.id.frag_authen_but_self);
 		but_worker=(Button) mContentView.findViewById(R.id.frag_authen_but_worker);
 		but_foreman=(Button) mContentView.findViewById(R.id.frag_authen_but_foreman);
 		but_factory=(Button) mContentView.findViewById(R.id.frag_authen_but_factory);
 	}
+
+	@Override
+	public void initData() {
+
+	}
+
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
 			//个人认证
 			case R.id.frag_authen_but_self:
-				startActivity(new Intent(act,SelfAuthenticationActivity.class));
+				startActivity(new Intent(mActivity,SelfAuthenticationActivity.class));
 				break;
 			case R.id.frag_authen_but_worker:
-				startActivity(new Intent(act,PeasantAuthenActivity.class));
+				startActivity(new Intent(mActivity,PeasantAuthenActivity.class));
 				break;
 			case R.id.frag_authen_but_foreman:
-				startActivity(new Intent(act,ManagerAuthenActivity.class));
+				startActivity(new Intent(mActivity,ManagerAuthenActivity.class));
 				break;
 			case R.id.frag_authen_but_factory:
-				startActivity(new Intent(act,FactoryAuthenActivity.class));
+				startActivity(new Intent(mActivity,FactoryAuthenActivity.class));
 				break;
 
 			default:
