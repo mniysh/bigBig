@@ -1,12 +1,15 @@
 package com.ms.ebangw.service;
 
-import com.lidroid.xutils.HttpUtils;
-import com.lidroid.xutils.http.RequestParams;
-import com.lidroid.xutils.http.callback.RequestCallBack;
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.loopj.android.http.RequestHandle;
+import com.loopj.android.http.RequestParams;
 import com.ms.ebangw.MyApplication;
-import com.ms.ebangw.bean.User;
 import com.ms.ebangw.utils.NetUtils;
 import com.ms.ebangw.utils.T;
+
+import java.io.File;
+import java.io.FileNotFoundException;
 
 /**
  * User: WangKai(123940232@qq.com)
@@ -14,27 +17,35 @@ import com.ms.ebangw.utils.T;
  */
 public class DataAccessUtil {
     private final String TAG = getClass().getSimpleName();
-    private static HttpUtils mHttpUtils;
-    private static void init() {
-        if (mHttpUtils == null) {
-            mHttpUtils = new HttpUtils();
+
+    private static AsyncHttpClient mClient;
+    private static void initAsyncHttpClient() {
+        if (mClient == null) {
+            mClient = new AsyncHttpClient();
+            //修改超时时间为15秒
+            mClient.setTimeout(15000);
+            mClient.setResponseTimeout(15000);
         }
     }
 
-    public void login(String account, String password, RequestCallBack<User> callBack ) {
+    public RequestHandle login(String phone, String password, AsyncHttpResponseHandler asyncHttpResponseHandler ) {
+        RequestParams params = new RequestParams();
+        params.put("phone", phone);
+        params.put("password", password);
 
-
-
+        return doPost(RequestUrl.login, params, asyncHttpResponseHandler);
     }
 
 
-    public void doPost(String url, RequestParams params, RequestCallBack callBack) {
+    public RequestHandle doPost(String url, RequestParams params, AsyncHttpResponseHandler asyncHttpResponseHandler) {
 
         if (!NetUtils.isConnected(MyApplication.getInstance())) {
             T.show("网络异常");
-            return;
+            return null;
         }
+        initAsyncHttpClient();
 
+        return mClient.post(url, params, asyncHttpResponseHandler);
 
 //        mHttpUtils.send(HttpRequest.HttpMethod.POST, url, new RequestCallBack<String>() {
 //            @Override
@@ -66,5 +77,23 @@ public class DataAccessUtil {
 //        });
 
 
+    }
+
+    /**
+     * 取消所有请求
+     */
+    public static void cancelAllRequests() {
+        if (null != mClient)
+            mClient.cancelAllRequests(true);
+    }
+
+    public static void upLoad() {
+        File myFile = new File("/path/to/file.png");
+        RequestParams params = new RequestParams();
+        try {
+            params.put("profile_picture", myFile);
+        } catch(FileNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 }  
