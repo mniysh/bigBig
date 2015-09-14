@@ -19,7 +19,6 @@ import android.widget.LinearLayout;
 import com.ms.ebangw.R;
 import com.ms.ebangw.activity.HomeActivity;
 import com.ms.ebangw.activity.RecommendActivity;
-import com.ms.ebangw.adapter.HomeClassAdapter;
 import com.ms.ebangw.adapter.HomeListAdapter;
 import com.ms.ebangw.adapter.HomeViewpagerAdapter;
 import com.ms.ebangw.bean.FoundBean;
@@ -33,7 +32,7 @@ import java.util.List;
  */
 public class HomeFragment extends BaseFragment implements OnClickListener   {
 	private HomeActivity act;
-	private ViewPager viewpager,act_home_class;// 滑动条
+	private ViewPager viewpager;// 滑动条
 	private LinearLayout ldot;// 点布局
 	private EditText search;
 	private MyListView mylistview;
@@ -77,26 +76,17 @@ public class HomeFragment extends BaseFragment implements OnClickListener   {
 		//下面设置adapter，暂时没数据
 		mylistview.setAdapter(new HomeListAdapter(act,datas));
 		dot();
-		viewpager.setOnPageChangeListener(new viewpagechangelistener());
-		act_home_class.setAdapter(new HomeClassAdapter(fm, act, imgclass, txtclass));
+		viewpager.addOnPageChangeListener(new viewpagechangelistener());
+//		act_home_class.setAdapter(new HomeClassAdapter(fm, act, imgclass, txtclass));
 
 
 	}
 	//获取值并设置点击事件
 	private void initDatas() {
-		// TODO Auto-generated method stub
 		pager = new ArrayList<View>();
 		datas=new ArrayList<FoundBean>();
 		FoundBean fb=new FoundBean("标题","公里数","简单的内同介绍","价格","价格","现在已有多少人抢单了");
 		datas.add(fb);
-//		private String url;
-//		private String title;
-//		private String area;
-//		private String content;
-//		private String money;
-//		private String qiangdan;
-
-
 
 
 		v1=act.getLayoutInflater().inflate(R.layout.item_pager_baner, null);
@@ -105,40 +95,7 @@ public class HomeFragment extends BaseFragment implements OnClickListener   {
 		((ImageView)v2.findViewById(R.id.item_pager_bager_iv)).setImageResource(R.drawable.linshi);
 		v3=act.getLayoutInflater().inflate(R.layout.item_pager_baner, null);
 		((ImageView)v3.findViewById(R.id.item_pager_bager_iv)).setImageResource(R.drawable.linshi);
-		/*
-		 * 每个pager暂时不设置点击，若果设置点击要解决
-		 * 一下切换fragment点击还能响应的问题
-		 */
 
-
-
-
-
-
-		//		v1.setOnClickListener(new OnClickListener() {
-//
-//			@Override
-//			public void onClick(View v) {
-//				// TODO Auto-generated method stub
-//				toast(act, "v1被点击");
-//			}
-//		});
-//		v2.setOnClickListener(new OnClickListener() {
-//
-//			@Override
-//			public void onClick(View v) {
-//				// TODO Auto-generated method stub
-//				toast(act, "v2被点击");
-//			}
-//		});
-//		v3.setOnClickListener(new OnClickListener() {
-//
-//			@Override
-//			public void onClick(View v) {
-//				// TODO Auto-generated method stub
-//				toast(act, "v3被点击");
-//			}
-//		});
 		pager.add(v1);
 		pager.add(v2);
 		pager.add(v3);
@@ -162,7 +119,7 @@ public class HomeFragment extends BaseFragment implements OnClickListener   {
 		mylistview = (MyListView) getView().findViewById(R.id.frag_home_listV);
 		ldot = (LinearLayout) getView().findViewById(R.id.act_home_ldot);
 		viewpager = (ViewPager) getView().findViewById(R.id.act_home_viewpager);
-		act_home_class = (ViewPager)getView().findViewById(R.id.act_home_class);
+//		act_home_class = (ViewPager)getView().findViewById(R.id.act_home_class);
 		lin01=(LinearLayout) mContentView.findViewById(R.id.fragment_home_lin_recommend01);
 		lin02=(LinearLayout) mContentView.findViewById(R.id.fragment_home_lin_recommend02);
 		lin03=(LinearLayout) mContentView.findViewById(R.id.fragment_home_lin_recommend03);

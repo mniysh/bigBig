@@ -27,7 +27,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 
-public class ReleaseFreament extends BaseFragment implements OnClickListener, OnItemSelectedListener, OnFocusChangeListener {
+public class ReleaseFragment extends BaseFragment implements OnClickListener, OnItemSelectedListener, OnFocusChangeListener {
 	private LinearLayout lin_back;
 	private Spinner spi_qu,spi_lu,spi_style;
 	private String str_add_qu="--选区--";
