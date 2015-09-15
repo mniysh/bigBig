@@ -28,6 +28,13 @@ public class DataAccessUtil {
         }
     }
 
+    /**
+     * 登录
+     * @param phone
+     * @param password
+     * @param asyncHttpResponseHandler
+     * @return
+     */
     public static RequestHandle login(String phone, String password, AsyncHttpResponseHandler
         asyncHttpResponseHandler ) {
         RequestParams params = new RequestParams();
