@@ -1,14 +1,20 @@
 package com.ms.ebangw.activity;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
+import android.widget.ImageView;
+
 
 import com.ms.ebangw.R;
 
-public class QiangDanActivity extends BaseActivity {
+import butterknife.Bind;
+import butterknife.OnClick;
 
+public class QiangDanActivity extends BaseActivity {
+    @Bind(R.id.activity_qiang_dan_but_qianddan)
+    Button qiangdan;
 
 
     @Override
@@ -19,9 +25,18 @@ public class QiangDanActivity extends BaseActivity {
         initData();
 
     }
+
+    @OnClick
     @Override
     public void initView() {
-        setTitle("抢单");
+        initTitle(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                QiangDanActivity.this.finish();
+            }
+        },"返回","抢单",null,null);
+
+
 
     }
 

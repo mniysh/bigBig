@@ -1,5 +1,6 @@
 package com.ms.ebangw.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
@@ -7,9 +8,10 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 import android.widget.ListView;
-
+import android.view.View.OnClickListener;
 import com.ms.ebangw.R;
 import com.ms.ebangw.adapter.ShowTableAdapter;
+import com.ms.ebangw.utils.L;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,7 +22,7 @@ import java.util.List;
  * @author admin
  *
  */
-public class ShowActivity extends BaseActivity implements View.OnClickListener {
+public class ShowActivity extends BaseActivity implements OnClickListener {
 	private ListView lTable;
 	private ShowTableAdapter adapter;
 	private List<String[]> datas;
@@ -52,17 +54,18 @@ public class ShowActivity extends BaseActivity implements View.OnClickListener {
 		lTable.setAdapter(adapter);
 		setListView(lTable);
 		lBack.setOnClickListener(this);
+		bQiangdan.setOnClickListener(this);
 	}
 
 	public void initView() {
 		lTable= (ListView) findViewById(R.id.act_show_listview);
 		lBack= (LinearLayout) findViewById(R.id.act_show_Lin_back);
 		bQiangdan= (Button) findViewById(R.id.act_show_qiangdan);
-
 	}
 
 	@Override
 	public void initData() {
+
 
 	}
 
@@ -96,7 +99,8 @@ public class ShowActivity extends BaseActivity implements View.OnClickListener {
 				break;
 			//点击立刻抢单跳转
 			case R.id.act_show_qiangdan:
-
+				L.d("xxx", "跳转能不能进来");
+				startActivity(new Intent(this,QiangDanActivity.class));
 
 				break;
 

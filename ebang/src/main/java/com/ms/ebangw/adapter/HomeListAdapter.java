@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.ms.ebangw.R;
 import com.ms.ebangw.activity.HomeActivity;
+import com.ms.ebangw.activity.QiangDanActivity;
 import com.ms.ebangw.activity.ShowActivity;
 import com.ms.ebangw.bean.FoundBean;
 import com.ms.ebangw.view.ViewHolder;
