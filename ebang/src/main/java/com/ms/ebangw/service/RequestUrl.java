@@ -24,4 +24,9 @@ public class RequestUrl {
      * 个人信息
      */
     public static final String user_information = domain + "/api/user/index/information";
+    /**
+     * 短信验证码
+     */
+    public static final  String message_code=domain+"/api/user/index/msg";
+
 }

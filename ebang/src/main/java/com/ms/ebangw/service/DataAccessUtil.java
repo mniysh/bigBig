@@ -28,6 +28,13 @@ public class DataAccessUtil {
         }
     }
 
+    /**
+     * 登录
+     * @param phone 电话
+     * @param password 密码
+     * @param asyncHttpResponseHandler
+     * @return
+     */
     public static RequestHandle login(String phone, String password, AsyncHttpResponseHandler
         asyncHttpResponseHandler ) {
         RequestParams params = new RequestParams();
@@ -35,6 +42,57 @@ public class DataAccessUtil {
         params.put("password", password);
 
         return doPost(RequestUrl.login, params, asyncHttpResponseHandler);
+    }
+
+    /**
+     * 短信验证的接口
+     * @param phone 电话
+     * @param asyncHttpResponseHandler
+     * @return
+     */
+    public static RequestHandle messageCode(String phone, AsyncHttpResponseHandler
+        asyncHttpResponseHandler ) {
+        RequestParams params = new RequestParams();
+        params.put("phone", phone);
+        return doPost(RequestUrl.message_code, params, asyncHttpResponseHandler);
+    }
+
+    /**
+     * 登出接口
+     * @param asyncHttpResponseHandler
+     * @return
+     */
+    public static RequestHandle exit(AsyncHttpResponseHandler
+        asyncHttpResponseHandler ) {
+        RequestParams params = new RequestParams();
+//        params.put("phone", phone);
+//        params.put("password", password);
+
+        return doPost(RequestUrl.logout, params, asyncHttpResponseHandler);
+    }
+
+    /**
+     *  注册接口
+     * @param name 姓名
+     * @param phone 电话
+     * @param email 邮箱
+     * @param gender 类别，有四种，个人，农民工，工长，开发商
+     * @param categorg 性别，男，女
+     * @param password 密码
+     * @param asyncHttpResponseHandler 请求
+     * @return
+     */
+    public static RequestHandle register(String name,String phone,String email,String gender,String categorg, String password, AsyncHttpResponseHandler
+        asyncHttpResponseHandler ) {
+        RequestParams params = new RequestParams();
+        params.put("name",name);
+        params.put("phone", phone);
+        params.put("password", password);
+        params.put("email", email);
+        params.put("categorg", categorg);
+        params.put("gender", gender);
+
+        return doPost(RequestUrl.register, params, asyncHttpResponseHandler);
     }
 
 

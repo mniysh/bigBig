@@ -115,6 +115,8 @@
             />
         <activity
             android:name=".activity.SettlementActivity"
+            /> <activity
+            android:name=".activity.QiangDanActivity"
             />
         <activity
             android:name=".activity.SubmitSuccessActivity"

@@ -104,13 +104,13 @@
 			        android:layout_height="wrap_content"
 			        android:orientation="horizontal"
 			        >
-					 <ms.example.ebang.creat.XListView
+					 <com.ms.ebangw.view.XListView
 					     android:id="@+id/act_comment_xlistview"
 					     android:layout_width="fill_parent"
 					     android:layout_height="wrap_content"
 					     
 					        >
-				    </ms.example.ebang.creat.XListView>
+				    </com.ms.ebangw.view.XListView>
 			    </LinearLayout>
 			</LinearLayout> 
 		</ScrollView>

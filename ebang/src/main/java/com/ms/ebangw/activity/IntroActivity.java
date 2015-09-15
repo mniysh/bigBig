@@ -30,10 +30,11 @@ public class IntroActivity extends BaseActivity implements OnClickListener {
 	@Override
 	public void initView() {
 		lin_back=(LinearLayout) findViewById(R.id.act_intro_Lin_back);
+		iv_share=(ImageView) findViewById(R.id.act_intro_share);
 		lin_back.setOnClickListener(this);
 		iv_share.setOnClickListener(this);
 
-		iv_share=(ImageView) findViewById(R.id.act_intro_share);
+
 	}
 
 	@Override

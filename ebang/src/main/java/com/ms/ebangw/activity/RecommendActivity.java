@@ -4,10 +4,13 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.ms.ebangw.R;
+
+import butterknife.OnClick;
 
 /**
  * 亿帮推荐页面
@@ -18,6 +21,9 @@ public class RecommendActivity extends BaseActivity implements OnClickListener {
 
 	private LinearLayout lin_intro,lin_addr,lin_back,lin_know,lin_serivice,lin_zhoubian,lin_comment;
 	private TextView tv_more;
+	private Button bQiangDan01,bQiangDan02;
+
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -36,6 +42,8 @@ public class RecommendActivity extends BaseActivity implements OnClickListener {
 		lin_zhoubian.setOnClickListener(this);
 		lin_comment.setOnClickListener(this);
 		tv_more.setOnClickListener(this);
+		bQiangDan01.setOnClickListener(this);
+		bQiangDan02.setOnClickListener(this);
 	}
 
 	public void initView() {
@@ -46,7 +54,8 @@ public class RecommendActivity extends BaseActivity implements OnClickListener {
 		lin_zhoubian=(LinearLayout) findViewById(R.id.act_recommend_lin_zhoubian);
 		lin_comment=(LinearLayout) findViewById(R.id.act_recommend_lin_comment);
 		tv_more=(TextView) findViewById(R.id.act_recommend_tv_more);
-
+		bQiangDan01= (Button) findViewById(R.id.act_recommend_but01);
+		bQiangDan02= (Button) findViewById(R.id.act_recommend_but02);
 	}
 
 	@Override
@@ -65,10 +74,10 @@ public class RecommendActivity extends BaseActivity implements OnClickListener {
 				this.finish();
 				break;
 			case R.id.act_recommend_lin_know:
-				startActivity(new Intent(this,NoticeActivity.class));
+				startActivity(new Intent(this, NoticeActivity.class));
 				break;
 			case R.id.act_recommend_lin_serivice:
-				startActivity(new Intent(this,ChatActivity.class));
+				startActivity(new Intent(this, ChatActivity.class));
 				break;
 			case R.id.act_recommend_lin_zhoubian:
 				startActivity(new Intent(this,NearActivity.class));
@@ -78,6 +87,12 @@ public class RecommendActivity extends BaseActivity implements OnClickListener {
 				break;
 			case R.id.act_recommend_lin_comment:
 				startActivity(new Intent(this,PublishCommentActivity.class));
+				break;
+			case R.id.act_recommend_but01:
+				startActivity(new Intent(this,ShowActivity.class));
+				break;
+			case R.id.act_recommend_but02:
+				startActivity(new Intent(this,ShowActivity.class));
 				break;
 
 			default:
