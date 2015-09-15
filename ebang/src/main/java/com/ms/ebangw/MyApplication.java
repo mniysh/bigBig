@@ -3,12 +3,12 @@ package com.ms.ebangw;
 import android.app.Activity;
 import android.app.Application;
 
+import com.umeng.analytics.MobclickAgent;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class MyApplication extends Application {
-
-
 
     public static MyApplication instance;
     private int flag_sub;
@@ -24,6 +24,14 @@ public class MyApplication extends Application {
     public void onCreate() {
         super.onCreate();
         instance = this;
+        initUMeng();
+    }
+
+    /**
+     * 初始化友盟    友盟相关log的tag是MobclickAgent。
+     */
+    private void initUMeng() {
+        MobclickAgent.setDebugMode(true);
     }
 
 

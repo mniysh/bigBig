@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageView;
@@ -13,11 +14,13 @@ import android.widget.LinearLayout;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
+import com.ms.ebangw.MyApplication;
 import com.ms.ebangw.R;
 import com.ms.ebangw.fragment.AuthenticationFragment;
 import com.ms.ebangw.fragment.FoundFragment;
 import com.ms.ebangw.fragment.HomeFragment;
 import com.ms.ebangw.fragment.ReleaseFragment;
+import com.ms.ebangw.utils.T;
 
 
 /**
@@ -28,6 +31,7 @@ import com.ms.ebangw.fragment.ReleaseFragment;
 public class HomeActivity extends BaseActivity implements OnClickListener {
 	private RadioGroup act_home_radiog;
 	private FragmentManager fm;
+	private long exitTime = 0;
 
 	private FoundFragment foundFragment;
 	private ReleaseFragment releasefragment;
@@ -75,9 +79,10 @@ public class HomeActivity extends BaseActivity implements OnClickListener {
 		foundFragment=new FoundFragment();
 		releasefragment=new ReleaseFragment();
 	}
+
+
 	@Override
-	protected void onResume() {
-		// TODO Auto-generated method stub
+	public void onResume() {
 		super.onResume();
 		if(null != sp && sp.getInt("flag_int", -1)==1){
 			lin_click[4].performClick();
@@ -142,4 +147,30 @@ public class HomeActivity extends BaseActivity implements OnClickListener {
 			}
 		}
 	}
+
+
+	/**
+	 * 双击退出
+	 */
+	public void exitApp() {
+
+		if ((System.currentTimeMillis() - exitTime) > 2000) {
+			T.show("再按一次退出程序");
+			exitTime = System.currentTimeMillis();
+		} else {
+			MyApplication.getInstance().quit();
+			finish();
+		}
+
+	}
+
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		if (keyCode == KeyEvent.KEYCODE_BACK) {
+			exitApp();
+			return false;
+		}
+		return super.onKeyDown(keyCode, event);
+	}
+
 }
