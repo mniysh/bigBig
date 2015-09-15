@@ -16,6 +16,8 @@ import com.ms.ebangw.view.XListView;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.ButterKnife;
+
 
 public class FoundFragment extends BaseFragment implements XListView.IXListViewListener {
     private Spinner spi_type, spi_KM, spi_area;
@@ -27,9 +29,11 @@ public class FoundFragment extends BaseFragment implements XListView.IXListViewL
     private View mContentView;
 
 
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         mContentView = inflater.inflate(R.layout.fragment_found, null);
+        ButterKnife.bind(this, mContentView);
         return mContentView;
     }
 
@@ -48,7 +52,6 @@ public class FoundFragment extends BaseFragment implements XListView.IXListViewL
         //数据要从服务器后台获取现在没有，暂时用临时数据代替
         FoundBean fb = new FoundBean("测试的url", "临时的title", "临时的距离", "临时的内容", "临时的钱数", "临时的抢单人数");
         datas.add(fb);
-
     }
 
     private void initViewOper() {
