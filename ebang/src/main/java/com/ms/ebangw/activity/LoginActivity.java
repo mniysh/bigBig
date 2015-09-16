@@ -105,7 +105,7 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 				//OtherLogin.login_weixin(LoginActivity.this);
 				break;
 			case R.id.act_login_iv_back:
-				finish();
+				onBackPressed();
 				break;
 			//登录按钮事件
 			case R.id.act_login_but_login:

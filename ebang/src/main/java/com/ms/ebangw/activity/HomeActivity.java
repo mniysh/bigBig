@@ -55,17 +55,12 @@ public class HomeActivity extends BaseActivity implements OnClickListener {
 	}
 
 	public void initView() {
-		// TODO Auto-generated method stub
-
 		lin_click[0]=(LinearLayout) findViewById(R.id.act_home_homebutn);
 		lin_click[1]=(LinearLayout) findViewById(R.id.act_home_foundbutn);
 		lin_click[2]=(LinearLayout) findViewById(R.id.act_home_releasebut);
 		lin_click[3]=(LinearLayout) findViewById(R.id.act_home_serivicebut);
 		lin_click[4]=(LinearLayout) findViewById(R.id.act_home_mainbut);
 		fm = getFragmentManager();
-
-
-
 
 	}
 
@@ -80,15 +75,6 @@ public class HomeActivity extends BaseActivity implements OnClickListener {
 		releasefragment=new ReleaseFragment();
 	}
 
-
-	@Override
-	public void onResume() {
-		super.onResume();
-		if(null != sp && sp.getInt("flag_int", -1)==1){
-			lin_click[4].performClick();
-		}
-	}
-
 	private void operation() {
 		fm = getFragmentManager();
 		for (int i = 0; i < lin_click.length; i++) {
@@ -99,7 +85,6 @@ public class HomeActivity extends BaseActivity implements OnClickListener {
 
 	@Override
 	public void onClick(View v) {
-		// TODO Auto-generated method stub
 		switch (v.getId()) {
 			case R.id.act_home_homebutn:
 				changeState(0);
@@ -135,7 +120,6 @@ public class HomeActivity extends BaseActivity implements OnClickListener {
 	}
 
 	private void changeState(int a) {
-		// TODO Auto-generated method stub
 		for (int i = 0; i < lin_click.length; i++) {
 			if(i==a){
 				((ImageView)(lin_click[i].getChildAt(0))).setImageResource(iv_chick[i]);
