@@ -7,7 +7,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
+import android.widget.TextView;
 
+import com.baidu.location.LocationClient;
+import com.ms.ebangw.MyApplication;
 import com.ms.ebangw.R;
 import com.ms.ebangw.adapter.FoundFragmentAdapter;
 import com.ms.ebangw.bean.FoundBean;
@@ -16,6 +19,7 @@ import com.ms.ebangw.view.XListView;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.Bind;
 import butterknife.ButterKnife;
 
 
@@ -27,8 +31,10 @@ public class FoundFragment extends BaseFragment implements XListView.IXListViewL
     private FoundFragmentAdapter adapter;
     private List<FoundBean> datas;
     private View mContentView;
+    public LocationClient mLocationClient = null;
 
-
+    @Bind(R.id.tv_location)
+    TextView mLocationTv;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -44,6 +50,12 @@ public class FoundFragment extends BaseFragment implements XListView.IXListViewL
         initDatas();
         initView();
         initViewOper();
+        requestLocation();
+    }
+
+    private void requestLocation() {
+        mLocationClient = new LocationClient(mActivity);
+        mLocationClient.requestLocation();
     }
 
 
@@ -52,6 +64,13 @@ public class FoundFragment extends BaseFragment implements XListView.IXListViewL
         //数据要从服务器后台获取现在没有，暂时用临时数据代替
         FoundBean fb = new FoundBean("测试的url", "临时的title", "临时的距离", "临时的内容", "临时的钱数", "临时的抢单人数");
         datas.add(fb);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        mLocationTv.setText(MyApplication.getInstance().getmLocation());
+
     }
 
     private void initViewOper() {
