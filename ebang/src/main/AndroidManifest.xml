@@ -124,8 +124,6 @@
             android:name=".activity.ReleaseActivity"
             />
 
-        <service android:name=".service.MyService"></service>
-
         <!--友盟渠道设置-->
         <meta-data
             android:name="UMENG_APPKEY"
