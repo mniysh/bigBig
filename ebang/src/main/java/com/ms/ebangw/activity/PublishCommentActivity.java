@@ -17,6 +17,7 @@ import android.widget.LinearLayout.LayoutParams;
 import android.widget.PopupWindow;
 
 import com.ms.ebangw.R;
+import com.tencent.weibo.sdk.android.component.PublishActivity;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -44,6 +45,7 @@ public class PublishCommentActivity extends BaseActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_publish_comment);
 		initView();
+		initData();
 		operation();
 	}
 
@@ -56,7 +58,12 @@ public class PublishCommentActivity extends BaseActivity {
 
 	@Override
 	public void initData() {
-
+		initTitle(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				PublishCommentActivity.this.finish();
+			}
+		},"返回","发表评论",null,null);
 	}
 
 	private void operation() {

@@ -13,7 +13,7 @@ import com.ms.ebangw.R;
  *
  */
 public class NoticeActivity extends BaseActivity implements OnClickListener {
-	private LinearLayout lin_back;
+
 
 
 
@@ -29,21 +29,23 @@ public class NoticeActivity extends BaseActivity implements OnClickListener {
 
 	@Override
 	public void initView() {
-		lin_back=(LinearLayout) findViewById(R.id.act_notice_Lin_back);
-		lin_back.setOnClickListener(this);
+
 	}
 
 	@Override
 	public void initData() {
-
+		initTitle(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				NoticeActivity.this.finish();
+			}
+		},"返回","抢单须知",null,null);
 	}
 	@Override
 	public void onClick(View v) {
 		// TODO Auto-generated method stub
 		switch (v.getId()) {
-		case R.id.act_notice_Lin_back:
-			this.finish();
-			break;
+
 		default:
 			break;
 		}

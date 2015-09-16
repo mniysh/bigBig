@@ -4,47 +4,49 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
     
-	    <RelativeLayout 
-	        android:layout_width="fill_parent"
-	        android:layout_height="wrap_content"
-	        android:background="#0075AA"
-	        android:padding="8dp"
-	        >
-	        
-	        <LinearLayout 
-	            android:id="@+id/act_comment_Lin_back"
-	            android:layout_width="wrap_content"
-	            android:layout_height="wrap_content"
-	            android:orientation="horizontal"
-	            android:layout_centerVertical="true"
-	            android:clickable="true"
-	            >
-	            
-	            <ImageView 
-	                android:layout_width="30dp"
-	                android:layout_height="30dp"
-	                android:src="@drawable/jiantou"
-	                />
-	            
-	            <TextView 
-	                android:layout_width="wrap_content"
-	                android:layout_height="wrap_content"
-	                android:text="返回"
-	                android:textColor="#fff"
-	                android:layout_gravity="center_vertical"
-	                android:textSize="17sp"
-	                />
-	        </LinearLayout>
-	        <TextView 
-	            android:layout_width="wrap_content"
-	            android:layout_height="wrap_content"
-	            android:text="点评"
-	            android:textSize="20sp"
-	            android:textColor="#fff"
-	            android:layout_centerInParent="true"
-	            
-	            />
-	    </RelativeLayout>
+	    <!--<RelativeLayout -->
+	        <!--android:layout_width="fill_parent"-->
+	        <!--android:layout_height="wrap_content"-->
+	        <!--android:background="#0075AA"-->
+	        <!--android:padding="8dp"-->
+	        <!-->-->
+	        <!-- -->
+	        <!--<LinearLayout -->
+	            <!--android:id="@+id/act_comment_Lin_back"-->
+	            <!--android:layout_width="wrap_content"-->
+	            <!--android:layout_height="wrap_content"-->
+	            <!--android:orientation="horizontal"-->
+	            <!--android:layout_centerVertical="true"-->
+	            <!--android:clickable="true"-->
+	            <!-->-->
+	            <!-- -->
+	            <!--<ImageView -->
+	                <!--android:layout_width="30dp"-->
+	                <!--android:layout_height="30dp"-->
+	                <!--android:src="@drawable/jiantou"-->
+	                <!--/>-->
+	            <!-- -->
+	            <!--<TextView -->
+	                <!--android:layout_width="wrap_content"-->
+	                <!--android:layout_height="wrap_content"-->
+	                <!--android:text="返回"-->
+	                <!--android:textColor="#fff"-->
+	                <!--android:layout_gravity="center_vertical"-->
+	                <!--android:textSize="17sp"-->
+	                <!--/>-->
+	        <!--</LinearLayout>-->
+	        <!--<TextView -->
+	            <!--android:layout_width="wrap_content"-->
+	            <!--android:layout_height="wrap_content"-->
+	            <!--android:text="点评"-->
+	            <!--android:textSize="20sp"-->
+	            <!--android:textColor="#fff"-->
+	            <!--android:layout_centerInParent="true"-->
+	            <!-- -->
+	            <!--/>-->
+	    <!--</RelativeLayout>-->
+
+	<include layout="@layout/layout_common_title"/>
 	    <!-- 放公司的信息 -->
 	    <ScrollView
 	        android:layout_width="fill_parent"

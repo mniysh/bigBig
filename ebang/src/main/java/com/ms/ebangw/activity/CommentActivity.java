@@ -41,12 +41,19 @@ public class CommentActivity extends BaseActivity implements View.OnClickListene
 		xlistview=(XListView) findViewById(R.id.act_comment_xlistview);
 		iv_collect=(ImageView) findViewById(R.id.act_comment_collect);
 		iv_share=(ImageView) findViewById(R.id.act_comment_share);
-		lin_back=(LinearLayout) findViewById(R.id.act_comment_Lin_back);
+		//lin_back=(LinearLayout) findViewById(R.id.act_comment_Lin_back);
 
 	}
 
 	@Override
 	public void initData() {
+		initTitle(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				CommentActivity.this.finish();
+			}
+		},"返回","点评",null,null);
+
 
 	}
 
@@ -96,9 +103,9 @@ public class CommentActivity extends BaseActivity implements View.OnClickListene
 	public void onClick(View v) {
 		// TODO Auto-generated method stub
 		switch (v.getId()) {
-			case R.id.act_comment_Lin_back:
-				finish();
-				break;
+//			case R.id.act_comment_Lin_back:
+//				finish();
+//				break;
 			case R.id.act_comment_share:
 				showShare();
 

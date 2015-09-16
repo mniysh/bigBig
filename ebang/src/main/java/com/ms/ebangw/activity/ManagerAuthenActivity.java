@@ -2,6 +2,7 @@ package com.ms.ebangw.activity;
 
 import android.app.FragmentManager;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.RadioGroup;
 import android.widget.RadioGroup.OnCheckedChangeListener;
 
@@ -28,6 +29,12 @@ public class ManagerAuthenActivity extends BaseActivity implements OnCheckedChan
 		// TODO Auto-generated method stub
 		fManager.beginTransaction().replace(R.id.act_managerauthen_frame, mBase).commit();
 		rGroup.setOnCheckedChangeListener(this);
+		initTitle(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				ManagerAuthenActivity.this.finish();
+			}
+		},"返回","工长认证",null,null);
 	}
 
 	public void initView() {

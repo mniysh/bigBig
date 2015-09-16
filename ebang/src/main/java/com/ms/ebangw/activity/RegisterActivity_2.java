@@ -74,6 +74,13 @@ public class RegisterActivity_2 extends BaseActivity implements OnClickListener 
 //		iv_weibo.setOnClickListener(this);
 //		iv_weixin.setOnClickListener(this);
 		but_register.setOnClickListener(this);
+		initTitle(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				RegisterActivity_2.this.finish();
+			}
+		},"返回","设置密码",null,null);
+
 	}
 	public void getDatas(){
 		et_passwordValue01=et_password01.getText().toString().trim();

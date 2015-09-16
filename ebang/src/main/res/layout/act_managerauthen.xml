@@ -4,42 +4,44 @@
     android:layout_height="match_parent"
     android:background="#fff"
     android:orientation="vertical" >
-    <RelativeLayout
-        android:layout_width="fill_parent"
-        android:layout_height="50dp"
-        android:background="#0075AA" >
+    <!--<RelativeLayout-->
+        <!--android:layout_width="fill_parent"-->
+        <!--android:layout_height="50dp"-->
+        <!--android:background="#0075AA" >-->
 
-        <LinearLayout
-            android:id="@+id/act_chat_Lin_back"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:clickable="true"
-            android:orientation="horizontal" >
+        <!--<LinearLayout-->
+            <!--android:id="@+id/act_chat_Lin_back"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_centerVertical="true"-->
+            <!--android:clickable="true"-->
+            <!--android:orientation="horizontal" >-->
 
-            <ImageView
-                android:layout_width="30dp"
-                android:layout_height="28dp"
-                android:paddingLeft="15dp"
-                android:src="@drawable/jiantou" />
+            <!--<ImageView-->
+                <!--android:layout_width="30dp"-->
+                <!--android:layout_height="28dp"-->
+                <!--android:paddingLeft="15dp"-->
+                <!--android:src="@drawable/jiantou" />-->
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:text="返回"
-                android:textColor="#fff"
-                android:textSize="15sp" />
-        </LinearLayout>
+            <!--<TextView-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_gravity="center_vertical"-->
+                <!--android:text="返回"-->
+                <!--android:textColor="#fff"-->
+                <!--android:textSize="15sp" />-->
+        <!--</LinearLayout>-->
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:text="工长认证"
-            android:textColor="#fff"
-            android:textSize="20sp" />
-    </RelativeLayout>
+        <!--<TextView-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_centerInParent="true"-->
+            <!--android:text="工长认证"-->
+            <!--android:textColor="#fff"-->
+            <!--android:textSize="20sp" />-->
+    <!--</RelativeLayout>-->
+    <include layout="@layout/layout_common_title"/>
+
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"

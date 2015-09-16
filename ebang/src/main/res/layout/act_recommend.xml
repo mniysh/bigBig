@@ -5,45 +5,47 @@
     
     android:orientation="vertical" >
 
-    <RelativeLayout 
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:background="#0075AA"
-        android:padding="8dp"
-        >
-        <LinearLayout 
-            android:id="@+id/act_recommend_Lin_back"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_centerVertical="true"
-            android:clickable="true"
-            >
-            
-            <ImageView 
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:src="@drawable/jiantou"
-                />
-            <TextView 
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="返回"
-                android:textColor="#fff"
-                android:layout_gravity="center_vertical"
-                android:textSize="15sp"
-                />
-        </LinearLayout>
-        <TextView 
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="亿帮无忧推荐"
-            android:textSize="18sp"
-            android:textColor="#fff"
-            android:layout_centerInParent="true"
-            
-            />
-    </RelativeLayout>
+    <!--<RelativeLayout -->
+        <!--android:layout_width="fill_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:background="#0075AA"-->
+        <!--android:padding="8dp"-->
+        <!-->-->
+        <!--<LinearLayout -->
+            <!--android:id="@+id/act_recommend_Lin_back"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:orientation="horizontal"-->
+            <!--android:layout_centerVertical="true"-->
+            <!--android:clickable="true"-->
+            <!-->-->
+            <!-- -->
+            <!--<ImageView -->
+                <!--android:layout_width="30dp"-->
+                <!--android:layout_height="30dp"-->
+                <!--android:src="@drawable/jiantou"-->
+                <!--/>-->
+            <!--<TextView -->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:text="返回"-->
+                <!--android:textColor="#fff"-->
+                <!--android:layout_gravity="center_vertical"-->
+                <!--android:textSize="15sp"-->
+                <!--/>-->
+        <!--</LinearLayout>-->
+        <!--<TextView -->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="亿帮无忧推荐"-->
+            <!--android:textSize="18sp"-->
+            <!--android:textColor="#fff"-->
+            <!--android:layout_centerInParent="true"-->
+            <!-- -->
+            <!--/>-->
+    <!--</RelativeLayout>-->
+    <include layout="@layout/layout_common_title"/>
+
     <ScrollView 
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"

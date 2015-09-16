@@ -24,7 +24,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
- * 发布信息的页面
+ * 发布信息的页面,此页面没有用，最后删掉
  * @author admin
  *
  */

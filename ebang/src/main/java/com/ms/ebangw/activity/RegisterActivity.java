@@ -30,7 +30,6 @@ import java.util.regex.Pattern;
 public class RegisterActivity extends BaseActivity implements OnClickListener {
 	private Button but_check,but_register;
 	private boolean flag_check=true;
-	private ImageView iv_back,iv_qq,iv_weibo,iv_weixin;
 	private EditText et_phone,et_code;
 	private String et_phone_content,et_code_content;
 	//mob的appkey和appsecret
@@ -121,20 +120,18 @@ public class RegisterActivity extends BaseActivity implements OnClickListener {
 		// TODO Auto-generated method stub
 		but_check.setOnClickListener(this);
 		but_register.setOnClickListener(this);
-		iv_back.setOnClickListener(this);
-		iv_qq.setOnClickListener(this);
-		iv_weibo.setOnClickListener(this);
-		iv_weixin.setOnClickListener(this);
+		initTitle(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				RegisterActivity.this.finish();
+			}
+		},"返回","注册",null,null);
 	}
 
 	public void initView() {
 		// TODO Auto-generated method stub
 		but_check=(Button) this.findViewById(R.id.act_register_check);
 		but_register=(Button) this.findViewById(R.id.act_register_register);
-		iv_back=(ImageView) findViewById(R.id.act_register_iv_back);
-		iv_qq=(ImageView) findViewById(R.id.act_register_iv_qq);
-		iv_weibo=(ImageView) findViewById(R.id.act_register_iv_weibo);
-		iv_weixin=(ImageView) findViewById(R.id.act_register_iv_weixin);
 		et_phone=(EditText) findViewById(R.id.act_register_et_phone);
 		et_code=(EditText) findViewById(R.id.act_register_et_code);
 	}
@@ -180,9 +177,7 @@ public class RegisterActivity extends BaseActivity implements OnClickListener {
 				}
 				break;
 			//back键，finish（）掉当前的activity
-			case R.id.act_register_iv_back:
-				finish();
-				break;
+
 			//点击注册按钮进行一些判定
 			case R.id.act_register_register:
 				if(et_code_content!=null&&et_phone_content!=null){
@@ -201,13 +196,7 @@ public class RegisterActivity extends BaseActivity implements OnClickListener {
 
 				break;
 			//微博按钮
-			case R.id.act_register_iv_weibo:
-//				OtherLogin.login_weibo(RegisterActivity.this);
-				break;
-			//
-			case R.id.act_register_iv_weixin:
-				OtherLogin.login_weixin(RegisterActivity.this);
-				break;
+
 			default:
 				break;
 		}

@@ -30,7 +30,7 @@ public class ShowActivity extends BaseActivity implements OnClickListener {
 	private String[] str2={"李四","时间","状态"};
 	private String[] str3={"王五","时间","状态"};
 
-	private LinearLayout lBack;
+
 	private Button bQiangdan;
 
 
@@ -53,13 +53,18 @@ public class ShowActivity extends BaseActivity implements OnClickListener {
 		adapter=new ShowTableAdapter(this,datas);
 		lTable.setAdapter(adapter);
 		setListView(lTable);
-		lBack.setOnClickListener(this);
 		bQiangdan.setOnClickListener(this);
+		initTitle(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				ShowActivity.this.finish();
+			}
+		},"返回","企业展示",null,null);
+
 	}
 
 	public void initView() {
 		lTable= (ListView) findViewById(R.id.act_show_listview);
-		lBack= (LinearLayout) findViewById(R.id.act_show_Lin_back);
 		bQiangdan= (Button) findViewById(R.id.act_show_qiangdan);
 	}
 
@@ -93,10 +98,7 @@ public class ShowActivity extends BaseActivity implements OnClickListener {
 	@Override
 	public void onClick(View v) {
 		switch(v.getId()){
-			case R.id.act_show_Lin_back:
-				this.finish();
 
-				break;
 			//点击立刻抢单跳转
 			case R.id.act_show_qiangdan:
 				L.d("xxx", "跳转能不能进来");

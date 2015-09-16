@@ -53,7 +53,12 @@ public class SelfAuthenticationActivity extends BaseActivity implements OnChecke
 		sp_sheng.setOnItemSelectedListener(this);
 		sp_shi.setOnItemSelectedListener(this);
 		sp_qu.setOnItemSelectedListener(this);
-
+		initTitle(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				SelfAuthenticationActivity.this.finish();
+			}
+		},"返回","个人认证",null,null);
 
 		but_submit.setOnClickListener(this);
 

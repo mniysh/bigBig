@@ -19,7 +19,7 @@ import butterknife.OnClick;
  */
 public class RecommendActivity extends BaseActivity implements OnClickListener {
 
-	private LinearLayout lin_intro,lin_addr,lin_back,lin_know,lin_serivice,lin_zhoubian,lin_comment;
+	private LinearLayout lin_intro,lin_addr,lin_know,lin_serivice,lin_zhoubian,lin_comment;
 	private TextView tv_more;
 	private Button bQiangDan01,bQiangDan02;
 
@@ -36,7 +36,6 @@ public class RecommendActivity extends BaseActivity implements OnClickListener {
 
 	private void initViewOper() {
 		lin_intro.setOnClickListener(this);
-		lin_back.setOnClickListener(this);
 		lin_know.setOnClickListener(this);
 		lin_serivice.setOnClickListener(this);
 		lin_zhoubian.setOnClickListener(this);
@@ -44,11 +43,16 @@ public class RecommendActivity extends BaseActivity implements OnClickListener {
 		tv_more.setOnClickListener(this);
 		bQiangDan01.setOnClickListener(this);
 		bQiangDan02.setOnClickListener(this);
+		initTitle(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				RecommendActivity.this.finish();
+			}
+		},"返回","亿帮推荐",null,null);
 	}
 
 	public void initView() {
 		lin_intro=(LinearLayout) findViewById(R.id.act_recomment_Lin_intro);
-		lin_back=(LinearLayout) findViewById(R.id.act_recommend_Lin_back);
 		lin_know=(LinearLayout) findViewById(R.id.act_recommend_lin_know);
 		lin_serivice=(LinearLayout) findViewById(R.id.act_recommend_lin_serivice);
 		lin_zhoubian=(LinearLayout) findViewById(R.id.act_recommend_lin_zhoubian);
@@ -70,9 +74,7 @@ public class RecommendActivity extends BaseActivity implements OnClickListener {
 			case R.id.act_recomment_Lin_intro:
 				startActivity(new Intent(this,IntroActivity.class));
 				break;
-			case R.id.act_recommend_Lin_back:
-				this.finish();
-				break;
+
 			case R.id.act_recommend_lin_know:
 				startActivity(new Intent(this, NoticeActivity.class));
 				break;

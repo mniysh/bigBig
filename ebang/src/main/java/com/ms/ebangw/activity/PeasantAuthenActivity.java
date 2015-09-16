@@ -31,6 +31,12 @@ public class PeasantAuthenActivity extends BaseActivity implements OnClickListen
 		// TODO Auto-generated method stub
 		fm.beginTransaction().replace(R.id.act_pea_frame, pBase).commit();
 		rGroup.setOnCheckedChangeListener(this);
+		initTitle(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				PeasantAuthenActivity.this.finish();
+			}
+		},"返回","农民工认证",null,null);
 		
 	}
 

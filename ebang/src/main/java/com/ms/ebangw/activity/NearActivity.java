@@ -2,6 +2,7 @@ package com.ms.ebangw.activity;
 
 import android.os.Bundle;
 import android.os.Handler;
+import android.view.View;
 
 import com.ms.ebangw.R;
 import com.ms.ebangw.adapter.NearAdapter;
@@ -48,6 +49,12 @@ public class NearActivity extends BaseActivity implements XListView.IXListViewLi
 		xlistview.setXListViewListener(this);//滑动监听
 		xlistview.setPullLoadEnable(true);// 上拉加载
 		handler = new Handler();
+		initTitle(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				NearActivity.this.finish();
+			}
+		},"返回","查看附近的工作",null,null);
 	}
 
 	private void onload() {

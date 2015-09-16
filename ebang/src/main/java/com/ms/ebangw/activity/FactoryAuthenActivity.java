@@ -2,6 +2,7 @@ package com.ms.ebangw.activity;
 
 import android.app.FragmentManager;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.RadioGroup;
 import android.widget.RadioGroup.OnCheckedChangeListener;
 
@@ -30,6 +31,12 @@ public class FactoryAuthenActivity extends BaseActivity implements OnCheckedChan
 		// TODO Auto-generated method stub
 		fManager.beginTransaction().replace(R.id.act_facauthen_frame, fFactory).commit();
 		rGroup.setOnCheckedChangeListener(this);
+		initTitle(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+
+			}
+		},"返回","企业认证",null,null);
 	}
 
 	public void initView() {

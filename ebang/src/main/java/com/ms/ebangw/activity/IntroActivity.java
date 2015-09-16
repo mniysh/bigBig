@@ -13,7 +13,7 @@ import com.ms.ebangw.R;
  */
 
 public class IntroActivity extends BaseActivity implements OnClickListener {
-	private LinearLayout lin_back;
+
 	private ImageView iv_share;
 
 
@@ -29,9 +29,9 @@ public class IntroActivity extends BaseActivity implements OnClickListener {
 	}
 	@Override
 	public void initView() {
-		lin_back=(LinearLayout) findViewById(R.id.act_intro_Lin_back);
+		//lin_back=(LinearLayout) findViewById(R.id.act_intro_Lin_back);
 		iv_share=(ImageView) findViewById(R.id.act_intro_share);
-		lin_back.setOnClickListener(this);
+		//lin_back.setOnClickListener(this);
 		iv_share.setOnClickListener(this);
 
 
@@ -39,16 +39,21 @@ public class IntroActivity extends BaseActivity implements OnClickListener {
 
 	@Override
 	public void initData() {
-
+		initTitle(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				IntroActivity.this.finish();
+			}
+		},"返回","企业简介",null,null);
 	}
 
 	@Override
 	public void onClick(View v) {
 		// TODO Auto-generated method stub
 		switch (v.getId()) {
-			case R.id.act_intro_Lin_back:
-				this.finish();
-				break;
+//			case R.id.act_intro_Lin_back:
+//				this.finish();
+//				break;
 			case R.id.act_intro_share:
 
 
