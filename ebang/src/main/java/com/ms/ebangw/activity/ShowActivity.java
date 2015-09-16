@@ -63,6 +63,7 @@ public class ShowActivity extends BaseActivity implements OnClickListener {
 
 	}
 
+
 	public void initView() {
 		lTable= (ListView) findViewById(R.id.act_show_listview);
 		bQiangdan= (Button) findViewById(R.id.act_show_qiangdan);

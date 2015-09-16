@@ -116,6 +116,12 @@ public class PublishCommentActivity extends BaseActivity {
 						backgroundAlpha(1.0f);
 					}
 				});
+				pw.setOnDismissListener(new PopupWindow.OnDismissListener() {
+					@Override
+					public void onDismiss() {
+						backgroundAlpha(1.0f);
+					}
+				});
 				backgroundAlpha(0.5f);
 				pw.setOutsideTouchable(true);
 				pw.showAtLocation(camera, Gravity.CENTER_VERTICAL, 0, 0);

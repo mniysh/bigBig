@@ -106,7 +106,8 @@ public class HomeActivity extends BaseActivity implements OnClickListener {
 				//判断现在是否是注册完的状态，没注册就跳转到注册的页面,暂时先放放
 				sp=getSharedPreferences("shuju", MODE_PRIVATE);
 				Log.i("aaa", "flag_int的值是"+sp.getInt("flag_int", -1));
-				if(null == sp && sp.getInt("flag_int", -1)==1){
+				if(null != sp && sp.getInt("flag_int", -1)==1){
+					Log.i("aaa", "flag_int的值是"+"能否进来");
 					authenticationfragment=new AuthenticationFragment();
 					fm.beginTransaction().replace(R.id.act_home_frag, authenticationfragment).commit();
 				}else{

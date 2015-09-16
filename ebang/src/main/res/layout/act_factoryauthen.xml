@@ -57,16 +57,17 @@
 
             <RadioButton
                 android:id="@+id/act_fac_rb_base"
-                android:layout_width="150dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"
+
                 android:button="@drawable/sel_but_base"
                 android:checked="true"
                 android:padding="5dp" />
 
             <RadioButton
                 android:id="@+id/act_fac_rb_bank"
-                android:layout_width="150dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:button="@drawable/sel_fac"
                 android:padding="5dp" />

@@ -37,7 +37,6 @@
 		        android:layout_width="wrap_content"
 		        android:layout_height="50dp"
 		        android:orientation="horizontal"
-		        android:padding="10dp"
 		        >
 		            
 		        <TextView 
@@ -52,10 +51,9 @@
 	    	        android:paddingLeft="5dp"
 	    	        android:id="@+id/act_release_spinner_qu"
 	    	        android:layout_marginLeft="5dp"
-	    	        android:layout_height="30dp"
-	    	        android:layout_width="100dp"
-	    	        android:background="@drawable/spin_bk"
-	    	        
+	    	        android:layout_height="wrap_content"
+	    	        android:layout_width="wrap_content"
+
 	    	        />
 		       <!-- <LinearLayout 
 	    	        android:layout_width="wrap_content"
@@ -76,9 +74,8 @@
 	    	     <Spinner 
 	    	        android:id="@+id/act_release_spinner_lu"
 	    	        android:layout_marginLeft="5dp"
-	    	        android:layout_height="30dp"
-	    	        android:layout_width="100dp"
-	    	        android:background="@drawable/spin_bk"
+	    	        android:layout_height="wrap_content"
+	    	        android:layout_width="wrap_content"
 	    	        />
 	    	     <!--  
 		        <LinearLayout 
@@ -151,10 +148,10 @@
 	    	    <Spinner 
 	    	        android:id="@+id/act_release_spinner_style"
 	    	        android:layout_marginLeft="5dp"
-	    	        android:layout_height="30dp"
-	    	        android:layout_width="100dp"
+	    	        android:layout_height="wrap_content"
+	    	        android:layout_width="wrap_content"
 	    	        android:paddingLeft="5dp"
-	    	        android:background="@drawable/spin_bk"
+
 	    	        />
 	    	    <!--  
 	    	    

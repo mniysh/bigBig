@@ -23,7 +23,6 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
     private TextView tv_register;
     private TextView tv_findpassword;
 
-
     private EditText et_username, et_password;
     private String et_username_content, et_password_content;
     private Button but_login;

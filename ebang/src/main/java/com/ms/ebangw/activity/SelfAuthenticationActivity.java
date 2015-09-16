@@ -37,6 +37,7 @@ public class SelfAuthenticationActivity extends BaseActivity implements OnChecke
 	private PopupWindow pw;
 	private LinearLayout layout;
 	private boolean flag_submit=true;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -166,28 +167,36 @@ public class SelfAuthenticationActivity extends BaseActivity implements OnChecke
 				}
 				Log.i("aaa", "长度是"+et_identity_value.length());
 				if(et_identity_value.length()==18||et_identity_value.length()==16){
+					layout=(LinearLayout) getLayoutInflater().inflate(R.layout.popup_lay, null, false);
+					pw=new PopupWindow(layout,600, LayoutParams.WRAP_CONTENT);
+					pw.setBackgroundDrawable(new BitmapDrawable());
+					Log.i("aaa", "layout的值是" + layout.toString());
+					layout.findViewById(R.id.popup_lay_iv_back).setOnClickListener(new OnClickListener() {
+						@Override
+						public void onClick(View v) {
+							// TODO Auto-generated method stub
+							backgroundAlpha(1.0f);
+							pw.dismiss();
+							flag_submit = !flag_submit;
+						}
+					});
+					backgroundAlpha(0.5f);
+					pw.setOutsideTouchable(true);
 
+					pw.setOnDismissListener(new PopupWindow.OnDismissListener() {
+						@Override
+						public void onDismiss() {
+							backgroundAlpha(1.0f);
+						}
+					});
+
+					pw.showAtLocation(but_submit, Gravity.TOP, 0, 150);
 				}else{
 					T.show("身份证号位数不正确");
 				}
 				//验证合格后把所有的数据打包到bean里面
 
 
-				layout=(LinearLayout) getLayoutInflater().inflate(R.layout.popup_lay, null, false);
-				pw=new PopupWindow(layout,600, LayoutParams.WRAP_CONTENT);
-				pw.setBackgroundDrawable(new BitmapDrawable());
-				Log.i("aaa", "layout的值是"+layout.toString());
-				layout.findViewById(R.id.popup_lay_iv_back).setOnClickListener(new OnClickListener() {
-					@Override
-					public void onClick(View v) {
-						// TODO Auto-generated method stub
-						backgroundAlpha(1.0f);
-						pw.dismiss();
-						flag_submit=!flag_submit;
-					}
-				});
-				backgroundAlpha(0.5f);
-				pw.showAtLocation(but_submit, Gravity.TOP, 0, 150);
 
 
 

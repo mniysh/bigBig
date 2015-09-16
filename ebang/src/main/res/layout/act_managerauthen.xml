@@ -59,7 +59,7 @@
 
             <RadioButton
                 android:id="@+id/act_mana_rb_base"
-                android:layout_width="150dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"
                 android:button="@drawable/sel_but_base"
@@ -68,7 +68,7 @@
 
             <RadioButton
                 android:id="@+id/act_mana_rb_bank"
-                android:layout_width="150dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:button="@drawable/sel_peasant_bank"
                 android:padding="5dp" />

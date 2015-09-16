@@ -7,18 +7,23 @@ import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnFocusChangeListener;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
+import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
+import android.widget.SpinnerAdapter;
+import android.widget.TextView;
 
 import com.ms.ebangw.R;
 import com.ms.ebangw.bean.PostMeassge;
 import com.ms.ebangw.utils.T;
+import com.ms.ebangw.view.ViewHolder;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -54,6 +59,7 @@ public class ReleaseActivity extends BaseActivity implements OnClickListener, On
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.frag_release);
 		initView();
+		initData();
 		initViewOper();
 
 	}
@@ -78,7 +84,9 @@ public class ReleaseActivity extends BaseActivity implements OnClickListener, On
 
 	@Override
 	public void initData() {
-
+		datas_qu=getResources().getStringArray(R.array.release_add_qu);
+		datas_lu=getResources().getStringArray(R.array.release_add_lu);
+		datas_type=getResources().getStringArray(R.array.release_add_style);
 	}
 
 	//取值
@@ -109,10 +117,35 @@ public class ReleaseActivity extends BaseActivity implements OnClickListener, On
 		ArrayAdapter<String> adapter01=new ArrayAdapter<String>(this, R.layout.sim_spinner_item);
 		ArrayAdapter<String> adapter02=new ArrayAdapter<String>(this, R.layout.sim_spinner_item);
 		ArrayAdapter<String> adapter03=new ArrayAdapter<String>(this, R.layout.sim_spinner_item);
+		BaseAdapter aQu=new BaseAdapter() {
+			@Override
+			public int getCount() {
+				return datas_qu.length;
+			}
 
-		datas_qu=getResources().getStringArray(R.array.release_add_qu);
-		datas_lu=getResources().getStringArray(R.array.release_add_lu);
-		datas_type=getResources().getStringArray(R.array.release_add_style);
+			@Override
+			public Object getItem(int position) {
+				return datas_qu[position];
+			}
+
+			@Override
+			public long getItemId(int position) {
+				return position;
+			}
+
+			@Override
+			public View getView(int position, View convertView, ViewGroup parent) {
+				if(convertView==null){
+					convertView=getLayoutInflater().inflate(R.layout.spin_style,null);
+				}
+				TextView tContent= ViewHolder.get(convertView,R.id.spin_sytle_content);
+
+
+				return convertView;
+			}
+		};
+
+
 		for (int i = 0; i < datas_qu.length; i++) {
 			adapter01.add(datas_qu[i]);
 		}
@@ -122,7 +155,7 @@ public class ReleaseActivity extends BaseActivity implements OnClickListener, On
 		for (int i = 0; i < datas_lu.length; i++) {
 			adapter02.add(datas_lu[i]);
 		}
-		spi_lu.setAdapter(adapter02);
+		//spi_lu.setAdapter(adapter02);
 
 		for (int i = 0; i < datas_type.length; i++) {
 			adapter03.add(datas_type[i]);

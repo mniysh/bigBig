@@ -243,6 +243,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="20dp"
+                android:textColor="@color/black"
                 android:layout_marginLeft="5dp"
                 android:text="真实姓名:" />
             <EditText 
@@ -275,6 +276,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="20dp"
+                android:textColor="@color/black"
                 android:layout_marginLeft="5dp"
                 android:text="身份证号:" />
             <EditText 
@@ -282,6 +284,7 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:hint="请输入身份证号"
+
                 android:layout_marginLeft="10dp"
                 android:maxLength="18"
                 android:textColor="@color/black"
@@ -308,6 +311,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="20dp"
+                android:textColor="@color/black"
                 android:layout_marginLeft="5dp"
                 android:text="手机号:" />
             <EditText 
@@ -341,6 +345,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="20dp"
+                android:textColor="@color/black"
                 android:layout_marginLeft="5dp"
                 android:text="性别:" />
             <RadioGroup 
@@ -390,6 +395,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="20dp"
+                android:textColor="@color/black"
                 android:layout_marginLeft="5dp"
                 android:text="籍贯:" />
             <Spinner 
@@ -422,8 +428,9 @@
             />
     <Button 
         android:id="@+id/act_self_but_submit"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:textSize="20sp"
         android:layout_marginTop="50dp"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
