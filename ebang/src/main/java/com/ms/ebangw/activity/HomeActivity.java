@@ -21,6 +21,7 @@ import com.ms.ebangw.fragment.FoundFragment;
 import com.ms.ebangw.fragment.HomeFragment;
 import com.ms.ebangw.fragment.ReleaseFragment;
 import com.ms.ebangw.utils.T;
+import com.umeng.update.UmengUpdateAgent;
 
 
 /**
@@ -52,6 +53,7 @@ public class HomeActivity extends BaseActivity implements OnClickListener {
 		fm.beginTransaction().replace(R.id.act_home_frag,new HomeFragment()).commit();
 		initFrament();
 		operation();
+		initUMengUpdate();
 	}
 
 	public void initView() {
@@ -133,6 +135,12 @@ public class HomeActivity extends BaseActivity implements OnClickListener {
 		}
 	}
 
+	/**
+	 * 友盟版本更新
+	 */
+	public void initUMengUpdate() {
+		UmengUpdateAgent.update(this);
+	}
 
 	/**
 	 * 双击退出
