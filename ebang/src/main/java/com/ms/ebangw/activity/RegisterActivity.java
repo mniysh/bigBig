@@ -1,25 +1,25 @@
 package com.ms.ebangw.activity;
 
-import android.content.BroadcastReceiver;
-import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.graphics.Color;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
+
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 
+import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.loopj.android.http.JsonHttpResponseHandler;
 import com.ms.ebangw.MyApplication;
 import com.ms.ebangw.R;
-
-import com.ms.ebangw.utils.OtherLogin;
+import com.ms.ebangw.service.DataAccessUtil;
 import com.ms.ebangw.utils.T;
+
+
+import org.apache.http.Header;
+import org.json.JSONObject;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -33,8 +33,6 @@ public class RegisterActivity extends BaseActivity implements OnClickListener {
 	private EditText et_phone,et_code;
 	private String et_phone_content,et_code_content;
 	//mob的appkey和appsecret
-	private String APPKEY="9b3017e847ab";
-	private String APPSECRET="beaf59b0e3f348a6cf36602c1a40c969";
 
 
 
@@ -48,7 +46,7 @@ public class RegisterActivity extends BaseActivity implements OnClickListener {
 		initView();
 		getDatas();
 		initViewOper();
-
+		IntentFilter filter=new IntentFilter("RegisterActivity");
 
 	}
 	//获取文本框信息
@@ -91,8 +89,9 @@ public class RegisterActivity extends BaseActivity implements OnClickListener {
 			//点击注册按钮进行一些判定
 			case R.id.act_register_register:
 				if(et_code_content!=null&&et_phone_content!=null){
-					//toast("能进来");
-					//SMSSDK.submitVerificationCode("86",et_phone_content , et_code_content);
+
+
+
 					Intent intent=new Intent(RegisterActivity.this,RegisterActivity_2.class);
 					getDatas();
 					MyApplication.instance.setPhone(et_phone_content);
@@ -102,6 +101,28 @@ public class RegisterActivity extends BaseActivity implements OnClickListener {
 					et_phone.setText("");
 					et_code.setText("");
 					RegisterActivity.this.finish();
+				}
+
+				break;
+			case R.id.act_register_check:
+				getDatas();
+				if(et_phone_content==null||et_phone_content.equals("")){
+					T.show("手机号不能为空");
+				}else{
+					DataAccessUtil.messageCode(et_phone_content, new JsonHttpResponseHandler(){
+
+						@Override
+						public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+							super.onSuccess(statusCode, headers, response);
+							T.show("成功，状态吗是"+statusCode);
+						}
+
+						@Override
+						public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+							super.onFailure(statusCode, headers, throwable, errorResponse);
+							T.show("失败，状态吗是"+statusCode);
+						}
+					});
 				}
 
 				break;
@@ -116,7 +137,6 @@ public class RegisterActivity extends BaseActivity implements OnClickListener {
 	protected void onDestroy() {
 		// TODO Auto-generated method stub
 		super.onDestroy();
-
 	}
 	//正则判断数字组成
 	public boolean isNumeric(String str)

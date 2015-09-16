@@ -11,8 +11,14 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.loopj.android.http.JsonHttpResponseHandler;
 import com.ms.ebangw.R;
+import com.ms.ebangw.service.DataAccessUtil;
+import com.ms.ebangw.utils.L;
 import com.ms.ebangw.utils.T;
+
+import org.apache.http.Header;
+import org.json.JSONObject;
 
 
 /**
@@ -54,9 +60,7 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
         // TODO Auto-generated method stub
         tv_register.setOnClickListener(this);
         tv_findpassword.setOnClickListener(this);
-//        iv_qq.setOnClickListener(this);
-//        iv_weibo.setOnClickListener(this);
-//        iv_weixin.setOnClickListener(this);
+
         but_login.setOnClickListener(this);
         tv_findpassword.setOnClickListener(this);
         initTitle(new OnClickListener() {
@@ -74,9 +78,7 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
         et_password = (EditText) findViewById(R.id.act_login_edit_password);
         tv_register = (TextView) findViewById(R.id.act_login_register);
         tv_findpassword = (TextView) findViewById(R.id.act_login_find_password);
-//        iv_qq = (ImageView) findViewById(R.id.act_login_iv_qq);
-//        iv_weibo = (ImageView) findViewById(R.id.act_login_iv_weibo);
-//        iv_weixin = (ImageView) findViewById(R.id.act_login_iv_weixin);
+
         but_login = (Button) findViewById(R.id.act_login_but_login);
 
     }
@@ -109,6 +111,22 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
                 }
                 if (check_user(et_username_content, et_password_content)) {
                     //这里应该跳转到用户中心
+                    DataAccessUtil.login(et_username_content,et_password_content,new JsonHttpResponseHandler(){
+                        @Override
+                        public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                            super.onSuccess(statusCode, headers, response);
+                            T.show("成功，返回码是" + statusCode);
+                            L.d("ccc",response.toString());
+
+                        }
+
+                        @Override
+                        public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                            super.onFailure(statusCode, headers, throwable, errorResponse);
+                            T.show("成功，返回码是" + statusCode);
+                        }
+                    });
+
                 } else {
                     T.show("输入的用户名或者密码错误，请重新输入");
                     empty_content();
@@ -126,7 +144,8 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
     private boolean check_user(String et_username_content2,
                                String et_password_content2) {
         // TODO Auto-generated method stub
-        return false;
+
+        return true;
     }
 
     //清空文本框
