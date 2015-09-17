@@ -1,9 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
+    <!--系统相关颜色-->
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
     <color name="black_overlay">#66000000</color>
+
+
+
+
+    <!--start-->
+    <color name="aa">#fff</color>
+    <color name="back">#0075AA</color>
+    <color name="gray">#bbbbbb</color>
+    <color name="gray_text">#383838</color>
+    <color name="blue">#0091F7</color>
+    <color name="gray_spinner_item">#f2f2f2</color>
+    <color name="white">#ffffff</color>
+    <color name="blue_title">#0075AA</color>
+    <color name="black">#000000</color>
+    <color name="but_gerenrenzheng">#08B878</color>
+    <color name="but_wugong">#0075AA</color>
+    <color name="but_gongzhang">#FF628F</color>
+    <color name="but_kaifashang">#FF9600</color>
+    <color name="auther_red">#EE2126</color>
+    <color name="gray_back">#EEEEEE</color>
+    <!--end-->
 
     <!--标题栏-->
     <color name="titleBar_bg">#0075AA</color>

@@ -5,46 +5,7 @@
     android:background="#F0F0F0"
     
     android:orientation="vertical" >
-    <!--<RelativeLayout -->
-        <!--android:id="@+id/act_login_rel01"-->
-        <!--android:layout_width="fill_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:background="#0075AA"-->
-        <!--android:padding="5dp"-->
-        <!-->-->
-        <!--<LinearLayout -->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:orientation="horizontal"-->
-            <!--android:layout_marginLeft="10dp"-->
-            <!-->-->
-        <!--<ImageView-->
-            <!--android:id="@+id/act_login_iv_back"-->
-            <!--android:layout_width="28dp"-->
-            <!--android:layout_height="28dp"-->
-            <!--android:src="@drawable/jiantou"-->
-            <!--android:layout_centerVertical="true"-->
-             <!--/>-->
-        <!--<TextView -->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:text="返回"-->
-            <!--android:textColor="#fff"-->
-            <!--android:textSize="16sp"-->
-            <!--android:layout_gravity="center_vertical"-->
-            <!-- -->
-            <!--/>-->
-        <!--</LinearLayout>-->
-        <!--<TextView -->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:text="登录"-->
-            <!--android:textSize="20sp"-->
-            <!--android:textColor="#fff"-->
-            <!--android:layout_centerInParent="true"-->
-            <!--/>-->
-    <!--</RelativeLayout>-->
-    <!-- -->
+
     <include
         android:id="@+id/act_login_rel01"
         layout="@layout/layout_common_title"/>
@@ -60,21 +21,20 @@
         >
         <EditText 
             
-            android:id="@+id/act_login_edit_user"
+            android:id="@+id/et_account"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:hint="手机号 / 邮箱 / 用户名"
+            android:hint="手机号 / 邮箱"
             android:drawableLeft="@drawable/user"
             android:background="#fff"
             android:padding="15dp"
             android:maxLength="11"
-            android:inputType="number"
             android:drawablePadding="10dp"
             
             />
         <EditText 
             
-            android:id="@+id/act_login_edit_password"
+            android:id="@+id/et_password"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:hint="密码"
@@ -104,11 +64,11 @@
             >
             
             <TextView 
-                android:id="@+id/act_login_register"
+                android:id="@+id/tv_register"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="点击注册"
-                android:clickable="true"
+
                 />
             
             <TextView 
@@ -120,7 +80,7 @@
             
             <TextView 
                 android:clickable="true"
-                android:id="@+id/act_login_find_password"
+                android:id="@+id/tv_find_password"
                 android:layout_marginLeft="10dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -128,80 +88,6 @@
                 />
             
         </LinearLayout>
-       <!-- 
-        <ImageView 
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:src="@drawable/logo01"
-            android:layout_marginTop="10dp"
-            />
-             -->
-    </LinearLayout>
-    <!--<LinearLayout -->
-        <!--android:id="@+id/act_login_lin03"-->
-        <!--android:layout_width="fill_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:orientation="horizontal"-->
-        <!-- -->
-        <!--android:layout_alignParentBottom="true"-->
-        <!--android:padding="15dp"-->
-        <!-->-->
-        <!-- -->
-        <!--<ImageView -->
-            <!--android:id="@+id/act_login_iv_qq"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:src="@drawable/qq"-->
-            <!--android:clickable="true"-->
-            <!--/>-->
-        <!-- -->
-        <!--<ImageView -->
-            <!--android:id="@+id/act_login_iv_weibo"-->
-            <!--android:clickable="true"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:src="@drawable/weibo"-->
-            <!--android:layout_marginLeft="10dp"-->
-            <!--/>-->
-        <!--<ImageView -->
-            <!--android:id="@+id/act_login_iv_weixin"-->
-            <!--android:clickable="true"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:src="@drawable/weixin"-->
-            <!--android:layout_marginLeft="10dp"-->
-            <!--/>-->
-    <!--</LinearLayout>-->
-    <!--&lt;!&ndash;<LinearLayout &ndash;&gt;-->
-        <!--android:layout_width="fill_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:orientation="horizontal"-->
-        <!--android:layout_above="@id/act_login_lin03"-->
-        <!--android:layout_marginBottom="10dp"-->
-        <!--android:layout_centerVertical="true"-->
-        <!-->-->
-        <!--<View -->
-            <!--android:layout_weight="1"-->
-            <!--android:layout_width="0dp"-->
-            <!--android:layout_height="1dp"-->
-            <!--android:background="#6C6C6C"-->
-            <!-- -->
-            <!--android:layout_gravity="center_vertical"-->
-            <!--/>-->
-        <!--<TextView -->
-            <!--android:padding="5dp"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:text="使用第三方账号登录"-->
-            <!--android:layout_gravity="center"-->
-            <!--/>-->
-        <!--<View -->
-            <!--android:layout_gravity="center_vertical"-->
-            <!--android:layout_weight="1"-->
-            <!--android:layout_width="0dp"-->
-            <!--android:layout_height="1dp"-->
-            <!--android:background="#6C6C6C"-->
-            <!--/>-->
-    <!--</LinearLayout>-->
 
+    </LinearLayout>
 </RelativeLayout>

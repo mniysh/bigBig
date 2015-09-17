@@ -142,9 +142,13 @@ public class MyApplication extends Application {
     }
 
     public User getUser() {
-        new UserDao();
+        UserDao userDao = new UserDao(this);
+        return userDao.getUser();
+    }
 
-        return new User();
+    public boolean savaUser(User user) {
+        UserDao userDao = new UserDao(this);
+        return userDao.update(user);
     }
 
 }

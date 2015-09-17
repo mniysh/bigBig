@@ -57,4 +57,8 @@ public class Constants {
 	 */
 	public static final String female = "female";
 
+
+	/*Key=========*/
+	public final static String KEY_USER = "user";
+
 }

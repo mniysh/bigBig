@@ -2,24 +2,21 @@ package com.ms.ebangw.activity;
 
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.graphics.Color;
 import android.os.Bundle;
-
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 
-import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.ms.ebangw.MyApplication;
 import com.ms.ebangw.R;
+import com.ms.ebangw.bean.User;
+import com.ms.ebangw.exception.ResponseException;
 import com.ms.ebangw.service.DataAccessUtil;
+import com.ms.ebangw.service.DataParseUtil;
 import com.ms.ebangw.utils.T;
-
 
 import org.apache.http.Header;
 import org.json.JSONObject;
@@ -35,10 +32,7 @@ public class RegisterActivity extends BaseActivity implements OnClickListener {
 	private boolean flag_check=true;
 	private EditText et_phone,et_code;
 	private String et_phone_content,et_code_content;
-
 	//mob的appkey和appsecret
-
-
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -55,14 +49,10 @@ public class RegisterActivity extends BaseActivity implements OnClickListener {
 	}
 	//获取文本框信息
 	private void getDatas() {
-		// TODO Auto-generated method stub
 		et_phone_content=et_phone.getText().toString().trim();
 		et_code_content=et_code.getText().toString().trim();
 	}
 	private void initViewOper() {
-		// TODO Auto-generated method stub
-
-
 		but_check.setOnClickListener(this);
 		but_register.setOnClickListener(this);
 		initTitle(new OnClickListener() {
@@ -74,7 +64,6 @@ public class RegisterActivity extends BaseActivity implements OnClickListener {
 	}
 
 	public void initView() {
-		// TODO Auto-generated method stub
 		but_check=(Button) this.findViewById(R.id.act_register_check);
 		but_register=(Button) this.findViewById(R.id.act_register_register);
 		et_phone=(EditText) findViewById(R.id.act_register_et_phone);
@@ -88,15 +77,10 @@ public class RegisterActivity extends BaseActivity implements OnClickListener {
 
 	@Override
 	public void onClick(View v) {
-		// TODO Auto-generated method stub
 		switch (v.getId()) {
-
-
 			//点击注册按钮进行一些判定
 			case R.id.act_register_register:
 				if(et_code_content!=null&&et_phone_content!=null){
-
-
 
 					Intent intent=new Intent(RegisterActivity.this,RegisterActivity_2.class);
 					getDatas();
@@ -115,20 +99,7 @@ public class RegisterActivity extends BaseActivity implements OnClickListener {
 				if(et_phone_content==null||et_phone_content.equals("")){
 					T.show("手机号不能为空");
 				}else{
-					DataAccessUtil.messageCode(et_phone_content, new JsonHttpResponseHandler() {
-
-						@Override
-						public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-							super.onSuccess(statusCode, headers, response);
-							T.show("成功，状态吗是" + statusCode);
-						}
-
-						@Override
-						public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
-							super.onFailure(statusCode, headers, throwable, errorResponse);
-							T.show("失败，状态吗是" + statusCode);
-						}
-					});
+					getMsmCode();
 				}
 
 				break;
@@ -139,11 +110,33 @@ public class RegisterActivity extends BaseActivity implements OnClickListener {
 		}
 	}
 
-	@Override
-	protected void onDestroy() {
-		// TODO Auto-generated method stub
-		super.onDestroy();
+	/**
+	 * 获取短信验证码
+	 */
+	public void getMsmCode() {
+		DataAccessUtil.messageCode(et_phone_content, new JsonHttpResponseHandler(){
+
+			@Override
+			public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+				T.show("成功，状态吗是"+statusCode);
+
+				try {
+					User user = DataParseUtil.register(response);
+				} catch (ResponseException e) {
+					e.printStackTrace();
+					T.show(e.getMessage());
+				}
+			}
+
+			@Override
+			public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+				super.onFailure(statusCode, headers, throwable, errorResponse);
+				T.show("失败，状态吗是"+statusCode);
+			}
+		});
 	}
+
+
 	//正则判断数字组成
 	public boolean isNumeric(String str)
 	{

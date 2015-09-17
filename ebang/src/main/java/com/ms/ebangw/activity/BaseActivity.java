@@ -1,6 +1,5 @@
 package com.ms.ebangw.activity;
 
-import android.app.Application;
 import android.app.DialogFragment;
 import android.content.Context;
 import android.graphics.drawable.BitmapDrawable;
@@ -12,7 +11,6 @@ import android.view.WindowManager;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.ms.ebangw.MyApplication;
 import com.ms.ebangw.R;
@@ -21,10 +19,6 @@ import com.umeng.analytics.MobclickAgent;
 
 public abstract class BaseActivity extends AppCompatActivity {
     private final String TAG = getClass().getSimpleName();
-    private Toast toast;
-    private Application mApplication;
-    private BaseActivity mActivity;
-    public Context mContext;
     private LoadingDialog mLoadingDialog;
 
     /**
@@ -42,8 +36,6 @@ public abstract class BaseActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         android.support.v7.app.ActionBar bar = getSupportActionBar();
         bar.hide();
-        mApplication = MyApplication.getInstance();
-        mContext = getApplicationContext();
         MyApplication.unDestroyActivityList.add(this);
 
     }

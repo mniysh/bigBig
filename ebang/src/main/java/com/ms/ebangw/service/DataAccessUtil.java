@@ -5,6 +5,7 @@ import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestHandle;
 import com.loopj.android.http.RequestParams;
 import com.ms.ebangw.MyApplication;
+import com.ms.ebangw.utils.L;
 import com.ms.ebangw.utils.NetUtils;
 import com.ms.ebangw.utils.T;
 
@@ -115,7 +116,7 @@ public class DataAccessUtil {
             return null;
         }
         initAsyncHttpClient();
-
+        L.d(url + " : " + params.toString() );
         return mClient.post(url, params, asyncHttpResponseHandler);
 
 //        mHttpUtils.send(HttpRequest.HttpMethod.POST, url, new RequestCallBack<String>() {
