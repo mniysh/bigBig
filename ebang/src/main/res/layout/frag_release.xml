@@ -45,56 +45,31 @@
 		            android:text="区域:"
 		            android:textColor="#9c9c9c"
 		            android:textSize="16sp"
+					android:padding="10dp"
 		            android:layout_gravity="center_vertical"
 		            />
 		         <Spinner 
-	    	        android:paddingLeft="5dp"
+					android:paddingLeft="10dp"
+					 android:paddingRight="10dp"
 	    	        android:id="@+id/act_release_spinner_qu"
 	    	        android:layout_marginLeft="5dp"
 	    	        android:layout_height="wrap_content"
 	    	        android:layout_width="wrap_content"
+					 android:background="@drawable/bk_biankuang_touming"
 
 	    	        />
-		       <!-- <LinearLayout 
-	    	        android:layout_width="wrap_content"
-	    	        android:layout_height="wrap_content"
-	    	        android:orientation="horizontal"
-	    	        android:background="@drawable/bk_biankuang"
-	    	        >
-	    	   
-	    	     <ImageView 
-	    	        android:layout_width="wrap_content"
-	    	        android:layout_height="wrap_content"
-	    	        android:src="@drawable/sanjiao"
-	    	        android:layout_gravity="center_vertical"
-	    	        android:paddingRight="10dp"
-	    	        />
-	    	    </LinearLayout>
-	    	     -->
-	    	     <Spinner 
-	    	        android:id="@+id/act_release_spinner_lu"
-	    	        android:layout_marginLeft="5dp"
-	    	        android:layout_height="wrap_content"
-	    	        android:layout_width="wrap_content"
-	    	        />
-	    	     <!--  
-		        <LinearLayout 
-	    	        android:layout_width="wrap_content"
-	    	        android:layout_height="wrap_content"
-	    	        android:orientation="horizontal"
-	    	        android:background="@drawable/bk_biankuang"
-	    	        android:layout_marginLeft="5dp"
-	    	        >
-	    	    
-	    	    <ImageView 
-	    	        android:paddingRight="10dp"
-	    	        android:layout_width="wrap_content"
-	    	        android:layout_height="wrap_content"
-	    	        android:src="@drawable/sanjiao"
-	    	        android:layout_gravity="center_vertical"
-	    	        />
-	    	    </LinearLayout>
-	    	    -->
+
+				<Spinner
+					android:paddingLeft="10dp"
+					android:paddingRight="10dp"
+					android:background="@drawable/bk_biankuang_touming"
+					android:id="@+id/act_release_spinner_lu"
+					android:layout_marginLeft="5dp"
+					android:layout_height="wrap_content"
+					android:layout_width="wrap_content"
+
+					/>
+
 	         
 	    	</LinearLayout>
 	    	<View 
@@ -396,6 +371,8 @@
 	    	     android:layout_width="fill_parent"
 	    	     android:layout_height="wrap_content"
 	    	     android:text="提交信息"
+				 android:layout_marginLeft="15dp"
+				 android:layout_marginRight="15dp"
 	    	     android:background="@drawable/bk_but"
 	    	     />
 	    	 <View 

@@ -20,6 +20,7 @@ import android.widget.LinearLayout;
 import android.widget.Spinner;
 
 import com.ms.ebangw.R;
+import com.ms.ebangw.adapter.SpinnerAdapter;
 import com.ms.ebangw.bean.PostMeassge;
 import com.ms.ebangw.utils.T;
 
@@ -38,6 +39,8 @@ public class ReleaseFragment extends BaseFragment implements OnClickListener, On
 	private String[] datas_lu;
 	private String[] datas_type;
 	private int flag_count;
+	private SpinnerAdapter adapter;
+
 	//文本组件
 	private EditText ed_add_xiangxi,ed_money,ed_title,ed_content,ed_time,ed_name,ed_phone;
 	//文本组件的取值
@@ -65,6 +68,7 @@ public class ReleaseFragment extends BaseFragment implements OnClickListener, On
 		// TODO Auto-generated method stub
 		super.onActivityCreated(savedInstanceState);
 		initView();
+		initData();
 		initViewOper();
 	}
 	public void initView() {
@@ -84,7 +88,9 @@ public class ReleaseFragment extends BaseFragment implements OnClickListener, On
 
 	@Override
 	public void initData() {
-
+		datas_qu=getResources().getStringArray(R.array.release_add_qu);
+		datas_lu=getResources().getStringArray(R.array.release_add_lu);
+		datas_type=getResources().getStringArray(R.array.release_add_style);
 	}
 
 	//取值
@@ -108,40 +114,47 @@ public class ReleaseFragment extends BaseFragment implements OnClickListener, On
 	private void initViewOper() {
 
 		//lin_back.setOnClickListener(this);
-		spi_qu.setOnItemSelectedListener(this);
-		spi_lu.setOnItemSelectedListener(this);
-		spi_style.setOnItemSelectedListener(this);
-
-		ArrayAdapter<String> adapter01=new ArrayAdapter<String>(mActivity, R.layout.sim_spinner_item);
-		ArrayAdapter<String> adapter02=new ArrayAdapter<String>(mActivity, R.layout.sim_spinner_item);
-		ArrayAdapter<String> adapter03=new ArrayAdapter<String>(mActivity, R.layout.sim_spinner_item);
-
-		datas_qu=getResources().getStringArray(R.array.release_add_qu);
-		datas_lu=getResources().getStringArray(R.array.release_add_lu);
-		datas_type=getResources().getStringArray(R.array.release_add_style);
-		for (int i = 0; i < datas_qu.length; i++) {
-			adapter01.add(datas_qu[i]);
-		}
-		spi_qu.setAdapter(adapter01);
-
-
-		for (int i = 0; i < datas_lu.length; i++) {
-			adapter02.add(datas_lu[i]);
-		}
-		spi_lu.setAdapter(adapter02);
-
-		for (int i = 0; i < datas_type.length; i++) {
-			adapter03.add(datas_type[i]);
-		}
-		spi_style.setAdapter(adapter03);
-
-
-		but_submit.setOnClickListener(this);
-		//设置自动获取系统时间
 		SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
 		ed_time.setText(sdf.format(new Date()));
 
 		ed_time.setOnFocusChangeListener(this);
+		but_submit.setOnClickListener(this);
+		spi_qu.setOnItemSelectedListener(this);
+		spi_lu.setOnItemSelectedListener(this);
+		spi_style.setOnItemSelectedListener(this);
+		initData();
+		adapter=new SpinnerAdapter(datas_qu);
+		spi_qu.setAdapter(adapter);
+		adapter.changeData(datas_lu);
+		spi_lu.setAdapter(adapter);
+
+
+	//	ArrayAdapter<String> adapter01=new ArrayAdapter<String>(mActivity, R.layout.sim_spinner_item);
+
+	//	ArrayAdapter<String> adapter02=new ArrayAdapter<String>(mActivity, R.layout.sim_spinner_item);
+	//	ArrayAdapter<String> adapter03=new ArrayAdapter<String>(mActivity, R.layout.sim_spinner_item);
+//
+//
+//		for (int i = 0; i < datas_qu.length; i++) {
+//			adapter01.add(datas_qu[i]);
+//		}
+//		spi_qu.setAdapter(adapter01);
+//
+//
+//		for (int i = 0; i < datas_lu.length; i++) {
+//			adapter02.add(datas_lu[i]);
+//		}
+//		spi_lu.setAdapter(adapter02);
+//
+//		for (int i = 0; i < datas_type.length; i++) {
+//			adapter03.add(datas_type[i]);
+//		}
+//		spi_style.setAdapter(adapter03);
+
+
+
+		//设置自动获取系统时间
+
 
 
 

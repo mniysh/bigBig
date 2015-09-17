@@ -3,6 +3,7 @@ package com.ms.ebangw.activity;
 import android.app.FragmentManager;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.RadioGroup;
 import android.widget.RadioGroup.OnCheckedChangeListener;
 
@@ -10,18 +11,30 @@ import com.ms.ebangw.R;
 import com.ms.ebangw.fragment.FactoryAutherCompleteFragment;
 import com.ms.ebangw.fragment.FactoryAutherFragment;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+
 
 public class FactoryAuthenActivity extends BaseActivity implements OnCheckedChangeListener {
 	private FragmentManager fManager;
 	private FactoryAutherFragment fFactory;
 	private FactoryAutherCompleteFragment fComplete;
 	private RadioGroup rGroup;
-	
+//	@Bind(R.id.iv_back)
+//	ImageView iBack;
+//	@OnClick(R.id.iv_back)
+//	public void iBack(View v){
+//		this.finish();
+//	}
+
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.act_factoryauthen);
+		ButterKnife.bind(this);
 		initView();
 		initViewOper();
 		
@@ -31,12 +44,7 @@ public class FactoryAuthenActivity extends BaseActivity implements OnCheckedChan
 		// TODO Auto-generated method stub
 		fManager.beginTransaction().replace(R.id.act_facauthen_frame, fFactory).commit();
 		rGroup.setOnCheckedChangeListener(this);
-		initTitle(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-
-			}
-		},"返回","企业认证",null,null);
+		initTitle(null,"返回","企业认证",null,null);
 	}
 
 	public void initView() {
