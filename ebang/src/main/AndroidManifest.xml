@@ -146,6 +146,7 @@
         <activity
             android:name=".activity.ChatActivity"
             />
+
         <activity
             android:name=".activity.ShowActivity"
             />
@@ -172,6 +173,12 @@
             />
         <activity
             android:name=".activity.SubmitSuccessActivity"
+            />
+        <activity
+            android:name=".activity.CertificationManagerActivity"
+            />
+        <activity
+            android:name=".activity.CertificationSelfActivity"
             />
 
         <!--友盟渠道设置-->
