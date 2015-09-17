@@ -2,8 +2,11 @@ package com.ms.ebangw.activity;
 
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.graphics.Color;
 import android.os.Bundle;
 
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -32,6 +35,7 @@ public class RegisterActivity extends BaseActivity implements OnClickListener {
 	private boolean flag_check=true;
 	private EditText et_phone,et_code;
 	private String et_phone_content,et_code_content;
+
 	//mob的appkey和appsecret
 
 
@@ -57,6 +61,8 @@ public class RegisterActivity extends BaseActivity implements OnClickListener {
 	}
 	private void initViewOper() {
 		// TODO Auto-generated method stub
+
+
 		but_check.setOnClickListener(this);
 		but_register.setOnClickListener(this);
 		initTitle(new OnClickListener() {
@@ -109,18 +115,18 @@ public class RegisterActivity extends BaseActivity implements OnClickListener {
 				if(et_phone_content==null||et_phone_content.equals("")){
 					T.show("手机号不能为空");
 				}else{
-					DataAccessUtil.messageCode(et_phone_content, new JsonHttpResponseHandler(){
+					DataAccessUtil.messageCode(et_phone_content, new JsonHttpResponseHandler() {
 
 						@Override
 						public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
 							super.onSuccess(statusCode, headers, response);
-							T.show("成功，状态吗是"+statusCode);
+							T.show("成功，状态吗是" + statusCode);
 						}
 
 						@Override
 						public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
 							super.onFailure(statusCode, headers, throwable, errorResponse);
-							T.show("失败，状态吗是"+statusCode);
+							T.show("失败，状态吗是" + statusCode);
 						}
 					});
 				}

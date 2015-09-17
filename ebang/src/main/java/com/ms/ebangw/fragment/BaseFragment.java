@@ -5,6 +5,7 @@ import android.app.DialogFragment;
 import android.app.Fragment;
 import android.content.Context;
 import android.text.TextUtils;
+import android.view.View;
 
 import com.ms.ebangw.dialog.LoadingDialog;
 import com.ms.ebangw.utils.L;
@@ -106,6 +107,13 @@ public abstract class BaseFragment extends Fragment {
         }
         return null;
     }
+/**
+ * 实例化控件
+ */
+    public View findviewbyid(int rInt){
 
+
+        return getView().findViewById(rInt);
+    }
 
 }

@@ -107,5 +107,8 @@
     <string name="title_activity_qiang_dan">QiangDanActivity</string>
 
     <string name="hello_world">Hello world!</string>
+    <string name="title_activity_certification">CertificationActivity</string>
+    <string name="title_activity_certification_manager">CertificationManagerActivity</string>
+    <string name="title_activity_manager_back">ManagerBackActivity</string>
 	
 </resources>

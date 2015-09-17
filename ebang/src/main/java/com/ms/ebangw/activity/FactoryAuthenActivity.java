@@ -15,6 +15,9 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
+/**
+ * 开发商页面
+ */
 
 public class FactoryAuthenActivity extends BaseActivity implements OnCheckedChangeListener {
 	private FragmentManager fManager;

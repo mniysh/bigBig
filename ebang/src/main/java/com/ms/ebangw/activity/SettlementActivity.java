@@ -7,7 +7,7 @@ import android.view.View;
 import com.ms.ebangw.R;
 
 /**
- * ����ҳ��
+ * 支付页面
  * @author admin
  *
  */

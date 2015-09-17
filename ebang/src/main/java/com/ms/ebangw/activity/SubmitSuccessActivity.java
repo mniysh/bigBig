@@ -5,6 +5,9 @@ import android.view.View;
 
 import com.ms.ebangw.R;
 
+/**
+ * 信息提交成功页面
+ */
 public class SubmitSuccessActivity extends BaseActivity {
 
 

@@ -1,13 +1,11 @@
 package com.ms.ebangw.activity;
 
-import android.graphics.drawable.BitmapDrawable;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.WindowManager;
-import android.view.WindowManager.LayoutParams;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.Button;
@@ -33,7 +31,7 @@ public class SelfAuthenticationActivity extends BaseActivity implements OnChecke
 	private String sex_value="男",addr;
 	private String sheng,shi,qu,et_name_value,et_identity_value,phoneNum_value,sheng_value="省",shi_value="市",qu_value="区";
 	private StringBuilder sb=new StringBuilder();
-	private Button but_submit;
+	private Button but_next;
 	private PopupWindow pw;
 	private LinearLayout layout;
 	private boolean flag_submit=true;
@@ -61,7 +59,7 @@ public class SelfAuthenticationActivity extends BaseActivity implements OnChecke
 			}
 		},"返回","个人认证",null,null);
 
-		but_submit.setOnClickListener(this);
+		but_next.setOnClickListener(this);
 
 
 	}
@@ -85,7 +83,7 @@ public class SelfAuthenticationActivity extends BaseActivity implements OnChecke
 		sp_shi=(Spinner) findViewById(R.id.act_self_sp_shi);
 		sp_qu=(Spinner) findViewById(R.id.act_self_sp_qu);
 		rg=(RadioGroup) findViewById(R.id.act_self_rg_sex);
-		but_submit=(Button) findViewById(R.id.act_self_but_submit);
+		but_next=(Button) findViewById(R.id.act_self_but_submit);
 
 
 	}
@@ -167,30 +165,10 @@ public class SelfAuthenticationActivity extends BaseActivity implements OnChecke
 				}
 				Log.i("aaa", "长度是"+et_identity_value.length());
 				if(et_identity_value.length()==18||et_identity_value.length()==16){
-					layout=(LinearLayout) getLayoutInflater().inflate(R.layout.popup_lay, null, false);
-					pw=new PopupWindow(layout,600, LayoutParams.WRAP_CONTENT);
-					pw.setBackgroundDrawable(new BitmapDrawable());
-					Log.i("aaa", "layout的值是" + layout.toString());
-					layout.findViewById(R.id.popup_lay_iv_back).setOnClickListener(new OnClickListener() {
-						@Override
-						public void onClick(View v) {
-							// TODO Auto-generated method stub
-							backgroundAlpha(1.0f);
-							pw.dismiss();
-							flag_submit = !flag_submit;
-						}
-					});
-					backgroundAlpha(0.5f);
-					pw.setOutsideTouchable(true);
+					SelfAuthenticationActivity.this.startActivity(new Intent(SelfAuthenticationActivity.this,CertificationSelfActivity.class));
+					SelfAuthenticationActivity.this.finish();
 
-					pw.setOnDismissListener(new PopupWindow.OnDismissListener() {
-						@Override
-						public void onDismiss() {
-							backgroundAlpha(1.0f);
-						}
-					});
 
-					pw.showAtLocation(but_submit, Gravity.TOP, 0, 150);
 				}else{
 					T.show("身份证号位数不正确");
 				}

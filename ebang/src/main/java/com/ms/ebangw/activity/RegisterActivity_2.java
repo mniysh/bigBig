@@ -3,7 +3,10 @@ package com.ms.ebangw.activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -37,7 +40,22 @@ public class RegisterActivity_2 extends BaseActivity implements OnClickListener 
 	private SharedPreferences sp;
 	private boolean flag_log=false;
 	private String url="http://labour.chinadeer.cn/api/user/index/register";
+	private TextWatcher tWatccher=new TextWatcher() {
+		@Override
+		public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
+		}
+
+		@Override
+		public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+		}
+
+		@Override
+		public void afterTextChanged(Editable s) {
+			but_register.setBackgroundColor(R.color.but_gongzhang);
+		}
+	};
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -52,10 +70,7 @@ public class RegisterActivity_2 extends BaseActivity implements OnClickListener 
 
 	public void initView() {
 		// TODO Auto-generated method stub
-//		iv_back=(ImageView) findViewById(R.id.act_register2_iv_back);
-//		iv_qq=(ImageView) findViewById(R.id.act_register2_iv_qq);
-//		iv_weibo=(ImageView) findViewById(R.id.act_register2_iv_weibo);
-//		iv_weixin=(ImageView) findViewById(R.id.act_register2_iv_weixin);
+
 		et_password01=(EditText) findViewById(R.id.act_register_2_et_password);
 		et_password02=(EditText) findViewById(R.id.act_register_2_et_password2);
 		but_register=(Button) findViewById(R.id.act_register_2_but_register);
@@ -68,11 +83,8 @@ public class RegisterActivity_2 extends BaseActivity implements OnClickListener 
 	}
 
 	private void initViewOper() {
-//		// TODO Auto-generated method stub
-//		iv_back.setOnClickListener(this);
-//		iv_qq.setOnClickListener(this);
-//		iv_weibo.setOnClickListener(this);
-//		iv_weixin.setOnClickListener(this);
+		et_password01.addTextChangedListener(tWatccher);
+		et_password02.addTextChangedListener(tWatccher);
 		but_register.setOnClickListener(this);
 		initTitle(new OnClickListener() {
 			@Override

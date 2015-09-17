@@ -2,6 +2,7 @@ package com.ms.ebangw.utils;
 
 import android.content.Context;
 import android.util.Log;
+import android.view.WindowManager;
 import android.widget.Toast;
 
 import com.ms.ebangw.MyApplication;
@@ -34,5 +35,11 @@ public class StringUtils {
 
 		return true;
 	}
+//	public void backgroundAlpha(float bgAlpha,Context context)
+//	{
+//		WindowManager.LayoutParams lp = getWindow().getAttributes();
+//		lp.alpha = bgAlpha; //0.0-1.0
+//		getWindow().setAttributes(lp);
+//	}
 }
 

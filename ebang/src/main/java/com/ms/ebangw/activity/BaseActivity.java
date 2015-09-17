@@ -3,10 +3,14 @@ package com.ms.ebangw.activity;
 import android.app.Application;
 import android.app.DialogFragment;
 import android.content.Context;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.View;
+import android.view.WindowManager;
+import android.widget.LinearLayout;
+import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -125,6 +129,39 @@ public abstract class BaseActivity extends AppCompatActivity {
         if (null != mLoadingDialog && null != mLoadingDialog.getActivity() && mLoadingDialog.isVisible()) {
             mLoadingDialog.dismiss();
         }
+    }
+
+    /**
+     * 弹出popupwindow
+     */
+    public void pWindow(LinearLayout layout,int pwWidth,int pwHeight,View layoutView,View layoutView2,View layoutView3,View layoutView4,View clickView,int location,int localWidth,int localHeight){
+        final PopupWindow pw=new PopupWindow(layout,pwWidth,pwHeight);
+        pw.setBackgroundDrawable(new BitmapDrawable());
+        layoutView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                pw.dismiss();
+                finish();
+                backgroundAlpha(1.0f);
+
+            }
+        });
+        backgroundAlpha(0.5f);
+        pw.setOnDismissListener(new PopupWindow.OnDismissListener() {
+            @Override
+            public void onDismiss() {
+                finish();
+                backgroundAlpha(1.0f);
+            }
+        });
+        pw.setOutsideTouchable(true);
+        pw.showAtLocation(clickView,location,localWidth,localHeight);
+    }
+    public void backgroundAlpha(float bgAlpha)
+    {
+        WindowManager.LayoutParams lp = getWindow().getAttributes();
+        lp.alpha = bgAlpha; //0.0-1.0
+        getWindow().setAttributes(lp);
     }
 
     @Override

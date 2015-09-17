@@ -20,6 +20,9 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
+/**
+ * 抢单页面
+ */
 public class QiangDanActivity extends BaseActivity {
 
     private Button bBack;

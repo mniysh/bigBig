@@ -11,7 +11,9 @@ import com.ms.ebangw.R;
 import com.ms.ebangw.fragment.PeasantBankFeagment;
 import com.ms.ebangw.fragment.PeasantBaseFragment;
 
-
+/**
+ * 农民工认证的基本信息页面
+ */
 public class PeasantAuthenActivity extends BaseActivity implements OnClickListener, OnCheckedChangeListener {
 	private FragmentManager fm;
 	private PeasantBaseFragment pBase;
