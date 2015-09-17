@@ -29,4 +29,9 @@ public class RequestUrl {
      */
     public static final  String message_code=domain+"/api/user/index/msg";
 
+    /**
+     * 短信修改密码接口
+     */
+//    public static final  String message_code=domain+"/api/user/index/msg";
+
 }

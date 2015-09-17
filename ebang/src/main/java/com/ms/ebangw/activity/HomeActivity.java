@@ -23,6 +23,8 @@ import com.ms.ebangw.fragment.ReleaseFragment;
 import com.ms.ebangw.utils.T;
 import com.umeng.update.UmengUpdateAgent;
 
+import cn.jpush.android.api.JPushInterface;
+
 
 /**
  * Home主页面
@@ -140,6 +142,19 @@ public class HomeActivity extends BaseActivity implements OnClickListener {
 	 */
 	public void initUMengUpdate() {
 		UmengUpdateAgent.update(this);
+	}
+
+	@Override
+	public void onResume() {
+		super.onResume();
+		JPushInterface.init(getApplicationContext());
+		JPushInterface.onResume(this);
+	}
+
+	@Override
+	protected void onPause() {
+		super.onPause();
+		JPushInterface.onPause(this);
 	}
 
 	/**

@@ -5,11 +5,15 @@ import android.app.Application;
 
 import com.baidu.location.LocationClient;
 import com.baidu.location.LocationClientOption;
+import com.ms.ebangw.bean.User;
+import com.ms.ebangw.db.UserDao;
 import com.ms.ebangw.listener.MyLocationListener;
 import com.umeng.analytics.MobclickAgent;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import cn.jpush.android.api.JPushInterface;
 
 public class MyApplication extends Application {
 
@@ -36,6 +40,7 @@ public class MyApplication extends Application {
         instance = this;
         initUMeng();
         initLocation();
+        initJpush();
     }
 
     /**
@@ -78,6 +83,14 @@ public class MyApplication extends Application {
 
     public void endLocation() {
         mLocationClient.stop();
+    }
+
+    /**
+     * 初始化极光推送
+     */
+    private void initJpush() {
+        JPushInterface.setDebugMode(true);
+        JPushInterface.init(this);
     }
 
     public String getPassword() {
@@ -126,6 +139,12 @@ public class MyApplication extends Application {
             }
         }
         unDestroyActivityList.clear();
+    }
+
+    public User getUser() {
+        new UserDao();
+
+        return new User();
     }
 
 }

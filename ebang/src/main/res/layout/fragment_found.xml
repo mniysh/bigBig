@@ -4,33 +4,8 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="#D7D7D7" >
-    <RelativeLayout 
-        android:id="@+id/act_login_rel01"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:background="#0075AA"
-        android:padding="5dp"
-        >
-        <TextView
-            android:id="@+id/tv_share"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="分享"
-            android:textSize="20sp"
-            android:textColor="#fff"
-            android:layout_alignParentLeft="true"
-            />
 
-        <TextView 
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="发现"
-            android:textSize="20sp"
-            android:textColor="#fff"
-
-            android:layout_centerInParent="true"
-            />
-    </RelativeLayout>
+    <include layout="@layout/layout_common_title"/>
 
     <LinearLayout
         android:layout_width="fill_parent"

@@ -104,6 +104,7 @@ public class FoundFragment extends BaseFragment implements XListView.IXListViewL
     }
 
     public void initView() {
+        initTitle("发现");
         spi_type = (Spinner) mContentView.findViewById(R.id.frag_fount_spinner_type);
         spi_KM = (Spinner) mContentView.findViewById(R.id.frag_fount_spinner_KM);
         spi_area = (Spinner) mContentView.findViewById(R.id.frag_fount_spinner_area);
