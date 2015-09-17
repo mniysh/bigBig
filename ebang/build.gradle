@@ -31,7 +31,8 @@ android {
 
     sourceSets {
         main {
-            jniLibs.srcDirs = ['libs']
+//            jniLibs.srcDirs = ['libs']
+            jniLibs.srcDir 'libs'           //处理.so库
         }
     }
 }

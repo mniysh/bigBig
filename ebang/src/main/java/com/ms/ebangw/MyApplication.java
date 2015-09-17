@@ -11,6 +11,8 @@ import com.umeng.analytics.MobclickAgent;
 import java.util.ArrayList;
 import java.util.List;
 
+import cn.jpush.android.api.JPushInterface;
+
 public class MyApplication extends Application {
 
     public static MyApplication instance;
@@ -36,6 +38,7 @@ public class MyApplication extends Application {
         instance = this;
         initUMeng();
         initLocation();
+        initJpush();
     }
 
     /**
@@ -78,6 +81,14 @@ public class MyApplication extends Application {
 
     public void endLocation() {
         mLocationClient.stop();
+    }
+
+    /**
+     * 初始化极光推送
+     */
+    private void initJpush() {
+        JPushInterface.setDebugMode(true);
+        JPushInterface.init(this);
     }
 
     public String getPassword() {
