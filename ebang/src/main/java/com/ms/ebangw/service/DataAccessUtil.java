@@ -45,7 +45,7 @@ public class DataAccessUtil {
     }
 
     /**
-     * 短信验证的接口
+     * 短信接口
      * @param phone 电话
      * @param asyncHttpResponseHandler
      * @return
@@ -76,8 +76,8 @@ public class DataAccessUtil {
      * @param name 姓名
      * @param phone 电话
      * @param email 邮箱
-     * @param gender 类别，有四种，个人，农民工，工长，开发商
-     * @param categorg 性别，男，女
+     * @param gender       性别 male、 female
+     * @param categorg 类别，有四种，个人investor，农民工woker，工长headman，开发商developers
      * @param password 密码
      * @param asyncHttpResponseHandler 请求
      * @return
@@ -94,6 +94,18 @@ public class DataAccessUtil {
 
         return doPost(RequestUrl.register, params, asyncHttpResponseHandler);
     }
+
+    public static RequestHandle smsPassword(String phone, String code, String password,
+                                            AsyncHttpResponseHandler
+        asyncHttpResponseHandler ) {
+        RequestParams params = new RequestParams();
+        params.put("phone",phone);
+        params.put("code", code);
+        params.put("password", password);
+
+        return doPost(RequestUrl.register, params, asyncHttpResponseHandler);
+    }
+
 
 
     public static RequestHandle doPost(String url, RequestParams params, AsyncHttpResponseHandler asyncHttpResponseHandler) {

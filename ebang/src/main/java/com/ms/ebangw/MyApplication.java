@@ -5,6 +5,8 @@ import android.app.Application;
 
 import com.baidu.location.LocationClient;
 import com.baidu.location.LocationClientOption;
+import com.ms.ebangw.bean.User;
+import com.ms.ebangw.db.UserDao;
 import com.ms.ebangw.listener.MyLocationListener;
 import com.umeng.analytics.MobclickAgent;
 
@@ -137,6 +139,12 @@ public class MyApplication extends Application {
             }
         }
         unDestroyActivityList.clear();
+    }
+
+    public User getUser() {
+        new UserDao();
+
+        return new User();
     }
 
 }
