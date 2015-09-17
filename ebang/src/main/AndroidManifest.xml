@@ -140,9 +140,6 @@
         <activity
             android:name=".activity.SubmitSuccessActivity"
             />
-        <activity
-            android:name=".activity.ReleaseActivity"
-            />
 
         <!--友盟渠道设置-->
         <meta-data
