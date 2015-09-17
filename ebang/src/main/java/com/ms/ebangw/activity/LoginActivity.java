@@ -34,6 +34,7 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.act_login);
         //初始化组件
+
         initView();
         Log.d("aa", "bb");
         //获取组件数据
@@ -54,9 +55,7 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
         // TODO Auto-generated method stub
         tv_register.setOnClickListener(this);
         tv_findpassword.setOnClickListener(this);
-//        iv_qq.setOnClickListener(this);
-//        iv_weibo.setOnClickListener(this);
-//        iv_weixin.setOnClickListener(this);
+
         but_login.setOnClickListener(this);
         tv_findpassword.setOnClickListener(this);
         initTitle(new OnClickListener() {
@@ -74,9 +73,7 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
         et_password = (EditText) findViewById(R.id.act_login_edit_password);
         tv_register = (TextView) findViewById(R.id.act_login_register);
         tv_findpassword = (TextView) findViewById(R.id.act_login_find_password);
-//        iv_qq = (ImageView) findViewById(R.id.act_login_iv_qq);
-//        iv_weibo = (ImageView) findViewById(R.id.act_login_iv_weibo);
-//        iv_weixin = (ImageView) findViewById(R.id.act_login_iv_weixin);
+
         but_login = (Button) findViewById(R.id.act_login_but_login);
 
     }
