@@ -66,6 +66,9 @@
         </LinearLayout>
 
     </LinearLayout>
+    <include layout="@layout/emailregi"
+        android:visibility="gone"
+        />
 
     <LinearLayout
         android:layout_width="fill_parent"

@@ -84,6 +84,10 @@
         </LinearLayout>
 
     </LinearLayout>
+    <include layout="@layout/emailregi"
+        android:visibility="gone"
+
+        />
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
@@ -94,6 +98,7 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
+
             android:padding="10dp"
             >
             <RelativeLayout

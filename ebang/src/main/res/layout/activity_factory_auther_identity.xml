@@ -239,8 +239,20 @@
                 </LinearLayout>
 
             </LinearLayout>
+            <View
+                android:layout_marginTop="10dp"
+                style="@style/aaa_hor"/>
+            <TextView
+                android:layout_marginTop="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/auther_red"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp"
+                android:text="人工认证需要一定时间由工作人员审核，请耐心等待！"
+                />
             <Button
-                android:layout_marginTop="15dp"
+                android:layout_marginTop="5dp"
                 android:id="@+id/bt_next"
                 android:layout_gravity="center_horizontal"
                 android:layout_width="wrap_content"

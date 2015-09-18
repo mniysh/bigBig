@@ -45,7 +45,7 @@
                         android:layout_alignParentRight="true"
                         android:text="营业执照所在地:"
                         android:textColor="@color/black"
-                        android:textSize="18sp" />
+                        android:textSize="14sp" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -301,7 +301,7 @@
                         android:layout_alignParentRight="true"
                         android:text="组织机构代码证号:"
                         android:textColor="@color/black"
-                        android:textSize="18sp" />
+                        android:textSize="14sp" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -399,7 +399,7 @@
                         android:layout_alignParentRight="true"
                         android:text="营业执照注册号:"
                         android:textColor="@color/black"
-                        android:textSize="18sp" />
+                        android:textSize="14sp" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -431,6 +431,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
                 android:orientation="horizontal">
 
                 <TextView
