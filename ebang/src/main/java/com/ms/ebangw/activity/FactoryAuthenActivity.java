@@ -20,10 +20,7 @@ import butterknife.OnClick;
  */
 
 public class FactoryAuthenActivity extends BaseActivity implements OnCheckedChangeListener {
-	private FragmentManager fManager;
-	private FactoryAutherFragment fFactory;
-	private FactoryAutherCompleteFragment fComplete;
-	private RadioGroup rGroup;
+
 //	@Bind(R.id.iv_back)
 //	ImageView iBack;
 //	@OnClick(R.id.iv_back)
@@ -45,17 +42,17 @@ public class FactoryAuthenActivity extends BaseActivity implements OnCheckedChan
 
 	private void initViewOper() {
 		// TODO Auto-generated method stub
-		fManager.beginTransaction().replace(R.id.act_facauthen_frame, fFactory).commit();
-		rGroup.setOnCheckedChangeListener(this);
+//		fManager.beginTransaction().replace(R.id.act_facauthen_frame, fFactory).commit();
+//		rGroup.setOnCheckedChangeListener(this);
 		initTitle(null,"返回","企业认证",null,null);
 	}
 
 	public void initView() {
 		// TODO Auto-generated method stub
-		rGroup=(RadioGroup) findViewById(R.id.act_fac_rg);
-		fManager=getFragmentManager();
-		fFactory=new FactoryAutherFragment();
-		fComplete=new FactoryAutherCompleteFragment();
+//		rGroup=(RadioGroup) findViewById(R.id.act_fac_rg);
+//		fManager=getFragmentManager();
+//		fFactory=new FactoryAutherFragment();
+//		fComplete=new FactoryAutherCompleteFragment();
 		
 	}
 
@@ -68,12 +65,12 @@ public class FactoryAuthenActivity extends BaseActivity implements OnCheckedChan
 	public void onCheckedChanged(RadioGroup group, int checkedId) {
 		// TODO Auto-generated method stub
 		switch (checkedId) {
-		case R.id.act_fac_rb_base:
-			fManager.beginTransaction().replace(R.id.act_facauthen_frame, fFactory).commit();
-			break;
-		case R.id.act_fac_rb_bank:
-			fManager.beginTransaction().replace(R.id.act_facauthen_frame, fComplete).commit();
-			break;
+//		case R.id.act_fac_rb_base:
+//			fManager.beginTransaction().replace(R.id.act_facauthen_frame, fFactory).commit();
+//			break;
+//		case R.id.act_fac_rb_bank:
+//			fManager.beginTransaction().replace(R.id.act_facauthen_frame, fComplete).commit();
+//			break;
 		default:
 			break;
 		}

@@ -222,54 +222,7 @@
             </RadioGroup>
         </LinearLayout>
     </LinearLayout>
-        <!--  
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:padding="10dp"
-            android:orientation="horizontal" >
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="*"
-                android:textColor="@color/auther_red" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="20dp"
-                android:layout_marginLeft="5dp"
-                android:text="性别:" />
-            <RadioGroup 
-                android:id="@+id/act_self_rg_sex"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                
-                >
-                <RadioButton 
-                    android:id="@+id/act_self_rb_man"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:button="@drawable/check_selec"
-                    android:text="男"
-                    android:padding="5dp"
-                    android:layout_marginLeft="5dp"
-                    android:checked="true"
-                    />
-                <RadioButton 
-                    android:id="@+id/act_self_rb_women"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:button="@drawable/check_selec"
-                    android:text="女"
-                    android:padding="5dp"
-                    />
-            </RadioGroup>
-        </LinearLayout>
-        -->
         <View 
             style="@style/aaa_hor"
             />
