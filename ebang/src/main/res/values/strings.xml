@@ -125,4 +125,11 @@
 	 <string name="setting_su">设置成功</string>
     <string name="title_activity_peasant_authen_card">PeasantAuthenCardActivity</string>
 	 <!--极光推送 ===end-->
+
+
+
+	 <!--Url   ==  start -->
+	 <string name="url_download">www.ebngw.com/front/app/download</string>	<!--下载链接-->
+
+	 <!--Url   ==  end -->
 </resources>
