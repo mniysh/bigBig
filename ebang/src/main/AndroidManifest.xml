@@ -249,6 +249,10 @@
             android:name=".activity.PeasantAuthenCardActivity"
             android:label="@string/title_activity_peasant_authen_card" >
         </activity>
+        <activity
+            android:name=".activity.PeasantAuthenBackActivity"
+            android:label="@string/title_activity_peasant_authen_back" >
+        </activity>
     </application>
 
 </manifest>

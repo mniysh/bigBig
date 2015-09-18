@@ -129,7 +129,8 @@
 
 
 	 <!--Url   ==  start -->
-	 <string name="url_download">www.ebngw.com/front/app/download</string>	<!--下载链接-->
+	 <string name="url_download">www.ebngw.com/front/app/download</string>
+    <string name="title_activity_peasant_authen_back">PeasantAuthenBackActivity</string>	<!--下载链接-->
 
 	 <!--Url   ==  end -->
 </resources>

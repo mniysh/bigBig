@@ -14,6 +14,7 @@ import com.ms.ebangw.fragment.PeasantBankFeagment;
 import com.ms.ebangw.fragment.PeasantBaseFragment;
 
 import butterknife.Bind;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
@@ -25,7 +26,8 @@ public class PeasantAuthenActivity extends BaseActivity implements OnClickListen
 	Button bNext;
 	@OnClick(R.id.bt_next)
 	public void next(){
-
+		startActivity(new Intent(this,PeasantAuthenCardActivity.class));
+		this.finish();
 	}
 	//private RadioGroup rGroup;
 	@Override
@@ -33,6 +35,7 @@ public class PeasantAuthenActivity extends BaseActivity implements OnClickListen
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.act_peasant_authen);
+		ButterKnife.bind(this);
 		initView();
 		initData();
 		initViewOper();

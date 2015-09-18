@@ -22,7 +22,8 @@ public class CertificationManagerActivity extends BaseActivity {
     @OnClick(R.id.act_certification_commit)
     public void setbNext(){
         this.finish();
-        startActivity(new Intent(this,ManagerBackActivity.class));
+        startActivity(new Intent(this, ManagerBackActivity.class));
+
     }
 
 
