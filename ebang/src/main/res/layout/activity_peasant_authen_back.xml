@@ -297,7 +297,7 @@
     <TextView
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="改银行卡户名必须与会员真实姓名一致，否则会提交失败！"
+        android:text="该银行卡户名必须与会员真实姓名一致，否则会提交失败！"
 
         android:textSize="10dp"
         android:textColor="@color/auther_red"

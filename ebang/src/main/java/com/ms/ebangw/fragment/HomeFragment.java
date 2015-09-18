@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -26,6 +27,10 @@ import com.ms.ebangw.utils.MyListView;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import butterknife.Bind;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /*
  * 主页的主页页面
@@ -47,6 +52,20 @@ public class HomeFragment extends BaseFragment implements OnClickListener   {
 	private LinearLayout lin01,lin02,lin03;
 	private List<FoundBean> datas;
 	private View mContentView;
+	@Bind(R.id.lin_build)
+	LinearLayout lBuild;
+	@Bind(R.id.lin_decorate)
+	LinearLayout lDecorate;
+	@Bind(R.id.lin_projectManage)
+	LinearLayout lProjectManage;
+	@Bind(R.id.lin_other)
+	LinearLayout lOther;
+	@OnClick({R.id.lin_build,R.id.lin_other,R.id.lin_decorate,R.id.lin_projectManage})
+	void click(View view){
+
+	}
+
+
 
 
 	@Override
@@ -59,6 +78,7 @@ public class HomeFragment extends BaseFragment implements OnClickListener   {
 	public View onCreateView(LayoutInflater inflater,
 							 @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 		mContentView = inflater.inflate(R.layout.fragment_home, container, false);
+		ButterKnife.bind(this,mContentView);
 		return mContentView;
 	}
 

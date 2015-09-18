@@ -95,10 +95,7 @@
         android:icon="@drawable/logo"
         android:label="@string/name"
         android:theme="@style/AppTheme" >
-        <activity
-            android:name=".activity.HomeActivity"
-
-            >
+        <activity android:name=".activity.HomeActivity" >
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -220,6 +217,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.PACKAGE_ADDED" />
                 <action android:name="android.intent.action.PACKAGE_REMOVED" />
+
                 <data android:scheme="package" />
             </intent-filter>
         </receiver>
@@ -261,6 +259,10 @@
         <activity
             android:name=".activity.FactoryAutherCompleteActivity"
             android:label="@string/title_activity_factory_auther_bank" >
+        </activity>
+        <activity
+            android:name=".activity.NextPageActivity"
+            android:label="@string/title_activity_next_page" >
         </activity>
     </application>
 
