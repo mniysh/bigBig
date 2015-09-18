@@ -57,14 +57,14 @@ public class ShareUtils {
      * @return
      */
     private static void addQQPlatform(Activity activity, String targetUrl) {
-        String appId = "100424468";
-        String appKey = "c7394704798a158208a74ab60104f0ba";
+        String appId = "1104869616";
+        String appKey = "FrYtDX9Er9TKkdRj";
         // 添加QQ支持, 并且设置QQ分享内容的target url
         UMQQSsoHandler qqSsoHandler = new UMQQSsoHandler(activity,appId, appKey);
         if (!TextUtils.isEmpty(targetUrl)) {
-            qqSsoHandler.setTargetUrl("http://www.umeng.com/social");
+            qqSsoHandler.setTargetUrl(targetUrl);
         }else {
-//            qqSsoHandler.setTargetUrl("http://www.umeng.com/social");
+            qqSsoHandler.setTargetUrl(activity.getString(R.string.url_download));
         }
 
         qqSsoHandler.addToSocialSDK();
