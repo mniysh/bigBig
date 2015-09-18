@@ -1,51 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#F0F0F0"
     android:orientation="vertical">
 
-    <!--<RelativeLayout-->
-    <!--android:id="@+id/act_login_rel01"-->
-    <!--android:layout_width="fill_parent"-->
-    <!--android:layout_height="50dp"-->
-    <!--android:background="#0075AA"-->
-    <!-->-->
-    <!-- -->
-    <!-- -->
-    <!--<LinearLayout -->
-    <!--android:layout_width="fill_parent"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:orientation="horizontal"-->
-    <!--android:layout_centerVertical="true"-->
-    <!-->-->
-    <!--<ImageView-->
-    <!--android:id="@+id/act_register_iv_back"-->
-    <!--android:layout_width="30dp"-->
-    <!--android:layout_height="30dp"-->
-    <!--android:layout_marginLeft="10dp"-->
-    <!--android:src="@drawable/jiantou" />-->
-    <!--<TextView -->
-    <!--android:layout_width="wrap_content"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:text="返回"-->
-    <!--android:layout_gravity="center_vertical"-->
-    <!--android:textSize="16sp"-->
-    <!--android:textColor="#fff"-->
-    <!-- -->
-    <!-- -->
-    <!--/>-->
-    <!--</LinearLayout>-->
-    <!--<TextView-->
-    <!--android:layout_width="wrap_content"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:layout_centerInParent="true"-->
-    <!--android:text="注册"-->
-    <!--android:textColor="#fff"-->
-    <!--android:textSize="25sp" />-->
-    <!--</RelativeLayout>-->
     <include
-        android:id="@+id/ct_login_rel01"
         layout="@layout/layout_common_title" />
 
     <LinearLayout
@@ -58,7 +18,6 @@
         android:layout_marginBottom="16dp"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
-        android:layout_below="@id/ct_login_rel01"
         android:orientation="vertical">
 
         <LinearLayout
@@ -67,7 +26,7 @@
             android:orientation="horizontal">
 
             <EditText
-                android:id="@+id/act_register_et_phone"
+                android:id="@+id/et_phone"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
@@ -75,6 +34,7 @@
                 android:background="#fff"
                 android:drawableLeft="@drawable/phone2"
                 android:drawablePadding="10dp"
+                android:inputType="phone"
                 android:hint="请输入您的手机号"
                 android:padding="10dp">
 
@@ -83,7 +43,7 @@
 
             <Button
 
-                android:id="@+id/act_register_check"
+                android:id="@+id/btn_smsCode"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
@@ -94,18 +54,19 @@
         </LinearLayout>
 
         <EditText
-            android:id="@+id/act_register_et_code"
+            android:id="@+id/et_verifyCode"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             android:background="#fff"
             android:drawableLeft="@drawable/key"
             android:drawablePadding="10dp"
+            android:inputType="number"
             android:hint="请输入短信中的验证码"
             android:padding="13dp" />
 
         <Button
-            android:id="@+id/act_register_register"
+            android:id="@+id/btn_register"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
@@ -138,70 +99,7 @@
 
 
         </LinearLayout>
-        <!--
-        <ImageView
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:src="@drawable/logo01" />
-             -->
+
     </LinearLayout>
-    <!--<LinearLayout-->
-    <!--android:id="@+id/act_login_lin03"-->
-    <!--android:layout_width="fill_parent"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:layout_alignParentBottom="true"-->
-    <!--android:orientation="horizontal"-->
-    <!--android:padding="15dp" >-->
 
-    <!--<ImageView-->
-    <!--android:id="@+id/act_register_iv_qq"-->
-    <!--android:layout_width="wrap_content"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:src="@drawable/qq" />-->
-
-    <!--<ImageView-->
-    <!--android:id="@+id/act_register_iv_weibo"-->
-    <!--android:layout_width="wrap_content"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:layout_marginLeft="10dp"-->
-    <!--android:src="@drawable/weibo" />-->
-
-    <!--<ImageView-->
-    <!--android:id="@+id/act_register_iv_weixin"-->
-    <!--android:layout_width="wrap_content"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:layout_marginLeft="10dp"-->
-    <!--android:src="@drawable/weixin" />-->
-    <!--</LinearLayout>-->
-
-    <!--<LinearLayout-->
-    <!--android:id="@+id/linearLayout1"-->
-    <!--android:layout_width="fill_parent"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:layout_above="@id/act_login_lin03"-->
-    <!--android:layout_centerVertical="true"-->
-    <!--android:layout_marginBottom="10dp"-->
-    <!--android:orientation="horizontal" >-->
-    <!--<View-->
-    <!--android:layout_width="0dp"-->
-    <!--android:layout_height="1dp"-->
-    <!--android:layout_gravity="center_vertical"-->
-    <!--android:layout_weight="1"-->
-    <!--android:background="#6C6C6C" />-->
-
-    <!--<TextView-->
-    <!--android:layout_width="wrap_content"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:layout_gravity="center"-->
-    <!--android:padding="5dp"-->
-    <!--android:text="使用第三方账号登录" />-->
-    <!--<View-->
-    <!--android:layout_width="0dp"-->
-    <!--android:layout_height="1dp"-->
-    <!--android:layout_gravity="center_vertical"-->
-    <!--android:layout_weight="1"-->
-    <!--android:background="#6C6C6C" />-->
-    <!--</LinearLayout>-->
-
-
-</RelativeLayout>
+</LinearLayout>

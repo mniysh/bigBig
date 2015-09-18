@@ -56,9 +56,6 @@ public class LoginActivity extends BaseActivity{
 
     }
 
-
-
-
     public void initView() {
         initTitle(new OnClickListener() {
             @Override
@@ -66,7 +63,6 @@ public class LoginActivity extends BaseActivity{
                 LoginActivity.this.finish();
             }
         }, "返回", "登录", null, null);
-
     }
 
     @Override
@@ -137,7 +133,7 @@ public class LoginActivity extends BaseActivity{
                 try {
                     User user = DataParseUtil.login(response);
                     if(null != user) {
-                        MyApplication.getInstance().savaUser(user);     //保存或更新User信息
+                        MyApplication.getInstance().saveUser(user);     //保存或更新User信息
                         //跳转到主页
                         Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
                         Bundle bundle = new Bundle();

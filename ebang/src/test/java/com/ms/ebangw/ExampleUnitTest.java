@@ -1,5 +1,9 @@
 package com.ms.ebangw;
 
+import android.content.Context;
+
+import com.ms.ebangw.MyApplication;
+import com.ms.ebangw.bean.User;
 import com.ms.ebangw.utils.L;
 
 import org.junit.Test;
@@ -44,5 +48,15 @@ public class ExampleUnitTest {
             e.printStackTrace();
         }
         return null;
+    }
+
+    @Test
+    public void saveUser(){
+        User user = new User();
+        user.setId("3333");
+        user.setApp_token("dlsfjlsfjklsfjk");
+
+        boolean b = MyApplication.getInstance().saveUser(user);
+        L.d("Test saveUser : " + b);
     }
 }

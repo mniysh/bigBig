@@ -60,5 +60,8 @@ public class Constants {
 
 	/*Key=========*/
 	public final static String KEY_USER = "user";
+	public final static String key_phone = "phone";
+	/*验证码*/
+	public final static String KEY_VERIFY_CODE = "verify_code";
 
 }
