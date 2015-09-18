@@ -78,8 +78,8 @@ public class ShareUtils {
     private static void addWXPlatform(Activity activity) {
         // 注意：在微信授权的时候，必须传递appSecret
         // wx967daebe835fbeac是你在微信开发平台注册应用的AppID, 这里需要替换成你注册的AppID
-        String appId = "wx967daebe835fbeac";
-        String appSecret = "5bb696d9ccd75a38c8a0bfe0675559b3";
+        String appId = "wx1ec3d7c0ee36ca87";
+        String appSecret = "b38590e30806db0259b2186c7b5afa9a";
         // 添加微信平台
         UMWXHandler wxHandler = new UMWXHandler(activity, appId, appSecret);
         wxHandler.addToSocialSDK();
