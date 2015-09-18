@@ -2,6 +2,9 @@ package com.ms.ebangw.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.CountDownTimer;
+import android.os.Handler;
+import android.os.Message;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -29,6 +32,9 @@ import butterknife.OnClick;
  */
 public class RegisterActivity extends BaseActivity  {
 	private String phone, verifyCode;
+	private CountDownTimer countDownTimer;
+	private Handler mHandler;
+
 	@Bind(R.id.btn_smsCode)
 	Button smsCodeBtn;
 	/**
@@ -64,7 +70,21 @@ public class RegisterActivity extends BaseActivity  {
 
 	@Override
 	public void initData() {
+		mHandler = new Handler(new Handler.Callback() {
+			@Override
+			public boolean handleMessage(Message msg) {
+				int what = msg.what;
+				if (what == 0) {
+					smsCodeBtn.setPressed(false);
+					smsCodeBtn.setClickable(true);
+					smsCodeBtn.setText("获取验证码");
+				}else {
+					smsCodeBtn.setText(what + " 秒");
+				}
 
+				return false;
+			}
+		});
 	}
 
 	/**点击：注册*/
@@ -115,6 +135,9 @@ public class RegisterActivity extends BaseActivity  {
 						boolean b = DataParseUtil.messageCode(response);
 						if (b) {
 							T.show("验证码已发送，请注意查收");
+							smsCodeBtn.setPressed(true);
+							smsCodeBtn.setClickable(false);
+							executeCountDown();
 						}
 
 					} catch (ResponseException e) {
@@ -134,5 +157,25 @@ public class RegisterActivity extends BaseActivity  {
 		}
 	}
 
+	private void executeCountDown() {
+		countDownTimer = new CountDownTimer(60000, 1000) {
+			@Override
+			public void onTick(long millisUntilFinished) {
+				mHandler.sendEmptyMessage((int)(millisUntilFinished / 1000));
+			}
+
+			@Override
+			public void onFinish() {
+				mHandler.sendEmptyMessage(0);
+			}
+		};
+		countDownTimer.start();
+	}
+
+	@Override
+	protected void onDestroy() {
+		super.onDestroy();
+		countDownTimer.cancel();
+	}
 }
 

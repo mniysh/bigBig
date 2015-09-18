@@ -107,7 +107,7 @@ public class LoginActivity extends BaseActivity{
             return false;
         }
 
-        if (!VerifyUtils.isPhone(phone) || !VerifyUtils.isEmail(phone) ) {
+        if (!VerifyUtils.isPhone(phone) && !VerifyUtils.isEmail(phone) ) {
             T.show("请输入正确的手机号或邮箱");
             return false;
         }
