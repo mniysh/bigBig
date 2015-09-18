@@ -146,7 +146,7 @@ public class MyApplication extends Application {
         return userDao.getUser();
     }
 
-    public boolean savaUser(User user) {
+    public boolean saveUser(User user) {
         UserDao userDao = new UserDao(this);
         return userDao.update(user);
     }

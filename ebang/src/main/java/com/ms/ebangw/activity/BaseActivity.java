@@ -1,7 +1,6 @@
 package com.ms.ebangw.activity;
 
 import android.app.DialogFragment;
-import android.content.Context;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -14,6 +13,7 @@ import android.widget.TextView;
 
 import com.ms.ebangw.MyApplication;
 import com.ms.ebangw.R;
+import com.ms.ebangw.bean.User;
 import com.ms.ebangw.dialog.LoadingDialog;
 import com.umeng.analytics.MobclickAgent;
 
@@ -163,6 +163,20 @@ public abstract class BaseActivity extends AppCompatActivity {
             mLoadingDialog.dismiss();
         }
         MyApplication.unDestroyActivityList.remove(this);
+    }
+
+    public User getUser() {
+        User user = MyApplication.getInstance().getUser();
+        return user;
+    }
+
+    public boolean isLogin() {
+        User user = getUser();
+        if (null != user) {
+            return true;
+        }else {
+            return false;
+        }
     }
 
     @Override

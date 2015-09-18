@@ -52,4 +52,22 @@ public class VerifyUtils {
         }
         return flag;
     }
+
+    /**
+     * 输入的密码是否正确
+     * @param password
+     * @return
+     */
+    public static boolean isPasswordRight(String password){
+        if (TextUtils.isEmpty(password)) {
+            T.show("密码不能为空");
+            return false;
+        }
+
+        if (password.length() < 6 || password.length() > 20) {
+            T.show("密码的长度为6到20");
+            return false;
+        }
+        return true;
+    }
 }  

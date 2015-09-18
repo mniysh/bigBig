@@ -20,7 +20,7 @@
         >
 
         <EditText
-            android:id="@+id/act_register_2_et_password"
+            android:id="@+id/et_password"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:background="#fff"
@@ -33,7 +33,7 @@
 
         <EditText
 
-            android:id="@+id/act_register_2_et_password2"
+            android:id="@+id/et_password_confirm"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
@@ -46,7 +46,7 @@
             />
 
         <Button
-            android:id="@+id/act_register_2_but_register"
+            android:id="@+id/btn_register"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"

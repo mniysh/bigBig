@@ -37,19 +37,20 @@ public class DataAccessUtil {
      * @param phone 电话
      * @param email 邮箱
      * @param gender       性别 male、 female
-     * @param categorg 类别，有四种，个人investor，农民工woker，工长headman，开发商developers
+     * @param code 验证码
      * @param password 密码
      * @param asyncHttpResponseHandler 请求
      * @return
      */
-    public static RequestHandle register(String name,String phone,String email,String gender,String categorg, String password, AsyncHttpResponseHandler
+    public static RequestHandle register(String name,String phone,String email,String gender,
+                                         String code, String password, AsyncHttpResponseHandler
         asyncHttpResponseHandler ) {
         RequestParams params = new RequestParams();
         params.put("name",name);
         params.put("phone", phone);
         params.put("password", password);
         params.put("email", email);
-        params.put("categorg", categorg);
+        params.put("code", code);
         params.put("gender", gender);
 
         return doPost(RequestUrl.register, params, asyncHttpResponseHandler);
