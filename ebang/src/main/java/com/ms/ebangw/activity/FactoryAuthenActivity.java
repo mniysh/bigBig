@@ -1,8 +1,10 @@
 package com.ms.ebangw.activity;
 
 import android.app.FragmentManager;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RadioGroup;
 import android.widget.RadioGroup.OnCheckedChangeListener;
@@ -21,12 +23,13 @@ import butterknife.OnClick;
 
 public class FactoryAuthenActivity extends BaseActivity implements OnCheckedChangeListener {
 
-//	@Bind(R.id.iv_back)
-//	ImageView iBack;
-//	@OnClick(R.id.iv_back)
-//	public void iBack(View v){
-//		this.finish();
-//	}
+	@Bind(R.id.bt_next)
+	Button nNext;
+	@OnClick(R.id.bt_next)
+	void next(){
+		this.finish();
+		startActivity(new Intent(this,FactoryAutherIdentityActivity.class));
+	}
 
 
 	@Override

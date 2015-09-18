@@ -253,6 +253,14 @@
             android:name=".activity.PeasantAuthenBackActivity"
             android:label="@string/title_activity_peasant_authen_back" >
         </activity>
+        <activity
+            android:name=".activity.FactoryAutherIdentityActivity"
+            android:label="@string/title_activity_factory_auther_identity" >
+        </activity>
+        <activity
+            android:name=".activity.FactoryAutherCompleteActivity"
+            android:label="@string/title_activity_factory_auther_bank" >
+        </activity>
     </application>
 
 </manifest>

@@ -7,30 +7,43 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.Spinner;
 
 import com.ms.ebangw.R;
+import com.ms.ebangw.adapter.SpinnerAdapter;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
- * 务工人认证的银行卡信息认证
+ * 开发商完善页面
  */
-public class PeasantAuthenBackActivity extends BaseActivity {
+public class FactoryAutherCompleteActivity extends BaseActivity {
     private LinearLayout layout;
-    @Bind(R.id.bt_next)
-    Button bNext;
-    @OnClick(R.id.bt_next)
-    public void  next(){
+    private SpinnerAdapter adapter;
+    private String[] datas={"数据1","数据2","数据3","数据4","数据5","数据6"};
+    @Bind(R.id.sp_type)
+    Spinner sType;
+    @Bind(R.id.sp_bankadd)
+    Spinner sBandAdd;
+
+    @Bind(R.id.bt_commit)
+    Button nNext;
+    @OnClick(R.id.bt_commit)
+    void  next(){
         layout=(LinearLayout) getLayoutInflater().inflate(R.layout.popup_lay, null, false);
         Button bBack= (Button) layout.findViewById(R.id.popup_lay_iv_back);
-        pWindow(layout,600,LinearLayout.LayoutParams.WRAP_CONTENT,bBack,null,null,null,bNext, Gravity.TOP,0,150);
+        pWindow(layout,600,LinearLayout.LayoutParams.WRAP_CONTENT,bBack,null,null,null,nNext, Gravity.TOP,0,150);
     }
 
     @Override
     public void initView() {
-        initTitle(null,"返回","务工认证",null,null);
+        initTitle(null,"返回","企业认证",null,null);
+        adapter=new SpinnerAdapter(datas);
+        sType.setAdapter(adapter);
+        sBandAdd.setAdapter(adapter);
+
     }
 
     @Override
@@ -41,7 +54,7 @@ public class PeasantAuthenBackActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_peasant_authen_back);
+        setContentView(R.layout.activity_factory_auther_complete);
         ButterKnife.bind(this);
         initView();
         initData();
