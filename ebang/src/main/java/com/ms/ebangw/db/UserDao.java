@@ -46,7 +46,7 @@ public class UserDao {
 //			userDaoOpe.createOrUpdate(user);
             userDaoOpe.create(user);
         } catch (SQLException e) {
-            L.d("获取User失败");
+            L.d("add User失败");
             e.printStackTrace();
         }
 
@@ -62,7 +62,7 @@ public class UserDao {
                 return true;
             }
         } catch (SQLException e) {
-            L.d("获取User失败");
+            L.d("update  User失败");
             e.printStackTrace();
         }
         return false;
@@ -72,7 +72,7 @@ public class UserDao {
         try {
             userDaoOpe.delete(user);
         } catch (SQLException e) {
-            L.d("获取User失败");
+            L.d("delete User失败");
             e.printStackTrace();
         }
     }

@@ -9,7 +9,9 @@ import android.view.View;
 import android.view.Window;
 import android.widget.TextView;
 
+import com.ms.ebangw.MyApplication;
 import com.ms.ebangw.R;
+import com.ms.ebangw.bean.User;
 import com.ms.ebangw.dialog.LoadingDialog;
 import com.ms.ebangw.utils.L;
 import com.umeng.analytics.MobclickAgent;
@@ -163,15 +165,24 @@ public abstract class BaseFragment extends Fragment {
         }
         return null;
     }
-/**
- * 实例化控件
- */
-    public View findviewbyid(int rInt){
 
 
-        return getView().findViewById(rInt);
+    public User getUser() {
+        User user = MyApplication.getInstance().getUser();
+        return user;
     }
 
-
+    /**
+     * 判断是否登陆
+     * @return
+     */
+    public boolean isLogin() {
+        User user = getUser();
+        if (null != user) {
+            return true;
+        }else {
+            return false;
+        }
+    }
 
 }
