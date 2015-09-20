@@ -50,13 +50,9 @@ public class HomeActivity extends BaseActivity {
 
 	}
 
-
-
-
 	@Override
 	public void initData() {
 		fm = getFragmentManager();
-//		fm.beginTransaction().replace(R.id.fl_content, new HomeFragment()).commit();
 		foundFragment=new FoundFragment();
 		releasefragment=new ReleaseFragment();
 
@@ -71,7 +67,7 @@ public class HomeActivity extends BaseActivity {
 						fm.beginTransaction().replace(R.id.fl_content ,foundFragment).commit();
 						break;
 					case R.id.rb_release:
-						fm.beginTransaction().replace(R.id.fl_content,releasefragment).commit();;
+						fm.beginTransaction().replace(R.id.fl_content,releasefragment).commit();
 						break;
 					case R.id.rb_server:
 
@@ -91,50 +87,6 @@ public class HomeActivity extends BaseActivity {
 
 		radioGroup.getChildAt(0).performClick();
 	}
-
-
-
-
-//	@OnClick(R.id.ll_page)
-//	public void changeToPage(View view) {
-//		changeState(0);
-//		fm.beginTransaction().replace(R.id.act_home_frag,new HomeFragment()).commit();
-//	}
-//
-//	@OnClick(R.id.ll_discovery)
-//	public void changeToDiscovery(View view) {
-//		changeState(1);
-//		fm.beginTransaction().replace(R.id.act_home_frag,foundFragment).commit();
-//	}
-//
-//	@OnClick(R.id.ll_release)
-//	public void changeToRelease(View view) {
-//		changeState(2);
-//		fm.beginTransaction().replace(R.id.act_home_frag,releasefragment).commit();;
-//	}
-//
-//
-//	@OnClick(R.id.ll_serve)
-//	public void changeToServe(View view) {
-//		changeState(3);
-//	}
-//
-//	@OnClick(R.id.ll_mine)
-//	public void changeToMine(View view) {
-//		changeState(4);
-//		if (isLogin()) {
-//			authenticationfragment = new AuthenticationFragment();
-//			fm.beginTransaction().replace(R.id.act_home_frag, authenticationfragment).commit();
-//		} else {
-//			Intent intent = new Intent(this, LoginActivity.class);
-//			startActivity(intent);
-//		}
-//	}
-
-
-
-
-
 
 
 	/**
