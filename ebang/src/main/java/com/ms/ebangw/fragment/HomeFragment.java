@@ -62,7 +62,7 @@ public class HomeFragment extends BaseFragment implements OnClickListener   {
 	LinearLayout lOther;
 	@OnClick({R.id.lin_build,R.id.lin_other,R.id.lin_decorate,R.id.lin_projectManage})
 	void click(View view){
-
+			//点击跳转2级页面
 	}
 
 

@@ -76,12 +76,11 @@
             android:columnWidth="90dp"
             android:stretchMode="columnWidth"
             android:gravity="center"  >
-
-
         </GridView>
         <View style="@style/aaa_hor"/>
 
         <ListView
+
             android:layout_margin="10dp"
             android:id="@+id/lv_listview"
             android:layout_width="match_parent"
