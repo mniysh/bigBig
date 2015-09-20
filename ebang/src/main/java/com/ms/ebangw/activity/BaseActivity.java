@@ -170,6 +170,10 @@ public abstract class BaseActivity extends AppCompatActivity {
         return user;
     }
 
+    /**
+     * 判断是否登陆
+     * @return
+     */
     public boolean isLogin() {
         User user = getUser();
         if (null != user) {

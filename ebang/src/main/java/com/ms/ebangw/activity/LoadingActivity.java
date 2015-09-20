@@ -9,9 +9,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 
-import com.ms.ebangw.MyApplication;
 import com.ms.ebangw.R;
-import com.ms.ebangw.bean.User;
 import com.ms.ebangw.utils.DensityUtils;
 import com.ms.ebangw.view.Circle;
 
@@ -46,13 +44,7 @@ public class LoadingActivity extends BaseActivity {
 			public boolean handleMessage(Message msg) {
 				int what = msg.what;
 				if (100 == what) {
-					User user = MyApplication.getInstance().getUser();
-					Intent intent;
-					if (null != user) {
-						intent = new Intent(LoadingActivity.this, HomeActivity.class);
-					}else {
-						intent = new Intent(LoadingActivity.this, LoginActivity.class);
-					}
+					Intent intent = new Intent(LoadingActivity.this, HomeActivity.class);
 					startActivity(intent);
 					finish();
 				}
@@ -62,7 +54,7 @@ public class LoadingActivity extends BaseActivity {
 
 		startScanAnimation();
 		Message message = mHandler.obtainMessage(100);
-		mHandler.sendMessageDelayed(message, 3000);
+		mHandler.sendMessageDelayed(message, 3000);		//3秒后跳转到主页
 
 	}
 

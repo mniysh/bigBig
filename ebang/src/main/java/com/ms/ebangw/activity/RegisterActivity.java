@@ -90,6 +90,8 @@ public class RegisterActivity extends BaseActivity  {
 	/**点击：注册*/
 	@OnClick(R.id.btn_register)
 	public void goRegister2(View view) {
+		phone = phonetEt.getText().toString().trim();
+		verifyCode = verifyCodeEt.getText().toString().trim();
 		Bundle bundle = new Bundle();
 		bundle.putString(Constants.key_phone, phone);
 		bundle.putString(Constants.KEY_VERIFY_CODE, verifyCode);
@@ -124,7 +126,6 @@ public class RegisterActivity extends BaseActivity  {
 	@OnClick(R.id.btn_smsCode)
 	public void getMsmCode() {
 		phone = phonetEt.getText().toString().trim();
-		verifyCode = verifyCodeEt.getText().toString().trim();
 		if (VerifyUtils.isPhone(phone)) {
 
 			DataAccessUtil.messageCode(phone, new JsonHttpResponseHandler(){

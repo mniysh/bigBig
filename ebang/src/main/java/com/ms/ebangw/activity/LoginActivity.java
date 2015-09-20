@@ -45,7 +45,6 @@ public class LoginActivity extends BaseActivity{
     @Bind(R.id.tv_find_password)       //找回密码
     TextView findPwdTv;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

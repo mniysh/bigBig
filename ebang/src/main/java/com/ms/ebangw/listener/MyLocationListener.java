@@ -19,6 +19,10 @@ public class MyLocationListener implements BDLocationListener {
 
     @Override
     public void onReceiveLocation(BDLocation location) {
+        if (null == location) {
+            L.d("定位失败");
+            return;
+        }
         //Receive Location
         StringBuffer sb = new StringBuffer(256);
         sb.append("time : ");
@@ -68,7 +72,8 @@ public class MyLocationListener implements BDLocationListener {
         }
         sb.append("\nlocationdescribe : ");// 位置语义化信息
         sb.append(location.getLocationDescribe());
-        L.d("LocationApplication", location.getLocationDescribe());
+
+//        L.d("LocationApplication", location.getLocationDescribe());
 
         if (!TextUtils.isEmpty(location.getLocationDescribe())) {
             MyApplication.getInstance().setmLocation(location.getLocationDescribe());
