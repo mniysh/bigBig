@@ -17,6 +17,7 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:clickable="true"
+            android:paddingRight="10dp"
             android:orientation="horizontal">
 
             <ImageView
@@ -33,22 +34,32 @@
                 android:textSize="17sp" />
         </LinearLayout>
 
-        <!--<TextView-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_centerInParent="true"-->
-            <!--android:text="企业客服"-->
-            <!--android:textColor="#fff"-->
-            <!--android:textSize="20sp"-->
 
-            <!--/>-->
         <ImageView
+            android:id="@+id/iv_message"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/home_message"
+            android:layout_marginLeft="5dp"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:layout_marginRight="10dp"
+            android:layout_marginRight="5dp"
+            />
+        <EditText
+            android:paddingLeft="10dp"
+            android:paddingBottom="5dp"
+            android:paddingTop="5dp"
+            android:layout_toLeftOf="@+id/iv_message"
+            android:layout_toRightOf="@+id/act_chat_Lin_back"
+            android:paddingRight="30dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="请输入要搜索的内容"
+            android:textSize="12dp"
+            android:singleLine="true"
+            android:background="@drawable/search_ed"
+            android:drawableLeft="@drawable/search_home"
+            android:drawablePadding="10dp"
             />
     </RelativeLayout>
     <LinearLayout
@@ -74,6 +85,7 @@
             android:verticalSpacing="10dp"
             android:horizontalSpacing="10dp"
             android:columnWidth="90dp"
+
             android:stretchMode="columnWidth"
             android:gravity="center"  >
         </GridView>

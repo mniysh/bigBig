@@ -60,6 +60,7 @@ public class FoundFragmentAdapter extends BaseAdapter {
         TextView tv_juli = ViewHolder.get(convertView, R.id.item_frag_found_xlistview_juli);
         TextView tv_count = ViewHolder.get(convertView, R.id.item_frag_found_xlistview_count);
 
+
         return convertView;
     }
 

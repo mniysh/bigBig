@@ -19,6 +19,7 @@ import android.widget.LinearLayout;
 
 import com.ms.ebangw.R;
 import com.ms.ebangw.activity.HomeActivity;
+import com.ms.ebangw.activity.NextPageActivity;
 import com.ms.ebangw.activity.RecommendActivity;
 import com.ms.ebangw.adapter.HomeListAdapter;
 import com.ms.ebangw.adapter.HomeViewpagerAdapter;
@@ -62,7 +63,7 @@ public class HomeFragment extends BaseFragment implements OnClickListener   {
 	LinearLayout lOther;
 	@OnClick({R.id.lin_build,R.id.lin_other,R.id.lin_decorate,R.id.lin_projectManage})
 	void click(View view){
-			//点击跳转2级页面
+		startActivity(new Intent(act, NextPageActivity.class));
 	}
 
 

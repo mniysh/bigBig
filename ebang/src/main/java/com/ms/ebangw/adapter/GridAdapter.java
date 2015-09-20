@@ -52,6 +52,7 @@ public class GridAdapter extends BaseAdapter {
 
         }
         TextView bItem= ViewHolder.get(convertView,R.id.bt_pre);
+        bItem.setText(datas.get(position));
 
         return convertView;
     }
