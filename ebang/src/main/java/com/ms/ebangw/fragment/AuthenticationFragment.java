@@ -11,10 +11,10 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.ms.ebangw.R;
-import com.ms.ebangw.activity.FactoryAuthenActivity;
-import com.ms.ebangw.activity.ManagerAuthenActivity;
-import com.ms.ebangw.activity.PeasantAuthenActivity;
-import com.ms.ebangw.activity.SelfAuthenticationActivity;
+import com.ms.ebangw.activity.DevelopersAuthenActivity;
+import com.ms.ebangw.activity.HeadmanAuthenActivity;
+import com.ms.ebangw.activity.WorkerAuthenActivity;
+import com.ms.ebangw.activity.InvestorAuthenticationActivity;
 import com.ms.ebangw.bean.User;
 
 import butterknife.Bind;
@@ -87,20 +87,20 @@ public class AuthenticationFragment extends BaseFragment implements OnClickListe
 	}
 
 	@Override
-	public void onClick(View v) {
+	public void onClick(View v) {	////worker(工人)/headman(工头)/developers(开发商)/investor(个人)
 		switch (v.getId()) {
 			//个人认证
 			case R.id.btn_investor:
-				startActivity(new Intent(mActivity,SelfAuthenticationActivity.class));
+				startActivity(new Intent(mActivity,InvestorAuthenticationActivity.class));
 				break;
 			case R.id.btn_worker:	//工人
-				startActivity(new Intent(mActivity,PeasantAuthenActivity.class));
+				startActivity(new Intent(mActivity,WorkerAuthenActivity.class));
 				break;
 			case R.id.btn_headman:	//工头
-				startActivity(new Intent(mActivity,ManagerAuthenActivity.class));
+				startActivity(new Intent(mActivity,HeadmanAuthenActivity.class));
 				break;
 			case R.id.btn_developers:	//开发商
-				startActivity(new Intent(mActivity,FactoryAuthenActivity.class));
+				startActivity(new Intent(mActivity,DevelopersAuthenActivity.class));
 				break;
 
 			default:

@@ -24,7 +24,7 @@ import com.ms.ebangw.utils.T;
  *
  * @author admin
  */
-public class SelfAuthenticationActivity extends BaseActivity implements OnCheckedChangeListener, OnItemSelectedListener, OnClickListener {
+public class InvestorAuthenticationActivity extends BaseActivity implements OnCheckedChangeListener, OnItemSelectedListener, OnClickListener {
 	private EditText et_name, et_identityCard, phoneNum;
 	private Spinner sp_sheng, sp_shi, sp_qu;
 	private RadioGroup rg;
@@ -55,7 +55,7 @@ public class SelfAuthenticationActivity extends BaseActivity implements OnChecke
 		initTitle(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				SelfAuthenticationActivity.this.finish();
+				InvestorAuthenticationActivity.this.finish();
 			}
 		},"返回","个人认证",null,null);
 
@@ -165,8 +165,8 @@ public class SelfAuthenticationActivity extends BaseActivity implements OnChecke
 				}
 				Log.i("aaa", "长度是"+et_identity_value.length());
 				if(et_identity_value.length()==18||et_identity_value.length()==16){
-					SelfAuthenticationActivity.this.startActivity(new Intent(SelfAuthenticationActivity.this,CertificationSelfActivity.class));
-					SelfAuthenticationActivity.this.finish();
+					InvestorAuthenticationActivity.this.startActivity(new Intent(InvestorAuthenticationActivity.this,CertificationSelfActivity.class));
+					InvestorAuthenticationActivity.this.finish();
 
 
 				}else{
