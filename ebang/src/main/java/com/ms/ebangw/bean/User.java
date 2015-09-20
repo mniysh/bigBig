@@ -32,6 +32,17 @@ public class User implements Serializable {
 	private String phone;
 	@DatabaseField(columnName = "message")
 	private String message;
+	/**个人 investor，农民工 worker，工长 headman，开发商 developers*/
+	@DatabaseField(columnName = "category")
+	private String category;
+
+	@DatabaseField(columnName = "nick_name")
+	private String nick_name;
+
+	@DatabaseField(columnName = "rank")
+	private String rank;
+
+
 
 	public User() {
 	}
@@ -98,6 +109,29 @@ public class User implements Serializable {
 
 	public void setMessage(String message) {
 		this.message = message;
+	}
+
+	public String getCategory() {
+		return category;
+	}
+
+	public void setCategory(String category) {
+		this.category = category;
+	}
+	public String getNick_name() {
+		return nick_name;
+	}
+
+	public void setNick_name(String nick_name) {
+		this.nick_name = nick_name;
+	}
+
+	public String getRank() {
+		return rank;
+	}
+
+	public void setRank(String rank) {
+		this.rank = rank;
 	}
 
 	@Override

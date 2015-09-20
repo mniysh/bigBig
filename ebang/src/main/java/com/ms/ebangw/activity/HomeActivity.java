@@ -3,15 +3,22 @@ package com.ms.ebangw.activity;
 import android.app.FragmentManager;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.widget.RadioGroup;
 
 import com.ms.ebangw.MyApplication;
 import com.ms.ebangw.R;
+import com.ms.ebangw.bean.User;
+import com.ms.ebangw.commons.Constants;
 import com.ms.ebangw.fragment.AuthenticationFragment;
+import com.ms.ebangw.fragment.DevelopersCenterFragment;
 import com.ms.ebangw.fragment.FoundFragment;
+import com.ms.ebangw.fragment.HeadmanCenterFragment;
 import com.ms.ebangw.fragment.HomeFragment;
+import com.ms.ebangw.fragment.InvestorCenterFragment;
 import com.ms.ebangw.fragment.ReleaseFragment;
+import com.ms.ebangw.fragment.WorkerCenterFragment;
 import com.ms.ebangw.utils.T;
 import com.umeng.update.UmengUpdateAgent;
 
@@ -31,7 +38,6 @@ public class HomeActivity extends BaseActivity {
 
 	private FoundFragment foundFragment;
 	private ReleaseFragment releasefragment;
-	private AuthenticationFragment authenticationfragment;
 
 	@Bind(R.id.radioGroup)
 	RadioGroup radioGroup;
@@ -74,8 +80,10 @@ public class HomeActivity extends BaseActivity {
 						break;
 					case R.id.rb_mine:
 						if (isLogin()) {
-							authenticationfragment = new AuthenticationFragment();
-							fm.beginTransaction().replace(R.id.fl_content, authenticationfragment).commit();
+							User user = getUser();
+							String category = user.getCategory();
+							goCenter(category);
+
 						} else {
 							Intent intent = new Intent(HomeActivity.this, LoginActivity.class);
 							startActivity(intent);
@@ -88,6 +96,36 @@ public class HomeActivity extends BaseActivity {
 		radioGroup.getChildAt(0).performClick();
 	}
 
+	/**
+	 * 根据人员类型跳转到相应的内容
+	 * @param category	//用户已认证类型  worker(工人)/headman(工头)/developers(开发商)/investor(个人)  null（未认证）
+	 */
+	public void goCenter(String category) {
+		if (TextUtils.isEmpty(category)) {		////用户未认证类型
+			AuthenticationFragment authenticationfragment = new AuthenticationFragment();
+			fm.beginTransaction().replace(R.id.fl_content, authenticationfragment).commit();
+			return;
+		}
+
+		switch (category) {
+			case Constants.INVESTOR:        //个人
+				fm.beginTransaction().replace(R.id.fl_content, new InvestorCenterFragment()).commit();
+				break;
+
+			case Constants.HEADMAN:        //	工头
+				fm.beginTransaction().replace(R.id.fl_content, new HeadmanCenterFragment()).commit();
+				break;
+
+			case Constants.WORKER:    //工人
+				fm.beginTransaction().replace(R.id.fl_content, new WorkerCenterFragment()).commit();
+				break;
+
+			case Constants.DEVELOPERS:    //开发商
+				fm.beginTransaction().replace(R.id.fl_content, new DevelopersCenterFragment()).commit();
+				break;
+
+		}
+	}
 
 	/**
 	 * 友盟版本更新

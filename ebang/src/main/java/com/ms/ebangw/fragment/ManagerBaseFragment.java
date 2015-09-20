@@ -11,10 +11,6 @@ import android.widget.Button;
 import com.ms.ebangw.R;
 import com.ms.ebangw.activity.ManagerAuthenActivity;
 
-import butterknife.Bind;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
-
 
 public class ManagerBaseFragment extends BaseFragment {
 	private ManagerAuthenActivity act;
@@ -43,7 +39,6 @@ public class ManagerBaseFragment extends BaseFragment {
 
 	@Override
 	public void initView() {
-		bNext= (Button) findviewbyid(R.id.frag_pea_submit);
 	}
 
 	@Override
