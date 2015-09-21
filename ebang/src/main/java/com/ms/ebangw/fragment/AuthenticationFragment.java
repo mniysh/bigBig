@@ -11,12 +11,14 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.ms.ebangw.R;
+import com.ms.ebangw.activity.UserAuthenActivity;
 import com.ms.ebangw.activity.FactoryAuthenActivity;
 import com.ms.ebangw.activity.ManagerAuthenActivity;
 import com.ms.ebangw.activity.PeasantAuthenActivity;
 import com.ms.ebangw.activity.SelfAuthenticationActivity;
 import com.ms.ebangw.activity.SettingActivity;
 import com.ms.ebangw.bean.User;
+import com.ms.ebangw.commons.Constants;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -97,25 +99,56 @@ public class AuthenticationFragment extends BaseFragment implements OnClickListe
 	}
 
 	@Override
-	public void onClick(View v) {
+	public void onClick(View v) {	////worker(工人)/headman(工头)/developers(开发商)/investor(个人)
+
+//		switch (v.getId()) {
+//			//个人认证
+//			case R.id.btn_investor:
+//				bundle.putString(Constants.KEY_CATEGORY, Constants.INVESTOR);
+//				intent = new Intent(mActivity,InvestorAuthenticationActivity.class);
+//				intent.putExtras(bundle);
+//				startActivity(intent);
+//				break;
+//			case R.id.btn_worker:	//工人
+//				bundle.putString(Constants.KEY_CATEGORY, Constants.WORKER);
+//
+//				startActivity(new Intent(mActivity,WorkerAuthenActivity.class));
+//				break;
+//			case R.id.btn_headman:	//工头
+//				startActivity(new Intent(mActivity,UserAuthenActivity.class));
+//				break;
+//			case R.id.btn_developers:	//开发商
+//				startActivity(new Intent(mActivity,DevelopersAuthenActivity.class));
+//				break;
+//
+//			default:
+//				break;
+//		}
+		String category = Constants.INVESTOR;
 		switch (v.getId()) {
-			//个人认证
+			//			//个人认证
 			case R.id.btn_investor:
-				startActivity(new Intent(mActivity,SelfAuthenticationActivity.class));
+				category = Constants.INVESTOR;
 				break;
 			case R.id.btn_worker:	//工人
-				startActivity(new Intent(mActivity,PeasantAuthenActivity.class));
+				category = Constants.WORKER;
 				break;
 			case R.id.btn_headman:	//工头
-				startActivity(new Intent(mActivity,ManagerAuthenActivity.class));
+				category = Constants.HEADMAN;
 				break;
 			case R.id.btn_developers:	//开发商
-				startActivity(new Intent(mActivity,FactoryAuthenActivity.class));
+				category = Constants.DEVELOPERS;
 				break;
-
-			default:
-				break;
+//
 		}
+		Bundle bundle = new Bundle();
+		bundle.putString(Constants.KEY_CATEGORY, category);
+
+		Intent intent = new Intent(mActivity, UserAuthenActivity.class);
+		intent.putExtras(bundle);
+		startActivity(intent);
+
+
 	}
 }
 

@@ -1,55 +1,61 @@
 package com.ms.ebangw.activity;
 
-import android.app.FragmentManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.RadioGroup;
 import android.widget.RadioGroup.OnCheckedChangeListener;
 
 import com.ms.ebangw.R;
-import com.ms.ebangw.fragment.ManagerBankFragment;
-import com.ms.ebangw.fragment.ManagerBaseFragment;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
- * 工长认证的基本信息页面
+ * 务工人认证的基本信息页面
  */
-public class ManagerAuthenActivity extends BaseActivity implements OnCheckedChangeListener {
-	@Bind(R.id.act_pea_submit)
-	Button bBack;
+public class WorkerAuthenActivity extends BaseActivity implements OnClickListener, OnCheckedChangeListener {
 
-	@OnClick(R.id.act_pea_submit)
-	public void back(){
-		startActivity(new Intent(this, CertificationManagerActivity.class));
+	@Bind(R.id.bt_next)
+	Button bNext;
+	@OnClick(R.id.bt_next)
+	public void next(){
+		startActivity(new Intent(this,PeasantAuthenCardActivity.class));
 		this.finish();
 	}
-
-	private RadioGroup rGroup;
+	//private RadioGroup rGroup;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.act_managerauthen);
+		setContentView(R.layout.act_peasant_authen);
 		ButterKnife.bind(this);
-		initTitle(null,"返回","工长认证",null,null);
 		initView();
+		initData();
 		initViewOper();
+		
 	}
 
 	private void initViewOper() {
 		// TODO Auto-generated method stub
-		rGroup.setOnCheckedChangeListener(this);
-
+		//rGroup.setOnCheckedChangeListener(this);
+		initTitle(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				WorkerAuthenActivity.this.finish();
+			}
+		},"返回","务工认证",null,null);
+		
 	}
 
 	public void initView() {
 		// TODO Auto-generated method stub
-		rGroup=(RadioGroup) findViewById(R.id.act_mana_rg);
+		//rGroup=(RadioGroup) findViewById(R.id.act_pea_rg);
+
+		
 		
 	}
 
@@ -59,11 +65,19 @@ public class ManagerAuthenActivity extends BaseActivity implements OnCheckedChan
 	}
 
 	@Override
+	public void onClick(View v) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
 	public void onCheckedChanged(RadioGroup group, int checkedId) {
 		// TODO Auto-generated method stub
 		switch (checkedId) {
-		case R.id.act_mana_rg:
-			break;
+//		case R.id.act_pea_rb_base:
+//			break;
+//		case R.id.act_pea_rb_bank:
+//			break;
 
 		default:
 			break;

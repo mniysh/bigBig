@@ -21,7 +21,7 @@ import butterknife.OnClick;
  * 开发商页面
  */
 
-public class FactoryAuthenActivity extends BaseActivity implements OnCheckedChangeListener {
+public class DevelopersAuthenActivity extends BaseActivity implements OnCheckedChangeListener {
 
 	@Bind(R.id.bt_next)
 	Button nNext;

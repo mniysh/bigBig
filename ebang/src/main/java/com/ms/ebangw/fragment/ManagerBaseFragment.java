@@ -9,11 +9,11 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.ms.ebangw.R;
-import com.ms.ebangw.activity.ManagerAuthenActivity;
+import com.ms.ebangw.activity.UserAuthenActivity;
 
 
 public class ManagerBaseFragment extends BaseFragment {
-	private ManagerAuthenActivity act;
+	private UserAuthenActivity act;
 	private Button bNext;
 
 	@Override
@@ -26,7 +26,7 @@ public class ManagerBaseFragment extends BaseFragment {
 	@Override
 	public void onAttach(Activity activity) {
 		super.onAttach(activity);
-		act= (ManagerAuthenActivity) activity;
+		act= (UserAuthenActivity) activity;
 	}
 
 	@Override

@@ -7,6 +7,7 @@ import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestHandle;
 import com.loopj.android.http.RequestParams;
 import com.ms.ebangw.MyApplication;
+import com.ms.ebangw.bean.User;
 import com.ms.ebangw.utils.L;
 import com.ms.ebangw.utils.NetUtils;
 import com.ms.ebangw.utils.T;
@@ -206,7 +207,7 @@ public class DataAccessUtil {
         if (TextUtils.isEmpty(num)) {
             num = "0";
         }
-        return doGet(RequestUrl.address + num, asyncHttpResponseHandler);
+        return doGet(RequestUrl.address + num, new RequestParams(), asyncHttpResponseHandler);
     }
 
 
@@ -219,6 +220,7 @@ public class DataAccessUtil {
             return null;
         }
         initAsyncHttpClient();
+        addCommonParams(params);
         L.d(TAG, "doPost: " + url + " : " + params.toString());
         return mClient.post(url, params, asyncHttpResponseHandler);
 
@@ -232,23 +234,9 @@ public class DataAccessUtil {
             return null;
         }
         initAsyncHttpClient();
-
+        addCommonParams(params);
         L.d(TAG, "doPost: " + url + " : " + params.toString());
         return mClient.get(url, params, asyncHttpResponseHandler);
-
-    }
-
-    public static RequestHandle doGet(String url, AsyncHttpResponseHandler
-        asyncHttpResponseHandler) {
-
-        if (!NetUtils.isConnected(MyApplication.getInstance())) {
-            T.show("网络异常");
-            return null;
-        }
-        initAsyncHttpClient();
-
-        L.d(TAG, "doPost: " + url);
-        return mClient.get(url, asyncHttpResponseHandler);
 
     }
 
@@ -281,11 +269,22 @@ public class DataAccessUtil {
         RequestParams params = new RequestParams();
         try {
             params.put("image", imageFile);
+            params = addCommonParams(params);
             mClient.post(url, params, asyncHttpResponseHandler);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
             L.d(TAG, "upLoadImage：文件不存在");
         }
         return null;
+    }
+
+    private static RequestParams addCommonParams(RequestParams params) {
+        User user = MyApplication.getInstance().getUser();
+        String id = user.getId();
+        String app_token = user.getApp_token();
+        params.put("id", id);
+        params.put("app_token", app_token);
+
+        return params;
     }
 }  

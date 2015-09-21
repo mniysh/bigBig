@@ -1,0 +1,136 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             xmlns:tools="http://schemas.android.com/tools"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+              android:orientation="vertical"
+              android:divider="@color/gray_back"
+              android:showDividers="middle"
+
+             tools:context="com.ms.ebangw.fragment.BankVerifyFragment">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+
+        >
+
+        <TextView
+            android:layout_width="@dimen/bank_verify_width"
+            android:layout_height="wrap_content"
+            android:text="*开户人姓名："
+            android:gravity="right|center_vertical"
+            android:singleLine="true"
+
+            />
+
+        <EditText
+            android:id="@+id/et_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="请输入真实的姓名"
+            android:gravity="center_vertical"
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        >
+
+        <TextView
+            android:layout_width="@dimen/bank_verify_width"
+            android:layout_height="wrap_content"
+            android:text="*开户行所在省份："
+            android:gravity="right|center_vertical"
+            android:singleLine="true"
+
+            />
+
+        <include
+            layout="@layout/layout_area_spinner_2"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingBottom="10dp"
+
+        >
+
+        <TextView
+            android:layout_width="@dimen/bank_verify_width"
+            android:layout_height="wrap_content"
+            android:text="*开户行名称："
+            android:gravity="right|center_vertical"
+            android:singleLine="true"
+
+            />
+
+        <Spinner
+            android:id="@+id/sp_bank"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:gravity="center_vertical"
+            />
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingBottom="10dp"
+
+        >
+
+        <TextView
+            android:layout_width="@dimen/bank_verify_width"
+            android:layout_height="wrap_content"
+            android:text="*银行卡号："
+            android:gravity="right|center_vertical"
+            android:singleLine="true"
+
+            />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="请输入您的卡号"
+            android:gravity="center_vertical"
+            />
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="改银行卡户名必须与会员真实姓名一致，否则会提交失败！"
+        android:textSize="10dp"
+        android:textColor="@color/auther_red"
+        android:gravity="center_horizontal"
+        android:layout_marginTop="30dp"
+
+
+        />
+    <Button
+        android:id="@+id/btn_commit"
+        android:layout_marginTop="10dp"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="完成"
+        android:textSize="15dp"
+        android:textColor="#fff"
+        android:background="@drawable/bk_but"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        />
+
+</LinearLayout>
