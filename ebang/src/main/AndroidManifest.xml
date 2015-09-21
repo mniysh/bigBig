@@ -129,6 +129,8 @@
         <activity android:name=".activity.CertificationSelfActivity" />
         <activity android:name=".activity.CertificationManagerActivity" />
         <activity android:name=".activity.ManagerBackActivity" />
+        <activity android:name=".Photo.PhotosActivity"/>
+        <activity android:name=".Photo.SelectPhotosDirActivity"/>
 
         <!-- 友盟渠道设置 -->
         <meta-data

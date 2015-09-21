@@ -3,8 +3,6 @@
     android:layout_width="match_parent"
     android:orientation="vertical"
     android:layout_height="match_parent"
-
-
     tools:context="com.ms.ebangw.activity.CertificationManagerActivity">
     <include layout="@layout/layout_common_title"/>
     <ScrollView
