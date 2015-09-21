@@ -14,7 +14,7 @@
         android:paddingTop="10dp"
         android:layout_height="wrap_content">
         <TextView
-            android:layout_width="0"
+            android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="wrap_content"
             android:text="会员昵称"
@@ -22,7 +22,7 @@
             android:textSize="16dp"
             />
         <TextView
-            android:layout_width="0"
+            android:layout_width="0dp"
             android:layout_weight="2"
             android:layout_height="wrap_content"
             android:text="放手机号或户名"
@@ -56,7 +56,7 @@
         android:paddingTop="10dp"
         android:layout_height="wrap_content">
         <TextView
-            android:layout_width="0"
+            android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="wrap_content"
             android:text="手机验证"
@@ -64,7 +64,7 @@
             android:textSize="16dp"
             />
         <TextView
-            android:layout_width="0"
+            android:layout_width="0dp"
             android:layout_weight="2"
             android:layout_height="wrap_content"
             android:text="放手机号"
@@ -93,7 +93,7 @@
         android:paddingTop="10dp"
         android:layout_height="wrap_content">
         <TextView
-            android:layout_width="0"
+            android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="wrap_content"
             android:text="登录密码"
@@ -102,7 +102,7 @@
             android:textSize="16dp"
             />
         <TextView
-            android:layout_width="0"
+            android:layout_width="0dp"
             android:layout_weight="2"
             android:layout_height="wrap_content"
             android:text="互联网账号存在风险建议您定期修改密码以维护账户安全"

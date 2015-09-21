@@ -280,10 +280,13 @@ public class DataAccessUtil {
 
     private static RequestParams addCommonParams(RequestParams params) {
         User user = MyApplication.getInstance().getUser();
-        String id = user.getId();
-        String app_token = user.getApp_token();
-        params.put("id", id);
-        params.put("app_token", app_token);
+        if (null != user) {
+
+            String id = user.getId();
+            String app_token = user.getApp_token();
+            params.put("id", id);
+            params.put("app_token", app_token);
+        }
 
         return params;
     }

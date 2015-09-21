@@ -12,10 +12,6 @@ import android.widget.TextView;
 
 import com.ms.ebangw.R;
 import com.ms.ebangw.activity.UserAuthenActivity;
-import com.ms.ebangw.activity.FactoryAuthenActivity;
-import com.ms.ebangw.activity.ManagerAuthenActivity;
-import com.ms.ebangw.activity.PeasantAuthenActivity;
-import com.ms.ebangw.activity.SelfAuthenticationActivity;
 import com.ms.ebangw.activity.SettingActivity;
 import com.ms.ebangw.bean.User;
 import com.ms.ebangw.commons.Constants;

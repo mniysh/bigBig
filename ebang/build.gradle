@@ -48,7 +48,6 @@ dependencies {
     compile 'com.jakewharton:butterknife:7.0.1'
     compile 'com.umeng.analytics:analytics:latest.integration'
     compile project(':social_sdk_library_project')
-    compile 'com.facebook.fresco:fresco:0.7.0'
     compile 'com.android.support:appcompat-v7:23.0.1'
     compile 'com.android.support:support-v13:23.0.1'
 }
