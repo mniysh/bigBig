@@ -65,7 +65,16 @@ public class DataParseUtil {
         return processDataResult(jsonObject);
     };
 
+    /**
+     * 修改昵称接口
+     * @param jsonObject
+     * @return
+     * @throws ResponseException
+     */
+    public static boolean modifyName(JSONObject jsonObject)throws  ResponseException{
+        return processDataResult(jsonObject);
 
+    }
 
 
     /**
@@ -94,6 +103,8 @@ public class DataParseUtil {
         }
         return false;
     }
+
+
 
 
 

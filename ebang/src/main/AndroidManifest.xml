@@ -269,6 +269,18 @@
             android:name=".activity.SettingActivity"
             android:label="@string/title_activity_setting" >
         </activity>
+        <activity
+            android:name=".activity.ModifyNickNameActivity"
+            android:label="@string/title_activity_modify_nick_name" >
+        </activity>
+        <activity
+            android:name=".activity.ModifyPhoneActivity"
+            android:label="@string/title_activity_modify_phone" >
+        </activity>
+        <activity
+            android:name=".activity.ModifyPasswordAvtivity"
+            android:label="@string/title_activity_modify_password_avtivity" >
+        </activity>
     </application>
 
 </manifest>

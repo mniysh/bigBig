@@ -6,7 +6,17 @@
     android:orientation="vertical"
     tools:context="com.ms.ebangw.activity.SettingActivity">
     <include layout="@layout/layout_common_title"/>
+    <RelativeLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        >
+
+
+
     <LinearLayout
+        android:id="@+id/lin_original01"
         android:layout_width="match_parent"
         android:orientation="horizontal"
         android:paddingLeft="15dp"
@@ -22,6 +32,7 @@
             android:textSize="16dp"
             />
         <TextView
+            android:id="@+id/tv_nickName"
             android:layout_width="0dp"
             android:layout_weight="2"
             android:layout_height="wrap_content"
@@ -30,6 +41,8 @@
             android:textSize="16dp"
             />
         <TextView
+            android:clickable="true"
+            android:id="@+id/tv_nameModify"
             android:layout_weight="1"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -44,15 +57,26 @@
     </LinearLayout>
 
 
+    </RelativeLayout>
+
+
+
 
 
 
     <View style="@style/aaa_hor"/>
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+
+
     <LinearLayout
         android:layout_width="match_parent"
         android:orientation="horizontal"
         android:paddingLeft="15dp"
         android:paddingBottom="10dp"
+        android:id="@+id/lin_original02"
         android:paddingTop="10dp"
         android:layout_height="wrap_content">
         <TextView
@@ -72,6 +96,8 @@
             android:textSize="16dp"
             />
         <TextView
+            android:clickable="true"
+            android:id="@+id/tv_phoneModify"
             android:layout_weight="1"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -84,8 +110,19 @@
 
 
     </LinearLayout>
+
+
+    </RelativeLayout>
     <View style="@style/aaa_hor"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+
+
     <LinearLayout
+        android:id="@+id/lin_original03"
         android:layout_width="match_parent"
         android:orientation="horizontal"
         android:paddingLeft="15dp"
@@ -115,6 +152,8 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="修改"
+            android:clickable="true"
+            android:id="@+id/tv_passModify"
             android:layout_gravity="center_vertical"
             android:layout_marginRight="10dp"
             android:gravity="center_horizontal"
@@ -124,6 +163,9 @@
 
 
     </LinearLayout>
+
+
+    </RelativeLayout>
     <View style="@style/aaa_hor"/>
 
 

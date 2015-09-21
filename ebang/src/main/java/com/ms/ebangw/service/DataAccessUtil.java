@@ -210,7 +210,17 @@ public class DataAccessUtil {
         return doGet(RequestUrl.address + num, new RequestParams(), asyncHttpResponseHandler);
     }
 
-
+    /**
+     * 修改昵称接口
+     * @param nickname 修改后的昵称
+     * @param asyncHttpResponseHandler
+     * @return
+     */
+    public static RequestHandle modifyNickName(String nickname,AsyncHttpResponseHandler asyncHttpResponseHandler){
+        RequestParams params=new RequestParams();
+        params.put("nickname",nickname);
+        return doPost(RequestUrl.modify_nickName,params,asyncHttpResponseHandler);
+    }
 
 
     public static RequestHandle doPost(String url, RequestParams params, AsyncHttpResponseHandler asyncHttpResponseHandler) {

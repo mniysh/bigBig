@@ -62,14 +62,15 @@ public class RequestUrl {
     /**
      * 11.工头认证接口
      */
-    public static final  String header_identify = domain + "api/user/investor/header-identify";
+    public static final  String header_identify = domain + "/api/user/investor/header-identify";
 
     /**
      * 12.工人认证接口
      */
-    public static final  String worker_identify = domain + "api/user/investor/worker-identify";
+    public static final  String worker_identify = domain + "/api/user/investor/worker-identify";
 
     /**
-     *
+     *13.修改昵称接口
      */
+    public static final  String modify_nickName = domain + "/api/user/index/change-nickname";
 }

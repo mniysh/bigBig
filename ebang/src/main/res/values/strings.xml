@@ -134,7 +134,10 @@
     <string name="title_activity_factory_auther_identity">FactoryAutherIdentityActivity</string>
     <string name="title_activity_factory_auther_bank">FactoryAutherBankActivity</string>
     <string name="title_activity_next_page">NextPageActivity</string>
-    <string name="title_activity_setting">SettingActivity</string>	<!--下载链接-->
+    <string name="title_activity_setting">SettingActivity</string>
+    <string name="title_activity_modify_nick_name">ModifyNickNameActivity</string>
+    <string name="title_activity_modify_phone">ModifyPhoneActivity</string>
+    <string name="title_activity_modify_password_avtivity">ModifyPasswordAvtivity</string>	<!--下载链接-->
 
 	 <!--Url   ==  end -->
 </resources>
