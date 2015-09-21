@@ -1,5 +1,7 @@
 package com.ms.ebangw.commons;
 
+import com.ms.ebangw.R;
+
 public class Constants {
 	/*======友盟相关 --> start =======*/
 	public static final String DESCRIPTOR = "com.umeng.share";
@@ -51,11 +53,11 @@ public class Constants {
 	/**
 	 * 性别：男
 	 */
-	public static final String male = "male";
+	public static final String MALE = "MALE";
 	/**
 	 * 性别：女
 	 */
-	public static final String female = "female";
+	public static final String FEMALE = "FEMALE";
 
 
 	/*Key=========*/
@@ -64,5 +66,22 @@ public class Constants {
 	public final static String KEY_CATEGORY = "category";
 	/*验证码*/
 	public final static String KEY_VERIFY_CODE = "verify_code";
+
+	public final static int KEY_IMAGE_FLODER = R.drawable.back_ima;
+
+	public final static String IMAGE_FLODER = "image_floder";
+
+
+	public final static String KEY_PHOTO = "photo";
+	/**
+	 *  身份证正面
+	 */
+	public final static String PHOTO_FRONT = "photo_front";
+	/**
+	 *  身份证背面
+	 */
+	public final static String PHOTO_BACK = "photo_back";
+
+
 
 }

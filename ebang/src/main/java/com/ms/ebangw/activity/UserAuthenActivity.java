@@ -2,11 +2,15 @@ package com.ms.ebangw.activity;
 
 import android.app.Fragment;
 import android.app.FragmentManager;
+import android.content.Intent;
 import android.os.Bundle;
 
+import com.ms.ebangw.Photo.SelectPhotosDirActivity;
 import com.ms.ebangw.R;
+import com.ms.ebangw.bean.AuthInfo;
 import com.ms.ebangw.commons.Constants;
-import com.ms.ebangw.fragment.CardVerifyFragment;
+import com.ms.ebangw.fragment.BankVerifyFragment;
+import com.ms.ebangw.fragment.IdentityCardPhotoVerifyFragment;
 import com.ms.ebangw.fragment.PersonBaseInfoFragment;
 
 import java.util.List;
@@ -21,6 +25,13 @@ public class UserAuthenActivity extends BaseActivity{
 	 * 要认证的用户类型
 	 */
 	private String category;
+
+
+
+	/**
+	 * 认证的信息
+	 */
+	private AuthInfo authInfo;
 
 	private List<Fragment> list;
 	private FragmentManager fm;
@@ -49,7 +60,7 @@ public class UserAuthenActivity extends BaseActivity{
 		fm = getFragmentManager();
 		category = getIntent().getExtras().getString(Constants.KEY_CATEGORY, Constants.INVESTOR);
 //		PersonBaseInfoFragment personBaseInfoFragment = PersonBaseInfoFragment.newInstance(category);
-//		CardVerifyFragment cardVerifyFragment = new CardVerifyFragment();
+//		IdentityCardPhotoVerifyFragment cardVerifyFragment = new IdentityCardPhotoVerifyFragment();
 //		BankVerifyFragment bankVerifyFragment = new BankVerifyFragment();
 //
 //		list = new ArrayList<>();
@@ -63,11 +74,11 @@ public class UserAuthenActivity extends BaseActivity{
 
 		switch (category) {
 			case Constants.HEADMAN:
+			case Constants.WORKER:
+			case Constants.INVESTOR:
 				getFragmentManager().beginTransaction().replace(R.id.fl_content,
 					PersonBaseInfoFragment.newInstance(category)).commit();
 				break;
-
-
 		}
 
 	}
@@ -77,20 +88,41 @@ public class UserAuthenActivity extends BaseActivity{
 
 		switch (category) {
 			case Constants.HEADMAN:
+			case Constants.WORKER:
+			case Constants.INVESTOR:
 				getFragmentManager().beginTransaction().replace(R.id.fl_content,
-					CardVerifyFragment.newInstance(category)).addToBackStack
-					("CardVerifyFragment").commit();
+					IdentityCardPhotoVerifyFragment.newInstance(category)).addToBackStack
+					("IdentityCardPhotoVerifyFragment").commit();
 				break;
 
 
 		}
 
-
-
-
-
 	}
 
+	/**
+	 * 身份证照片验证
+	 */
+	public void goVerifyBank() {
+
+		switch (category) {
+			case Constants.HEADMAN:
+			case Constants.WORKER:
+				getFragmentManager().beginTransaction().replace(R.id.fl_content,
+					BankVerifyFragment.newInstance(category)).addToBackStack
+					("BankVerifyFragment").commit();
+				break;
+		}
+	}
+
+
+	public AuthInfo getAuthInfo() {
+		return authInfo;
+	}
+
+	public void setAuthInfo(AuthInfo authInfo) {
+		this.authInfo = authInfo;
+	}
 
 
 

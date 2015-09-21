@@ -37,7 +37,7 @@ public class DataAccessUtil {
      * @param name 姓名
      * @param phone 电话
      * @param email 邮箱
-     * @param gender       性别 male、 female
+     * @param gender       性别 MALE、 FEMALE
      * @param code 验证码
      * @param password 密码
      * @param asyncHttpResponseHandler 请求
