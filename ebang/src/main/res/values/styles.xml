@@ -77,9 +77,12 @@
 
     <!--认证页面-->
     <style name="authorization_text">
+        <item name="android:layout_width">80dp</item>
         <item name="android:textColor">@color/black</item>
         <item name="android:textSize">15sp</item>
         <item name="android:padding">5dp</item>
+        <item name="android:gravity">right|center_vertical</item>
+        <item name="android:layout_gravity">center_vertical</item>
 
     </style>
 
@@ -88,6 +91,10 @@
     <item name="android:textSize">15sp</item>
     <item name="android:background">@drawable/border_gray</item>
     <item name="android:padding">5dp</item>
+
+
+        <!--用户银行信息验证 BankVerifyFragment-->
+
 
 </style>
 	

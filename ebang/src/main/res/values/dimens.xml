@@ -7,4 +7,9 @@
     <dimen name="thumnail_default_height">100dp</dimen>
 
     <dimen name="common_titlebar_height">50dp</dimen>
+
+
+    <dimen name="bank_verify_width">120dp</dimen>
+
+
 </resources>
