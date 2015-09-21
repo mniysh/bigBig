@@ -19,6 +19,7 @@ import com.ms.ebangw.fragment.HomeFragment;
 import com.ms.ebangw.fragment.InvestorCenterFragment;
 import com.ms.ebangw.fragment.ReleaseFragment;
 import com.ms.ebangw.fragment.WorkerCenterFragment;
+import com.ms.ebangw.utils.L;
 import com.ms.ebangw.utils.T;
 import com.umeng.update.UmengUpdateAgent;
 
@@ -79,9 +80,12 @@ public class HomeActivity extends BaseActivity {
 
 						break;
 					case R.id.rb_mine:
+
+						L.d("xxx", "返回值是" + isLogin());
 						if (isLogin()) {
 							User user = getUser();
 							String category = user.getCategory();
+							L.d("xxx", "user的内容主页部分的" + user.toString());
 							goCenter(category);
 
 						} else {

@@ -175,7 +175,9 @@ public abstract class BaseActivity extends AppCompatActivity {
      * @return
      */
     public boolean isLogin() {
+
         User user = getUser();
+
         if (null != user) {
             return true;
         }else {

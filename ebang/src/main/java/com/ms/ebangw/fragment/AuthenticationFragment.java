@@ -15,6 +15,7 @@ import com.ms.ebangw.activity.FactoryAuthenActivity;
 import com.ms.ebangw.activity.ManagerAuthenActivity;
 import com.ms.ebangw.activity.PeasantAuthenActivity;
 import com.ms.ebangw.activity.SelfAuthenticationActivity;
+import com.ms.ebangw.activity.SettingActivity;
 import com.ms.ebangw.bean.User;
 
 import butterknife.Bind;
@@ -61,7 +62,16 @@ public class AuthenticationFragment extends BaseFragment implements OnClickListe
 	}
 	public void initView() {
 
-		initTitle("我的信息");
+		//initTitle("我的信息");
+		initTitle(null, null, "我的信息", "设置", new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				//设置跳转
+				Intent intent=new Intent(mActivity, SettingActivity.class);
+
+				startActivity(intent);
+			}
+		});
 		but_self=(Button) mContentView.findViewById(R.id.btn_investor);
 		but_worker=(Button) mContentView.findViewById(R.id.btn_worker);
 		but_foreman=(Button) mContentView.findViewById(R.id.btn_headman);

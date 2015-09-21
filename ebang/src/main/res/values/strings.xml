@@ -133,7 +133,8 @@
     <string name="title_activity_peasant_authen_back">PeasantAuthenBackActivity</string>
     <string name="title_activity_factory_auther_identity">FactoryAutherIdentityActivity</string>
     <string name="title_activity_factory_auther_bank">FactoryAutherBankActivity</string>
-    <string name="title_activity_next_page">NextPageActivity</string>	<!--下载链接-->
+    <string name="title_activity_next_page">NextPageActivity</string>
+    <string name="title_activity_setting">SettingActivity</string>	<!--下载链接-->
 
 	 <!--Url   ==  end -->
 </resources>

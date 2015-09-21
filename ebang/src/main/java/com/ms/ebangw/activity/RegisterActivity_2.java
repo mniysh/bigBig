@@ -15,6 +15,7 @@ import com.ms.ebangw.commons.Constants;
 import com.ms.ebangw.exception.ResponseException;
 import com.ms.ebangw.service.DataAccessUtil;
 import com.ms.ebangw.service.DataParseUtil;
+import com.ms.ebangw.utils.L;
 import com.ms.ebangw.utils.T;
 import com.ms.ebangw.utils.VerifyUtils;
 
@@ -81,6 +82,7 @@ public class RegisterActivity_2 extends BaseActivity{
 				public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
 					try {
 						User user = DataParseUtil.register(response);
+						L.d("xxx", "user的内容注册部分的" + user.toString());
 						if (null != user) {
 							MyApplication.getInstance().saveUser(user);
 							Intent intent = new Intent(RegisterActivity_2.this, HomeActivity.class);
