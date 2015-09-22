@@ -2,6 +2,7 @@ package com.ms.ebangw.service;
 
 import android.text.TextUtils;
 
+import com.facebook.internal.BoltsMeasurementEventListener;
 import com.google.gson.Gson;
 import com.ms.ebangw.bean.UploadImageResult;
 import com.ms.ebangw.bean.User;
@@ -89,6 +90,15 @@ public class DataParseUtil {
         UploadImageResult uploadImageResult = gson.fromJson(result, UploadImageResult.class);
         return uploadImageResult;
 
+    }
+
+    public static boolean modifyPassword(JSONObject jsonObject)throws  ResponseException{
+
+        return processDataResult(jsonObject);
+    }
+    public static  boolean modifyPhone(JSONObject jsonObject)throws  ResponseException{
+
+        return  processDataResult(jsonObject);
     }
 
 
