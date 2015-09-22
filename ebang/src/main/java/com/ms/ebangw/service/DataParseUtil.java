@@ -85,7 +85,10 @@ public class DataParseUtil {
     public static  boolean modifyPhone(JSONObject jsonObject)throws  ResponseException{
         return  processDataResult(jsonObject);
     }
+    public static  boolean modifyPassword(JSONObject jsonObject)throws  ResponseException{
 
+        return  processDataResult(jsonObject);
+    }
 
     /**
      * 通用解析方法， 判断请求是否成功
