@@ -31,17 +31,7 @@ public class Constants {
 	public static final String LOGS_AND_IMGS = PathUtil.getLogPath(MyApplication.getInstance().getApplicationContext()) +
 		"/ebangLogs";
 
-	/**
-	 * 图库
-	 */
-	public static final int CHOOSE_GALLERY = 0;
-	/**
-	 * 拍照
-	 */
-	public static final int CHOOSE_PHOTOGRAPH = 1;
-	public static final int REQUEST_CROP = 6709;
-	public static final int REQUEST_PICK = 9162;
-	public static final int RESULT_ERROR = 404;
+	public static final int REQUEST_CAMERA = 2;
 
 
 	/*=============友盟相关 --> end ====================*/

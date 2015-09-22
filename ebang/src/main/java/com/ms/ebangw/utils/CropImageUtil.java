@@ -1,18 +1,12 @@
 package com.ms.ebangw.utils;
 
-import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Matrix;
 import android.media.ExifInterface;
-import android.net.Uri;
-import android.provider.MediaStore;
 
 import com.ms.ebangw.MyApplication;
-import com.ms.ebangw.commons.Constants;
 
-import java.io.File;
 import java.io.IOException;
 
 /**
@@ -53,37 +47,37 @@ public class CropImageUtil {
 
 
 
-    /**
-     * 图库
-     */
-    public void toGallery(Activity activity) {
-        File dir = new File(Constants.LOGS_AND_IMGS);
-        if (!dir.exists()) {
-            dir.mkdirs();
-        }
-        // 选择图片
-        Intent intent = new Intent();
-        intent.setAction(Intent.ACTION_PICK);
-        intent.setType("image/*");
-        activity.startActivityForResult(intent, Constants.CHOOSE_GALLERY);
-    }
-
-    /**
-     * 拍照
-     */
-    public void toPhotograph(Activity activity) {
-        File dir = new File(Constants.LOGS_AND_IMGS);
-        if (!dir.exists()) {
-            dir.mkdirs();
-        }
-        // 拍照
-        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        File f = new File(Constants.LOGS_AND_IMGS, "camera.jpg");
-        Uri u = Uri.fromFile(f);
-        intent.putExtra(MediaStore.Images.Media.ORIENTATION, 0);
-        intent.putExtra(MediaStore.EXTRA_OUTPUT, u);
-        activity.startActivityForResult(intent, Constants.CHOOSE_PHOTOGRAPH);
-    }
+//    /**
+//     * 图库
+//     */
+//    public void toGallery(Activity activity) {
+//        File dir = new File(Constants.LOGS_AND_IMGS);
+//        if (!dir.exists()) {
+//            dir.mkdirs();
+//        }
+//        // 选择图片
+//        Intent intent = new Intent();
+//        intent.setAction(Intent.ACTION_PICK);
+//        intent.setType("image/*");
+//        activity.startActivityForResult(intent, Constants.CHOOSE_GALLERY);
+//    }
+//
+//    /**
+//     * 拍照
+//     */
+//    public void toPhotograph(Activity activity) {
+//        File dir = new File(Constants.LOGS_AND_IMGS);
+//        if (!dir.exists()) {
+//            dir.mkdirs();
+//        }
+//        // 拍照
+//        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+//        File f = new File(Constants.LOGS_AND_IMGS, "camera.jpg");
+//        Uri u = Uri.fromFile(f);
+//        intent.putExtra(MediaStore.Images.Media.ORIENTATION, 0);
+//        intent.putExtra(MediaStore.EXTRA_OUTPUT, u);
+//        activity.startActivityForResult(intent, Constants.CHOOSE_PHOTOGRAPH);
+//    }
 
 
 
