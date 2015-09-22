@@ -3,16 +3,22 @@ package com.ms.ebangw.activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.content.Intent;
+import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
 
-import com.ms.ebangw.Photo.SelectPhotosDirActivity;
 import com.ms.ebangw.R;
 import com.ms.ebangw.bean.AuthInfo;
 import com.ms.ebangw.commons.Constants;
 import com.ms.ebangw.fragment.BankVerifyFragment;
 import com.ms.ebangw.fragment.IdentityCardPhotoVerifyFragment;
 import com.ms.ebangw.fragment.PersonBaseInfoFragment;
+import com.ms.ebangw.utils.L;
+import com.soundcloud.android.crop.Crop;
 
+import java.io.File;
 import java.util.List;
 
 import butterknife.ButterKnife;
@@ -25,7 +31,7 @@ public class UserAuthenActivity extends BaseActivity{
 	 * 要认证的用户类型
 	 */
 	private String category;
-
+	private File imageFile;
 
 
 	/**
@@ -35,6 +41,7 @@ public class UserAuthenActivity extends BaseActivity{
 
 	private List<Fragment> list;
 	private FragmentManager fm;
+	private IdentityCardPhotoVerifyFragment  identifyFragment;
 
 //	@Bind(R.id.viewPager)
 //	NoScrollViewPager viewPager;
@@ -48,8 +55,6 @@ public class UserAuthenActivity extends BaseActivity{
 		initData();
 	}
 
-
-
 	public void initView() {
 		initTitle(null, "返回", "工长认证", null, null);
 
@@ -59,19 +64,6 @@ public class UserAuthenActivity extends BaseActivity{
 	public void initData() {
 		fm = getFragmentManager();
 		category = getIntent().getExtras().getString(Constants.KEY_CATEGORY, Constants.INVESTOR);
-//		PersonBaseInfoFragment personBaseInfoFragment = PersonBaseInfoFragment.newInstance(category);
-//		IdentityCardPhotoVerifyFragment cardVerifyFragment = new IdentityCardPhotoVerifyFragment();
-//		BankVerifyFragment bankVerifyFragment = new BankVerifyFragment();
-//
-//		list = new ArrayList<>();
-//		list.add(personBaseInfoFragment);
-//		list.add(cardVerifyFragment);
-//		list.add(bankVerifyFragment);
-//
-//		VerifyUserPagerAdapter pagerAdapter = new VerifyUserPagerAdapter(getFragmentManager(), list);
-//
-//		viewPager.setAdapter(pagerAdapter);
-
 		switch (category) {
 			case Constants.HEADMAN:
 			case Constants.WORKER:
@@ -80,9 +72,7 @@ public class UserAuthenActivity extends BaseActivity{
 					PersonBaseInfoFragment.newInstance(category)).commit();
 				break;
 		}
-
 	}
-
 
 	public void goNext() {
 
@@ -90,12 +80,11 @@ public class UserAuthenActivity extends BaseActivity{
 			case Constants.HEADMAN:
 			case Constants.WORKER:
 			case Constants.INVESTOR:
-				getFragmentManager().beginTransaction().replace(R.id.fl_content,
-					IdentityCardPhotoVerifyFragment.newInstance(category)).addToBackStack
-					("IdentityCardPhotoVerifyFragment").commit();
+				identifyFragment =
+					IdentityCardPhotoVerifyFragment.newInstance(category);
+				getFragmentManager().beginTransaction().replace(R.id.fl_content, identifyFragment)
+					.addToBackStack("IdentityCardPhotoVerifyFragment").commit();
 				break;
-
-
 		}
 
 	}
@@ -125,6 +114,78 @@ public class UserAuthenActivity extends BaseActivity{
 	}
 
 
+	/*** 打开照相机     */
+	public void openCamera(){
+		Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+		File file = new File(Environment.getExternalStorageDirectory() + "/Images");
+		if(!file.exists()){
+			file.mkdirs();
+		}
+		imageFile = new File(Environment.getExternalStorageDirectory() + "/Images/",
+			"cameraImg" + String.valueOf(System.currentTimeMillis()) + ".jpg");
+
+		Uri mUri = Uri.fromFile(imageFile);
+		cameraIntent.putExtra(android.provider.MediaStore.EXTRA_OUTPUT, mUri);
+		cameraIntent.putExtra("return-data", true);
+		startActivityForResult(cameraIntent, Constants.REQUEST_CAMERA);
+	}
+
+
+	@Override
+	public void onActivityResult(int requestCode, int resultCode, Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
+		L.d("onActivityResult");
+
+		if (requestCode == Constants.REQUEST_CAMERA && resultCode == RESULT_OK) { //拍照返回
+			Uri uri;
+			if (null == data) {
+				uri = Uri.fromFile(imageFile);
+			}else {
+				uri = data.getData();
+			}
+
+
+			beginCrop(uri);
+
+		}else if (requestCode == Crop.REQUEST_PICK&& resultCode == RESULT_OK) {
+			beginCrop(data.getData());
+
+		}else if (requestCode == Crop.REQUEST_CROP) {
+			identifyFragment.handleCrop(resultCode, data);			//在Fragment中处理剪切后的图片
+		}
+	}
+
+	private void beginCrop(Uri source) {
+        Uri destination = Uri.fromFile(new File(getCacheDir(), "cropped.png"));
+		Crop.of(source, destination).asSquare().start(this);
+	}
+
+	public void selectPhoto() {
+
+		// 选择图片
+		Intent intent = new Intent();
+		intent.setAction(Intent.ACTION_PICK);
+		intent.setType("image/*");
+		startActivityForResult(intent, Crop.REQUEST_PICK);
+//		Crop.pickImage(this);
+	}
+
+	public File uriToFile(Uri uri) {
+//		Uri uri = data.getData();
+
+		String[] proj = { MediaStore.Images.Media.DATA };
+
+		Cursor actualimagecursor = managedQuery(uri,proj,null,null,null);
+
+		int actual_image_column_index = actualimagecursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+
+		actualimagecursor.moveToFirst();
+
+		String img_path = actualimagecursor.getString(actual_image_column_index);
+
+		File file = new File(img_path);
+		return file;
+	}
 
 
 }

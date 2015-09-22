@@ -1,6 +1,8 @@
 package com.ms.ebangw.commons;
 
+import com.ms.ebangw.MyApplication;
 import com.ms.ebangw.R;
+import com.ms.ebangw.utils.PathUtil;
 
 public class Constants {
 	/*======友盟相关 --> start =======*/
@@ -21,6 +23,15 @@ public class Constants {
 		"（二）支持图片、文字、gif动图、音频、视频；@好友，关注官方微博等功能" +
 		"（三）提供详尽的后台用户社交行为分析。http://www.umeng.com/social";
 
+
+	/*图片相关*/
+	/**
+	 * Log和图片存放位置
+	 */
+	public static final String LOGS_AND_IMGS = PathUtil.getLogPath(MyApplication.getInstance().getApplicationContext()) +
+		"/ebangLogs";
+
+	public static final int REQUEST_CAMERA = 2;
 
 
 	/*=============友盟相关 --> end ====================*/

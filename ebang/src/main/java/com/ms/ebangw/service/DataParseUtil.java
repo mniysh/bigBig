@@ -3,6 +3,7 @@ package com.ms.ebangw.service;
 import android.text.TextUtils;
 
 import com.google.gson.Gson;
+import com.ms.ebangw.bean.UploadImageResult;
 import com.ms.ebangw.bean.User;
 import com.ms.ebangw.exception.ResponseException;
 import com.ms.ebangw.utils.L;
@@ -77,18 +78,22 @@ public class DataParseUtil {
     }
 
     /**
-     * 修改绑定手机接口
+     * 上传图片的返回结果
      * @param jsonObject
      * @return
      * @throws ResponseException
      */
-    public static  boolean modifyPhone(JSONObject jsonObject)throws  ResponseException{
-        return  processDataResult(jsonObject);
-    }
-    public static  boolean modifyPassword(JSONObject jsonObject)throws  ResponseException{
+    public static UploadImageResult upLoadImage(JSONObject jsonObject)throws  ResponseException{
+        String result = processDataStr(jsonObject);
+        Gson gson = new Gson();
+        UploadImageResult uploadImageResult = gson.fromJson(result, UploadImageResult.class);
+        return uploadImageResult;
 
-        return  processDataResult(jsonObject);
     }
+
+
+
+
 
     /**
      * 通用解析方法， 判断请求是否成功

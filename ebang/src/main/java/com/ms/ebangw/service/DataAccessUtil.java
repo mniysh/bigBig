@@ -277,6 +277,12 @@ public class DataAccessUtil {
      * 上传:Post方式
      */
     public static void upLoad(String url, File file) {
+
+        if (!NetUtils.isConnected(MyApplication.getInstance())) {
+            T.show("网络异常");
+            return ;
+        }
+        initAsyncHttpClient();
         File myFile = new File("/path/to/file.png");
         RequestParams params = new RequestParams();
         try {
@@ -291,11 +297,17 @@ public class DataAccessUtil {
      */
     private static RequestHandle upLoadImage(String url, File imageFile, AsyncHttpResponseHandler
         asyncHttpResponseHandler) {
+
+        if (!NetUtils.isConnected(MyApplication.getInstance())) {
+            T.show("网络异常");
+            return null;
+        }
+        initAsyncHttpClient();
         RequestParams params = new RequestParams();
         try {
             params.put("image", imageFile);
             params = addCommonParams(params);
-            mClient.post(url, params, asyncHttpResponseHandler);
+            mClient.post(RequestUrl.upload_image, params, asyncHttpResponseHandler);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
             L.d(TAG, "upLoadImage：文件不存在");
