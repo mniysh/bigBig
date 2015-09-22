@@ -50,5 +50,5 @@ dependencies {
     compile project(':social_sdk_library_project')
     compile 'com.android.support:appcompat-v7:23.0.1'
     compile 'com.android.support:support-v13:23.0.1'
-    compile project(':crop')
+    compile project(':croplib')
 }

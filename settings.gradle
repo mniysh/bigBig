@@ -1,2 +1,2 @@
-include ':ebang', ':crop'
+include ':ebang', ':croplib'
 include ':social_sdk_library_project'

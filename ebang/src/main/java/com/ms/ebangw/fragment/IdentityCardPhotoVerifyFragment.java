@@ -2,16 +2,25 @@ package com.ms.ebangw.fragment;
 
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 
-import com.ms.ebangw.Photo.SelectPhotosDirActivity;
 import com.ms.ebangw.R;
 import com.ms.ebangw.commons.Constants;
+import com.ms.ebangw.utils.T;
+import com.soundcloud.android.crop.Crop;
+
+import java.io.File;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -23,8 +32,9 @@ import butterknife.OnClick;
  */
 public class IdentityCardPhotoVerifyFragment extends BaseFragment {
     private static final String CATEGORY = "category";
-
+    private String whichPhoto;
     private String category;
+    private String mCurrentPhotoPath;
     private View contentLayout;
     /**正面身份证上传*/
     @Bind(R.id.btn_upload_front)
@@ -74,17 +84,43 @@ public class IdentityCardPhotoVerifyFragment extends BaseFragment {
         return contentLayout;
     }
 
+    private void dispatchTakePictureIntent(){
+        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        if (intent.resolveActivity(mActivity.getPackageManager()) != null) {
+            File photoFile = null;
+            try {
+                photoFile = createImageFile();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            if (photoFile != null) {
+                Uri uri = Uri.fromFile(photoFile);
+                intent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
+                startActivityForResult(intent, Constants.REQUEST_PICK);
+            }
+        }
+    }
+
     /**
      * 选择正面照片
      */
     @OnClick(R.id.btn_upload_front)
     public void selectFrontPhoto() {
-        Bundle bundle = new Bundle();
-        bundle.putString(Constants.KEY_PHOTO, Constants.PHOTO_FRONT);
-        Intent intent = new Intent(mActivity, SelectPhotosDirActivity.class);
-        intent.putExtras(bundle);
-        startActivity(intent);
-
+        whichPhoto = Constants.PHOTO_FRONT;
+//        Bundle bundle = new Bundle();
+//        bundle.putString(Constants.KEY_PHOTO, Constants.PHOTO_FRONT);
+//        Intent intent = new Intent(mActivity, SelectPhotosDirActivity.class);
+//        intent.putExtras(bundle);
+//        startActivity(intent);
+        File dir = new File(Constants.LOGS_AND_IMGS);
+        if (!dir.exists()) {
+            dir.mkdirs();
+        }
+        // 选择图片
+        Intent intent = new Intent();
+        intent.setAction(Intent.ACTION_PICK);
+        intent.setType("image/*");
+        mActivity.startActivityForResult(intent, Constants.CHOOSE_GALLERY);
     }
 
     /**
@@ -92,12 +128,21 @@ public class IdentityCardPhotoVerifyFragment extends BaseFragment {
      */
     @OnClick(R.id.btn_upload_back)
     public void selectBackPhoto() {
-
-        Bundle bundle = new Bundle();
-        bundle.putString(Constants.KEY_PHOTO, Constants.PHOTO_BACK);
-        Intent intent = new Intent(mActivity, SelectPhotosDirActivity.class);
-        intent.putExtras(bundle);
-        startActivity(intent);
+        whichPhoto = Constants.PHOTO_BACK;
+        File dir = new File(Constants.LOGS_AND_IMGS);
+        if (!dir.exists()) {
+            dir.mkdirs();
+        }
+        // 选择图片
+        Intent intent = new Intent();
+        intent.setAction(Intent.ACTION_PICK);
+        intent.setType("image/*");
+        mActivity.startActivityForResult(intent, Constants.CHOOSE_GALLERY);
+//        Bundle bundle = new Bundle();
+//        bundle.putString(Constants.KEY_PHOTO, Constants.PHOTO_BACK);
+//        Intent intent = new Intent(mActivity, SelectPhotosDirActivity.class);
+//        intent.putExtras(bundle);
+//        startActivity(intent);
 
     }
 
@@ -106,6 +151,8 @@ public class IdentityCardPhotoVerifyFragment extends BaseFragment {
      */
     @OnClick(R.id.btn_photo_front)
     public void takeFrontPhoto() {
+        whichPhoto = Constants.PHOTO_FRONT;
+        dispatchTakePictureIntent();
 
     }
 
@@ -114,7 +161,19 @@ public class IdentityCardPhotoVerifyFragment extends BaseFragment {
      */
     @OnClick(R.id.btn_photo_front)
     public void takeBackPhoto() {
+        whichPhoto = Constants.PHOTO_BACK;
+        dispatchTakePictureIntent();
 
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == Constants.REQUEST_PICK && resultCode == mActivity.RESULT_OK) {
+            beginCrop(data.getData());
+        }else if (requestCode == Constants.REQUEST_CROP) {
+            handleCrop(resultCode, data);
+        }
     }
 
 
@@ -127,4 +186,42 @@ public class IdentityCardPhotoVerifyFragment extends BaseFragment {
     public void initData() {
 
     }
+
+    private File createImageFile() throws IOException {
+        // Create an image file name
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        String imageFileName = "JPEG_" + timeStamp + "_";
+        File storageDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
+        File image = File.createTempFile(
+            imageFileName,  /* prefix */
+            ".jpg",         /* suffix */
+            storageDir      /* directory */
+        );
+        if(!image.exists()){
+            image.mkdirs();
+        }
+
+        // Save a file: path for use with ACTION_VIEW intents
+//        mCurrentPhotoPath = "file:" + image.getAbsolutePath();
+        mCurrentPhotoPath = image.getAbsolutePath();
+        return image;
+    }
+
+    private void beginCrop(Uri source) {
+        Uri destination = Uri.fromFile(new File(mActivity.getCacheDir(), "cropped"));
+        Crop.of(source, destination).asSquare().start(mActivity);
+    }
+
+    private void handleCrop(int resultCode, Intent result) {
+        if (resultCode == mActivity.RESULT_OK) {
+            if (whichPhoto == Constants.PHOTO_FRONT) {
+                frontIv.setImageURI(Crop.getOutput(result));
+            }else {
+                backIv.setImageURI(Crop.getOutput(result));
+            }
+        } else if (resultCode == Crop.RESULT_ERROR) {
+            T.show("选取图片失败");
+        }
+    }
+
 }
