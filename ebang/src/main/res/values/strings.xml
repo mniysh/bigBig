@@ -138,7 +138,8 @@
     <string name="title_activity_modify_nick_name">ModifyNickNameActivity</string>
     <string name="title_activity_modify_phone">ModifyPhoneActivity</string>
     <string name="title_activity_modify_password_avtivity">ModifyPasswordAvtivity</string>
-    <string name="title_activity_modif_phone02">ModifPhone02Activity</string>	<!--下载链接-->
+    <string name="title_activity_modif_phone02">ModifPhone02Activity</string>
+    <string name="title_activity_message_center">MessageCenterActivit</string>	<!--下载链接-->
 
 	 <!--Url   ==  end -->
 </resources>

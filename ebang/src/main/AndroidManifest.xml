@@ -127,10 +127,10 @@
         <activity android:name=".activity.CertificationSelfActivity" />
         <activity android:name=".activity.CertificationManagerActivity" />
         <activity android:name=".activity.ManagerBackActivity" />
-        <activity android:name=".Photo.PhotosActivity"/>
-        <activity android:name=".Photo.SelectPhotosDirActivity"/>
-        <activity android:name="com.soundcloud.android.crop.CropImageActivity"/>
-        <activity android:name="com.soundcloud.android.crop.MonitoredActivity"/>
+        <activity android:name=".Photo.PhotosActivity" />
+        <activity android:name=".Photo.SelectPhotosDirActivity" />
+        <activity android:name="com.soundcloud.android.crop.CropImageActivity" />
+        <activity android:name="com.soundcloud.android.crop.MonitoredActivity" />
 
         <!-- 友盟渠道设置 -->
         <meta-data
@@ -284,6 +284,10 @@
         <activity
             android:name=".activity.ModifyPasswordAvtivity"
             android:label="@string/title_activity_modify_password_avtivity" >
+        </activity>
+        <activity
+            android:name=".activity.MessageCenterActivit"
+            android:label="@string/title_activity_message_center" >
         </activity>
     </application>
 

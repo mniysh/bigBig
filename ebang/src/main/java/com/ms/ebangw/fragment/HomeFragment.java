@@ -16,6 +16,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.ms.ebangw.R;
 import com.ms.ebangw.activity.HomeActivity;
@@ -65,7 +66,16 @@ public class HomeFragment extends BaseFragment implements OnClickListener   {
 	void click(View view){
 		startActivity(new Intent(act, NextPageActivity.class));
 	}
+	@Bind(R.id.tv_message)
+	TextView tMessage;
 
+	/**
+	 * 消息按钮
+	 */
+	@OnClick(R.id.tv_message)
+	public void toastMessage(){
+
+	}
 
 
 
