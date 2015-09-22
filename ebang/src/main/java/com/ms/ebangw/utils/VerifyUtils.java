@@ -70,4 +70,17 @@ public class VerifyUtils {
         }
         return true;
     }
+
+    /**
+     * 判断验证码
+     * @param code
+     * @return
+     */
+    public static boolean isCode(String code){
+        if(TextUtils.isEmpty(code)){
+            T.show("验证码不能为空");
+            return  false;
+        }
+        return true;
+    }
 }  

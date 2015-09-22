@@ -70,7 +70,11 @@ public class RequestUrl {
     public static final  String worker_identify = domain + "/api/user/investor/worker-identify";
 
     /**
-     *13.修改昵称接口
+     * 13.修改昵称接口
      */
     public static final  String modify_nickName = domain + "/api/user/index/change-nickname";
+    /**
+     * 14.修改绑定手机接口
+     */
+    public static final String modify_phone =domain + "/api/user/index/change-phone";
 }

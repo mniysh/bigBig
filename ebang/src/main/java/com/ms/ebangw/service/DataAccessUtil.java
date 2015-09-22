@@ -211,7 +211,7 @@ public class DataAccessUtil {
     }
 
     /**
-     * 修改昵称接口
+     * 13.修改昵称接口
      * @param nickname 修改后的昵称
      * @param asyncHttpResponseHandler
      * @return
@@ -219,7 +219,22 @@ public class DataAccessUtil {
     public static RequestHandle modifyNickName(String nickname,AsyncHttpResponseHandler asyncHttpResponseHandler){
         RequestParams params=new RequestParams();
         params.put("nickname",nickname);
-        return doPost(RequestUrl.modify_nickName,params,asyncHttpResponseHandler);
+        return doPost(RequestUrl.modify_nickName, params, asyncHttpResponseHandler);
+    }
+
+    /**
+     * 修改绑定手机接口
+     * @param phone
+     * @param code
+     * @param asyncHttpResponseHandler
+     * @return
+     */
+    public static  RequestHandle modifyPhone(String phone,String code,AsyncHttpResponseHandler asyncHttpResponseHandler){
+        RequestParams params=new RequestParams();
+        params.put("code",code);
+        params.put("phone",phone);
+        return  doPost(RequestUrl.modify_phone,params,asyncHttpResponseHandler);
+
     }
 
 

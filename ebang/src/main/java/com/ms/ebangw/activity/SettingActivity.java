@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.ms.ebangw.R;
 import com.ms.ebangw.bean.User;
+import com.ms.ebangw.utils.T;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -31,6 +32,9 @@ public class SettingActivity extends BaseActivity {
      */
     @Bind(R.id.tv_nameModify)
     TextView tvNameModify;
+    @Bind(R.id.tv_phone)
+    TextView tPhone;
+
     @Bind(R.id.tv_phoneModify)
     TextView tvPhoneModify;
     @Bind(R.id.tv_passModify)
@@ -78,7 +82,11 @@ public class SettingActivity extends BaseActivity {
         User user = getUser();
         if(null!=user){
             String newName=user.getNick_name();
+            String phone=user.getPhone();
             tvNickName.setText(newName);
+            tPhone.setText(phone);
+        }else{
+            T.show("用户不存在");
         }
 
     }

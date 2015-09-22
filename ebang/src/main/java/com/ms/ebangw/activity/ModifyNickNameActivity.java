@@ -1,6 +1,7 @@
 package com.ms.ebangw.activity;
 
 import android.os.Bundle;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -22,11 +23,14 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
+/**
+ * 修改昵称页面
+ */
 public class ModifyNickNameActivity extends BaseActivity {
 
 
     @Bind(R.id.tv_oneFinish)
-    TextView tvOneFinish;
+    Button tvOneFinish;
     @Bind(R.id.ed_nickname)
     EditText etNewName;
     @OnClick(R.id.tv_oneFinish)
@@ -34,7 +38,7 @@ public class ModifyNickNameActivity extends BaseActivity {
 
         final String newNickName=etNewName.getText().toString().trim();
         if(isEmpty(newNickName)){
-            L.d("xxx","修改页面");
+
             T.show("昵称不可为空");
         }else{
             DataAccessUtil.modifyNickName(newNickName, new JsonHttpResponseHandler(){
@@ -58,8 +62,6 @@ public class ModifyNickNameActivity extends BaseActivity {
                     } catch (ResponseException e) {
                         e.printStackTrace();
                     }
-
-
                 }
 
                 @Override
