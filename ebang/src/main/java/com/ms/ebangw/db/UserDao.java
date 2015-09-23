@@ -103,4 +103,24 @@ public class UserDao {
         return null;
     }
 
+    public void removeAll() {
+
+        List<User> users = null;
+        try {
+            users = userDaoOpe.queryForAll();
+            if (null != users && users.size() > 0) {
+                int count = users.size();
+                for (int i = 0; i < count; i++) {
+                    User user = users.get(i);
+                    delete(user);
+                }
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+
+    }
+
 }

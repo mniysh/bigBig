@@ -7,10 +7,13 @@ import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.widget.RadioGroup;
 
+import com.loopj.android.http.JsonHttpResponseHandler;
 import com.ms.ebangw.MyApplication;
 import com.ms.ebangw.R;
+import com.ms.ebangw.bean.TotalRegion;
 import com.ms.ebangw.bean.User;
 import com.ms.ebangw.commons.Constants;
+import com.ms.ebangw.exception.ResponseException;
 import com.ms.ebangw.fragment.AuthenticationFragment;
 import com.ms.ebangw.fragment.DevelopersCenterFragment;
 import com.ms.ebangw.fragment.FoundFragment;
@@ -19,9 +22,14 @@ import com.ms.ebangw.fragment.HomeFragment;
 import com.ms.ebangw.fragment.InvestorCenterFragment;
 import com.ms.ebangw.fragment.ReleaseFragment;
 import com.ms.ebangw.fragment.WorkerCenterFragment;
+import com.ms.ebangw.service.DataAccessUtil;
+import com.ms.ebangw.service.DataParseUtil;
 import com.ms.ebangw.utils.L;
 import com.ms.ebangw.utils.T;
 import com.umeng.update.UmengUpdateAgent;
+
+import org.apache.http.Header;
+import org.json.JSONObject;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -39,6 +47,9 @@ public class HomeActivity extends BaseActivity {
 
 	private FoundFragment foundFragment;
 	private ReleaseFragment releasefragment;
+	private TotalRegion totalRegion;
+
+
 
 	@Bind(R.id.radioGroup)
 	RadioGroup radioGroup;
@@ -71,10 +82,10 @@ public class HomeActivity extends BaseActivity {
 						fm.beginTransaction().replace(R.id.fl_content, new HomeFragment()).commit();
 						break;
 					case R.id.rb_discovery:
-						fm.beginTransaction().replace(R.id.fl_content ,foundFragment).commit();
+						fm.beginTransaction().replace(R.id.fl_content, foundFragment).commit();
 						break;
 					case R.id.rb_release:
-						fm.beginTransaction().replace(R.id.fl_content,releasefragment).commit();
+						fm.beginTransaction().replace(R.id.fl_content, releasefragment).commit();
 						break;
 					case R.id.rb_server:
 
@@ -98,6 +109,9 @@ public class HomeActivity extends BaseActivity {
 		});
 
 		radioGroup.getChildAt(0).performClick();
+		loadTotalRegion();
+
+
 	}
 
 	/**
@@ -131,6 +145,16 @@ public class HomeActivity extends BaseActivity {
 		}
 	}
 
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
+		if (resultCode == Constants.REQUEST_EXIT) {
+			radioGroup.getChildAt(0).performClick();
+		}
+
+
+	}
+
 	/**
 	 * 友盟版本更新
 	 */
@@ -150,6 +174,8 @@ public class HomeActivity extends BaseActivity {
 		super.onPause();
 		JPushInterface.onPause(this);
 	}
+
+
 
 	/**
 	 * 双击退出
@@ -175,4 +201,36 @@ public class HomeActivity extends BaseActivity {
 		return super.onKeyDown(keyCode, event);
 	}
 
+
+
+	/**
+	 * 获取省市区信息
+	 */
+	private void loadTotalRegion() {
+		DataAccessUtil.provinceCityArea(new JsonHttpResponseHandler() {
+
+			@Override
+			public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+
+				try {
+					totalRegion = DataParseUtil.provinceCityArea(response);
+
+
+				} catch (ResponseException e) {
+					e.printStackTrace();
+				}
+
+			}
+
+			@Override
+			public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+				super.onFailure(statusCode, headers, responseString, throwable);
+				L.d(responseString);
+			}
+		});
+	}
+
+	public TotalRegion getTotalRegion() {
+		return totalRegion;
+	}
 }

@@ -1,18 +1,13 @@
 package com.ms.ebangw.activity;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.ms.ebangw.R;
 import com.ms.ebangw.bean.User;
+import com.ms.ebangw.commons.Constants;
+import com.ms.ebangw.db.UserDao;
 import com.ms.ebangw.utils.T;
 
 import butterknife.Bind;
@@ -88,6 +83,19 @@ public class SettingActivity extends BaseActivity {
         }else{
             T.show("用户不存在");
         }
+
+    }
+
+    @OnClick(R.id.btn_exit)
+    public void exit() {
+
+        UserDao userDao = new UserDao(this);
+        userDao.removeAll();
+        startActivity(new Intent(this, LoginActivity.class));
+        setResult(Constants.REQUEST_EXIT);
+        finish();
+
+
 
     }
 }

@@ -11,6 +11,7 @@ import android.provider.MediaStore;
 
 import com.ms.ebangw.R;
 import com.ms.ebangw.bean.AuthInfo;
+import com.ms.ebangw.bean.TotalRegion;
 import com.ms.ebangw.commons.Constants;
 import com.ms.ebangw.fragment.BankVerifyFragment;
 import com.ms.ebangw.fragment.IdentityCardPhotoVerifyFragment;
@@ -32,6 +33,7 @@ public class UserAuthenActivity extends BaseActivity{
 	 */
 	private String category;
 	private File imageFile;
+	private TotalRegion totalRegion;
 
 
 	/**
@@ -42,6 +44,8 @@ public class UserAuthenActivity extends BaseActivity{
 	private List<Fragment> list;
 	private FragmentManager fm;
 	private IdentityCardPhotoVerifyFragment  identifyFragment;
+	private PersonBaseInfoFragment personBaseInfoFragment;
+
 
 //	@Bind(R.id.viewPager)
 //	NoScrollViewPager viewPager;
@@ -51,25 +55,48 @@ public class UserAuthenActivity extends BaseActivity{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_headman_authen);
 		ButterKnife.bind(this);
+		Bundle extras = getIntent().getExtras();
+		category = extras.getString(Constants.KEY_CATEGORY, Constants.INVESTOR);
+		totalRegion = (TotalRegion) extras.getSerializable(Constants.KEY_TOTAL_REGION);
 		initView();
 		initData();
 	}
 
 	public void initView() {
-		initTitle(null, "返回", "工长认证", null, null);
+		String title;
+		switch (category) {
+			case Constants.HEADMAN:
+				title = "工长认证";
+				break;
+			case Constants.WORKER:
+				title = "务工认证";
+				break;
+			case Constants.INVESTOR:
+
+				title = "个人认证";
+				break;
+			case Constants.DEVELOPERS:
+				title = "开发商认证";
+				break;
+			default:
+				title = "";
+				break;
+		}
+
+		initTitle(null, "返回", title, null, null);
 
 	}
 
 	@Override
 	public void initData() {
 		fm = getFragmentManager();
-		category = getIntent().getExtras().getString(Constants.KEY_CATEGORY, Constants.INVESTOR);
 		switch (category) {
 			case Constants.HEADMAN:
 			case Constants.WORKER:
 			case Constants.INVESTOR:
-				getFragmentManager().beginTransaction().replace(R.id.fl_content,
-					PersonBaseInfoFragment.newInstance(category)).commit();
+				personBaseInfoFragment = PersonBaseInfoFragment.newInstance(category);
+				getFragmentManager().beginTransaction().replace(R.id.fl_content,personBaseInfoFragment
+					).commit();
 				break;
 		}
 	}
@@ -103,7 +130,6 @@ public class UserAuthenActivity extends BaseActivity{
 				break;
 		}
 	}
-
 
 	public AuthInfo getAuthInfo() {
 		return authInfo;
@@ -187,5 +213,7 @@ public class UserAuthenActivity extends BaseActivity{
 		return file;
 	}
 
-
+	public TotalRegion getTotalRegion() {
+		return totalRegion;
+	}
 }

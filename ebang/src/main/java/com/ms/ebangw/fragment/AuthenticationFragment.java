@@ -11,8 +11,9 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.ms.ebangw.R;
-import com.ms.ebangw.activity.UserAuthenActivity;
+import com.ms.ebangw.activity.HomeActivity;
 import com.ms.ebangw.activity.SettingActivity;
+import com.ms.ebangw.activity.UserAuthenActivity;
 import com.ms.ebangw.bean.User;
 import com.ms.ebangw.commons.Constants;
 
@@ -67,7 +68,7 @@ public class AuthenticationFragment extends BaseFragment implements OnClickListe
 				//设置跳转
 				Intent intent=new Intent(mActivity, SettingActivity.class);
 
-				startActivity(intent);
+				mActivity.startActivityForResult(intent, Constants.REQUEST_EXIT);
 			}
 		});
 		but_self=(Button) mContentView.findViewById(R.id.btn_investor);
@@ -139,12 +140,13 @@ public class AuthenticationFragment extends BaseFragment implements OnClickListe
 		}
 		Bundle bundle = new Bundle();
 		bundle.putString(Constants.KEY_CATEGORY, category);
+		bundle.putSerializable(Constants.KEY_TOTAL_REGION, ((HomeActivity)mActivity).getTotalRegion());
 
 		Intent intent = new Intent(mActivity, UserAuthenActivity.class);
 		intent.putExtras(bundle);
 		startActivity(intent);
-
-
 	}
+
+
 }
 

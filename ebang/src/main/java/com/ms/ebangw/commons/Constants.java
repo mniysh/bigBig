@@ -32,6 +32,10 @@ public class Constants {
 		"/ebangLogs";
 
 	public static final int REQUEST_CAMERA = 2;
+	/**
+	 * 退出
+	 */
+	public static final int REQUEST_EXIT = 11;
 
 
 	/*=============友盟相关 --> end ====================*/
@@ -93,6 +97,8 @@ public class Constants {
 	 */
 	public final static String PHOTO_BACK = "photo_back";
 
-
-
+	/**
+	 * 省市区
+	 */
+	public final static String KEY_TOTAL_REGION = "total_region";
 }
