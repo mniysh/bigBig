@@ -169,5 +169,21 @@
     </RelativeLayout>
     <View style="@style/aaa_hor"/>
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
+
+    <Button
+        android:id="@+id/btn_exit"
+        android:layout_width="160dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bk_but"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="20dp"
+        android:text="退出"
+        android:textSize="20sp"
+        android:layout_marginTop="30dp"
+        />
 
 </LinearLayout>

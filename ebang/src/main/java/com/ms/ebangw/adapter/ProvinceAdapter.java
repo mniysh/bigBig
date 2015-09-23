@@ -1,6 +1,5 @@
 package com.ms.ebangw.adapter;
 
-import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -13,11 +12,11 @@ import com.ms.ebangw.view.ViewHolder;
 /**
  * Created by admin on 2015/9/16.
  */
-public class SpinnerAdapter extends BaseAdapter {
+public class ProvinceAdapter extends BaseAdapter {
     private String[] datas;
 
 
-    public SpinnerAdapter(String[] datas) {
+    public ProvinceAdapter(String[] datas) {
         this.datas = datas;
 
     }

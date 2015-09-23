@@ -211,7 +211,7 @@ public class DataAccessUtil {
     }
 
     /**
-     * 13.修改昵称接口
+     * 修改昵称接口
      * @param nickname 修改后的昵称
      * @param asyncHttpResponseHandler
      * @return
@@ -219,6 +219,7 @@ public class DataAccessUtil {
     public static RequestHandle modifyNickName(String nickname,AsyncHttpResponseHandler asyncHttpResponseHandler){
         RequestParams params=new RequestParams();
         params.put("nickname",nickname);
+        return doPost(RequestUrl.modify_nickName, params, asyncHttpResponseHandler);
         return doPost(RequestUrl.modify_nickName, params, asyncHttpResponseHandler);
     }
 
@@ -237,6 +238,15 @@ public class DataAccessUtil {
 
     }
 
+    /**
+     * 3-6. 获取全部省市区数据       get
+     * @param asyncHttpResponseHandler
+     * @return
+     */
+    public static RequestHandle provinceCityArea(AsyncHttpResponseHandler
+        asyncHttpResponseHandler){
+        return doGet(RequestUrl.province_city_area, null, asyncHttpResponseHandler);
+    }
 
     public static RequestHandle doPost(String url, RequestParams params, AsyncHttpResponseHandler asyncHttpResponseHandler) {
 
@@ -245,6 +255,9 @@ public class DataAccessUtil {
             return null;
         }
         initAsyncHttpClient();
+        if (params == null) {
+            params = new RequestParams();
+        }
         addCommonParams(params);
         L.d(TAG, "doPost: " + url + " : " + params.toString());
         return mClient.post(url, params, asyncHttpResponseHandler);
@@ -259,6 +272,9 @@ public class DataAccessUtil {
             return null;
         }
         initAsyncHttpClient();
+        if (params == null) {
+            params = new RequestParams();
+        }
         addCommonParams(params);
         L.d(TAG, "doPost: " + url + " : " + params.toString());
         return mClient.get(url, params, asyncHttpResponseHandler);

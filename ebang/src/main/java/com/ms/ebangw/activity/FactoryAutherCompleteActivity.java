@@ -1,16 +1,13 @@
 package com.ms.ebangw.activity;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Gravity;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 
 import com.ms.ebangw.R;
-import com.ms.ebangw.adapter.SpinnerAdapter;
+import com.ms.ebangw.adapter.ProvinceAdapter;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -21,7 +18,7 @@ import butterknife.OnClick;
  */
 public class FactoryAutherCompleteActivity extends BaseActivity {
     private LinearLayout layout;
-    private SpinnerAdapter adapter;
+    private ProvinceAdapter adapter;
     private String[] datas={"数据1","数据2","数据3","数据4","数据5","数据6"};
     @Bind(R.id.sp_type)
     Spinner sType;
@@ -40,7 +37,7 @@ public class FactoryAutherCompleteActivity extends BaseActivity {
     @Override
     public void initView() {
         initTitle(null,"返回","企业认证",null,null);
-        adapter=new SpinnerAdapter(datas);
+        adapter=new ProvinceAdapter(datas);
         sType.setAdapter(adapter);
         sBandAdd.setAdapter(adapter);
 

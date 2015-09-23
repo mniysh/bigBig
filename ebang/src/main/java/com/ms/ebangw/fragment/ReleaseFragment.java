@@ -12,7 +12,6 @@ import android.view.View.OnFocusChangeListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -20,7 +19,7 @@ import android.widget.LinearLayout;
 import android.widget.Spinner;
 
 import com.ms.ebangw.R;
-import com.ms.ebangw.adapter.SpinnerAdapter;
+import com.ms.ebangw.adapter.ProvinceAdapter;
 import com.ms.ebangw.bean.PostMeassge;
 import com.ms.ebangw.utils.T;
 
@@ -39,7 +38,7 @@ public class ReleaseFragment extends BaseFragment implements OnClickListener, On
 	private String[] datas_lu;
 	private String[] datas_type;
 	private int flag_count;
-	private SpinnerAdapter adapter;
+	private ProvinceAdapter adapter;
 
 	//文本组件
 	private EditText ed_add_xiangxi,ed_money,ed_title,ed_content,ed_time,ed_name,ed_phone;
@@ -123,7 +122,7 @@ public class ReleaseFragment extends BaseFragment implements OnClickListener, On
 		spi_lu.setOnItemSelectedListener(this);
 		spi_style.setOnItemSelectedListener(this);
 		initData();
-		adapter=new SpinnerAdapter(datas_qu);
+		adapter=new ProvinceAdapter(datas_qu);
 		spi_qu.setAdapter(adapter);
 		adapter.changeData(datas_lu);
 		spi_lu.setAdapter(adapter);

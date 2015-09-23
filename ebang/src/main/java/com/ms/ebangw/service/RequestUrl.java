@@ -70,9 +70,18 @@ public class RequestUrl {
     public static final  String worker_identify = domain + "/api/user/investor/worker-identify";
 
     /**
-     * 13.修改昵称接口
+     *13.修改昵称接口
      */
     public static final  String modify_nickName = domain + "/api/user/index/change-nickname";
+
+
+    /**
+     * 3-6. 获取全部省市区数据   get方式
+     */
+    public static final  String province_city_area = domain +
+        "/api/common/address/province-city-area";
+
+
     /**
      * 14.修改绑定手机接口
      */
