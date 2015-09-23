@@ -20,6 +20,7 @@ import android.widget.TextView;
 
 import com.ms.ebangw.R;
 import com.ms.ebangw.activity.HomeActivity;
+import com.ms.ebangw.activity.MessageCenterActivit;
 import com.ms.ebangw.activity.NextPageActivity;
 import com.ms.ebangw.activity.RecommendActivity;
 import com.ms.ebangw.adapter.HomeListAdapter;
@@ -74,7 +75,9 @@ public class HomeFragment extends BaseFragment implements OnClickListener   {
 	 */
 	@OnClick(R.id.tv_message)
 	public void toastMessage(){
+		Intent intent=new Intent(act, MessageCenterActivit.class);
 
+		startActivity(intent);
 	}
 
 
