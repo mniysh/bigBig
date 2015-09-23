@@ -115,52 +115,150 @@ public class DataParseUtil {
      * @throws ResponseException
      */
     public static TotalRegion provinceCityArea(JSONObject jsonObject)throws  ResponseException{
-
-        JSONObject data = processData(jsonObject);
-        Gson gson = new Gson();
-        String provinceStr = data.optString("province", null);
-//        String cityStr = data.optString("city", null);
-//        String areaStr = data.optString("area", null);
-        JSONObject citysObj = data.optJSONObject("city");
-        JSONObject areaObj = data.optJSONObject("area");
-
-        List<Province> provinces = gson.fromJson(provinceStr, new TypeToken<List<Province>>() {
-        }.getType());
+        JSONObject datas=processData(jsonObject);
+        Gson gson=new Gson();
+        String dataProvince=datas.optString("province");
+        JSONObject cityobj=datas.optJSONObject("city");
+       // JSONObject areaObj=datas.optJSONObject("area");
+        //通过goon工具转换为集合
+        List<Province> provinces=gson.fromJson(dataProvince,new TypeToken<List<Province>>(){}.getType());
 
         Province province;
-        for (int i = 0; i < provinces.size(); i++) {
-
-           province = provinces.get(i);
-            String id = province.getId();
+        for(int i=0; i<provinces.size(); i++){
+            province=provinces.get(i);
+            String id=province.getId();
+            if(!cityobj.has(id)){
+                continue;
+            }
             try {
-                if (!citysObj.has(id)) {
-                    continue;
-                }
-                String citysObjString = citysObj.getString(id);
-                List<City> subCitys = gson.fromJson(citysObjString, new TypeToken<List<City>>() {
-                }.getType());
+                String datacity=cityobj.getString(id);
+                List<City> citys=gson.fromJson(datacity,new TypeToken<List<City>>(){}.getType());
                 City city;
-                for (int j = 0; j < subCitys.size(); j++) {
-                    city = subCitys.get(j);
-                    String cityId = city.getId();
-                    if (!areaObj.has(cityId)) {
-                        continue;
-                    }
-                    String areaObjString = areaObj.getString(cityId);
-                    List<Area> subAreas = gson.fromJson(areaObjString, new TypeToken<List<Area>>() {
-                    }.getType());
-                    city.setAreas(subAreas);
-                }
+                for (int j=0; j < citys.size() ;j++){
+                    city=citys.get(j);
 
-                province.setCitys(subCitys);
+                }
+                province.setCitys(citys);
 
             } catch (JSONException e) {
                 e.printStackTrace();
             }
 
-
         }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//        JSONObject data = processData(jsonObject);
+//        Gson gson = new Gson();
+//        //获取全部省的含id的字符串
+//        String provinceStr = data.optString("province", null);
+////        String cityStr = data.optString("city", null);
+////        String areaStr = data.optString("area", null);
+//        JSONObject citysObj = data.optJSONObject("city");
+//        JSONObject areaObj = data.optJSONObject("area");
+//        //吧全部省的字符串转变成集合
+//        List<Province> provinces = gson.fromJson(provinceStr, new TypeToken<List<Province>>() {
+//        }.getType());
+//
+//        Province province;
+//        for (int i = 0; i < provinces.size(); i++) {
+//            //获取集合中的每一个省
+//           province = provinces.get(i);
+//            String id = province.getId();//获取省的id
+//            try {
+//                //判断城市的json对象有没有id，没有id后续不执行
+//                if (!citysObj.has(id)) {
+//                    continue;
+//                }
+//                //获取当前省所有城市含id
+//                String citysObjString = citysObj.getString(id);
+//                List<City> subCitys = gson.fromJson(citysObjString, new TypeToken<List<City>>() {
+//                }.getType());
+//                City city;
+//                for (int j = 0; j < subCitys.size(); j++) {
+//                    //获取当前id的所有市
+//                    city = subCitys.get(j);
+//                    String cityId = city.getId();
+//                    //判断一下id
+//                    if (!areaObj.has(cityId)) {
+//                        continue;
+//                    }
+//                    String areaObjString = areaObj.getString(cityId);
+//                    List<Area> subAreas = gson.fromJson(areaObjString, new TypeToken<List<Area>>() {
+//                    }.getType());
+//                    city.setAreas(subAreas);
+//                }
+//
+//                province.setCitys(subCitys);
+//
+//            } catch (JSONException e) {
+//                e.printStackTrace();
+//            }
+//
+//
+//        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        TotalRegion totalRegion = new TotalRegion();
+        totalRegion.setProvince(provinces);
+
+//        totalRegion.setCity(citys);
+//        totalRegion.setArea(areas);
+        return totalRegion;
 
 //        List<City> citys = new ArrayList<>();
 //        List<Area> areas = new ArrayList<>();
@@ -200,11 +298,7 @@ public class DataParseUtil {
 //            }
 //        }
 
-        TotalRegion totalRegion = new TotalRegion();
-        totalRegion.setProvince(provinces);
-//        totalRegion.setCity(citys);
-//        totalRegion.setArea(areas);
-        return totalRegion;
+
 
 
     }
