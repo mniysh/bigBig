@@ -220,7 +220,6 @@ public class DataAccessUtil {
         RequestParams params=new RequestParams();
         params.put("nickname",nickname);
         return doPost(RequestUrl.modify_nickName, params, asyncHttpResponseHandler);
-        return doPost(RequestUrl.modify_nickName, params, asyncHttpResponseHandler);
     }
 
     /**
