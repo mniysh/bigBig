@@ -54,6 +54,19 @@ public class VerifyUtils {
     }
 
     /**
+     * 是否是身份证号
+     * @param identifyCard
+     * @return
+     */
+    public static boolean isIdentifyCard(String identifyCard){
+        if (TextUtils.isEmpty(identifyCard)) {
+            return false;
+        }
+        return  IDCardUtil.isIDCard(identifyCard);
+
+    }
+
+    /**
      * 输入的密码是否正确
      * @param password
      * @return

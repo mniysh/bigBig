@@ -11,5 +11,8 @@
 
     <dimen name="bank_verify_width">120dp</dimen>
 
+    <!--认证页面item高度-->
+    <dimen name="authen_item_height">60dp</dimen>
+    <dimen name="authen_item_text">14dp</dimen>
 
 </resources>

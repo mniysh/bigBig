@@ -1,8 +1,12 @@
 package com.ms.ebangw.fragment;
 
-import android.content.res.Resources;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.TextUtils;
+import android.text.style.ForegroundColorSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,21 +16,18 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.ms.ebangw.R;
 import com.ms.ebangw.activity.UserAuthenActivity;
-import com.ms.ebangw.bean.Area;
+import com.ms.ebangw.bean.AuthInfo;
 import com.ms.ebangw.bean.City;
 import com.ms.ebangw.bean.Province;
+import com.ms.ebangw.bean.TotalRegion;
 import com.ms.ebangw.commons.Constants;
+import com.ms.ebangw.utils.T;
+import com.ms.ebangw.utils.VerifyUtils;
 
-import org.xmlpull.v1.XmlPullParser;
-import org.xmlpull.v1.XmlPullParserException;
-import org.xmlpull.v1.XmlPullParserFactory;
-
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
@@ -40,10 +41,14 @@ public class PersonBaseInfoFragment extends BaseFragment {
 	private static final String CATEGORY = "category";
 
 	private String category;
-	private View contentLayout;
+	private ViewGroup contentLayout;
 
 	@Bind(R.id.et_phone)
 	EditText phoneEt;
+	@Bind(R.id.et_real_name)
+	EditText readNameEt;
+	@Bind(R.id.et_identify_card)
+	EditText cardEt;
 	@Bind(R.id.rg_gender)
 	RadioGroup genderRg;
 	@Bind(R.id.sp_a)
@@ -57,7 +62,6 @@ public class PersonBaseInfoFragment extends BaseFragment {
 	private Province province;
 	ArrayAdapter<Province> adapter01;
 	ArrayAdapter<City> adapter02;
-	ArrayAdapter<Area> adapter03;
 
 
 	public static PersonBaseInfoFragment newInstance(String category) {
@@ -80,7 +84,7 @@ public class PersonBaseInfoFragment extends BaseFragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater,
 			@Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-		contentLayout = inflater.inflate(R.layout.fragment_person_base_info, null);
+		contentLayout = (ViewGroup) inflater.inflate(R.layout.fragment_person_base_info, null);
 		ButterKnife.bind(this, contentLayout);
 		initView();
 		initData();
@@ -89,7 +93,7 @@ public class PersonBaseInfoFragment extends BaseFragment {
 
 	@Override
 	public void initView() {
-
+		setStarRed();
 	}
 
 	@Override
@@ -103,46 +107,25 @@ public class PersonBaseInfoFragment extends BaseFragment {
 		initSpinner();
 	}
 
-
-
-	/**
-	 * 获取籍贯
-	 * @return
-	 */
-	public String getNativePlace() {
-		StringBuilder builder = new StringBuilder();
-
-
-		return builder.toString();
-	}
-
-	public String getGender() {
-		int checkId = genderRg.getCheckedRadioButtonId();
-		if (checkId == R.id.rb_male) {
-			return Constants.MALE;
-		}else {
-			return Constants.FEMALE;
-		}
-	}
-
 	public void initSpinner() {
 
 
 		provinces = getProvinces();
+		if (null == provinces) {
+			return;
+		}
 
 		adapter01 = new ArrayAdapter<>(mActivity,
-			android.R.layout.simple_list_item_1, provinces);
+			R.layout.layout_spinner_item, provinces);
+
+
 		provinceSp.setAdapter(adapter01);
 		provinceSp.setSelection(0, true);
 
-		adapter02 = new ArrayAdapter<>(mActivity, android.R.layout.simple_list_item_1, provinces
+		adapter02 = new ArrayAdapter<>(mActivity, R.layout.layout_spinner_item, provinces
 			.get(0).getCitys());
 		citySp.setAdapter(adapter02);
 		citySp.setSelection(0, true);
-
-		adapter03 = new ArrayAdapter<>(mActivity,
-			android.R.layout.simple_list_item_1, provinces.get(0)
-			.getCitys().get(0).getAreas());
 
 		provinceSp.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
@@ -150,9 +133,11 @@ public class PersonBaseInfoFragment extends BaseFragment {
 			public void onItemSelected(AdapterView<?> parent, View view,
 									   int position, long id) {
 				province = provinces.get(position);
+
 				adapter02 = new ArrayAdapter<>(mActivity,
-					android.R.layout.simple_list_item_1, provinces.get(
+					R.layout.layout_spinner_item, provinces.get(
 					position).getCitys());
+
 				citySp.setAdapter(adapter02);
 
 			}
@@ -162,113 +147,105 @@ public class PersonBaseInfoFragment extends BaseFragment {
 
 			}
 		});
+	}
+
+	private boolean isInfoCorrect() {
+		String realName = readNameEt.getText().toString().trim();
+		String cardId = cardEt.getText().toString().trim();
+		String phone = phoneEt.getText().toString().trim();
+		if (TextUtils.isEmpty(realName)) {
+			T.show("请输入真实姓名");
+			return false;
+		}
+
+		if (!VerifyUtils.isIdentifyCard(cardId)) {
+			T.show("请输入正确的身份证号码");
+			return false;
+		}
+
+		if (!VerifyUtils.isPhone(phone)) {
+			T.show("请输入手机号");
+			return false;
+		}
+
+		return true;
+	}
 
 
-//		citySp.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-//
-//			@Override
-//			public void onItemSelected(AdapterView<?> parent, View view,
-//									   int position, long id) {
-//
-//			}
-//
-//			@Override
-//			public void onNothingSelected(AdapterView<?> parent) {
-//				// TODO Auto-generated method stub
-//
-//			}
-//		});
 
+	public AuthInfo getAuthInfo() {
+		String realName = readNameEt.getText().toString().trim();
+		String cardId = cardEt.getText().toString().trim();
+		String phone = phoneEt.getText().toString().trim();
+		AuthInfo authInfo = new AuthInfo();
+
+		//性别
+		int checkId = genderRg.getCheckedRadioButtonId();
+		String gender = Constants.MALE;
+		if (checkId == R.id.rb_male) {
+			gender =  Constants.MALE;
+		}else {
+			gender =  Constants.FEMALE;
+		}
+
+		//获取籍贯
+		TextView provinceTv = (TextView) provinceSp.getSelectedView();
+		TextView cityTv = (TextView) citySp.getSelectedView();
+		String province = provinceTv.getText().toString().trim();
+		String city = cityTv.getText().toString().trim();
+		String nativePlace = province + city;
+		String  provinceId = null;
+		String cityId = null;
+
+		List<Province> provinces = getProvinces();
+		for (int i = 0; i < provinces.size(); i++) {
+			Province p = provinces.get(i);
+			if(TextUtils.equals(p.getName(), province)){
+				provinceId = p.getId();
+				List<City> citys = p.getCitys();
+				for (int j = 0; j < citys.size(); j++) {
+					City c = citys.get(j);
+					if(TextUtils.equals(c.getName(), city)){
+						cityId = c.getId();
+						break;
+					}
+				}
+				break;
+			}
+		}
+
+		authInfo.setRealName(realName);
+		authInfo.setBankCard(cardId);
+		authInfo.setPhone(phone);
+		authInfo.setProvinceId(provinceId);
+		authInfo.setCityId(cityId);
+		return authInfo;
+
+	}
+
+	/**
+	 * 把*变成红色
+	 */
+	public void setStarRed() {
+		int[] resId = new int[]{R.id.tv_a, R.id.tv_b, R.id.tv_c, R.id.tv_d, R.id.tv_e};
+		for (int i = 0; i < resId.length; i++) {
+			TextView a = (TextView) contentLayout.findViewById(resId[i]);
+			String s = a.getText().toString();
+			SpannableString spannableString = new SpannableString(s);
+			spannableString.setSpan(new ForegroundColorSpan(Color.RED), 0, 1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+			a.setText(spannableString);
+		}
 	}
 
 
 
 	public List<Province> getProvinces() {
-		return ((UserAuthenActivity)mActivity).getTotalRegion().getProvince();
-
-	}
-
-	public List<Province> getProvincesFromXml() throws XmlPullParserException,
-		IOException {
-		List<Province> provinces = null;
-		Province province = null;
-		List<City> citys = null;
-		City city = null;
-		List<Area> districts = null;
-		Area district = null;
-		Resources resources = getResources();
-
-		InputStream in = resources.openRawResource(R.raw.citys_weather);
-
-		XmlPullParserFactory factory = XmlPullParserFactory.newInstance();
-		XmlPullParser parser = factory.newPullParser();
-
-		parser.setInput(in, "utf-8");
-		int event = parser.getEventType();
-		while (event != XmlPullParser.END_DOCUMENT) {
-			switch (event) {
-				case XmlPullParser.START_DOCUMENT:
-					provinces = new ArrayList<Province>();
-					break;
-				case XmlPullParser.START_TAG:
-					String tagName = parser.getName();
-					if ("p".equals(tagName)) {
-						province = new Province();
-						citys = new ArrayList<City>();
-						int count = parser.getAttributeCount();
-						for (int i = 0; i < count; i++) {
-							String attrName = parser.getAttributeName(i);
-							String attrValue = parser.getAttributeValue(i);
-							if ("p_id".equals(attrName))
-								province.setId(attrValue);
-						}
-					}
-					if ("pn".equals(tagName)) {
-						province.setName(parser.nextText());
-					}
-					if ("c".equals(tagName)) {
-						city = new City();
-						districts = new ArrayList<Area>();
-						int count = parser.getAttributeCount();
-						for (int i = 0; i < count; i++) {
-							String attrName = parser.getAttributeName(i);
-							String attrValue = parser.getAttributeValue(i);
-							if ("c_id".equals(attrName))
-								city.setId(attrValue);
-						}
-					}
-					if ("cn".equals(tagName)) {
-						city.setName(parser.nextText());
-					}
-					if ("d".equals(tagName)) {
-						district = new Area();
-						int count = parser.getAttributeCount();
-						for (int i = 0; i < count; i++) {
-							String attrName = parser.getAttributeName(i);
-							String attrValue = parser.getAttributeValue(i);
-							if ("d_id".equals(attrName))
-								district.setId(attrValue);
-						}
-						district.setName(parser.nextText());
-						districts.add(district);
-					}
-					break;
-				case XmlPullParser.END_TAG:
-					if ("c".equals(parser.getName())) {
-						city.setAreas(districts);
-						citys.add(city);
-					}
-					if ("p".equals(parser.getName())) {
-						province.setCitys(citys);
-						provinces.add(province);
-					}
-
-					break;
-
-			}
-			event = parser.next();
-
+		TotalRegion totalRegion = ((UserAuthenActivity) mActivity).getTotalRegion();
+		if (totalRegion == null) {
+			return null;
+		}else {
+			return totalRegion.getProvince();
 		}
-		return provinces;
 	}
+
 }
