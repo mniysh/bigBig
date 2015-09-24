@@ -1,4 +1,4 @@
-package com.ms.ebangw.fragment;
+package com.ms.ebangw.userAuthen.worker;
 
 
 import android.content.ContentResolver;
@@ -20,11 +20,11 @@ import android.widget.TextView;
 
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.ms.ebangw.R;
-import com.ms.ebangw.userAuthen.UserAuthenActivity;
 import com.ms.ebangw.bean.AuthInfo;
 import com.ms.ebangw.bean.UploadImageResult;
 import com.ms.ebangw.commons.Constants;
 import com.ms.ebangw.exception.ResponseException;
+import com.ms.ebangw.fragment.BaseFragment;
 import com.ms.ebangw.service.DataAccessUtil;
 import com.ms.ebangw.service.DataParseUtil;
 import com.ms.ebangw.utils.L;
@@ -44,7 +44,7 @@ import butterknife.OnClick;
  * 身份证照片上传
  * @author wangkai
  */
-public class IdentityCardPhotoVerifyFragment extends BaseFragment {
+public class WorkerIdentityCardFragment extends BaseFragment {
     private static final String CATEGORY = "category";
     private String whichPhoto;
     private String category;
@@ -70,13 +70,11 @@ public class IdentityCardPhotoVerifyFragment extends BaseFragment {
     ImageView frontIv;
     @Bind(R.id.iv_back)
     ImageView backIv;
-    @Bind(R.id.btn_next)
-    Button nextBtn;
     private boolean isFrontUploaded, isBackUploaded;
 
 
-    public static IdentityCardPhotoVerifyFragment newInstance(String category) {
-        IdentityCardPhotoVerifyFragment fragment = new IdentityCardPhotoVerifyFragment();
+    public static WorkerIdentityCardFragment newInstance(String category) {
+        WorkerIdentityCardFragment fragment = new WorkerIdentityCardFragment();
         Bundle args = new Bundle();
         args.putString(CATEGORY, category);
         fragment.setArguments(args);
@@ -108,7 +106,7 @@ public class IdentityCardPhotoVerifyFragment extends BaseFragment {
     @OnClick(R.id.btn_select_front)
     public void selectFrontPhoto() {
         whichPhoto = Constants.PHOTO_FRONT;
-        ((UserAuthenActivity)mActivity).selectPhoto();
+        ((WorkerAuthenActivity)mActivity).selectPhoto();
     }
 
     /**
@@ -117,7 +115,7 @@ public class IdentityCardPhotoVerifyFragment extends BaseFragment {
     @OnClick(R.id.btn_select_back)
     public void selectBackPhoto() {
         whichPhoto = Constants.PHOTO_BACK;
-        ((UserAuthenActivity)mActivity).selectPhoto();
+        ((WorkerAuthenActivity)mActivity).selectPhoto();
     }
 
     /**
@@ -126,7 +124,7 @@ public class IdentityCardPhotoVerifyFragment extends BaseFragment {
     @OnClick(R.id.btn_photo_front)
     public void takeFrontPhoto() {
         whichPhoto = Constants.PHOTO_FRONT;
-        ((UserAuthenActivity)mActivity).openCamera();
+        ((WorkerAuthenActivity)mActivity).openCamera();
     }
 
     /**
@@ -135,7 +133,7 @@ public class IdentityCardPhotoVerifyFragment extends BaseFragment {
     @OnClick(R.id.btn_photo_back)
     public void takeBackPhoto() {
         whichPhoto = Constants.PHOTO_BACK;
-        ((UserAuthenActivity)mActivity).openCamera();
+        ((WorkerAuthenActivity)mActivity).openCamera();
     }
 
     @Override
@@ -146,16 +144,10 @@ public class IdentityCardPhotoVerifyFragment extends BaseFragment {
 
     @OnClick(R.id.btn_next)
     public void goNext() {
-
-        switch (category) {
-            case Constants.HEADMAN:
-            case Constants.WORKER:
-                if (isIdentifyCardUploaded()) {
-                    ((UserAuthenActivity) mActivity).goVerifyBank();
-                }
-
-                break;
+        if (isIdentifyCardUploaded()) {
+            ((WorkerAuthenActivity) mActivity).goVerifyBank();
         }
+
     }
 
     private boolean isIdentifyCardUploaded() {
@@ -212,7 +204,7 @@ public class IdentityCardPhotoVerifyFragment extends BaseFragment {
                     if (DataParseUtil.processDataResult(response)) {
                         UploadImageResult result = DataParseUtil.upLoadImage(response);
                         String id = result.getId();
-                        AuthInfo authInfo = ((UserAuthenActivity) mActivity).getAuthInfo();
+                        AuthInfo authInfo = ((WorkerAuthenActivity) mActivity).getAuthInfo();
                         if (type == TYPE_FRONT) {
                             isFrontUploaded = true;
                             authInfo.setFrontImageId(id);

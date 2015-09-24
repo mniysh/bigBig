@@ -1,4 +1,4 @@
-package com.ms.ebangw.fragment;
+package com.ms.ebangw.userAuthen.developers;
 
 
 import android.graphics.Color;
@@ -18,11 +18,13 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.ms.ebangw.R;
-import com.ms.ebangw.userAuthen.UserAuthenActivity;
 import com.ms.ebangw.bean.AuthInfo;
 import com.ms.ebangw.bean.City;
 import com.ms.ebangw.bean.Province;
 import com.ms.ebangw.bean.TotalRegion;
+import com.ms.ebangw.fragment.BaseFragment;
+import com.ms.ebangw.userAuthen.UserAuthenActivity;
+import com.ms.ebangw.userAuthen.investor.InvestorAuthenActivity;
 import com.ms.ebangw.utils.T;
 
 import java.util.List;
@@ -35,7 +37,7 @@ import butterknife.OnClick;
  * 用户银行信息验证
  * @author wangkai
  */
-public class BankVerifyFragment extends BaseFragment {
+public class DevelopersBankVerifyFragment extends BaseFragment {
     private static final String CATEGORY = "category";
     private String category;
     private ViewGroup contentLayout;
@@ -57,15 +59,15 @@ public class BankVerifyFragment extends BaseFragment {
     @Bind(R.id.btn_commit)
     Button commitBtn;
 
-    public static BankVerifyFragment newInstance(String category) {
-        BankVerifyFragment fragment = new BankVerifyFragment();
+    public static DevelopersBankVerifyFragment newInstance(String category) {
+        DevelopersBankVerifyFragment fragment = new DevelopersBankVerifyFragment();
         Bundle args = new Bundle();
         args.putString(CATEGORY, category);
         fragment.setArguments(args);
         return fragment;
     }
 
-    public BankVerifyFragment() {
+    public DevelopersBankVerifyFragment() {
         // Required empty public constructor
     }
 
@@ -80,7 +82,8 @@ public class BankVerifyFragment extends BaseFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        contentLayout = (ViewGroup) inflater.inflate(R.layout.fragment_bank_verify, container, false);
+        contentLayout = (ViewGroup) inflater.inflate(R.layout.fragment_developers_bank_verify, container,
+            false);
         ButterKnife.bind(this, contentLayout);
         initView();
         initData();
@@ -163,7 +166,7 @@ public class BankVerifyFragment extends BaseFragment {
     }
 
     public List<Province> getProvinces() {
-        TotalRegion totalRegion = ((UserAuthenActivity) mActivity).getTotalRegion();
+        TotalRegion totalRegion = ((DevelopersAuthenActivity) mActivity).getTotalRegion();
         if (totalRegion == null) {
             return null;
         }else {
@@ -172,7 +175,7 @@ public class BankVerifyFragment extends BaseFragment {
     }
 
     private void setAuthInfo() {
-        AuthInfo authInfo = ((UserAuthenActivity) mActivity).getAuthInfo();
+        AuthInfo authInfo = ((DevelopersAuthenActivity) mActivity).getAuthInfo();
         String realName = reaNameEt.getText().toString().trim();
         String cardId = cardEt.getText().toString().trim();
         //获取开户行
@@ -232,7 +235,7 @@ public class BankVerifyFragment extends BaseFragment {
     public void completeAuthentication() {
         if (isInfoCorrect()) {
             setAuthInfo();
-            ((UserAuthenActivity) mActivity).commit();
+            ((InvestorAuthenActivity) mActivity).commit();
         }
     }
 

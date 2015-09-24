@@ -30,6 +30,9 @@
 
 
     <color name="common_yellow">#e56402</color>
+    <color name="auth_step_bg">#f6f5f5</color>
+    <color name="auth_step_line">#d8d8d8</color>
+
 
     <!--标题栏-->
     <color name="titleBar_bg">#0076a9</color>

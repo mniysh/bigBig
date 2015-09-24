@@ -13,9 +13,12 @@ import android.widget.TextView;
 import com.ms.ebangw.R;
 import com.ms.ebangw.activity.HomeActivity;
 import com.ms.ebangw.activity.SettingActivity;
-import com.ms.ebangw.activity.UserAuthenActivity;
 import com.ms.ebangw.bean.User;
 import com.ms.ebangw.commons.Constants;
+import com.ms.ebangw.userAuthen.developers.DevelopersAuthenActivity;
+import com.ms.ebangw.userAuthen.headman.HeadmanAuthenActivity;
+import com.ms.ebangw.userAuthen.investor.InvestorAuthenActivity;
+import com.ms.ebangw.userAuthen.worker.WorkerAuthenActivity;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -98,51 +101,30 @@ public class AuthenticationFragment extends BaseFragment implements OnClickListe
 	@Override
 	public void onClick(View v) {	////worker(工人)/headman(工头)/developers(开发商)/investor(个人)
 
-//		switch (v.getId()) {
-//			//个人认证
-//			case R.id.btn_investor:
-//				bundle.putString(Constants.KEY_CATEGORY, Constants.INVESTOR);
-//				intent = new Intent(mActivity,InvestorAuthenticationActivity.class);
-//				intent.putExtras(bundle);
-//				startActivity(intent);
-//				break;
-//			case R.id.btn_worker:	//工人
-//				bundle.putString(Constants.KEY_CATEGORY, Constants.WORKER);
-//
-//				startActivity(new Intent(mActivity,WorkerAuthenActivity.class));
-//				break;
-//			case R.id.btn_headman:	//工头
-//				startActivity(new Intent(mActivity,UserAuthenActivity.class));
-//				break;
-//			case R.id.btn_developers:	//开发商
-//				startActivity(new Intent(mActivity,DevelopersAuthenActivity.class));
-//				break;
-//
-//			default:
-//				break;
-//		}
-		String category = Constants.INVESTOR;
+		Intent intent;
 		switch (v.getId()) {
-			//			//个人认证
+
+			//个人认证
 			case R.id.btn_investor:
-				category = Constants.INVESTOR;
+				intent = new Intent(mActivity, InvestorAuthenActivity.class);
 				break;
 			case R.id.btn_worker:	//工人
-				category = Constants.WORKER;
+				intent = new Intent(mActivity, WorkerAuthenActivity.class);
 				break;
 			case R.id.btn_headman:	//工头
-				category = Constants.HEADMAN;
+				intent = new Intent(mActivity, HeadmanAuthenActivity.class);
 				break;
 			case R.id.btn_developers:	//开发商
-				category = Constants.DEVELOPERS;
+				intent = new Intent(mActivity, DevelopersAuthenActivity.class);
 				break;
-//
-		}
-		Bundle bundle = new Bundle();
-		bundle.putString(Constants.KEY_CATEGORY, category);
-		bundle.putSerializable(Constants.KEY_TOTAL_REGION, ((HomeActivity)mActivity).getTotalRegion());
 
-		Intent intent = new Intent(mActivity, UserAuthenActivity.class);
+			default:
+				intent = new Intent(mActivity, InvestorAuthenActivity.class);
+				break;
+		}
+
+		Bundle bundle = new Bundle();
+		bundle.putSerializable(Constants.KEY_TOTAL_REGION, ((HomeActivity)mActivity).getTotalRegion());
 		intent.putExtras(bundle);
 		startActivity(intent);
 	}
