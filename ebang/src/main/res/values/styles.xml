@@ -89,6 +89,7 @@
     <style name="authorization_edit">
     <item name="android:textColor">@color/black_overlay</item>
     <item name="android:textSize">15sp</item>
+
     <item name="android:background">@drawable/border_gray</item>
     <item name="android:padding">5dp</item>
 
@@ -97,5 +98,15 @@
 
 
 </style>
+    <style name="service_but">
+        <item name="android:layout_width">80dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@drawable/servive_but01</item>
+        <item name="android:textColor">@drawable/service_text_col</item>
+        <item name="android:button">@drawable/empty</item>
+        <item name="android:gravity">center</item>
+        <item name="android:paddingTop">30dp</item>
+        <item name="android:paddingBottom">30dp</item>
+    </style>
 	
 </resources>

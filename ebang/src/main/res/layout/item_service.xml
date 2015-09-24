@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:divider="@drawable/divider_line_gray"
+    android:showDividers="middle"
+    >
+    <TextView
+        android:id="@+id/title"
+        android:paddingLeft="15dp"
+        android:gravity="center_horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="标题"
+        android:textSize="20dp"
+        />
+
+    <com.ms.ebangw.view.ServiceGridView
+        android:id="@+id/gv_gridview"
+        android:numColumns="2"
+        android:columnWidth="90dp"
+        android:stretchMode="columnWidth"
+        android:verticalSpacing="10dp"
+        android:horizontalSpacing="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    </com.ms.ebangw.view.ServiceGridView>
+
+</LinearLayout>

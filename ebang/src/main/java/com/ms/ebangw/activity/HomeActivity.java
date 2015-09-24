@@ -21,6 +21,7 @@ import com.ms.ebangw.fragment.HeadmanCenterFragment;
 import com.ms.ebangw.fragment.HomeFragment;
 import com.ms.ebangw.fragment.InvestorCenterFragment;
 import com.ms.ebangw.fragment.ReleaseFragment;
+import com.ms.ebangw.fragment.ServiceFragment;
 import com.ms.ebangw.fragment.WorkerCenterFragment;
 import com.ms.ebangw.service.DataAccessUtil;
 import com.ms.ebangw.service.DataParseUtil;
@@ -48,7 +49,7 @@ public class HomeActivity extends BaseActivity {
 	private FoundFragment foundFragment;
 	private ReleaseFragment releasefragment;
 	private TotalRegion totalRegion;
-
+	private ServiceFragment serviceFragment;
 
 
 	@Bind(R.id.radioGroup)
@@ -73,6 +74,7 @@ public class HomeActivity extends BaseActivity {
 		fm = getFragmentManager();
 		foundFragment=new FoundFragment();
 		releasefragment=new ReleaseFragment();
+		serviceFragment=new ServiceFragment();
 
 		radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
 			@Override
@@ -88,7 +90,7 @@ public class HomeActivity extends BaseActivity {
 						fm.beginTransaction().replace(R.id.fl_content, releasefragment).commit();
 						break;
 					case R.id.rb_server:
-
+						fm.beginTransaction().replace(R.id.fl_content,serviceFragment).commit();
 						break;
 					case R.id.rb_mine:
 
