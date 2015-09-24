@@ -210,8 +210,30 @@ public class DataAccessUtil {
         return doGet(RequestUrl.address + num, new RequestParams(), asyncHttpResponseHandler);
     }
 
+    //11.工头认证接口
+    public static RequestHandle headmanIdentify(String num,
+                                        AsyncHttpResponseHandler
+                                            asyncHttpResponseHandler ) {
+
+        RequestParams params = new RequestParams();
+//        params.put("identity_card",identity_card);
+//        params.put("phone",phone);
+//        params.put("province",province);
+//        params.put("city",city);
+//        params.put("area",area);
+//        params.put("area_other",area_other);
+//        params.put("card_image_front",card_image_front);
+//        params.put("card_image_back",card_image_back);
+//        params.put("card_expiration_time",card_expiration_time);
+
+
+        return doGet(RequestUrl.header_identify, params, asyncHttpResponseHandler);
+    }
+
+
+
     /**
-     * 修改昵称接口
+     * 13.修改昵称接口
      * @param nickname 修改后的昵称
      * @param asyncHttpResponseHandler
      * @return
@@ -260,8 +282,10 @@ public class DataAccessUtil {
         addCommonParams(params);
         L.d(TAG, "doPost: " + url + " : " + params.toString());
         return mClient.post(url, params, asyncHttpResponseHandler);
-
     }
+
+
+
 
     public static RequestHandle doGet(String url, RequestParams params, AsyncHttpResponseHandler
         asyncHttpResponseHandler) {

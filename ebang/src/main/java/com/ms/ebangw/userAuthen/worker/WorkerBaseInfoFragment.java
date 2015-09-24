@@ -1,4 +1,4 @@
-package com.ms.ebangw.fragment;
+package com.ms.ebangw.userAuthen.worker;
 
 import android.graphics.Color;
 import android.os.Bundle;
@@ -19,12 +19,12 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.ms.ebangw.R;
-import com.ms.ebangw.userAuthen.UserAuthenActivity;
 import com.ms.ebangw.bean.AuthInfo;
 import com.ms.ebangw.bean.City;
 import com.ms.ebangw.bean.Province;
 import com.ms.ebangw.bean.TotalRegion;
 import com.ms.ebangw.commons.Constants;
+import com.ms.ebangw.fragment.BaseFragment;
 import com.ms.ebangw.utils.T;
 import com.ms.ebangw.utils.VerifyUtils;
 
@@ -37,7 +37,7 @@ import butterknife.OnClick;
 /**
  * 个人基本信息
  */
-public class PersonBaseInfoFragment extends BaseFragment {
+public class WorkerBaseInfoFragment extends BaseFragment {
 
 	private static final String CATEGORY = "category";
 
@@ -65,8 +65,8 @@ public class PersonBaseInfoFragment extends BaseFragment {
 	ArrayAdapter<City> adapter02;
 
 
-	public static PersonBaseInfoFragment newInstance(String category) {
-		PersonBaseInfoFragment fragment = new PersonBaseInfoFragment();
+	public static WorkerBaseInfoFragment newInstance(String category) {
+		WorkerBaseInfoFragment fragment = new WorkerBaseInfoFragment();
 		Bundle args = new Bundle();
 		args.putString(CATEGORY, category);
 		fragment.setArguments(args);
@@ -85,7 +85,7 @@ public class PersonBaseInfoFragment extends BaseFragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater,
 			@Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-		contentLayout = (ViewGroup) inflater.inflate(R.layout.fragment_person_base_info, null);
+		contentLayout = (ViewGroup) inflater.inflate(R.layout.fragment_worker_base_info, null);
 		ButterKnife.bind(this, contentLayout);
 		initView();
 		initData();
@@ -149,7 +149,7 @@ public class PersonBaseInfoFragment extends BaseFragment {
 //			return;
 //		}
 		AuthInfo authInfo = getAuthInfo();
-		UserAuthenActivity activity = (UserAuthenActivity) mActivity;
+		WorkerAuthenActivity activity = (WorkerAuthenActivity) mActivity;
 		activity.setAuthInfo(authInfo);
 		activity.goNext();
 	}
@@ -251,7 +251,7 @@ public class PersonBaseInfoFragment extends BaseFragment {
 
 
 	public List<Province> getProvinces() {
-		TotalRegion totalRegion = ((UserAuthenActivity) mActivity).getTotalRegion();
+		TotalRegion totalRegion = ((WorkerAuthenActivity) mActivity).getTotalRegion();
 		if (totalRegion == null) {
 			return null;
 		}else {

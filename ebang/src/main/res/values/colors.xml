@@ -28,8 +28,20 @@
     <color name="gray_back">#EEEEEE</color>
     <!--end-->
 
+
+    <color name="common_yellow">#e56402</color>
+    <color name="auth_step_bg">#f6f5f5</color>
+    <color name="auth_step_line">#d8d8d8</color>
+
+
     <!--标题栏-->
-    <color name="titleBar_bg">#0075AA</color>
-    <color name="titleBar_arrow_pressed">@android:color/darker_gray</color> <!--标题栏返回箭头按下的颜色-->
+    <color name="titleBar_bg">#0076a9</color>
+    <color name="titleBar_arrow_pressed">#660076a9</color> <!--标题栏返回箭头按下的颜色-->
+    <color name="common_divider_line">#d7d7d7</color>
+
+    <!--认证页面-->
+    <color name="auth_hint">#383838</color>
+    <color name="auth_description">#9e9e9e</color>
+
 
 </resources>
