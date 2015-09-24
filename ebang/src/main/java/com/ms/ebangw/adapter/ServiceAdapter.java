@@ -2,6 +2,7 @@ package com.ms.ebangw.adapter;
 
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.TextView;
@@ -61,7 +62,12 @@ public class ServiceAdapter extends BaseAdapter {
         GridView gContent = ViewHolder.get(convertView, R.id.gv_gridview);
         L.d("xxx","datas标题是"+serviceListbean.getTitle());
         tTitle.setText(serviceListbean.getTitle());
+        gContent.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
+            }
+        });
         List<WorkType> wordTypes = serviceListbean.getWordTypes();
         gContent.setAdapter(new ServiceGridViewAdapter(act,wordTypes));
 
