@@ -1,77 +1,80 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-             xmlns:tools="http://schemas.android.com/tools"
-             android:layout_width="match_parent"
-             android:layout_height="match_parent"
-              android:orientation="vertical"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
               android:divider="@drawable/divider_line_gray"
+              android:orientation="vertical"
               android:showDividers="middle"
-
-             tools:context="com.ms.ebangw.fragment.BankVerifyFragment">
+              tools:context="com.ms.ebangw.fragment.BankVerifyFragment">
 
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/authen_item_height"
+        android:gravity="center_vertical"
         android:orientation="horizontal"
-        android:paddingTop="10dp"
-        android:paddingBottom="10dp"
 
         >
 
         <TextView
+            android:id="@+id/tv_a"
+            style="@style/authorization_text"
             android:layout_width="@dimen/bank_verify_width"
             android:layout_height="wrap_content"
             android:text="*开户人姓名："
-            android:gravity="right|center_vertical"
-            android:singleLine="true"
-
             />
 
         <EditText
-            android:id="@+id/et_name"
+            android:id="@+id/et_real_name"
+            style="@style/authorization_edit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="请输入真实的姓名"
-            android:gravity="center_vertical"
             />
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/authen_item_height"
+        android:gravity="center_vertical"
         android:orientation="horizontal"
-        android:paddingTop="10dp"
-        android:paddingBottom="10dp"
         >
 
         <TextView
+            android:id="@+id/tv_b"
+            style="@style/authorization_text"
             android:layout_width="@dimen/bank_verify_width"
             android:layout_height="wrap_content"
             android:text="*开户行所在省份："
-            android:gravity="right|center_vertical"
-            android:singleLine="true"
-
             />
 
-        <include
-            layout="@layout/layout_area_spinner_2"/>
+        <Spinner
+            android:id="@+id/sp_a"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            />
+
+        <Spinner
+            android:id="@+id/sp_b"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            />
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/authen_item_height"
+        android:gravity="center_vertical"
         android:orientation="horizontal"
-        android:paddingBottom="10dp"
-
         >
 
         <TextView
+            android:id="@+id/tv_c"
+            style="@style/authorization_text"
             android:layout_width="@dimen/bank_verify_width"
             android:layout_height="wrap_content"
             android:text="*开户行名称："
-            android:gravity="right|center_vertical"
-            android:singleLine="true"
-
             />
 
         <Spinner
@@ -86,51 +89,60 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/authen_item_height"
+        android:gravity="center_vertical"
         android:orientation="horizontal"
-        android:paddingBottom="10dp"
 
         >
 
         <TextView
+            android:id="@+id/tv_d"
+            style="@style/authorization_text"
             android:layout_width="@dimen/bank_verify_width"
             android:layout_height="wrap_content"
             android:text="*银行卡号："
-            android:gravity="right|center_vertical"
-            android:singleLine="true"
-
             />
 
         <EditText
+            android:id="@+id/et_identify_card"
+            style="@style/authorization_edit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="请输入您的卡号"
-            android:gravity="center_vertical"
+            android:inputType="number"
             />
     </LinearLayout>
 
-    <TextView
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="改银行卡户名必须与会员真实姓名一致，否则会提交失败！"
-        android:textSize="10dp"
-        android:textColor="@color/auther_red"
-        android:gravity="center_horizontal"
-        android:layout_marginTop="30dp"
 
-
-        />
-    <Button
-        android:id="@+id/btn_commit"
-        android:layout_marginTop="10dp"
-        android:layout_width="fill_parent"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="完成"
-        android:textSize="15dp"
-        android:textColor="#fff"
-        android:background="@drawable/bk_but"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        />
+        android:layout_marginBottom="10dp"
+        android:orientation="vertical"
+        >
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:gravity="center_horizontal"
+            android:text="该银行卡开户名必须与会员真实名称一致，否则会提交失败！"
+            android:textColor="@color/auther_red"
+            android:textSize="10sp"
+            />
+
+        <Button
+            android:id="@+id/btn_commit"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/bk_but"
+            android:text="完成"
+            android:textColor="#fff"
+            android:textSize="15dp"
+            />
+    </LinearLayout>
 
 </LinearLayout>

@@ -1,11 +1,13 @@
 package com.ms.ebangw.bean;
 
+import java.io.Serializable;
+
 /**
  * 用户认证工头、开发商 等类型 的认证信息
  * User: WangKai(123940232@qq.com)
  * 2015-09-21 15:13
  */
-public class AuthInfo {
+public class AuthInfo implements Serializable{
     private String phone;
     private String gender;
     /**
@@ -24,14 +26,11 @@ public class AuthInfo {
      *银行卡号
      */
     private String bankCard;
+
     /**
-     * 开户行名称
+     * 银行名称对应的Id
      */
-    private String bankOfDeposit;
-    /**
-     * 银行名称
-     */
-    private String bankName;
+    private String bankNameId;
 
     /**
      * 省id
@@ -41,6 +40,23 @@ public class AuthInfo {
      * 市Id
      */
     private String cityId;
+    /**
+     * 身份证正面上传后返回的id
+     */
+    private String frontImageId;
+    /**
+     * 身份证反面上传后返回的id
+     */
+    private String backImageId;
+
+    /**
+     *  开户行省id
+     */
+    private String bankProvinceId;
+    /**
+     * 开户行所在市的id
+     */
+    private String bankCityId;
 
 
 
@@ -92,20 +108,28 @@ public class AuthInfo {
         this.bankCard = bankCard;
     }
 
-    public String getBankOfDeposit() {
-        return bankOfDeposit;
+    public String getBankProvinceId() {
+        return bankProvinceId;
     }
 
-    public void setBankOfDeposit(String bankOfDeposit) {
-        this.bankOfDeposit = bankOfDeposit;
+    public void setBankProvinceId(String bankProvinceId) {
+        this.bankProvinceId = bankProvinceId;
     }
 
-    public String getBankName() {
-        return bankName;
+    public String getBankCityId() {
+        return bankCityId;
     }
 
-    public void setBankName(String bankName) {
-        this.bankName = bankName;
+    public void setBankCityId(String bankCityId) {
+        this.bankCityId = bankCityId;
+    }
+
+    public String getBankNameId() {
+        return bankNameId;
+    }
+
+    public void setBankNameId(String bankNameId) {
+        this.bankNameId = bankNameId;
     }
 
     public String getProvinceId() {
@@ -122,5 +146,21 @@ public class AuthInfo {
 
     public void setCityId(String cityId) {
         this.cityId = cityId;
+    }
+
+    public String getFrontImageId() {
+        return frontImageId;
+    }
+
+    public void setFrontImageId(String frontImageId) {
+        this.frontImageId = frontImageId;
+    }
+
+    public String getBackImageId() {
+        return backImageId;
+    }
+
+    public void setBackImageId(String backImageId) {
+        this.backImageId = backImageId;
     }
 }

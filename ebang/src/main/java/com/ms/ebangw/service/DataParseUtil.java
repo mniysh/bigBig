@@ -2,10 +2,8 @@ package com.ms.ebangw.service;
 
 import android.text.TextUtils;
 
-import com.facebook.internal.BoltsMeasurementEventListener;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.ms.ebangw.bean.Area;
 import com.ms.ebangw.bean.City;
 import com.ms.ebangw.bean.Province;
 import com.ms.ebangw.bean.TotalRegion;
@@ -107,6 +105,8 @@ public class DataParseUtil {
 
         return  processDataResult(jsonObject);
     }
+
+
 
     /**
      * 3-6. 获取全部省市区数据

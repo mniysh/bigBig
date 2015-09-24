@@ -46,10 +46,6 @@ public class UserAuthenActivity extends BaseActivity{
 	private IdentityCardPhotoVerifyFragment  identifyFragment;
 	private PersonBaseInfoFragment personBaseInfoFragment;
 
-
-//	@Bind(R.id.viewPager)
-//	NoScrollViewPager viewPager;
-
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -216,4 +212,44 @@ public class UserAuthenActivity extends BaseActivity{
 	public TotalRegion getTotalRegion() {
 		return totalRegion;
 	}
+
+	/**
+	 * 提交认证信息
+	 */
+	public void commit() {
+		switch (category) {
+			case Constants.WORKER:
+				commitHeadmanAuthentication();
+				break;
+
+
+
+		}
+
+
+	}
+
+	public void commitInvestorAuthentication() {
+
+	}
+
+	public void commitHeadmanAuthentication() {
+
+
+
+
+	}
+
+	public void commitDevelopersAuthentication() {
+
+	}
+
+	public void commitWorkerAuthentication() {
+
+	}
+
+
+
+
+
 }

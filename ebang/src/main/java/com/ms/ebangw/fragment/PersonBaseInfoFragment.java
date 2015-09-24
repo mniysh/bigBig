@@ -32,6 +32,7 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * 个人基本信息
@@ -98,18 +99,11 @@ public class PersonBaseInfoFragment extends BaseFragment {
 
 	@Override
 	public void initData() {
-		nextBtn.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				((UserAuthenActivity) mActivity).goNext();
-			}
-		});
+
 		initSpinner();
 	}
 
 	public void initSpinner() {
-
-
 		provinces = getProvinces();
 		if (null == provinces) {
 			return;
@@ -149,6 +143,17 @@ public class PersonBaseInfoFragment extends BaseFragment {
 		});
 	}
 
+	@OnClick(R.id.btn_next)
+	public void goNext() {
+//		if (!isInfoCorrect()) {
+//			return;
+//		}
+		AuthInfo authInfo = getAuthInfo();
+		UserAuthenActivity activity = (UserAuthenActivity) mActivity;
+		activity.setAuthInfo(authInfo);
+		activity.goNext();
+	}
+
 	private boolean isInfoCorrect() {
 		String realName = readNameEt.getText().toString().trim();
 		String cardId = cardEt.getText().toString().trim();
@@ -177,6 +182,8 @@ public class PersonBaseInfoFragment extends BaseFragment {
 		String realName = readNameEt.getText().toString().trim();
 		String cardId = cardEt.getText().toString().trim();
 		String phone = phoneEt.getText().toString().trim();
+
+
 		AuthInfo authInfo = new AuthInfo();
 
 		//性别
@@ -191,9 +198,14 @@ public class PersonBaseInfoFragment extends BaseFragment {
 		//获取籍贯
 		TextView provinceTv = (TextView) provinceSp.getSelectedView();
 		TextView cityTv = (TextView) citySp.getSelectedView();
-		String province = provinceTv.getText().toString().trim();
-		String city = cityTv.getText().toString().trim();
-		String nativePlace = province + city;
+
+		String province = null;
+		String city = null;
+		if (provinceTv != null && cityTv != null) {
+
+			province = provinceTv.getText().toString().trim();
+			city = cityTv.getText().toString().trim();
+		}
 		String  provinceId = null;
 		String cityId = null;
 
@@ -220,7 +232,6 @@ public class PersonBaseInfoFragment extends BaseFragment {
 		authInfo.setProvinceId(provinceId);
 		authInfo.setCityId(cityId);
 		return authInfo;
-
 	}
 
 	/**

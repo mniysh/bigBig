@@ -4,18 +4,24 @@ package com.ms.ebangw.fragment;
 import android.content.ContentResolver;
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.style.ForegroundColorSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.ms.ebangw.R;
 import com.ms.ebangw.activity.UserAuthenActivity;
+import com.ms.ebangw.bean.AuthInfo;
 import com.ms.ebangw.bean.UploadImageResult;
 import com.ms.ebangw.commons.Constants;
 import com.ms.ebangw.exception.ResponseException;
@@ -134,6 +140,7 @@ public class IdentityCardPhotoVerifyFragment extends BaseFragment {
 
     @Override
     public void initView() {
+        setStarRed();
 
     }
 
@@ -191,31 +198,50 @@ public class IdentityCardPhotoVerifyFragment extends BaseFragment {
 
         DataAccessUtil.uploadImage(file, new JsonHttpResponseHandler() {
             @Override
+            public void onStart() {
+                super.onStart();
+                showProgressDialog("图片上传中...");
+            }
+
+            @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                dismissLoadingDialog();
+
 
                 try {
-                    UploadImageResult result = DataParseUtil.upLoadImage(response);
-                    if (type == TYPE_FRONT ) {
-                        isFrontUploaded = true;
+                    if (DataParseUtil.processDataResult(response)) {
+                        UploadImageResult result = DataParseUtil.upLoadImage(response);
+                        String id = result.getId();
+                        AuthInfo authInfo = ((UserAuthenActivity) mActivity).getAuthInfo();
+                        if (type == TYPE_FRONT) {
+                            isFrontUploaded = true;
+                            authInfo.setFrontImageId(id);
+                        }
+
+                        if (type == TYPE_BACK) {
+                            isBackUploaded = true;
+                            authInfo.setBackImageId(id);
+                        }
+                        T.show("上传图片成功");
+                    }else {
+                        T.show("上传图片失败,请重试");
                     }
 
-                    if (type == TYPE_BACK ) {
-                        isBackUploaded = true;
-                    }
+
 
                 } catch (ResponseException e) {
                     e.printStackTrace();
                 }
 
-
             }
-
 
             @Override
             public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
                 super.onFailure(statusCode, headers, responseString, throwable);
+                L.d(responseString);
+                T.show("上传图片失败,请重试");
+                dismissLoadingDialog();
             }
-
         });
     }
 
@@ -243,6 +269,20 @@ public class IdentityCardPhotoVerifyFragment extends BaseFragment {
         }
         File file = new File(data);
         return file;
+    }
+
+    /**
+     * 把*变成红色
+     */
+    public void setStarRed() {
+        int[] resId = new int[]{R.id.tv_a, R.id.tv_b};
+        for (int i = 0; i < resId.length; i++) {
+            TextView a = (TextView) contentLayout.findViewById(resId[i]);
+            String s = a.getText().toString();
+            SpannableString spannableString = new SpannableString(s);
+            spannableString.setSpan(new ForegroundColorSpan(Color.RED), 0, 1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+            a.setText(spannableString);
+        }
     }
 
 }
