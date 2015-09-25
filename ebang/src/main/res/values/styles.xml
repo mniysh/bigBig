@@ -92,6 +92,7 @@
     <item name="android:textSize">15sp</item>
     <item name="android:background">@drawable/border_gray</item>
     <item name="android:padding">5dp</item>
+    </style>
 
         <!--身份证认证页面-->
 
@@ -107,7 +108,6 @@
         <!--用户银行信息验证 BankVerifyFragment-->
 
 
-</style>
     <style name="service_but">
         <item name="android:layout_width">80dp</item>
         <item name="android:layout_height">wrap_content</item>
