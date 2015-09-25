@@ -213,7 +213,7 @@ public class BankVerifyFragment extends BaseFragment {
         }
         authInfo.setBankProvinceId(provinceId);
         authInfo.setBankCityId(cityId);
-        authInfo.setBankNameId(bankNameId);
+        authInfo.setBankId(bankNameId);
         authInfo.setRealName(realName);
         authInfo.setBankCard(cardId);
     }

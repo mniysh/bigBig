@@ -30,7 +30,7 @@ public class AuthInfo implements Serializable{
     /**
      * 银行名称对应的Id
      */
-    private String bankNameId;
+    private String bankId;
 
     /**
      * 省id
@@ -57,6 +57,10 @@ public class AuthInfo implements Serializable{
      * 开户行所在市的id
      */
     private String bankCityId;
+    /**
+     *  银行卡开户人姓名
+     */
+    private String accountName;
 
 
 
@@ -124,12 +128,12 @@ public class AuthInfo implements Serializable{
         this.bankCityId = bankCityId;
     }
 
-    public String getBankNameId() {
-        return bankNameId;
+    public String getBankId() {
+        return bankId;
     }
 
-    public void setBankNameId(String bankNameId) {
-        this.bankNameId = bankNameId;
+    public void setBankId(String bankId) {
+        this.bankId = bankId;
     }
 
     public String getProvinceId() {
@@ -162,5 +166,13 @@ public class AuthInfo implements Serializable{
 
     public void setBackImageId(String backImageId) {
         this.backImageId = backImageId;
+    }
+
+    public String getAccountName() {
+        return accountName;
+    }
+
+    public void setAccountName(String accountName) {
+        this.accountName = accountName;
     }
 }

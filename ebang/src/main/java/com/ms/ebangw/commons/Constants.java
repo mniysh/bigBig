@@ -68,11 +68,11 @@ public class Constants {
 	/**
 	 * 性别：男
 	 */
-	public static final String MALE = "MALE";
+	public static final String MALE = "male";
 	/**
 	 * 性别：女
 	 */
-	public static final String FEMALE = "FEMALE";
+	public static final String FEMALE = "female";
 
 
 	/*Key=========*/

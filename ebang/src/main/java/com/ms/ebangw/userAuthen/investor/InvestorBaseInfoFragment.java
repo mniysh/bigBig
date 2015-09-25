@@ -227,10 +227,11 @@ public class InvestorBaseInfoFragment extends BaseFragment {
 		}
 
 		authInfo.setRealName(realName);
-		authInfo.setBankCard(cardId);
+		authInfo.setIdentityCard(cardId);
 		authInfo.setPhone(phone);
 		authInfo.setProvinceId(provinceId);
 		authInfo.setCityId(cityId);
+		authInfo.setGender(gender);
 		return authInfo;
 	}
 

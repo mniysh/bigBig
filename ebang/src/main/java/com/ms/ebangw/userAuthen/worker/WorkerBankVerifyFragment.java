@@ -23,7 +23,6 @@ import com.ms.ebangw.bean.City;
 import com.ms.ebangw.bean.Province;
 import com.ms.ebangw.bean.TotalRegion;
 import com.ms.ebangw.fragment.BaseFragment;
-import com.ms.ebangw.userAuthen.investor.InvestorAuthenActivity;
 import com.ms.ebangw.utils.T;
 
 import java.util.List;
@@ -215,7 +214,7 @@ public class WorkerBankVerifyFragment extends BaseFragment {
         }
         authInfo.setBankProvinceId(provinceId);
         authInfo.setBankCityId(cityId);
-        authInfo.setBankNameId(bankNameId);
+        authInfo.setBankId(bankNameId);
         authInfo.setRealName(realName);
         authInfo.setBankCard(cardId);
     }

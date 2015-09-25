@@ -18,8 +18,11 @@ import com.ms.ebangw.activity.BaseActivity;
 import com.ms.ebangw.bean.AuthInfo;
 import com.ms.ebangw.bean.TotalRegion;
 import com.ms.ebangw.commons.Constants;
+import com.ms.ebangw.exception.ResponseException;
 import com.ms.ebangw.service.DataAccessUtil;
+import com.ms.ebangw.service.DataParseUtil;
 import com.ms.ebangw.utils.L;
+import com.ms.ebangw.utils.T;
 import com.soundcloud.android.crop.Crop;
 
 import org.apache.http.Header;
@@ -106,11 +109,11 @@ public class InvestorAuthenActivity extends BaseActivity {
 	 */
 	public void goVerifyBank() {
 
-		getFragmentManager().beginTransaction().replace(R.id.fl_content,
-			InvestorBankVerifyFragment.newInstance(category)).addToBackStack
-			("BankVerifyFragment").commit();
+//		getFragmentManager().beginTransaction().replace(R.id.fl_content,
+//			InvestorBankVerifyFragment.newInstance(category)).addToBackStack
+//			("BankVerifyFragment").commit();
 
-
+		commit();
 
 	}
 
@@ -205,24 +208,31 @@ public class InvestorAuthenActivity extends BaseActivity {
 	 */
 	public void commit() {
 		String realName = authInfo.getRealName();
+		String gender = authInfo.getGender();
 		String identityCard = authInfo.getIdentityCard();
 		String provinceId = authInfo.getProvinceId();
 		String cityId = authInfo.getCityId();
 		String frontImageId = authInfo.getFrontImageId();
 		String backImageId = authInfo.getBackImageId();
 
-		DataAccessUtil.personIdentify(realName, identityCard, provinceId, cityId, frontImageId,
+		DataAccessUtil.personIdentify(realName, gender, identityCard, provinceId, cityId,
+			frontImageId,
 			backImageId, null, new JsonHttpResponseHandler(){
 				@Override
 				public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-
-
-
+					try {
+						boolean b = DataParseUtil.processDataResult(response);
+						if (b) {
+							T.show("认证成功");
+						}
+					} catch (ResponseException e) {
+						e.printStackTrace();
+						T.show(e.getMessage());
+					}
 				}
 
 				@Override
 				public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
-					super.onFailure(statusCode, headers, responseString, throwable);
 					L.d(responseString);
 				}
 			});

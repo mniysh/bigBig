@@ -146,9 +146,9 @@ public class DevelopersBaseInfoFragment extends BaseFragment {
 
 	@OnClick(R.id.btn_next)
 	public void goNext() {
-//		if (!isInfoCorrect()) {
-//			return;
-//		}
+		if (!isInfoCorrect()) {
+			return;
+		}
 		AuthInfo authInfo = getAuthInfo();
 		InvestorAuthenActivity activity = (InvestorAuthenActivity) mActivity;
 		activity.setAuthInfo(authInfo);
@@ -228,8 +228,10 @@ public class DevelopersBaseInfoFragment extends BaseFragment {
 		}
 
 		authInfo.setRealName(realName);
-		authInfo.setBankCard(cardId);
+		authInfo.setGender(gender);
+		authInfo.setIdentityCard(cardId);
 		authInfo.setPhone(phone);
+		authInfo.setIdentityCard(cardId);
 		authInfo.setProvinceId(provinceId);
 		authInfo.setCityId(cityId);
 		return authInfo;

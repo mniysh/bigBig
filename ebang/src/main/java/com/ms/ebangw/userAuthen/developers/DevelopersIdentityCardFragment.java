@@ -219,9 +219,6 @@ public class DevelopersIdentityCardFragment extends BaseFragment {
                     }else {
                         T.show("上传图片失败,请重试");
                     }
-
-
-
                 } catch (ResponseException e) {
                     e.printStackTrace();
                 }

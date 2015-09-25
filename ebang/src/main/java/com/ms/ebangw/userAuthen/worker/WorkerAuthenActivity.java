@@ -14,7 +14,6 @@ import com.ms.ebangw.activity.BaseActivity;
 import com.ms.ebangw.bean.AuthInfo;
 import com.ms.ebangw.bean.TotalRegion;
 import com.ms.ebangw.commons.Constants;
-import com.ms.ebangw.fragment.BankVerifyFragment;
 import com.ms.ebangw.utils.L;
 import com.soundcloud.android.crop.Crop;
 
@@ -175,36 +174,21 @@ public class WorkerAuthenActivity extends BaseActivity {
 	public TotalRegion getTotalRegion() {
 		return totalRegion;
 	}
-
-	public void commit() {
-
-	}
-
 	/**
 	 * 提交认证信息
 	 */
-	public void commitInvestorAuthentication() {
+	public void commit() {
+		String realName = authInfo.getRealName();
+		String gender = authInfo.getGender();
+		String identityCard = authInfo.getIdentityCard();
+		String provinceId = authInfo.getProvinceId();
+		String cityId = authInfo.getCityId();
+		String frontImageId = authInfo.getFrontImageId();
+		String backImageId = authInfo.getBackImageId();
 
 
 
 	}
-
-//	public void commitHeadmanAuthentication() {
-//
-//
-//
-//
-//	}
-//
-//	public void commitDevelopersAuthentication() {
-//
-//	}
-//
-//	public void commitWorkerAuthentication() {
-//
-//	}
-
-
 
 
 

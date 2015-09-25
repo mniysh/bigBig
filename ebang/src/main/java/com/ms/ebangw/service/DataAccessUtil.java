@@ -224,7 +224,7 @@ public class DataAccessUtil {
      * @param asyncHttpResponseHandler
      * @return
      */
-    public static RequestHandle personIdentify(String real_name,String identity_card,
+    public static RequestHandle personIdentify(String real_name,String gender, String identity_card,
                                                String province,String city,
                                                String card_image_front,String card_image_back,
                                                String card_expiration_time,
@@ -233,6 +233,7 @@ public class DataAccessUtil {
 
         RequestParams params = new RequestParams();
         params.put("real_name",real_name);
+        params.put("gender",gender);
         params.put("identity_card",identity_card);
         params.put("province",province);
         params.put("city",city);
@@ -241,7 +242,7 @@ public class DataAccessUtil {
         params.put("card_expiration_time",card_expiration_time);
 
 
-        return doGet(RequestUrl.penson_identify, params, asyncHttpResponseHandler);
+        return doPost(RequestUrl.penson_identify, params, asyncHttpResponseHandler);
     }
 
 
@@ -288,7 +289,7 @@ public class DataAccessUtil {
         params.put("open_account_city",open_account_city);
         params.put("bank_id",bank_id);
 
-        return doGet(RequestUrl.header_identify, params, asyncHttpResponseHandler);
+        return doPost(RequestUrl.header_identify, params, asyncHttpResponseHandler);
     }
 
 
@@ -337,7 +338,7 @@ public class DataAccessUtil {
         params.put("craft_id",craft_id);
         params.put("crafts",crafts);
 
-        return doGet(RequestUrl.worker_identify, params, asyncHttpResponseHandler);
+        return doPost(RequestUrl.worker_identify, params, asyncHttpResponseHandler);
     }
 
     /**
@@ -406,7 +407,7 @@ public class DataAccessUtil {
         params.put("business_license_number",business_license_number);
         params.put("business_scope",business_scope);
 
-        return doGet(RequestUrl.developer_identify, params, asyncHttpResponseHandler);
+        return doPost(RequestUrl.developer_identify, params, asyncHttpResponseHandler);
     }
 
     /**

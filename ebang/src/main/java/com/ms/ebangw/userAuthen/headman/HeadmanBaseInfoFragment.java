@@ -227,7 +227,8 @@ public class HeadmanBaseInfoFragment extends BaseFragment {
 		}
 
 		authInfo.setRealName(realName);
-		authInfo.setBankCard(cardId);
+		authInfo.setIdentityCard(cardId);
+		authInfo.setGender(gender);
 		authInfo.setPhone(phone);
 		authInfo.setProvinceId(provinceId);
 		authInfo.setCityId(cityId);
