@@ -155,25 +155,25 @@ public class DataAccessUtil {
      * @param asyncHttpResponseHandler
      * @return
      */
-    public static RequestHandle personIdentify(String identity_card, String phone, String province,
-                                               String city, String area,String area_other,
-                                               String card_image_front,
-                                               String card_image_back, String card_expiration_time,
-                                               AsyncHttpResponseHandler
-                                              asyncHttpResponseHandler ) {
-        RequestParams params = new RequestParams();
-        params.put("identity_card",identity_card);
-        params.put("phone",phone);
-        params.put("province",province);
-        params.put("city",city);
-        params.put("area",area);
-        params.put("area_other",area_other);
-        params.put("card_image_front",card_image_front);
-        params.put("card_image_back",card_image_back);
-        params.put("card_expiration_time",card_expiration_time);
-
-        return doPost(RequestUrl.person_identify, params, asyncHttpResponseHandler);
-    }
+//    public static RequestHandle personIdentify(String identity_card, String phone, String province,
+//                                               String city, String area,String area_other,
+//                                               String card_image_front,
+//                                               String card_image_back, String card_expiration_time,
+//                                               AsyncHttpResponseHandler
+//                                              asyncHttpResponseHandler ) {
+//        RequestParams params = new RequestParams();
+//        params.put("identity_card",identity_card);
+//        params.put("phone",phone);
+//        params.put("province",province);
+//        params.put("city",city);
+//        params.put("area",area);
+//        params.put("area_other",area_other);
+//        params.put("card_image_front",card_image_front);
+//        params.put("card_image_back",card_image_back);
+//        params.put("card_expiration_time",card_expiration_time);
+//
+//        return doPost(RequestUrl.person_identify, params, asyncHttpResponseHandler);
+//    }
 
     /**
      * 8.上传图片
@@ -210,27 +210,204 @@ public class DataAccessUtil {
         return doGet(RequestUrl.address + num, new RequestParams(), asyncHttpResponseHandler);
     }
 
-    //11.工头认证接口
-    public static RequestHandle headmanIdentify(String num,
+
+
+    /**
+     * 1-6.个人信息验证接口
+     * @param real_name 真实姓名
+     * @param identity_card 身份证
+     * @param province  省
+     * @param city      市
+     * @param card_image_front  身份证正面
+     * @param card_image_back   身份证反面
+     * @param card_expiration_time  身份证到期时间 (选填)
+     * @param asyncHttpResponseHandler
+     * @return
+     */
+    public static RequestHandle personIdentify(String real_name,String identity_card,
+                                               String province,String city,
+                                               String card_image_front,String card_image_back,
+                                               String card_expiration_time,
+                                                AsyncHttpResponseHandler
+                                                    asyncHttpResponseHandler ) {
+
+        RequestParams params = new RequestParams();
+        params.put("real_name",real_name);
+        params.put("identity_card",identity_card);
+        params.put("province",province);
+        params.put("city",city);
+        params.put("card_image_front",card_image_front);
+        params.put("card_image_back",card_image_back);
+        params.put("card_expiration_time",card_expiration_time);
+
+
+        return doGet(RequestUrl.penson_identify, params, asyncHttpResponseHandler);
+    }
+
+
+    /**
+     *11.工头认证接口
+     * @param real_name 真实姓名
+     * @param identity_card 身份证
+     * @param province  省
+     * @param city      市
+     * @param card_image_front  身份证正面
+     * @param card_image_back   身份证反面
+     * @param gender    性别
+     * @param invitation_code   邀请码
+     * @param card_number   银行卡号
+     * @param open_account_name 开户名称
+     * @param open_account_province 开户行所在省份
+     * @param open_account_city 开户行所在城市
+     * @param bank_id   开户行名称
+     * @param asyncHttpResponseHandler
+     * @return
+     */
+    public static RequestHandle headmanIdentify(String real_name,String identity_card,
+                                                String province,String city,
+                                                String card_image_front,String card_image_back,
+                                                String gender,String invitation_code,
+                                                String card_number,String open_account_name,
+                                                String open_account_province,String open_account_city,
+                                                String bank_id,
                                         AsyncHttpResponseHandler
                                             asyncHttpResponseHandler ) {
 
         RequestParams params = new RequestParams();
-//        params.put("identity_card",identity_card);
-//        params.put("phone",phone);
-//        params.put("province",province);
-//        params.put("city",city);
-//        params.put("area",area);
-//        params.put("area_other",area_other);
-//        params.put("card_image_front",card_image_front);
-//        params.put("card_image_back",card_image_back);
-//        params.put("card_expiration_time",card_expiration_time);
-
+        params.put("real_name",real_name);
+        params.put("identity_card",identity_card);
+        params.put("province",province);
+        params.put("city",city);
+        params.put("card_image_front",card_image_front);
+        params.put("card_image_back",card_image_back);
+        params.put("gender",gender);
+        params.put("invitation_code",invitation_code);
+        params.put("card_number",card_number);
+        params.put("open_account_name",open_account_name);
+        params.put("open_account_province",open_account_province);
+        params.put("open_account_city",open_account_city);
+        params.put("bank_id",bank_id);
 
         return doGet(RequestUrl.header_identify, params, asyncHttpResponseHandler);
     }
 
 
+    /**
+     *1-8.工人认证接口
+     * @param real_name 真实姓名
+     * @param identity_card 身份证
+     * @param province  省
+     * @param city      市
+     * @param card_image_front  身份证正面
+     * @param card_image_back   身份证反面
+     * @param gender    性别
+     * @param invitation_code   邀请码
+     * @param card_number   银行卡号
+     * @param open_account_name 开户名称
+     * @param open_account_province 开户行所在省份
+     * @param open_account_city 开户行所在城市
+     * @param bank_id   开户行名称
+     * @param asyncHttpResponseHandler
+     * @return
+     */
+    public static RequestHandle workerIdentify(String real_name,String identity_card,
+                                                String province,String city,
+                                                String card_image_front,String card_image_back,
+                                                String gender,String invitation_code,
+                                                String card_number,String open_account_name,
+                                                String open_account_province,String open_account_city,
+                                                String bank_id, String craft_id, String crafts,
+                                                AsyncHttpResponseHandler
+                                                    asyncHttpResponseHandler ) {
+
+        RequestParams params = new RequestParams();
+        params.put("real_name",real_name);
+        params.put("identity_card",identity_card);
+        params.put("province",province);
+        params.put("city",city);
+        params.put("card_image_front",card_image_front);
+        params.put("card_image_back",card_image_back);
+        params.put("gender",gender);
+        params.put("invitation_code",invitation_code);
+        params.put("card_number",card_number);
+        params.put("open_account_name",open_account_name);
+        params.put("open_account_province",open_account_province);
+        params.put("open_account_city",open_account_city);
+        params.put("bank_id",bank_id);
+        params.put("craft_id",craft_id);
+        params.put("crafts",crafts);
+
+        return doGet(RequestUrl.worker_identify, params, asyncHttpResponseHandler);
+    }
+
+    /**
+     *
+     * @param real_name
+     * @param identity_card
+     * @param province
+     * @param city
+     * @param card_image_front
+     * @param card_image_back
+     * @param gender
+     * @param invitation_code
+     * @param card_number
+     * @param open_account_name
+     * @param open_account_province
+     * @param open_account_city
+     * @param bank_id
+     * @param craft_id
+     * @param crafts
+     * @param company_name
+     * @param company_number
+     * @param company_phone
+     * @param account_name
+     * @param public_account
+     * @param organization_certificate
+     * @param business_license_number
+     * @param business_scope
+     * @param asyncHttpResponseHandler
+     * @return
+     */
+    public static RequestHandle developerIdentify(String real_name,String identity_card,
+                                               String province,String city,
+                                               String card_image_front,String card_image_back,
+                                               String gender,String invitation_code,
+                                               String card_number,String open_account_name,
+                                               String open_account_province,String open_account_city,
+                                               String bank_id, String craft_id, String crafts,
+                                               String company_name, String company_number, String company_phone,
+                                               String account_name, String public_account, String organization_certificate,
+                                               String business_license_number, String business_scope,
+                                               AsyncHttpResponseHandler
+                                                   asyncHttpResponseHandler ) {
+
+        RequestParams params = new RequestParams();
+        params.put("real_name",real_name);
+        params.put("identity_card",identity_card);
+        params.put("province",province);
+        params.put("city",city);
+        params.put("card_image_front",card_image_front);
+        params.put("card_image_back",card_image_back);
+        params.put("gender",gender);
+        params.put("invitation_code",invitation_code);
+        params.put("card_number",card_number);
+        params.put("open_account_name",open_account_name);
+        params.put("open_account_province",open_account_province);
+        params.put("open_account_city",open_account_city);
+        params.put("bank_id",bank_id);
+        params.put("craft_id",craft_id);
+        params.put("crafts",crafts);
+        params.put("company_name",company_name);
+        params.put("company_number",company_number);
+        params.put("company_phone",company_phone);
+        params.put("account_name",account_name);
+        params.put("public_account",public_account);
+        params.put("organization_certificate",organization_certificate);
+        params.put("business_license_number",business_license_number);
+        params.put("business_scope",business_scope);
+
+        return doGet(RequestUrl.developer_identify, params, asyncHttpResponseHandler);
+    }
 
     /**
      * 13.修改昵称接口
@@ -255,7 +432,7 @@ public class DataAccessUtil {
         RequestParams params=new RequestParams();
         params.put("code",code);
         params.put("phone",phone);
-        return  doPost(RequestUrl.modify_phone,params,asyncHttpResponseHandler);
+        return  doPost(RequestUrl.modify_phone, params, asyncHttpResponseHandler);
 
     }
 
@@ -267,6 +444,16 @@ public class DataAccessUtil {
     public static RequestHandle provinceCityArea(AsyncHttpResponseHandler
         asyncHttpResponseHandler){
         return doGet(RequestUrl.province_city_area, null, asyncHttpResponseHandler);
+    }
+
+    /**
+     * 3-14、获取银行列表
+     * @param asyncHttpResponseHandler
+     * @return
+     */
+    public static RequestHandle bankList(AsyncHttpResponseHandler
+                                                     asyncHttpResponseHandler){
+        return doGet(RequestUrl.bank_list, null, asyncHttpResponseHandler);
     }
 
     public static RequestHandle doPost(String url, RequestParams params, AsyncHttpResponseHandler asyncHttpResponseHandler) {
@@ -287,6 +474,7 @@ public class DataAccessUtil {
 
 
 
+
     public static RequestHandle doGet(String url, RequestParams params, AsyncHttpResponseHandler
         asyncHttpResponseHandler) {
 
@@ -299,7 +487,7 @@ public class DataAccessUtil {
             params = new RequestParams();
         }
         addCommonParams(params);
-        L.d(TAG, "doPost: " + url + " : " + params.toString());
+        L.d(TAG, "doGet Url : " + url + "?"+ params.toString());
         return mClient.get(url, params, asyncHttpResponseHandler);
 
     }

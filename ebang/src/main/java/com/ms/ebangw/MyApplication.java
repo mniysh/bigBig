@@ -5,6 +5,7 @@ import android.app.Application;
 
 import com.baidu.location.LocationClient;
 import com.baidu.location.LocationClientOption;
+import com.ms.ebangw.bean.Bank;
 import com.ms.ebangw.bean.User;
 import com.ms.ebangw.db.UserDao;
 import com.ms.ebangw.listener.MyLocationListener;
@@ -23,6 +24,9 @@ public class MyApplication extends Application {
     private String password;
     public LocationClient mLocationClient = null;
 
+
+
+    private List<Bank> banks;
 
     /**
      * 定位得到的位置描述
@@ -149,6 +153,14 @@ public class MyApplication extends Application {
     public boolean saveUser(User user) {
         UserDao userDao = new UserDao(this);
         return userDao.update(user);
+    }
+
+    public List<Bank> getBanks() {
+        return banks;
+    }
+
+    public void setBanks(List<Bank> banks) {
+        this.banks = banks;
     }
 
 }

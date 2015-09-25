@@ -60,14 +60,22 @@ public class RequestUrl {
     public static final  String address = domain + "/api/common/address/child/";
 
     /**
+     * 1-6.个人信息验证接口
+     */
+    public static final  String penson_identify = domain + "/api/user/investor/person-identify";
+    /**
+     * 1-9.开发商认证接口
+     */
+    public static final  String developer_identify = domain + "/api/user/developer/developer-identify";
+    /**
      * 11.工头认证接口
      */
-    public static final  String header_identify = domain + "/api/user/investor/header-identify";
+    public static final  String header_identify = domain + "/api/user/header/header-identify";
 
     /**
      * 12.工人认证接口
      */
-    public static final  String worker_identify = domain + "/api/user/investor/worker-identify";
+    public static final  String worker_identify = domain + "/api/user/worker/worker-identify";
 
     /**
      *13.修改昵称接口
@@ -86,4 +94,10 @@ public class RequestUrl {
      * 14.修改绑定手机接口
      */
     public static final String modify_phone =domain + "/api/user/index/change-phone";
+
+    /**
+     *3-14、获取银行列表
+     */
+    public static final String bank_list =domain + "/api/common/bank/list";
+
 }

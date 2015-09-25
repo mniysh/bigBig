@@ -17,14 +17,14 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.ms.ebangw.MyApplication;
 import com.ms.ebangw.R;
 import com.ms.ebangw.bean.AuthInfo;
+import com.ms.ebangw.bean.Bank;
 import com.ms.ebangw.bean.City;
 import com.ms.ebangw.bean.Province;
 import com.ms.ebangw.bean.TotalRegion;
 import com.ms.ebangw.fragment.BaseFragment;
-import com.ms.ebangw.userAuthen.UserAuthenActivity;
-import com.ms.ebangw.userAuthen.investor.InvestorAuthenActivity;
 import com.ms.ebangw.utils.T;
 
 import java.util.List;
@@ -45,6 +45,7 @@ public class HeadmanBankVerifyFragment extends BaseFragment {
     private Province province;
     ArrayAdapter<Province> adapter01;
     ArrayAdapter<City> adapter02;
+    private  List<Bank> banks;
 
     @Bind(R.id.sp_a)
     Spinner provinceSp;
@@ -214,11 +215,28 @@ public class HeadmanBankVerifyFragment extends BaseFragment {
         if (null != bankTv) {
             bankNameId = bankTv.getText().toString().trim();
         }
+        for (int i = 0; i < banks.size(); i++) {
+            Bank bank = banks.get(i);
+            if(TextUtils.equals(bank.getBank_name(), province)){
+                bankNameId = bank.getId();
+                break;
+            }
+        }
+
         authInfo.setBankProvinceId(provinceId);
         authInfo.setBankCityId(cityId);
         authInfo.setBankNameId(bankNameId);
         authInfo.setRealName(realName);
         authInfo.setBankCard(cardId);
+    }
+
+    private void initBankSpinner() {
+        banks = MyApplication.getInstance().getBanks();
+        ArrayAdapter<Bank> bankArrayAdapter = new ArrayAdapter<>(mActivity, R.layout.layout_spinner_item,
+            banks);
+        bankSp.setAdapter(bankArrayAdapter);
+        bankSp.setSelection(0, true);
+
     }
 
     @Override
@@ -229,6 +247,7 @@ public class HeadmanBankVerifyFragment extends BaseFragment {
     @Override
     public void initData() {
         initSpinner();
+        initBankSpinner();
     }
 
     @OnClick(R.id.btn_commit)

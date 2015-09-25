@@ -6,7 +6,9 @@
     android:orientation="vertical" >
     <include layout="@layout/layout_common_title"/>
 
-    <include layout="@layout/layout_auth_step"/>
+    <include
+        android:id="@+id/layout_step"
+        layout="@layout/layout_auth_step"/>
 
     <FrameLayout
         android:id="@+id/fl_content"

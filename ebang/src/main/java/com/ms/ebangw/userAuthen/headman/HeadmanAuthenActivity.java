@@ -84,7 +84,7 @@ public class HeadmanAuthenActivity extends BaseActivity {
 	public void goVerifyBank() {
 
 		getFragmentManager().beginTransaction().replace(R.id.fl_content,
-			BankVerifyFragment.newInstance(category)).addToBackStack
+			HeadmanBankVerifyFragment.newInstance(category)).addToBackStack
 			("BankVerifyFragment").commit();
 	}
 

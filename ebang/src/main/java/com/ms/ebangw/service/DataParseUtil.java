@@ -4,6 +4,7 @@ import android.text.TextUtils;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.ms.ebangw.bean.Bank;
 import com.ms.ebangw.bean.City;
 import com.ms.ebangw.bean.Province;
 import com.ms.ebangw.bean.TotalRegion;
@@ -105,6 +106,21 @@ public class DataParseUtil {
 
         return  processDataResult(jsonObject);
     }
+
+    /**
+     * 3-14、获取银行列表
+     * @param jsonObject
+     * @return
+     * @throws ResponseException
+     */
+    public static  List<Bank> bankList(JSONObject jsonObject)throws  ResponseException{
+        String dataStr = processDataStr(jsonObject);
+        Gson gson = new Gson();
+        List<Bank> banks = gson.fromJson(dataStr, new TypeToken<List<Bank>>(){}.getType());
+
+        return  banks;
+    }
+
 
 
 

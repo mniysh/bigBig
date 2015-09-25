@@ -14,7 +14,6 @@ import com.ms.ebangw.activity.BaseActivity;
 import com.ms.ebangw.bean.AuthInfo;
 import com.ms.ebangw.bean.TotalRegion;
 import com.ms.ebangw.commons.Constants;
-import com.ms.ebangw.fragment.BankVerifyFragment;
 import com.ms.ebangw.utils.L;
 import com.soundcloud.android.crop.Crop;
 
@@ -85,7 +84,7 @@ public class DevelopersAuthenActivity extends BaseActivity {
 	public void goVerifyBank() {
 
 		getFragmentManager().beginTransaction().replace(R.id.fl_content,
-			BankVerifyFragment.newInstance(category)).addToBackStack
+			DevelopersBankVerifyFragment.newInstance(category)).addToBackStack
 			("BankVerifyFragment").commit();
 
 	}

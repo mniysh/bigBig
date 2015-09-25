@@ -141,6 +141,7 @@ public class InvestorIdentityCardFragment extends BaseFragment {
     @Override
     public void initView() {
         setStarRed();
+        nextBtn.setText("完成");
 
     }
 

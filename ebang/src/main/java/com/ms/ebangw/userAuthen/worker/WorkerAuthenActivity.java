@@ -85,7 +85,7 @@ public class WorkerAuthenActivity extends BaseActivity {
 	public void goVerifyBank() {
 
 		getFragmentManager().beginTransaction().replace(R.id.fl_content,
-			BankVerifyFragment.newInstance(category)).addToBackStack
+			WorkerBankVerifyFragment.newInstance(category)).addToBackStack
 			("BankVerifyFragment").commit();
 
 	}

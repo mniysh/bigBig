@@ -10,6 +10,7 @@ import android.widget.RadioGroup;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.ms.ebangw.MyApplication;
 import com.ms.ebangw.R;
+import com.ms.ebangw.bean.Bank;
 import com.ms.ebangw.bean.TotalRegion;
 import com.ms.ebangw.bean.User;
 import com.ms.ebangw.commons.Constants;
@@ -32,6 +33,8 @@ import com.umeng.update.UmengUpdateAgent;
 import org.apache.http.Header;
 import org.json.JSONObject;
 
+import java.util.List;
+
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import cn.jpush.android.api.JPushInterface;
@@ -50,6 +53,9 @@ public class HomeActivity extends BaseActivity {
 	private ReleaseFragment releasefragment;
 	private TotalRegion totalRegion;
 	private ServiceFragment serviceFragment;
+
+
+
 
 
 	@Bind(R.id.radioGroup)
@@ -112,6 +118,7 @@ public class HomeActivity extends BaseActivity {
 
 		radioGroup.getChildAt(0).performClick();
 		loadTotalRegion();
+		loadBanks();
 
 
 	}
@@ -230,6 +237,33 @@ public class HomeActivity extends BaseActivity {
 				L.d(responseString);
 			}
 		});
+	}
+
+	private void loadBanks() {
+
+		DataAccessUtil.bankList(new JsonHttpResponseHandler() {
+
+			@Override
+			public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+
+				try {
+					List<Bank> banks = DataParseUtil.bankList(response);
+					MyApplication.getInstance().setBanks(banks);
+
+
+				} catch (ResponseException e) {
+					e.printStackTrace();
+				}
+
+			}
+
+			@Override
+			public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+				super.onFailure(statusCode, headers, responseString, throwable);
+				L.d(responseString);
+			}
+		});
+
 	}
 
 	public TotalRegion getTotalRegion() {
