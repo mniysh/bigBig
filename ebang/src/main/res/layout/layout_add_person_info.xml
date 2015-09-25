@@ -1,195 +1,236 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:divider="@drawable/divider_line_gray"
-              android:showDividers="middle"
-              android:orientation="vertical"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
 
-    >
-
-    <include
-        android:visibility="gone"
-        layout="@layout/layout_auth_verify_phone"/>
+    android:layout_height="match_parent">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/authen_item_height"
-        android:gravity="center_vertical"
-        android:orientation="horizontal"
+        android:layout_height="match_parent"
+        android:divider="@drawable/divider_line_gray"
+        android:orientation="vertical"
+        android:showDividers="middle"
+
         >
 
-        <TextView
-            android:id="@+id/tv_a"
-            style="@style/authorization_text"
-            android:layout_height="wrap_content"
-            android:text="*真实姓名："
-            />
+        <include
+            layout="@layout/layout_auth_verify_phone"
+            android:visibility="gone"/>
 
-
-        <EditText
-            android:id="@+id/et_real_name"
-            style="@style/authorization_edit"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="请输入真实的姓名"
-            android:textColorHint="@color/auth_hint"
-            />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/authen_item_height"
-        android:gravity="center_vertical"
-        android:orientation="horizontal"
-        >
-
-        <TextView
-            android:id="@+id/tv_b"
-            style="@style/authorization_text"
-            android:layout_height="wrap_content"
-            android:text="*身份证号："
-            />
-
-
-        <EditText
-            android:id="@+id/et_identify_card"
-            style="@style/authorization_edit"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:hint="请输入您的身份证号"
-            android:textColorHint="@color/auth_hint"
-            android:inputType="text"
-            />
-    </LinearLayout>
-
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/authen_item_height"
-        android:gravity="center_vertical"
-        android:orientation="horizontal"
-        >
-
-        <TextView
-            android:id="@+id/tv_c"
-            style="@style/authorization_text"
-            android:layout_height="wrap_content"
-            android:text="*手机号: "
-            />
-
-
-        <EditText
-            android:id="@+id/et_phone"
-            style="@style/authorization_edit"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:hint="请输入手机号"
-            android:textColorHint="@color/auth_hint"
-            android:inputType="phone"
-            android:maxLength="11"
-            />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/authen_item_height"
-        android:gravity="center_vertical"
-        android:orientation="horizontal"
-        >
-
-        <TextView
-            android:id="@+id/tv_d"
-            style="@style/authorization_text"
-            android:layout_height="wrap_content"
-            android:text="*性别: "
-            />
-
-
-        <RadioGroup
-            android:id="@+id/rg_gender"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
+            android:layout_height="@dimen/authen_item_height"
+            android:gravity="center_vertical"
             android:orientation="horizontal"
             >
 
-            <RadioButton
-                android:id="@+id/rb_male"
+            <TextView
+                android:id="@+id/tv_a"
+                style="@style/authorization_text"
+                android:layout_height="wrap_content"
+                android:text="*真实姓名："
+                />
+
+
+            <EditText
+                android:id="@+id/et_real_name"
+                style="@style/authorization_edit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="请输入真实的姓名"
+                android:textColorHint="@color/auth_hint"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/authen_item_height"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            >
+
+            <TextView
+                android:id="@+id/tv_b"
+                style="@style/authorization_text"
+                android:layout_height="wrap_content"
+                android:text="*身份证号："
+                />
+
+
+            <EditText
+                android:id="@+id/et_identify_card"
+                style="@style/authorization_edit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:hint="请输入您的身份证号"
+                android:inputType="text"
+                android:textColorHint="@color/auth_hint"
+                />
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/authen_item_height"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            >
+
+            <TextView
+                android:id="@+id/tv_c"
+                style="@style/authorization_text"
+                android:layout_height="wrap_content"
+                android:text="*手机号: "
+                />
+
+
+            <EditText
+                android:id="@+id/et_phone"
+                style="@style/authorization_edit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:hint="请输入手机号"
+                android:inputType="phone"
+                android:maxLength="11"
+                android:textColorHint="@color/auth_hint"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/authen_item_height"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            >
+
+            <TextView
+                android:id="@+id/tv_d"
+                style="@style/authorization_text"
+                android:layout_height="wrap_content"
+                android:text="*性别: "
+                />
+
+
+            <RadioGroup
+                android:id="@+id/rg_gender"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:orientation="horizontal"
+                >
+
+                <RadioButton
+                    android:id="@+id/rb_male"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:button="@drawable/check_selec"
+                    android:checked="true"
+                    android:text="男"
+                    android:textSize="@dimen/authen_item_text"
+                    />
+
+                <RadioButton
+                    android:id="@+id/rb_female"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:button="@drawable/check_selec"
+                    android:text="女"
+                    android:textSize="@dimen/authen_item_text"
+                    />
+            </RadioGroup>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/authen_item_height"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            >
+
+            <TextView
+                android:id="@+id/tv_e"
+                style="@style/authorization_text"
+                android:layout_height="wrap_content"
+                android:text="*籍贯: "
+                />
+
+            <Spinner
+                android:id="@+id/sp_a"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                />
+
+            <Spinner
+                android:id="@+id/sp_b"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"
-                android:button="@drawable/check_selec"
-                android:checked="true"
-                android:textSize="@dimen/authen_item_text"
-                android:text="男"
                 />
 
-            <RadioButton
-                android:id="@+id/rb_female"
-                android:layout_width="wrap_content"
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/authen_item_height"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:visibility="gone"
+            >
+
+            <TextView
+                android:id="@+id/tv_f"
+                style="@style/authorization_text"
                 android:layout_height="wrap_content"
-                android:button="@drawable/check_selec"
-                android:layout_marginLeft="20dp"
-                android:textSize="@dimen/authen_item_text"
-                android:text="女"
+                android:text="*添加工种: "
                 />
-        </RadioGroup>
-    </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/authen_item_height"
-        android:gravity="center_vertical"
-        android:orientation="horizontal"
-        >
+
+            <Button
+                android:id="@+id/btn_smsCode"
+                android:layout_width="160dp"
+                android:layout_height="40dp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="5dp"
+                android:background="@drawable/verify_msm_yellow_selector"
+                android:gravity="center"
+                android:text="请选择"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/authen_item_text"
+                />
+
+        </LinearLayout>
+
 
         <TextView
-            android:id="@+id/tv_e"
-            style="@style/authorization_text"
-            android:layout_height="wrap_content"
-            android:text="*籍贯: "
-            />
-
-        <Spinner
-            android:id="@+id/sp_a"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="20dp"
+            android:text="(邀请40名工友以后，即有机会成为工长)"
+            android:textColor="@color/auther_red"
+            android:textSize="10sp"
+            android:visibility="gone"
             />
 
-        <Spinner
-            android:id="@+id/sp_b"
-            android:layout_width="wrap_content"
+        <Button
+            android:id="@+id/btn_next"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/bk_but"
+            android:text="下一步"
+            android:textColor="#fff"
+            android:textSize="15dp"
             />
-
     </LinearLayout>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="30dp"
-        android:text="(邀请40名工友以后，即有机会成为工长)"
-        android:textColor="@color/auther_red"
-        android:textSize="10sp"
-        android:visibility="gone"
-        />
-
-    <Button
-        android:id="@+id/btn_next"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginTop="40dp"
-        android:background="@drawable/bk_but"
-        android:text="下一步"
-        android:textColor="#fff"
-        android:textSize="15dp"
-        />
-</LinearLayout>
+</ScrollView>

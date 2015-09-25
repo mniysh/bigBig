@@ -62,20 +62,20 @@ public class RequestUrl {
     /**
      * 1-6.个人信息验证接口
      */
-    public static final  String penson_identify = domain + "/api/user/investor/person-identify";
+    public static final  String penson_identify = domain + "/api/user/investor/identify";
     /**
      * 1-9.开发商认证接口
      */
-    public static final  String developer_identify = domain + "/api/user/developer/developer-identify";
+    public static final  String developer_identify = domain + "/api/user/developer/identify";
     /**
      * 11.工头认证接口
      */
-    public static final  String header_identify = domain + "/api/user/header/header-identify";
+    public static final  String header_identify = domain + "/api/user/headman/identify";
 
     /**
      * 12.工人认证接口
      */
-    public static final  String worker_identify = domain + "/api/user/worker/worker-identify";
+    public static final  String worker_identify = domain + "/api/user/worker/identify";
 
     /**
      *13.修改昵称接口

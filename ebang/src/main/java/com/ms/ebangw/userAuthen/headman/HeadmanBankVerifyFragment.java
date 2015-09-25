@@ -115,7 +115,7 @@ public class HeadmanBankVerifyFragment extends BaseFragment {
             return false;
         }
 
-        if (!TextUtils.isEmpty(cardId)) {
+        if (TextUtils.isEmpty(cardId)) {
             T.show("请输入银行卡号");
             return false;
         }
@@ -177,7 +177,7 @@ public class HeadmanBankVerifyFragment extends BaseFragment {
 
     private void setAuthInfo() {
         AuthInfo authInfo = ((HeadmanAuthenActivity) mActivity).getAuthInfo();
-        String realName = reaNameEt.getText().toString().trim();
+        String accountName = reaNameEt.getText().toString().trim();
         String cardId = cardEt.getText().toString().trim();
         //获取开户行
         TextView provinceTv = (TextView) provinceSp.getSelectedView();
@@ -210,23 +210,24 @@ public class HeadmanBankVerifyFragment extends BaseFragment {
             }
         }
 
-        String bankNameId = null;
+        String bankId = null;
+        String bankName = null;
         TextView bankTv = (TextView) bankSp.getSelectedView();
         if (null != bankTv) {
-            bankNameId = bankTv.getText().toString().trim();
+            bankName = bankTv.getText().toString().trim();
         }
         for (int i = 0; i < banks.size(); i++) {
             Bank bank = banks.get(i);
-            if(TextUtils.equals(bank.getBank_name(), province)){
-                bankNameId = bank.getId();
+            if(TextUtils.equals(bank.getBank_name(), bankName)){
+                bankId = bank.getId();
                 break;
             }
         }
 
         authInfo.setBankProvinceId(provinceId);
         authInfo.setBankCityId(cityId);
-        authInfo.setBankId(bankNameId);
-        authInfo.setRealName(realName);
+        authInfo.setBankId(bankId);
+        authInfo.setAccountName(accountName);
         authInfo.setBankCard(cardId);
     }
 

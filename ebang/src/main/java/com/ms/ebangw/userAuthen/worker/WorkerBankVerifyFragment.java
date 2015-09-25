@@ -112,7 +112,7 @@ public class WorkerBankVerifyFragment extends BaseFragment {
             return false;
         }
 
-        if (!TextUtils.isEmpty(cardId)) {
+        if (TextUtils.isEmpty(cardId)) {
             T.show("请输入银行卡号");
             return false;
         }
