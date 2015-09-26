@@ -70,6 +70,7 @@ public class WorkTypeActivity extends BaseActivity {
                 craftAdapter.notifyDataSetChanged();
             }
         });
+//        listView  = (MyListView) findViewById(R.id.listView);
     }
 
     @Override
