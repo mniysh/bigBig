@@ -177,6 +177,7 @@
 
 
         <LinearLayout
+            android:id="@+id/ll_workType"
             android:layout_width="match_parent"
             android:layout_height="@dimen/authen_item_height"
             android:gravity="center_vertical"
@@ -193,7 +194,7 @@
 
 
             <Button
-                android:id="@+id/btn_smsCode"
+                android:id="@+id/btn_select_work"
                 android:layout_width="160dp"
                 android:layout_height="40dp"
                 android:layout_gravity="center_vertical"
@@ -203,6 +204,39 @@
                 android:text="请选择"
                 android:textColor="@android:color/white"
                 android:textSize="@dimen/authen_item_text"
+                />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_introduce"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:visibility="gone"
+            android:paddingBottom="10dp"
+            >
+
+            <TextView
+                android:id="@+id/tv_g"
+                style="@style/authorization_text"
+                android:layout_height="wrap_content"
+                android:text="*企业介绍: "
+                />
+
+
+            <EditText
+                android:id="@+id/et_introduce"
+                style="@style/authorization_edit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:background="@drawable/border_gray"
+                android:minHeight="60dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="5dp"
+                android:textColorHint="@color/auth_hint"
                 />
 
         </LinearLayout>

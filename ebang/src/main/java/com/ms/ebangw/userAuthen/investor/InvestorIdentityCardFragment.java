@@ -54,16 +54,16 @@ public class InvestorIdentityCardFragment extends BaseFragment {
     private final int TYPE_BACK = 2;
 
     private View contentLayout;
-    /**正面身份证上传*/
+    /**正面身份证选择图片*/
     @Bind(R.id.btn_select_front)
     Button uploadFrontBtn;
-    /**背面身份证上传*/
+    /**背面身份证选择图片*/
     @Bind(R.id.btn_select_back)
     Button uploadBackBtn;
     /**正面身份证拍照*/
     @Bind(R.id.btn_photo_front)
     Button photoFrontBtn;
-    /**正面身份证拍照*/
+    /**反面身份证拍照*/
     @Bind(R.id.btn_photo_back)
     Button photoBackBtn;
     @Bind(R.id.iv_front)

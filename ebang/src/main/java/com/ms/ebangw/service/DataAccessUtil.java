@@ -343,69 +343,72 @@ public class DataAccessUtil {
 
     /**
      *
-     * @param real_name
+     * @param linkman_name
      * @param identity_card
-     * @param province
-     * @param city
      * @param card_image_front
      * @param card_image_back
-     * @param gender
-     * @param invitation_code
-     * @param card_number
-     * @param open_account_name
-     * @param open_account_province
-     * @param open_account_city
-     * @param bank_id
-     * @param craft_id
-     * @param crafts
+     * @param linkman_phone
+     * @param linkman_province
+     * @param linkman_city
      * @param company_name
+     * @param business_province
+     * @param business_city
+     * @param address
+     * @param business_years
+     * @param time_state
      * @param company_number
      * @param company_phone
+     * @param introduce
      * @param account_name
+     * @param account_province
      * @param public_account
      * @param organization_certificate
      * @param business_license_number
      * @param business_scope
+     * @param bank_id
      * @param asyncHttpResponseHandler
      * @return
      */
-    public static RequestHandle developerIdentify(String real_name,String identity_card,
-                                               String province,String city,
-                                               String card_image_front,String card_image_back,
-                                               String gender,String invitation_code,
-                                               String card_number,String open_account_name,
-                                               String open_account_province,String open_account_city,
-                                               String bank_id, String craft_id, String crafts,
-                                               String company_name, String company_number, String company_phone,
-                                               String account_name, String public_account, String organization_certificate,
-                                               String business_license_number, String business_scope,
+    public static RequestHandle developerIdentify(String linkman_name, String identity_card,
+                                                  String card_image_front, String card_image_back,
+                                                  String linkman_phone, String linkman_province,
+                                                  String linkman_city, String company_name,
+                                                  String business_province, String business_city,
+                                                  String address, String business_years,
+                                                  String time_state, String company_number,
+                                                  String company_phone, String introduce,
+                                                  String account_name, String account_province,
+                                                  String public_account, String organization_certificate,
+                                                  String business_license_number, String business_scope,
+                                                  String bank_id,
                                                AsyncHttpResponseHandler
                                                    asyncHttpResponseHandler ) {
 
         RequestParams params = new RequestParams();
-        params.put("real_name",real_name);
+        params.put("linkman_name",linkman_name);
         params.put("identity_card",identity_card);
-        params.put("province",province);
-        params.put("city",city);
         params.put("card_image_front",card_image_front);
         params.put("card_image_back",card_image_back);
-        params.put("gender",gender);
-        params.put("invitation_code",invitation_code);
-        params.put("card_number",card_number);
-        params.put("open_account_name",open_account_name);
-        params.put("open_account_province",open_account_province);
-        params.put("open_account_city",open_account_city);
-        params.put("bank_id",bank_id);
-        params.put("craft_id",craft_id);
-        params.put("crafts",crafts);
+        params.put("linkman_phone",linkman_phone);
+        params.put("linkman_province",linkman_province);
+        params.put("linkman_city",linkman_city);
         params.put("company_name",company_name);
+        params.put("business_province",business_province);
+        params.put("business_city",business_city);
+        params.put("address",address);
+        params.put("business_years",business_years);
+        params.put("time_state",time_state);
         params.put("company_number",company_number);
         params.put("company_phone",company_phone);
+        params.put("introduce",introduce);
         params.put("account_name",account_name);
+        params.put("account_province",account_province);
         params.put("public_account",public_account);
         params.put("organization_certificate",organization_certificate);
         params.put("business_license_number",business_license_number);
         params.put("business_scope",business_scope);
+        params.put("bank_id",bank_id);
+
 
         return doPost(RequestUrl.developer_identify, params, asyncHttpResponseHandler);
     }

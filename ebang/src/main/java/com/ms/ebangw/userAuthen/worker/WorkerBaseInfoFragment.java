@@ -14,6 +14,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -58,12 +59,14 @@ public class WorkerBaseInfoFragment extends BaseFragment {
 	Spinner citySp;
 	@Bind(R.id.btn_next)
 	Button nextBtn;
-
-	private List<Province> provinces;
+	@Bind(R.id.btn_select_work)
+	Button selectWorkBtn;
+	@Bind(R.id.ll_workType)
+	LinearLayout workTypeLayout;
 	private Province province;
 	ArrayAdapter<Province> adapter01;
 	ArrayAdapter<City> adapter02;
-
+	private List<Province> provinces;
 
 	public static WorkerBaseInfoFragment newInstance(String category) {
 		WorkerBaseInfoFragment fragment = new WorkerBaseInfoFragment();
@@ -95,11 +98,17 @@ public class WorkerBaseInfoFragment extends BaseFragment {
 	@Override
 	public void initView() {
 		setStarRed();
+		workTypeLayout.setVisibility(View.VISIBLE);
 	}
 
 	@Override
 	public void initData() {
+		selectWorkBtn.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
 
+			}
+		});
 		initSpinner();
 	}
 
@@ -142,6 +151,7 @@ public class WorkerBaseInfoFragment extends BaseFragment {
 			}
 		});
 	}
+
 
 	@OnClick(R.id.btn_next)
 	public void goNext() {

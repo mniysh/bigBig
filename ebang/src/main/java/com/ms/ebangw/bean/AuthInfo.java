@@ -62,6 +62,97 @@ public class AuthInfo implements Serializable{
      */
     private String accountName;
 
+    /*开发商*/
+
+    private String companyName;
+
+    /**
+     * 营业执照所在省
+     */
+    private String permitProvinceId;
+    /**
+     * 公司介绍
+     */
+    private String introduce;
+
+    /**
+     * 营业执照所在市
+     */
+    private String permitCityId;
+    /**
+     * 常住地址
+     */
+    private String oftenAddress;
+
+    /**
+     * 营业年限
+     */
+    private String businessAge;
+    /**
+     * 营业年限是否为长期  1：长期  2：非长期
+     */
+    private String timeState;
+
+    /**
+     * 经营范围
+     */
+    private String businessScope;
+
+    /**
+     * 组织机构代码证号
+     */
+    private String companyNumber;
+
+    /**
+     * 公司座机
+     */
+    private String companyPhone;
+
+    /**
+     * 营业执照注册号 business_license_number
+     */
+    private String businessLicenseNumber;
+
+    /**
+     * 组织机构代码证扫描件图片Id organization_certificate
+     */
+    private String organizationCertificate;
+    /**
+     * 企业联系人
+     */
+    private String linkman;
+
+    /**
+     * 企业联系人电话
+     */
+    private String linkmanPhone;
+
+    /**
+     * 对公帐户户名
+     */
+    private String publicAccountName;
+
+    /**
+     * 对公帐户
+     */
+    private String publicAccount;
+
+    /**
+     * 对公帐户银行Id
+     */
+    private String publicAccountBankId;
+    /**
+     * 对公帐户省Id
+     */
+    private String publicAccountProvinceId;
+    /**
+     * 对公帐户市Id
+     */
+    private String publicAccountCityId;
+
+
+
+
 
 
     public String getPhone() {
@@ -174,5 +265,157 @@ public class AuthInfo implements Serializable{
 
     public void setAccountName(String accountName) {
         this.accountName = accountName;
+    }
+
+    public String getPermitProvinceId() {
+        return permitProvinceId;
+    }
+
+    public void setPermitProvinceId(String permitProvinceId) {
+        this.permitProvinceId = permitProvinceId;
+    }
+
+    public String getPermitCityId() {
+        return permitCityId;
+    }
+
+    public void setPermitCityId(String permitCityId) {
+        this.permitCityId = permitCityId;
+    }
+
+    public String getOftenAddress() {
+        return oftenAddress;
+    }
+
+    public void setOftenAddress(String oftenAddress) {
+        this.oftenAddress = oftenAddress;
+    }
+
+    public String getBusinessAge() {
+        return businessAge;
+    }
+
+    public void setBusinessAge(String businessAge) {
+        this.businessAge = businessAge;
+    }
+
+    public String getTimeState() {
+        return timeState;
+    }
+
+    public void setTimeState(String timeState) {
+        this.timeState = timeState;
+    }
+
+    public String getBusinessScope() {
+        return businessScope;
+    }
+
+    public void setBusinessScope(String businessScope) {
+        this.businessScope = businessScope;
+    }
+
+    public String getCompanyNumber() {
+        return companyNumber;
+    }
+
+    public void setCompanyNumber(String companyNumber) {
+        this.companyNumber = companyNumber;
+    }
+
+    public String getCompanyPhone() {
+        return companyPhone;
+    }
+
+    public void setCompanyPhone(String companyPhone) {
+        this.companyPhone = companyPhone;
+    }
+
+    public String getBusinessLicenseNumber() {
+        return businessLicenseNumber;
+    }
+
+    public void setBusinessLicenseNumber(String businessLicenseNumber) {
+        this.businessLicenseNumber = businessLicenseNumber;
+    }
+
+    public String getOrganizationCertificate() {
+        return organizationCertificate;
+    }
+
+    public void setOrganizationCertificate(String organizationCertificate) {
+        this.organizationCertificate = organizationCertificate;
+    }
+
+    public String getLinkman() {
+        return linkman;
+    }
+
+    public void setLinkman(String linkman) {
+        this.linkman = linkman;
+    }
+
+    public String getLinkmanPhone() {
+        return linkmanPhone;
+    }
+
+    public void setLinkmanPhone(String linkmanPhone) {
+        this.linkmanPhone = linkmanPhone;
+    }
+
+    public String getPublicAccountName() {
+        return publicAccountName;
+    }
+
+    public void setPublicAccountName(String publicAccountName) {
+        this.publicAccountName = publicAccountName;
+    }
+
+    public String getPublicAccount() {
+        return publicAccount;
+    }
+
+    public void setPublicAccount(String publicAccount) {
+        this.publicAccount = publicAccount;
+    }
+
+    public String getPublicAccountBankId() {
+        return publicAccountBankId;
+    }
+
+    public void setPublicAccountBankId(String publicAccountBankId) {
+        this.publicAccountBankId = publicAccountBankId;
+    }
+
+    public String getPublicAccountProvinceId() {
+        return publicAccountProvinceId;
+    }
+
+    public void setPublicAccountProvinceId(String publicAccountProvinceId) {
+        this.publicAccountProvinceId = publicAccountProvinceId;
+    }
+
+    public String getPublicAccountCityId() {
+        return publicAccountCityId;
+    }
+
+    public void setPublicAccountCityId(String publicAccountCityId) {
+        this.publicAccountCityId = publicAccountCityId;
+    }
+
+    public String getCompanyName() {
+        return companyName;
+    }
+
+    public void setCompanyName(String companyName) {
+        this.companyName = companyName;
+    }
+
+    public String getIntroduce() {
+        return introduce;
+    }
+
+    public void setIntroduce(String introduce) {
+        this.introduce = introduce;
     }
 }

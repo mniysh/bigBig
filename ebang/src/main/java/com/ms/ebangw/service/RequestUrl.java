@@ -66,7 +66,7 @@ public class RequestUrl {
     /**
      * 1-9.开发商认证接口
      */
-    public static final  String developer_identify = domain + "/api/user/developer/identify";
+    public static final  String developer_identify = domain + "/api/user/developers/identify";
     /**
      * 11.工头认证接口
      */

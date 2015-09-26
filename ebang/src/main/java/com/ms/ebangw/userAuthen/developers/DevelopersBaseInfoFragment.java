@@ -25,7 +25,6 @@ import com.ms.ebangw.bean.Province;
 import com.ms.ebangw.bean.TotalRegion;
 import com.ms.ebangw.commons.Constants;
 import com.ms.ebangw.fragment.BaseFragment;
-import com.ms.ebangw.userAuthen.investor.InvestorAuthenActivity;
 import com.ms.ebangw.utils.T;
 import com.ms.ebangw.utils.VerifyUtils;
 
@@ -59,6 +58,8 @@ public class DevelopersBaseInfoFragment extends BaseFragment {
 	Spinner citySp;
 	@Bind(R.id.btn_next)
 	Button nextBtn;
+	@Bind(R.id.et_introduce)
+	EditText introduceEt;
 
 	private List<Province> provinces;
 	private Province province;
@@ -96,6 +97,7 @@ public class DevelopersBaseInfoFragment extends BaseFragment {
 	@Override
 	public void initView() {
 		setStarRed();
+		contentLayout.findViewById(R.id.ll_introduce).setVisibility(View.VISIBLE);
 	}
 
 	@Override
@@ -150,7 +152,7 @@ public class DevelopersBaseInfoFragment extends BaseFragment {
 			return;
 		}
 		AuthInfo authInfo = getAuthInfo();
-		InvestorAuthenActivity activity = (InvestorAuthenActivity) mActivity;
+		DevelopersAuthenActivity activity = (DevelopersAuthenActivity) mActivity;
 		activity.setAuthInfo(authInfo);
 		activity.goNext();
 	}
@@ -159,6 +161,7 @@ public class DevelopersBaseInfoFragment extends BaseFragment {
 		String realName = readNameEt.getText().toString().trim();
 		String cardId = cardEt.getText().toString().trim();
 		String phone = phoneEt.getText().toString().trim();
+		String introduce = introduceEt.getText().toString().trim();
 		if (TextUtils.isEmpty(realName)) {
 			T.show("请输入真实姓名");
 			return false;
@@ -174,6 +177,11 @@ public class DevelopersBaseInfoFragment extends BaseFragment {
 			return false;
 		}
 
+		if (TextUtils.isEmpty(introduce)) {
+			T.show("请输入企业介绍");
+			return false;
+		}
+
 		return true;
 	}
 
@@ -183,6 +191,7 @@ public class DevelopersBaseInfoFragment extends BaseFragment {
 		String realName = readNameEt.getText().toString().trim();
 		String cardId = cardEt.getText().toString().trim();
 		String phone = phoneEt.getText().toString().trim();
+		String introduce = introduceEt.getText().toString().trim();
 
 
 		AuthInfo authInfo = new AuthInfo();
@@ -234,6 +243,7 @@ public class DevelopersBaseInfoFragment extends BaseFragment {
 		authInfo.setIdentityCard(cardId);
 		authInfo.setProvinceId(provinceId);
 		authInfo.setCityId(cityId);
+		authInfo.setIntroduce(introduce);
 		return authInfo;
 	}
 
@@ -241,13 +251,16 @@ public class DevelopersBaseInfoFragment extends BaseFragment {
 	 * 把*变成红色
 	 */
 	public void setStarRed() {
-		int[] resId = new int[]{R.id.tv_a, R.id.tv_b, R.id.tv_c, R.id.tv_d, R.id.tv_e};
+		int[] resId = new int[]{R.id.tv_a, R.id.tv_b, R.id.tv_c, R.id.tv_d, R.id.tv_e, R.id
+			.tv_f, R.id.tv_g};
 		for (int i = 0; i < resId.length; i++) {
 			TextView a = (TextView) contentLayout.findViewById(resId[i]);
-			String s = a.getText().toString();
-			SpannableString spannableString = new SpannableString(s);
-			spannableString.setSpan(new ForegroundColorSpan(Color.RED), 0, 1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-			a.setText(spannableString);
+			if (null != a) {
+				String s = a.getText().toString();
+				SpannableString spannableString = new SpannableString(s);
+				spannableString.setSpan(new ForegroundColorSpan(Color.RED), 0, 1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+				a.setText(spannableString);
+			}
 		}
 	}
 
@@ -261,5 +274,7 @@ public class DevelopersBaseInfoFragment extends BaseFragment {
 			return totalRegion.getProvince();
 		}
 	}
+
+
 
 }

@@ -142,4 +142,11 @@
     <string name="title_activity_message_center">MessageCenterActivit</string>	<!--下载链接-->
 
 	 <!--Url   ==  end -->
+
+	 <string name="developer_long">\u3000\u3000
+		  \u3000若证件有效期为长期，请勾选长期。例如：有效期2016.11.16--\n\u3000\u3000\u3000长期，则勾选为长期。</string>
+
+	 <string name="developer_permit_text">\u3000\u3000\u3000必须为清晰、完整的彩色原件扫描件或数码照，仅支持.jpg .bmb .png .gift的图片格式，图片大小
+		  不超过3M。必须在有效期内且年检单齐全(当年成立的公司可无年检单)必须为中车大陆公商局颁发
+	 </string>
 </resources>

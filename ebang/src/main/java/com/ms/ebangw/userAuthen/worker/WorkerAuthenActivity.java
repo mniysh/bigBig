@@ -4,10 +4,13 @@ import android.app.Fragment;
 import android.app.FragmentManager;
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.ms.ebangw.R;
 import com.ms.ebangw.activity.BaseActivity;
@@ -18,6 +21,7 @@ import com.ms.ebangw.utils.L;
 import com.soundcloud.android.crop.Crop;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.ButterKnife;
@@ -76,6 +80,7 @@ public class WorkerAuthenActivity extends BaseActivity {
 		identifyFragment = WorkerIdentityCardFragment.newInstance(category);
 		getFragmentManager().beginTransaction().replace(R.id.fl_content, identifyFragment)
 			.addToBackStack("IdentityCardPhotoVerifyFragment").commit();
+		setStep(1);
 	}
 
 	/**
@@ -86,7 +91,7 @@ public class WorkerAuthenActivity extends BaseActivity {
 		getFragmentManager().beginTransaction().replace(R.id.fl_content,
 			WorkerBankVerifyFragment.newInstance(category)).addToBackStack
 			("BankVerifyFragment").commit();
-
+		setStep(2);
 	}
 
 	public AuthInfo getAuthInfo() {
@@ -190,6 +195,32 @@ public class WorkerAuthenActivity extends BaseActivity {
 
 	}
 
+	/**
+	 * 第几个步骤 0 ，1 ，2
+	 * @param step
+	 */
+	public void setStep(int step) {
 
+		LinearLayout stepLayout = (LinearLayout) findViewById(R.id.ll_step);
+		LinearLayout descLayout = (LinearLayout) findViewById(R.id.ll_step_desc);
+		List<TextView> stepViews = new ArrayList<>();
+		stepViews.add((TextView) stepLayout.getChildAt(0));
+		stepViews.add((TextView) stepLayout.getChildAt(2));
+		stepViews.add((TextView) stepLayout.getChildAt(4));
+
+		for (int i = 0; i < stepViews.size(); i++) {
+			TextView stepTv = stepViews.get(i);
+			TextView descTv = (TextView) descLayout.getChildAt(i);
+			if (i == step) {
+				stepTv.setTextColor(Color.WHITE);
+				stepTv.setBackgroundResource(R.drawable.rotundity_one);
+				descTv.setTextColor(getResources().getColor(R.color.titleBar_bg));
+			}else {
+				stepTv.setTextColor(Color.BLACK);
+				stepTv.setBackgroundResource(R.drawable.rotundity);
+				descTv.setTextColor(Color.BLACK);
+			}
+		}
+	}
 
 }
