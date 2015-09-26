@@ -1,5 +1,6 @@
 package com.ms.ebangw.userAuthen.worker;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -106,7 +107,8 @@ public class WorkerBaseInfoFragment extends BaseFragment {
 		selectWorkBtn.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-
+				Intent intent = new Intent(mActivity, WorkTypeActivity.class);
+				startActivityForResult(intent, 22);
 			}
 		});
 		initSpinner();

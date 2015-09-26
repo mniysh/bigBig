@@ -15,4 +15,7 @@
     <dimen name="authen_item_height">60dp</dimen>
     <dimen name="authen_item_text">14sp</dimen>
 
+    <!-- 工人认证-->
+    <dimen name="work_type_width">60dp</dimen>
+
 </resources>

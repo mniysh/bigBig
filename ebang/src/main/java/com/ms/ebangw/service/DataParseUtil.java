@@ -6,10 +6,12 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.ms.ebangw.bean.Bank;
 import com.ms.ebangw.bean.City;
+import com.ms.ebangw.bean.Craft;
 import com.ms.ebangw.bean.Province;
 import com.ms.ebangw.bean.TotalRegion;
 import com.ms.ebangw.bean.UploadImageResult;
 import com.ms.ebangw.bean.User;
+import com.ms.ebangw.bean.WorkType;
 import com.ms.ebangw.exception.ResponseException;
 import com.ms.ebangw.utils.L;
 
@@ -319,6 +321,93 @@ public class DataParseUtil {
 
     }
 
+    /**
+     * 3-7 发布选择的接口 (建筑， 装修， 工程管理)
+     * @param jsonObject
+     * @return
+     * @throws ResponseException
+     */
+    public static Craft publishCraft(JSONObject jsonObject) throws  ResponseException{
+
+        Craft craft = new Craft();
+        JSONObject data = processData(jsonObject);
+        Gson gson = new Gson();
+        try {
+            String first = data.getString("first");
+            List<WorkType> mainWorkTypes = gson.fromJson(first, new TypeToken<List<WorkType>>() {
+            }.getType());
+
+            JSONObject secondObj = data.getJSONObject("second");
+            JSONObject thirdObj = data.getJSONObject("third");
+
+            for (int i = 0; i < mainWorkTypes.size(); i++) {
+                WorkType type = mainWorkTypes.get(i);
+                String  mainTypeId = type.getId();
+                if (TextUtils.equals("1", mainTypeId)) {            //工程管理
+                    craft.setProjectManage(type);
+                    if (secondObj.has(mainTypeId)) {
+                        String arrayStr = secondObj.getString(mainTypeId);
+                        List<WorkType> secondWorkTypes = gson.fromJson(arrayStr, new TypeToken<List<WorkType>>() {
+                        }.getType());
+                        type.setWorkTypes(secondWorkTypes);
+                    }
+
+                }else if (TextUtils.equals("14", mainTypeId)) {     //建筑类
+                    craft.setBuilding(type);
+                    if (secondObj.has(mainTypeId)) {
+                        String arrayStr = secondObj.getString(mainTypeId);
+                        List<WorkType> secondWorkTypes = gson.fromJson(arrayStr, new TypeToken<List<WorkType>>() {
+                        }.getType());
+                        for (int j = 0; j < secondWorkTypes.size(); j++) {
+                            WorkType secondType = secondWorkTypes.get(j);
+                            String secondTypeId = secondType.getId();
+                            if (thirdObj.has(secondTypeId)) {
+                                String thirdArrayStr = thirdObj.getString(secondTypeId);
+                                List<WorkType> thirdWorkTypes = gson.fromJson(thirdArrayStr, new TypeToken<List<WorkType>>() {
+                                }.getType());
+                                secondType.setWorkTypes(thirdWorkTypes);
+                            }
+                        }
+                        type.setWorkTypes(secondWorkTypes);
+                    }
+                }else if (TextUtils.equals("68", mainTypeId)) {     //装修类
+                    craft.setFitment(type);
+                    if (secondObj.has(mainTypeId)) {
+                        String arrayStr = secondObj.getString(mainTypeId);
+                        List<WorkType> secondWorkTypes = gson.fromJson(arrayStr, new TypeToken<List<WorkType>>() {
+                        }.getType());
+                        for (int j = 0; j < secondWorkTypes.size(); j++) {
+                            WorkType secondType = secondWorkTypes.get(j);
+                            String secondTypeId = secondType.getId();
+                            if (thirdObj.has(secondTypeId)) {
+                                String thirdArrayStr = thirdObj.getString(secondTypeId);
+                                List<WorkType> thirdWorkTypes = gson.fromJson(thirdArrayStr, new TypeToken<List<WorkType>>() {
+                                }.getType());
+                                secondType.setWorkTypes(thirdWorkTypes);
+                            }
+                        }
+                        type.setWorkTypes(secondWorkTypes);
+                    }
+                }else if (TextUtils.equals("88", mainTypeId)) {     //其他
+                    craft.setOther(type);
+                    if (secondObj.has(mainTypeId)) {
+                        String arrayStr = secondObj.getString(mainTypeId);
+                        List<WorkType> secondWorkTypes = gson.fromJson(arrayStr, new TypeToken<List<WorkType>>() {
+                        }.getType());
+                        type.setWorkTypes(secondWorkTypes);
+                    }
+                }
+            }
+
+
+
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return craft;
+    }
 
 
     /**

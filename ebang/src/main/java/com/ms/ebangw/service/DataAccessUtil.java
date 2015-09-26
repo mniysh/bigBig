@@ -450,6 +450,17 @@ public class DataAccessUtil {
         return doGet(RequestUrl.province_city_area, null, asyncHttpResponseHandler);
     }
 
+
+    /**
+     * 3-7 发布选择的接口 (建筑， 装修， 工程管理)  Get方式
+     * @param asyncHttpResponseHandler
+     * @return
+     */
+    public static RequestHandle publishCraft(AsyncHttpResponseHandler
+                                                     asyncHttpResponseHandler){
+        return doGet(RequestUrl.publish_craft, null, asyncHttpResponseHandler);
+    }
+
     /**
      * 3-14、获取银行列表
      * @param asyncHttpResponseHandler

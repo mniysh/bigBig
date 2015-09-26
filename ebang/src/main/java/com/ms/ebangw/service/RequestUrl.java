@@ -100,4 +100,9 @@ public class RequestUrl {
      */
     public static final String bank_list =domain + "/api/common/bank/list";
 
+    /**
+     * 3-7 发布选择的接口 (建筑， 装修， 工程管理)  Get方式
+     */
+    public static final String publish_craft =domain + "/api/common/craft/publish-craft";
+
 }

@@ -15,7 +15,7 @@ local.properties
 .loadpath
 
 # Eclipse Core
-.project
+.projectManage
 
 # External tool builders
 .externalToolBuilders/
@@ -85,7 +85,7 @@ proguard/
 hs_err_pid*
 
 
-# Intellij project files
+# Intellij projectManage files
 *.iml
 *.ipr
 *.iws

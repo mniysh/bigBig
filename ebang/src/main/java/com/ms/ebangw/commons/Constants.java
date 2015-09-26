@@ -101,4 +101,6 @@ public class Constants {
 	 * 省市区
 	 */
 	public final static String KEY_TOTAL_REGION = "total_region";
+
+	public final static int KEY_WORK_TYPE = R.drawable.back;
 }
