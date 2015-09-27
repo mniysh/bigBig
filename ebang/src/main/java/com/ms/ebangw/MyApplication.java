@@ -6,6 +6,7 @@ import android.app.Application;
 import com.baidu.location.LocationClient;
 import com.baidu.location.LocationClientOption;
 import com.ms.ebangw.bean.Bank;
+import com.ms.ebangw.bean.Craft;
 import com.ms.ebangw.bean.User;
 import com.ms.ebangw.db.UserDao;
 import com.ms.ebangw.listener.MyLocationListener;
@@ -22,9 +23,16 @@ public class MyApplication extends Application {
     private int flag_sub;
     private String phone;
     private String password;
+    private Craft craft;
     public LocationClient mLocationClient = null;
 
+    public Craft getCraft() {
+        return craft;
+    }
 
+    public void setCraft(Craft craft) {
+        this.craft = craft;
+    }
 
     private List<Bank> banks;
 

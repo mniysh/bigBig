@@ -42,6 +42,7 @@ public class CraftGridViewAdapter extends BaseAdapter{
         CheckBox cb = (CheckBox) View.inflate(parent.getContext(), R.layout
             .layout_craft_gridview_item, null);
         cb.setText(list.get(position).getName());
+
         return cb;
     }
 }
