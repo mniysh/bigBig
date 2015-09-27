@@ -283,17 +283,24 @@
         </activity>
         <activity
             android:name=".activity.ModifyPhoneActivity"
-            android:label="@string/title_activity_modify_phone" >
+            android:screenOrientation="portrait"
+            >
         </activity>
         <activity
             android:name=".activity.ModifyPasswordAvtivity"
-            android:label="@string/title_activity_modify_password_avtivity" >
+            android:screenOrientation="portrait"
+            >
         </activity>
         <activity
             android:name=".activity.MessageCenterActivit"
-            android:label="@string/title_activity_message_center" >
+            android:screenOrientation="portrait"
+            >
         </activity>
-        <activity android:name=".userAuthen.worker.WorkTypeActivity" >
+        <activity android:name=".userAuthen.worker.WorkTypeActivity"
+                  android:screenOrientation="portrait"
+                  android:windowSoftInputMode="adjustResize|stateAlwaysHidden"
+                  android:configChanges="orientation|keyboardHidden"
+            >
         </activity>
     </application>
 

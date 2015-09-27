@@ -4,14 +4,11 @@ import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.GridView;
 import android.widget.TextView;
 
 import com.ms.ebangw.R;
 import com.ms.ebangw.bean.WorkType;
-import com.ms.ebangw.commons.Constants;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,13 +28,25 @@ public class CraftAdapter extends BaseAdapter {
 
     public CraftAdapter(WorkType firstWorkType) {
         this.firstWorkType = firstWorkType;
-        list = firstWorkType.getWorkTypes();
+        if (getType() == 1) {
+            list = new ArrayList<>();
+            list.add(firstWorkType);
+        }else {
+            list = firstWorkType.getWorkTypes();
+        }
         selectedWorkTypes = new ArrayList<>();
     }
 
     public void setWorkType(WorkType firstWorkType) {
         this.firstWorkType = firstWorkType;
-        list = firstWorkType.getWorkTypes();
+//        list = firstWorkType.getWorkTypes();
+
+        if (getType() == 1) {
+            list = new ArrayList<>();
+            list.add(firstWorkType);
+        }else {
+            list = firstWorkType.getWorkTypes();
+        }
     }
 
     @Override
@@ -62,7 +71,7 @@ public class CraftAdapter extends BaseAdapter {
             convertView = View.inflate(parent.getContext(), R.layout.layout_craft_item, null);
             holder = new ViewHolder();
             holder.titleTv = (TextView) convertView.findViewById(R.id.tv_title);
-            holder.cb = (CheckBox) convertView.findViewById(R.id.cb);
+//            holder.cb = (CheckBox) convertView.findViewById(R.id.cb);
             holder.gridView = (GridView) convertView.findViewById(R.id.gridView);
             convertView.setTag(holder);
         }else {
@@ -70,31 +79,17 @@ public class CraftAdapter extends BaseAdapter {
         }
         WorkType workType = list.get(position);
         if (getType() == 1) {
+            List<WorkType> types = workType.getWorkTypes();
             holder.titleTv.setVisibility(View.GONE);
-            holder.cb.setVisibility(View.VISIBLE);
-            holder.gridView.setVisibility(View.GONE);
-            holder.cb.setText(workType.getName());
-            holder.cb.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                @Override
-                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                    WorkType type = (WorkType) buttonView.getTag(Constants.KEY_WORK_TYPE);
-                    if (isChecked) {
-                        selectedWorkTypes.add(type);
-                    }else {
-                        selectedWorkTypes.remove(type);
-                    }
-                }
-            });
+            CraftGridViewAdapter craftGridViewAdapter = new CraftGridViewAdapter(types);
+            holder.gridView.setAdapter(craftGridViewAdapter);
 
-            holder.cb.setTag(Constants.KEY_WORK_TYPE, workType);
         }
 
         if (getType() == 2) {
             List<WorkType> types = workType.getWorkTypes();
             for (int i = 0; i < types.size(); i++) {
                 holder.titleTv.setVisibility(View.VISIBLE);
-                holder.cb.setVisibility(View.GONE);
-                holder.gridView.setVisibility(View.VISIBLE);
                 holder.titleTv.setText(workType.getName());
                 CraftGridViewAdapter craftGridViewAdapter = new CraftGridViewAdapter(types);
                 holder.gridView.setAdapter(craftGridViewAdapter);
@@ -125,7 +120,6 @@ public class CraftAdapter extends BaseAdapter {
 
     static class ViewHolder{
         TextView titleTv;
-        CheckBox cb;
         GridView gridView;
     }
 }

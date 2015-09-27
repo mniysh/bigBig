@@ -70,7 +70,7 @@ public class DevelopersAuthenActivity extends BaseActivity {
 	}
 
 	public void initView() {
-		initTitle(null, "返回", "个人认证", null, null);
+		initTitle(null, "返回", "开发商认证", null, null);
 		cardBindTv.setText("企业完善");
 	}
 
@@ -81,7 +81,7 @@ public class DevelopersAuthenActivity extends BaseActivity {
 
 		getFragmentManager().beginTransaction().replace(R.id.fl_content,personBaseInfoFragment
 		).commit();
-
+		setStep(0);
 	}
 
 	public void goNext() {

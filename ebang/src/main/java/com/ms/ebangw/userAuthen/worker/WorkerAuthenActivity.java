@@ -71,7 +71,7 @@ public class WorkerAuthenActivity extends BaseActivity {
 
 	public void initView() {
 
-		initTitle(null, "返回", "个人认证", null, null);
+		initTitle(null, "返回", "务工认证", null, null);
 
 	}
 
@@ -82,7 +82,7 @@ public class WorkerAuthenActivity extends BaseActivity {
 
 		getFragmentManager().beginTransaction().replace(R.id.fl_content,personBaseInfoFragment
 		).commit();
-
+		setStep(0);
 	}
 
 	public void goNext() {

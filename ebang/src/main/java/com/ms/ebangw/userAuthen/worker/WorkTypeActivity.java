@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.ListView;
 import android.widget.RadioGroup;
 
@@ -122,13 +121,6 @@ public class WorkTypeActivity extends BaseActivity {
         ViewGroup listItemLayout;
         for (int i = 0; i < childCount; i++) {
             listItemLayout = (ViewGroup) listView.getChildAt(i);
-            //获取listView中的checkbox
-            CheckBox itemCheckbox = (CheckBox) listItemLayout.findViewById(R.id.cb);
-            WorkType itemWorkType = (WorkType) itemCheckbox.getTag(Constants.KEY_WORK_TYPE);
-            if (itemWorkType != null) {
-                selectTypes.add(itemWorkType);
-            }
-            //获取GridView中的Checkbox
             MyGridView myGridView = (MyGridView) listItemLayout.findViewById(R.id.gridView);
             CraftGridViewAdapter craftGridViewAdapter = (CraftGridViewAdapter) myGridView.getAdapter();
             List<WorkType> selectedGridTypes = craftGridViewAdapter.getSelectedWorkTypes();
