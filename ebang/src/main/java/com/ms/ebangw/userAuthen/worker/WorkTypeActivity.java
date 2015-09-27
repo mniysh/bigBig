@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
 import com.loopj.android.http.JsonHttpResponseHandler;
@@ -45,6 +46,8 @@ public class WorkTypeActivity extends BaseActivity {
     ListView listView;
     @Bind(R.id.btn_ok)
     Button okBtn;
+    @Bind(R.id.rb_build)
+    RadioButton buildingRb;
     private CraftAdapter craftAdapter;
     private Craft craft;
 
@@ -100,6 +103,7 @@ public class WorkTypeActivity extends BaseActivity {
 //                    setWorkTypeAdapter(craft.getProjectManage());
                     craftAdapter = new CraftAdapter(craft.getBuilding());
                     listView.setAdapter(craftAdapter);
+                    buildingRb.toggle();
                 } catch (ResponseException e) {
                     e.printStackTrace();
                     T.show(e.getMessage());
