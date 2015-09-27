@@ -12,13 +12,23 @@ import android.provider.MediaStore;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.loopj.android.http.JsonHttpResponseHandler;
 import com.ms.ebangw.R;
 import com.ms.ebangw.activity.BaseActivity;
 import com.ms.ebangw.bean.AuthInfo;
 import com.ms.ebangw.bean.TotalRegion;
+import com.ms.ebangw.bean.WorkType;
 import com.ms.ebangw.commons.Constants;
+import com.ms.ebangw.exception.ResponseException;
+import com.ms.ebangw.service.DataAccessUtil;
+import com.ms.ebangw.service.DataParseUtil;
+import com.ms.ebangw.utils.JsonUtil;
 import com.ms.ebangw.utils.L;
+import com.ms.ebangw.utils.T;
 import com.soundcloud.android.crop.Crop;
+
+import org.apache.http.Header;
+import org.json.JSONObject;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -40,7 +50,7 @@ public class WorkerAuthenActivity extends BaseActivity {
 	/**
 	 * 认证的信息
 	 */
-	private AuthInfo authInfo;
+	private AuthInfo authInfo = new AuthInfo();
 
 	private List<Fragment> list;
 	private FragmentManager fm;
@@ -141,7 +151,23 @@ public class WorkerAuthenActivity extends BaseActivity {
 
 		}else if (requestCode == Crop.REQUEST_CROP) {
 			identifyFragment.handleCrop(resultCode, data);			//在Fragment中处理剪切后的图片
+		}else if (resultCode == 22) {						//获取选中的工种
+
+			Bundle extras = data.getExtras();
+			ArrayList<WorkType> workTypes = extras.getParcelableArrayList(Constants
+				.KEY_SELECTED_WORKTYPES);
+			processSelectedWorkTypes(workTypes);
 		}
+	}
+
+	public void processSelectedWorkTypes(ArrayList<WorkType> workTypes) {
+		int count = workTypes.size();
+		String[] types = new String[count];
+		for (int i = 0; i < count; i++) {
+			types[i] = workTypes.get(i).getId();
+		}
+		String json = JsonUtil.toJson(types);
+		authInfo.setCrafts(json);
 	}
 
 	private void beginCrop(Uri source) {
@@ -190,8 +216,35 @@ public class WorkerAuthenActivity extends BaseActivity {
 		String cityId = authInfo.getCityId();
 		String frontImageId = authInfo.getFrontImageId();
 		String backImageId = authInfo.getBackImageId();
+		String bankCard = authInfo.getBankCard();
+		String accountName = authInfo.getAccountName();
+		String bankId = authInfo.getBankId();
+		String bankProvinceId = authInfo.getBankProvinceId();
+		String bankCityId = authInfo.getBankCityId();
+		String crafts = authInfo.getCrafts();
 
+		DataAccessUtil.workerIdentify(realName, identityCard, provinceId, cityId, frontImageId,
+			backImageId, gender, bankCard, accountName, bankProvinceId, bankCityId,
+			bankId, crafts, new JsonHttpResponseHandler(){
+				@Override
+				public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+					try {
+						boolean b = DataParseUtil.processDataResult(response);
+						if (b) {
+							T.show("认证成功");
+						}
+					} catch (ResponseException e) {
+						e.printStackTrace();
+						T.show(e.getMessage());
+					}
+				}
 
+				@Override
+				public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+					super.onFailure(statusCode, headers, responseString, throwable);
+					L.d(responseString);
+				}
+			});
 
 	}
 

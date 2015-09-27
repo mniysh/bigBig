@@ -55,7 +55,7 @@ public class HeadmanBankVerifyFragment extends BaseFragment {
     Spinner bankSp;
     @Bind(R.id.et_identify_card)
     EditText cardEt;
-    @Bind(R.id.et_real_name)
+    @Bind(R.id.et_account_name)
     EditText reaNameEt;
     @Bind(R.id.btn_commit)
     Button commitBtn;

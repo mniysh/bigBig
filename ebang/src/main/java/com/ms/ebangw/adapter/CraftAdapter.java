@@ -5,6 +5,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.GridView;
 import android.widget.TextView;
 
@@ -12,6 +13,7 @@ import com.ms.ebangw.R;
 import com.ms.ebangw.bean.WorkType;
 import com.ms.ebangw.commons.Constants;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -23,9 +25,14 @@ public class CraftAdapter extends BaseAdapter {
     private WorkType firstWorkType;
     private List<WorkType> list;
 
+
+
+    private List<WorkType> selectedWorkTypes;
+
     public CraftAdapter(WorkType firstWorkType) {
         this.firstWorkType = firstWorkType;
         list = firstWorkType.getWorkTypes();
+        selectedWorkTypes = new ArrayList<>();
     }
 
     public void setWorkType(WorkType firstWorkType) {
@@ -67,6 +74,18 @@ public class CraftAdapter extends BaseAdapter {
             holder.cb.setVisibility(View.VISIBLE);
             holder.gridView.setVisibility(View.GONE);
             holder.cb.setText(workType.getName());
+            holder.cb.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    WorkType type = (WorkType) buttonView.getTag(Constants.KEY_WORK_TYPE);
+                    if (isChecked) {
+                        selectedWorkTypes.add(type);
+                    }else {
+                        selectedWorkTypes.remove(type);
+                    }
+                }
+            });
+
             holder.cb.setTag(Constants.KEY_WORK_TYPE, workType);
         }
 
@@ -98,6 +117,10 @@ public class CraftAdapter extends BaseAdapter {
         }else {
             return 2;
         }
+    }
+
+    public List<WorkType> getSelectedWorkTypes() {
+        return selectedWorkTypes;
     }
 
     static class ViewHolder{

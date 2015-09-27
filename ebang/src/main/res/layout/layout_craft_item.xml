@@ -7,11 +7,11 @@
 
     <TextView
         android:id="@+id/tv_title"
-        android:layout_width="100dp"
+        android:layout_width="80dp"
         android:singleLine="true"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
-        android:padding="10dp"
+        android:padding="5dp"
         android:text="建筑结构"
         android:textSize="14sp"
         android:gravity="center"

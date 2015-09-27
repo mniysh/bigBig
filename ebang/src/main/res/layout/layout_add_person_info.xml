@@ -34,7 +34,7 @@
 
 
             <EditText
-                android:id="@+id/et_real_name"
+                android:id="@+id/et_account_name"
                 style="@style/authorization_edit"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -260,6 +260,7 @@
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:layout_marginTop="20dp"
+            android:layout_marginBottom="10dp"
             android:background="@drawable/bk_but"
             android:text="下一步"
             android:textColor="#fff"

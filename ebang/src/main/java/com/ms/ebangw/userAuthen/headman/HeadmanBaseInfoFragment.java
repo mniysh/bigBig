@@ -46,7 +46,7 @@ public class HeadmanBaseInfoFragment extends BaseFragment {
 
 	@Bind(R.id.et_phone)
 	EditText phoneEt;
-	@Bind(R.id.et_real_name)
+	@Bind(R.id.et_account_name)
 	EditText readNameEt;
 	@Bind(R.id.et_identify_card)
 	EditText cardEt;

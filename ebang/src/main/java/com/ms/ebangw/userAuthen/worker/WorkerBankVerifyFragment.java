@@ -17,8 +17,10 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.ms.ebangw.MyApplication;
 import com.ms.ebangw.R;
 import com.ms.ebangw.bean.AuthInfo;
+import com.ms.ebangw.bean.Bank;
 import com.ms.ebangw.bean.City;
 import com.ms.ebangw.bean.Province;
 import com.ms.ebangw.bean.TotalRegion;
@@ -43,6 +45,7 @@ public class WorkerBankVerifyFragment extends BaseFragment {
     private Province province;
     ArrayAdapter<Province> adapter01;
     ArrayAdapter<City> adapter02;
+    private  List<Bank> banks;
 
     @Bind(R.id.sp_a)
     Spinner provinceSp;
@@ -52,8 +55,8 @@ public class WorkerBankVerifyFragment extends BaseFragment {
     Spinner bankSp;
     @Bind(R.id.et_identify_card)
     EditText cardEt;
-    @Bind(R.id.et_real_name)
-    EditText reaNameEt;
+    @Bind(R.id.et_account_name)
+    EditText accountNameEt;
     @Bind(R.id.btn_commit)
     Button commitBtn;
 
@@ -105,7 +108,7 @@ public class WorkerBankVerifyFragment extends BaseFragment {
 
 
     private boolean isInfoCorrect() {
-        String realName = reaNameEt.getText().toString().trim();
+        String realName = accountNameEt.getText().toString().trim();
         String cardId = cardEt.getText().toString().trim();
         if (TextUtils.isEmpty(realName)) {
             T.show("请输入真实姓名");
@@ -163,6 +166,15 @@ public class WorkerBankVerifyFragment extends BaseFragment {
 
     }
 
+    private void initBankSpinner() {
+        banks = MyApplication.getInstance().getBanks();
+        ArrayAdapter<Bank> bankArrayAdapter = new ArrayAdapter<>(mActivity, R.layout.layout_spinner_item,
+            banks);
+        bankSp.setAdapter(bankArrayAdapter);
+        bankSp.setSelection(0, true);
+
+    }
+
     public List<Province> getProvinces() {
         TotalRegion totalRegion = ((WorkerAuthenActivity) mActivity).getTotalRegion();
         if (totalRegion == null) {
@@ -174,7 +186,7 @@ public class WorkerBankVerifyFragment extends BaseFragment {
 
     private void setAuthInfo() {
         AuthInfo authInfo = ((WorkerAuthenActivity) mActivity).getAuthInfo();
-        String realName = reaNameEt.getText().toString().trim();
+        String accountName = accountNameEt.getText().toString().trim();
         String cardId = cardEt.getText().toString().trim();
         //获取开户行
         TextView provinceTv = (TextView) provinceSp.getSelectedView();
@@ -207,15 +219,23 @@ public class WorkerBankVerifyFragment extends BaseFragment {
             }
         }
 
-        String bankNameId = null;
+        String bankId = null;
+        String bankName = null;
         TextView bankTv = (TextView) bankSp.getSelectedView();
         if (null != bankTv) {
-            bankNameId = bankTv.getText().toString().trim();
+            bankName = bankTv.getText().toString().trim();
+        }
+        for (int i = 0; i < banks.size(); i++) {
+            Bank bank = banks.get(i);
+            if(TextUtils.equals(bank.getBank_name(), bankName)){
+                bankId = bank.getId();
+                break;
+            }
         }
         authInfo.setBankProvinceId(provinceId);
         authInfo.setBankCityId(cityId);
-        authInfo.setBankId(bankNameId);
-        authInfo.setRealName(realName);
+        authInfo.setBankId(bankId);
+        authInfo.setAccountName(accountName);
         authInfo.setBankCard(cardId);
     }
 
@@ -227,6 +247,7 @@ public class WorkerBankVerifyFragment extends BaseFragment {
     @Override
     public void initData() {
         initSpinner();
+        initBankSpinner();
     }
 
     @OnClick(R.id.btn_commit)

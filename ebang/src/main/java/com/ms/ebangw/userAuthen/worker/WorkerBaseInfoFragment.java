@@ -25,11 +25,14 @@ import com.ms.ebangw.bean.AuthInfo;
 import com.ms.ebangw.bean.City;
 import com.ms.ebangw.bean.Province;
 import com.ms.ebangw.bean.TotalRegion;
+import com.ms.ebangw.bean.WorkType;
 import com.ms.ebangw.commons.Constants;
 import com.ms.ebangw.fragment.BaseFragment;
+import com.ms.ebangw.utils.JsonUtil;
 import com.ms.ebangw.utils.T;
 import com.ms.ebangw.utils.VerifyUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
@@ -48,7 +51,7 @@ public class WorkerBaseInfoFragment extends BaseFragment {
 
 	@Bind(R.id.et_phone)
 	EditText phoneEt;
-	@Bind(R.id.et_real_name)
+	@Bind(R.id.et_account_name)
 	EditText readNameEt;
 	@Bind(R.id.et_identify_card)
 	EditText cardEt;
@@ -114,6 +117,7 @@ public class WorkerBaseInfoFragment extends BaseFragment {
 		initSpinner();
 	}
 
+
 	public void initSpinner() {
 		provinces = getProvinces();
 		if (null == provinces) {
@@ -154,12 +158,36 @@ public class WorkerBaseInfoFragment extends BaseFragment {
 		});
 	}
 
+	@Override
+	public void onActivityResult(int requestCode, int resultCode, Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
+
+		if (resultCode == 22) {						//获取选中的工种
+
+			Bundle extras = data.getExtras();
+			ArrayList<WorkType> workTypes = extras.getParcelableArrayList(Constants
+				.KEY_SELECTED_WORKTYPES);
+			processSelectedWorkTypes(workTypes);
+		}
+	}
+
+	public void processSelectedWorkTypes(ArrayList<WorkType> workTypes) {
+		int count = workTypes.size();
+		String[] types = new String[count];
+		for (int i = 0; i < count; i++) {
+			types[i] = workTypes.get(i).getId();
+		}
+		if (types.length > 0) {
+			String json = JsonUtil.toJson(types);
+			((WorkerAuthenActivity)mActivity).getAuthInfo().setCrafts(json);
+		}
+	}
 
 	@OnClick(R.id.btn_next)
 	public void goNext() {
-//		if (!isInfoCorrect()) {
-//			return;
-//		}
+		if (!isInfoCorrect()) {
+			return;
+		}
 		AuthInfo authInfo = getAuthInfo();
 		WorkerAuthenActivity activity = (WorkerAuthenActivity) mActivity;
 		activity.setAuthInfo(authInfo);
@@ -170,6 +198,8 @@ public class WorkerBaseInfoFragment extends BaseFragment {
 		String realName = readNameEt.getText().toString().trim();
 		String cardId = cardEt.getText().toString().trim();
 		String phone = phoneEt.getText().toString().trim();
+		String crafts = ((WorkerAuthenActivity) mActivity).getAuthInfo().getCrafts();
+
 		if (TextUtils.isEmpty(realName)) {
 			T.show("请输入真实姓名");
 			return false;
@@ -185,18 +215,25 @@ public class WorkerBaseInfoFragment extends BaseFragment {
 			return false;
 		}
 
+		if (TextUtils.isEmpty(crafts)) {
+			T.show("请选择工种");
+			return false;
+		}
+
+
 		return true;
 	}
 
 
 
 	public AuthInfo getAuthInfo() {
+
 		String realName = readNameEt.getText().toString().trim();
 		String cardId = cardEt.getText().toString().trim();
 		String phone = phoneEt.getText().toString().trim();
 
 
-		AuthInfo authInfo = new AuthInfo();
+		AuthInfo authInfo = ((WorkerAuthenActivity)mActivity).getAuthInfo();
 
 		//性别
 		int checkId = genderRg.getCheckedRadioButtonId();
