@@ -302,7 +302,6 @@ public class DataAccessUtil {
      * @param card_image_front  身份证正面
      * @param card_image_back   身份证反面
      * @param gender    性别
-     * @param invitation_code   邀请码
      * @param card_number   银行卡号
      * @param open_account_name 开户名称
      * @param open_account_province 开户行所在省份
@@ -314,10 +313,10 @@ public class DataAccessUtil {
     public static RequestHandle workerIdentify(String real_name,String identity_card,
                                                 String province,String city,
                                                 String card_image_front,String card_image_back,
-                                                String gender,String invitation_code,
+                                                String gender,
                                                 String card_number,String open_account_name,
                                                 String open_account_province,String open_account_city,
-                                                String bank_id, String craft_id, String crafts,
+                                                String bank_id,  String crafts,
                                                 AsyncHttpResponseHandler
                                                     asyncHttpResponseHandler ) {
 
@@ -329,13 +328,11 @@ public class DataAccessUtil {
         params.put("card_image_front",card_image_front);
         params.put("card_image_back",card_image_back);
         params.put("gender",gender);
-        params.put("invitation_code",invitation_code);
         params.put("card_number",card_number);
         params.put("open_account_name",open_account_name);
         params.put("open_account_province",open_account_province);
         params.put("open_account_city",open_account_city);
         params.put("bank_id",bank_id);
-        params.put("craft_id",craft_id);
         params.put("crafts",crafts);
 
         return doPost(RequestUrl.worker_identify, params, asyncHttpResponseHandler);

@@ -9,6 +9,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -82,6 +83,10 @@ public class InvestorAuthenActivity extends BaseActivity {
 
 	public void initView() {
 		initTitle(null, "返回", "个人认证", null, null);
+		findViewById(R.id.step_line).setVisibility(View.GONE);
+		findViewById(R.id.tv_three).setVisibility(View.GONE);
+		findViewById(R.id.tv_cardBind).setVisibility(View.GONE);
+
 		setStep(0);
 	}
 

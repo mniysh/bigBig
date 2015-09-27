@@ -151,6 +151,15 @@ public class AuthInfo implements Serializable{
     private String publicAccountCityId;
 
 
+    /*=======工人  start*/
+
+    /**
+     * 工种格式[1,2,3]
+     */
+    private String crafts;
+
+
+    /*=======工人  end*/
 
 
 
@@ -417,5 +426,13 @@ public class AuthInfo implements Serializable{
 
     public void setIntroduce(String introduce) {
         this.introduce = introduce;
+    }
+
+    public String getCrafts() {
+        return crafts;
+    }
+
+    public void setCrafts(String crafts) {
+        this.crafts = crafts;
     }
 }

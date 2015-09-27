@@ -68,7 +68,7 @@ public class HeadmanAuthenActivity extends BaseActivity {
 	}
 
 	public void initView() {
-		initTitle(null, "返回", "个人认证", null, null);
+		initTitle(null, "返回", "工长认证", null, null);
 
 	}
 
@@ -79,7 +79,7 @@ public class HeadmanAuthenActivity extends BaseActivity {
 
 		getFragmentManager().beginTransaction().replace(R.id.fl_content, personBaseInfoFragment
 		).commit();
-
+		setStep(0);
 	}
 
 	public void goNext() {

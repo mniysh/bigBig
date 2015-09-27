@@ -11,7 +11,7 @@
         <!-- All customizations that are NOT specific to a particular API-level can go here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorAccent">@color/colorPrimary</item>
     </style>
 
     <style name="FullscreenTheme" parent="AppTheme">
@@ -136,14 +136,14 @@
     <!-- 工人认证-->
 
     <style name="work_type_button_select">
-        <item name="android:layout_weight">3</item>
-        <item name="android:textSize">12sp</item>
+        <item name="android:layout_width">80dp</item>
+        <item name="android:textSize">14sp</item>
         <item name="android:textColor">@color/work_type_selector</item>
         <item name="android:background">@drawable/work_type_selector</item>
         <item name="android:button">@drawable/empty</item>
         <item name="android:gravity">center</item>
-        <item name="android:paddingTop">5dp</item>
-        <item name="android:paddingBottom">5dp</item>
+        <item name="android:paddingTop">10dp</item>
+        <item name="android:paddingBottom">10dp</item>
         <item name="android:layout_marginLeft">10dp</item>
         <item name="android:singleLine">true</item>
 

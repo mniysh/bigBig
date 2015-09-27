@@ -103,4 +103,6 @@ public class Constants {
 	public final static String KEY_TOTAL_REGION = "total_region";
 
 	public final static int KEY_WORK_TYPE = R.drawable.back;
+
+	public final static String KEY_SELECTED_WORKTYPES = "SELECTED_WORKTYPES";
 }
