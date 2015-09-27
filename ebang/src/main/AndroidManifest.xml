@@ -117,13 +117,10 @@
         <activity android:name=".activity.ShowActivity" />
         <activity android:name=".activity.PublishCommentActivity" />
         <activity android:name=".activity.WorkerAuthenActivity" />
-        <activity android:name=".activity.InvestorAuthenticationActivity" />
-        <activity android:name=".activity.DevelopersAuthenActivity" />
         <activity android:name=".activity.NearActivity" />
         <activity android:name=".activity.SettlementActivity" />
         <activity android:name=".activity.QiangDanActivity" />
         <activity android:name=".activity.SubmitSuccessActivity" />
-        <activity android:name=".activity.CertificationSelfActivity" />
         <activity android:name=".activity.CertificationManagerActivity" />
         <activity android:name=".activity.ManagerBackActivity" />
         <activity android:name=".Photo.PhotosActivity" />
@@ -259,14 +256,6 @@
         <activity
             android:name=".activity.PeasantAuthenBackActivity"
             android:label="@string/title_activity_peasant_authen_back" >
-        </activity>
-        <activity
-            android:name=".activity.FactoryAutherIdentityActivity"
-            android:label="@string/title_activity_factory_auther_identity" >
-        </activity>
-        <activity
-            android:name=".activity.FactoryAutherCompleteActivity"
-            android:label="@string/title_activity_factory_auther_bank" >
         </activity>
         <activity
             android:name=".activity.NextPageActivity"

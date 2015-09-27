@@ -15,10 +15,10 @@ import com.ms.ebangw.bean.WorkType;
 import com.ms.ebangw.exception.ResponseException;
 import com.ms.ebangw.utils.L;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -248,10 +248,6 @@ public class DataParseUtil {
                     }
                 }
             }
-
-
-
-
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -278,7 +274,8 @@ public class DataParseUtil {
             if (TextUtils.equals("200", code)) {        //数据正确
                 return true;
             } else {
-                throw new ResponseException(code, message);
+                processData(jsonObject);
+
             }
 
         } catch (JSONException e) {
@@ -303,7 +300,7 @@ public class DataParseUtil {
             if (TextUtils.equals("200", code)) {        //数据正确
                 return jsonObject.optString("data", "");
             } else {
-                throw new ResponseException(code, message);
+                processData(jsonObject);
             }
 
         } catch (JSONException e) {
@@ -330,7 +327,18 @@ public class DataParseUtil {
             if (TextUtils.equals("200", code)) {        //数据正确
                 return jsonObject.getJSONObject("data");
             } else {
-                throw new ResponseException(code, message);
+                JSONObject data = processData(jsonObject);
+                Iterator<String> keys = data.keys();
+                String errorMessage = "";
+                while (keys.hasNext()) {
+                    String next = keys.next();
+                    errorMessage = data.getString(next);
+                }
+                if (TextUtils.isEmpty(errorMessage)) {
+                    throw new ResponseException(code, message);
+                }else {
+                    throw new ResponseException(code, errorMessage);
+                }
             }
 
         } catch (JSONException e) {
@@ -338,26 +346,4 @@ public class DataParseUtil {
         }
         return null;
     }
-
-
-    public static JSONArray processDataArray(JSONObject jsonObject) throws ResponseException {
-        if (null == jsonObject) {
-            L.d(TAG, "processDataArray: json对象为null");
-            return null;
-        }
-        try {
-            String code = jsonObject.getString("code");
-            String message = jsonObject.getString("message");
-            if (TextUtils.equals("200", code)) {        //数据正确
-                return jsonObject.getJSONArray("data");
-            } else {
-                throw new ResponseException(code, message);
-            }
-
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-
-}  
+}
