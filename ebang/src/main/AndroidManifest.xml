@@ -110,7 +110,6 @@
         <activity android:name=".activity.RegisterActivity" />
         <activity android:name=".activity.RegisterActivity_2" />
         <activity android:name=".activity.CommentActivity" />
-        <activity android:name=".userAuthen.UserAuthenActivity" />
         <activity android:name=".activity.RecommendActivity" />
         <activity android:name=".activity.IntroActivity" />
         <activity android:name=".activity.NoticeActivity" />
