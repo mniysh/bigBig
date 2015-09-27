@@ -58,7 +58,7 @@ public class CommentActivity extends BaseActivity implements View.OnClickListene
 		adapter=new CommentActivityAdapter(datas, this);
 		xlistview.setAdapter(adapter);
 		setListView(xlistview);
-		lin_back.setOnClickListener(this);
+		//lin_back.setOnClickListener(this);
 		iv_share.setOnClickListener(this);
 	}
 	//重写listview的高度
