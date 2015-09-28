@@ -178,7 +178,7 @@ public class WorkerBaseInfoFragment extends BaseFragment {
 			types[i] = workTypes.get(i).getId();
 		}
 		if (types.length > 0) {
-			String json = JsonUtil.toJson(types);
+			String json = JsonUtil.createGsonString(types);
 			((WorkerAuthenActivity)mActivity).getAuthInfo().setCrafts(json);
 		}
 	}

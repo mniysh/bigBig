@@ -55,7 +55,7 @@
         android:background="@drawable/bk_but"
         android:text="确定"
         android:textColor="#fff"
-        android:textSize="15dp"
+        android:textSize="14sp"
         />
 
 </LinearLayout>

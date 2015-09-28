@@ -1,4 +1,4 @@
-package com.ms.ebangw.fragment;
+package com.ms.ebangw.release;
 
 
 import android.annotation.TargetApi;
@@ -6,7 +6,6 @@ import android.app.Fragment;
 import android.app.FragmentManager;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,14 +13,16 @@ import android.widget.ListView;
 import android.widget.RadioGroup;
 
 import com.loopj.android.http.JsonHttpResponseHandler;
-import com.ms.ebangw.MyApplication;
 import com.ms.ebangw.R;
 import com.ms.ebangw.adapter.CraftAdapter;
 import com.ms.ebangw.adapter.ReleaseFragmentAdapter;
-import com.ms.ebangw.adapter.ReleaseListAdapter;
 import com.ms.ebangw.bean.Craft;
-import com.ms.ebangw.bean.WorkType;
 import com.ms.ebangw.exception.ResponseException;
+import com.ms.ebangw.fragment.BaseFragment;
+import com.ms.ebangw.fragment.ReleaseBuildingFragment;
+import com.ms.ebangw.fragment.ReleaseDecorateFragment;
+import com.ms.ebangw.fragment.ReleaseOtherFragment;
+import com.ms.ebangw.fragment.ReleaseProjectManageFragment;
 import com.ms.ebangw.service.DataAccessUtil;
 import com.ms.ebangw.service.DataParseUtil;
 import com.ms.ebangw.utils.Utility;
@@ -30,7 +31,6 @@ import org.apache.http.Header;
 import org.json.JSONObject;
 
 import java.lang.reflect.Field;
-import java.util.ArrayList;
 import java.util.List;
 
 /**

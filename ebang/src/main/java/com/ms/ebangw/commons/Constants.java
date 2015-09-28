@@ -105,4 +105,7 @@ public class Constants {
 	public final static int KEY_WORK_TYPE = R.drawable.back;
 
 	public final static String KEY_SELECTED_WORKTYPES = "SELECTED_WORKTYPES";
+
+
+	public final static String KEY_URL = "url";
 }
