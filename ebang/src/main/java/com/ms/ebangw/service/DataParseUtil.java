@@ -14,6 +14,7 @@ import com.ms.ebangw.bean.User;
 import com.ms.ebangw.bean.WorkType;
 import com.ms.ebangw.exception.ResponseException;
 import com.ms.ebangw.utils.L;
+import com.ms.ebangw.utils.T;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -268,8 +269,10 @@ public class DataParseUtil {
             return false;
         }
 
+
         try {
             String code = jsonObject.getString("code");
+            L.d("xxx",jsonObject.getString("code"));
             String message = jsonObject.getString("message");
             if (TextUtils.equals("200", code)) {        //数据正确
                 return true;
@@ -339,6 +342,7 @@ public class DataParseUtil {
                         }
                     }
                 }
+                T.show("用户未登录");
                 if (TextUtils.isEmpty(errorMessage)) {
                     throw new ResponseException(code, message);
                 }else {

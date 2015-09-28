@@ -17,6 +17,7 @@ import com.ms.ebangw.commons.Constants;
 import com.ms.ebangw.exception.ResponseException;
 import com.ms.ebangw.service.DataAccessUtil;
 import com.ms.ebangw.service.DataParseUtil;
+import com.ms.ebangw.utils.L;
 import com.ms.ebangw.utils.T;
 import com.ms.ebangw.utils.VerifyUtils;
 
@@ -134,6 +135,7 @@ public class RegisterActivity extends BaseActivity  {
 				public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
 					try {
 						boolean b = DataParseUtil.messageCode(response);
+						L.d("xxx",b+"b的值");
 						if (b) {
 							T.show("验证码已发送，请注意查收");
 							smsCodeBtn.setPressed(true);
@@ -176,7 +178,10 @@ public class RegisterActivity extends BaseActivity  {
 	@Override
 	protected void onDestroy() {
 		super.onDestroy();
-		countDownTimer.cancel();
+		if(countDownTimer != null){
+			countDownTimer.cancel();
+		}
+
 	}
 }
 

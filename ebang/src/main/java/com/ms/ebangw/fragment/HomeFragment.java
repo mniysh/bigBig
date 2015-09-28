@@ -45,8 +45,8 @@ public class HomeFragment extends BaseFragment implements OnClickListener   {
 	private EditText search;
 	private MyListView mylistview;
 	FragmentManager fm;
-	private int[] images = { R.drawable.linshi, R.drawable.linshi,
-		R.drawable.linshi };// 滑动图片数据
+	private int[] images = { R.drawable.banner_aaa, R.drawable.banner_bb
+		 };// 滑动图片数据
 	private int[] imgclass={R.drawable.home_build,R.drawable.home_zxiu,R.drawable.home_life,R.drawable.home_business};
 	private String[] txtclass = {"建筑","装修","生活","商业"};
 	private List<View> pager;
@@ -124,15 +124,15 @@ public class HomeFragment extends BaseFragment implements OnClickListener   {
 
 
 		v1=act.getLayoutInflater().inflate(R.layout.item_pager_baner, null);
-		((ImageView)v1.findViewById(R.id.item_pager_bager_iv)).setImageResource(R.drawable.linshi);
+		((ImageView)v1.findViewById(R.id.item_pager_bager_iv)).setImageResource(R.drawable.banner_aaa);
 		v2=act.getLayoutInflater().inflate(R.layout.item_pager_baner, null);
-		((ImageView)v2.findViewById(R.id.item_pager_bager_iv)).setImageResource(R.drawable.linshi);
-		v3=act.getLayoutInflater().inflate(R.layout.item_pager_baner, null);
-		((ImageView)v3.findViewById(R.id.item_pager_bager_iv)).setImageResource(R.drawable.linshi);
+		((ImageView)v2.findViewById(R.id.item_pager_bager_iv)).setImageResource(R.drawable.banner_bb);
+//		v3=act.getLayoutInflater().inflate(R.layout.item_pager_baner, null);
+//		((ImageView)v3.findViewById(R.id.item_pager_bager_iv)).setImageResource(R.drawable.linshi);
 
 		pager.add(v1);
 		pager.add(v2);
-		pager.add(v3);
+//		pager.add(v3);
 
 
 	}

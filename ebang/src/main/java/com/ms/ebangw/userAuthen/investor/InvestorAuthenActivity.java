@@ -114,9 +114,9 @@ public class InvestorAuthenActivity extends BaseActivity {
 	 */
 	public void goVerifyBank() {
 
-//		getFragmentManager().beginTransaction().replace(R.id.fl_content,
-//			InvestorBankVerifyFragment.newInstance(category)).addToBackStack
-//			("BankVerifyFragment").commit();
+		getFragmentManager().beginTransaction().replace(R.id.fl_content,
+			InvestorBankVerifyFragment.newInstance(category)).addToBackStack
+			("BankVerifyFragment").commit();
 
 		commit();
 
@@ -229,6 +229,7 @@ public class InvestorAuthenActivity extends BaseActivity {
 						boolean b = DataParseUtil.processDataResult(response);
 						if (b) {
 							T.show("认证成功");
+							InvestorAuthenActivity.this.finish();
 						}
 					} catch (ResponseException e) {
 						e.printStackTrace();

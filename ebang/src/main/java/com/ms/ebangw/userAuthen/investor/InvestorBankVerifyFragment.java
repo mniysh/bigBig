@@ -17,12 +17,15 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.ms.ebangw.MyApplication;
 import com.ms.ebangw.R;
 import com.ms.ebangw.bean.AuthInfo;
+import com.ms.ebangw.bean.Bank;
 import com.ms.ebangw.bean.City;
 import com.ms.ebangw.bean.Province;
 import com.ms.ebangw.bean.TotalRegion;
 import com.ms.ebangw.fragment.BaseFragment;
+import com.ms.ebangw.utils.L;
 import com.ms.ebangw.utils.T;
 
 import java.util.List;
@@ -40,9 +43,12 @@ public class InvestorBankVerifyFragment extends BaseFragment {
     private String category;
     private ViewGroup contentLayout;
     private List<Province> provinces;
+    private List<Bank> banks;
+    private Bank bank;
     private Province province;
     ArrayAdapter<Province> adapter01;
     ArrayAdapter<City> adapter02;
+    ArrayAdapter<Bank> adapterBank;
 
     @Bind(R.id.sp_a)
     Spinner provinceSp;
@@ -111,7 +117,7 @@ public class InvestorBankVerifyFragment extends BaseFragment {
             return false;
         }
 
-        if (!TextUtils.isEmpty(cardId)) {
+        if (TextUtils.isEmpty(cardId)) {
             T.show("请输入银行卡号");
             return false;
         }
@@ -143,8 +149,8 @@ public class InvestorBankVerifyFragment extends BaseFragment {
                 province = provinces.get(position);
 
                 adapter02 = new ArrayAdapter<>(mActivity,
-                    R.layout.layout_spinner_item, provinces.get(
-                    position).getCitys());
+                        R.layout.layout_spinner_item, provinces.get(
+                        position).getCitys());
 
                 citySp.setAdapter(adapter02);
 
@@ -158,6 +164,11 @@ public class InvestorBankVerifyFragment extends BaseFragment {
 
         provinceSp.setSelection(0, true);
         citySp.setSelection(0, true);
+        banks = MyApplication.getInstance().getBanks();
+        if(banks != null){
+            adapterBank=new ArrayAdapter<Bank>(mActivity,R.layout.layout_spinner_item,banks);
+            bankSp.setAdapter(adapterBank);
+        }
 
 
     }
@@ -216,6 +227,7 @@ public class InvestorBankVerifyFragment extends BaseFragment {
         authInfo.setBankId(bankNameId);
         authInfo.setRealName(realName);
         authInfo.setBankCard(cardId);
+        L.d(cardId);
     }
 
     @Override
