@@ -327,12 +327,17 @@ public class DataParseUtil {
             if (TextUtils.equals("200", code)) {        //数据正确
                 return jsonObject.getJSONObject("data");
             } else {
-                JSONObject data = processData(jsonObject);
-                Iterator<String> keys = data.keys();
+                String dataStr = jsonObject.optString("data", "");
                 String errorMessage = "";
-                while (keys.hasNext()) {
-                    String next = keys.next();
-                    errorMessage = data.getString(next);
+                if (!TextUtils.isEmpty(dataStr) && !TextUtils.equals("null", dataStr) && !TextUtils.equals("NULL", dataStr)) {
+                    JSONObject data = jsonObject.getJSONObject("data");
+                    if (data != null) {
+                        Iterator<String> keys = data.keys();
+                        while (keys.hasNext()) {
+                            String next = keys.next();
+                            errorMessage = data.getString(next);
+                        }
+                    }
                 }
                 if (TextUtils.isEmpty(errorMessage)) {
                     throw new ResponseException(code, message);
