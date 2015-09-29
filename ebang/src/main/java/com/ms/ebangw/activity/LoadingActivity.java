@@ -43,7 +43,9 @@ public class LoadingActivity extends BaseActivity {
 			@Override
 			public boolean handleMessage(Message msg) {
 				int what = msg.what;
-				if (100 == what) {
+
+				if (200 == what) {
+					animation.cancel();
 					Intent intent = new Intent(LoadingActivity.this, HomeActivity.class);
 					startActivity(intent);
 					finish();
@@ -135,7 +137,7 @@ public class LoadingActivity extends BaseActivity {
 
 		animation.playTogether(s1, s2, s3);
 		animation.start();
-
+		mHandler.sendEmptyMessageDelayed(200, 2000);
 	}
 
 
