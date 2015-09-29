@@ -132,6 +132,14 @@
         <activity android:name=".userAuthen.developers.DevelopersAuthenActivity" />
         <activity android:name=".userAuthen.headman.HeadmanAuthenActivity" />
 
+        <!--微信回调-->
+        <activity
+            android:name=".wxapi.WXEntryActivity"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:exported="true"
+            android:screenOrientation="portrait" />
+
         <!-- 友盟渠道设置 -->
         <meta-data
             android:name="UMENG_APPKEY"
@@ -255,19 +263,19 @@
         </activity>
         <activity
             android:name=".activity.PeasantAuthenBackActivity"
-            android:label="@string/title_activity_peasant_authen_back" >
+           >
         </activity>
         <activity
             android:name=".activity.NextPageActivity"
-            android:label="@string/title_activity_next_page" >
+             >
         </activity>
         <activity
             android:name=".activity.SettingActivity"
-            android:label="@string/title_activity_setting" >
+             >
         </activity>
         <activity
             android:name=".activity.ModifyNickNameActivity"
-            android:label="@string/title_activity_modify_nick_name" >
+             >
         </activity>
         <activity
             android:name=".activity.ModifyPhoneActivity"

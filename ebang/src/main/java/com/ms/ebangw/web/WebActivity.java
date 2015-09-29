@@ -17,7 +17,7 @@ import com.ms.ebangw.R;
 import com.ms.ebangw.activity.BaseActivity;
 import com.ms.ebangw.bean.User;
 import com.ms.ebangw.commons.Constants;
-import com.ms.ebangw.utils.ShareUtils;
+import com.ms.ebangw.utils.T;
 import com.ms.ebangw.view.ProgressWebView;
 
 public class WebActivity extends BaseActivity {
@@ -47,7 +47,7 @@ public class WebActivity extends BaseActivity {
         initTitle("幸运大转盘", "活动规则", new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onSharedResult(1);
+                onSharedResult(1,1);
             }
         });
         webview = (ProgressWebView) findViewById(R.id.wv_action_web);
@@ -120,15 +120,7 @@ public class WebActivity extends BaseActivity {
 
 
 
-    public void showShareDialog(final ShareInfo shareInfo) {
 
-        if (null == shareInfo){
-            return;
-        }
-
-        ShareUtils.share(this, "幸运大转盘", "http://www.baidu.com","http://b.hiphotos.baidu.com/image/w%3D310/sign=4cc71e290cf41bd5da53eef561db81a0/eac4b74543a98226fe25d2258882b9014b90ebc8.jpg");
-
-    }
 
 
     private class ShareInfo{
@@ -140,16 +132,33 @@ public class WebActivity extends BaseActivity {
 
     /**
      * 分享后回调js
+     * @param platform 1:微信 2：朋友圈 3：新浪微博
      * @param resultCode 0: 失败， 1：成功
      */
-    public void onSharedResult(int resultCode) {
-        webview.loadUrl("javascript:onSharedResult(" + resultCode + ")");
+    public void onSharedResult(int platform, int resultCode) {
+        webview.loadUrl("javascript:onSharedResult(" + platform + "," + resultCode + ")");
     }
 
     class JsObject {
         @JavascriptInterface
-        public void share(int platform) {
-            ShareUtils.share(WebActivity.this, "大开杀戒", getString(R.string.url_download), getString(R.string.url_logo));
+        public void sharePlatform(int platform) {
+
         }
+
+        /**
+         * @param phone
+         */
+        @JavascriptInterface
+        public void dial(String phone) {
+            if (TextUtils.isEmpty(phone)) {
+                T.show("号码不能为空");
+                return;
+            }
+
+            Intent phoneIntent = new Intent("android.intent.action.CALL", Uri.parse("tel:"+ phone));
+            startActivity(phoneIntent);
+
+        }
+
     }
 }
