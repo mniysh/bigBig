@@ -8,6 +8,7 @@ import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.View;
 import android.webkit.DownloadListener;
+import android.webkit.JavascriptInterface;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
@@ -16,11 +17,8 @@ import com.ms.ebangw.R;
 import com.ms.ebangw.activity.BaseActivity;
 import com.ms.ebangw.bean.User;
 import com.ms.ebangw.commons.Constants;
-import com.ms.ebangw.utils.JavascriptBridge;
 import com.ms.ebangw.utils.ShareUtils;
 import com.ms.ebangw.view.ProgressWebView;
-
-import org.json.JSONObject;
 
 public class WebActivity extends BaseActivity {
 
@@ -49,7 +47,7 @@ public class WebActivity extends BaseActivity {
         initTitle("幸运大转盘", "活动规则", new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                onSharedResult(1);
             }
         });
         webview = (ProgressWebView) findViewById(R.id.wv_action_web);
@@ -67,20 +65,7 @@ public class WebActivity extends BaseActivity {
         // 设置web视图客户端
         webview.setDownloadListener(new MyWebViewDownLoadListener(this));
 
-        JavascriptBridge jsb = new JavascriptBridge(webview);
-        jsb.addJavaMethod("share2Wechat", new JavascriptBridge.Function() {
-            @Override
-            public Object execute(JSONObject params) {
-//                showToast("分享： " + params.toString());
-                ShareInfo shareInfo = new ShareInfo();
-                shareInfo.title = params.optString("title");
-                shareInfo.imageUrl = params.optString("imgUrl");
-                shareInfo.desc = params.optString("desc");
-                shareInfo.link = params.optString("link");
-                showShareDialog(shareInfo);
-                return null;
-            }
-        });
+        webview.addJavascriptInterface(new JsObject(), "share");
 
     }
 
@@ -151,5 +136,20 @@ public class WebActivity extends BaseActivity {
         String desc;
         String link;
         String imageUrl;
+    }
+
+    /**
+     * 分享后回调js
+     * @param resultCode 0: 失败， 1：成功
+     */
+    public void onSharedResult(int resultCode) {
+        webview.loadUrl("javascript:onSharedResult(" + resultCode + ")");
+    }
+
+    class JsObject {
+        @JavascriptInterface
+        public void share(int platform) {
+            ShareUtils.share(WebActivity.this, "大开杀戒", getString(R.string.url_download), getString(R.string.url_logo));
+        }
     }
 }
