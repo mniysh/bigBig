@@ -38,6 +38,8 @@ android {
             jniLibs.srcDir 'libs'           //处理.so库
         }
     }
+
+
 }
 
 dependencies {

@@ -21,6 +21,7 @@ import com.ms.ebangw.service.DataParseUtil;
 import com.ms.ebangw.utils.L;
 import com.ms.ebangw.utils.T;
 import com.ms.ebangw.utils.VerifyUtils;
+import com.ms.ebangw.web.WebActivity;
 
 import org.apache.http.Header;
 import org.json.JSONObject;
@@ -139,11 +140,14 @@ public class LoginActivity extends BaseActivity{
                         L.d("xxx", "user的内容登录部分的" + MyApplication.getInstance().saveUser(user));
                         L.d("xxx", "user的内容登录部分的" + user.toString());
                         //跳转到主页
-                        Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
-                        Bundle bundle = new Bundle();
-                        bundle.putSerializable(Constants.KEY_USER, user);
-                        intent.putExtras(bundle);
-                        startActivity(intent);
+//                        Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
+//                        Bundle bundle = new Bundle();
+//                        bundle.putSerializable(Constants.KEY_USER, user);
+//                        intent.putExtras(bundle);
+
+                        Intent lotteryIntent = new Intent(LoginActivity.this, WebActivity.class);
+                        lotteryIntent.putExtra(Constants.KEY_URL, getString(R.string.url_lottery));
+                        startActivity(lotteryIntent);
                         finish();
 
                     }else {

@@ -9,9 +9,13 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 
+import com.ms.ebangw.MyApplication;
 import com.ms.ebangw.R;
+import com.ms.ebangw.bean.User;
+import com.ms.ebangw.commons.Constants;
 import com.ms.ebangw.utils.DensityUtils;
 import com.ms.ebangw.view.Circle;
+import com.ms.ebangw.web.WebActivity;
 
 import butterknife.ButterKnife;
 
@@ -46,8 +50,18 @@ public class LoadingActivity extends BaseActivity {
 
 				if (200 == what) {
 					animation.cancel();
-					Intent intent = new Intent(LoadingActivity.this, HomeActivity.class);
-					startActivity(intent);
+//					Intent intent = new Intent(LoadingActivity.this, HomeActivity.class);
+//					startActivity(intent);
+					User user = MyApplication.getInstance().getUser();
+					if (null != user) {
+						Intent lotteryIntent = new Intent(LoadingActivity.this, WebActivity.class);
+						lotteryIntent.putExtra(Constants.KEY_URL, getString(R.string.url_lottery));
+						startActivity(lotteryIntent);
+					}else {
+						startActivity(new Intent(LoadingActivity.this, LoginActivity.class));
+					}
+
+
 					finish();
 				}
 				return false;

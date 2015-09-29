@@ -11,19 +11,25 @@ import android.webkit.DownloadListener;
 import android.webkit.JavascriptInterface;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.Toast;
 
 import com.ms.ebangw.MyApplication;
 import com.ms.ebangw.R;
 import com.ms.ebangw.activity.BaseActivity;
 import com.ms.ebangw.bean.User;
 import com.ms.ebangw.commons.Constants;
+import com.ms.ebangw.utils.L;
 import com.ms.ebangw.utils.ShareUtils;
+import com.ms.ebangw.utils.T;
 import com.ms.ebangw.view.ProgressWebView;
+import com.umeng.socialize.bean.SHARE_MEDIA;
+import com.umeng.socialize.bean.SocializeEntity;
+import com.umeng.socialize.bean.StatusCode;
+import com.umeng.socialize.controller.listener.SocializeListeners;
 
 public class WebActivity extends BaseActivity {
 
     private ProgressWebView webview;
-
     /**
      * 访问URL
      */
@@ -34,9 +40,7 @@ public class WebActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_web);
-
         initData();
 
         initView();
@@ -47,7 +51,7 @@ public class WebActivity extends BaseActivity {
         initTitle("幸运大转盘", "活动规则", new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onSharedResult(1);
+                onSharedResult(1,1);
             }
         });
         webview = (ProgressWebView) findViewById(R.id.wv_action_web);
@@ -58,7 +62,7 @@ public class WebActivity extends BaseActivity {
         webview.requestFocus();
         webview.getSettings().setDefaultTextEncodingName("utf-8");
         user = MyApplication.instance.getUser();
-        if (!TextUtils.isEmpty(url)) {
+        if (!TextUtils.isEmpty(url) && null != user) {
 
             webview.loadUrl(url+ "?id=" + user.getId() + "&app_token=" + user.getApp_token());
         }
@@ -140,16 +144,82 @@ public class WebActivity extends BaseActivity {
 
     /**
      * 分享后回调js
+     * @param platform 1:微信 2：朋友圈 3：新浪微博
      * @param resultCode 0: 失败， 1：成功
      */
-    public void onSharedResult(int resultCode) {
-        webview.loadUrl("javascript:onSharedResult(" + resultCode + ")");
+    public void onSharedResult(int platform, int resultCode) {
+        webview.loadUrl("javascript:onSharedResult(" + platform + "," + resultCode + ")");
     }
 
     class JsObject {
         @JavascriptInterface
-        public void share(int platform) {
-            ShareUtils.share(WebActivity.this, "大开杀戒", getString(R.string.url_download), getString(R.string.url_logo));
+        public void sharePlatform(final int platform) {
+//            ShareUtils.share(WebActivity.this, "大开杀戒", getString(R.string.url_lottery), getString(R.string.url_logo));
+
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    directShare(platform);
+                }
+            });
+
+        }
+
+        /**
+         * @param phone
+         */
+        @JavascriptInterface
+        public void dial(String phone) {
+            if (TextUtils.isEmpty(phone)) {
+                T.show("号码不能为空");
+                return;
+            }
+
+            Intent phoneIntent = new Intent("android.intent.action.CALL", Uri.parse("tel:"+ phone));
+            startActivity(phoneIntent);
+
+        }
+
+        public void directShare(int platform) {
+            SHARE_MEDIA share_media;
+            if (platform == 1) {
+                share_media = SHARE_MEDIA.WEIXIN;
+            }else if (platform == 2) {
+                share_media = SHARE_MEDIA.WEIXIN_CIRCLE;
+            }else {
+                share_media = SHARE_MEDIA.SINA;
+            }
+
+            ShareUtils.directShare(WebActivity.this, share_media, new SocializeListeners.SnsPostListener() {
+
+                @Override
+                public void onStart() {
+                    L.d("Share: onStart");
+                }
+
+                @Override
+                public void onComplete(SHARE_MEDIA platform, final int eCode, SocializeEntity entity) {
+                    L.d("Share: onComplete");
+                    String showText = "分享成功";
+                    if (eCode != StatusCode.ST_CODE_SUCCESSED) {
+                        showText = "分享失败 [" + eCode + "]";
+                    }
+                    Toast.makeText(WebActivity.this, showText, Toast.LENGTH_SHORT).show();
+
+                    final int p;
+                    if(platform == SHARE_MEDIA.WEIXIN){
+                        p = 1;
+                    }else if (platform == SHARE_MEDIA.WEIXIN_CIRCLE) {
+                        p = 2;
+                    } else {
+                        p = 3;
+                    }
+
+                    onSharedResult(p, eCode == StatusCode.ST_CODE_SUCCESSED ? 1 : 0);
+
+                }
+
+            });
         }
     }
 }
