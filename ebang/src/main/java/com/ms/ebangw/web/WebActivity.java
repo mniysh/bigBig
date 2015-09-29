@@ -51,7 +51,7 @@ public class WebActivity extends BaseActivity {
         initTitle("幸运大转盘", "活动规则", new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onSharedResult(1,1);
+                onSharedResult(1, 1);
             }
         });
         webview = (ProgressWebView) findViewById(R.id.wv_action_web);
@@ -72,6 +72,16 @@ public class WebActivity extends BaseActivity {
         webview.addJavascriptInterface(new JsObject(), "share");
 
     }
+
+//    @Override
+//    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+//        super.onActivityResult(requestCode, resultCode, data);
+//        /**使用SSO授权必须添加如下代码 */
+//        UMSsoHandler ssoHandler = ShareUtils.mController.getConfig().getSsoHandler(requestCode) ;
+//        if(ssoHandler != null){
+//            ssoHandler.authorizeCallBack(requestCode, resultCode, data);
+//        }
+//    }
 
     @Override
     // 设置回退
@@ -184,9 +194,9 @@ public class WebActivity extends BaseActivity {
             SHARE_MEDIA share_media;
             if (platform == 1) {
                 share_media = SHARE_MEDIA.WEIXIN;
-            }else if (platform == 2) {
+            } else if (platform == 2) {
                 share_media = SHARE_MEDIA.WEIXIN_CIRCLE;
-            }else {
+            } else {
                 share_media = SHARE_MEDIA.SINA;
             }
 
@@ -207,7 +217,7 @@ public class WebActivity extends BaseActivity {
                     Toast.makeText(WebActivity.this, showText, Toast.LENGTH_SHORT).show();
 
                     final int p;
-                    if(platform == SHARE_MEDIA.WEIXIN){
+                    if (platform == SHARE_MEDIA.WEIXIN){
                         p = 1;
                     }else if (platform == SHARE_MEDIA.WEIXIN_CIRCLE) {
                         p = 2;

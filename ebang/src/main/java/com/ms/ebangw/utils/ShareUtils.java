@@ -26,7 +26,7 @@ import com.umeng.socialize.weixin.media.WeiXinShareContent;
  * 2015-09-15 16:04
  */
 public class ShareUtils {
-    private static final UMSocialService mController = UMServiceFactory.getUMSocialService(Constants
+    public static final UMSocialService mController = UMServiceFactory.getUMSocialService(Constants
         .DESCRIPTOR);
 
     // 配置需要分享的相关平台
@@ -104,8 +104,10 @@ public class ShareUtils {
     private static void addSinaPlatform(Activity activity) {
         String appId = "250536578";
         String appSecret = "33d07f4f624541337ee8311cd90ff459";
-        SinaSsoHandler sinaSsoHandler = new SinaSsoHandler();
-        sinaSsoHandler.addToSocialSDK();
+//        SinaSsoHandler sinaSsoHandler = new SinaSsoHandler();
+//        sinaSsoHandler.addToSocialSDK();
+        //设置新浪SSO handler
+        mController.getConfig().setSsoHandler(new SinaSsoHandler());
     }
 
 
@@ -234,7 +236,7 @@ public class ShareUtils {
                                    SocializeListeners.SnsPostListener listener) {
 
         addWXPlatform(activity);
-//        addSinaPlatform(activity);
+        addSinaPlatform(activity);
 
 
         String title = "淼森次元";
@@ -261,11 +263,14 @@ public class ShareUtils {
 
         //设置新浪微博分享的内容
         SinaShareContent sinaShareContent = new SinaShareContent();
-        sinaShareContent.setShareContent(shareContent);
+        sinaShareContent.setShareContent(shareContent + targetUrl);
         sinaShareContent.setTitle(title);
         sinaShareContent.setShareImage(umImage);
         sinaShareContent.setTargetUrl(targetUrl);
+        mController.setShareMedia(sinaShareContent);
 
         mController.directShare(activity, share_media, listener);
     }
+
+
 }  
