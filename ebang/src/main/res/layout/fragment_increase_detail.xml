@@ -110,6 +110,52 @@
         </LinearLayout>
 
         <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/authen_item_height"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            >
+
+            <TextView
+                style="@style/authorization_text"
+                android:layout_height="wrap_content"
+                android:text="支付类型: "
+                />
+
+
+            <RadioGroup
+                android:id="@+id/rg_type"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:orientation="horizontal"
+                >
+
+                <RadioButton
+                    android:id="@+id/rb_month"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:button="@drawable/check_selec"
+                    android:checked="true"
+                    android:text="月结"
+                    android:textSize="@dimen/authen_item_text"
+                    />
+
+                <RadioButton
+                    android:id="@+id/rb_day"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:button="@drawable/check_selec"
+                    android:text="日结"
+                    android:textSize="@dimen/authen_item_text"
+                    />
+            </RadioGroup>
+        </LinearLayout>
+
+
+        <LinearLayout
             android:id="@+id/ll_introduce"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -257,7 +303,7 @@
                 >
 
                 <Button
-                    android:id="@+id/btn_select_front"
+                    android:id="@+id/btn_pick"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="20dp"
@@ -268,7 +314,7 @@
                     />
 
                 <Button
-                    android:id="@+id/btn_photo_front"
+                    android:id="@+id/btn_camera"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="#E25802"

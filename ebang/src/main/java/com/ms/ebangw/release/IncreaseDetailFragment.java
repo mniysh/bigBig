@@ -1,17 +1,26 @@
 package com.ms.ebangw.release;
 
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.RadioGroup;
 
 import com.ms.ebangw.R;
 import com.ms.ebangw.activity.HomeActivity;
 import com.ms.ebangw.bean.Province;
+import com.ms.ebangw.commons.Constants;
 import com.ms.ebangw.fragment.BaseFragment;
 import com.ms.ebangw.view.ProvinceAndCityView;
 
+import java.io.File;
 import java.util.List;
 
 import butterknife.Bind;
@@ -29,8 +38,24 @@ public class IncreaseDetailFragment extends BaseFragment {
     private String mParam1;
     private String mParam2;
     private ViewGroup contentLayout;
+    private File imageFile;
     @Bind(R.id.pac)
     ProvinceAndCityView provinceAndCityView;
+    @Bind(R.id.et_detail_address)
+    EditText detailAddressEt;
+    @Bind(R.id.et_title)
+    EditText titleEt;
+    @Bind(R.id.et_name)
+    EditText nameEt;
+    @Bind(R.id.et_phone)
+    EditText phoneEt;
+    @Bind(R.id.btn_pick)
+    Button pickBtn;
+    @Bind(R.id.btn_camera)
+    Button cameraBtn;
+    @Bind(R.id.rg_type)
+    RadioGroup typeRg;
+
 
     public static IncreaseDetailFragment newInstance(String param1, String param2) {
         IncreaseDetailFragment fragment = new IncreaseDetailFragment();
@@ -69,7 +94,7 @@ public class IncreaseDetailFragment extends BaseFragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        initTitle("发布");
+        initTitle("填写信息");
     }
 
 
@@ -86,8 +111,39 @@ public class IncreaseDetailFragment extends BaseFragment {
 
     }
 
+    /*** 打开照相机     */
+    public void openCamera(){
+        Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        File file = new File(Environment.getExternalStorageDirectory() + "/Images");
+        if(!file.exists()){
+            file.mkdirs();
+        }
+        imageFile = new File(Environment.getExternalStorageDirectory() + "/Images/",
+            "cameraImg" + String.valueOf(System.currentTimeMillis()) + ".png");
+
+        Uri mUri = Uri.fromFile(imageFile);
+        cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, mUri);
+        cameraIntent.putExtra("return-data", true);
+        startActivityForResult(cameraIntent, Constants.REQUEST_CAMERA);
+    }
+
+    public void setDeveloperReleaseInfo() {
+
+        //性别
+        int checkId = typeRg.getCheckedRadioButtonId();
+        String type = Constants.MONTH;
+        if (checkId == R.id.rb_month) {
+            type =  Constants.MONTH;
+        }else {
+            type =  Constants.DAY;
+        }
+    }
+
+    /**
+     * 开发商发布
+     */
     @OnClick(R.id.btn_release)
-    public void release() {
+    public void developerRelease() {
 
     }
 
