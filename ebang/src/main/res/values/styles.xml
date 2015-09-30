@@ -150,7 +150,43 @@
         <item name="android:layout_marginLeft">10dp</item>
         <item name="android:singleLine">true</item>
 
+    </style>
+
+    <!--发布  start-->
+    <style name="release_work_type_button">
+        <item name="android:layout_width">60dp</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">@color/work_type_selector</item>
+        <item name="android:background">@drawable/work_type_selector</item>
+        <item name="android:button">@drawable/empty</item>
+        <item name="android:gravity">center</item>
+        <item name="android:paddingTop">5dp</item>
+        <item name="android:paddingBottom">5dp</item>
+        <item name="android:layout_marginLeft">5dp</item>
+        <item name="android:singleLine">true</item>
 
     </style>
 
+    <style name="release_select_dialog_text">
+        <item name="android:layout_width">80dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/auth_description</item>
+        <item name="android:textSize">@dimen/authen_item_text</item>
+        <item name="android:padding">5dp</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:gravity">right|center_vertical</item>
+        <item name="android:layout_gravity">center_vertical</item>
+    </style>
+    <style name="release_select_dialog_edit">
+        <item name="android:layout_width">80dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/auth_description</item>
+        <item name="android:textSize">@dimen/authen_item_text</item>
+        <item name="android:padding">5dp</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:background">@drawable/border_gray</item>
+        <item name="android:layout_gravity">center_vertical</item>
+    </style>
+
+    <!--发布  start-->
 </resources>

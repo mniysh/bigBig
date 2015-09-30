@@ -124,7 +124,7 @@ public class DevelopersAuthenActivity extends BaseActivity {
 			file.mkdirs();
 		}
 		imageFile = new File(Environment.getExternalStorageDirectory() + "/Images/",
-			"cameraImg" + String.valueOf(System.currentTimeMillis()) + ".jpg");
+			"cameraImg" + String.valueOf(System.currentTimeMillis()) + ".png");
 
 		Uri mUri = Uri.fromFile(imageFile);
 		cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, mUri);

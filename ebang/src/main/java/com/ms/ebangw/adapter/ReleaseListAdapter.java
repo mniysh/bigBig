@@ -1,7 +1,5 @@
 package com.ms.ebangw.adapter;
 
-import android.app.Activity;
-import android.app.Fragment;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -9,10 +7,7 @@ import android.widget.TextView;
 
 import com.ms.ebangw.R;
 import com.ms.ebangw.activity.HomeActivity;
-import com.ms.ebangw.bean.Craft;
-import com.ms.ebangw.bean.ReleaseWorkType;
 import com.ms.ebangw.bean.WorkType;
-import com.ms.ebangw.fragment.ReleaseFragment;
 import com.ms.ebangw.view.ViewHolder;
 
 import java.util.List;

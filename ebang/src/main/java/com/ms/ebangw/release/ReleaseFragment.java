@@ -1,4 +1,4 @@
-package com.ms.ebangw.fragment;
+package com.ms.ebangw.release;
 
 import android.app.DatePickerDialog;
 import android.app.DatePickerDialog.OnDateSetListener;
@@ -21,6 +21,7 @@ import android.widget.Spinner;
 import com.ms.ebangw.R;
 import com.ms.ebangw.adapter.ProvinceAdapter;
 import com.ms.ebangw.bean.PostMeassge;
+import com.ms.ebangw.fragment.BaseFragment;
 import com.ms.ebangw.utils.T;
 
 import java.text.SimpleDateFormat;
@@ -59,12 +60,10 @@ public class ReleaseFragment extends BaseFragment implements OnClickListener, On
 
     @Override
 	public void onCreate(Bundle savedInstanceState) {
-		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 	}
 	@Override
 	public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-		// TODO Auto-generated method stub
 		super.onActivityCreated(savedInstanceState);
 		initView();
 		initData();

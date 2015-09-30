@@ -108,7 +108,6 @@
 
     <string name="hello_world">Hello world!</string>
 
-
 	 <!--极光推送 ===start-->
 
 	 <string name="hello">Hello World, JPush!</string>
@@ -129,17 +128,10 @@
 
 
 	 <!--Url   ==  start -->
-	 <string name="url_download">www.ebngw.com/front/app/download</string>
-    <string name="title_activity_peasant_authen_back">PeasantAuthenBackActivity</string>
-    <string name="title_activity_factory_auther_identity">FactoryAutherIdentityActivity</string>
-    <string name="title_activity_factory_auther_bank">FactoryAutherBankActivity</string>
-    <string name="title_activity_next_page">NextPageActivity</string>
-    <string name="title_activity_setting">SettingActivity</string>
-    <string name="title_activity_modify_nick_name">ModifyNickNameActivity</string>
-    <string name="title_activity_modify_phone">ModifyPhoneActivity</string>
-    <string name="title_activity_modify_password_avtivity">ModifyPasswordAvtivity</string>
-    <string name="title_activity_modif_phone02">ModifPhone02Activity</string>
-    <string name="title_activity_message_center">MessageCenterActivit</string>	<!--下载链接-->
+	 <string name="url_download">www.ebngw.com/front/app/download</string> <!--下载链接-->
+	 <string name="url_logo">http://www.ebngw.com/front/images/logo_last.png</string> <!--logo链接-->
+
+
 
 	 <!--Url   ==  end -->
 

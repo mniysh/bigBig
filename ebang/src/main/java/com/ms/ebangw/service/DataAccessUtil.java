@@ -512,24 +512,24 @@ public class DataAccessUtil {
             mClient.cancelAllRequests(true);
     }
 
-    /**
-     * 上传:Post方式
-     */
-    public static void upLoad(String url, File file) {
-
-        if (!NetUtils.isConnected(MyApplication.getInstance())) {
-            T.show("网络异常");
-            return ;
-        }
-        initAsyncHttpClient();
-        File myFile = new File("/path/to/file.png");
-        RequestParams params = new RequestParams();
-        try {
-            params.put("profile_picture", myFile);
-        } catch(FileNotFoundException e) {
-            e.printStackTrace();
-        }
-    }
+//    /**
+//     * 上传:Post方式
+//     */
+//    public static void upLoad(String url, File file) {
+//
+//        if (!NetUtils.isConnected(MyApplication.getInstance())) {
+//            T.show("网络异常");
+//            return ;
+//        }
+//        initAsyncHttpClient();
+//        File myFile = new File("/path/to/file.png");
+//        RequestParams params = new RequestParams();
+//        try {
+//            params.put("profile_picture", myFile);
+//        } catch(FileNotFoundException e) {
+//            e.printStackTrace();
+//        }
+//    }
 
     /**
      * 上传图片:Post方式
@@ -544,7 +544,7 @@ public class DataAccessUtil {
         initAsyncHttpClient();
         RequestParams params = new RequestParams();
         try {
-            params.put("image", imageFile);
+            params.put("image", imageFile, "image/png");
             params = addCommonParams(params);
             mClient.post(RequestUrl.upload_image, params, asyncHttpResponseHandler);
         } catch (FileNotFoundException e) {

@@ -71,7 +71,6 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
     public synchronized Dao getDao(Class clazz) throws SQLException {
         Dao dao = null;
         String className = clazz.getSimpleName();
-
         if (daos.containsKey(className)) {
             dao = daos.get(className);
         }
