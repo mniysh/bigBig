@@ -80,8 +80,8 @@ public class ReleaseCraftAdapter extends BaseAdapter {
             holder = (ViewHolder) convertView.getTag();
         }
         WorkType workType = list.get(position);
+        List<WorkType> types = workType.getWorkTypes();
         if (getType() == 1) {
-            List<WorkType> types = workType.getWorkTypes();
             holder.titleTv.setVisibility(View.GONE);
             ReleaseCraftGridViewAdapter craftGridViewAdapter = new ReleaseCraftGridViewAdapter(fm, types);
             holder.gridView.setAdapter(craftGridViewAdapter);
@@ -89,7 +89,6 @@ public class ReleaseCraftAdapter extends BaseAdapter {
         }
 
         if (getType() == 2) {
-            List<WorkType> types = workType.getWorkTypes();
             for (int i = 0; i < types.size(); i++) {
                 holder.titleTv.setVisibility(View.VISIBLE);
                 holder.titleTv.setText(workType.getName());
@@ -97,9 +96,6 @@ public class ReleaseCraftAdapter extends BaseAdapter {
                 holder.gridView.setAdapter(craftGridViewAdapter);
             }
         }
-
-
-
         return convertView;
     }
 

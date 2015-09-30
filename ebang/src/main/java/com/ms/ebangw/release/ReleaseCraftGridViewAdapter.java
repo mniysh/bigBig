@@ -8,13 +8,15 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 
 import com.ms.ebangw.R;
-import com.ms.ebangw.bean.SelectedWorkTypeInfo;
 import com.ms.ebangw.bean.WorkType;
 import com.ms.ebangw.commons.Constants;
 import com.ms.ebangw.dialog.SelectWorTypeDialog;
+import com.ms.ebangw.event.OnCheckedWorkTypeEvent;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import de.greenrobot.event.EventBus;
 
 /**
  * 发布界面选择工种
@@ -52,7 +54,7 @@ public class ReleaseCraftGridViewAdapter extends BaseAdapter{
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         WorkType workType = list.get(position);
-        CheckBox cb = (CheckBox) View.inflate(parent.getContext(), R.layout
+        final CheckBox cb = (CheckBox) View.inflate(parent.getContext(), R.layout
             .layout_craft_gridview_item, null);
         cb.setText(workType.getName());
         cb.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -60,10 +62,11 @@ public class ReleaseCraftGridViewAdapter extends BaseAdapter{
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 WorkType type = (WorkType) buttonView.getTag(Constants.KEY_WORK_TYPE);
                 if (isChecked) {
-                    showSelectWorkTypeDialog(type);
+                    showSelectWorkTypeDialog(cb, type);
                     selectedWorkTypes.add(type);
                 } else {
                     selectedWorkTypes.remove(type);
+                    EventBus.getDefault().post(new OnCheckedWorkTypeEvent(type, false));
                 }
             }
         });
@@ -71,15 +74,18 @@ public class ReleaseCraftGridViewAdapter extends BaseAdapter{
         return cb;
     }
 
-    public void showSelectWorkTypeDialog(WorkType workType) {
+    public void showSelectWorkTypeDialog(final CheckBox cb, WorkType workType) {
         SelectWorTypeDialog dialog = SelectWorTypeDialog.newInstance(workType);
-        dialog.setWorkTypeSelectedListener(new SelectWorTypeDialog.OnWorkTypeSelectedListener() {
+        dialog.setOnStaffSelectedListener(new SelectWorTypeDialog.OnStaffSelectedListener() {
             @Override
-            public void onWorkTypeSelected(WorkType workType, SelectedWorkTypeInfo info) {
-
+            public void onStaffSelected(WorkType workType, boolean isSelected) {
+                if (isSelected) {
+                    EventBus.getDefault().post(new OnCheckedWorkTypeEvent(workType, isSelected));
+                }else {
+                    cb.toggle();
+                }
             }
         });
-
         dialog.show(fm, "workType");
     }
 

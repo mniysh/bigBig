@@ -4,7 +4,6 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.text.TextUtils;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -18,6 +17,7 @@ public class WorkType implements Parcelable {
     private String name;
 
     private List<WorkType> workTypes;
+    private Staff staff;
 
     public String getId() {
         return id;
@@ -62,6 +62,14 @@ public class WorkType implements Parcelable {
         }
     }
 
+    public Staff getStaff() {
+        return staff;
+    }
+
+    public void setStaff(Staff staff) {
+        this.staff = staff;
+    }
+
 
     @Override
     public int describeContents() {
@@ -73,7 +81,8 @@ public class WorkType implements Parcelable {
         dest.writeString(this.id);
         dest.writeString(this.fid);
         dest.writeString(this.name);
-        dest.writeList(this.workTypes);
+        dest.writeTypedList(workTypes);
+        dest.writeParcelable(this.staff, flags);
     }
 
     public WorkType() {
@@ -83,11 +92,11 @@ public class WorkType implements Parcelable {
         this.id = in.readString();
         this.fid = in.readString();
         this.name = in.readString();
-        this.workTypes = new ArrayList<WorkType>();
-        in.readList(this.workTypes, List.class.getClassLoader());
+        this.workTypes = in.createTypedArrayList(WorkType.CREATOR);
+        this.staff = in.readParcelable(Staff.class.getClassLoader());
     }
 
-    public static final Parcelable.Creator<WorkType> CREATOR = new Parcelable.Creator<WorkType>() {
+    public static final Creator<WorkType> CREATOR = new Creator<WorkType>() {
         public WorkType createFromParcel(Parcel source) {
             return new WorkType(source);
         }

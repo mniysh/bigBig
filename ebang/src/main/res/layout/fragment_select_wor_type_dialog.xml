@@ -26,6 +26,7 @@
             android:id="@+id/et_price"
             style="@style/release_select_dialog_edit"
             android:inputType="number"
+            android:maxLength="5"
             />
 
         <TextView
@@ -33,6 +34,7 @@
             style="@style/release_select_dialog_text"
             android:text="元/天"
             android:inputType="number"
+            android:maxLength="5"
             />
 
 

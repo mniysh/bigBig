@@ -1,0 +1,300 @@
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:divider="@drawable/divider_line_gray"
+        android:orientation="vertical"
+        android:showDividers="middle"
+        tools:context="com.ms.ebangw.release.IncreaseDetailFragment">
+
+        <include layout="@layout/layout_common_title"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/authen_item_height"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            >
+
+            <TextView
+                android:id="@+id/tv_a"
+                style="@style/authorization_text"
+                android:layout_height="wrap_content"
+                android:text="区域: "
+                />
+
+            <com.ms.ebangw.view.ProvinceAndCityView
+                android:id="@+id/pac"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/authen_item_height"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            >
+
+            <TextView
+                android:id="@+id/tv_b"
+                style="@style/authorization_text"
+                android:layout_height="wrap_content"
+                android:text="详细地址："
+                />
+
+
+            <EditText
+                android:id="@+id/et_address"
+                style="@style/authorization_edit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint=""
+                android:textColorHint="@color/auth_hint"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/authen_item_height"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            >
+
+            <TextView
+                android:id="@+id/tv_c"
+                style="@style/authorization_text"
+                android:layout_height="wrap_content"
+                android:text="具体地址："
+                />
+
+
+            <EditText
+                android:id="@+id/et_detail_address"
+                style="@style/authorization_edit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="请输入具体地址"
+                android:textColorHint="@color/auth_hint"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/authen_item_height"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            >
+
+            <TextView
+                android:id="@+id/tv_d"
+                style="@style/authorization_text"
+                android:layout_height="wrap_content"
+                android:text="标题："
+                />
+
+
+            <EditText
+                android:id="@+id/et_title"
+                style="@style/authorization_edit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="请输入标题"
+                android:textColorHint="@color/auth_hint"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_introduce"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingBottom="10dp"
+            >
+
+            <TextView
+                android:id="@+id/tv_e"
+                style="@style/authorization_text"
+                android:layout_height="wrap_content"
+                android:text="内容: "
+                />
+
+
+            <EditText
+                android:id="@+id/et_introduce"
+                style="@style/authorization_edit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginBottom="5dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/border_gray"
+                android:minHeight="60dp"
+                android:textColorHint="@color/auth_hint"
+                />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/authen_item_height"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            >
+
+            <TextView
+                android:id="@+id/tv_f"
+                style="@style/authorization_text"
+                android:layout_height="wrap_content"
+                android:text="联系人："
+                />
+
+
+            <EditText
+                android:id="@+id/et_name"
+                style="@style/authorization_edit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="请输入联系人"
+                android:textColorHint="@color/auth_hint"
+                />
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/authen_item_height"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            >
+
+            <TextView
+                android:id="@+id/tv_g"
+                style="@style/authorization_text"
+                android:layout_height="wrap_content"
+                android:text="*手机号: "
+                />
+
+
+            <EditText
+                android:id="@+id/et_phone"
+                style="@style/authorization_edit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:hint="请输入联系电话"
+                android:inputType="phone"
+                android:maxLength="11"
+                android:textColorHint="@color/auth_hint"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+
+            >
+
+            <TextView
+                android:id="@+id/tv_h"
+                style="@style/authorization_text"
+                android:layout_height="wrap_content"
+                android:text="上传照片: "
+                />
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="10dp"
+                >
+
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/upload_picture"
+
+                    />
+
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_weight="1"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/upload_picture"
+                    />
+
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/upload_picture"
+                    />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="15dp"
+                android:layout_marginLeft="30dp"
+                android:gravity="center"
+                android:orientation="horizontal"
+
+                >
+
+                <Button
+                    android:id="@+id/btn_select_front"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="20dp"
+                    android:background="@color/titleBar_bg"
+                    android:padding="10dp"
+                    android:text="上传照片"
+                    android:textColor="#fff"
+                    />
+
+                <Button
+                    android:id="@+id/btn_photo_front"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="#E25802"
+                    android:text="拍照"
+                    android:textColor="#fff"
+
+                    />
+
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+        <Button
+            android:id="@+id/btn_release"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/bk_but"
+            android:text="发布信息"
+            android:textColor="#fff"
+            android:textSize="15dp"
+            />
+    </LinearLayout>
+</ScrollView>

@@ -112,7 +112,6 @@ public class InvestorBaseInfoFragment extends BaseFragment {
 		adapter01 = new ArrayAdapter<>(mActivity,
 			R.layout.layout_spinner_item, provinces);
 
-
 		provinceSp.setAdapter(adapter01);
 		provinceSp.setSelection(0, true);
 
