@@ -40,7 +40,6 @@ public abstract class BaseActivity extends AppCompatActivity {
         bar.hide();
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN |
             WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
-//        makeKeyboard();
         MyApplication.unDestroyActivityList.add(this);
 
     }
@@ -168,9 +167,6 @@ public abstract class BaseActivity extends AppCompatActivity {
             mLoadingDialog.dismiss();
         }
         MyApplication.unDestroyActivityList.remove(this);
-
-//            makeKeyboard();
-//
     }
 
     public User getUser() {
@@ -194,16 +190,9 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onStart() {
-        super.onStart();
-//        makeKeyboard();
-    }
-
-    @Override
     public void onResume() {
         super.onResume();
         MobclickAgent.onResume(this);
-//        makeKeyboard();
     }
 
     @Override
@@ -214,21 +203,6 @@ public abstract class BaseActivity extends AppCompatActivity {
         }
         MobclickAgent.onPause(this);
     }
-
-    /**
-     * 控制软键盘
-     */
-    public void makeKeyboard(){
-
-        final View v = getWindow().peekDecorView();
-        if (v != null && v.getWindowToken() != null) {
-            InputMethodManager imm = (InputMethodManager)getSystemService(INPUT_METHOD_SERVICE);
-            imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
-        }
-
-
-    }
-
 
 
 }
