@@ -213,6 +213,7 @@ public class HeadmanAuthenActivity extends BaseActivity {
 						boolean b = DataParseUtil.processDataResult(response);
 						if (b) {
 							T.show("认证成功");
+							HeadmanAuthenActivity.this.finish();
 						}
 					} catch (ResponseException e) {
 						e.printStackTrace();

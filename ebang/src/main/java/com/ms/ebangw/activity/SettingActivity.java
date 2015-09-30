@@ -4,10 +4,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.TextView;
 
+import com.ms.ebangw.MyApplication;
 import com.ms.ebangw.R;
 import com.ms.ebangw.bean.User;
 import com.ms.ebangw.commons.Constants;
 import com.ms.ebangw.db.UserDao;
+import com.ms.ebangw.utils.L;
 import com.ms.ebangw.utils.T;
 
 import butterknife.Bind;
@@ -54,7 +56,7 @@ public class SettingActivity extends BaseActivity {
 
     @Override
     public void initView() {
-        initTitle(null,"返回","设置",null,null);
+        initTitle(null, "返回", "设置", null, null);
     }
 
     @Override
@@ -70,14 +72,23 @@ public class SettingActivity extends BaseActivity {
         initView();
         initData();
     }
+    public User setNewPhone(String newPhone){
+        User user = MyApplication.getInstance().getUser();
+        if(user != null){
+            user.setPhone(newPhone);
+        }
+        return user;
+    }
+
 
     @Override
     public void onResume() {
         super.onResume();
         User user = getUser();
         if(null!=user){
-            String newName=user.getNick_name();
+            String newName = user.getNick_name();
             String phone=user.getPhone();
+            L.d("xxx","修改后的手机号是"+user.getPhone());
             tvNickName.setText(newName);
             tPhone.setText(phone);
         }else{
@@ -97,5 +108,11 @@ public class SettingActivity extends BaseActivity {
 
 
 
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        makeKeyboard();
     }
 }

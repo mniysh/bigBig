@@ -76,6 +76,7 @@ public class ModifyPasswordAvtivity extends BaseActivity {
                                 T.show(response.getString("message"));
                                 User user=getUser();
                                 user.setPassword(sNewPsaa);
+                                makeKeyboard();
                                 MyApplication.getInstance().saveUser(user);
                                 ModifyPasswordAvtivity.this.finish();
                             }

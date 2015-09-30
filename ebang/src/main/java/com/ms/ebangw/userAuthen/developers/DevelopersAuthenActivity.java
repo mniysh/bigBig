@@ -18,8 +18,11 @@ import com.ms.ebangw.activity.BaseActivity;
 import com.ms.ebangw.bean.AuthInfo;
 import com.ms.ebangw.bean.TotalRegion;
 import com.ms.ebangw.commons.Constants;
+import com.ms.ebangw.exception.ResponseException;
 import com.ms.ebangw.service.DataAccessUtil;
+import com.ms.ebangw.service.DataParseUtil;
 import com.ms.ebangw.utils.L;
+import com.ms.ebangw.utils.T;
 import com.soundcloud.android.crop.Crop;
 
 import org.apache.http.Header;
@@ -244,7 +247,15 @@ public class DevelopersAuthenActivity extends BaseActivity {
 			businessLicenseNumber, businessScope, bankId, new JsonHttpResponseHandler(){
 				@Override
 				public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-
+					try {
+						boolean b = DataParseUtil.processDataResult(response);
+						if(b){
+							T.show("认证成功");
+							DevelopersAuthenActivity.this.finish();
+						}
+					} catch (ResponseException e) {
+						e.printStackTrace();
+					}
 
 				}
 

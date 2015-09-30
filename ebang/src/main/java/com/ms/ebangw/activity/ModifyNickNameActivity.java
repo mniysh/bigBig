@@ -99,6 +99,9 @@ public class ModifyNickNameActivity extends BaseActivity {
         return str==null;
     }
 
-
-
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        makeKeyboard();
+    }
 }

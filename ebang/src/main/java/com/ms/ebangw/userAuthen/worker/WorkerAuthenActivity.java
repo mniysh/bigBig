@@ -232,6 +232,7 @@ public class WorkerAuthenActivity extends BaseActivity {
 						boolean b = DataParseUtil.processDataResult(response);
 						if (b) {
 							T.show("认证成功");
+							WorkerAuthenActivity.this.finish();
 						}
 					} catch (ResponseException e) {
 						e.printStackTrace();
@@ -276,4 +277,9 @@ public class WorkerAuthenActivity extends BaseActivity {
 		}
 	}
 
+	@Override
+	protected void onDestroy() {
+		super.onDestroy();
+		makeKeyboard();
+	}
 }

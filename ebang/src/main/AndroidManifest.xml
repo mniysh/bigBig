@@ -105,7 +105,8 @@
         </activity>
         <activity
             android:name=".activity.HomeActivity"
-            android:windowSoftInputMode="adjustPan|stateHidden" />
+            android:windowSoftInputMode="adjustPan|stateHidden"
+            />
         <activity android:name=".activity.LoginActivity" />
         <activity android:name=".activity.RegisterActivity" />
         <activity android:name=".activity.RegisterActivity_2" />
@@ -118,6 +119,7 @@
         <activity android:name=".activity.PublishCommentActivity" />
         <activity android:name=".activity.WorkerAuthenActivity" />
         <activity android:name=".activity.NearActivity" />
+        <activity android:name=".activity.ModifyPhone02Activity" />
         <activity android:name=".activity.SettlementActivity" />
         <activity android:name=".activity.QiangDanActivity" />
         <activity android:name=".activity.SubmitSuccessActivity" />
@@ -127,7 +129,9 @@
         <activity android:name=".Photo.SelectPhotosDirActivity" />
         <activity android:name="com.soundcloud.android.crop.CropImageActivity" />
         <activity android:name="com.soundcloud.android.crop.MonitoredActivity" />
-        <activity android:name=".userAuthen.investor.InvestorAuthenActivity" />
+        <activity android:name=".userAuthen.investor.InvestorAuthenActivity"
+            android:windowSoftInputMode="adjustUnspecified|stateHidden"
+            />
         <activity android:name=".userAuthen.worker.WorkerAuthenActivity" />
         <activity android:name=".userAuthen.developers.DevelopersAuthenActivity" />
         <activity android:name=".userAuthen.headman.HeadmanAuthenActivity" />

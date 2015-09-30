@@ -26,6 +26,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="密码修改"
+
                 android:textColor="@color/black"
                 android:textSize="16dp" />
 
@@ -81,6 +82,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="5dp"
+                android:inputType="textPassword"
                 android:layout_weight="2"
                 android:background="#fff"
                 android:hint="请输入密码"
@@ -132,6 +134,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="5dp"
+                android:inputType="textPassword"
                 android:layout_weight="2"
                 android:background="#fff"
                 android:hint="请输入密码"
@@ -183,6 +186,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="5dp"
+                android:inputType="textPassword"
                 android:layout_weight="2"
                 android:background="#fff"
                 android:hint="请再输入密码"

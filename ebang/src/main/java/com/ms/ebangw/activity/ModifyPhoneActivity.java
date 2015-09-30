@@ -103,12 +103,13 @@ public class ModifyPhoneActivity extends BaseActivity {
     public  void bFinish(){
         phone=etPhone.getText().toString().trim();
         codeValue=code.getText().toString().trim();
-        if(VerifyUtils.isPhone(phone)&&VerifyUtils.isCode(codeValue)){
+        if(VerifyUtils.isPhone(phone) && VerifyUtils.isCode(codeValue)){
             Bundle bundle=new Bundle();
             bundle.putString(Constants.KEY_VERIFY_CODE, codeValue);
             Intent intent=new Intent(ModifyPhoneActivity.this, ModifyPhone02Activity.class);
             intent.putExtras(bundle);
             startActivity(intent);
+
             ModifyPhoneActivity.this.finish();
         }
 
@@ -170,5 +171,11 @@ public class ModifyPhoneActivity extends BaseActivity {
             }
         };
         countDownTimer.start();
+    }
+
+    @Override
+    public void onDetachedFromWindow() {
+        super.onDetachedFromWindow();
+        makeKeyboard();
     }
 }

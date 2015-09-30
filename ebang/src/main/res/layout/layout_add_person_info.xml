@@ -11,6 +11,7 @@
         android:divider="@drawable/divider_line_gray"
         android:orientation="vertical"
         android:showDividers="middle"
+        android:background="@color/white"
 
         >
 
@@ -39,6 +40,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="请输入真实的姓名"
+                android:textColor="@color/black"
                 android:textColorHint="@color/auth_hint"
                 />
         </LinearLayout>
@@ -61,6 +63,7 @@
             <EditText
                 android:id="@+id/et_identify_card"
                 style="@style/authorization_edit"
+                android:background="#0000"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
@@ -95,7 +98,6 @@
                 android:hint="请输入手机号"
                 android:inputType="phone"
                 android:maxLength="11"
-                android:textColorHint="@color/auth_hint"
                 />
         </LinearLayout>
 

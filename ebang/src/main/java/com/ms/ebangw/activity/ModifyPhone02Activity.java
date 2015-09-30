@@ -11,11 +11,14 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.loopj.android.http.JsonHttpResponseHandler;
+import com.ms.ebangw.MyApplication;
 import com.ms.ebangw.R;
+import com.ms.ebangw.bean.User;
 import com.ms.ebangw.commons.Constants;
 import com.ms.ebangw.exception.ResponseException;
 import com.ms.ebangw.service.DataAccessUtil;
 import com.ms.ebangw.service.DataParseUtil;
+import com.ms.ebangw.utils.L;
 import com.ms.ebangw.utils.T;
 import com.ms.ebangw.utils.VerifyUtils;
 
@@ -60,6 +63,7 @@ public class ModifyPhone02Activity extends BaseActivity {
     public void setfinish(){
         Bundle bundle=getIntent().getExtras();
         String code=bundle.getString(Constants.KEY_VERIFY_CODE);
+        L.d("code的值是"+code);
         newPhone=etPhone.getText().toString().trim();
         newPhone2=etPhone.getText().toString().trim();
         if(inputRightPassword(newPhone,newPhone2)){
@@ -71,10 +75,12 @@ public class ModifyPhone02Activity extends BaseActivity {
                 public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                     super.onSuccess(statusCode, headers, response);
                     try {
+                        User user = MyApplication.getInstance().getUser();
                         boolean b = DataParseUtil.modifyPhone(response);
                         if (b) {
                             T.show(response.getString("message"));
-
+                            user.setPhone(newPhone);
+                            MyApplication.getInstance().saveUser(user);
                             ModifyPhone02Activity.this.finish();
                         }
                     } catch (ResponseException e) {
@@ -106,6 +112,9 @@ public class ModifyPhone02Activity extends BaseActivity {
 
     }
 
-
-
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        makeKeyboard();
+    }
 }

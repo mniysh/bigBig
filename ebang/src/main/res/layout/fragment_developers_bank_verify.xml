@@ -217,7 +217,6 @@
             <TextView
                 android:id="@+id/tv_e"
                 style="@style/authorization_text"
-                android:layout_width="@dimen/bank_verify_width"
                 android:layout_height="wrap_content"
                 android:text="*组织机构代码证号："
                 />

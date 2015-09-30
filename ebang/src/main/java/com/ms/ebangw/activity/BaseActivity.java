@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
@@ -15,6 +16,7 @@ import com.ms.ebangw.MyApplication;
 import com.ms.ebangw.R;
 import com.ms.ebangw.bean.User;
 import com.ms.ebangw.dialog.LoadingDialog;
+import com.ms.ebangw.utils.L;
 import com.umeng.analytics.MobclickAgent;
 
 public abstract class BaseActivity extends AppCompatActivity {
@@ -38,6 +40,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         bar.hide();
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN |
             WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
+//        makeKeyboard();
         MyApplication.unDestroyActivityList.add(this);
 
     }
@@ -149,7 +152,7 @@ public abstract class BaseActivity extends AppCompatActivity {
             }
         });
         pw.setOutsideTouchable(true);
-        pw.showAtLocation(clickView,location,localWidth,localHeight);
+        pw.showAtLocation(clickView, location, localWidth, localHeight);
     }
     public void backgroundAlpha(float bgAlpha)
     {
@@ -165,6 +168,9 @@ public abstract class BaseActivity extends AppCompatActivity {
             mLoadingDialog.dismiss();
         }
         MyApplication.unDestroyActivityList.remove(this);
+
+//            makeKeyboard();
+//
     }
 
     public User getUser() {
@@ -188,9 +194,16 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
     @Override
+    protected void onStart() {
+        super.onStart();
+//        makeKeyboard();
+    }
+
+    @Override
     public void onResume() {
         super.onResume();
         MobclickAgent.onResume(this);
+//        makeKeyboard();
     }
 
     @Override
@@ -201,6 +214,21 @@ public abstract class BaseActivity extends AppCompatActivity {
         }
         MobclickAgent.onPause(this);
     }
+
+    /**
+     * 控制软键盘
+     */
+    public void makeKeyboard(){
+
+        final View v = getWindow().peekDecorView();
+        if (v != null && v.getWindowToken() != null) {
+            InputMethodManager imm = (InputMethodManager)getSystemService(INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+        }
+
+
+    }
+
 
 
 }
