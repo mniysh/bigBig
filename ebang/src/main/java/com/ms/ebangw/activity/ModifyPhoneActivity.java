@@ -59,6 +59,7 @@ public class ModifyPhoneActivity extends BaseActivity {
     public void getCode(){
         phone=etPhone.getText().toString();
         if(VerifyUtils.isPhone(phone)){
+            excuteDownCount();
             DataAccessUtil.messageCode(phone,new JsonHttpResponseHandler(){
 
                 @Override
@@ -67,13 +68,13 @@ public class ModifyPhoneActivity extends BaseActivity {
                     L.d("xxx", "phone的值" + phone);
                     try {
                         boolean b= DataParseUtil.messageCode(response);
-                        if(b){
-                            T.show("验证码已发请注意查收");
 
-                            bCode.setPressed(true);
-                            bCode.setClickable(false);
-                            excuteDownCount();
-                        }
+                        T.show("验证码已发请注意查收");
+
+                        bCode.setPressed(true);
+                        bCode.setClickable(false);
+
+
 
                     } catch (ResponseException e) {
                         e.printStackTrace();
@@ -176,6 +177,6 @@ public class ModifyPhoneActivity extends BaseActivity {
     @Override
     public void onDetachedFromWindow() {
         super.onDetachedFromWindow();
-        makeKeyboard();
+
     }
 }

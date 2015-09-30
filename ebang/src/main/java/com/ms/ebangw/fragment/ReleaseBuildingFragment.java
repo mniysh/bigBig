@@ -102,5 +102,7 @@ public class ReleaseBuildingFragment extends BaseFragment {
     @Override
     public void initData() {
 
+
+
     }
 }

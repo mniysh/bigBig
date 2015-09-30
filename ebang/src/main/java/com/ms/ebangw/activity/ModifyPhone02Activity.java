@@ -115,6 +115,6 @@ public class ModifyPhone02Activity extends BaseActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        makeKeyboard();
+
     }
 }

@@ -52,6 +52,7 @@ public class RecommendActivity extends BaseActivity implements OnClickListener {
 	}
 
 	public void initView() {
+
 		lin_intro=(LinearLayout) findViewById(R.id.act_recomment_Lin_intro);
 		lin_know=(LinearLayout) findViewById(R.id.act_recommend_lin_know);
 		lin_serivice=(LinearLayout) findViewById(R.id.act_recommend_lin_serivice);

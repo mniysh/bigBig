@@ -6,6 +6,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.GridView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 
 import com.ms.ebangw.R;
@@ -19,6 +20,7 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * 主页跳转的2级页面
@@ -32,6 +34,12 @@ public class NextPageActivity extends BaseActivity {
     GridView gItem;
     @Bind(R.id.lv_listview)
     ListView lItem;
+    @Bind(R.id.act_chat_Lin_back)
+    LinearLayout lBack;
+    @OnClick(R.id.act_chat_Lin_back)
+    public void setlBack(){
+        this.finish();
+    }
 
 
 

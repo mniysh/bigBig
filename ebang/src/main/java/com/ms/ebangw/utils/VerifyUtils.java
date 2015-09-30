@@ -96,4 +96,19 @@ public class VerifyUtils {
         }
         return true;
     }
+
+    /**
+     * 正则表达式判断汉字
+     * @param str
+     * @return
+     */
+    public static boolean isChinese(String str){
+        Pattern pattern = Pattern.compile("[\\u4e00-\\u9fa5]+");
+        Matcher isNum = pattern.matcher(str);
+        if(!isNum.matches() ){
+
+            return false;
+        }
+        return true;
+    }
 }  

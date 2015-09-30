@@ -43,8 +43,8 @@ public class LoginActivity extends BaseActivity{
     Button loginBtn;            //登录
     @Bind(R.id.tv_register)
     TextView registerTv;        //注册
-    @Bind(R.id.tv_find_password)       //找回密码
-    TextView findPwdTv;
+//    @Bind(R.id.tv_find_password)       //找回密码
+//    TextView findPwdTv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,11 +76,11 @@ public class LoginActivity extends BaseActivity{
             }
         });
 
-        findPwdTv.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-            }
-        });
+//        findPwdTv.setOnClickListener(new OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//            }
+//        });
 
 
 

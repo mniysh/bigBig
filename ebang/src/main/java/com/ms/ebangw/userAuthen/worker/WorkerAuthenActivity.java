@@ -280,6 +280,6 @@ public class WorkerAuthenActivity extends BaseActivity {
 	@Override
 	protected void onDestroy() {
 		super.onDestroy();
-		makeKeyboard();
+
 	}
 }

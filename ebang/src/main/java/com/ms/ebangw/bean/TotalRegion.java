@@ -35,4 +35,13 @@ public class TotalRegion implements Serializable{
     public void setArea(List<Area> area) {
         this.area = area;
     }
+
+    @Override
+    public String toString() {
+        return "TotalRegion{" +
+                "province=" + province +
+                ", city=" + city +
+                ", area=" + area +
+                '}';
+    }
 }

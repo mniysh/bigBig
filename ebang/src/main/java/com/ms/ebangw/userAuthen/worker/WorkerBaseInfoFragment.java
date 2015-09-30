@@ -209,6 +209,10 @@ public class WorkerBaseInfoFragment extends BaseFragment {
 			T.show("请输入正确的身份证号码");
 			return false;
 		}
+		if(!VerifyUtils.isChinese(realName)){
+			T.show("请输入中文姓名");
+			return false;
+		}
 
 		if (!VerifyUtils.isPhone(phone)) {
 			T.show("请输入手机号");

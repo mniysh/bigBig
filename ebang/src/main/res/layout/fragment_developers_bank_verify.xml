@@ -13,6 +13,20 @@
         android:orientation="vertical"
         android:showDividers="middle"
         >
+        <TextView
+            android:padding="15dp"
+            android:textSize="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="        请确保您是具有法人资格的商户，您需要提供可证明您依法设立可依法经营，开展社会活动的执照，证件等(如营业执照副本管)有效期三个月内的证件不予受理。"
+
+            />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+            android:layout_height="wrap_content">
+
+
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -23,8 +37,8 @@
             >
 
             <TextView
-                android:id="@+id/tv_k"
-                style="@style/authorization_text"
+                android:id="@+id/tv_a"
+                android:gravity="right|center_horizontal"
                 android:layout_width="@dimen/bank_verify_width"
                 android:layout_height="wrap_content"
                 android:text="*企业名称："
@@ -38,6 +52,18 @@
                 android:hint="请输入企业名称"
                 />
         </LinearLayout>
+            <TextView
+                android:textSize="10sp"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp"
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="        请填写与经营执照上一致的名;如果此处您填写的名称与注册时填写的名称不一致,我们将以此处你填写的名称更新您的信息。"
+                android:paddingBottom="10dp"
+                />
+
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -48,7 +74,7 @@
             >
 
             <TextView
-                android:id="@+id/tv_g"
+                android:id="@+id/tv_b"
                 style="@style/authorization_text"
                 android:layout_width="@dimen/bank_verify_width"
                 android:layout_height="wrap_content"
@@ -72,7 +98,7 @@
             >
 
             <TextView
-                android:id="@+id/tv_a"
+                android:id="@+id/tv_v"
                 style="@style/authorization_text"
                 android:layout_width="@dimen/bank_verify_width"
                 android:layout_height="wrap_content"
@@ -102,7 +128,7 @@
             >
 
             <TextView
-                android:id="@+id/tv_b"
+                android:id="@+id/tv_c"
                 style="@style/authorization_text"
                 android:layout_width="@dimen/bank_verify_width"
                 android:layout_height="wrap_content"
@@ -133,7 +159,7 @@
                 >
 
                 <TextView
-                    android:id="@+id/tv_c"
+                    android:id="@+id/tv_d"
                     style="@style/authorization_text"
                     android:layout_width="@dimen/bank_verify_width"
                     android:layout_height="wrap_content"
@@ -143,7 +169,7 @@
                 <EditText
                     android:id="@+id/et_business_age"
                     style="@style/authorization_edit"
-                    android:layout_width="30dp"
+                    android:layout_width="40dp"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="5dp"
                     android:background="@drawable/border_gray"
@@ -190,7 +216,7 @@
             >
 
             <TextView
-                android:id="@+id/tv_d"
+                android:id="@+id/tv_e"
                 style="@style/authorization_text"
                 android:layout_width="@dimen/bank_verify_width"
                 android:layout_height="wrap_content"
@@ -215,7 +241,7 @@
             >
 
             <TextView
-                android:id="@+id/tv_e"
+                android:id="@+id/tv_f"
                 style="@style/authorization_text"
                 android:layout_height="wrap_content"
                 android:text="*组织机构代码证号："
@@ -238,7 +264,7 @@
             >
 
             <TextView
-                android:id="@+id/tv_f"
+                android:id="@+id/tv_g"
                 style="@style/authorization_text"
                 android:layout_width="@dimen/bank_verify_width"
                 android:layout_height="wrap_content"
@@ -409,10 +435,11 @@
             >
 
             <TextView
+                android:id="@+id/tv_k"
                 style="@style/authorization_text"
                 android:layout_width="@dimen/bank_verify_width"
                 android:layout_height="wrap_content"
-                android:text="户名:"
+                android:text="*户名:"
                 />
 
             <EditText
@@ -433,13 +460,15 @@
             >
 
             <TextView
+                android:id="@+id/tv_l"
                 style="@style/authorization_text"
                 android:layout_width="@dimen/bank_verify_width"
                 android:layout_height="wrap_content"
-                android:text="对公帐户"
+                android:text="*对公帐户"
                 />
 
             <EditText
+
                 android:id="@+id/et_public_account"
                 style="@style/authorization_edit"
                 android:layout_width="match_parent"
@@ -457,10 +486,11 @@
             >
 
             <TextView
+                android:id="@+id/tv_m"
                 style="@style/authorization_text"
                 android:layout_width="@dimen/bank_verify_width"
                 android:layout_height="wrap_content"
-                android:text="再次输入对公帐户"
+                android:text="*再次输入对公帐户"
                 />
 
             <EditText
@@ -480,11 +510,11 @@
             >
 
             <TextView
-                android:id="@+id/tv_aa"
+                android:id="@+id/tv_n"
                 style="@style/authorization_text"
                 android:layout_width="@dimen/bank_verify_width"
                 android:layout_height="wrap_content"
-                android:text="开户银行："
+                android:text="*开户银行："
                 />
 
             <Spinner
@@ -505,10 +535,11 @@
             >
 
             <TextView
+                android:id="@+id/tv_o"
                 style="@style/authorization_text"
                 android:layout_width="@dimen/bank_verify_width"
                 android:layout_height="wrap_content"
-                android:text="开户地点："
+                android:text="*开户地点："
                 />
 
             <Spinner

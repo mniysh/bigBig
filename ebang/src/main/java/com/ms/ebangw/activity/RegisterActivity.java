@@ -35,6 +35,7 @@ public class RegisterActivity extends BaseActivity  {
 	private String phone, verifyCode;
 	private CountDownTimer countDownTimer;
 	private Handler mHandler;
+	private boolean flag_code = true ;
 
 	@Bind(R.id.btn_smsCode)
 	Button smsCodeBtn;
@@ -126,38 +127,42 @@ public class RegisterActivity extends BaseActivity  {
 	 */
 	@OnClick(R.id.btn_smsCode)
 	public void getMsmCode() {
-		phone = phonetEt.getText().toString().trim();
-		if (VerifyUtils.isPhone(phone)) {
 
-			DataAccessUtil.messageCode(phone, new JsonHttpResponseHandler(){
 
-				@Override
-				public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-					try {
-						boolean b = DataParseUtil.messageCode(response);
-						L.d("xxx",b+"b的值");
-						if (b) {
+			phone = phonetEt.getText().toString().trim();
+			if (VerifyUtils.isPhone(phone)) {
+
+
+				executeCountDown();
+				smsCodeBtn.setPressed(true);
+				smsCodeBtn.setClickable(false);
+				DataAccessUtil.messageCode(phone, new JsonHttpResponseHandler(){
+
+					@Override
+					public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+						try {
+							boolean b = DataParseUtil.messageCode(response);
 							T.show("验证码已发送，请注意查收");
-							smsCodeBtn.setPressed(true);
-							smsCodeBtn.setClickable(false);
-							executeCountDown();
+
+
+						} catch (ResponseException e) {
+							e.printStackTrace();
+							T.show(e.getMessage());
 						}
-
-					} catch (ResponseException e) {
-						e.printStackTrace();
-						T.show(e.getMessage());
 					}
-				}
 
-				@Override
-				public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
-					super.onFailure(statusCode, headers, throwable, errorResponse);
-				}
-			});
-		}else {
-			T.show("请输入正确的手机号");
+					@Override
+					public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+						super.onFailure(statusCode, headers, throwable, errorResponse);
+					}
+				});
+			} else {
+				T.show("请输入正确的手机号");
 
-		}
+			}
+
+
+
 	}
 
 	private void executeCountDown() {
@@ -165,6 +170,7 @@ public class RegisterActivity extends BaseActivity  {
 			@Override
 			public void onTick(long millisUntilFinished) {
 				mHandler.sendEmptyMessage((int)(millisUntilFinished / 1000));
+
 			}
 
 			@Override

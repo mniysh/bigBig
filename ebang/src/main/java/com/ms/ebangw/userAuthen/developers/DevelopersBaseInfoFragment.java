@@ -166,6 +166,10 @@ public class DevelopersBaseInfoFragment extends BaseFragment {
 			T.show("请输入真实姓名");
 			return false;
 		}
+		if(!VerifyUtils.isChinese(realName)){
+			T.show("请输入中文姓名");
+			return false;
+		}
 
 		if (!VerifyUtils.isIdentifyCard(cardId)) {
 			T.show("请输入正确的身份证号码");

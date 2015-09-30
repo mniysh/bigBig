@@ -15,11 +15,12 @@ import java.util.List;
  * Created by admin on 2015/9/24.
  */
 public class ServicePagerAdapter extends FragmentPagerAdapter {
+
     private List<Fragment> datas;
 
     public ServicePagerAdapter(FragmentManager fm,List<Fragment> datas) {
         super(fm);
-        this.datas=datas;
+        this.datas = datas;
     }
 
     @Override

@@ -39,7 +39,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         android.support.v7.app.ActionBar bar = getSupportActionBar();
         bar.hide();
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN |
-            WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
+            WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         MyApplication.unDestroyActivityList.add(this);
 
     }

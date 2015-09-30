@@ -137,13 +137,20 @@ public class WorkTypeActivity extends BaseActivity {
 
     @OnClick(R.id.btn_ok)
     public void commitSelectedTypes() {
-        Bundle bundle = new Bundle();
+        if(getSelectedWorkTypes()!=null){
+            if(getSelectedWorkTypes().size() > 5){
+                T.show("最多只能选择5项");
+            }else{
+                Bundle bundle = new Bundle();
 
-        bundle.putParcelableArrayList(Constants.KEY_SELECTED_WORKTYPES,getSelectedWorkTypes());
-        Intent intent = new Intent();
-        intent.putExtras(bundle);
-        setResult(22, intent);
-        finish();
+                bundle.putParcelableArrayList(Constants.KEY_SELECTED_WORKTYPES,getSelectedWorkTypes());
+                Intent intent = new Intent();
+                intent.putExtras(bundle);
+                setResult(22, intent);
+                finish();
+            }
+        }
+
     }
 }
 

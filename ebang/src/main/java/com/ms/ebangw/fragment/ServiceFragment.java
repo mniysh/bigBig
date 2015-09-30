@@ -120,7 +120,7 @@ public class ServiceFragment extends BaseFragment {
         datas.add(serviceDecorateFragment);
         datas.add(serviceOtherFragment);
         datas.add(serviceProjectManageFragment);
-        adapter=new ServicePagerAdapter(getChildFragmentManager(),datas);
+        adapter = new ServicePagerAdapter(getChildFragmentManager(), datas);
         vPager.setAdapter(adapter);
         radioGroup= (RadioGroup) getView().findViewById(R.id.rg_but);
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {

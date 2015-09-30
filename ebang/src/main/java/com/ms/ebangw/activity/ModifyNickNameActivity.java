@@ -102,6 +102,6 @@ public class ModifyNickNameActivity extends BaseActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        makeKeyboard();
+
     }
 }

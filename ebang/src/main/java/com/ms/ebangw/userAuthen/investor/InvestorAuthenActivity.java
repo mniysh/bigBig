@@ -37,7 +37,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 
 /**
- * 个人用户认证
+ * 开发商用户认证
  */
 public class InvestorAuthenActivity extends BaseActivity {
 	/**

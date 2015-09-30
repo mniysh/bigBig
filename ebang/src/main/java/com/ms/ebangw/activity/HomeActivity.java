@@ -11,6 +11,7 @@ import com.loopj.android.http.JsonHttpResponseHandler;
 import com.ms.ebangw.MyApplication;
 import com.ms.ebangw.R;
 import com.ms.ebangw.bean.Bank;
+
 import com.ms.ebangw.bean.TotalRegion;
 import com.ms.ebangw.bean.User;
 import com.ms.ebangw.commons.Constants;
@@ -275,4 +276,8 @@ public class HomeActivity extends BaseActivity {
 	public TotalRegion getTotalRegion() {
 		return totalRegion;
 	}
+
+
+
+
 }

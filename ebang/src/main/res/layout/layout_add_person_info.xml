@@ -163,14 +163,16 @@
 
             <Spinner
                 android:id="@+id/sp_a"
-                android:layout_width="wrap_content"
+                style="@style/sp_padding"
+                android:layout_width="100dp"
                 android:layout_height="wrap_content"
 
                 />
 
             <Spinner
+                style="@style/sp_padding"
                 android:id="@+id/sp_b"
-                android:layout_width="wrap_content"
+                android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"
                 />
@@ -236,6 +238,8 @@
                 android:layout_gravity="center_vertical"
                 android:background="@drawable/border_gray"
                 android:minHeight="60dp"
+                android:hint="请输入企业的描述"
+
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="5dp"
                 android:textColorHint="@color/auth_hint"
