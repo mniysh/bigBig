@@ -7,7 +7,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
-import android.view.Window;
+import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.ms.ebangw.MyApplication;
@@ -45,6 +45,7 @@ public abstract class BaseFragment extends Fragment {
     abstract public void initData();
 
     /**
+     * 此方法必须在 onCreateView 之后调用
      * @param leftClickLister    返回箭的点击监听
      * @param left               左边标题
      * @param title              中间标题
@@ -53,18 +54,19 @@ public abstract class BaseFragment extends Fragment {
      */
     public void initTitle(View.OnClickListener leftClickLister, String left, String title, String
         right, View.OnClickListener rightClickListener) {
-        Window window = mActivity.getWindow();
-
-        View backView = window.findViewById(R.id.iv_back);
-        TextView leftTv = (TextView)  window.findViewById(R.id.tv_left);
-        TextView titleTv = (TextView)  window.findViewById(R.id.tv_center);
-        TextView rightTv = (TextView)  window.findViewById(R.id.tv_right);
+        ViewGroup viewGroup = (ViewGroup) getView();
+        View backView = viewGroup.findViewById(R.id.iv_back);
+        TextView leftTv = (TextView)  viewGroup.findViewById(R.id.tv_left);
+        TextView titleTv = (TextView)  viewGroup.findViewById(R.id.tv_center);
+        TextView rightTv = (TextView)  viewGroup.findViewById(R.id.tv_right);
         //设置返回箭头
-        if (null != leftClickLister && backView != null) {
-            backView.setOnClickListener(leftClickLister);
-            backView.setVisibility(View.VISIBLE);
-        } else {
-            backView.setVisibility(View.GONE);
+        if (backView != null) {
+            if (null != leftClickLister ) {
+                backView.setOnClickListener(leftClickLister);
+                backView.setVisibility(View.VISIBLE);
+            } else {
+                backView.setVisibility(View.GONE);
+            }
         }
         //设置左标题
         if (leftTv != null && !TextUtils.isEmpty(left)) {
@@ -88,10 +90,20 @@ public abstract class BaseFragment extends Fragment {
         }
     }
 
+    /**
+     * 此方法必须在 onCreateView 之后调用
+     * @param title
+     */
     public void initTitle(String title) {
         initTitle(null, null, title, null, null);
     }
 
+    /**
+     * 此方法必须在 onCreateView 之后调用
+     * @param title
+     * @param right
+     * @param rightClickListener
+     */
     public void initTitle(String title, String right, View.OnClickListener rightClickListener) {
         initTitle(null, null, title, right, rightClickListener);
     }

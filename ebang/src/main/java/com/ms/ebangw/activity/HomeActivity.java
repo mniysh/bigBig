@@ -1,6 +1,7 @@
 package com.ms.ebangw.activity;
 
 import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -21,14 +22,16 @@ import com.ms.ebangw.fragment.FoundFragment;
 import com.ms.ebangw.fragment.HeadmanCenterFragment;
 import com.ms.ebangw.fragment.HomeFragment;
 import com.ms.ebangw.fragment.InvestorCenterFragment;
-import com.ms.ebangw.release.ReleaseFragment;
-import com.ms.ebangw.release.ReleaseFrament01;
 import com.ms.ebangw.fragment.ServiceFragment;
 import com.ms.ebangw.fragment.WorkerCenterFragment;
+import com.ms.ebangw.release.IncreaseDetailFragment;
+import com.ms.ebangw.release.ReleaseFragment;
+import com.ms.ebangw.release.ReleaseFrament01;
 import com.ms.ebangw.release.SelectCraftFragment;
 import com.ms.ebangw.service.DataAccessUtil;
 import com.ms.ebangw.service.DataParseUtil;
 import com.ms.ebangw.utils.L;
+import com.ms.ebangw.utils.SPUtils;
 import com.ms.ebangw.utils.T;
 import com.umeng.update.UmengUpdateAgent;
 
@@ -58,6 +61,7 @@ public class HomeActivity extends BaseActivity {
 	private ReleaseFrament01 releaseFrament01;
 
 	private SelectCraftFragment selectCraftFragment;
+	private List<Bank> banks;
 
 
 
@@ -101,7 +105,7 @@ public class HomeActivity extends BaseActivity {
 						fm.beginTransaction().replace(R.id.fl_content, selectCraftFragment).commit();
 						break;
 					case R.id.rb_server:
-						fm.beginTransaction().replace(R.id.fl_content,serviceFragment).commit();
+						fm.beginTransaction().replace(R.id.fl_content, serviceFragment).commit();
 						break;
 					case R.id.rb_mine:
 
@@ -158,6 +162,18 @@ public class HomeActivity extends BaseActivity {
 				break;
 
 		}
+	}
+
+	/**
+	 * 去开发商发布页面
+	 */
+	public void goDeveloperRelease() {
+
+		IncreaseDetailFragment increaseDetailFragment = IncreaseDetailFragment.newInstance("", "");
+		FragmentTransaction transaction = fm.beginTransaction();
+		transaction.replace(R.id.fl_content, increaseDetailFragment);
+		transaction.addToBackStack(null);
+		transaction.commit();
 	}
 
 	@Override
@@ -222,6 +238,18 @@ public class HomeActivity extends BaseActivity {
 	 * 获取省市区信息
 	 */
 	private void loadTotalRegion() {
+		//如果本地存储有数据，就不再请求网络
+		String  s = (String) SPUtils.get(Constants.KEY_TOTAL_REGION, "");
+		if (!TextUtils.isEmpty(s) && s.length() > 5) {
+			try {
+				JSONObject jsonObject = new JSONObject(s);
+				totalRegion = DataParseUtil.provinceCityArea(jsonObject);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			return;
+		}
+
 		DataAccessUtil.provinceCityArea(new JsonHttpResponseHandler() {
 
 			@Override
@@ -229,8 +257,9 @@ public class HomeActivity extends BaseActivity {
 
 				try {
 					totalRegion = DataParseUtil.provinceCityArea(response);
-
-
+					if (null != totalRegion) {
+						SPUtils.put(Constants.KEY_TOTAL_REGION, response.toString());
+					}
 				} catch (ResponseException e) {
 					e.printStackTrace();
 				}
@@ -247,15 +276,29 @@ public class HomeActivity extends BaseActivity {
 
 	private void loadBanks() {
 
+		//如果本地存储有数据，就不再请求网络
+		String  s = (String) SPUtils.get(Constants.KEY_BANKS, "");
+		if (!TextUtils.isEmpty(s) && s.length() > 5) {
+			try {
+				JSONObject jsonObject = new JSONObject(s);
+				banks = DataParseUtil.bankList(jsonObject);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			return;
+		}
+
 		DataAccessUtil.bankList(new JsonHttpResponseHandler() {
 
 			@Override
 			public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
 
 				try {
-					List<Bank> banks = DataParseUtil.bankList(response);
+					banks = DataParseUtil.bankList(response);
 					MyApplication.getInstance().setBanks(banks);
-
+					if (null != banks && banks.size() > 0) {
+						SPUtils.put(Constants.KEY_BANKS, response.toString());
+					}
 
 				} catch (ResponseException e) {
 					e.printStackTrace();

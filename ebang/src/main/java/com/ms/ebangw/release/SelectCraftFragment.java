@@ -7,27 +7,38 @@ import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.ms.ebangw.R;
+import com.ms.ebangw.activity.HomeActivity;
 import com.ms.ebangw.adapter.SelectTypePagerAdapter;
 import com.ms.ebangw.bean.Craft;
+import com.ms.ebangw.bean.DeveloperReleaseInfo;
+import com.ms.ebangw.bean.Staff;
+import com.ms.ebangw.bean.WorkType;
+import com.ms.ebangw.event.OnCheckedWorkTypeEvent;
 import com.ms.ebangw.exception.ResponseException;
 import com.ms.ebangw.fragment.BaseFragment;
 import com.ms.ebangw.service.DataAccessUtil;
 import com.ms.ebangw.service.DataParseUtil;
+import com.ms.ebangw.utils.L;
 
 import org.apache.http.Header;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import de.greenrobot.event.EventBus;
 
 /**
  * 发布页面
@@ -39,7 +50,13 @@ public class SelectCraftFragment extends BaseFragment {
     private String mParam1;
     private String mParam2;
     private ViewGroup contentLayout;
-    private RadioGroup radioGroup;
+
+    public DeveloperReleaseInfo getReleaseInfo() {
+        return releaseInfo;
+    }
+
+    private DeveloperReleaseInfo releaseInfo;
+    private Set<WorkType> workTypeSet;
 
     private Craft craft;
 
@@ -47,6 +64,8 @@ public class SelectCraftFragment extends BaseFragment {
     ViewPager viewPager;
     @Bind(R.id.tv_total_money)
     TextView totalMoneyTv;
+    @Bind(R.id.rg_select_type)
+    RadioGroup radioGroup;
 
 
     public static SelectCraftFragment newInstance(String param1, String param2) {
@@ -65,12 +84,18 @@ public class SelectCraftFragment extends BaseFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        EventBus.getDefault().register(this);
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -83,21 +108,42 @@ public class SelectCraftFragment extends BaseFragment {
         return contentLayout;
     }
 
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        initTitle("发布");
+    }
 
     @Override
     public void initView() {
+        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                int childCount = group.getChildCount();
+                for (int i = 0; i < childCount; i++) {
+                    if (group.getChildAt(i).getId() == checkedId) {
+                        viewPager.setCurrentItem(i);
+                    }
+                }
+            }
+        });
 
+        RadioButton radioButton = (RadioButton) radioGroup.getChildAt(0);
+        radioButton.setChecked(true);
     }
 
     @Override
     public void initData() {
         getWorkType();
+        releaseInfo = new DeveloperReleaseInfo();
+        workTypeSet = new HashSet<>();
     }
 
     @OnClick(R.id.btn_next)
     public void goNext() {
 
-
+        HomeActivity homeActivity = (HomeActivity) mActivity;
+        homeActivity.goDeveloperRelease();
 
 
     }
@@ -146,6 +192,51 @@ public class SelectCraftFragment extends BaseFragment {
             list);
         viewPager.setAdapter(pagerAdapter);
 
+        viewPager.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
+            @Override
+            public void onPageSelected(int position) {
+
+                RadioButton radioButton = (RadioButton) radioGroup.getChildAt(position);
+                radioButton.setChecked(true);
+            }
+        });
+
+    }
+
+    /**
+     *
+     * @param event
+     */
+    public void onEvent(OnCheckedWorkTypeEvent event) {
+        L.d("OnCheckedWorkTypeEvent");
+        boolean selected = event.isSelected();
+        WorkType workType = event.getWorkType();
+
+        if (selected) {
+            workTypeSet.add(workType);
+        } else {
+            workTypeSet.remove(workType);
+        }
+        notifyWorkTypeChanged();
+    }
+
+    /**
+     *
+     */
+    public void notifyWorkTypeChanged() {
+
+        Iterator<WorkType> iterator = workTypeSet.iterator();
+        long totalMoney = 0;
+        while (iterator.hasNext()) {
+            WorkType next = iterator.next();
+            Staff staff = next.getStaff();
+            if (null != staff) {
+                int money = Integer.parseInt(staff.getMoney());
+                int count  = Integer.parseInt(staff.getStaff_account());
+                totalMoney += money * count;
+            }
+        }
+        totalMoneyTv.setText("总金额：" + totalMoney + " 元");
     }
 
 }

@@ -18,7 +18,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.ms.ebangw.R;
-import com.ms.ebangw.bean.SelectedWorkTypeInfo;
+import com.ms.ebangw.bean.Staff;
 import com.ms.ebangw.bean.WorkType;
 import com.ms.ebangw.utils.T;
 
@@ -37,7 +37,9 @@ public class SelectWorTypeDialog extends DialogFragment {
     private WorkType workType;
     private ViewGroup contentLayout;
 
-    private OnWorkTypeSelectedListener workTypeSelectedListener;
+
+
+    private OnStaffSelectedListener onStaffSelectedListener;
 
     @Bind(R.id.et_price)
     EditText priceEt;
@@ -72,6 +74,7 @@ public class SelectWorTypeDialog extends DialogFragment {
         }
 
         setStyle(DialogFragment.STYLE_NO_FRAME, 0);
+        setCancelable(false);
     }
 
     @Override
@@ -140,17 +143,18 @@ public class SelectWorTypeDialog extends DialogFragment {
         okBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (isInfoCorrect() && null != workTypeSelectedListener){
+                if (isInfoCorrect() && null != onStaffSelectedListener) {
                     String price = priceEt.getText().toString().trim();
                     String peopleNum = peopleNumEt.getText().toString().trim();
                     String start = startDateTv.getText().toString().trim();
                     String end = endDateTv.getText().toString().trim();
-                    SelectedWorkTypeInfo info = new SelectedWorkTypeInfo();
-                    info.setPrice(price);
-                    info.setPeopleNum(peopleNum);
-                    info.setStartDate(start);
-                    info.setEndDate(end);
-                    workTypeSelectedListener.onWorkTypeSelected(workType, info);
+                    Staff staff = new Staff();
+                    staff.setMoney(price);
+                    staff.setStaff_account(peopleNum);
+                    staff.setStart_time(start);
+                    staff.setEnd_time(end);
+                    workType.setStaff(staff);
+                    onStaffSelectedListener.onStaffSelected(workType, true);
                     dismiss();
                 }
             }
@@ -159,6 +163,7 @@ public class SelectWorTypeDialog extends DialogFragment {
         noBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                onStaffSelectedListener.onStaffSelected(workType, false);
                 dismiss();
             }
         });
@@ -193,13 +198,13 @@ public class SelectWorTypeDialog extends DialogFragment {
         return true;
     }
 
-    public interface OnWorkTypeSelectedListener {
-         void onWorkTypeSelected(WorkType workType, SelectedWorkTypeInfo info);
-    }
-    public void setWorkTypeSelectedListener(OnWorkTypeSelectedListener workTypeSelectedListener) {
-        this.workTypeSelectedListener = workTypeSelectedListener;
+    public interface OnStaffSelectedListener {
+         void onStaffSelected(WorkType workType, boolean isSelected);
     }
 
+    public void setOnStaffSelectedListener(OnStaffSelectedListener onStaffSelectedListener) {
+        this.onStaffSelectedListener = onStaffSelectedListener;
+    }
 
 
 }
