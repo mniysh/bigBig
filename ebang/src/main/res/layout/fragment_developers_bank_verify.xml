@@ -14,29 +14,53 @@
         android:showDividers="middle"
         >
 
+        <TextView
+            style="@style/authorization_alert"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/developer_alert"
+            />
+
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="@dimen/authen_item_height"
+            android:layout_height="wrap_content"
             android:gravity="center_vertical"
-            android:orientation="horizontal"
+            android:orientation="vertical"
 
             >
-
-            <TextView
-                android:id="@+id/tv_k"
-                style="@style/authorization_text"
-                android:layout_width="@dimen/bank_verify_width"
-                android:layout_height="wrap_content"
-                android:text="*企业名称："
-                />
-
-            <EditText
-                android:id="@+id/et_company_name"
-                style="@style/authorization_edit"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="请输入企业名称"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginTop="5dp"
+                >
+                <TextView
+                    android:id="@+id/tv_k"
+                    style="@style/authorization_developer_text"
+                    android:layout_width="@dimen/bank_verify_width"
+                    android:layout_height="wrap_content"
+                    android:text="*企业名称："
+
+                    />
+
+                <EditText
+                    android:id="@+id/et_company_name"
+                    style="@style/authorization_edit"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="请输入企业名称"
+                    />
+
+            </LinearLayout>
+
+            <TextView
+                style="@style/authorization_alert"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/developer_alert_1"
                 />
+
         </LinearLayout>
 
         <LinearLayout
@@ -44,12 +68,11 @@
             android:layout_height="@dimen/authen_item_height"
             android:gravity="center_vertical"
             android:orientation="horizontal"
-
             >
 
             <TextView
                 android:id="@+id/tv_g"
-                style="@style/authorization_text"
+                style="@style/authorization_developer_text"
                 android:layout_width="@dimen/bank_verify_width"
                 android:layout_height="wrap_content"
                 android:text="*营业执照注册号："
@@ -73,7 +96,7 @@
 
             <TextView
                 android:id="@+id/tv_a"
-                style="@style/authorization_text"
+                style="@style/authorization_developer_text"
                 android:layout_width="@dimen/bank_verify_width"
                 android:layout_height="wrap_content"
                 android:text="*营业执照所在地："
@@ -103,7 +126,7 @@
 
             <TextView
                 android:id="@+id/tv_b"
-                style="@style/authorization_text"
+                style="@style/authorization_developer_text"
                 android:layout_width="@dimen/bank_verify_width"
                 android:layout_height="wrap_content"
                 android:text="*常住地址："
@@ -134,7 +157,7 @@
 
                 <TextView
                     android:id="@+id/tv_c"
-                    style="@style/authorization_text"
+                    style="@style/authorization_developer_text"
                     android:layout_width="@dimen/bank_verify_width"
                     android:layout_height="wrap_content"
                     android:text="*营业年限："
@@ -191,7 +214,7 @@
 
             <TextView
                 android:id="@+id/tv_d"
-                style="@style/authorization_text"
+                style="@style/authorization_developer_text"
                 android:layout_width="@dimen/bank_verify_width"
                 android:layout_height="wrap_content"
                 android:text="*经营范围："
@@ -216,10 +239,9 @@
 
             <TextView
                 android:id="@+id/tv_e"
-                style="@style/authorization_text"
-                android:layout_width="@dimen/bank_verify_width"
+                style="@style/authorization_developer_text"
                 android:layout_height="wrap_content"
-                android:text="*组织机构代码证号："
+                android:text="*组织机构代码证号: "
                 />
 
             <EditText
@@ -240,7 +262,7 @@
 
             <TextView
                 android:id="@+id/tv_f"
-                style="@style/authorization_text"
+                style="@style/authorization_developer_text"
                 android:layout_width="@dimen/bank_verify_width"
                 android:layout_height="wrap_content"
                 android:text="*公司座机："
@@ -263,7 +285,7 @@
 
             <TextView
                 android:id="@+id/tv_h"
-                style="@style/authorization_card"
+                style="@style/authorization_developer_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
@@ -393,12 +415,13 @@
         <TextView
             style="@style/authorization_text"
             android:textColor="@color/black"
-            android:textSize="18sp"
+            android:textSize="16sp"
             android:gravity="left"
             android:padding="10dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="对公帐户"
+            android:background="@color/gray_bg"
             />
 
         <LinearLayout
@@ -410,7 +433,7 @@
             >
 
             <TextView
-                style="@style/authorization_text"
+                style="@style/authorization_developer_text"
                 android:layout_width="@dimen/bank_verify_width"
                 android:layout_height="wrap_content"
                 android:text="户名:"
@@ -434,7 +457,7 @@
             >
 
             <TextView
-                style="@style/authorization_text"
+                style="@style/authorization_developer_text"
                 android:layout_width="@dimen/bank_verify_width"
                 android:layout_height="wrap_content"
                 android:text="对公帐户"
@@ -458,7 +481,7 @@
             >
 
             <TextView
-                style="@style/authorization_text"
+                style="@style/authorization_developer_text"
                 android:layout_width="@dimen/bank_verify_width"
                 android:layout_height="wrap_content"
                 android:text="再次输入对公帐户"
@@ -482,7 +505,7 @@
 
             <TextView
                 android:id="@+id/tv_aa"
-                style="@style/authorization_text"
+                style="@style/authorization_developer_text"
                 android:layout_width="@dimen/bank_verify_width"
                 android:layout_height="wrap_content"
                 android:text="开户银行："
@@ -506,7 +529,7 @@
             >
 
             <TextView
-                style="@style/authorization_text"
+                style="@style/authorization_developer_text"
                 android:layout_width="@dimen/bank_verify_width"
                 android:layout_height="wrap_content"
                 android:text="开户地点："
