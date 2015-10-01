@@ -437,7 +437,7 @@
                 style="@style/authorization_text"
                 android:layout_width="@dimen/bank_verify_width"
                 android:layout_height="wrap_content"
-                android:text="对公帐户"
+                android:text="对公帐户:"
                 />
 
             <EditText
@@ -445,7 +445,7 @@
                 style="@style/authorization_edit"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="请输入对公帐户:"
+                android:hint="请输入对公帐户"
                 />
         </LinearLayout>
 
@@ -461,7 +461,7 @@
                 style="@style/authorization_text"
                 android:layout_width="@dimen/bank_verify_width"
                 android:layout_height="wrap_content"
-                android:text="再次输入对公帐户"
+                android:text="再次输入对公帐户:"
                 />
 
             <EditText
@@ -469,7 +469,7 @@
                 style="@style/authorization_edit"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="请输入对公帐户:"
+                android:hint="请输入对公帐户"
                 />
         </LinearLayout>
 
