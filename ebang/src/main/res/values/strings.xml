@@ -141,4 +141,5 @@
 	 <string name="developer_permit_text">\u3000\u3000\u3000必须为清晰、完整的彩色原件扫描件或数码照，仅支持.jpg .bmb .png .gift的图片格式，图片大小
 		  不超过3M。必须在有效期内且年检单齐全(当年成立的公司可无年检单)必须为中车大陆公商局颁发
 	 </string>
+	<string name="developer_duigong_account">\u3000\u3000\u3000请务必正确填写填错导致验证失败,会导致账户冻结</string>
 </resources>

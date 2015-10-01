@@ -2,6 +2,8 @@ package com.ms.ebangw.utils;
 
 import android.text.TextUtils;
 
+import com.ms.ebangw.bean.User;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -111,4 +113,9 @@ public class VerifyUtils {
         }
         return true;
     }
+
+//    public static boolean isSameName(String name){
+//
+//
+//    }
 }  

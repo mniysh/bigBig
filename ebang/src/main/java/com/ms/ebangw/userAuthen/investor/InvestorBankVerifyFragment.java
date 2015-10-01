@@ -25,6 +25,7 @@ import com.ms.ebangw.bean.City;
 import com.ms.ebangw.bean.Province;
 import com.ms.ebangw.bean.TotalRegion;
 import com.ms.ebangw.fragment.BaseFragment;
+import com.ms.ebangw.userAuthen.headman.HeadmanAuthenActivity;
 import com.ms.ebangw.utils.L;
 import com.ms.ebangw.utils.T;
 
@@ -114,6 +115,10 @@ public class InvestorBankVerifyFragment extends BaseFragment {
         String cardId = cardEt.getText().toString().trim();
         if (TextUtils.isEmpty(realName)) {
             T.show("请输入真实姓名");
+            return false;
+        }
+        if(!((InvestorAuthenActivity) mActivity).getAuthInfo().getRealName().equals(realName)){
+            T.show("请保持此处姓名与基本信息姓名一致");
             return false;
         }
 

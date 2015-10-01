@@ -114,6 +114,10 @@ public class HeadmanBankVerifyFragment extends BaseFragment {
             T.show("请输入真实姓名");
             return false;
         }
+        if(!((HeadmanAuthenActivity) mActivity).getAuthInfo().getRealName().equals(realName)){
+            T.show("请保持此处姓名与基本信息姓名一致");
+            return false;
+        }
 
         if (TextUtils.isEmpty(cardId)) {
             T.show("请输入银行卡号");
@@ -179,6 +183,7 @@ public class HeadmanBankVerifyFragment extends BaseFragment {
         AuthInfo authInfo = ((HeadmanAuthenActivity) mActivity).getAuthInfo();
         String accountName = reaNameEt.getText().toString().trim();
         String cardId = cardEt.getText().toString().trim();
+
         //获取开户行
         TextView provinceTv = (TextView) provinceSp.getSelectedView();
         TextView cityTv = (TextView) citySp.getSelectedView();
@@ -233,10 +238,13 @@ public class HeadmanBankVerifyFragment extends BaseFragment {
 
     private void initBankSpinner() {
         banks = MyApplication.getInstance().getBanks();
-        ArrayAdapter<Bank> bankArrayAdapter = new ArrayAdapter<>(mActivity, R.layout.layout_spinner_item,
-            banks);
-        bankSp.setAdapter(bankArrayAdapter);
-        bankSp.setSelection(0, true);
+        if(banks != null){
+            ArrayAdapter<Bank> bankArrayAdapter = new ArrayAdapter<>(mActivity, R.layout.layout_spinner_item,
+                    banks);
+            bankSp.setAdapter(bankArrayAdapter);
+            bankSp.setSelection(0, true);
+        }
+
 
     }
 

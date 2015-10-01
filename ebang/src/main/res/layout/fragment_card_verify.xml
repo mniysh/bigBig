@@ -193,6 +193,7 @@
                 android:layout_marginTop="20dp"
                 android:paddingLeft="15dp"
                 android:paddingRight="15dp"
+                android:gravity="center_horizontal"
                 android:text="人工认证需要一定时间由工作人员审核，请耐心等待！"
                 android:textColor="@color/auther_red"
                 android:textSize="12sp"

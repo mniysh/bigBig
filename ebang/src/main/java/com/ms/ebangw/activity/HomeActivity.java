@@ -283,6 +283,7 @@ public class HomeActivity extends BaseActivity {
 			try {
 				JSONObject jsonObject = new JSONObject(s);
 				banks = DataParseUtil.bankList(jsonObject);
+				MyApplication.getInstance().setBanks(banks);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -295,6 +296,7 @@ public class HomeActivity extends BaseActivity {
 			public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
 
 				try {
+					T.show("请求银行书库成功");
 					banks = DataParseUtil.bankList(response);
 					MyApplication.getInstance().setBanks(banks);
 					if (null != banks && banks.size() > 0) {

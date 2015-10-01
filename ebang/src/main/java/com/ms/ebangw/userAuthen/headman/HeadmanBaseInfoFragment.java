@@ -43,6 +43,7 @@ public class HeadmanBaseInfoFragment extends BaseFragment {
 
 	private String category;
 	private ViewGroup contentLayout;
+	private String reallName;
 
 	@Bind(R.id.et_phone)
 	EditText phoneEt;
@@ -166,6 +167,7 @@ public class HeadmanBaseInfoFragment extends BaseFragment {
 			T.show("请输入中文姓名");
 			return false;
 		}
+
 
 
 		if (!VerifyUtils.isIdentifyCard(cardId)) {
