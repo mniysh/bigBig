@@ -89,7 +89,7 @@
                 android:layout_height="wrap_content"
                 android:clickable="true"
                 android:textSize="14dp"
-                android:text="温馨提示：未注册亿帮网的手机号，登录时将自动注册亿帮账号，且代表您已同意《亿帮网用户协议》 " />
+                android:text="温馨提示：未注册亿帮网的手机号，登录时将自动注册亿帮账号，且代表您已同意《服务协议》 " />
 
 
 

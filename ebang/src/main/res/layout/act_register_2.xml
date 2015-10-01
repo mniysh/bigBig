@@ -52,6 +52,7 @@
             android:layout_marginTop="30dp"
             android:background="@drawable/bk_but"
             android:text="完成"
+            android:textColor="@color/white"
             android:textSize="15sp"
             />
         </LinearLayout>
