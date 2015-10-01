@@ -1,15 +1,20 @@
 package com.ms.ebangw.activity;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
 import android.os.Message;
+import android.text.SpannableString;
+import android.text.Spanned;
 import android.text.TextUtils;
+import android.text.style.ForegroundColorSpan;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.ms.ebangw.R;
@@ -66,6 +71,19 @@ public class RegisterActivity extends BaseActivity  {
 				RegisterActivity.this.finish();
 			}
 		}, "返回", "注册", null, null);
+
+		changeColor();
+
+	}
+
+	/**
+	 * 变色
+	 */
+	public void changeColor(){
+		TextView textView = (TextView) findViewById(R.id.act_login_register);
+		String s = textView.getText().toString().trim();
+		SpannableString spannableString = new SpannableString(s);
+		spannableString.setSpan(new ForegroundColorSpan(Color.parseColor("#347A93")), 36, s.length()-1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
 
 	}
 
