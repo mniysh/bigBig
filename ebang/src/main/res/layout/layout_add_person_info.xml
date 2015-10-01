@@ -2,7 +2,7 @@
 <ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-
+    android:fillViewport="true"
     android:layout_height="match_parent">
 
     <LinearLayout
@@ -39,6 +39,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="请输入真实的姓名"
+                android:textColorHighlight="#f2f2f2"
                 android:textColorHint="@color/auth_hint"
                 />
         </LinearLayout>
@@ -161,14 +162,14 @@
 
             <Spinner
                 android:id="@+id/sp_a"
-                android:layout_width="wrap_content"
+                android:layout_width="100dp"
                 android:layout_height="wrap_content"
 
                 />
 
             <Spinner
                 android:id="@+id/sp_b"
-                android:layout_width="wrap_content"
+                android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"
                 />
@@ -234,6 +235,8 @@
                 android:layout_gravity="center_vertical"
                 android:background="@drawable/border_gray"
                 android:minHeight="60dp"
+                android:inputType="textMultiLine"
+                android:hint="请输入企业的相关简介"
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="5dp"
                 android:textColorHint="@color/auth_hint"
@@ -266,6 +269,8 @@
             android:textColor="#fff"
             android:textSize="15dp"
             />
+
+
     </LinearLayout>
 
 </ScrollView>

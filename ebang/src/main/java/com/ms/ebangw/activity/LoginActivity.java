@@ -18,6 +18,7 @@ import com.ms.ebangw.db.UserDao;
 import com.ms.ebangw.exception.ResponseException;
 import com.ms.ebangw.service.DataAccessUtil;
 import com.ms.ebangw.service.DataParseUtil;
+import com.ms.ebangw.userAuthen.developers.DevelopersAuthenActivity;
 import com.ms.ebangw.utils.L;
 import com.ms.ebangw.utils.T;
 import com.ms.ebangw.utils.VerifyUtils;
@@ -145,7 +146,7 @@ public class LoginActivity extends BaseActivity{
 //                        bundle.putSerializable(Constants.KEY_USER, user);
 //                        intent.putExtras(bundle);
 
-                        Intent lotteryIntent = new Intent(LoginActivity.this, WebActivity.class);
+                        Intent lotteryIntent = new Intent(LoginActivity.this, HomeActivity.class);
                         lotteryIntent.putExtra(Constants.KEY_URL, getString(R.string.url_lottery));
                         startActivity(lotteryIntent);
                         finish();

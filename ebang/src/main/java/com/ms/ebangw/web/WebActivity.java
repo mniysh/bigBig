@@ -111,6 +111,8 @@ public class WebActivity extends BaseActivity {
         url = null;
     }
 
+
+
     @Override
     public void initData() {
         url = getIntent().getStringExtra(Constants.KEY_URL);
@@ -232,4 +234,5 @@ public class WebActivity extends BaseActivity {
             });
         }
     }
+
 }
