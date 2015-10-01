@@ -8,10 +8,7 @@
     <include
         android:id="@+id/layout_step"
         layout="@layout/layout_auth_step"/>
-    <!--<com.ms.ebangw.view.NoScrollViewPager
-        android:id="@+id/viewPager"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"/>-->
+
 
     <FrameLayout
         android:id="@+id/fl_content"

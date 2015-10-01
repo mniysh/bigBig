@@ -141,9 +141,9 @@
 
 	 <string name="developer_long">\u3000\u3000若证件有效期为长期，请勾选长期。例如：有效期2016.11.16--长期，则勾选为长期。</string>
 
-	 <string name="developer_permit_text">\u3000\u3000\u3000必须为清晰、完整的彩色原件扫描件或数码照，仅支持.jpg .bmb .png .gift的图片格式，图片大小
-		  不超过3M。必须在有效期内且年检单齐全(当年成立的公司可无年检单)必须为中车大陆公商局颁发
-	 </string>
+	 <string name="developer_permit_text">\u3000\u3000必须为清晰、完整的彩色原件扫描件或数码照，仅支持.jpg.bmp.png
+.gift的图片格式，图片大小不超过3M。,必须在有效期内且年检章齐
+全（当年成立的公司可无年检章）必须为中国大陆工商局颁发</string>
 
 	 <!--摇奖-->
 	 <string name="lottery_desc">我正在【淼森次元】抢福利，这里有好多免费的福利，和满意的服务，见者有份，赶快加入淼森次元，领取你的福利！</string>

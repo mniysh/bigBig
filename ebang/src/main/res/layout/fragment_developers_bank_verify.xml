@@ -28,13 +28,15 @@
             android:orientation="vertical"
 
             >
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center_vertical"
                 android:layout_marginTop="5dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
                 >
+
                 <TextView
                     android:id="@+id/tv_k"
                     style="@style/authorization_developer_text"
@@ -192,15 +194,12 @@
             </LinearLayout>
 
             <TextView
-                style="@style/authorization_text"
-                android:layout_width="wrap_content"
+                style="@style/authorization_alert"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="left"
-                android:singleLine="false"
                 android:text="@string/developer_long"
-                android:textColor="@color/auth_description"
-                android:textSize="12sp"
                 />
+
         </LinearLayout>
 
 
@@ -303,18 +302,18 @@
                     android:id="@+id/iv_front"
                     android:layout_width="100dp"
                     android:layout_height="100dp"
+                    android:layout_marginLeft="50dp"
                     android:scaleType="centerCrop"
                     android:src="@drawable/card_example"
-                    android:layout_marginLeft="50dp"
                     />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="15dp"
+                    android:layout_marginLeft="30dp"
                     android:gravity="center_horizontal"
                     android:orientation="vertical"
-                    android:layout_marginLeft="30dp"
                     >
 
                     <Button
@@ -331,10 +330,10 @@
                         android:id="@+id/btn_select_front"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
                         android:background="@color/titleBar_bg"
                         android:padding="10dp"
                         android:text="上传照片"
-                        android:layout_marginTop="10dp"
                         android:textColor="#fff"
                         />
 
@@ -364,6 +363,7 @@
                 android:textSize="12sp"
                 />
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="@dimen/authen_item_height"
@@ -387,6 +387,7 @@
                 android:layout_height="wrap_content"
                 />
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="@dimen/authen_item_height"
@@ -414,14 +415,14 @@
 
         <TextView
             style="@style/authorization_text"
-            android:textColor="@color/black"
-            android:textSize="16sp"
-            android:gravity="left"
-            android:padding="10dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="对公帐户"
             android:background="@color/gray_bg"
+            android:gravity="left"
+            android:padding="10dp"
+            android:text="对公帐户"
+            android:textColor="@color/black"
+            android:textSize="16sp"
             />
 
         <LinearLayout
@@ -573,6 +574,7 @@
                 android:id="@+id/btn_commit"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="15dp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
                 android:layout_marginTop="10dp"
@@ -580,7 +582,6 @@
                 android:text="完成"
                 android:textColor="#fff"
                 android:textSize="15dp"
-                android:layout_marginBottom="15dp"
                 />
         </LinearLayout>
 
