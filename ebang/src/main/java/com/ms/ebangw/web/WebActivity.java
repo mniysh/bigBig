@@ -1,6 +1,5 @@
 package com.ms.ebangw.web;
 
-import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -67,7 +66,7 @@ public class WebActivity extends BaseActivity {
             webview.loadUrl(url+ "?id=" + user.getId() + "&app_token=" + user.getApp_token());
         }
         // 设置web视图客户端
-        webview.setDownloadListener(new MyWebViewDownLoadListener(this));
+        webview.setDownloadListener(new MyWebViewDownLoadListener());
 
         webview.addJavascriptInterface(new JsObject(), "share");
 
@@ -117,40 +116,15 @@ public class WebActivity extends BaseActivity {
     }
 
     public class MyWebViewDownLoadListener implements DownloadListener {
-        private Context context;
-
-        public MyWebViewDownLoadListener(Context context) {
-            this.context = context;
-        }
 
         @Override
         public void onDownloadStart(String url, String userAgent, String contentDisposition, String mimetype, long contentLength) {
             Uri uri = Uri.parse(url);
             Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-            context.startActivity(intent);
+            startActivity(intent);
         }
     }
 
-
-
-
-    public void showShareDialog(final ShareInfo shareInfo) {
-
-        if (null == shareInfo){
-            return;
-        }
-
-        ShareUtils.share(this, "幸运大转盘", "http://www.baidu.com","http://b.hiphotos.baidu.com/image/w%3D310/sign=4cc71e290cf41bd5da53eef561db81a0/eac4b74543a98226fe25d2258882b9014b90ebc8.jpg");
-
-    }
-
-
-    private class ShareInfo{
-        String title;
-        String desc;
-        String link;
-        String imageUrl;
-    }
 
     /**
      * 分享后回调js
@@ -164,7 +138,6 @@ public class WebActivity extends BaseActivity {
     class JsObject {
         @JavascriptInterface
         public void sharePlatform(final int platform) {
-//            ShareUtils.share(WebActivity.this, "大开杀戒", getString(R.string.url_lottery), getString(R.string.url_logo));
 
             runOnUiThread(new Runnable() {
                 @Override
