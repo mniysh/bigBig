@@ -48,12 +48,7 @@ public class WebActivity extends BaseActivity {
 
     @Override
     public void initView() {
-        initTitle("幸运大转盘", "活动规则", new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onSharedResult(1, 1);
-            }
-        });
+        initTitle("幸运大转盘");
         findViewById(R.id.iv_back).setVisibility(View.GONE);
         webview = (ProgressWebView) findViewById(R.id.wv_action_web);
         url = getIntent().getStringExtra(Constants.KEY_URL);
