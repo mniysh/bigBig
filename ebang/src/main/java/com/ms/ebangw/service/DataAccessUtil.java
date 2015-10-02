@@ -88,7 +88,7 @@ public class DataAccessUtil {
     }
 
     /**
-     * 4.短信接口
+     * 4.短信接口,普通
      * @param phone 电话
      * @param asyncHttpResponseHandler
      * @return
@@ -98,6 +98,18 @@ public class DataAccessUtil {
         RequestParams params = new RequestParams();
         params.put("phone", phone);
         return doPost(RequestUrl.msg, params, asyncHttpResponseHandler);
+    }
+    /**
+     * 4.1短信接口,注册
+     * @param phone 电话
+     * @param asyncHttpResponseHandler
+     * @return
+     */
+    public static RequestHandle messageCodeRegiste(String phone, AsyncHttpResponseHandler
+        asyncHttpResponseHandler ) {
+        RequestParams params = new RequestParams();
+        params.put("phone", phone);
+        return doPost(RequestUrl.msg_registe, params, asyncHttpResponseHandler);
     }
 
 

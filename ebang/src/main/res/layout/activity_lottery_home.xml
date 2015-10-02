@@ -1,0 +1,95 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_height="match_parent"
+    tools:context="com.ms.ebangw.lottery.LotteryHomeActivity">
+    <FrameLayout
+        android:id="@+id/fl_content"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        />
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:src="@drawable/home_line"/>
+
+
+    <RadioGroup
+        android:id="@+id/radioGroup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingBottom="5dp"
+        android:paddingTop="5dp"
+        >
+
+        <RadioButton
+            android:id="@+id/rb_home"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:layout_height="wrap_content"
+            android:text="主页"
+            android:button="@drawable/empty"
+            android:drawableTop="@drawable/home_page_selector"
+            android:textColor="@color/home_bottom_selector"
+
+            />
+
+        <RadioButton
+            android:id="@+id/rb_discovery"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="工友之家"
+            android:gravity="center"
+            android:button="@drawable/empty"
+            android:drawableTop="@drawable/home_descovery_selector"
+            android:textColor="@color/home_bottom_selector"
+
+            />
+
+        <RadioButton
+            android:id="@+id/rb_release"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="电商平台"
+            android:gravity="center"
+            android:button="@drawable/empty"
+            android:drawableTop="@drawable/home_release_selector"
+            android:textColor="@color/home_bottom_selector"
+            />
+
+        <RadioButton
+            android:id="@+id/rb_server"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:visibility="gone"
+            android:text="服务"
+            android:button="@drawable/empty"
+            android:drawableTop="@drawable/home_server_selector"
+            android:textColor="@color/home_bottom_selector"
+
+            />
+
+        <RadioButton
+            android:id="@+id/rb_mine"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="我的"
+            android:button="@drawable/empty"
+            android:drawableTop="@drawable/home_mine_selector"
+            android:textColor="@color/home_bottom_selector"
+            />
+    </RadioGroup>
+
+
+</LinearLayout>

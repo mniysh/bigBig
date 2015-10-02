@@ -147,7 +147,7 @@ public class RegisterActivity extends BaseActivity  {
 		phone = phonetEt.getText().toString().trim();
 		if (VerifyUtils.isPhone(phone)) {
 
-			DataAccessUtil.messageCode(phone, new JsonHttpResponseHandler(){
+			DataAccessUtil.messageCodeRegiste(phone, new JsonHttpResponseHandler(){
 
 				@Override
 				public void onSuccess(int statusCode, Header[] headers, JSONObject response) {

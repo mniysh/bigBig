@@ -122,7 +122,7 @@ public class DevelopersBankVerifyFragment extends BaseFragment {
 //    Spinner bankCitySp;
 
 
-
+//
     public static DevelopersBankVerifyFragment newInstance(String category) {
         DevelopersBankVerifyFragment fragment = new DevelopersBankVerifyFragment();
         Bundle args = new Bundle();
