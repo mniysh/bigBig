@@ -40,7 +40,6 @@ public class RegisterActivity extends BaseActivity  {
 	private String phone, verifyCode;
 	private CountDownTimer countDownTimer;
 	private Handler mHandler;
-	private boolean flag_code = true ;
 
 	@Bind(R.id.btn_smsCode)
 	Button smsCodeBtn;
@@ -155,16 +154,21 @@ public class RegisterActivity extends BaseActivity  {
 			if (VerifyUtils.isPhone(phone)) {
 
 
-				executeCountDown();
-				smsCodeBtn.setPressed(true);
-				smsCodeBtn.setClickable(false);
-				DataAccessUtil.messageCode(phone, new JsonHttpResponseHandler(){
+
+
+				DataAccessUtil.messageCodeRegiste(phone, new JsonHttpResponseHandler(){
 
 					@Override
 					public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
 						try {
 							boolean b = DataParseUtil.messageCode(response);
-							T.show("验证码已发送，请注意查收");
+							if(b){
+								T.show("验证码已发送，请注意查收");
+								executeCountDown();
+								smsCodeBtn.setPressed(true);
+								smsCodeBtn.setClickable(false);
+							}
+
 
 
 						} catch (ResponseException e) {

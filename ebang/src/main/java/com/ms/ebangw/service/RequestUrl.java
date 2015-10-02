@@ -27,7 +27,12 @@ public class RequestUrl {
     /**
      * 4.短信验证码
      */
-    public static final  String msg =domain+"/api/user/index/msg";
+    public static final  String msg = domain+"/api/user/index/msg";
+
+    /**
+     * 4.短信验证码,注册
+     */
+    public static final  String msg_register =domain+"/api/user/index/msg/1";
 
     /**
      * 5.短信修改密码接口
