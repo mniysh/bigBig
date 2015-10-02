@@ -93,6 +93,13 @@ public class MyLocationListener implements BDLocationListener {
         L.i("BaiduLocationApiDem", sb.toString());
     }
 
+    public void storeLocatedResult(BDLocation location) {
+
+
+
+
+    }
+
     /**
      * 显示请求字符串
      *
@@ -107,6 +114,5 @@ public class MyLocationListener implements BDLocationListener {
             e.printStackTrace();
         }
     }
-
 
 }

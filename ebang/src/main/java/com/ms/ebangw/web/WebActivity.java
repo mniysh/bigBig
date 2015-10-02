@@ -12,6 +12,7 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Toast;
 
+import com.baidu.location.BDLocation;
 import com.ms.ebangw.MyApplication;
 import com.ms.ebangw.R;
 import com.ms.ebangw.activity.BaseActivity;
@@ -62,8 +63,16 @@ public class WebActivity extends BaseActivity {
         webview.getSettings().setDefaultTextEncodingName("utf-8");
         user = MyApplication.instance.getUser();
         if (!TextUtils.isEmpty(url) && null != user) {
-
-            webview.loadUrl(url+ "?id=" + user.getId() + "&app_token=" + user.getApp_token());
+            BDLocation bdLocation = MyApplication.getInstance().getLocation();
+            url = url+ "?id=" + user.getId() + "&app_token=" + user.getApp_token();
+            if (null != bdLocation) {
+                double latitude = bdLocation.getLatitude();
+                double longitude = bdLocation.getLongitude(); //经度
+                url = url + "&current_dimensionality=" + latitude + "&current_longitude=" +
+                    longitude;
+            }
+            L.d("webUrl: " + url);
+            webview.loadUrl(url);
         }
         // 设置web视图客户端
         webview.setDownloadListener(new MyWebViewDownLoadListener());
