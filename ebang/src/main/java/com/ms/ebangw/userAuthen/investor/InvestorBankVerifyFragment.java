@@ -28,6 +28,7 @@ import com.ms.ebangw.fragment.BaseFragment;
 import com.ms.ebangw.userAuthen.headman.HeadmanAuthenActivity;
 import com.ms.ebangw.utils.L;
 import com.ms.ebangw.utils.T;
+import com.ms.ebangw.utils.VerifyUtils;
 
 import java.util.List;
 
@@ -112,7 +113,8 @@ public class InvestorBankVerifyFragment extends BaseFragment {
 
     private boolean isInfoCorrect() {
         String realName = reaNameEt.getText().toString().trim();
-        String cardId = cardEt.getText().toString().trim();
+        String a = cardEt.getText().toString().trim();
+        String cardId = VerifyUtils.bankCard(a);
         if (TextUtils.isEmpty(realName)) {
             T.show("请输入真实姓名");
             return false;
@@ -190,7 +192,8 @@ public class InvestorBankVerifyFragment extends BaseFragment {
     private void setAuthInfo() {
         AuthInfo authInfo = ((InvestorAuthenActivity) mActivity).getAuthInfo();
         String realName = reaNameEt.getText().toString().trim();
-        String cardId = cardEt.getText().toString().trim();
+        String a = cardEt.getText().toString().trim();
+        String cardId = VerifyUtils.bankCard(a);
         //获取开户行
         TextView provinceTv = (TextView) provinceSp.getSelectedView();
         TextView cityTv = (TextView) citySp.getSelectedView();
@@ -238,6 +241,7 @@ public class InvestorBankVerifyFragment extends BaseFragment {
     @Override
     public void initView() {
         setStarRed();
+        VerifyUtils.setBankCard(cardEt);
     }
 
     @Override

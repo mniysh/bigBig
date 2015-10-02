@@ -25,10 +25,12 @@ import com.ms.ebangw.bean.AuthInfo;
 import com.ms.ebangw.bean.City;
 import com.ms.ebangw.bean.Province;
 import com.ms.ebangw.bean.TotalRegion;
+import com.ms.ebangw.bean.User;
 import com.ms.ebangw.bean.WorkType;
 import com.ms.ebangw.commons.Constants;
 import com.ms.ebangw.fragment.BaseFragment;
 import com.ms.ebangw.utils.JsonUtil;
+import com.ms.ebangw.utils.L;
 import com.ms.ebangw.utils.T;
 import com.ms.ebangw.utils.VerifyUtils;
 
@@ -101,6 +103,7 @@ public class WorkerBaseInfoFragment extends BaseFragment {
 
 	@Override
 	public void initView() {
+		phoneEt.setText(getUser().getPhone());
 		setStarRed();
 		workTypeLayout.setVisibility(View.VISIBLE);
 	}
@@ -195,9 +198,11 @@ public class WorkerBaseInfoFragment extends BaseFragment {
 	}
 
 	private boolean isInfoCorrect() {
+		User user = getUser();
 		String realName = readNameEt.getText().toString().trim();
 		String cardId = cardEt.getText().toString().trim();
-		String phone = phoneEt.getText().toString().trim();
+		String phone = user.getPhone();
+
 		String crafts = ((WorkerAuthenActivity) mActivity).getAuthInfo().getCrafts();
 
 		if (TextUtils.isEmpty(realName)) {

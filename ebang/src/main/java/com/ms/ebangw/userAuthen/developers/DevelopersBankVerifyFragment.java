@@ -8,9 +8,12 @@ import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.text.Editable;
+import android.text.Selection;
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.text.style.ForegroundColorSpan;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -39,6 +42,7 @@ import com.ms.ebangw.service.DataAccessUtil;
 import com.ms.ebangw.service.DataParseUtil;
 import com.ms.ebangw.utils.L;
 import com.ms.ebangw.utils.T;
+import com.ms.ebangw.utils.VerifyUtils;
 import com.soundcloud.android.crop.Crop;
 
 import org.apache.http.Header;
@@ -196,6 +200,7 @@ public class DevelopersBankVerifyFragment extends BaseFragment {
             isLong = "1";
         }
 
+
         String companyName = companyNameEt.getText().toString().trim();
         String oftenAddress = oftenAddressEt.getText().toString().trim();
         String businessScope = businessScopeEt.getText().toString().trim();
@@ -205,8 +210,10 @@ public class DevelopersBankVerifyFragment extends BaseFragment {
 //        String linkman = linkmanEt.getText().toString().trim();
 //        String linkmanPhone = linkmanPhoneEt.getText().toString().trim();
         String publicName = publicAccountNameEt.getText().toString().trim();
-        String publicAccount = publicAccountEt.getText().toString().trim();
-        String publicAccount2 = publicAccountTwoEt.getText().toString().trim();
+        String a = publicAccountEt.getText().toString().trim();
+        String b = publicAccountTwoEt.getText().toString().trim();
+        String publicAccount = VerifyUtils.bankCard(a);
+        String publicAccount2 = VerifyUtils.bankCard(b);
         if (TextUtils.isEmpty(companyName)) {
             T.show("请填写企业名称");
             return false;
@@ -345,8 +352,8 @@ public class DevelopersBankVerifyFragment extends BaseFragment {
                 bankProvince = provinces.get(position);
 
                 bankCityAdapter = new ArrayAdapter<>(mActivity,
-                    R.layout.layout_spinner_item, bankProvinces.get(
-                    position).getCitys());
+                        R.layout.layout_spinner_item, bankProvinces.get(
+                        position).getCitys());
 
                 permitCitySp.setAdapter(adapter02);
             }
@@ -389,7 +396,8 @@ public class DevelopersBankVerifyFragment extends BaseFragment {
 //        String linkman = linkmanEt.getText().toString().trim();
 //        String linkmanPhone = linkmanPhoneEt.getText().toString().trim();
         String publicAccountName = publicAccountNameEt.getText().toString().trim();
-        String publicAccount = publicAccountEt.getText().toString().trim();
+        String account = publicAccountEt.getText().toString().trim();
+        String publicAccount = VerifyUtils.bankCard(account);
 //        String publicAccount2 = publicAccountTwoEt.getText().toString().trim();
         authInfo.setCompanyName(companyName);
         authInfo.setOftenAddress(oftenAddress);
@@ -485,7 +493,10 @@ public class DevelopersBankVerifyFragment extends BaseFragment {
     @Override
     public void initView() {
         setStarRed();
+        setEt();
     }
+
+
 
     @Override
     public void initData() {
@@ -589,5 +600,14 @@ public class DevelopersBankVerifyFragment extends BaseFragment {
         File file = new File(data);
         return file;
     }
+    private void setEt() {
+
+        VerifyUtils.setBankCard(publicAccountTwoEt);
+        VerifyUtils.setBankCard(publicAccountEt);
+
+    }
+
+
+
 
 }

@@ -4,6 +4,7 @@ package com.ms.ebangw.userAuthen.headman;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Editable;
+import android.text.Selection;
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.TextUtils;
@@ -28,6 +29,7 @@ import com.ms.ebangw.bean.Province;
 import com.ms.ebangw.bean.TotalRegion;
 import com.ms.ebangw.fragment.BaseFragment;
 import com.ms.ebangw.utils.T;
+import com.ms.ebangw.utils.VerifyUtils;
 
 import java.util.List;
 
@@ -112,7 +114,8 @@ public class HeadmanBankVerifyFragment extends BaseFragment {
 
     private boolean isInfoCorrect() {
         String realName = reaNameEt.getText().toString().trim();
-        String cardId = cardEt.getText().toString().trim();
+        String a= cardEt.getText().toString().trim();
+        String cardId = a.replaceAll(" ","");
         if (TextUtils.isEmpty(realName)) {
             T.show("请输入真实姓名");
             return false;
@@ -185,7 +188,8 @@ public class HeadmanBankVerifyFragment extends BaseFragment {
     private void setAuthInfo() {
         AuthInfo authInfo = ((HeadmanAuthenActivity) mActivity).getAuthInfo();
         String accountName = reaNameEt.getText().toString().trim();
-        String cardId = cardEt.getText().toString().trim();
+        String a= cardEt.getText().toString().trim();
+        String cardId = a.replaceAll(" ", "");
 
         //获取开户行
         TextView provinceTv = (TextView) provinceSp.getSelectedView();
@@ -258,32 +262,7 @@ public class HeadmanBankVerifyFragment extends BaseFragment {
     }
 
     private void listenBankCard() {
-        cardEt.addTextChangedListener(new TextWatcher() {
-            int l = 0;
-            int location = 0;
-            StringBuffer sb = new StringBuffer();
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                l = s.length();
-                location = cardEt.getSelectionStart();
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if(s.length() % 4 == 0){
-                  sb.append(s).append(" ");
-                }
-                if(sb.toString() != null){
-                    s = sb.toString();
-                    cardEt.setText(s);
-                }
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        });
+        VerifyUtils.setBankCard(cardEt);
 
     }
 
