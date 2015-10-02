@@ -538,7 +538,7 @@ public class DataAccessUtil {
         asyncHttpResponseHandler) {
 
         if (!NetUtils.isConnected(MyApplication.getInstance())) {
-            T.show("网络异常");
+            T.show("网络异常,请检查网络连接");
             return null;
         }
         initAsyncHttpClient();

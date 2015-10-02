@@ -19,6 +19,7 @@ import com.ms.ebangw.activity.BaseActivity;
 import com.ms.ebangw.bean.User;
 import com.ms.ebangw.commons.Constants;
 import com.ms.ebangw.utils.L;
+import com.ms.ebangw.utils.NetUtils;
 import com.ms.ebangw.utils.ShareUtils;
 import com.ms.ebangw.utils.T;
 import com.ms.ebangw.view.ProgressWebView;
@@ -58,6 +59,11 @@ public class WebActivity extends BaseActivity {
         webview.requestFocus();
         webview.getSettings().setDefaultTextEncodingName("utf-8");
         user = MyApplication.instance.getUser();
+
+        // 设置web视图客户端
+        webview.setDownloadListener(new MyWebViewDownLoadListener());
+
+        webview.addJavascriptInterface(new JsObject(), "share");
         if (!TextUtils.isEmpty(url) && null != user) {
             BDLocation bdLocation = MyApplication.getInstance().getLocation();
             url = url+ "?id=" + user.getId() + "&app_token=" + user.getApp_token();
@@ -68,12 +74,12 @@ public class WebActivity extends BaseActivity {
                     longitude;
             }
             L.d("webUrl: " + url);
-            webview.loadUrl(url);
+            if (NetUtils.isConnected(this)) {
+                webview.loadUrl(url);
+            }else {
+                T.show("网络异常,请检查网络连接");
+            }
         }
-        // 设置web视图客户端
-        webview.setDownloadListener(new MyWebViewDownLoadListener());
-
-        webview.addJavascriptInterface(new JsObject(), "share");
 
     }
 
@@ -104,7 +110,11 @@ public class WebActivity extends BaseActivity {
     private class MyWebViewClient extends WebViewClient {
         @Override
         public boolean shouldOverrideUrlLoading(WebView view, String url) {
-            view.loadUrl(url);
+            if (NetUtils.isConnected(WebActivity.this)) {
+                view.loadUrl(url);
+            }else {
+                T.show("网络异常,请检查网络连接");
+            }
             return true;
         }
     }
