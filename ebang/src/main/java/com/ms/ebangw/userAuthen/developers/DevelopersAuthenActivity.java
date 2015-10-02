@@ -255,6 +255,7 @@ public class DevelopersAuthenActivity extends BaseActivity {
 						}
 					} catch (ResponseException e) {
 						e.printStackTrace();
+						T.show(e.getMessage());
 					}
 
 				}

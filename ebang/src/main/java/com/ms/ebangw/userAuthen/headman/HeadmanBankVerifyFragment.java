@@ -3,9 +3,11 @@ package com.ms.ebangw.userAuthen.headman;
 
 import android.graphics.Color;
 import android.os.Bundle;
+import android.text.Editable;
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.text.style.ForegroundColorSpan;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -59,6 +61,7 @@ public class HeadmanBankVerifyFragment extends BaseFragment {
     EditText reaNameEt;
     @Bind(R.id.btn_commit)
     Button commitBtn;
+
 
     public static HeadmanBankVerifyFragment newInstance(String category) {
         HeadmanBankVerifyFragment fragment = new HeadmanBankVerifyFragment();
@@ -251,6 +254,37 @@ public class HeadmanBankVerifyFragment extends BaseFragment {
     @Override
     public void initView() {
         setStarRed();
+        listenBankCard();
+    }
+
+    private void listenBankCard() {
+        cardEt.addTextChangedListener(new TextWatcher() {
+            int l = 0;
+            int location = 0;
+            StringBuffer sb = new StringBuffer();
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                l = s.length();
+                location = cardEt.getSelectionStart();
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if(s.length() % 4 == 0){
+                  sb.append(s).append(" ");
+                }
+                if(sb.toString() != null){
+                    s = sb.toString();
+                    cardEt.setText(s);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
     }
 
     @Override
