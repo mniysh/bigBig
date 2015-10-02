@@ -41,7 +41,6 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import cn.jpush.android.api.JPushInterface;
 
-
 /**
  * Home主页面
  * @author admin
@@ -58,8 +57,6 @@ public class HomeActivity extends BaseActivity {
 	private ReleaseFrament01 releaseFrament01;
 
 	private SelectCraftFragment selectCraftFragment;
-
-
 
 	@Bind(R.id.radioGroup)
 	RadioGroup radioGroup;
@@ -256,11 +253,9 @@ public class HomeActivity extends BaseActivity {
 					List<Bank> banks = DataParseUtil.bankList(response);
 					MyApplication.getInstance().setBanks(banks);
 
-
 				} catch (ResponseException e) {
 					e.printStackTrace();
 				}
-
 			}
 
 			@Override

@@ -54,6 +54,7 @@ public class WebActivity extends BaseActivity {
                 onSharedResult(1, 1);
             }
         });
+        findViewById(R.id.iv_back).setVisibility(View.GONE);
         webview = (ProgressWebView) findViewById(R.id.wv_action_web);
         url = getIntent().getStringExtra(Constants.KEY_URL);
         webview.setWebViewClient(new MyWebViewClient());
