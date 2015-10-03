@@ -17,7 +17,6 @@ import com.ms.ebangw.service.DataAccessUtil;
 import com.ms.ebangw.service.DataParseUtil;
 import com.ms.ebangw.utils.T;
 import com.ms.ebangw.utils.VerifyUtils;
-import com.ms.ebangw.web.WebActivity;
 
 import org.apache.http.Header;
 import org.json.JSONObject;
@@ -85,12 +84,12 @@ public class RegisterActivity_2 extends BaseActivity{
 //						L.d("xxx", "user的内容注册部分的" + user.toString());
 						if (null != user) {
 							MyApplication.getInstance().saveUser(user);
-//							Intent intent = new Intent(RegisterActivity_2.this, HomeActivity.class);
-//							startActivity(intent);
+							Intent intent = new Intent(RegisterActivity_2.this, HomeActivity.class);
+							startActivity(intent);
 
-							Intent lotteryIntent = new Intent(RegisterActivity_2.this, WebActivity.class);
-							lotteryIntent.putExtra(Constants.KEY_URL, getString(R.string.url_lottery));
-							startActivity(lotteryIntent);
+							//跳转到主页
+
+							finish();
 						}
 
 					} catch (ResponseException e) {

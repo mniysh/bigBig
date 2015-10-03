@@ -1,6 +1,8 @@
 package com.ms.ebangw.fragment;
 
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -54,7 +56,29 @@ public class WorkerHomeFragment extends BaseFragment {
 
     @Override
     public void initView() {
-        iv.setImageResource(resId);
+        iv.post(new Runnable() {
+            @Override
+            public void run() {
+                BitmapFactory.Options options = new BitmapFactory.Options();
+                options.inJustDecodeBounds = true;
+
+                BitmapFactory.decodeResource(getResources(), resId, options);
+                int photoW = options.outWidth;
+                int photoH = options.outHeight;
+
+                int screenWidth = iv.getWidth();
+                int scaleFactor = 1;
+                if (screenWidth > 0) {
+                    scaleFactor = photoW / screenWidth;
+                }
+                options.inSampleSize = scaleFactor;
+                options.inJustDecodeBounds = false;
+                options.inPurgeable = true;
+                Bitmap bitmap = BitmapFactory.decodeResource(getResources(), resId, options);
+                iv.setImageBitmap(bitmap);
+
+            }
+        });
 
     }
 

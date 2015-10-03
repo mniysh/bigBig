@@ -13,16 +13,13 @@ import com.loopj.android.http.JsonHttpResponseHandler;
 import com.ms.ebangw.MyApplication;
 import com.ms.ebangw.R;
 import com.ms.ebangw.bean.User;
-import com.ms.ebangw.commons.Constants;
 import com.ms.ebangw.db.UserDao;
 import com.ms.ebangw.exception.ResponseException;
 import com.ms.ebangw.service.DataAccessUtil;
 import com.ms.ebangw.service.DataParseUtil;
-import com.ms.ebangw.userAuthen.developers.DevelopersAuthenActivity;
 import com.ms.ebangw.utils.L;
 import com.ms.ebangw.utils.T;
 import com.ms.ebangw.utils.VerifyUtils;
-import com.ms.ebangw.web.WebActivity;
 
 import org.apache.http.Header;
 import org.json.JSONObject;
@@ -141,14 +138,10 @@ public class LoginActivity extends BaseActivity{
                         L.d("xxx", "user的内容登录部分的" + MyApplication.getInstance().saveUser(user));
                         L.d("xxx", "user的内容登录部分的" + user.toString());
                         //跳转到主页
-//                        Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
-//                        Bundle bundle = new Bundle();
-//                        bundle.putSerializable(Constants.KEY_USER, user);
-//                        intent.putExtras(bundle);
+                        Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
+                        Bundle bundle = new Bundle();
+                        startActivity(intent);
 
-                        Intent lotteryIntent = new Intent(LoginActivity.this, HomeActivity.class);
-                        lotteryIntent.putExtra(Constants.KEY_URL, getString(R.string.url_lottery));
-                        startActivity(lotteryIntent);
                         finish();
 
                     }else {
