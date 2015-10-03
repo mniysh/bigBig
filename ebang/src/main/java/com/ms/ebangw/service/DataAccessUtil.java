@@ -550,7 +550,7 @@ public class DataAccessUtil {
         asyncHttpResponseHandler) {
 
         if (!NetUtils.isConnected(MyApplication.getInstance())) {
-            T.show("网络异常");
+            T.show("网络异常,请检查网络连接");
             return null;
         }
         initAsyncHttpClient();
@@ -577,5 +577,21 @@ public class DataAccessUtil {
         }
 
         return params;
+    }
+
+    /**
+     * 获取包含有id和app_token的图片Url
+     * @param url
+     * @return
+     */
+    public static String getImageUrl(String url) {
+        User user = MyApplication.getInstance().getUser();
+        if (null != user) {
+            String id = user.getId();
+            String app_token = user.getApp_token();
+            url = url + "?id=" + id + "&app_token=" + app_token;
+            return url;
+        }
+        return url;
     }
 }  

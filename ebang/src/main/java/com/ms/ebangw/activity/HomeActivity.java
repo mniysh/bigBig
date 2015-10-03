@@ -19,12 +19,13 @@ import com.ms.ebangw.fragment.AuthenticationFragment;
 import com.ms.ebangw.fragment.DevelopersCenterFragment;
 import com.ms.ebangw.fragment.FoundFragment;
 import com.ms.ebangw.fragment.HeadmanCenterFragment;
-import com.ms.ebangw.fragment.HomeFragment;
 import com.ms.ebangw.fragment.InvestorCenterFragment;
-import com.ms.ebangw.release.ReleaseFragment;
-import com.ms.ebangw.release.ReleaseFrament01;
+import com.ms.ebangw.fragment.LotteryFragment;
 import com.ms.ebangw.fragment.ServiceFragment;
 import com.ms.ebangw.fragment.WorkerCenterFragment;
+import com.ms.ebangw.fragment.WorkerHomeFragment;
+import com.ms.ebangw.release.ReleaseFragment;
+import com.ms.ebangw.release.ReleaseFrament01;
 import com.ms.ebangw.release.SelectCraftFragment;
 import com.ms.ebangw.service.DataAccessUtil;
 import com.ms.ebangw.service.DataParseUtil;
@@ -41,7 +42,6 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import cn.jpush.android.api.JPushInterface;
 
-
 /**
  * Home主页面
  * @author admin
@@ -57,9 +57,10 @@ public class HomeActivity extends BaseActivity {
 	private ServiceFragment serviceFragment;
 	private ReleaseFrament01 releaseFrament01;
 
+	private WorkerHomeFragment workerHomeFragment, eMallFragment;
+
 	private SelectCraftFragment selectCraftFragment;
-
-
+	private LotteryFragment lotteryFragment;
 
 	@Bind(R.id.radioGroup)
 	RadioGroup radioGroup;
@@ -81,28 +82,34 @@ public class HomeActivity extends BaseActivity {
 	@Override
 	public void initData() {
 		fm = getFragmentManager();
-		foundFragment=new FoundFragment();
-		releasefragment=new ReleaseFragment();
-		serviceFragment=new ServiceFragment();
-		releaseFrament01 = new ReleaseFrament01();
-		selectCraftFragment = new SelectCraftFragment();
+//		foundFragment=new FoundFragment();
+//		releasefragment=new ReleaseFragment();
+//		serviceFragment=new ServiceFragment();
+//		releaseFrament01 = new ReleaseFrament01();
+//		selectCraftFragment = new SelectCraftFragment();
+		lotteryFragment = LotteryFragment.newInstance("lotteryFragment", "lotteryFragment");
+		workerHomeFragment = WorkerHomeFragment.newInstance(R.drawable.worker_home, 2);
+		eMallFragment = WorkerHomeFragment.newInstance(R.drawable.e_mall, 1);
+
 		radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
 			@Override
 			public void onCheckedChanged(RadioGroup group, int checkedId) {
 				switch (checkedId) {
 					case R.id.rb_home:
-						fm.beginTransaction().replace(R.id.fl_content, new HomeFragment()).commit();
+//						fm.beginTransaction().replace(R.id.fl_content, new HomeFragment()).commit();
+						fm.beginTransaction().replace(R.id.fl_content, lotteryFragment).commit();
 						break;
 					case R.id.rb_discovery:
-						fm.beginTransaction().replace(R.id.fl_content, foundFragment).commit();
+//						fm.beginTransaction().replace(R.id.fl_content, foundFragment).commit();
+						fm.beginTransaction().replace(R.id.fl_content, workerHomeFragment).commit();
 						break;
 					case R.id.rb_release:
 //						fm.beginTransaction().replace(R.id.fl_content, releaseFrament01).commit();
-						fm.beginTransaction().replace(R.id.fl_content, selectCraftFragment).commit();
+						fm.beginTransaction().replace(R.id.fl_content, eMallFragment).commit();
 						break;
-					case R.id.rb_server:
-						fm.beginTransaction().replace(R.id.fl_content,serviceFragment).commit();
-						break;
+//					case R.id.rb_server:
+//						fm.beginTransaction().replace(R.id.fl_content,serviceFragment).commit();
+//						break;
 					case R.id.rb_mine:
 
 						L.d("xxx", "返回值是" + isLogin());
@@ -256,11 +263,9 @@ public class HomeActivity extends BaseActivity {
 					List<Bank> banks = DataParseUtil.bankList(response);
 					MyApplication.getInstance().setBanks(banks);
 
-
 				} catch (ResponseException e) {
 					e.printStackTrace();
 				}
-
 			}
 
 			@Override

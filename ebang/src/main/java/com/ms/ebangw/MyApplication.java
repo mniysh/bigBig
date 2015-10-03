@@ -3,6 +3,7 @@ package com.ms.ebangw;
 import android.app.Activity;
 import android.app.Application;
 
+import com.baidu.location.BDLocation;
 import com.baidu.location.LocationClient;
 import com.baidu.location.LocationClientOption;
 import com.ms.ebangw.bean.Bank;
@@ -10,12 +11,15 @@ import com.ms.ebangw.bean.Craft;
 import com.ms.ebangw.bean.User;
 import com.ms.ebangw.db.UserDao;
 import com.ms.ebangw.listener.MyLocationListener;
+import com.ms.ebangw.utils.L;
 import com.umeng.analytics.MobclickAgent;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import cn.jpush.android.api.JPushInterface;
+import cn.jpush.android.api.TagAliasCallback;
 
 public class MyApplication extends Application {
 
@@ -24,6 +28,7 @@ public class MyApplication extends Application {
     private String phone;
     private String password;
     private Craft craft;
+    private BDLocation location;
     public LocationClient mLocationClient = null;
 
     public Craft getCraft() {
@@ -83,7 +88,6 @@ public class MyApplication extends Application {
         option.SetIgnoreCacheException(false);//可选，默认false，设置是否收集CRASH信息，默认收集
         option.setEnableSimulateGps(false);//可选，默认false，设置是否需要过滤gps仿真结果，默认需要
         mLocationClient.setLocOption(option);
-
         mLocationClient.registerLocationListener(new MyLocationListener());    //注册监听函数
         mLocationClient.start();
 
@@ -101,7 +105,22 @@ public class MyApplication extends Application {
      * 初始化极光推送
      */
     private void initJpush() {
-        JPushInterface.setDebugMode(true);
+        JPushInterface.setDebugMode(false);
+        User user = getUser();
+        if (null != user) {
+            String id = user.getId();
+            JPushInterface.setAlias(this, id, new TagAliasCallback() {
+                @Override
+                public void gotResult(int i, String s, Set<String> set) {
+                    if (i == 0) {
+                        L.d("setAlias: 极光alias设置成功, alias: " + s);
+                    }else {
+                        L.d("setAlias: 极光alias设置失败, 返回的状态码: " + i);
+                    }
+                }
+            });
+        }
+
         JPushInterface.init(this);
     }
 
@@ -171,16 +190,11 @@ public class MyApplication extends Application {
         this.banks = banks;
     }
 
+    public BDLocation getLocation() {
+        return mLocationClient.getLastKnownLocation();
+    }
+
+    public void setLocation(BDLocation location) {
+        this.location = location;
+    }
 }
-
-
-
-
-
-
-
-
-
-
-
-

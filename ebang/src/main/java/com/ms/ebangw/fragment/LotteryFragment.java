@@ -1,11 +1,13 @@
-package com.ms.ebangw.web;
+package com.ms.ebangw.fragment;
+
 
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.view.KeyEvent;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.webkit.DownloadListener;
 import android.webkit.JavascriptInterface;
 import android.webkit.WebView;
@@ -15,9 +17,7 @@ import android.widget.Toast;
 import com.baidu.location.BDLocation;
 import com.ms.ebangw.MyApplication;
 import com.ms.ebangw.R;
-import com.ms.ebangw.activity.BaseActivity;
 import com.ms.ebangw.bean.User;
-import com.ms.ebangw.commons.Constants;
 import com.ms.ebangw.utils.L;
 import com.ms.ebangw.utils.NetUtils;
 import com.ms.ebangw.utils.ShareUtils;
@@ -28,9 +28,21 @@ import com.umeng.socialize.bean.SocializeEntity;
 import com.umeng.socialize.bean.StatusCode;
 import com.umeng.socialize.controller.listener.SocializeListeners;
 
-public class WebActivity extends BaseActivity {
+import butterknife.Bind;
+import butterknife.ButterKnife;
 
-    private ProgressWebView webview;
+/**
+ * 摇奖Fragment
+ */
+public class LotteryFragment extends BaseFragment {
+    private static final String ARG_PARAM1 = "param1";
+    private static final String ARG_PARAM2 = "param2";
+
+    private String mParam1;
+    private String mParam2;
+
+
+    private ViewGroup contentLayout;
     /**
      * 访问URL
      */
@@ -38,21 +50,43 @@ public class WebActivity extends BaseActivity {
 
     private static final String TAG = "WebActivity";
     private User user;
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_web);
-        initData();
 
-        initView();
+    @Bind(R.id.wv_action_web)
+    ProgressWebView webview;
+
+
+
+    public static LotteryFragment newInstance(String param1, String param2) {
+        LotteryFragment fragment = new LotteryFragment();
+        Bundle args = new Bundle();
+        args.putString(ARG_PARAM1, param1);
+        args.putString(ARG_PARAM2, param2);
+        fragment.setArguments(args);
+        return fragment;
+    }
+
+    public LotteryFragment() {
+        // Required empty public constructor
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if (getArguments() != null) {
+            mParam1 = getArguments().getString(ARG_PARAM1);
+            mParam2 = getArguments().getString(ARG_PARAM2);
+        }
     }
 
     @Override
     public void initView() {
-        initTitle("幸运大转盘");
-        findViewById(R.id.iv_back).setVisibility(View.GONE);
-        webview = (ProgressWebView) findViewById(R.id.wv_action_web);
-        url = getIntent().getStringExtra(Constants.KEY_URL);
+
+    }
+
+    @Override
+    public void initData() {
+        url = getString(R.string.url_lottery);;
+
         webview.setWebViewClient(new MyWebViewClient());
         // 设置WebView属性，能够执行Javascript脚本
         webview.getSettings().setJavaScriptEnabled(true);
@@ -74,62 +108,43 @@ public class WebActivity extends BaseActivity {
                     longitude;
             }
             L.d("webUrl: " + url);
-            if (NetUtils.isConnected(this)) {
+            if (NetUtils.isConnected(mActivity)) {
                 webview.loadUrl(url);
             }else {
                 T.show("网络异常,请检查网络连接");
             }
         }
-
     }
-
-//    @Override
-//    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-//        super.onActivityResult(requestCode, resultCode, data);
-//        /**使用SSO授权必须添加如下代码 */
-//        UMSsoHandler ssoHandler = ShareUtils.mController.getConfig().getSsoHandler(requestCode) ;
-//        if(ssoHandler != null){
-//            ssoHandler.authorizeCallBack(requestCode, resultCode, data);
-//        }
-//    }
 
     @Override
-    // 设置回退
-    // 覆盖Activity类的onKeyDown(int keyCoder,KeyEvent event)方法
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if ((keyCode == KeyEvent.KEYCODE_BACK) && webview.canGoBack()) {
-            webview.goBack(); // goBack()表示返回WebView的上一页面
-            return true;
-        } else {
-            finish();
-        }
-        return false;
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        contentLayout = (ViewGroup) inflater.inflate(R.layout.fragment_lottery,
+            container, false);
+        ButterKnife.bind(this, contentLayout);
+        initView();
+        initData();
+        return contentLayout;
     }
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        initTitle("幸运大转盘");
+    }
+
 
     // Web视图
     private class MyWebViewClient extends WebViewClient {
         @Override
         public boolean shouldOverrideUrlLoading(WebView view, String url) {
-            if (NetUtils.isConnected(WebActivity.this)) {
+            if (NetUtils.isConnected(mActivity)) {
                 view.loadUrl(url);
             }else {
                 T.show("网络异常,请检查网络连接");
             }
             return true;
         }
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        url = null;
-    }
-
-
-
-    @Override
-    public void initData() {
-        url = getIntent().getStringExtra(Constants.KEY_URL);
     }
 
     public class MyWebViewDownLoadListener implements DownloadListener {
@@ -142,27 +157,17 @@ public class WebActivity extends BaseActivity {
         }
     }
 
-
-    /**
-     * 分享后回调js
-     * @param platform 1:微信 2：朋友圈 3：新浪微博
-     * @param resultCode 0: 失败， 1：成功
-     */
-    public void onSharedResult(int platform, int resultCode) {
-        webview.loadUrl("javascript:onSharedResult(" + platform + "," + resultCode + ")");
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        url = null;
     }
 
     class JsObject {
         @JavascriptInterface
         public void sharePlatform(final int platform) {
 
-            runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    directShare(platform);
-                }
-            });
-
+            directShare(platform);
         }
 
         /**
@@ -190,7 +195,7 @@ public class WebActivity extends BaseActivity {
                 share_media = SHARE_MEDIA.SINA;
             }
 
-            ShareUtils.directShare(WebActivity.this, share_media, new SocializeListeners.SnsPostListener() {
+            ShareUtils.directShare(mActivity, share_media, new SocializeListeners.SnsPostListener() {
 
                 @Override
                 public void onStart() {
@@ -204,12 +209,12 @@ public class WebActivity extends BaseActivity {
                     if (eCode != StatusCode.ST_CODE_SUCCESSED) {
                         showText = "分享失败 [" + eCode + "]";
                     }
-                    Toast.makeText(WebActivity.this, showText, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(mActivity, showText, Toast.LENGTH_SHORT).show();
 
                     final int p;
-                    if (platform == SHARE_MEDIA.WEIXIN){
+                    if (platform == SHARE_MEDIA.WEIXIN) {
                         p = 1;
-                    }else if (platform == SHARE_MEDIA.WEIXIN_CIRCLE) {
+                    } else if (platform == SHARE_MEDIA.WEIXIN_CIRCLE) {
                         p = 2;
                     } else {
                         p = 3;
@@ -223,4 +228,12 @@ public class WebActivity extends BaseActivity {
         }
     }
 
+    /**
+     * 分享后回调js
+     * @param platform 1:微信 2：朋友圈 3：新浪微博
+     * @param resultCode 0: 失败， 1：成功
+     */
+    public void onSharedResult(int platform, int resultCode) {
+        webview.loadUrl("javascript:onSharedResult(" + platform + "," + resultCode + ")");
+    }
 }
