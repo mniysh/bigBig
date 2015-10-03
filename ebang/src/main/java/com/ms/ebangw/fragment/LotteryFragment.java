@@ -17,6 +17,7 @@ import android.widget.Toast;
 import com.baidu.location.BDLocation;
 import com.ms.ebangw.MyApplication;
 import com.ms.ebangw.R;
+import com.ms.ebangw.activity.LoginActivity;
 import com.ms.ebangw.bean.User;
 import com.ms.ebangw.utils.L;
 import com.ms.ebangw.utils.NetUtils;
@@ -130,7 +131,6 @@ public class LotteryFragment extends BaseFragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        initTitle("幸运大转盘");
     }
 
 
@@ -185,6 +185,18 @@ public class LotteryFragment extends BaseFragment {
 
         }
 
+        /**
+         */
+        @JavascriptInterface
+        public void gotoLogin() {
+
+            MyApplication.getInstance().quit();
+
+            Intent intent = new Intent(mActivity, LoginActivity.class);
+            startActivity(intent);
+
+        }
+
         public void directShare(int platform) {
             SHARE_MEDIA share_media;
             if (platform == 1) {
@@ -236,4 +248,6 @@ public class LotteryFragment extends BaseFragment {
     public void onSharedResult(int platform, int resultCode) {
         webview.loadUrl("javascript:onSharedResult(" + platform + "," + resultCode + ")");
     }
+
+
 }
