@@ -148,4 +148,5 @@
 	 <!--摇奖-->
 	 <string name="lottery_desc">我正在【淼森次元】抢福利，这里有好多免费的福利，和满意的服务，见者有份，赶快加入淼森次元，领取你的福利！</string>
     <string name="title_activity_lottery_home">LotteryHomeActivity</string>
+
 </resources>

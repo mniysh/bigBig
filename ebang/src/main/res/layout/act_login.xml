@@ -24,7 +24,7 @@
             android:id="@+id/et_account"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:hint="手机号 / 邮箱"
+            android:hint="手机号 "
             android:drawableLeft="@drawable/user"
             android:background="#fff"
             android:padding="15dp"

@@ -40,6 +40,7 @@ public class AuthenticationFragment extends BaseFragment implements OnClickListe
 	TextView rankTv;
 
 
+
 	@Override
 	public View onCreateView(LayoutInflater inflater,
 							 @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -61,9 +62,18 @@ public class AuthenticationFragment extends BaseFragment implements OnClickListe
 		but_foreman.setOnClickListener(this);
 		but_factory.setOnClickListener(this);
 
-	}
-	public void initView() {
 
+	}
+
+	private void setNickName() {
+		if(getUser().getNick_name() == null){
+			phoneTv.setText(getUser().getPhone());
+		}else{
+			phoneTv.setText(getUser().getNick_name());
+		}
+	}
+
+	public void initView() {
 		//initTitle("我的信息");
 		initTitle(null, null, "我的信息", "设置", new OnClickListener() {
 			@Override
@@ -78,6 +88,7 @@ public class AuthenticationFragment extends BaseFragment implements OnClickListe
 		but_worker=(Button) mContentView.findViewById(R.id.btn_worker);
 		but_foreman=(Button) mContentView.findViewById(R.id.btn_headman);
 		but_factory=(Button) mContentView.findViewById(R.id.btn_developers);
+
 	}
 
 	@Override
@@ -93,9 +104,15 @@ public class AuthenticationFragment extends BaseFragment implements OnClickListe
 		String nick_name = user.getNick_name();
 		String phone = user.getPhone();
 		String rank = user.getRank();
-		nameTv.setText(nick_name);
-		phoneTv.setText(phone);
+
+		setNickName();
 		rankTv.setText("等级：" + rank + " 级");
+	}
+
+	@Override
+	public void onResume() {
+		super.onResume();
+		setNickName();
 	}
 
 	@Override

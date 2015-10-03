@@ -74,9 +74,22 @@ public class RegisterActivity extends BaseActivity  {
 		}, "返回", "注册", null, null);
 
 		changeColor();
-
+		setStarRed();
 	}
 
+	/**
+	 * 变颜色
+	 */
+	public void setStarRed() {
+
+
+		TextView a = (TextView) findViewById(R.id.act_login_register);
+		String s = a.getText().toString();
+		SpannableString spannableString = new SpannableString(s);
+		spannableString.setSpan(new ForegroundColorSpan(Color.parseColor("#036287")), 32, s.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+		a.setText(spannableString);
+
+	}
 	/**
 	 * 变色
 	 */
