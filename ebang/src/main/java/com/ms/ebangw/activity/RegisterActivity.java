@@ -125,7 +125,7 @@ public class RegisterActivity extends BaseActivity  {
 	public boolean isInputRight(String phone, String verifyCode) {
 
 		if (!VerifyUtils.isPhone(phone)) {
-			T.show("手机号不能为空");
+			T.show("请输入正确的手机号");
 			return false;
 		}
 

@@ -34,9 +34,14 @@ public class RequestUrl {
     public static final  String msg_registe =domain+"/api/user/index/msg/1";
 
     /**
-     * 5.短信修改密码接口
+     * 1-4.短信修改密码接口
      */
     public static final  String update_pwd= domain + "/api/user/index/update-pwd";
+
+    /**
+     * 3-16、修改密码接口
+     */
+    public static final  String recovered_pwd= domain + "/api/user/index/recovered-password";
 
     /**
      * 6.用旧密码修改新密码接口
@@ -46,7 +51,7 @@ public class RequestUrl {
     /**
      * 7.个人信息验证接口
      */
-    public static final  String person_identify = domain + "api/user/investor/person-identify";
+    public static final  String person_identify = domain + "/api/user/investor/person-identify";
 
     /**
      * 8.上传图片

@@ -107,7 +107,9 @@
         <activity
             android:name=".activity.HomeActivity"
             android:windowSoftInputMode="adjustPan|stateHidden" />
-        <activity android:name=".activity.LoginActivity" />
+        <activity android:name=".activity.LoginActivity"
+            android:launchMode="singleTask"
+            />
         <activity android:name=".activity.RegisterActivity" />
         <activity android:name=".activity.RegisterActivity_2" />
         <activity android:name=".activity.CommentActivity" />
@@ -292,6 +294,12 @@
         <activity
             android:name=".lottery.LotteryHomeActivity"
             android:label="@string/title_activity_lottery_home" >
+        </activity>
+        <activity android:name=".findpassword.SetPhoneActivity" >
+        </activity>
+        <activity android:name=".findpassword.ResetPasswordActivity" >
+        </activity>
+        <activity android:name=".findpassword.FoundPasswordActivity" >
         </activity>
     </application>
 

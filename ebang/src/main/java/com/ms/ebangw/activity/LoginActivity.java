@@ -15,6 +15,7 @@ import com.ms.ebangw.R;
 import com.ms.ebangw.bean.User;
 import com.ms.ebangw.db.UserDao;
 import com.ms.ebangw.exception.ResponseException;
+import com.ms.ebangw.findpassword.SetPhoneActivity;
 import com.ms.ebangw.service.DataAccessUtil;
 import com.ms.ebangw.service.DataParseUtil;
 import com.ms.ebangw.utils.L;
@@ -52,16 +53,10 @@ public class LoginActivity extends BaseActivity{
         ButterKnife.bind(this);
         initView();
         initData();
-
     }
 
     public void initView() {
-        initTitle(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                LoginActivity.this.finish();
-            }
-        }, "返回", "登录", null, null);
+        initTitle("登录", null, null);
     }
 
     @Override
@@ -78,11 +73,10 @@ public class LoginActivity extends BaseActivity{
         findPwdTv.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                startActivity(new Intent(LoginActivity.this, SetPhoneActivity.class));
             }
         });
-
-
-
     }
 
     @OnClick(R.id.act_login_but_login)
