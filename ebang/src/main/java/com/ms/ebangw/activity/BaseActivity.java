@@ -13,9 +13,16 @@ import android.widget.TextView;
 
 import com.ms.ebangw.MyApplication;
 import com.ms.ebangw.R;
+import com.ms.ebangw.bean.TotalRegion;
 import com.ms.ebangw.bean.User;
 import com.ms.ebangw.dialog.LoadingDialog;
+import com.ms.ebangw.service.DataParseUtil;
 import com.umeng.analytics.MobclickAgent;
+
+import org.json.JSONObject;
+
+import java.io.InputStream;
+import java.io.InputStreamReader;
 
 public abstract class BaseActivity extends AppCompatActivity {
     private final String TAG = getClass().getSimpleName();
@@ -202,6 +209,31 @@ public abstract class BaseActivity extends AppCompatActivity {
             return false;
         }
     }
+
+    /**
+     * 获取所有省市信息
+     * @return
+     */
+    public TotalRegion getAreaFromAssets() {
+        try {
+            StringBuilder builder = new StringBuilder();
+            InputStream is = getAssets().open("area.txt");
+            InputStreamReader inputStreamReader = new InputStreamReader(is);
+            char[] chars = new char[1024];
+            int len;
+            while ((len = inputStreamReader.read(chars)) != -1) {
+                builder.append(chars, 0, len);
+            }
+            String s = builder.toString();
+            JSONObject jsonObject = new JSONObject(s);
+            return DataParseUtil.provinceCityArea(jsonObject);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
 
     @Override
     public void onResume() {

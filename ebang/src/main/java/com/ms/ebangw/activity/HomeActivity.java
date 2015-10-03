@@ -76,7 +76,7 @@ public class HomeActivity extends BaseActivity {
 	}
 
 	public void initView() {
-
+		getAreaFromAssets();
 	}
 
 	@Override
@@ -129,7 +129,7 @@ public class HomeActivity extends BaseActivity {
 		});
 
 		radioGroup.getChildAt(0).performClick();
-		loadTotalRegion();
+		totalRegion = getAreaFromAssets();
 		loadBanks();
 
 
@@ -225,32 +225,35 @@ public class HomeActivity extends BaseActivity {
 
 
 
-	/**
-	 * 获取省市区信息
-	 */
-	private void loadTotalRegion() {
-		DataAccessUtil.provinceCityArea(new JsonHttpResponseHandler() {
 
-			@Override
-			public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-
-				try {
-					totalRegion = DataParseUtil.provinceCityArea(response);
-
-
-				} catch (ResponseException e) {
-					e.printStackTrace();
-				}
-
-			}
-
-			@Override
-			public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
-				super.onFailure(statusCode, headers, responseString, throwable);
-				L.d(responseString);
-			}
-		});
-	}
+//	/**
+//	 * 获取省市区信息
+//	 */
+//	private void loadTotalRegion() {
+//		DataAccessUtil.provinceCityArea(new JsonHttpResponseHandler() {
+//
+//			@Override
+//			public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+//
+//				try {
+////					String s = response.toString();
+//
+//					totalRegion = DataParseUtil.provinceCityArea(response);
+//
+//
+//				} catch (ResponseException e) {
+//					e.printStackTrace();
+//				}
+//
+//			}
+//
+//			@Override
+//			public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+//				super.onFailure(statusCode, headers, responseString, throwable);
+//				L.d(responseString);
+//			}
+//		});
+//	}
 
 	private void loadBanks() {
 
