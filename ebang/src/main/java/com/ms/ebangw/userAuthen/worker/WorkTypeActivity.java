@@ -138,8 +138,8 @@ public class WorkTypeActivity extends BaseActivity {
     @OnClick(R.id.btn_ok)
     public void commitSelectedTypes() {
         if(getSelectedWorkTypes()!=null){
-            if(getSelectedWorkTypes().size() > 5){
-                T.show("最多只能选择5项");
+            if(getSelectedWorkTypes().size() > 5 || getSelectedWorkTypes().size() < 1){
+                T.show("最多选择5项,最少选择1项");
             }else{
                 Bundle bundle = new Bundle();
 

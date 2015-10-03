@@ -471,6 +471,21 @@ public class DataAccessUtil {
     }
 
     /**
+     * 3-13 仅仅验证验证码
+     * @param phone
+     * @param code
+     * @param asyncHttpResponseHandler
+     * @return
+     */
+    public static RequestHandle checkCode(String phone, String code , AsyncHttpResponseHandler asyncHttpResponseHandler){
+        RequestParams params = new RequestParams();
+        params.put("phone", phone);
+        params.put("code", code);
+        return doPost(RequestUrl.only_check_code, params, asyncHttpResponseHandler);
+
+    }
+
+    /**
      * 3-14、获取银行列表
      * @param asyncHttpResponseHandler
      * @return

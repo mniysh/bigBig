@@ -95,6 +95,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:hint="请输入您的身份证号"
+                android:maxLength="18"
                 android:inputType="text"
                 android:textColorHint="@color/auth_hint"
                 />

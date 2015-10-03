@@ -78,7 +78,7 @@ public class ModifyNickNameActivity extends BaseActivity {
 
     @Override
     public void initView() {
-        initTitle(null,"放回","昵称修改",null,null);
+        initTitle(null,"返回","昵称修改",null,null);
     }
 
     @Override
