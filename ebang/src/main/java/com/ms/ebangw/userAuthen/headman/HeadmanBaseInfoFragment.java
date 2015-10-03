@@ -145,9 +145,9 @@ public class HeadmanBaseInfoFragment extends BaseFragment {
 
 	@OnClick(R.id.btn_next)
 	public void goNext() {
-//		if (!isInfoCorrect()) {
-//			return;
-//		}
+		if (!isInfoCorrect()) {
+			return;
+		}
 		AuthInfo authInfo = getAuthInfo();
 		HeadmanAuthenActivity activity = (HeadmanAuthenActivity) mActivity;
 		activity.setAuthInfo(authInfo);

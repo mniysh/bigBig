@@ -118,7 +118,7 @@ public class InvestorAuthenActivity extends BaseActivity {
 			InvestorBankVerifyFragment.newInstance(category)).addToBackStack
 			("BankVerifyFragment").commit();
 
-		commit();
+//		commit();
 
 	}
 
