@@ -169,6 +169,7 @@ public class MyApplication extends Application {
                 activity.finish();
             }
         }
+
         unDestroyActivityList.clear();
     }
 
