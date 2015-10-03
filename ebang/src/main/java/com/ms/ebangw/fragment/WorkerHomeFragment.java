@@ -97,13 +97,5 @@ public class WorkerHomeFragment extends BaseFragment {
         return mContentView;
     }
 
-    @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        if (type == 1) {
-            initTitle("电子商城");
-        }else {
-            initTitle("工友之家");
-        }
-    }
+
 }

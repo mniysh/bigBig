@@ -154,6 +154,25 @@ public class DataAccessUtil {
     }
 
     /**
+     * 3-16、修改密码接口(找回密码)
+     * @param phone
+     * @param code
+     * @param password
+     * @param asyncHttpResponseHandler
+     * @return
+     */
+    public static RequestHandle recoveredPassword(String phone, String code, String password,
+                                               AsyncHttpResponseHandler
+                                                   asyncHttpResponseHandler) {
+        RequestParams params = new RequestParams();
+        params.put("phone",phone);
+        params.put("code", code);
+        params.put("password", password);
+
+        return doPost(RequestUrl.recovered_pwd, params, asyncHttpResponseHandler);
+    }
+
+    /**
      * 7.个人信息验证接口
      * @param identity_card 身份证
      * @param phone     手机

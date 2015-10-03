@@ -55,21 +55,37 @@ public abstract class BaseActivity extends AppCompatActivity {
         TextView leftTv = (TextView) findViewById(R.id.tv_left);
         TextView titleTv = (TextView) findViewById(R.id.tv_center);
         TextView rightTv = (TextView) findViewById(R.id.tv_right);
-        //设置返回箭头
-        if (null != leftClickLister && backView != null) {
-            backView.setOnClickListener(leftClickLister);
-        } else {
-            backView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    onBackPressed();
-                }
-            });
-        }
+//        //设置返回箭头
+//        if (null != leftClickLister && backView != null) {
+//            backView.setOnClickListener(leftClickLister);
+//        } else {
+//            backView.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    onBackPressed();
+//                }
+//            });
+//        }
         //设置左标题
         if (leftTv != null && !TextUtils.isEmpty(left)) {
             leftTv.setText(left);
             leftTv.setVisibility(View.VISIBLE);
+
+            //设置返回箭头
+            backView.setVisibility(View.VISIBLE);
+            if (null != leftClickLister && backView != null) {
+                backView.setOnClickListener(leftClickLister);
+            } else {
+                backView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        onBackPressed();
+                    }
+                });
+            }
+
+        }else {
+            backView.setVisibility(View.INVISIBLE);
         }
 
         //设置中间的标题

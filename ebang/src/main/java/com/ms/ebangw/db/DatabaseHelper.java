@@ -15,13 +15,13 @@ import java.util.Map;
 
 
 public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
-    private static final String TABLE_NAME = "sqlite-ebang.db";
+    public static final String DB_NAME = "sqlite-ebang.db";
     private static DatabaseHelper instance;
 
     private Map<String, Dao> daos = new HashMap<String, Dao>();
 
     private DatabaseHelper(Context context) {
-        super(context, TABLE_NAME, null, 1);
+        super(context, DB_NAME, null, 1);
     }
 
     @Override

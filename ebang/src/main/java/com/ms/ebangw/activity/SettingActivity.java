@@ -4,10 +4,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.TextView;
 
+import com.ms.ebangw.MyApplication;
 import com.ms.ebangw.R;
 import com.ms.ebangw.bean.User;
 import com.ms.ebangw.commons.Constants;
-import com.ms.ebangw.db.UserDao;
 import com.ms.ebangw.utils.T;
 
 import butterknife.Bind;
@@ -88,9 +88,8 @@ public class SettingActivity extends BaseActivity {
 
     @OnClick(R.id.btn_exit)
     public void exit() {
+        MyApplication.getInstance().quit();
 
-        UserDao userDao = new UserDao(this);
-        userDao.removeAll();
         startActivity(new Intent(this, LoginActivity.class));
         setResult(Constants.REQUEST_EXIT);
         finish();
