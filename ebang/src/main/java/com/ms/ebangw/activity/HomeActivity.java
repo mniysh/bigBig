@@ -30,6 +30,7 @@ import com.ms.ebangw.release.SelectCraftFragment;
 import com.ms.ebangw.service.DataAccessUtil;
 import com.ms.ebangw.service.DataParseUtil;
 import com.ms.ebangw.utils.L;
+import com.ms.ebangw.utils.SPUtils;
 import com.ms.ebangw.utils.T;
 import com.umeng.update.UmengUpdateAgent;
 
@@ -236,7 +237,7 @@ public class HomeActivity extends BaseActivity {
 
 				try {
 					totalRegion = DataParseUtil.provinceCityArea(response);
-
+					SPUtils.put(Constants.KEY_TOTAL_REGION, response.toString());
 
 				} catch (ResponseException e) {
 					e.printStackTrace();
