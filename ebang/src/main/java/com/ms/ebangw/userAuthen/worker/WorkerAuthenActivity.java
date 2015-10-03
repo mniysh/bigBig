@@ -28,6 +28,7 @@ import com.ms.ebangw.utils.T;
 import com.soundcloud.android.crop.Crop;
 
 import org.apache.http.Header;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.File;
@@ -80,7 +81,7 @@ public class WorkerAuthenActivity extends BaseActivity {
 		fm = getFragmentManager();
 		personBaseInfoFragment = WorkerBaseInfoFragment.newInstance(category);
 
-		getFragmentManager().beginTransaction().replace(R.id.fl_content,personBaseInfoFragment
+		getFragmentManager().beginTransaction().replace(R.id.fl_content, personBaseInfoFragment
 		).commit();
 		setStep(0);
 	}
@@ -224,27 +225,29 @@ public class WorkerAuthenActivity extends BaseActivity {
 		String crafts = authInfo.getCrafts();
 
 		DataAccessUtil.workerIdentify(realName, identityCard, provinceId, cityId, frontImageId,
-			backImageId, gender, bankCard, accountName, bankProvinceId, bankCityId,
-			bankId, crafts, new JsonHttpResponseHandler(){
-				@Override
-				public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-					try {
-						boolean b = DataParseUtil.processDataResult(response);
-						if (b) {
-							T.show("认证成功");
+				backImageId, gender, bankCard, accountName, bankProvinceId, bankCityId,
+				bankId, crafts, new JsonHttpResponseHandler() {
+					@Override
+					public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+						try {
+							boolean b = DataParseUtil.processDataResult(response);
+							if (b) {
+								T.show(response.getString("message"));
+							}
+						} catch (ResponseException e) {
+							e.printStackTrace();
+							T.show(e.getMessage());
+						} catch (JSONException e) {
+							e.printStackTrace();
 						}
-					} catch (ResponseException e) {
-						e.printStackTrace();
-						T.show(e.getMessage());
 					}
-				}
 
-				@Override
-				public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
-					super.onFailure(statusCode, headers, responseString, throwable);
-					L.d(responseString);
-				}
-			});
+					@Override
+					public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+						super.onFailure(statusCode, headers, responseString, throwable);
+						L.d(responseString);
+					}
+				});
 
 	}
 

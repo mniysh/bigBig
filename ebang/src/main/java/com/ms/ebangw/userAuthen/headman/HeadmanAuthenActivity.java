@@ -26,6 +26,7 @@ import com.ms.ebangw.utils.T;
 import com.soundcloud.android.crop.Crop;
 
 import org.apache.http.Header;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.File;
@@ -212,11 +213,13 @@ public class HeadmanAuthenActivity extends BaseActivity {
 					try {
 						boolean b = DataParseUtil.processDataResult(response);
 						if (b) {
-							T.show("认证成功");
+							T.show(response.getString("message"));
 						}
 					} catch (ResponseException e) {
 						e.printStackTrace();
 						T.show(e.getMessage());
+					} catch (JSONException e) {
+						e.printStackTrace();
 					}
 				}
 

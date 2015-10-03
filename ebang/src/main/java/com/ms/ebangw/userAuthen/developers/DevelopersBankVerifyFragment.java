@@ -39,6 +39,7 @@ import com.ms.ebangw.service.DataAccessUtil;
 import com.ms.ebangw.service.DataParseUtil;
 import com.ms.ebangw.utils.L;
 import com.ms.ebangw.utils.T;
+import com.ms.ebangw.utils.VerifyUtils;
 import com.soundcloud.android.crop.Crop;
 
 import org.apache.http.Header;
@@ -204,8 +205,12 @@ public class DevelopersBankVerifyFragment extends BaseFragment {
 //        String linkman = linkmanEt.getText().toString().trim();
 //        String linkmanPhone = linkmanPhoneEt.getText().toString().trim();
         String publicName = publicAccountNameEt.getText().toString().trim();
-        String publicAccount = publicAccountEt.getText().toString().trim();
-        String publicAccount2 = publicAccountTwoEt.getText().toString().trim();
+        String aa = publicAccountEt.getText().toString().trim();
+        String cc = publicAccountTwoEt.getText().toString().trim();
+
+
+        String publicAccount = VerifyUtils.bankCard(aa);
+        String publicAccount2 = VerifyUtils.bankCard(cc);
         if (TextUtils.isEmpty(companyName)) {
             T.show("请填写企业名称");
             return false;
@@ -260,6 +265,7 @@ public class DevelopersBankVerifyFragment extends BaseFragment {
             T.show("请填写对公帐户户名");
             return false;
         }
+
 
         if (TextUtils.isEmpty(publicAccount)) {
             T.show("请填写对公帐户");
@@ -388,7 +394,10 @@ public class DevelopersBankVerifyFragment extends BaseFragment {
 //        String linkman = linkmanEt.getText().toString().trim();
 //        String linkmanPhone = linkmanPhoneEt.getText().toString().trim();
         String publicAccountName = publicAccountNameEt.getText().toString().trim();
-        String publicAccount = publicAccountEt.getText().toString().trim();
+
+        String aa = publicAccountEt.getText().toString().trim();
+
+        String publicAccount = VerifyUtils.bankCard(aa);
 //        String publicAccount2 = publicAccountTwoEt.getText().toString().trim();
         authInfo.setCompanyName(companyName);
         authInfo.setOftenAddress(oftenAddress);
@@ -484,6 +493,8 @@ public class DevelopersBankVerifyFragment extends BaseFragment {
     @Override
     public void initView() {
         setStarRed();
+        VerifyUtils.setBankCard(publicAccountEt);
+        VerifyUtils.setBankCard(publicAccountTwoEt);
     }
 
     @Override

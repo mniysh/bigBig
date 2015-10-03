@@ -26,6 +26,7 @@ import com.ms.ebangw.bean.Province;
 import com.ms.ebangw.bean.TotalRegion;
 import com.ms.ebangw.fragment.BaseFragment;
 import com.ms.ebangw.utils.T;
+import com.ms.ebangw.utils.VerifyUtils;
 
 import java.util.List;
 
@@ -109,10 +110,14 @@ public class HeadmanBankVerifyFragment extends BaseFragment {
 
     private boolean isInfoCorrect() {
         String realName = reaNameEt.getText().toString().trim();
-        String cardId = cardEt.getText().toString().trim();
+        String aa = cardEt.getText().toString().trim();
+        String cardId = VerifyUtils.bankCard(aa);
         if (TextUtils.isEmpty(realName)) {
             T.show("请输入真实姓名");
             return false;
+        }
+        if(!((HeadmanAuthenActivity)mActivity).getAuthInfo().getRealName().equals(realName)){
+            T.show("请保持此处姓名与基本信息姓名一致");
         }
 
         if (TextUtils.isEmpty(cardId)) {
@@ -178,7 +183,8 @@ public class HeadmanBankVerifyFragment extends BaseFragment {
     private void setAuthInfo() {
         AuthInfo authInfo = ((HeadmanAuthenActivity) mActivity).getAuthInfo();
         String accountName = reaNameEt.getText().toString().trim();
-        String cardId = cardEt.getText().toString().trim();
+        String aa = cardEt.getText().toString().trim();
+        String cardId = VerifyUtils.bankCard(aa);
         //获取开户行
         TextView provinceTv = (TextView) provinceSp.getSelectedView();
         TextView cityTv = (TextView) citySp.getSelectedView();
@@ -243,6 +249,8 @@ public class HeadmanBankVerifyFragment extends BaseFragment {
     @Override
     public void initView() {
         setStarRed();
+        VerifyUtils.setBankCard(cardEt);
+
     }
 
     @Override

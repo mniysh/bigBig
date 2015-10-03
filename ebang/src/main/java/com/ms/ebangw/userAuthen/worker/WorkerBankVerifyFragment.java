@@ -26,6 +26,7 @@ import com.ms.ebangw.bean.Province;
 import com.ms.ebangw.bean.TotalRegion;
 import com.ms.ebangw.fragment.BaseFragment;
 import com.ms.ebangw.utils.T;
+import com.ms.ebangw.utils.VerifyUtils;
 
 import java.util.List;
 
@@ -109,12 +110,16 @@ public class WorkerBankVerifyFragment extends BaseFragment {
 
     private boolean isInfoCorrect() {
         String realName = accountNameEt.getText().toString().trim();
-        String cardId = cardEt.getText().toString().trim();
+        String aa = cardEt.getText().toString().trim();
+        String cardId = VerifyUtils.bankCard(aa);
         if (TextUtils.isEmpty(realName)) {
             T.show("请输入真实姓名");
             return false;
         }
-
+        if(!((WorkerAuthenActivity) mActivity).getAuthInfo().getRealName().equals(realName)){
+            T.show("请保持此处姓名与基本信息姓名一致");
+            return false;
+        }
         if (TextUtils.isEmpty(cardId)) {
             T.show("请输入银行卡号");
             return false;
@@ -187,7 +192,8 @@ public class WorkerBankVerifyFragment extends BaseFragment {
     private void setAuthInfo() {
         AuthInfo authInfo = ((WorkerAuthenActivity) mActivity).getAuthInfo();
         String accountName = accountNameEt.getText().toString().trim();
-        String cardId = cardEt.getText().toString().trim();
+        String aa = cardEt.getText().toString().trim();
+        String cardId = VerifyUtils.bankCard(aa);
         //获取开户行
         TextView provinceTv = (TextView) provinceSp.getSelectedView();
         TextView cityTv = (TextView) citySp.getSelectedView();
@@ -242,6 +248,7 @@ public class WorkerBankVerifyFragment extends BaseFragment {
     @Override
     public void initView() {
         setStarRed();
+        VerifyUtils.setBankCard(cardEt);
     }
 
     @Override

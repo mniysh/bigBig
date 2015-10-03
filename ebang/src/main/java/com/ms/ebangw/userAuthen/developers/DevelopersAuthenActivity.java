@@ -18,11 +18,15 @@ import com.ms.ebangw.activity.BaseActivity;
 import com.ms.ebangw.bean.AuthInfo;
 import com.ms.ebangw.bean.TotalRegion;
 import com.ms.ebangw.commons.Constants;
+import com.ms.ebangw.exception.ResponseException;
 import com.ms.ebangw.service.DataAccessUtil;
+import com.ms.ebangw.service.DataParseUtil;
 import com.ms.ebangw.utils.L;
+import com.ms.ebangw.utils.T;
 import com.soundcloud.android.crop.Crop;
 
 import org.apache.http.Header;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.File;
@@ -244,13 +248,24 @@ public class DevelopersAuthenActivity extends BaseActivity {
 			businessLicenseNumber, businessScope, bankId, new JsonHttpResponseHandler(){
 				@Override
 				public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-
+					try {
+						boolean b = DataParseUtil.processDataResult(response);
+						if(b){
+							T.show(response.getString("message"));
+						}
+					} catch (ResponseException e) {
+						e.printStackTrace();
+						T.show(e.getMessage());
+					} catch (JSONException e) {
+						e.printStackTrace();
+						T.show(e.getMessage());
+					}
 
 				}
 
 				@Override
 				public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
-
+					L.d(responseString);
 				}
 			}
 		);
