@@ -88,7 +88,7 @@
                 android:layout_height="wrap_content"
                 android:textSize="14sp"
                 android:clickable="true"
-                android:text="温馨提示：未注的手机号，登录时将自动注册E帮账号，且代表您已同意《亿帮网用户协议》" />
+                android:text="温馨提示：未注的手机号，登录时将自动注册E帮账号，且代表您已同意《服务协议》" />
 
 
 

@@ -53,6 +53,7 @@
             android:background="@drawable/bk_but"
             android:text="登录"
             android:textSize="20sp"
+            android:textColor="#fff"
             android:layout_marginTop="30dp"
             />
         <LinearLayout 

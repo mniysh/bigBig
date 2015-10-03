@@ -129,8 +129,8 @@ public class InvestorBaseInfoFragment extends BaseFragment {
 				province = provinces.get(position);
 
 				adapter02 = new ArrayAdapter<>(mActivity,
-					R.layout.layout_spinner_item, provinces.get(
-					position).getCitys());
+						R.layout.layout_spinner_item, provinces.get(
+						position).getCitys());
 
 				citySp.setAdapter(adapter02);
 
@@ -148,10 +148,13 @@ public class InvestorBaseInfoFragment extends BaseFragment {
 //		if (!isInfoCorrect()) {
 //			return;
 //		}
-		AuthInfo authInfo = getAuthInfo();
-		InvestorAuthenActivity activity = (InvestorAuthenActivity) mActivity;
-		activity.setAuthInfo(authInfo);
-		activity.goNext();
+		if(getAuthInfo() != null){
+			AuthInfo authInfo = getAuthInfo();
+			InvestorAuthenActivity activity = (InvestorAuthenActivity) mActivity;
+			activity.setAuthInfo(authInfo);
+			activity.goNext();
+		}
+
 	}
 
 	private boolean isInfoCorrect() {
@@ -210,21 +213,24 @@ public class InvestorBaseInfoFragment extends BaseFragment {
 		String cityId = null;
 
 		List<Province> provinces = getProvinces();
-		for (int i = 0; i < provinces.size(); i++) {
-			Province p = provinces.get(i);
-			if(TextUtils.equals(p.getName(), province)){
-				provinceId = p.getId();
-				List<City> citys = p.getCitys();
-				for (int j = 0; j < citys.size(); j++) {
-					City c = citys.get(j);
-					if(TextUtils.equals(c.getName(), city)){
-						cityId = c.getId();
-						break;
+		if(provinces != null){
+			for (int i = 0; i < provinces.size(); i++) {
+				Province p = provinces.get(i);
+				if(TextUtils.equals(p.getName(), province)){
+					provinceId = p.getId();
+					List<City> citys = p.getCitys();
+					for (int j = 0; j < citys.size(); j++) {
+						City c = citys.get(j);
+						if(TextUtils.equals(c.getName(), city)){
+							cityId = c.getId();
+							break;
+						}
 					}
+					break;
 				}
-				break;
 			}
 		}
+
 
 		authInfo.setRealName(realName);
 		authInfo.setIdentityCard(cardId);

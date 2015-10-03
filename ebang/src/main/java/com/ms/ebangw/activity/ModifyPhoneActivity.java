@@ -51,10 +51,13 @@ public class ModifyPhoneActivity extends BaseActivity {
 
     @Bind(R.id.et_code)
     EditText code;
+
     @Bind(R.id.bt_twoFinish)
     Button bfinish;
+
     @Bind(R.id.bt_code)
     Button bCode;
+
     @OnClick(R.id.bt_code)
     public void getCode(){
         phone=etPhone.getText().toString();
@@ -103,13 +106,34 @@ public class ModifyPhoneActivity extends BaseActivity {
     public  void bFinish(){
         phone=etPhone.getText().toString().trim();
         codeValue=code.getText().toString().trim();
+
         if(VerifyUtils.isPhone(phone)&&VerifyUtils.isCode(codeValue)){
-            Bundle bundle=new Bundle();
-            bundle.putString(Constants.KEY_VERIFY_CODE, codeValue);
-            Intent intent=new Intent(ModifyPhoneActivity.this, ModifyPhone02Activity.class);
-            intent.putExtras(bundle);
-            startActivity(intent);
-            ModifyPhoneActivity.this.finish();
+            DataAccessUtil.checkCode(phone, codeValue, new JsonHttpResponseHandler() {
+                @Override
+                public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                    super.onSuccess(statusCode, headers, response);
+                    try {
+                        boolean b = DataParseUtil.processDataResult(response);
+                        if (b) {
+                            Bundle bundle = new Bundle();
+                            bundle.putString(Constants.KEY_VERIFY_CODE, codeValue);
+                            Intent intent = new Intent(ModifyPhoneActivity.this, ModifyPhone02Activity.class);
+                            intent.putExtras(bundle);
+                            startActivity(intent);
+                            ModifyPhoneActivity.this.finish();
+                        }
+                    } catch (ResponseException e) {
+                        e.printStackTrace();
+                        T.show(e.getMessage());
+                    }
+                }
+
+                @Override
+                public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                    super.onFailure(statusCode, headers, responseString, throwable);
+                }
+            });
+
         }
 
 

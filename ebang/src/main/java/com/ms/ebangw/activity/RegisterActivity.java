@@ -12,6 +12,7 @@ import android.text.TextUtils;
 import android.text.style.ForegroundColorSpan;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.animation.BounceInterpolator;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -111,13 +112,34 @@ public class RegisterActivity extends BaseActivity  {
 	public void goRegister2(View view) {
 		phone = phonetEt.getText().toString().trim();
 		verifyCode = verifyCodeEt.getText().toString().trim();
-		Bundle bundle = new Bundle();
-		bundle.putString(Constants.key_phone, phone);
-		bundle.putString(Constants.KEY_VERIFY_CODE, verifyCode);
+		DataAccessUtil.checkCode(phone, verifyCode, new JsonHttpResponseHandler() {
+			@Override
+			public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+				super.onSuccess(statusCode, headers, response);
+				try {
+					boolean b = DataParseUtil.processDataResult(response);
+					if (b) {
+						Bundle bundle = new Bundle();
+						bundle.putString(Constants.key_phone, phone);
+						bundle.putString(Constants.KEY_VERIFY_CODE, verifyCode);
 
-		Intent intent=new Intent(RegisterActivity.this,RegisterActivity_2.class);
-		intent.putExtras(bundle);
-		startActivity(intent);
+						Intent intent = new Intent(RegisterActivity.this, RegisterActivity_2.class);
+						intent.putExtras(bundle);
+						startActivity(intent);
+					}
+				} catch (ResponseException e) {
+					e.printStackTrace();
+					T.show(e.getMessage());
+				}
+			}
+
+			@Override
+			public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+				super.onFailure(statusCode, headers, responseString, throwable);
+			}
+		});
+
+
 
 	}
 

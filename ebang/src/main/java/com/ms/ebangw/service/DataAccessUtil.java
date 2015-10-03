@@ -470,6 +470,13 @@ public class DataAccessUtil {
         return doGet(RequestUrl.publish_craft, null, asyncHttpResponseHandler);
     }
 
+    public static  RequestHandle checkCode(String phone, String code, AsyncHttpResponseHandler asyncHttpResponseHandler){
+        RequestParams params = new RequestParams();
+        params.put("phone", phone);
+        params.put("code", code);
+        return  doPost(RequestUrl.checkCode, params, asyncHttpResponseHandler);
+    }
+
     /**
      * 3-14、获取银行列表
      * @param asyncHttpResponseHandler

@@ -98,6 +98,10 @@ public class RequestUrl {
      * 14.修改绑定手机接口
      */
     public static final String modify_phone =domain + "/api/user/index/change-phone";
+    /**
+     * 3-13.仅仅验证验证码接口
+     */
+    public static final String checkCode = domain + "/api/user/index/check-code-only";
 
     /**
      *3-14、获取银行列表
