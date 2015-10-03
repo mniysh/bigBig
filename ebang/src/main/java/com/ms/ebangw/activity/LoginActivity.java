@@ -18,7 +18,6 @@ import com.ms.ebangw.exception.ResponseException;
 import com.ms.ebangw.findpassword.SetPhoneActivity;
 import com.ms.ebangw.service.DataAccessUtil;
 import com.ms.ebangw.service.DataParseUtil;
-import com.ms.ebangw.utils.L;
 import com.ms.ebangw.utils.T;
 import com.ms.ebangw.utils.VerifyUtils;
 
@@ -129,8 +128,6 @@ public class LoginActivity extends BaseActivity{
                     if(null != user) {
 
                         MyApplication.getInstance().saveUser(user);     //保存或更新User信息
-                        L.d("xxx", "user的内容登录部分的" + MyApplication.getInstance().saveUser(user));
-                        L.d("xxx", "user的内容登录部分的" + user.toString());
                         //跳转到主页
                         Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
                         Bundle bundle = new Bundle();

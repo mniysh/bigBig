@@ -4,11 +4,19 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.TextView;
 
+import com.loopj.android.http.JsonHttpResponseHandler;
 import com.ms.ebangw.MyApplication;
 import com.ms.ebangw.R;
 import com.ms.ebangw.bean.User;
 import com.ms.ebangw.commons.Constants;
+import com.ms.ebangw.db.UserDao;
+import com.ms.ebangw.exception.ResponseException;
+import com.ms.ebangw.service.DataAccessUtil;
+import com.ms.ebangw.service.DataParseUtil;
 import com.ms.ebangw.utils.T;
+
+import org.apache.http.Header;
+import org.json.JSONObject;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -54,7 +62,7 @@ public class SettingActivity extends BaseActivity {
 
     @Override
     public void initView() {
-        initTitle(null,"返回","设置",null,null);
+        initTitle(null, "返回", "设置", null, null);
     }
 
     @Override
@@ -88,13 +96,33 @@ public class SettingActivity extends BaseActivity {
 
     @OnClick(R.id.btn_exit)
     public void exit() {
-        MyApplication.getInstance().quit();
+        UserDao userDao = new UserDao(this);
+        userDao.removeAll();
 
+        MyApplication.getInstance().quit();
         startActivity(new Intent(this, LoginActivity.class));
         setResult(Constants.REQUEST_EXIT);
+        logout();
         finish();
+    }
 
+    private void logout() {
+        DataAccessUtil.exit(new JsonHttpResponseHandler(){
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                try {
+                    boolean b = DataParseUtil.processDataResult(response);
 
+                } catch (ResponseException e) {
+                    e.printStackTrace();
+                    T.show(e.getMessage());
+                }
+            }
 
+            @Override
+            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                super.onFailure(statusCode, headers, responseString, throwable);
+            }
+        });
     }
 }

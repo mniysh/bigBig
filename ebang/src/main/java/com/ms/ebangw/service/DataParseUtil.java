@@ -134,6 +134,8 @@ public class DataParseUtil {
      * @throws ResponseException
      */
     public static TotalRegion provinceCityArea(JSONObject jsonObject)throws  ResponseException{
+        String s = jsonObject.toString();
+        System.out.print(s);
         JSONObject datas=processData(jsonObject);
         Gson gson=new Gson();
         String dataProvince=datas.optString("province");
