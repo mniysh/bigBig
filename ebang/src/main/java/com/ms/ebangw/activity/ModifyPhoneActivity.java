@@ -105,13 +105,34 @@ public class ModifyPhoneActivity extends BaseActivity {
         phone=etPhone.getText().toString().trim();
         codeValue=code.getText().toString().trim();
         if(VerifyUtils.isPhone(phone) && VerifyUtils.isCode(codeValue)){
-            Bundle bundle=new Bundle();
-            bundle.putString(Constants.KEY_VERIFY_CODE, codeValue);
-            Intent intent=new Intent(ModifyPhoneActivity.this, ModifyPhone02Activity.class);
-            intent.putExtras(bundle);
-            startActivity(intent);
+            DataAccessUtil.checkCode(phone, codeValue, new JsonHttpResponseHandler() {
+                @Override
+                public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                    super.onSuccess(statusCode, headers, response);
+                    try {
+                        boolean b = DataParseUtil.processDataResult(response);
+                        if (b) {
+                            T.show("验证成功");
+                            Bundle bundle = new Bundle();
+                            bundle.putString(Constants.KEY_VERIFY_CODE, codeValue);
+                            Intent intent = new Intent(ModifyPhoneActivity.this, ModifyPhone02Activity.class);
+                            intent.putExtras(bundle);
+                            startActivity(intent);
 
-            ModifyPhoneActivity.this.finish();
+                            ModifyPhoneActivity.this.finish();
+                        }
+                    } catch (ResponseException e) {
+                        e.printStackTrace();
+                        T.show(e.getMessage());
+                    }
+                }
+
+                @Override
+                public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                    super.onFailure(statusCode, headers, responseString, throwable);
+                }
+            });
+
         }
 
 
