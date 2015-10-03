@@ -252,6 +252,7 @@ public class DevelopersAuthenActivity extends BaseActivity {
 						boolean b = DataParseUtil.processDataResult(response);
 						if(b){
 							T.show(response.getString("message"));
+							DevelopersAuthenActivity.this.finish();
 						}
 					} catch (ResponseException e) {
 						e.printStackTrace();

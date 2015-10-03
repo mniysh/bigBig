@@ -57,10 +57,12 @@ public class ModifyNickNameActivity extends BaseActivity {
                                 ModifyNickNameActivity.this.finish();
                             } catch (JSONException e) {
                                 e.printStackTrace();
+                                T.show(e.getMessage());
                             }
                         }
                     } catch (ResponseException e) {
                         e.printStackTrace();
+                        T.show(e.getMessage());
                     }
                 }
 

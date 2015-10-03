@@ -214,6 +214,7 @@ public class HeadmanAuthenActivity extends BaseActivity {
 						boolean b = DataParseUtil.processDataResult(response);
 						if (b) {
 							T.show(response.getString("message"));
+							HeadmanAuthenActivity.this.finish();
 						}
 					} catch (ResponseException e) {
 						e.printStackTrace();

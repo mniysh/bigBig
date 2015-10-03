@@ -233,6 +233,7 @@ public class WorkerAuthenActivity extends BaseActivity {
 							boolean b = DataParseUtil.processDataResult(response);
 							if (b) {
 								T.show(response.getString("message"));
+								WorkerAuthenActivity.this.finish();
 							}
 						} catch (ResponseException e) {
 							e.printStackTrace();

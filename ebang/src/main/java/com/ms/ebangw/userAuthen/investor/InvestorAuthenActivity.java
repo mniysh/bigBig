@@ -220,7 +220,7 @@ public class InvestorAuthenActivity extends BaseActivity {
 		String cityId = authInfo.getCityId();
 		String frontImageId = authInfo.getFrontImageId();
 		String backImageId = authInfo.getBackImageId();
-
+		L.d("xxx","进来了吗");
 		DataAccessUtil.personIdentify(realName, gender, identityCard, provinceId, cityId,
 			frontImageId,
 			backImageId, null, new JsonHttpResponseHandler(){

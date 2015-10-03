@@ -250,6 +250,7 @@ public class InvestorBankVerifyFragment extends BaseFragment {
     @OnClick(R.id.btn_commit)
     public void completeAuthentication() {
         if (isInfoCorrect()) {
+
             setAuthInfo();
             ((InvestorAuthenActivity) mActivity).commit();
         }
