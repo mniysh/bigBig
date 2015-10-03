@@ -13,7 +13,6 @@ import com.loopj.android.http.JsonHttpResponseHandler;
 import com.ms.ebangw.MyApplication;
 import com.ms.ebangw.R;
 import com.ms.ebangw.bean.User;
-import com.ms.ebangw.commons.Constants;
 import com.ms.ebangw.db.UserDao;
 import com.ms.ebangw.exception.ResponseException;
 import com.ms.ebangw.service.DataAccessUtil;
@@ -141,8 +140,7 @@ public class LoginActivity extends BaseActivity{
                         //跳转到主页
                         Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
                         Bundle bundle = new Bundle();
-                        bundle.putSerializable(Constants.KEY_USER, user);
-                        intent.putExtras(bundle);
+                        startActivity(intent);
 
                         finish();
 

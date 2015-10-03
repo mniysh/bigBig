@@ -84,14 +84,10 @@ public class RegisterActivity_2 extends BaseActivity{
 //						L.d("xxx", "user的内容注册部分的" + user.toString());
 						if (null != user) {
 							MyApplication.getInstance().saveUser(user);
-//							Intent intent = new Intent(RegisterActivity_2.this, HomeActivity.class);
-//							startActivity(intent);
+							Intent intent = new Intent(RegisterActivity_2.this, HomeActivity.class);
+							startActivity(intent);
 
 							//跳转到主页
-							Intent intent = new Intent(RegisterActivity_2.this, HomeActivity.class);
-							Bundle bundle = new Bundle();
-							bundle.putSerializable(Constants.KEY_USER, user);
-							intent.putExtras(bundle);
 
 							finish();
 						}
