@@ -84,7 +84,7 @@ public class DataAccessUtil {
 //        params.put("phone", phone);
 //        params.put("password", password);
 
-        return doPost(RequestUrl.logout, params, asyncHttpResponseHandler);
+        return doGet(RequestUrl.logout, params, asyncHttpResponseHandler);
     }
 
     /**

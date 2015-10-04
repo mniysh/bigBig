@@ -164,8 +164,6 @@ public class MyApplication extends Application {
      * 退出应用
      */
     public void quit() {
-        UserDao userDao = new UserDao(this);
-        userDao.removeAll();
 
         for (Activity activity : unDestroyActivityList) {
             if (null != activity) {
@@ -183,7 +181,7 @@ public class MyApplication extends Application {
 
     public boolean saveUser(User user) {
         UserDao userDao = new UserDao(this);
-        return userDao.update(user);
+        return userDao.add(user);
     }
 
     public List<Bank> getBanks() {

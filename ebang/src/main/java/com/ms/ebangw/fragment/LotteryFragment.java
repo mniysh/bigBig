@@ -164,6 +164,10 @@ public class LotteryFragment extends BaseFragment {
     }
 
     class JsObject {
+        /**
+         * 分享到指定平台
+         * @param platform  1:微信 2：朋友圈 3：新浪微博
+         */
         @JavascriptInterface
         public void sharePlatform(final int platform) {
 
@@ -171,6 +175,7 @@ public class LotteryFragment extends BaseFragment {
         }
 
         /**
+         * 打电话
          * @param phone
          */
         @JavascriptInterface
@@ -186,9 +191,23 @@ public class LotteryFragment extends BaseFragment {
         }
 
         /**
+         * 跳转到登录页面
          */
         @JavascriptInterface
         public void gotoLogin() {
+
+            MyApplication.getInstance().quit();
+
+            Intent intent = new Intent(mActivity, LoginActivity.class);
+            startActivity(intent);
+
+        }
+
+        /**
+         * 跳转到认证页面
+         */
+        @JavascriptInterface
+        public void gotoAuth() {
 
             MyApplication.getInstance().quit();
 

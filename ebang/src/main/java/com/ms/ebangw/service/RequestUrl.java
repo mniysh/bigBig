@@ -17,7 +17,7 @@ public class RequestUrl {
      */
     public static final String login = domain + "/api/user/index/login";
     /**
-     * 3.退出接口
+     * 1-3.退出接口  请求：get
      */
     public static final String logout = domain + "/api/user/index/logout";
     /**
