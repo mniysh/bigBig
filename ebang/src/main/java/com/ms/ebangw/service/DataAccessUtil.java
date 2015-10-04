@@ -271,7 +271,7 @@ public class DataAccessUtil {
         params.put("card_image_front",card_image_front);
         params.put("card_image_back",card_image_back);
         params.put("card_expiration_time",card_expiration_time);
-
+        L.d("xxx", "请求类");
 
         return doPost(RequestUrl.penson_identify, params, asyncHttpResponseHandler);
     }
@@ -449,7 +449,7 @@ public class DataAccessUtil {
      */
     public static RequestHandle modifyNickName(String nickname,AsyncHttpResponseHandler asyncHttpResponseHandler){
         RequestParams params=new RequestParams();
-        params.put("nickname",nickname);
+        params.put("nick_name",nickname);
         return doPost(RequestUrl.modify_nickName, params, asyncHttpResponseHandler);
     }
 

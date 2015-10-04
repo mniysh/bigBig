@@ -98,7 +98,7 @@ public class ModifyNickNameActivity extends BaseActivity {
 
     }
     public boolean isEmpty(String str){
-        return str==null;
+        return str== null;
     }
 
 

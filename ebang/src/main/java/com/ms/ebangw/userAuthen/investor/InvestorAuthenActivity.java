@@ -228,6 +228,7 @@ public class InvestorAuthenActivity extends BaseActivity {
 				public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
 					try {
 						boolean b = DataParseUtil.processDataResult(response);
+						L.d("xxx","boolean值"+b);
 						if (b) {
 							T.show(response.getString("message"));
 							InvestorAuthenActivity.this.finish();
