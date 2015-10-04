@@ -160,7 +160,7 @@ public class DevelopersBankVerifyFragment extends BaseFragment {
      * 把*变成红色
      */
     public void setStarRed() {
-        int[] resId = new int[]{R.id.tv_a, R.id.tv_b, R.id.tv_c, R.id.tv_d};
+        int[] resId = new int[]{R.id.tv_a, R.id.tv_b, R.id.tv_c, R.id.tv_d,R.id.tv_e,R.id.tv_f,R.id.tv_g,R.id.tv_h,R.id.tv_k};
         for (int i = 0; i < resId.length; i++) {
             TextView a = (TextView) contentLayout.findViewById(resId[i]);
             String s = a.getText().toString();

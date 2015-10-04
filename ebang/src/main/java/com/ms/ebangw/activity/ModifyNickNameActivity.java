@@ -80,7 +80,12 @@ public class ModifyNickNameActivity extends BaseActivity {
 
     @Override
     public void initView() {
-        initTitle(null,"放回","昵称修改",null,null);
+        initTitle(null,"返回","昵称修改",null,null);
+        if(getUser() != null){
+            if(getUser().getNick_name() != null){
+                etNewName.setHint(getUser().getNick_name());
+            }
+        }
     }
 
     @Override

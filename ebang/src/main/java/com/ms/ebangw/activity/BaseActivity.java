@@ -47,6 +47,7 @@ public abstract class BaseActivity extends AppCompatActivity {
             WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
         MyApplication.unDestroyActivityList.add(this);
 
+
     }
 
     /**
