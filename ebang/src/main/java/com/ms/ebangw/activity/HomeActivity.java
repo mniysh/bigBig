@@ -61,6 +61,7 @@ public class HomeActivity extends BaseActivity {
 
 	private SelectCraftFragment selectCraftFragment;
 	private LotteryFragment lotteryFragment;
+	private List<Bank> banks;
 
 	@Bind(R.id.radioGroup)
 	RadioGroup radioGroup;
@@ -256,27 +257,29 @@ public class HomeActivity extends BaseActivity {
 //	}
 
 	private void loadBanks() {
+		banks = getBanks();
+		MyApplication.getInstance().setBanks(banks);
 
-		DataAccessUtil.bankList(new JsonHttpResponseHandler() {
-
-			@Override
-			public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-
-				try {
-					List<Bank> banks = DataParseUtil.bankList(response);
-					MyApplication.getInstance().setBanks(banks);
-
-				} catch (ResponseException e) {
-					e.printStackTrace();
-				}
-			}
-
-			@Override
-			public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
-				super.onFailure(statusCode, headers, responseString, throwable);
-				L.d(responseString);
-			}
-		});
+//		DataAccessUtil.bankList(new JsonHttpResponseHandler() {
+//
+//			@Override
+//			public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+//
+//				try {
+//					List<Bank> banks = DataParseUtil.bankList(response);
+//					MyApplication.getInstance().setBanks(banks);
+//
+//				} catch (ResponseException e) {
+//					e.printStackTrace();
+//				}
+//			}
+//
+//			@Override
+//			public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+//				super.onFailure(statusCode, headers, responseString, throwable);
+//				L.d(responseString);
+//			}
+//		});
 
 	}
 
