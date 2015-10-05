@@ -19,6 +19,7 @@ import com.ms.ebangw.userAuthen.developers.DevelopersAuthenActivity;
 import com.ms.ebangw.userAuthen.headman.HeadmanAuthenActivity;
 import com.ms.ebangw.userAuthen.investor.InvestorAuthenActivity;
 import com.ms.ebangw.userAuthen.worker.WorkerAuthenActivity;
+import com.ms.ebangw.utils.L;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -66,6 +67,7 @@ public class AuthenticationFragment extends BaseFragment implements OnClickListe
 	}
 
 	private void setNickName() {
+		L.d("xxx","现在的用户昵称是"+getUser().getNick_name());
 		if(getUser().getNick_name() == null){
 			phoneTv.setText(getUser().getPhone());
 		}else{

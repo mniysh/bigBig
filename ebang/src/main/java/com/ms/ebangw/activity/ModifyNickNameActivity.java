@@ -9,6 +9,7 @@ import com.loopj.android.http.JsonHttpResponseHandler;
 import com.ms.ebangw.MyApplication;
 import com.ms.ebangw.R;
 import com.ms.ebangw.bean.User;
+import com.ms.ebangw.db.UserDao;
 import com.ms.ebangw.exception.ResponseException;
 import com.ms.ebangw.service.DataAccessUtil;
 import com.ms.ebangw.service.DataParseUtil;
@@ -36,10 +37,11 @@ public class ModifyNickNameActivity extends BaseActivity {
     @OnClick(R.id.tv_oneFinish)
     public void changeName(){
 
-        final String newNickName=etNewName.getText().toString().trim();
+        final String newNickName = etNewName.getText().toString().trim();
         if(isEmpty(newNickName)){
 
             T.show("昵称不可为空");
+
         }else{
             DataAccessUtil.modifyNickName(newNickName, new JsonHttpResponseHandler(){
 
@@ -52,9 +54,11 @@ public class ModifyNickNameActivity extends BaseActivity {
                                 String message=response.getString("message");
                                 User user = getUser();
                                 user.setNick_name(newNickName);
-                                MyApplication.getInstance().saveUser(user);
+                                UserDao userDao = new UserDao(ModifyNickNameActivity.this);
+                                userDao.update(user);
                                 T.show(message);
-                                ModifyNickNameActivity.this.finish();
+                                setResult(RESULT_OK);
+                                finish();
                             } catch (JSONException e) {
                                 e.printStackTrace();
                                 T.show(e.getMessage());
@@ -86,6 +90,23 @@ public class ModifyNickNameActivity extends BaseActivity {
                 etNewName.setHint(getUser().getNick_name());
             }
         }
+        User u = getUser();
+        if(u != null){
+            if(u.getNick_name() != null){
+                etNewName.setHint(u.getNick_name());
+            }
+        }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        User user = getUser();
+        if(user !=null ){
+            if(user.getNick_name() != null){
+                etNewName.setText(user.getName());
+            }
+        }
     }
 
     @Override
@@ -103,7 +124,7 @@ public class ModifyNickNameActivity extends BaseActivity {
 
     }
     public boolean isEmpty(String str){
-        return str== null;
+        return str == null;
     }
 
 

@@ -88,6 +88,12 @@ public class RegisterActivity extends BaseActivity  {
 		SpannableString spannableString = new SpannableString(s);
 		spannableString.setSpan(new ForegroundColorSpan(Color.parseColor("#036287")), 32, s.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
 		a.setText(spannableString);
+		a.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				startActivity(new Intent (RegisterActivity.this,ServiceContractActivity.class));
+			}
+		});
 
 	}
 	/**

@@ -13,6 +13,7 @@ import com.ms.ebangw.db.UserDao;
 import com.ms.ebangw.exception.ResponseException;
 import com.ms.ebangw.service.DataAccessUtil;
 import com.ms.ebangw.service.DataParseUtil;
+import com.ms.ebangw.utils.L;
 import com.ms.ebangw.utils.T;
 
 import org.apache.http.Header;
@@ -42,13 +43,18 @@ public class SettingActivity extends BaseActivity {
     TextView tvPhoneModify;
     @Bind(R.id.tv_passModify)
     TextView tvPassModify;
+
     @OnClick(R.id.tv_nameModify)
     public void changeNickName(){
-        startActivity(new Intent(this,ModifyNickNameActivity.class));
+
+        Intent intent = new Intent(this, ModifyNickNameActivity.class);
+
+        startActivityForResult(intent, 111);
 
     }
     @OnClick(R.id.tv_phoneModify)
     public void changePhone(){
+
         startActivity(new Intent(this,ModifyPhoneActivity.class));
 
     }
@@ -59,10 +65,22 @@ public class SettingActivity extends BaseActivity {
     }
 
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 111 && resultCode == RESULT_OK) {
+            User user = MyApplication.getInstance().getUser();
+            String nick_name = user.getNick_name();
+            tvNickName.setText(nick_name);
+        }
+
+    }
 
     @Override
     public void initView() {
         initTitle(null, "返回", "设置", null, null);
+        tvNickName.setText(getUser().getNick_name());
+        tPhone.setText(getUser().getPhone());
     }
 
     @Override
@@ -79,20 +97,24 @@ public class SettingActivity extends BaseActivity {
         initData();
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        User user = getUser();
-        if(null!=user){
-            String newName=user.getNick_name();
-            String phone=user.getPhone();
-            tvNickName.setText(newName);
-            tPhone.setText(phone);
-        }else{
-            T.show("用户不存在");
-        }
+//    @Override
+//    public void onResume() {
+//        super.onResume();
+//        User user = getUser();
+//        L.d("xxx",user.toString());
+//        if(null!= user){
+//            String newName=user.getNick_name();
+//            String phone=user.getPhone();
+//            tvNickName.setText(newName);
+//            tPhone.setText(phone);
+//        }else{
+//            T.show("用户不存在");
+//        }
+//
+//    }
 
-    }
+
+
 
     @OnClick(R.id.btn_exit)
     public void exit() {
