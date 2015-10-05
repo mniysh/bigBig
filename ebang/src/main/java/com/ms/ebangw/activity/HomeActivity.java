@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.KeyEvent;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
 import com.loopj.android.http.JsonHttpResponseHandler;
@@ -64,6 +65,8 @@ public class HomeActivity extends BaseActivity {
 
 	@Bind(R.id.radioGroup)
 	RadioGroup radioGroup;
+	@Bind(R.id.rb_mine)
+	RadioButton mineRb;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {

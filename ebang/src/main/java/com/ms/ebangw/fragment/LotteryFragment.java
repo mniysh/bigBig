@@ -17,6 +17,7 @@ import android.widget.Toast;
 import com.baidu.location.BDLocation;
 import com.ms.ebangw.MyApplication;
 import com.ms.ebangw.R;
+import com.ms.ebangw.activity.HomeActivity;
 import com.ms.ebangw.activity.LoginActivity;
 import com.ms.ebangw.bean.User;
 import com.ms.ebangw.utils.L;
@@ -211,8 +212,8 @@ public class LotteryFragment extends BaseFragment {
 
             MyApplication.getInstance().quit();
 
-            Intent intent = new Intent(mActivity, LoginActivity.class);
-            startActivity(intent);
+            HomeActivity homeActivity = (HomeActivity) mActivity;
+            homeActivity.findViewById(R.id.rb_mine).performClick();
 
         }
 
