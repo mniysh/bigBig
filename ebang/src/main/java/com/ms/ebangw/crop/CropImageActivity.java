@@ -3,6 +3,7 @@ package com.ms.ebangw.crop;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 
 import com.loopj.android.http.JsonHttpResponseHandler;
@@ -47,7 +48,12 @@ public class CropImageActivity extends BaseActivity {
 
     @Override
     public void initView() {
-
+        cancelBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
 
     @Override
@@ -60,10 +66,12 @@ public class CropImageActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_crop);
         ButterKnife.bind(this);
+        initView();
+        initData();
+
         MyApplication application = (MyApplication) getApplication();
         mBitmap = application.mBitmap;
         mImageView.setImageBitmap(mBitmap);
-
 
     }
 
@@ -132,6 +140,7 @@ public class CropImageActivity extends BaseActivity {
             public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
                 super.onFailure(statusCode, headers, responseString, throwable);
                 T.show("图片上传失败，请重试");
+                dismissLoadingDialog();
             }
 
 
