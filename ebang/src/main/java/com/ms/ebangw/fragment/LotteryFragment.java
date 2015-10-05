@@ -266,13 +266,7 @@ public class LotteryFragment extends BaseFragment {
      */
     public void onSharedResult(int platform, int resultCode) {
         T.show("分享后回调js onSharedResult");
-//        webview.loadUrl("javascript:onSharedResult(" + platform + "," + resultCode + ")");
-        webview.loadUrl("javascript:onSharedResult(1,1)");
+        String s = "javascript:onSharedResult(" + platform + "," + resultCode + ")";
+        webview.loadUrl(s);
     }
-
-//    @Override
-//    public void onResume() {
-//        super.onResume();
-//        onSharedResult(1, 1);
-//    }
 }
