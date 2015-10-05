@@ -17,6 +17,7 @@ import android.widget.Toast;
 import com.baidu.location.BDLocation;
 import com.ms.ebangw.MyApplication;
 import com.ms.ebangw.R;
+import com.ms.ebangw.activity.HomeActivity;
 import com.ms.ebangw.activity.LoginActivity;
 import com.ms.ebangw.bean.User;
 import com.ms.ebangw.utils.L;
@@ -211,8 +212,8 @@ public class LotteryFragment extends BaseFragment {
 
             MyApplication.getInstance().quit();
 
-            Intent intent = new Intent(mActivity, LoginActivity.class);
-            startActivity(intent);
+            HomeActivity homeActivity = (HomeActivity) mActivity;
+            homeActivity.findViewById(R.id.rb_mine).performClick();
 
         }
 
@@ -252,7 +253,6 @@ public class LotteryFragment extends BaseFragment {
                     }
 
                     onSharedResult(p, eCode == StatusCode.ST_CODE_SUCCESSED ? 1 : 0);
-
                 }
 
             });
@@ -265,8 +265,8 @@ public class LotteryFragment extends BaseFragment {
      * @param resultCode 0: 失败， 1：成功
      */
     public void onSharedResult(int platform, int resultCode) {
-        webview.loadUrl("javascript:onSharedResult(" + platform + "," + resultCode + ")");
+        T.show("分享后回调js onSharedResult");
+        String s = "javascript:onSharedResult(" + platform + "," + resultCode + ")";
+        webview.loadUrl(s);
     }
-
-
 }

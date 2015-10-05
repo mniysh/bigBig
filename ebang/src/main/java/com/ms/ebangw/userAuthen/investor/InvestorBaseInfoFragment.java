@@ -41,6 +41,7 @@ public class InvestorBaseInfoFragment extends BaseFragment {
 
 	private static final String CATEGORY = "category";
 
+
 	private String category;
 	private ViewGroup contentLayout;
 
@@ -99,7 +100,6 @@ public class InvestorBaseInfoFragment extends BaseFragment {
 
 	@Override
 	public void initData() {
-
 		initSpinner();
 	}
 
@@ -145,9 +145,9 @@ public class InvestorBaseInfoFragment extends BaseFragment {
 
 	@OnClick(R.id.btn_next)
 	public void goNext() {
-		if (!isInfoCorrect()) {
-			return;
-		}
+//		if (!isInfoCorrect()) {
+//			return;
+//		}
 		if(getAuthInfo() != null){
 			AuthInfo authInfo = getAuthInfo();
 			InvestorAuthenActivity activity = (InvestorAuthenActivity) mActivity;
@@ -265,5 +265,7 @@ public class InvestorBaseInfoFragment extends BaseFragment {
 			return totalRegion.getProvince();
 		}
 	}
+
+
 
 }
