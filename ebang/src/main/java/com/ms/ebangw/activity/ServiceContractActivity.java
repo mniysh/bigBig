@@ -26,7 +26,7 @@ public class ServiceContractActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_service_contract);
-        initTitle(null, "返回", "服务协议", null, null);
+        initTitle(null, "返回", "亿帮无忧使用协议", null, null);
     }
 
 

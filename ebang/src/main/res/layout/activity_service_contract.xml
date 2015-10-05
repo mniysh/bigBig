@@ -11,11 +11,14 @@
 
 
     <include layout="@layout/layout_common_title"/>
+
     <TextView
+        android:padding="12dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/servicecon"
-
+        android:lineSpacingExtra="3dp"
+        android:lineSpacingMultiplier="1.5"
         />
     </LinearLayout>
 
