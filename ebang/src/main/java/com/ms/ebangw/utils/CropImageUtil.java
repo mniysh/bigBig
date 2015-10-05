@@ -1,85 +1,13 @@
 package com.ms.ebangw.utils;
 
-import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
 import android.media.ExifInterface;
 
-import com.ms.ebangw.MyApplication;
-
 import java.io.IOException;
 
-/**
- * 类描述:裁剪图片工具类
- * 创建人: yancey
- * 创建时间: 2014-12-2 上午11:03:39
- * 修改人:
- * 修改时间:
- * 修改备注:
- * 版本:
- */
 public class CropImageUtil {
-
-    protected static final String TAG = "CropImageUtil";
-    private static CropImageUtil cropImageUtil = null;
-    private Context context;
-    private String avatarUploadPath;
-    /**
-     * 土司提示信息
-     */
-    private String noticeStr;
-    private String uploadImageURL;
-
-    private CropImageUtil() {
-        context = MyApplication.getInstance();
-    }
-
-    /**
-     * @param
-     * @return
-     */
-    public static CropImageUtil getInstance() {
-        if (cropImageUtil == null)
-            return cropImageUtil = new CropImageUtil();
-        else
-            return cropImageUtil;
-    }
-
-
-
-//    /**
-//     * 图库
-//     */
-//    public void toGallery(Activity activity) {
-//        File dir = new File(Constants.LOGS_AND_IMGS);
-//        if (!dir.exists()) {
-//            dir.mkdirs();
-//        }
-//        // 选择图片
-//        Intent intent = new Intent();
-//        intent.setAction(Intent.ACTION_PICK);
-//        intent.setType("image/*");
-//        activity.startActivityForResult(intent, Constants.CHOOSE_GALLERY);
-//    }
-//
-//    /**
-//     * 拍照
-//     */
-//    public void toPhotograph(Activity activity) {
-//        File dir = new File(Constants.LOGS_AND_IMGS);
-//        if (!dir.exists()) {
-//            dir.mkdirs();
-//        }
-//        // 拍照
-//        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-//        File f = new File(Constants.LOGS_AND_IMGS, "camera.jpg");
-//        Uri u = Uri.fromFile(f);
-//        intent.putExtra(MediaStore.Images.Media.ORIENTATION, 0);
-//        intent.putExtra(MediaStore.EXTRA_OUTPUT, u);
-//        activity.startActivityForResult(intent, Constants.CHOOSE_PHOTOGRAPH);
-//    }
-
-
 
     /**
      * 读取图片的旋转的角度
@@ -137,6 +65,45 @@ public class CropImageUtil {
             bm.recycle();
         }
         return returnBm;
+    }
+
+
+    public static Bitmap decodeSampledBitmapFromResource(String path, int reqWidth, int reqHeight) {
+
+        // First decode with inJustDecodeBounds=true to check dimensions
+        final BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inJustDecodeBounds = true;
+        BitmapFactory.decodeFile(path, options);
+
+        // Calculate inSampleSize
+        options.inSampleSize = calculateInSampleSize(options, reqWidth, reqHeight);
+
+        // Decode bitmap with inSampleSize set
+        options.inJustDecodeBounds = false;
+        return BitmapFactory.decodeFile(path, options);
+    }
+
+    public static int calculateInSampleSize(
+        BitmapFactory.Options options, int reqWidth, int reqHeight) {
+        // Raw height and width of image
+        final int height = options.outHeight;
+        final int width = options.outWidth;
+        int inSampleSize = 1;
+
+        if (height > reqHeight || width > reqWidth) {
+
+            final int halfHeight = height / 2;
+            final int halfWidth = width / 2;
+
+            // Calculate the largest inSampleSize value that is a power of 2 and keeps both
+            // height and width larger than the requested height and width.
+            while ((halfHeight / inSampleSize) > reqHeight
+                && (halfWidth / inSampleSize) > reqWidth) {
+                inSampleSize *= 2;
+            }
+        }
+
+        return inSampleSize;
     }
 
 }

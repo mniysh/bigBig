@@ -17,7 +17,6 @@ import java.io.ByteArrayOutputStream;
 
 /**
  * @author yanzi
- *����Bitmap��byte[] Drawable����ת��
  */
 public class BitmapUtil {
 

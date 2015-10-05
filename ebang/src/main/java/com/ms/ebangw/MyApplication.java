@@ -2,6 +2,7 @@ package com.ms.ebangw;
 
 import android.app.Activity;
 import android.app.Application;
+import android.graphics.Bitmap;
 
 import com.baidu.location.BDLocation;
 import com.baidu.location.LocationClient;
@@ -24,6 +25,7 @@ import cn.jpush.android.api.TagAliasCallback;
 public class MyApplication extends Application {
 
     public static MyApplication instance;
+    public Bitmap mBitmap;
     private int flag_sub;
     private String phone;
     private String password;

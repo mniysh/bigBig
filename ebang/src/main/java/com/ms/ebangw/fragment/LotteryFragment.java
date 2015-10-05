@@ -253,7 +253,6 @@ public class LotteryFragment extends BaseFragment {
                     }
 
                     onSharedResult(p, eCode == StatusCode.ST_CODE_SUCCESSED ? 1 : 0);
-
                 }
 
             });
@@ -266,8 +265,14 @@ public class LotteryFragment extends BaseFragment {
      * @param resultCode 0: 失败， 1：成功
      */
     public void onSharedResult(int platform, int resultCode) {
-        webview.loadUrl("javascript:onSharedResult(" + platform + "," + resultCode + ")");
+        T.show("分享后回调js onSharedResult");
+//        webview.loadUrl("javascript:onSharedResult(" + platform + "," + resultCode + ")");
+        webview.loadUrl("javascript:onSharedResult(1,1)");
     }
 
-
+//    @Override
+//    public void onResume() {
+//        super.onResume();
+//        onSharedResult(1, 1);
+//    }
 }

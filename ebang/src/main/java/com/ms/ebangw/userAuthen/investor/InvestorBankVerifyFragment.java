@@ -24,6 +24,7 @@ import com.ms.ebangw.bean.Bank;
 import com.ms.ebangw.bean.City;
 import com.ms.ebangw.bean.Province;
 import com.ms.ebangw.bean.TotalRegion;
+import com.ms.ebangw.crop.FroyoAlbumDirFactory;
 import com.ms.ebangw.fragment.BaseFragment;
 import com.ms.ebangw.utils.L;
 import com.ms.ebangw.utils.T;
@@ -41,6 +42,8 @@ import butterknife.OnClick;
  */
 public class InvestorBankVerifyFragment extends BaseFragment {
     private static final String CATEGORY = "category";
+
+
     private String category;
     private ViewGroup contentLayout;
     private List<Province> provinces;
@@ -255,6 +258,8 @@ public class InvestorBankVerifyFragment extends BaseFragment {
             ((InvestorAuthenActivity) mActivity).commit();
         }
     }
+
+
 
 
 }

@@ -34,14 +34,17 @@ public class UserDao {
 
         try {
 //			userDaoOpe.createOrUpdate(user);
-            int i = userDaoOpe.create(user);
-            if (i > 0) {
+//            int i = userDaoOpe.create(user);
+            Dao.CreateOrUpdateStatus orUpdate = userDaoOpe.createOrUpdate(user);
+            if (orUpdate.isUpdated() || orUpdate.isCreated()) {
+                L.d("add User 成功");
                 return true;
             }
+
         } catch (SQLException e) {
-            L.d("add User失败");
             e.printStackTrace();
         }
+        L.d("add User 失败");
         return false;
 
     }
