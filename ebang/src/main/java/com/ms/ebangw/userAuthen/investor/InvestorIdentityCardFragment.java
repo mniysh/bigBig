@@ -18,10 +18,11 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.ms.ebangw.MyApplication;
 import com.ms.ebangw.R;
+import com.ms.ebangw.bean.AuthInfo;
+import com.ms.ebangw.bean.UploadImageResult;
 import com.ms.ebangw.commons.Constants;
 import com.ms.ebangw.crop.CropImageActivity;
 import com.ms.ebangw.crop.FroyoAlbumDirFactory;
@@ -29,9 +30,7 @@ import com.ms.ebangw.crop.GetPathFromUri4kitkat;
 import com.ms.ebangw.fragment.BaseFragment;
 import com.ms.ebangw.utils.BitmapUtil;
 import com.ms.ebangw.utils.CropImageUtil;
-import com.ms.ebangw.utils.L;
 import com.ms.ebangw.utils.T;
-import com.soundcloud.android.crop.Crop;
 
 import java.io.File;
 import java.io.IOException;
@@ -50,6 +49,7 @@ public class InvestorIdentityCardFragment extends BaseFragment {
     private static final String CATEGORY = "category";
     private final int REQUEST_PICK = 4;
     private final int REQUEST_CAMERA = 6;
+    private final int REQUEST_CROP = 8;
     private String mCurrentPhotoPath;
     private static final String JPEG_FILE_PREFIX = "IMG_";
     private static final String JPEG_FILE_SUFFIX = ".jpg";
@@ -110,6 +110,8 @@ public class InvestorIdentityCardFragment extends BaseFragment {
     }
 
 
+
+
     /**
      * 选择正面照片
      */
@@ -117,7 +119,6 @@ public class InvestorIdentityCardFragment extends BaseFragment {
     public void selectFrontPhoto() {
         whichPhoto = Constants.PHOTO_FRONT;
         selectPhoto();
-//        ((InvestorAuthenActivity)mActivity).selectPhoto();
     }
 
     /**
@@ -126,7 +127,7 @@ public class InvestorIdentityCardFragment extends BaseFragment {
     @OnClick(R.id.btn_select_back)
     public void selectBackPhoto() {
         whichPhoto = Constants.PHOTO_BACK;
-//        ((InvestorAuthenActivity)mActivity).selectPhoto();
+        selectPhoto();
     }
 
     /**
@@ -136,7 +137,6 @@ public class InvestorIdentityCardFragment extends BaseFragment {
     public void takeFrontPhoto() {
         whichPhoto = Constants.PHOTO_FRONT;
         captureImageByCamera();
-//        ((InvestorAuthenActivity)mActivity).openCamera();
     }
 
     /**
@@ -145,7 +145,7 @@ public class InvestorIdentityCardFragment extends BaseFragment {
     @OnClick(R.id.btn_photo_back)
     public void takeBackPhoto() {
         whichPhoto = Constants.PHOTO_BACK;
-//        ((InvestorAuthenActivity)mActivity).openCamera();
+        captureImageByCamera();
     }
 
     @Override
@@ -180,77 +180,6 @@ public class InvestorIdentityCardFragment extends BaseFragment {
 
 
     }
-
-    public void handleCrop(int resultCode, Intent result) {
-        if (resultCode == mActivity.RESULT_OK) {
-            Uri uri = Crop.getOutput(result);
-            L.d("Uri: " + uri);
-            if (whichPhoto == Constants.PHOTO_FRONT) {
-                frontIv.setImageURI(Crop.getOutput(result));
-//                uploadImage(uri, TYPE_FRONT);
-            }else {
-                backIv.setImageURI(Crop.getOutput(result));
-//                uploadImage(uri, TYPE_BACK);
-            }
-
-
-
-        } else if (resultCode == Crop.RESULT_ERROR) {
-            T.show("选取图片失败");
-        }
-    }
-
-//    private void uploadImage(Uri uri, final int type ) {
-//
-//        DataAccessUtil.uploadImage(file, new JsonHttpResponseHandler() {
-//            @Override
-//            public void onStart() {
-//                super.onStart();
-//                showProgressDialog("图片上传中...");
-//            }
-//
-//            @Override
-//            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-//                dismissLoadingDialog();
-//
-//
-//                try {
-//                    if (DataParseUtil.processDataResult(response)) {
-//                        UploadImageResult result = DataParseUtil.upLoadImage(response);
-//                        String id = result.getId();
-//                        AuthInfo authInfo = ((InvestorAuthenActivity) mActivity).getAuthInfo();
-//                        if (type == TYPE_FRONT) {
-//                            isFrontUploaded = true;
-//                            authInfo.setFrontImageId(id);
-//                        }
-//
-//                        if (type == TYPE_BACK) {
-//                            isBackUploaded = true;
-//                            authInfo.setBackImageId(id);
-//                        }
-//                        T.show("上传图片成功");
-//                    }else {
-//                        T.show("上传图片失败,请重试");
-//                    }
-//
-//
-//
-//                } catch (ResponseException e) {
-//                    e.printStackTrace();
-//                }
-//
-//            }
-//
-//            @Override
-//            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
-//                super.onFailure(statusCode, headers, responseString, throwable);
-//                L.d(responseString);
-//                T.show("上传图片失败,请重试");
-//                dismissLoadingDialog();
-//            }
-//        });
-//    }
-
 
 
     /**
@@ -360,8 +289,6 @@ public class InvestorIdentityCardFragment extends BaseFragment {
 
             try {
                 String path = GetPathFromUri4kitkat.getPath(mActivity, uri);
-//                Bitmap bitmap = CropImageUtil.decodeSampledBitmapFromResource(path, 400, 800);
-
                 Bitmap bitmap = BitmapUtil.getimage(path);
                 int bitmapDegree = CropImageUtil.getBitmapDegree(path);
                 if (bitmapDegree != 0) {
@@ -375,15 +302,39 @@ public class InvestorIdentityCardFragment extends BaseFragment {
                 e.printStackTrace();
             }
 
+        }else if (requestCode == REQUEST_CROP) {        //剪切后返回
+            handleCropBitmap(data);
+        }
+    }
+
+
+    public void handleCropBitmap(Intent intent) {
+        UploadImageResult imageResult = intent.getParcelableExtra(Constants.KEY_UPLOAD_IMAGE_RESULT);
+        MyApplication myApplication = (MyApplication) mActivity.getApplication();
+        Bitmap bitmap = myApplication.mBitmap;
+
+        String id = imageResult.getId();
+        AuthInfo authInfo = ((InvestorAuthenActivity) mActivity).getAuthInfo();
+        switch (whichPhoto) {
+            case Constants.PHOTO_FRONT:
+                frontIv.setImageBitmap(bitmap);
+                authInfo.setFrontImageId(id);
+                isFrontUploaded = true;
+                break;
+
+            case Constants.PHOTO_BACK:
+                backIv.setImageBitmap(bitmap);
+                authInfo.setBackImageId(id);
+                isBackUploaded = true;
+                break;
         }
 
-        Toast.makeText(mActivity, "onActivityResult", Toast.LENGTH_SHORT).show();
     }
 
     public void goCropActivity() {
 
         Intent intent = new Intent(mActivity, CropImageActivity.class);
-        startActivity(intent);
+        startActivityForResult(intent, REQUEST_CROP);
 
     }
 
@@ -407,7 +358,6 @@ public class InvestorIdentityCardFragment extends BaseFragment {
 
     private void setPic(String path, int targetW, int targetH) {
 
-//        Bitmap bitmap = CropImageUtil.decodeSampledBitmapFromResource(path, targetW, targetH);
         Bitmap bitmap = BitmapUtil.getimage(path);
         int bitmapDegree = CropImageUtil.getBitmapDegree(path);
         if (bitmapDegree != 0) {
@@ -418,7 +368,7 @@ public class InvestorIdentityCardFragment extends BaseFragment {
         application.mBitmap = bitmap;
 
         Intent intent = new Intent(mActivity, CropImageActivity.class);
-        startActivity(intent);
+        startActivityForResult(intent, REQUEST_CROP);
 
     }
 
