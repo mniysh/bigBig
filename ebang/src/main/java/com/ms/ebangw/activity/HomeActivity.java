@@ -3,7 +3,6 @@ package com.ms.ebangw.activity;
 import android.app.FragmentManager;
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -17,19 +16,16 @@ import com.ms.ebangw.bean.User;
 import com.ms.ebangw.commons.Constants;
 import com.ms.ebangw.exception.ResponseException;
 import com.ms.ebangw.fragment.AuthenticationFragment;
-import com.ms.ebangw.fragment.DevelopersCenterFragment;
 import com.ms.ebangw.fragment.FoundFragment;
-import com.ms.ebangw.fragment.HeadmanCenterFragment;
-import com.ms.ebangw.fragment.InvestorCenterFragment;
 import com.ms.ebangw.fragment.LotteryFragment;
 import com.ms.ebangw.fragment.ServiceFragment;
-import com.ms.ebangw.fragment.WorkerCenterFragment;
 import com.ms.ebangw.fragment.WorkerHomeFragment;
 import com.ms.ebangw.release.ReleaseFragment;
 import com.ms.ebangw.release.ReleaseFrament01;
 import com.ms.ebangw.release.SelectCraftFragment;
 import com.ms.ebangw.service.DataAccessUtil;
 import com.ms.ebangw.service.DataParseUtil;
+import com.ms.ebangw.userAuthen.InfoCommitSuccessFragment;
 import com.ms.ebangw.utils.L;
 import com.ms.ebangw.utils.T;
 import com.umeng.update.UmengUpdateAgent;
@@ -122,7 +118,7 @@ public class HomeActivity extends BaseActivity {
 							User user = getUser();
 							String category = user.getCategory();
 							L.d("xxx", "user的内容主页部分的" + user.toString());
-							goCenter(category);
+							goCenter();
 
 						} else {
 							Intent intent = new Intent(HomeActivity.this, LoginActivity.class);
@@ -141,35 +137,91 @@ public class HomeActivity extends BaseActivity {
 
 	/**
 	 * 根据人员类型跳转到相应的内容
-	 * @param category	//用户已认证类型  worker(工人)/headman(工头)/developers(开发商)/investor(个人)  null（未认证）
+	 *  category	//用户已认证类型  worker(工人)/headman(工头)/developers(开发商)/investor(个人)  null（未认证）
+	 *
+	 *  /认证中
+	 * status: 			   状态游客guest
+	 *                     auth_developers(认证开发者中)/
+	 *                     auth_worker(认证工人中)/
+	 *                     auth_headman(认证工头中)/
+	 *                     auth_investor(认证个人中)/
+	 *                     complete（完成认证)
+	 *
 	 */
-	public void goCenter(String category) {
-		if (TextUtils.isEmpty(category)) {		////用户未认证类型
-			AuthenticationFragment authenticationfragment = new AuthenticationFragment();
-			fm.beginTransaction().replace(R.id.fl_content, authenticationfragment).commit();
-			return;
+	public void goCenter() {
+		User user = getUser();
+		String status = user.getStatus();		//认证状态
+		String category = user.getCategory();		//类型
+
+		String title = getTitleByStatus(status);
+		switch (status) {
+
+			case "guest":		//未认证
+			case "complete":		//认证完成
+				AuthenticationFragment authenticationfragment = new AuthenticationFragment();
+				fm.beginTransaction().replace(R.id.fl_content, authenticationfragment).commit();
+				break;
+			case "auth_investor":		//认证中
+			case "auth_worker":
+			case "auth_headman":
+			case "auth_developers":
+				fm.beginTransaction().replace(R.id.fl_content, new InfoCommitSuccessFragment()).commit();
+				break;
 		}
+		return;
 
+//		switch (category) {
+//			case Constants.INVESTOR:        //个人
+//				fm.beginTransaction().replace(R.id.fl_content, new InvestorCenterFragment()).commit();
+//				break;
+//
+//			case Constants.HEADMAN:        //	工头
+//				fm.beginTransaction().replace(R.id.fl_content, new HeadmanCenterFragment()).commit();
+//				break;
+//
+//			case Constants.WORKER:    //工人
+//				fm.beginTransaction().replace(R.id.fl_content, new WorkerCenterFragment()).commit();
+//				break;
+//
+//			case Constants.DEVELOPERS:    //开发商
+//				fm.beginTransaction().replace(R.id.fl_content, new DevelopersCenterFragment()).commit();
+//				break;
+//
+//		}
+	}
 
+	public String getTitleByStatus(String status) {
+		String title = "";
+		switch (status) {
 
-		switch (category) {
-			case Constants.INVESTOR:        //个人
-				fm.beginTransaction().replace(R.id.fl_content, new InvestorCenterFragment()).commit();
+			case "guest":
+				AuthenticationFragment authenticationfragment = new AuthenticationFragment();
+				fm.beginTransaction().replace(R.id.fl_content, authenticationfragment).commit();
+				break;
+			case "auth_investor":
+				title = "个人认证";
+				fm.beginTransaction().replace(R.id.fl_content, new InfoCommitSuccessFragment()).commit();
 				break;
 
-			case Constants.HEADMAN:        //	工头
-				fm.beginTransaction().replace(R.id.fl_content, new HeadmanCenterFragment()).commit();
+			case "auth_worker":
+				title = "务工人认证";
 				break;
 
-			case Constants.WORKER:    //工人
-				fm.beginTransaction().replace(R.id.fl_content, new WorkerCenterFragment()).commit();
+			case "auth_headman":
+				title = "工长认证";
 				break;
 
-			case Constants.DEVELOPERS:    //开发商
-				fm.beginTransaction().replace(R.id.fl_content, new DevelopersCenterFragment()).commit();
+			case "auth_developers":
+				title = "开发商认证";
 				break;
-
+			case "complete":
+				title = "我的信息";
+				break;
+			default:
+				title = "";
+				break;
 		}
+		return title;
 	}
 
 	@Override
@@ -248,7 +300,6 @@ public class HomeActivity extends BaseActivity {
 				} catch (ResponseException e) {
 					e.printStackTrace();
 				}
-
 			}
 
 			@Override

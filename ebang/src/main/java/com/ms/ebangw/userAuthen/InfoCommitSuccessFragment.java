@@ -1,6 +1,7 @@
 package com.ms.ebangw.userAuthen;
 
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -57,6 +58,9 @@ public class InfoCommitSuccessFragment extends BaseFragment {
 
     @Override
     public void initView() {
+        if (TextUtils.isEmpty(category)) {
+            return;
+        }
         String title;
         switch (category) {
             case Constants.INVESTOR:
