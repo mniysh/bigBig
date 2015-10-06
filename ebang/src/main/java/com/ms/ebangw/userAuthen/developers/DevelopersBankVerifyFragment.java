@@ -69,7 +69,6 @@ public class DevelopersBankVerifyFragment extends BaseFragment {
     private ViewGroup contentLayout;
     private  List<Bank> banks;
     private String mCurrentPhotoPath;
-    private boolean isUploaded;
 
     private List<Province> provinces, bankProvinces;
     private Province province, bankProvince;
@@ -245,8 +244,6 @@ public class DevelopersBankVerifyFragment extends BaseFragment {
         String companyNumber = companyNumberEt.getText().toString().trim();
         String companyPhone = stablePhoneEt.getText().toString().trim();
         String businessLiceseNumber = businessLiceseNumberEt.getText().toString().trim();
-//        String linkman = linkmanEt.getText().toString().trim();
-//        String linkmanPhone = linkmanPhoneEt.getText().toString().trim();
         String publicName = publicAccountNameEt.getText().toString().trim();
         String aa = publicAccountEt.getText().toString().trim();
         String cc = publicAccountTwoEt.getText().toString().trim();
@@ -256,6 +253,11 @@ public class DevelopersBankVerifyFragment extends BaseFragment {
         String publicAccount2 = VerifyUtils.bankCard(cc);
         if (TextUtils.isEmpty(companyName)) {
             T.show("请填写企业名称");
+            return false;
+        }
+
+        if (TextUtils.isEmpty(businessLiceseNumber)) {
+            T.show("请填写营业执照注册号");
             return false;
         }
 
@@ -284,25 +286,11 @@ public class DevelopersBankVerifyFragment extends BaseFragment {
             return false;
         }
 
-        if (TextUtils.isEmpty(businessLiceseNumber)) {
-            T.show("请填写营业执照注册号");
+        if (!isImageUploaded) {
+            T.show("请上传组织机构代码证扫描件");
             return false;
         }
 
-        if (TextUtils.isEmpty(businessLiceseNumber)) {
-            T.show("请填写营业执照注册号");
-            return false;
-        }
-
-//        if (TextUtils.isEmpty(linkman)) {
-//            T.show("请填写企业联系人");
-//            return false;
-//        }
-//
-//        if (TextUtils.isEmpty(linkmanPhone)) {
-//            T.show("请填写企业联系人电话");
-//            return false;
-//        }
 
         if (TextUtils.isEmpty(publicName)) {
             T.show("请填写对公帐户户名");
@@ -320,10 +308,7 @@ public class DevelopersBankVerifyFragment extends BaseFragment {
             return false;
         }
 
-        if (!isImageUploaded) {
-            T.show("请上传组织机构代码证扫描件");
-            return false;
-        }
+
 
         return true;
     }
@@ -583,7 +568,7 @@ public class DevelopersBankVerifyFragment extends BaseFragment {
         AuthInfo authInfo = ((DevelopersAuthenActivity) mActivity).getAuthInfo();
         frontIv.setImageBitmap(bitmap);
         authInfo.setOrganizationCertificate(id);
-        isUploaded = true;
+        isImageUploaded = true;
     }
 
     public void goCropActivity() {

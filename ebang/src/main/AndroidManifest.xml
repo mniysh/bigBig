@@ -107,9 +107,9 @@
         <activity
             android:name=".activity.HomeActivity"
             android:windowSoftInputMode="adjustPan|stateHidden" />
-        <activity android:name=".activity.LoginActivity"
-            android:launchMode="singleTask"
-            />
+        <activity
+            android:name=".activity.LoginActivity"
+            android:launchMode="singleTask" />
         <activity android:name=".activity.RegisterActivity" />
         <activity android:name=".activity.RegisterActivity_2" />
         <activity android:name=".activity.CommentActivity" />
@@ -134,7 +134,7 @@
         <activity android:name=".userAuthen.worker.WorkerAuthenActivity" />
         <activity android:name=".userAuthen.developers.DevelopersAuthenActivity" />
         <activity android:name=".userAuthen.headman.HeadmanAuthenActivity" />
-        <activity android:name=".crop.CropImageActivity"/>
+        <activity android:name=".crop.CropImageActivity" />
 
         <!-- 微信 -->
         <activity
@@ -296,12 +296,13 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize|stateAlwaysHidden" >
         </activity>
-
         <activity android:name=".findpassword.SetPhoneActivity" >
         </activity>
         <activity android:name=".findpassword.ResetPasswordActivity" >
         </activity>
         <activity android:name=".findpassword.FoundPasswordActivity" >
+        </activity>
+        <activity android:name=".userAuthen.InfoCommitSuccessActivity" >
         </activity>
     </application>
 
