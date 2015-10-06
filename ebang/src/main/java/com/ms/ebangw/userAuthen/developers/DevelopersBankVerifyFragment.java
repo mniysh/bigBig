@@ -1,17 +1,18 @@
 package com.ms.ebangw.userAuthen.developers;
 
 
-import android.content.ContentResolver;
 import android.content.Intent;
-import android.database.Cursor;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.provider.MediaStore;
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.TextUtils;
 import android.text.style.ForegroundColorSpan;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,7 +25,6 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import com.loopj.android.http.JsonHttpResponseHandler;
 import com.ms.ebangw.MyApplication;
 import com.ms.ebangw.R;
 import com.ms.ebangw.bean.AuthInfo;
@@ -33,19 +33,20 @@ import com.ms.ebangw.bean.City;
 import com.ms.ebangw.bean.Province;
 import com.ms.ebangw.bean.TotalRegion;
 import com.ms.ebangw.bean.UploadImageResult;
-import com.ms.ebangw.exception.ResponseException;
+import com.ms.ebangw.commons.Constants;
+import com.ms.ebangw.crop.CropImageActivity;
+import com.ms.ebangw.crop.FroyoAlbumDirFactory;
+import com.ms.ebangw.crop.GetPathFromUri4kitkat;
 import com.ms.ebangw.fragment.BaseFragment;
-import com.ms.ebangw.service.DataAccessUtil;
-import com.ms.ebangw.service.DataParseUtil;
-import com.ms.ebangw.utils.L;
+import com.ms.ebangw.utils.BitmapUtil;
+import com.ms.ebangw.utils.CropImageUtil;
 import com.ms.ebangw.utils.T;
 import com.ms.ebangw.utils.VerifyUtils;
-import com.soundcloud.android.crop.Crop;
-
-import org.apache.http.Header;
-import org.json.JSONObject;
 
 import java.io.File;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import butterknife.Bind;
@@ -58,9 +59,17 @@ import butterknife.OnClick;
  */
 public class DevelopersBankVerifyFragment extends BaseFragment {
     private static final String CATEGORY = "category";
+    private final int REQUEST_PICK = 4;
+    private final int REQUEST_CAMERA = 6;
+    private final int REQUEST_CROP = 8;
+    private static final String JPEG_FILE_PREFIX = "IMG_";
+    private static final String JPEG_FILE_SUFFIX = ".jpg";
+    private com.ms.ebangw.crop.AlbumStorageDirFactory mAlbumStorageDirFactory = null;
     private String category;
     private ViewGroup contentLayout;
     private  List<Bank> banks;
+    private String mCurrentPhotoPath;
+    private boolean isUploaded;
 
     private List<Province> provinces, bankProvinces;
     private Province province, bankProvince;
@@ -175,7 +184,7 @@ public class DevelopersBankVerifyFragment extends BaseFragment {
      */
     @OnClick(R.id.btn_select_front)
     public void selectFrontPhoto() {
-        ((DevelopersAuthenActivity)mActivity).selectPhoto();
+        selectPhoto();
     }
 
     /**
@@ -183,7 +192,41 @@ public class DevelopersBankVerifyFragment extends BaseFragment {
      */
     @OnClick(R.id.btn_photo_front)
     public void takeFrontPhoto() {
-        ((DevelopersAuthenActivity)mActivity).openCamera();
+
+        captureImageByCamera();
+
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST_CAMERA ) { //拍照返回
+            if (resultCode == mActivity.RESULT_OK) {
+                handleBigCameraPhoto();
+            }
+
+        }else if (requestCode == REQUEST_PICK) {
+            Uri uri = data.getData();
+            Log.d("way", "uri: " + uri);
+
+            try {
+                String path = GetPathFromUri4kitkat.getPath(mActivity, uri);
+                Bitmap bitmap = BitmapUtil.getimage(path);
+                int bitmapDegree = CropImageUtil.getBitmapDegree(path);
+                if (bitmapDegree != 0) {
+                    bitmap = CropImageUtil.rotateBitmapByDegree(bitmap, bitmapDegree);
+                }
+                MyApplication myApplication = (MyApplication) mActivity.getApplication();
+                myApplication.mBitmap = bitmap;
+                goCropActivity();
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+        }else if (requestCode == REQUEST_CROP) {        //剪切后返回
+            handleCropBitmap(data);
+        }
     }
 
 
@@ -499,6 +542,7 @@ public class DevelopersBankVerifyFragment extends BaseFragment {
 
     @Override
     public void initData() {
+        mAlbumStorageDirFactory = new FroyoAlbumDirFactory();
         initSpinner();
         initPublicAccountAddressSpinner();
         initBankSpinner();
@@ -512,16 +556,7 @@ public class DevelopersBankVerifyFragment extends BaseFragment {
         }
     }
 
-    public void handleCrop(int resultCode, Intent result) {
-        if (resultCode == mActivity.RESULT_OK) {
-            Uri uri = Crop.getOutput(result);
-            L.d("Uri: " + uri);
-            frontIv.setImageURI(Crop.getOutput(result));
-            uploadImage(uri);
-        } else if (resultCode == Crop.RESULT_ERROR) {
-            T.show("选取图片失败");
-        }
-    }
+
 
     private void initBankSpinner() {
         banks = MyApplication.getInstance().getBanks();
@@ -532,72 +567,142 @@ public class DevelopersBankVerifyFragment extends BaseFragment {
 
     }
 
-    private void uploadImage(Uri uri) {
-        File file = uriToFile(uri);
 
-        DataAccessUtil.uploadImage(file, new JsonHttpResponseHandler() {
-            @Override
-            public void onStart() {
-                super.onStart();
-                showProgressDialog("图片上传中...");
-            }
 
-            @Override
-            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                dismissLoadingDialog();
 
-                try {
-                    if (DataParseUtil.processDataResult(response)) {
-                        UploadImageResult result = DataParseUtil.upLoadImage(response);
-                        String id = result.getId();
-                        AuthInfo authInfo = ((DevelopersAuthenActivity) mActivity).getAuthInfo();
-                        authInfo.setOrganizationCertificate(id);
-                        isImageUploaded = true;
-                        T.show("上传图片成功");
-                    } else {
-                        T.show("上传图片失败,请重试");
-                        isImageUploaded = false;
-                    }
-                } catch (ResponseException e) {
-                    e.printStackTrace();
-                }
-
-            }
-
-            @Override
-            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
-                super.onFailure(statusCode, headers, responseString, throwable);
-                L.d(responseString);
-                T.show("上传图片失败,请重试");
-                dismissLoadingDialog();
-            }
-        });
-    }
-
-    public File uriToFile(Uri uri) {
-
-        if ( null == uri ) return null;
-        final String scheme = uri.getScheme();
-        String data = null;
-        if ( scheme == null )
-            data = uri.getPath();
-        else if ( ContentResolver.SCHEME_FILE.equals( scheme ) ) {
-            data = uri.getPath();
-        } else if ( ContentResolver.SCHEME_CONTENT.equals( scheme ) ) {
-            Cursor cursor = mActivity.getContentResolver().query( uri, new String[] { MediaStore.Images
-                .ImageColumns.DATA }, null, null, null );
-            if ( null != cursor ) {
-                if ( cursor.moveToFirst() ) {
-                    int index = cursor.getColumnIndex( MediaStore.Images.ImageColumns.DATA );
-                    if ( index > -1 ) {
-                        data = cursor.getString( index );
-                    }
-                }
-                cursor.close();
-            }
+    /*图片剪切==================*/
+    public void handleCropBitmap(Intent intent) {
+        if (intent == null) {
+            return;
         }
-        File file = new File(data);
-        return file;
+        UploadImageResult imageResult = intent.getParcelableExtra(Constants.KEY_UPLOAD_IMAGE_RESULT);
+        MyApplication myApplication = (MyApplication) mActivity.getApplication();
+        Bitmap bitmap = myApplication.mBitmap;
+
+        String id = imageResult.getId();
+        AuthInfo authInfo = ((DevelopersAuthenActivity) mActivity).getAuthInfo();
+        frontIv.setImageBitmap(bitmap);
+        authInfo.setOrganizationCertificate(id);
+        isUploaded = true;
     }
 
+    public void goCropActivity() {
+
+        Intent intent = new Intent(mActivity, CropImageActivity.class);
+        startActivityForResult(intent, REQUEST_CROP);
+
+    }
+
+    private void handleBigCameraPhoto() {
+
+        if (mCurrentPhotoPath != null) {
+            setPic(mCurrentPhotoPath , 400, 800);
+            galleryAddPic();
+            mCurrentPhotoPath = null;
+        }
+    }
+
+    private void galleryAddPic() {
+        Intent mediaScanIntent = new Intent("android.intent.action.MEDIA_SCANNER_SCAN_FILE");
+        File f = new File(mCurrentPhotoPath);
+        Uri contentUri = Uri.fromFile(f);
+        mediaScanIntent.setData(contentUri);
+        mActivity.sendBroadcast(mediaScanIntent);
+    }
+
+
+    private void setPic(String path, int targetW, int targetH) {
+
+        Bitmap bitmap = BitmapUtil.getimage(path);
+        int bitmapDegree = CropImageUtil.getBitmapDegree(path);
+        if (bitmapDegree != 0) {
+            bitmap = CropImageUtil.rotateBitmapByDegree(bitmap, bitmapDegree);
+        }
+
+        MyApplication application = (MyApplication) mActivity.getApplication();
+        application.mBitmap = bitmap;
+
+        Intent intent = new Intent(mActivity, CropImageActivity.class);
+        startActivityForResult(intent, REQUEST_CROP);
+
+    }
+
+
+    //拍照与选择图片剪切相关
+
+    public void selectPhoto() {
+        // 选择图片
+        Intent intent = new Intent();
+        intent.setAction(Intent.ACTION_PICK);
+        intent.setType("image/*");
+        startActivityForResult(intent, REQUEST_PICK);
+    }
+
+
+    /**
+     * 拍照
+     */
+    public void captureImageByCamera() {
+
+        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+
+        File f;
+
+        try {
+            f = setUpPhotoFile();
+            mCurrentPhotoPath = f.getAbsolutePath();
+            takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(f));
+        } catch (IOException e) {
+            e.printStackTrace();
+            f = null;
+            mCurrentPhotoPath = null;
+        }
+
+        startActivityForResult(takePictureIntent, REQUEST_CAMERA);
+    }
+
+    private File setUpPhotoFile() throws IOException {
+
+        File f = createImageFile();
+        mCurrentPhotoPath = f.getAbsolutePath();
+
+        return f;
+    }
+
+    private File createImageFile() throws IOException {
+        // Create an image file name
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        String imageFileName = JPEG_FILE_PREFIX + timeStamp + "_";
+        File albumF = getAlbumDir();
+        File imageF = File.createTempFile(imageFileName, JPEG_FILE_SUFFIX, albumF);
+        return imageF;
+    }
+
+
+    private File getAlbumDir() {
+        File storageDir = null;
+
+        if (Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState())) {
+
+            storageDir = mAlbumStorageDirFactory.getAlbumStorageDir(getAlbumName());
+
+            if (storageDir != null) {
+                if (! storageDir.mkdirs()) {
+                    if (! storageDir.exists()){
+                        Log.d("CameraSample", "failed to create directory");
+                        return null;
+                    }
+                }
+            }
+
+        } else {
+            Log.v(getString(R.string.app_name), "External storage is not mounted READ/WRITE.");
+        }
+
+        return storageDir;
+    }
+
+    private String getAlbumName() {
+        return "crop";
+    }
 }

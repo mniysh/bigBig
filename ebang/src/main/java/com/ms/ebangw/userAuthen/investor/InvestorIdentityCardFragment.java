@@ -309,6 +309,9 @@ public class InvestorIdentityCardFragment extends BaseFragment {
 
 
     public void handleCropBitmap(Intent intent) {
+        if (intent == null) {
+            return;
+        }
         UploadImageResult imageResult = intent.getParcelableExtra(Constants.KEY_UPLOAD_IMAGE_RESULT);
         MyApplication myApplication = (MyApplication) mActivity.getApplication();
         Bitmap bitmap = myApplication.mBitmap;

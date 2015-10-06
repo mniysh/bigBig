@@ -37,6 +37,8 @@ import butterknife.OnClick;
  * 2015-10-02 08:43
  */
 public class CropImageActivity extends BaseActivity {
+    MyApplication application;
+
     @Bind(R.id.btn_cancel)
     Button cancelBtn;
     @Bind(R.id.btn_ok)
@@ -69,13 +71,10 @@ public class CropImageActivity extends BaseActivity {
         initView();
         initData();
 
-        MyApplication application = (MyApplication) getApplication();
+        application = (MyApplication) getApplication();
         mBitmap = application.mBitmap;
         mImageView.setImageBitmap(mBitmap);
-
     }
-
-
 
     /** 保存方法 */
     public File saveBitmap(Bitmap bitmap) {
@@ -110,6 +109,7 @@ public class CropImageActivity extends BaseActivity {
     @OnClick(R.id.btn_ok)
     public void uploadImage (){
         Bitmap croppedBitmap = mImageView.getCroppedBitmap();
+        application.mBitmap = croppedBitmap;
         File file = saveBitmap(croppedBitmap);
 
         DataAccessUtil.uploadImage(file, new JsonHttpResponseHandler(){
