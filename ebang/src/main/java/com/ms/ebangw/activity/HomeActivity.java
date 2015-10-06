@@ -150,6 +150,8 @@ public class HomeActivity extends BaseActivity {
 			return;
 		}
 
+
+
 		switch (category) {
 			case Constants.INVESTOR:        //个人
 				fm.beginTransaction().replace(R.id.fl_content, new InvestorCenterFragment()).commit();

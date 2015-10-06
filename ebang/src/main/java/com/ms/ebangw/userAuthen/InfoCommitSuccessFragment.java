@@ -1,0 +1,99 @@
+package com.ms.ebangw.userAuthen;
+
+import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
+
+import com.ms.ebangw.R;
+import com.ms.ebangw.commons.Constants;
+import com.ms.ebangw.fragment.BaseFragment;
+
+import butterknife.Bind;
+import butterknife.ButterKnife;
+
+public class InfoCommitSuccessFragment extends BaseFragment {
+    private static final String CATEGORY = "category";
+    private ViewGroup contentLayout;
+    private String category;
+    @Bind(R.id.btn_goHome)
+    Button goHomeBtn;
+
+
+
+    public static InfoCommitSuccessFragment newInstance(String category) {
+        InfoCommitSuccessFragment fragment = new InfoCommitSuccessFragment();
+        Bundle args = new Bundle();
+        args.putString(CATEGORY, category);
+        fragment.setArguments(args);
+        return fragment;
+    }
+
+    public InfoCommitSuccessFragment() {
+        // Required empty public constructor
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if (getArguments() != null) {
+            category = getArguments().getString(CATEGORY);
+        }
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        contentLayout = (ViewGroup) inflater.inflate(R.layout.fragment_info_commit_success,
+            container, false);
+        ButterKnife.bind(this, contentLayout);
+        initView();
+        initData();
+
+        return contentLayout;
+    }
+
+
+    @Override
+    public void initView() {
+        String title;
+        switch (category) {
+            case Constants.INVESTOR:
+                title = "个人认证";
+                break;
+
+            case Constants.WORKER:
+
+                title = "务工人认证";
+                break;
+
+            case Constants.HEADMAN:
+
+                title = "工长认证";
+
+                break;
+
+            case Constants.DEVELOPERS:
+                title = "开发商认证";
+                break;
+            default:
+
+                title = "";
+                break;
+        }
+
+        initTitle(null, "返回", title, null, null);
+    }
+
+    @Override
+    public void initData() {
+        goHomeBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mActivity.finish();
+
+            }
+        });
+    }
+}

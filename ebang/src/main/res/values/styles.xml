@@ -207,4 +207,23 @@
     </style>
 
     <!--发布  start-->
+
+    <!--用户中心-->
+    <style name="user_center_desc_left">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/user_center_desc_left</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:padding">5dp</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:layout_gravity">center_vertical</item>
+    </style>
+
+    <style name="user_center_desc">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/user_center_desc</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:padding">5dp</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:layout_gravity">center_vertical</item>
+    </style>
 </resources>

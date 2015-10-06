@@ -2,6 +2,7 @@ package com.ms.ebangw.userAuthen.headman;
 
 import android.app.Fragment;
 import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.widget.LinearLayout;
@@ -16,6 +17,7 @@ import com.ms.ebangw.commons.Constants;
 import com.ms.ebangw.exception.ResponseException;
 import com.ms.ebangw.service.DataAccessUtil;
 import com.ms.ebangw.service.DataParseUtil;
+import com.ms.ebangw.userAuthen.InfoCommitSuccessFragment;
 import com.ms.ebangw.utils.L;
 import com.ms.ebangw.utils.T;
 
@@ -135,7 +137,7 @@ public class HeadmanAuthenActivity extends BaseActivity {
 						boolean b = DataParseUtil.processDataResult(response);
 						if (b) {
 							T.show(response.getString("message"));
-							HeadmanAuthenActivity.this.finish();
+							goResultFragment(Constants.HEADMAN);
 						}
 					} catch (ResponseException e) {
 						e.printStackTrace();
@@ -180,4 +182,11 @@ public class HeadmanAuthenActivity extends BaseActivity {
 			}
 		}
 	}
+
+	public void goResultFragment(String category) {
+		InfoCommitSuccessFragment fragment = InfoCommitSuccessFragment.newInstance(category);
+		FragmentTransaction transaction = fm.beginTransaction();
+		transaction.replace(R.id.fl_content, fragment).commit();
+	}
+
 }
