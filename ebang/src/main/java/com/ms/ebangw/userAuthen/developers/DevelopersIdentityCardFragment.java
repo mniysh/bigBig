@@ -154,10 +154,12 @@ public class DevelopersIdentityCardFragment extends BaseFragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        if(resultCode != mActivity.RESULT_OK){
+            return;
+        }
+
         if (requestCode == REQUEST_CAMERA ) { //拍照返回
-            if (resultCode == mActivity.RESULT_OK) {
-                handleBigCameraPhoto();
-            }
+            handleBigCameraPhoto();
 
         }else if (requestCode == REQUEST_PICK) {
             Uri uri = data.getData();
