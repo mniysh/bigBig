@@ -8,11 +8,14 @@ import android.view.KeyEvent;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
+import com.loopj.android.http.JsonHttpResponseHandler;
 import com.ms.ebangw.MyApplication;
 import com.ms.ebangw.R;
+import com.ms.ebangw.bean.Bank;
 import com.ms.ebangw.bean.TotalRegion;
 import com.ms.ebangw.bean.User;
 import com.ms.ebangw.commons.Constants;
+import com.ms.ebangw.exception.ResponseException;
 import com.ms.ebangw.fragment.AuthenticationFragment;
 import com.ms.ebangw.fragment.DevelopersCenterFragment;
 import com.ms.ebangw.fragment.FoundFragment;
@@ -30,6 +33,11 @@ import com.ms.ebangw.service.DataParseUtil;
 import com.ms.ebangw.utils.L;
 import com.ms.ebangw.utils.T;
 import com.umeng.update.UmengUpdateAgent;
+
+import org.apache.http.Header;
+import org.json.JSONObject;
+
+import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -77,6 +85,7 @@ public class HomeActivity extends BaseActivity {
 
 	@Override
 	public void initData() {
+		loadUserInformation();
 		fm = getFragmentManager();
 //		foundFragment=new FoundFragment();
 //		releasefragment=new ReleaseFragment();
@@ -221,60 +230,34 @@ public class HomeActivity extends BaseActivity {
 
 
 
-
-//	/**
-//	 * 获取省市区信息
-//	 */
-//	private void loadTotalRegion() {
-//		DataAccessUtil.provinceCityArea(new JsonHttpResponseHandler() {
-//
-//			@Override
-//			public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-//
-//				try {
-////					String s = response.toString();
-//
-//					totalRegion = DataParseUtil.provinceCityArea(response);
-//
-//
-//				} catch (ResponseException e) {
-//					e.printStackTrace();
-//				}
-//
-//			}
-//
-//			@Override
-//			public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
-//				super.onFailure(statusCode, headers, responseString, throwable);
-//				L.d(responseString);
-//			}
-//		});
-//	}
-
 	private void loadBanks() {
 		banks = getBanks();
 		MyApplication.getInstance().setBanks(banks);
+	}
 
-//		DataAccessUtil.bankList(new JsonHttpResponseHandler() {
-//
-//			@Override
-//			public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-//
-//				try {
-//					List<Bank> banks = DataParseUtil.bankList(response);
-//					MyApplication.getInstance().setBanks(banks);
-//
-//				} catch (ResponseException e) {
-//					e.printStackTrace();
-//				}
-//			}
-//
-//			@Override
-//			public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
-//				super.onFailure(statusCode, headers, responseString, throwable);
-//				L.d(responseString);
-//			}
-//		});
+	public void loadUserInformation() {
+
+		DataAccessUtil.userInformation(new JsonHttpResponseHandler(){
+			@Override
+			public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+				try {
+					User user = DataParseUtil.userInformation(response);
+					if (null != user) {
+						MyApplication.getInstance().saveUser(user);
+					}
+				} catch (ResponseException e) {
+					e.printStackTrace();
+				}
+
+			}
+
+			@Override
+			public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+				super.onFailure(statusCode, headers, responseString, throwable);
+				L.d(responseString);
+			}
+		});
+
 
 	}
 

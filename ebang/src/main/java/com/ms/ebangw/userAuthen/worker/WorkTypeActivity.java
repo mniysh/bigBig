@@ -102,6 +102,7 @@ public class WorkTypeActivity extends BaseActivity {
                     craft = DataParseUtil.publishCraft(response);
 //                    setWorkTypeAdapter(craft.getProjectManage());
                     craftAdapter = new CraftAdapter(craft.getBuilding());
+                    craftAdapter.setActivity(WorkTypeActivity.this);
                     listView.setAdapter(craftAdapter);
                     buildingRb.toggle();
                 } catch (ResponseException e) {
@@ -137,7 +138,8 @@ public class WorkTypeActivity extends BaseActivity {
 
     @OnClick(R.id.btn_ok)
     public void commitSelectedTypes() {
-        if(getSelectedWorkTypes().size() > 5 || getSelectedWorkTypes().size() < 0){
+        int selectedNum = getSelectedWorkTypes().size();
+        if(selectedNum > 5 || selectedNum < 1){
             T.show("工种最少选择1个最多选5个");
             return;
         }

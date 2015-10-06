@@ -162,14 +162,14 @@
 
             <Spinner
                 android:id="@+id/sp_a"
-                android:layout_width="100dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
 
                 />
 
             <Spinner
                 android:id="@+id/sp_b"
-                android:layout_width="100dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"
                 />
@@ -235,6 +235,7 @@
                 android:layout_gravity="center_vertical"
                 android:background="@drawable/border_gray"
                 android:minHeight="60dp"
+                android:gravity="start"
                 android:inputType="textMultiLine"
                 android:hint="请输入企业的相关简介"
                 android:layout_marginTop="10dp"

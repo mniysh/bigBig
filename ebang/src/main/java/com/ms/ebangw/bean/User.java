@@ -41,6 +41,35 @@ public class User implements Serializable {
 
 	@DatabaseField(columnName = "rank")
 	private String rank;
+	/**
+	 * 真实姓名
+	 */
+	@DatabaseField(columnName = "real_name")
+	private String real_name;
+
+	/**
+	 * 籍贯
+	 */
+	@DatabaseField(columnName = "area")
+	private String area;
+
+	/**
+	 * 工种描述(只工人有)
+	 */
+	@DatabaseField(columnName = "craft")
+	private String craft;
+
+	/**
+	 * 认证状态
+	 * //状态游客guest/
+	 * 认证中auth_developers(认证开发者中)/
+	 * auth_worker(认证工人中)/
+	 * auth_headman(认证工头中)/
+	 * auth_investor(认证个人中)/
+	 * complete（完成认证）
+	 */
+	@DatabaseField(columnName = "status")
+	private String status;
 
 
 

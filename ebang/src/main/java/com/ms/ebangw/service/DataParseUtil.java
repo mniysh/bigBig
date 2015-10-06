@@ -57,6 +57,19 @@ public class DataParseUtil {
     };
 
     /**
+     * 获取用户的基本信息
+     * @param jsonObject
+     * @return
+     * @throws ResponseException
+     */
+    public static User userInformation(JSONObject jsonObject) throws ResponseException {
+        String  data = processDataStr(jsonObject);
+        Gson gson = new Gson();
+        User user = gson.fromJson(data, User.class);
+        return user;
+    };
+
+    /**
      * 登出接口
      * @param jsonObject
      * @return

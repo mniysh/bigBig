@@ -21,7 +21,7 @@ public class RequestUrl {
      */
     public static final String logout = domain + "/api/user/index/logout";
     /**
-     * 个人信息
+     * 1-11、获取用户信息接口 get方式
      */
     public static final String user_information = domain + "/api/user/index/information";
     /**

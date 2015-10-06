@@ -318,7 +318,7 @@ public class DataAccessUtil {
         params.put("open_account_name",open_account_name);
         params.put("open_account_province",open_account_province);
         params.put("open_account_city",open_account_city);
-        params.put("bank_id",bank_id);
+        params.put("bank_id", bank_id);
 
         return doPost(RequestUrl.header_identify, params, asyncHttpResponseHandler);
     }
@@ -506,6 +506,16 @@ public class DataAccessUtil {
         return doGet(RequestUrl.bank_list, null, asyncHttpResponseHandler);
     }
 
+    /**
+     * 1-11、获取用户信息接口 get方式
+     * @param asyncHttpResponseHandler
+     * @return
+     */
+    public static RequestHandle userInformation(AsyncHttpResponseHandler
+                                             asyncHttpResponseHandler){
+        return doGet(RequestUrl.user_information, null, asyncHttpResponseHandler);
+    }
+
     public static RequestHandle doPost(String url, RequestParams params, AsyncHttpResponseHandler asyncHttpResponseHandler) {
 
         if (!NetUtils.isConnected(MyApplication.getInstance())) {
@@ -520,6 +530,7 @@ public class DataAccessUtil {
         L.d(TAG, "doPost: " + url + " : " + params.toString());
         return mClient.post(url, params, asyncHttpResponseHandler);
     }
+
 
 
 

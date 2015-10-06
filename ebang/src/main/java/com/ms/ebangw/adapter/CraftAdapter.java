@@ -1,5 +1,6 @@
 package com.ms.ebangw.adapter;
 
+import android.app.Activity;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,7 +22,7 @@ import java.util.List;
 public class CraftAdapter extends BaseAdapter {
     private WorkType firstWorkType;
     private List<WorkType> list;
-
+    private Activity activity;
 
 
     private List<WorkType> selectedWorkTypes;
@@ -82,6 +83,7 @@ public class CraftAdapter extends BaseAdapter {
             List<WorkType> types = workType.getWorkTypes();
             holder.titleTv.setVisibility(View.GONE);
             CraftGridViewAdapter craftGridViewAdapter = new CraftGridViewAdapter(types);
+            craftGridViewAdapter.setActivity(activity);
             holder.gridView.setAdapter(craftGridViewAdapter);
 
         }
@@ -92,6 +94,7 @@ public class CraftAdapter extends BaseAdapter {
                 holder.titleTv.setVisibility(View.VISIBLE);
                 holder.titleTv.setText(workType.getName());
                 CraftGridViewAdapter craftGridViewAdapter = new CraftGridViewAdapter(types);
+                craftGridViewAdapter.setActivity(activity);
                 holder.gridView.setAdapter(craftGridViewAdapter);
             }
         }
@@ -121,5 +124,13 @@ public class CraftAdapter extends BaseAdapter {
     static class ViewHolder{
         TextView titleTv;
         GridView gridView;
+    }
+
+    public Activity getActivity() {
+        return activity;
+    }
+
+    public void setActivity(Activity activity) {
+        this.activity = activity;
     }
 }
