@@ -40,7 +40,16 @@ public class AuthenticationFragment extends BaseFragment implements OnClickListe
 	@Bind(R.id.tv_rank)
 	TextView rankTv;
 
-
+	@Bind(R.id.tv_realName)
+	TextView realNameTv;
+	@Bind(R.id.tv_phone2)
+	TextView phone2Tv;
+	@Bind(R.id.tv_gender)
+	TextView genderTv;
+	@Bind(R.id.tv_native_place)
+	TextView nativePlaceTv;
+	@Bind(R.id.tv_work_type)
+	TextView workTypeTv;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater,
@@ -146,6 +155,16 @@ public class AuthenticationFragment extends BaseFragment implements OnClickListe
 		bundle.putSerializable(Constants.KEY_TOTAL_REGION, ((HomeActivity)mActivity).getTotalRegion());
 		intent.putExtras(bundle);
 		startActivity(intent);
+	}
+
+	/**
+	 * 设置授权后的用户基本信息
+	 */
+	public void setAccreditedInfo() {
+
+
+
+
 	}
 
 

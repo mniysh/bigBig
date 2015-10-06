@@ -50,6 +50,9 @@
     <!--认证页面-->
     <color name="auth_hint">#383838</color>
     <color name="auth_description">#9e9e9e</color>
+    <!--用户中心-->
+    <color name="user_center_desc">#676666</color>
+    <color name="user_center_desc_left">#383838</color>
 
 
 </resources>

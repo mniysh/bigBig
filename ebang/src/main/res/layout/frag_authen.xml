@@ -8,8 +8,9 @@
 
 
     <LinearLayout
+        android:id="@+id/ll_no_auth"
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
+        android:layout_height="wrap_content"
         android:background="@color/white"
         android:orientation="vertical" >
 
@@ -75,8 +76,14 @@
                 android:background="@color/but_kaifashang"
                 style="@style/textColor"
                 android:layout_marginLeft="25dp"
+
                 android:text="开发商" />
         </LinearLayout>
     </LinearLayout>
+
+    <include
+        android:id="@+id/ll_authed"
+        android:visibility="gone"
+        layout="@layout/layout_personal_info"/>
 
 </LinearLayout>

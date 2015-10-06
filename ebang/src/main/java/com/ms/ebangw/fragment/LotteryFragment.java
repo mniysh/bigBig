@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.DisplayMetrics;
+import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -102,7 +104,7 @@ public class LotteryFragment extends BaseFragment {
         webview.addJavascriptInterface(new JsObject(), "share");
         if (!TextUtils.isEmpty(url) && null != user) {
             BDLocation bdLocation = MyApplication.getInstance().getLocation();
-            url = url+ "?id=" + user.getId() + "&app_token=" + user.getApp_token();
+            url = url+ "?id=" + user.getId() + "&app_token=" + user.getApp_token() + "&dpi=" + getDensityDpi();
             if (null != bdLocation) {
                 double latitude = bdLocation.getLatitude();
                 double longitude = bdLocation.getLongitude(); //经度
@@ -269,4 +271,13 @@ public class LotteryFragment extends BaseFragment {
         String s = "javascript:onSharedResult(" + platform + "," + resultCode + ")";
         webview.loadUrl(s);
     }
+
+    public int getDensityDpi() {
+        Display defaultDisplay = mActivity.getWindowManager().getDefaultDisplay();
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+        defaultDisplay.getMetrics(displayMetrics);
+        int densityDpi = displayMetrics.densityDpi;
+        return densityDpi;
+    }
+
 }
