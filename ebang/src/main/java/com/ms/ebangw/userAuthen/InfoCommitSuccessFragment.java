@@ -47,11 +47,12 @@ public class InfoCommitSuccessFragment extends BaseFragment {
         if (getArguments() != null) {
             category = getArguments().getString(CATEGORY);
         }
-        View layout = getActivity().findViewById(R.id.layout_step);
+        View layout = mActivity.findViewById(R.id.layout_step);
 //        View layout_title = getActivity().findViewById(R.id.layout_title);
 
-
-        layout.setVisibility(View.GONE);
+        if (null != layout) {
+            layout.setVisibility(View.GONE);
+        }
 
     }
 
@@ -93,6 +94,9 @@ public class InfoCommitSuccessFragment extends BaseFragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         String title;
+        if (TextUtils.isEmpty(category)) {
+            return;
+        }
         switch (category) {
             case Constants.INVESTOR:
                 title = "个人认证";
