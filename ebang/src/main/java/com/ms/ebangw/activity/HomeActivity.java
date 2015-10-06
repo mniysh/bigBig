@@ -165,7 +165,9 @@ public class HomeActivity extends BaseActivity {
 			case "auth_worker":
 			case "auth_headman":
 			case "auth_developers":
-				fm.beginTransaction().replace(R.id.fl_content, new InfoCommitSuccessFragment()).commit();
+				fm.beginTransaction().replace(R.id.fl_content, InfoCommitSuccessFragment
+					.newInstance(category))
+					.commit();
 				break;
 		}
 		return;
