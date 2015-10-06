@@ -194,6 +194,14 @@ public class HomeActivity extends BaseActivity {
 		super.onResume();
 		JPushInterface.init(getApplicationContext());
 		JPushInterface.onResume(this);
+		boolean b = MyApplication.getInstance().isFlag_home();
+		if(b){
+			b = !b;
+			MyApplication.getInstance().setFlag_home(b);
+			radioGroup.getChildAt(0).performClick();
+		}
+
+
 	}
 
 	@Override

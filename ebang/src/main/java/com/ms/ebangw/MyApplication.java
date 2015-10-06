@@ -32,6 +32,15 @@ public class MyApplication extends Application {
     private Craft craft;
     private BDLocation location;
     public LocationClient mLocationClient = null;
+    private boolean flag_home;
+
+    public boolean isFlag_home() {
+        return flag_home;
+    }
+
+    public void setFlag_home(boolean flag_home) {
+        this.flag_home = flag_home;
+    }
 
     public Craft getCraft() {
         return craft;

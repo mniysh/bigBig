@@ -44,6 +44,7 @@ public class InvestorAuthenActivity extends BaseActivity {
 	private File imageFile;
 	private TotalRegion totalRegion;
 
+
 	/**
 	 * 认证的信息
 	 */
@@ -65,6 +66,10 @@ public class InvestorAuthenActivity extends BaseActivity {
 	TextView twoTv;
 	@Bind(R.id.tv_three)
 	TextView threeTv;
+//	@Bind(R.id.layout_title)
+//	View view_title;
+//	@Bind(R.id.layout_step)
+//	View view_step;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -199,6 +204,7 @@ public class InvestorAuthenActivity extends BaseActivity {
 	}
 
 	public void goResultFragment(String category) {
+
 		InfoCommitSuccessFragment fragment = InfoCommitSuccessFragment.newInstance(category);
 		FragmentTransaction transaction = fm.beginTransaction();
 		transaction.replace(R.id.fl_content, fragment).commit();

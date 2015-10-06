@@ -57,6 +57,10 @@ public class DevelopersAuthenActivity extends BaseActivity {
 	private DevelopersBankVerifyFragment developersBankVerifyFragment;
 
 
+
+
+
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);

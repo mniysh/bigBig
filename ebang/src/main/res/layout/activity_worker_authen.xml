@@ -4,7 +4,8 @@
     android:layout_height="match_parent"
     android:background="#fff"
     android:orientation="vertical" >
-    <include layout="@layout/layout_common_title"/>
+    <include android:id="@+id/layout_title"
+        layout="@layout/layout_common_title"/>
     <include
         android:id="@+id/layout_step"
         layout="@layout/layout_auth_step"/>

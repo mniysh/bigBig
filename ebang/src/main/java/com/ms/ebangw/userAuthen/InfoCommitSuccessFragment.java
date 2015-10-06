@@ -1,14 +1,20 @@
 package com.ms.ebangw.userAuthen;
 
 import android.os.Bundle;
+import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import com.ms.ebangw.MyApplication;
 import com.ms.ebangw.R;
 import com.ms.ebangw.commons.Constants;
 import com.ms.ebangw.fragment.BaseFragment;
+import com.ms.ebangw.userAuthen.developers.DevelopersAuthenActivity;
+import com.ms.ebangw.userAuthen.headman.HeadmanAuthenActivity;
+import com.ms.ebangw.userAuthen.investor.InvestorAuthenActivity;
+import com.ms.ebangw.userAuthen.worker.WorkerAuthenActivity;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -40,6 +46,12 @@ public class InfoCommitSuccessFragment extends BaseFragment {
         if (getArguments() != null) {
             category = getArguments().getString(CATEGORY);
         }
+        View layout = getActivity().findViewById(R.id.layout_step);
+//        View layout_title = getActivity().findViewById(R.id.layout_title);
+
+
+        layout.setVisibility(View.GONE);
+
     }
 
     @Override
@@ -57,33 +69,7 @@ public class InfoCommitSuccessFragment extends BaseFragment {
 
     @Override
     public void initView() {
-        String title;
-        switch (category) {
-            case Constants.INVESTOR:
-                title = "个人认证";
-                break;
 
-            case Constants.WORKER:
-
-                title = "务工人认证";
-                break;
-
-            case Constants.HEADMAN:
-
-                title = "工长认证";
-
-                break;
-
-            case Constants.DEVELOPERS:
-                title = "开发商认证";
-                break;
-            default:
-
-                title = "";
-                break;
-        }
-
-        initTitle(null, "返回", title, null, null);
     }
 
     @Override
@@ -91,9 +77,49 @@ public class InfoCommitSuccessFragment extends BaseFragment {
         goHomeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                boolean b = true;
+                MyApplication.getInstance().setFlag_home(b);
                 mActivity.finish();
 
             }
         });
     }
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        String title;
+        switch (category) {
+            case Constants.INVESTOR:
+                title = "个人认证";
+                ((InvestorAuthenActivity)getActivity()).initTitle(null, "返回", title, null, null);
+                break;
+
+            case Constants.WORKER:
+
+                title = "务工人认证";
+                ((WorkerAuthenActivity)getActivity()).initTitle(null, "返回", title, null, null);
+                break;
+
+            case Constants.HEADMAN:
+
+                title = "工长认证";
+                ((HeadmanAuthenActivity)getActivity()).initTitle(null, "返回", title, null, null);
+
+                break;
+
+            case Constants.DEVELOPERS:
+                title = "开发商认证";
+                ((DevelopersAuthenActivity)getActivity()).initTitle(null, "返回", title, null, null);
+                break;
+            default:
+
+                title = "";
+                break;
+        }
+
+
+    }
+
+
 }
