@@ -309,6 +309,8 @@
             android:name=".activity.ServiceContractActivity"
             android:label="@string/title_activity_service_contract" >
         </activity>
+        <activity android:name=".userAuthen.InfoCommitSuccessActivity" >
+        </activity>
     </application>
 
 </manifest>

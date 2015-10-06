@@ -2,7 +2,6 @@ package com.ms.ebangw.userAuthen.developers;
 
 import android.app.Fragment;
 import android.app.FragmentManager;
-import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.widget.LinearLayout;
@@ -19,7 +18,6 @@ import com.ms.ebangw.service.DataAccessUtil;
 import com.ms.ebangw.service.DataParseUtil;
 import com.ms.ebangw.utils.L;
 import com.ms.ebangw.utils.T;
-import com.soundcloud.android.crop.Crop;
 
 import org.apache.http.Header;
 import org.json.JSONException;
@@ -111,26 +109,6 @@ public class DevelopersAuthenActivity extends BaseActivity {
 	public void setAuthInfo(AuthInfo authInfo) {
 		this.authInfo = authInfo;
 	}
-
-
-
-
-
-
-	/**
-	 * 组织机构证件照
-	 */
-	public void organizationSelectPhoto() {
-
-		// 选择图片
-		Intent intent = new Intent();
-		intent.setAction(Intent.ACTION_PICK);
-		intent.setType("image/*");
-		startActivityForResult(intent, Crop.REQUEST_PICK);
-//		Crop.pickImage(this);
-	}
-
-
 
 	public TotalRegion getTotalRegion() {
 		return totalRegion;
