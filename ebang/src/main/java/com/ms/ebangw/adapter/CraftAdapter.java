@@ -24,9 +24,6 @@ public class CraftAdapter extends BaseAdapter {
     private List<WorkType> list;
     private Activity activity;
 
-
-    private List<WorkType> selectedWorkTypes;
-
     public CraftAdapter(WorkType firstWorkType) {
         this.firstWorkType = firstWorkType;
         if (getType() == 1) {
@@ -35,7 +32,6 @@ public class CraftAdapter extends BaseAdapter {
         }else {
             list = firstWorkType.getWorkTypes();
         }
-        selectedWorkTypes = new ArrayList<>();
     }
 
     public void setWorkType(WorkType firstWorkType) {
@@ -72,7 +68,6 @@ public class CraftAdapter extends BaseAdapter {
             convertView = View.inflate(parent.getContext(), R.layout.layout_craft_item, null);
             holder = new ViewHolder();
             holder.titleTv = (TextView) convertView.findViewById(R.id.tv_title);
-//            holder.cb = (CheckBox) convertView.findViewById(R.id.cb);
             holder.gridView = (GridView) convertView.findViewById(R.id.gridView);
             convertView.setTag(holder);
         }else {
@@ -99,8 +94,6 @@ public class CraftAdapter extends BaseAdapter {
             }
         }
 
-
-
         return convertView;
     }
 
@@ -115,10 +108,6 @@ public class CraftAdapter extends BaseAdapter {
         }else {
             return 2;
         }
-    }
-
-    public List<WorkType> getSelectedWorkTypes() {
-        return selectedWorkTypes;
     }
 
     static class ViewHolder{
