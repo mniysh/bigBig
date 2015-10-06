@@ -129,8 +129,6 @@
         <activity android:name=".activity.ManagerBackActivity" />
         <activity android:name=".Photo.PhotosActivity" />
         <activity android:name=".Photo.SelectPhotosDirActivity" />
-        <activity android:name="com.soundcloud.android.crop.CropImageActivity" />
-        <activity android:name="com.soundcloud.android.crop.MonitoredActivity" />
         <activity android:name=".userAuthen.investor.InvestorAuthenActivity" />
         <activity android:name=".userAuthen.worker.WorkerAuthenActivity" />
         <activity android:name=".userAuthen.developers.DevelopersAuthenActivity" />
@@ -306,8 +304,6 @@
         <activity
             android:name=".activity.ServiceContractActivity"
             android:label="@string/title_activity_service_contract" >
-        </activity>
-        <activity android:name=".userAuthen.InfoCommitSuccessActivity" >
         </activity>
     </application>
 
