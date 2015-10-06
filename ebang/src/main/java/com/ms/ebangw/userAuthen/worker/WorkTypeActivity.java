@@ -2,7 +2,6 @@ package com.ms.ebangw.userAuthen.worker;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.RadioButton;
@@ -12,26 +11,25 @@ import com.loopj.android.http.JsonHttpResponseHandler;
 import com.ms.ebangw.R;
 import com.ms.ebangw.activity.BaseActivity;
 import com.ms.ebangw.adapter.CraftAdapter;
-import com.ms.ebangw.adapter.CraftGridViewAdapter;
 import com.ms.ebangw.bean.Craft;
 import com.ms.ebangw.bean.WorkType;
 import com.ms.ebangw.commons.Constants;
+import com.ms.ebangw.event.WorkTypeEvent;
 import com.ms.ebangw.exception.ResponseException;
 import com.ms.ebangw.service.DataAccessUtil;
 import com.ms.ebangw.service.DataParseUtil;
 import com.ms.ebangw.utils.L;
 import com.ms.ebangw.utils.T;
-import com.ms.ebangw.view.MyGridView;
 
 import org.apache.http.Header;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import de.greenrobot.event.EventBus;
 
 /**
  * 工人认证----->工种选择
@@ -50,14 +48,14 @@ public class WorkTypeActivity extends BaseActivity {
     RadioButton buildingRb;
     private CraftAdapter craftAdapter;
     private Craft craft;
-
+    ArrayList<WorkType> selectTypes;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_work_type);
         ButterKnife.bind(this);
-
+        EventBus.getDefault().register(this);
         initView();
         initData();
     }
@@ -90,6 +88,7 @@ public class WorkTypeActivity extends BaseActivity {
 
     @Override
     public void initData() {
+        selectTypes = new ArrayList<>();
         loadWorkType();
     }
 
@@ -109,7 +108,6 @@ public class WorkTypeActivity extends BaseActivity {
                     e.printStackTrace();
                     T.show(e.getMessage());
                 }
-
             }
 
             @Override
@@ -120,19 +118,17 @@ public class WorkTypeActivity extends BaseActivity {
         });
     }
 
-    public ArrayList<WorkType> getSelectedWorkTypes() {
-        ArrayList<WorkType> selectTypes = new ArrayList<>();
-        int childCount = listView.getChildCount();
-        ViewGroup listItemLayout;
-        for (int i = 0; i < childCount; i++) {
-            listItemLayout = (ViewGroup) listView.getChildAt(i);
-            MyGridView myGridView = (MyGridView) listItemLayout.findViewById(R.id.gridView);
-            CraftGridViewAdapter craftGridViewAdapter = (CraftGridViewAdapter) myGridView.getAdapter();
-            List<WorkType> selectedGridTypes = craftGridViewAdapter.getSelectedWorkTypes();
-            if (selectedGridTypes != null && selectedGridTypes.size() > 0) {
-                selectTypes.addAll(selectedGridTypes);
-            }
+    public void onEvent(WorkTypeEvent event) {
+        WorkType workType = event.getWorkType();
+        boolean isAdd = event.isAdd();
+        if (null != workType && isAdd) {
+            selectTypes.add(workType);
+        }else {
+            selectTypes.remove(workType);
         }
+    }
+
+    public ArrayList<WorkType> getSelectedWorkTypes() {
        return selectTypes;
     }
 
@@ -151,6 +147,12 @@ public class WorkTypeActivity extends BaseActivity {
         intent.putExtras(bundle);
         setResult(22, intent);
         finish();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
     }
 }
 

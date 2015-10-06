@@ -163,6 +163,38 @@ public class User implements Serializable {
 		this.rank = rank;
 	}
 
+	public String getReal_name() {
+		return real_name;
+	}
+
+	public void setReal_name(String real_name) {
+		this.real_name = real_name;
+	}
+
+	public String getArea() {
+		return area;
+	}
+
+	public void setArea(String area) {
+		this.area = area;
+	}
+
+	public String getCraft() {
+		return craft;
+	}
+
+	public void setCraft(String craft) {
+		this.craft = craft;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
 	@Override
 	public String toString() {
 		return "User{" +

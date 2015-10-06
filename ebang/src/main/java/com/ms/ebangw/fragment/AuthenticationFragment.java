@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.ms.ebangw.R;
@@ -33,6 +34,8 @@ public class AuthenticationFragment extends BaseFragment implements OnClickListe
 
 	private Button but_self,but_worker,but_foreman,but_factory;
 	private View mContentView;
+	private User user;
+
 	@Bind(R.id.tv_name)
 	TextView nameTv;
 	@Bind(R.id.tv_phone)
@@ -50,6 +53,10 @@ public class AuthenticationFragment extends BaseFragment implements OnClickListe
 	TextView nativePlaceTv;
 	@Bind(R.id.tv_work_type)
 	TextView workTypeTv;
+	@Bind(R.id.ll_authed)
+	LinearLayout detailLayout;
+	@Bind(R.id.ll_no_auth)
+	LinearLayout noAuthLayout;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater,
@@ -76,7 +83,7 @@ public class AuthenticationFragment extends BaseFragment implements OnClickListe
 	}
 
 	private void setNickName() {
-		L.d("xxx","现在的用户昵称是"+getUser().getNick_name());
+		L.d("xxx", "现在的用户昵称是" + getUser().getNick_name());
 		if(getUser().getNick_name() == null){
 			phoneTv.setText(getUser().getPhone());
 		}else{
@@ -102,9 +109,45 @@ public class AuthenticationFragment extends BaseFragment implements OnClickListe
 
 	}
 
+	public void initCompletedUser() {
+		noAuthLayout.setVisibility(View.GONE);
+		detailLayout.setVisibility(View.VISIBLE);
+		User user = getUser();
+		String real_name = user.getReal_name();
+		String gender = user.getGender();
+		String phone = user.getPhone();
+		String area = user.getArea();
+		String craft = user.getCraft();
+		realNameTv.setText(real_name);
+		genderTv.setText(gender);
+		phone2Tv.setText(phone);
+		nativePlaceTv.setText(area);
+		workTypeTv.setText(craft);
+
+
+	}
+
+	public void initNoAuthUser() {
+
+		noAuthLayout.setVisibility(View.VISIBLE);
+		detailLayout.setVisibility(View.GONE);
+
+
+	}
+
 	@Override
 	public void initData() {
 		initHeadInfo();
+		User user = getUser();
+		String status = user.getStatus();		//认证状态
+		switch (status) {
+			case "guest":
+				initNoAuthUser();
+				break;
+			case "complete":
+				initCompletedUser();
+				break;
+		}
 	}
 
 	/**
@@ -166,6 +209,8 @@ public class AuthenticationFragment extends BaseFragment implements OnClickListe
 
 
 	}
+
+
 
 
 }

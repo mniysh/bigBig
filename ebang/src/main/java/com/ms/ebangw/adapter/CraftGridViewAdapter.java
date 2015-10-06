@@ -10,11 +10,14 @@ import android.widget.CompoundButton;
 import com.ms.ebangw.R;
 import com.ms.ebangw.bean.WorkType;
 import com.ms.ebangw.commons.Constants;
+import com.ms.ebangw.event.WorkTypeEvent;
 import com.ms.ebangw.userAuthen.worker.WorkTypeActivity;
 import com.ms.ebangw.utils.T;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import de.greenrobot.event.EventBus;
 
 /**
  * User: WangKai(123940232@qq.com)
@@ -25,13 +28,11 @@ public class CraftGridViewAdapter extends BaseAdapter{
     private List<WorkType> list;
 
     private Activity activity;
+    List<WorkType> selectedWorkTypes;
 
-
-    private List<WorkType> selectedWorkTypes;
 
     public CraftGridViewAdapter(List<WorkType> list) {
         this.list = list;
-        selectedWorkTypes = new ArrayList<>();
     }
 
     @Override
@@ -50,24 +51,31 @@ public class CraftGridViewAdapter extends BaseAdapter{
     }
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        WorkType workType = list.get(position);
+        final WorkType workType = list.get(position);
         final CheckBox cb = (CheckBox) View.inflate(parent.getContext(), R.layout
             .layout_craft_gridview_item, null);
         cb.setText(workType.getName());
+        selectedWorkTypes = getSelectedWorkTypes();
+        if (selectedWorkTypes.contains(workType)) {
+            cb.setChecked(true);
+        }else {
+            cb.setChecked(false);
+        }
         cb.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 
-
                 WorkType type = (WorkType) buttonView.getTag(Constants.KEY_WORK_TYPE);
                 if (isChecked) {
-                    if (!isNumBeyondFive(cb)) {
-                        selectedWorkTypes.add(type);
+                    if (!isNumBeyondFive()) {
+                        EventBus.getDefault().post(new WorkTypeEvent(workType, true));
+
                     }else {
+                        cb.toggle();
                         return;
                     }
                 } else {
-                    selectedWorkTypes.remove(type);
+                    EventBus.getDefault().post(new WorkTypeEvent(workType, false));
                 }
             }
         });
@@ -77,16 +85,14 @@ public class CraftGridViewAdapter extends BaseAdapter{
 
     /**
      * 判断选择的工种是否超过5种
-     * @param cb
      * @return
      */
-    public boolean isNumBeyondFive(CheckBox cb) {
+    public boolean isNumBeyondFive() {
         if (activity != null && activity instanceof WorkTypeActivity) {
             WorkTypeActivity workTypeActivity = (WorkTypeActivity) activity;
             ArrayList<WorkType> selectedWorkTypes = workTypeActivity.getSelectedWorkTypes();
             if (selectedWorkTypes != null && selectedWorkTypes.size() >= 5) {
                 T.show("最多能选择五个工种");
-                cb.toggle();
                 return true;
             }
         }
@@ -94,8 +100,19 @@ public class CraftGridViewAdapter extends BaseAdapter{
         return false;
     }
 
+    /**
+     * 获取全部已选中的工种
+     * @return
+     */
     public List<WorkType> getSelectedWorkTypes() {
-        return selectedWorkTypes;
+        if (activity != null && activity instanceof WorkTypeActivity) {
+            WorkTypeActivity workTypeActivity = (WorkTypeActivity) activity;
+            ArrayList<WorkType> selectedWorkTypes = workTypeActivity.getSelectedWorkTypes();
+            return selectedWorkTypes;
+        }
+
+        return null;
+
     }
 
     public Activity getActivity() {

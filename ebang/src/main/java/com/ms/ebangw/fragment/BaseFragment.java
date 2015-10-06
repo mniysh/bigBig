@@ -7,7 +7,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
-import android.view.Window;
+import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.ms.ebangw.MyApplication;
@@ -53,19 +53,19 @@ public abstract class BaseFragment extends Fragment {
      */
     public void initTitle(View.OnClickListener leftClickLister, String left, String title, String
         right, View.OnClickListener rightClickListener) {
-        Window window = mActivity.getWindow();
-        L.d("xxx",left+title);
-        View backView = window.findViewById(R.id.iv_back);
-        TextView leftTv = (TextView)  window.findViewById(R.id.tv_left);
-        TextView titleTv = (TextView)  window.findViewById(R.id.tv_center);
-        TextView rightTv = (TextView)  window.findViewById(R.id.tv_right);
+        ViewGroup viewGroup = (ViewGroup) getView();
+        View backView = viewGroup.findViewById(R.id.iv_back);
+        TextView leftTv = (TextView)  viewGroup.findViewById(R.id.tv_left);
+        TextView titleTv = (TextView)  viewGroup.findViewById(R.id.tv_center);
+        TextView rightTv = (TextView)  viewGroup.findViewById(R.id.tv_right);
         //设置返回箭头
-        if (null != leftClickLister && backView != null) {
-
-            backView.setOnClickListener(leftClickLister);
-            backView.setVisibility(View.VISIBLE);
-        } else {
-            backView.setVisibility(View.GONE);
+        if (backView != null) {
+            if (null != leftClickLister ) {
+                backView.setOnClickListener(leftClickLister);
+                backView.setVisibility(View.VISIBLE);
+            } else {
+                backView.setVisibility(View.GONE);
+            }
         }
         //设置左标题
         if (leftTv != null && !TextUtils.isEmpty(left)) {
@@ -77,7 +77,6 @@ public abstract class BaseFragment extends Fragment {
         if (titleTv != null && !TextUtils.isEmpty(title)) {
             titleTv.setText(title);
             titleTv.setVisibility(View.VISIBLE);
-            backView.setVisibility(View.VISIBLE);
         }
 
         //设置右边文字
