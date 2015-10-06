@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <item android:drawable="@drawable/mainpager_click" android:state_checked="true"/>
-    <item android:drawable="@drawable/mainpager_unclick" android:state_checked="false"/>
-    <item android:drawable="@drawable/mainpager_unclick" />
+    <item android:drawable="@drawable/wode1" android:state_checked="true"/>
+    <item android:drawable="@drawable/wode" android:state_checked="false"/>
+    <item android:drawable="@drawable/wode" />
 
 
 </selector>
