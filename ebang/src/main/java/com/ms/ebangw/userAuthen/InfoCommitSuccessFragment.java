@@ -13,12 +13,10 @@ import com.ms.ebangw.R;
 import com.ms.ebangw.activity.HomeActivity;
 import com.ms.ebangw.activity.SettingActivity;
 import com.ms.ebangw.commons.Constants;
-import com.ms.ebangw.event.PerformEvent;
 import com.ms.ebangw.fragment.BaseFragment;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
-import de.greenrobot.event.EventBus;
 
 public class InfoCommitSuccessFragment extends BaseFragment {
     private static final String CATEGORY = "category";
@@ -77,14 +75,13 @@ public class InfoCommitSuccessFragment extends BaseFragment {
         goHomeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                boolean b = true;
-                MyApplication.getInstance().setFlag_home(b);
 
                 if (mActivity instanceof HomeActivity) {
                     HomeActivity homeActivity = (HomeActivity) mActivity;
                     homeActivity.lotteryRb.performClick();
                 } else {
-                    EventBus.getDefault().post(new PerformEvent());
+//                    EventBus.getDefault().post(new PerformEvent());
+                    MyApplication.getInstance().setFlag_home(true);
                     mActivity.finish();
                 }
             }

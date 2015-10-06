@@ -70,24 +70,15 @@ public class AuthenticationFragment extends BaseFragment implements OnClickListe
 	public void onActivityCreated(@Nullable Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
 		initView();
-		initViewOper();
 		initData();
-	}
-	private void initViewOper() {
-		but_self.setOnClickListener(this);
-		but_worker.setOnClickListener(this);
-		but_foreman.setOnClickListener(this);
-		but_factory.setOnClickListener(this);
-
-
 	}
 
 	private void setNickName() {
 		L.d("xxx", "现在的用户昵称是" + getUser().getNick_name());
-		if(getUser().getNick_name() == null){
-			phoneTv.setText(getUser().getPhone());
-		}else{
-			phoneTv.setText(getUser().getNick_name());
+		User user = getUser();
+		if (null != user) {
+			phoneTv.setText(user.getPhone());
+			nameTv.setText(user.getNick_name());
 		}
 	}
 
@@ -106,6 +97,11 @@ public class AuthenticationFragment extends BaseFragment implements OnClickListe
 		but_worker=(Button) mContentView.findViewById(R.id.btn_worker);
 		but_foreman=(Button) mContentView.findViewById(R.id.btn_headman);
 		but_factory=(Button) mContentView.findViewById(R.id.btn_developers);
+
+		but_self.setOnClickListener(this);
+		but_worker.setOnClickListener(this);
+		but_foreman.setOnClickListener(this);
+		but_factory.setOnClickListener(this);
 
 	}
 
@@ -141,10 +137,10 @@ public class AuthenticationFragment extends BaseFragment implements OnClickListe
 		User user = getUser();
 		String status = user.getStatus();		//认证状态
 		switch (status) {
-			case "guest":
+			case "guest":						//未申请
 				initNoAuthUser();
 				break;
-			case "complete":
+			case "complete":				//认证审核通过
 				initCompletedUser();
 				break;
 		}
@@ -155,12 +151,11 @@ public class AuthenticationFragment extends BaseFragment implements OnClickListe
 	 */
 	public void initHeadInfo() {
 		User user = getUser();
-		String nick_name = user.getNick_name();
-		String phone = user.getPhone();
-		String rank = user.getRank();
-
-		setNickName();
-		rankTv.setText("等级：" + rank + " 级");
+		if (null != user) {
+			String rank = user.getRank();
+			setNickName();
+			rankTv.setText("等级：" + rank + " 级");
+		}
 	}
 
 	@Override
