@@ -71,6 +71,9 @@ public abstract class BaseFragment extends Fragment {
         if (leftTv != null && !TextUtils.isEmpty(left)) {
             leftTv.setText(left);
             leftTv.setVisibility(View.VISIBLE);
+            backView.setVisibility(View.VISIBLE);
+        }else {
+            backView.setVisibility(View.GONE);
         }
 
         //设置中间的标题

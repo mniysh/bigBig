@@ -1,7 +1,7 @@
 package com.ms.ebangw.userAuthen;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.text.Layout;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,15 +10,15 @@ import android.widget.Button;
 
 import com.ms.ebangw.MyApplication;
 import com.ms.ebangw.R;
+import com.ms.ebangw.activity.HomeActivity;
+import com.ms.ebangw.activity.SettingActivity;
 import com.ms.ebangw.commons.Constants;
+import com.ms.ebangw.event.PerformEvent;
 import com.ms.ebangw.fragment.BaseFragment;
-import com.ms.ebangw.userAuthen.developers.DevelopersAuthenActivity;
-import com.ms.ebangw.userAuthen.headman.HeadmanAuthenActivity;
-import com.ms.ebangw.userAuthen.investor.InvestorAuthenActivity;
-import com.ms.ebangw.userAuthen.worker.WorkerAuthenActivity;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import de.greenrobot.event.EventBus;
 
 public class InfoCommitSuccessFragment extends BaseFragment {
     private static final String CATEGORY = "category";
@@ -47,12 +47,7 @@ public class InfoCommitSuccessFragment extends BaseFragment {
         if (getArguments() != null) {
             category = getArguments().getString(CATEGORY);
         }
-        View layout = mActivity.findViewById(R.id.layout_step);
-//        View layout_title = getActivity().findViewById(R.id.layout_title);
 
-        if (null != layout) {
-            layout.setVisibility(View.GONE);
-        }
 
     }
 
@@ -84,8 +79,14 @@ public class InfoCommitSuccessFragment extends BaseFragment {
             public void onClick(View v) {
                 boolean b = true;
                 MyApplication.getInstance().setFlag_home(b);
-                mActivity.finish();
 
+                if (mActivity instanceof HomeActivity) {
+                    HomeActivity homeActivity = (HomeActivity) mActivity;
+                    homeActivity.lotteryRb.performClick();
+                } else {
+                    EventBus.getDefault().post(new PerformEvent());
+                    mActivity.finish();
+                }
             }
         });
     }
@@ -93,40 +94,74 @@ public class InfoCommitSuccessFragment extends BaseFragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        String title;
-        if (TextUtils.isEmpty(category)) {
-            return;
+
+
+        View layout = mActivity.findViewById(R.id.layout_step);
+        View titleLayout = mActivity.findViewById(R.id.layout_title);
+
+        if (null != layout) {
+            layout.setVisibility(View.GONE);
         }
+
+        if (titleLayout != null) {
+            titleLayout.setVisibility(View.GONE);
+        }
+
+        String title = getTitleByCategory(category);
+//        initTitle(null, "返回", title, null, null);
+        if (mActivity instanceof HomeActivity) {
+
+            initTitle(null, null, "我的信息", "设置", new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    //设置跳转
+                    Intent intent=new Intent(mActivity, SettingActivity.class);
+
+                    mActivity.startActivityForResult(intent, Constants.REQUEST_EXIT);
+                }
+            });
+        }else {
+            initTitle(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    mActivity.finish();
+                }
+            }, "返回", getTitleByCategory(category), null, null);
+        }
+
+    }
+
+    public String getTitleByCategory(String category) {
+        if (TextUtils.isEmpty(category)) {
+            return "";
+        }
+
+        String title;
         switch (category) {
             case Constants.INVESTOR:
                 title = "个人认证";
-                ((InvestorAuthenActivity)getActivity()).initTitle(null, "返回", title, null, null);
                 break;
 
             case Constants.WORKER:
 
                 title = "务工人认证";
-                ((WorkerAuthenActivity)getActivity()).initTitle(null, "返回", title, null, null);
                 break;
 
             case Constants.HEADMAN:
 
                 title = "工长认证";
-                ((HeadmanAuthenActivity)getActivity()).initTitle(null, "返回", title, null, null);
 
                 break;
 
             case Constants.DEVELOPERS:
                 title = "开发商认证";
-                ((DevelopersAuthenActivity)getActivity()).initTitle(null, "返回", title, null, null);
                 break;
             default:
-
                 title = "";
                 break;
         }
 
-
+        return title;
     }
 
 

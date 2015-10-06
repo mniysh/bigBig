@@ -14,6 +14,7 @@ import com.ms.ebangw.bean.Bank;
 import com.ms.ebangw.bean.TotalRegion;
 import com.ms.ebangw.bean.User;
 import com.ms.ebangw.commons.Constants;
+import com.ms.ebangw.event.PerformEvent;
 import com.ms.ebangw.exception.ResponseException;
 import com.ms.ebangw.fragment.AuthenticationFragment;
 import com.ms.ebangw.fragment.FoundFragment;
@@ -38,6 +39,7 @@ import java.util.List;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import cn.jpush.android.api.JPushInterface;
+import de.greenrobot.event.EventBus;
 
 /**
  * Home主页面
@@ -64,12 +66,16 @@ public class HomeActivity extends BaseActivity {
 	RadioGroup radioGroup;
 	@Bind(R.id.rb_mine)
 	RadioButton mineRb;
+	@Bind(R.id.rb_home)
+	public RadioButton lotteryRb;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_home);
 		ButterKnife.bind(this);
+		EventBus.getDefault().register(this);
+
 		initView();
 		initData();
 		initUMengUpdate();
@@ -197,12 +203,12 @@ public class HomeActivity extends BaseActivity {
 		switch (status) {
 
 			case "guest":
-				AuthenticationFragment authenticationfragment = new AuthenticationFragment();
-				fm.beginTransaction().replace(R.id.fl_content, authenticationfragment).commit();
+//				AuthenticationFragment authenticationfragment = new AuthenticationFragment();
+//				fm.beginTransaction().replace(R.id.fl_content, authenticationfragment).commit();
 				break;
 			case "auth_investor":
 				title = "个人认证";
-				fm.beginTransaction().replace(R.id.fl_content, new InfoCommitSuccessFragment()).commit();
+//				fm.beginTransaction().replace(R.id.fl_content, new InfoCommitSuccessFragment()).commit();
 				break;
 
 			case "auth_worker":
@@ -299,7 +305,7 @@ public class HomeActivity extends BaseActivity {
 
 	public void loadUserInformation() {
 
-		DataAccessUtil.userInformation(new JsonHttpResponseHandler(){
+		DataAccessUtil.userInformation(new JsonHttpResponseHandler() {
 			@Override
 			public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
 				try {
@@ -322,7 +328,17 @@ public class HomeActivity extends BaseActivity {
 
 	}
 
+	public void onEvent(PerformEvent event) {
+		lotteryRb.performClick();
+	}
+
 	public TotalRegion getTotalRegion() {
 		return totalRegion;
+	}
+
+	@Override
+	protected void onDestroy() {
+		super.onDestroy();
+		EventBus.getDefault().unregister(this);
 	}
 }
