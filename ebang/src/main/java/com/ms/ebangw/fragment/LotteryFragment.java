@@ -272,6 +272,10 @@ public class LotteryFragment extends BaseFragment {
         webview.loadUrl(s);
     }
 
+    /**
+     * 获取dpi
+     * @return
+     */
     public int getDensityDpi() {
         Display defaultDisplay = mActivity.getWindowManager().getDefaultDisplay();
         DisplayMetrics displayMetrics = new DisplayMetrics();

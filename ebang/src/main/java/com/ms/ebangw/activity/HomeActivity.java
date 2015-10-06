@@ -8,14 +8,11 @@ import android.view.KeyEvent;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
-import com.loopj.android.http.JsonHttpResponseHandler;
 import com.ms.ebangw.MyApplication;
 import com.ms.ebangw.R;
-import com.ms.ebangw.bean.Bank;
 import com.ms.ebangw.bean.TotalRegion;
 import com.ms.ebangw.bean.User;
 import com.ms.ebangw.commons.Constants;
-import com.ms.ebangw.exception.ResponseException;
 import com.ms.ebangw.fragment.AuthenticationFragment;
 import com.ms.ebangw.fragment.DevelopersCenterFragment;
 import com.ms.ebangw.fragment.FoundFragment;
@@ -33,11 +30,6 @@ import com.ms.ebangw.service.DataParseUtil;
 import com.ms.ebangw.utils.L;
 import com.ms.ebangw.utils.T;
 import com.umeng.update.UmengUpdateAgent;
-
-import org.apache.http.Header;
-import org.json.JSONObject;
-
-import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -135,8 +127,6 @@ public class HomeActivity extends BaseActivity {
 		radioGroup.getChildAt(0).performClick();
 		totalRegion = getAreaFromAssets();
 		loadBanks();
-
-
 
 	}
 
