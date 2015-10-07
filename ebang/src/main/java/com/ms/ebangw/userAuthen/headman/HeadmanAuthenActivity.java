@@ -14,6 +14,7 @@ import com.ms.ebangw.activity.BaseActivity;
 import com.ms.ebangw.bean.AuthInfo;
 import com.ms.ebangw.bean.TotalRegion;
 import com.ms.ebangw.commons.Constants;
+import com.ms.ebangw.event.ReloadUserInfoEvent;
 import com.ms.ebangw.exception.ResponseException;
 import com.ms.ebangw.service.DataAccessUtil;
 import com.ms.ebangw.service.DataParseUtil;
@@ -30,6 +31,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.ButterKnife;
+import de.greenrobot.event.EventBus;
 
 /**
  * 个人用户认证
@@ -137,6 +139,7 @@ public class HeadmanAuthenActivity extends BaseActivity {
 						boolean b = DataParseUtil.processDataResult(response);
 						if (b) {
 							T.show(response.getString("message"));
+							EventBus.getDefault().post(new ReloadUserInfoEvent());
 							goResultFragment(Constants.HEADMAN);
 						}
 					} catch (ResponseException e) {

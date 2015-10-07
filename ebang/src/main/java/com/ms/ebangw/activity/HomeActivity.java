@@ -16,6 +16,7 @@ import com.ms.ebangw.bean.TotalRegion;
 import com.ms.ebangw.bean.User;
 import com.ms.ebangw.commons.Constants;
 import com.ms.ebangw.event.BottomTitleClickEvent;
+import com.ms.ebangw.event.ReloadUserInfoEvent;
 import com.ms.ebangw.exception.ResponseException;
 import com.ms.ebangw.fragment.AuthenticationFragment;
 import com.ms.ebangw.fragment.FoundFragment;
@@ -211,6 +212,10 @@ public class HomeActivity extends BaseActivity {
 					});
 				break;
 		}
+	}
+
+	public void onEvent(ReloadUserInfoEvent event) {
+		loadUserInformation();
 	}
 
 	public String getTitleByStatus(String status) {
