@@ -20,7 +20,7 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
-          <!--   <com.facebook.drawee.view.SimpleDraweeView
+           <!--  <com.facebook.drawee.view.SimpleDraweeView
                  android:id="@+id/sdv_head"
                  android:layout_width="50dp"
                  android:layout_height="50dp"
@@ -43,8 +43,10 @@
                 android:id="@+id/tv_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="用户名"
                 android:textColor="@color/white"
+                android:ellipsize="end"
+                android:singleLine="true"
+                android:maxLength="6"
                 android:textSize="15sp"/>
 
             <TextView
@@ -52,7 +54,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="12dp"
-                android:text="13888888888"
                 android:textColor="@color/white"
                 android:textSize="15sp"/>
 

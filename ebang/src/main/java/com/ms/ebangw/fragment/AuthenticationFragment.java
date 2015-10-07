@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -57,6 +58,8 @@ public class AuthenticationFragment extends BaseFragment implements OnClickListe
 	LinearLayout detailLayout;
 	@Bind(R.id.ll_no_auth)
 	LinearLayout noAuthLayout;
+	@Bind(R.id.iv_head)
+	ImageView headIv;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater,
@@ -150,12 +153,26 @@ public class AuthenticationFragment extends BaseFragment implements OnClickListe
 	 * 用户信息
 	 */
 	public void initHeadInfo() {
+		headIv.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+
+			}
+		});
+
+
 		User user = getUser();
 		if (null != user) {
 			String rank = user.getRank();
 			setNickName();
 			rankTv.setText("等级：" + rank + " 级");
 		}
+	}
+
+	public void showSelectPhotoDialog() {
+
+
+
 	}
 
 	@Override

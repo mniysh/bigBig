@@ -265,7 +265,4 @@ public class InvestorBaseInfoFragment extends BaseFragment {
 			return totalRegion.getProvince();
 		}
 	}
-
-
-
 }

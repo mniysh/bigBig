@@ -547,7 +547,7 @@ public class DataAccessUtil {
         if (params == null) {
             params = new RequestParams();
         }
-        addCommonParams(params);
+        params = addCommonParams(params);
         L.d(TAG, "doGet Url : " + url + "?"+ params.toString());
         return mClient.get(url, params, asyncHttpResponseHandler);
 

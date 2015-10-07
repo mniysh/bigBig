@@ -3,6 +3,7 @@ package com.ms.ebangw.activity;
 import android.app.FragmentManager;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.KeyEvent;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -14,7 +15,7 @@ import com.ms.ebangw.bean.Bank;
 import com.ms.ebangw.bean.TotalRegion;
 import com.ms.ebangw.bean.User;
 import com.ms.ebangw.commons.Constants;
-import com.ms.ebangw.event.PerformEvent;
+import com.ms.ebangw.event.BottomTitleClickEvent;
 import com.ms.ebangw.exception.ResponseException;
 import com.ms.ebangw.fragment.AuthenticationFragment;
 import com.ms.ebangw.fragment.FoundFragment;
@@ -61,13 +62,15 @@ public class HomeActivity extends BaseActivity {
 	private SelectCraftFragment selectCraftFragment;
 	private LotteryFragment lotteryFragment;
 	private List<Bank> banks;
+	private Handler mHandler;
 
 	@Bind(R.id.radioGroup)
 	RadioGroup radioGroup;
 	@Bind(R.id.rb_mine)
-	RadioButton mineRb;
+	public RadioButton mineRb;
 	@Bind(R.id.rb_home)
 	public RadioButton lotteryRb;
+
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -85,15 +88,16 @@ public class HomeActivity extends BaseActivity {
 		getAreaFromAssets();
 	}
 
+	public void executeRadioButtonAt(int index) {
+		radioGroup.getChildAt(3).performClick();
+	}
+
 	@Override
 	public void initData() {
+		mHandler = new Handler();
+
 		loadUserInformation();
 		fm = getFragmentManager();
-//		foundFragment=new FoundFragment();
-//		releasefragment=new ReleaseFragment();
-//		serviceFragment=new ServiceFragment();
-//		releaseFrament01 = new ReleaseFrament01();
-//		selectCraftFragment = new SelectCraftFragment();
 		lotteryFragment = LotteryFragment.newInstance("lotteryFragment", "lotteryFragment");
 		workerHomeFragment = WorkerHomeFragment.newInstance(R.drawable.worker_home, 2);
 		eMallFragment = WorkerHomeFragment.newInstance(R.drawable.e_mall, 1);
@@ -114,9 +118,7 @@ public class HomeActivity extends BaseActivity {
 //						fm.beginTransaction().replace(R.id.fl_content, releaseFrament01).commit();
 						fm.beginTransaction().replace(R.id.fl_content, eMallFragment).commit();
 						break;
-//					case R.id.rb_server:
-//						fm.beginTransaction().replace(R.id.fl_content,serviceFragment).commit();
-//						break;
+
 					case R.id.rb_mine:
 
 						L.d("xxx", "返回值是" + isLogin());
@@ -198,17 +200,28 @@ public class HomeActivity extends BaseActivity {
 //		}
 	}
 
+	public void onEvent(BottomTitleClickEvent event) {
+		switch (event.getIndex()) {
+			case 3:		//我的
+					mHandler.post(new Runnable() {
+						@Override
+						public void run() {
+							mineRb.toggle();
+						}
+					});
+				break;
+		}
+	}
+
 	public String getTitleByStatus(String status) {
 		String title = "";
 		switch (status) {
 
 			case "guest":
-//				AuthenticationFragment authenticationfragment = new AuthenticationFragment();
-//				fm.beginTransaction().replace(R.id.fl_content, authenticationfragment).commit();
+
 				break;
 			case "auth_investor":
 				title = "个人认证";
-//				fm.beginTransaction().replace(R.id.fl_content, new InfoCommitSuccessFragment()).commit();
 				break;
 
 			case "auth_worker":
@@ -312,6 +325,7 @@ public class HomeActivity extends BaseActivity {
 					User user = DataParseUtil.userInformation(response);
 					if (null != user) {
 						MyApplication.getInstance().saveUser(user);
+						L.d(user.toString());
 					}
 				} catch (ResponseException e) {
 					e.printStackTrace();
@@ -328,9 +342,6 @@ public class HomeActivity extends BaseActivity {
 
 	}
 
-	public void onEvent(PerformEvent event) {
-		lotteryRb.performClick();
-	}
 
 	public TotalRegion getTotalRegion() {
 		return totalRegion;

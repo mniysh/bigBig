@@ -19,9 +19,11 @@ import android.widget.Toast;
 import com.baidu.location.BDLocation;
 import com.ms.ebangw.MyApplication;
 import com.ms.ebangw.R;
-import com.ms.ebangw.activity.HomeActivity;
 import com.ms.ebangw.activity.LoginActivity;
 import com.ms.ebangw.bean.User;
+import com.ms.ebangw.db.UserDao;
+import com.ms.ebangw.event.BottomTitleClickEvent;
+import com.ms.ebangw.utils.DensityUtils;
 import com.ms.ebangw.utils.L;
 import com.ms.ebangw.utils.NetUtils;
 import com.ms.ebangw.utils.ShareUtils;
@@ -34,6 +36,7 @@ import com.umeng.socialize.controller.listener.SocializeListeners;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import de.greenrobot.event.EventBus;
 
 /**
  * 摇奖Fragment
@@ -104,7 +107,9 @@ public class LotteryFragment extends BaseFragment {
         webview.addJavascriptInterface(new JsObject(), "share");
         if (!TextUtils.isEmpty(url) && null != user) {
             BDLocation bdLocation = MyApplication.getInstance().getLocation();
-            url = url+ "?id=" + user.getId() + "&app_token=" + user.getApp_token() + "&dpi=" + getDensityDpi();
+            url = url+ "?id=" + user.getId() + "&app_token=" + user.getApp_token() + "&dpi=" +
+                getDensityDpi()+ "&w=" + DensityUtils.getWidthInPx(mActivity) + "&h=" +
+                DensityUtils.getHeightInPx(mActivity);
             if (null != bdLocation) {
                 double latitude = bdLocation.getLatitude();
                 double longitude = bdLocation.getLongitude(); //经度
@@ -200,6 +205,8 @@ public class LotteryFragment extends BaseFragment {
         public void gotoLogin() {
 
             MyApplication.getInstance().quit();
+            UserDao userDao = new UserDao(mActivity);
+            userDao.removeAll();
 
             Intent intent = new Intent(mActivity, LoginActivity.class);
             startActivity(intent);
@@ -211,11 +218,7 @@ public class LotteryFragment extends BaseFragment {
          */
         @JavascriptInterface
         public void gotoAuth() {
-
-            MyApplication.getInstance().quit();
-
-            HomeActivity homeActivity = (HomeActivity) mActivity;
-            homeActivity.findViewById(R.id.rb_mine).performClick();
+            EventBus.getDefault().post(new BottomTitleClickEvent(3));
 
         }
 
@@ -283,5 +286,6 @@ public class LotteryFragment extends BaseFragment {
         int densityDpi = displayMetrics.densityDpi;
         return densityDpi;
     }
+
 
 }

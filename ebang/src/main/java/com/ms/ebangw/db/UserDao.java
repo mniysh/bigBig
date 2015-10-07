@@ -33,8 +33,6 @@ public class UserDao {
     public boolean add(User user) {
 
         try {
-//			userDaoOpe.createOrUpdate(user);
-//            int i = userDaoOpe.create(user);
             Dao.CreateOrUpdateStatus orUpdate = userDaoOpe.createOrUpdate(user);
             if (orUpdate.isUpdated() || orUpdate.isCreated()) {
                 L.d("add User 成功");
@@ -43,8 +41,8 @@ public class UserDao {
 
         } catch (SQLException e) {
             e.printStackTrace();
+            L.d("add User 失败");
         }
-        L.d("add User 失败");
         return false;
 
     }
@@ -77,7 +75,7 @@ public class UserDao {
         try {
             return userDaoOpe.queryForId(id);
         } catch (SQLException e) {
-            L.d("获取User失败");
+            L.d("getUserById 获取User失败");
             e.printStackTrace();
         }
         return null;

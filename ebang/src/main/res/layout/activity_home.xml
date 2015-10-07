@@ -65,19 +65,7 @@
             android:textColor="@color/home_bottom_selector"
             />
 
-        <RadioButton
-            android:id="@+id/rb_server"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:visibility="gone"
-            android:text="服务"
-            android:button="@drawable/empty"
-            android:drawableTop="@drawable/home_server_selector"
-            android:textColor="@color/home_bottom_selector"
 
-            />
 
         <RadioButton
             android:id="@+id/rb_mine"
