@@ -239,9 +239,9 @@ public class ShareUtils {
         addSinaPlatform(activity);
 
 
-        String title = "淼森次元";
+        String title = "亿帮无忧";
         String shareContent = activity.getString(R.string.lottery_desc);// 设置分享内容
-        String targetUrl = activity.getString(R.string.url_lottery);
+        String targetUrl = activity.getString(R.string.url_share);
         UMImage umImage = new UMImage(activity, activity.getString(R.string.url_logo));// 设置分享图片, 参数2为图片的url地址
 
         WeiXinShareContent weixinContent = new WeiXinShareContent();
