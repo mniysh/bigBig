@@ -63,6 +63,8 @@ public class WorkerBaseInfoFragment extends BaseFragment {
 	Spinner citySp;
 	@Bind(R.id.btn_next)
 	Button nextBtn;
+	@Bind(R.id.tv_added_work_type)
+	TextView addedWorkTypesTv;
 	@Bind(R.id.btn_select_work)
 	Button selectWorkBtn;
 	@Bind(R.id.ll_workType)
@@ -71,6 +73,7 @@ public class WorkerBaseInfoFragment extends BaseFragment {
 	ArrayAdapter<Province> adapter01;
 	ArrayAdapter<City> adapter02;
 	private List<Province> provinces;
+	ArrayList<WorkType> workTypes;
 
 	public static WorkerBaseInfoFragment newInstance(String category) {
 		WorkerBaseInfoFragment fragment = new WorkerBaseInfoFragment();
@@ -111,6 +114,12 @@ public class WorkerBaseInfoFragment extends BaseFragment {
 			@Override
 			public void onClick(View v) {
 				Intent intent = new Intent(mActivity, WorkTypeActivity.class);
+//				if (workTypes != null && workTypes.size() > 0) {
+//
+//				}
+				Bundle bundle = new Bundle();
+				bundle.putParcelableArrayList(Constants.KEY_SELECTED_WORKTYPES, workTypes);
+				intent.putExtras(bundle);
 				startActivityForResult(intent, 22);
 			}
 		});
@@ -162,25 +171,65 @@ public class WorkerBaseInfoFragment extends BaseFragment {
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
 
-		if (resultCode == 22) {						//获取选中的工种
+		if (requestCode == 22 && resultCode == mActivity.RESULT_OK) {						//获取选中的工种
 
 			Bundle extras = data.getExtras();
-			ArrayList<WorkType> workTypes = extras.getParcelableArrayList(Constants
+			workTypes = extras.getParcelableArrayList(Constants
 				.KEY_SELECTED_WORKTYPES);
 			processSelectedWorkTypes(workTypes);
+
+			String typesDescriptions = getWorkTypesDescriptions(workTypes);
+			if (!TextUtils.isEmpty(typesDescriptions)) {
+				addedWorkTypesTv.setText(typesDescriptions);
+				addedWorkTypesTv.setVisibility(View.VISIBLE);
+				selectWorkBtn.setText("重新选择");
+			}
 		}
 	}
 
 	public void processSelectedWorkTypes(ArrayList<WorkType> workTypes) {
-		int count = workTypes.size();
-		String[] types = new String[count];
-		for (int i = 0; i < count; i++) {
-			types[i] = workTypes.get(i).getId();
+		if (workTypes != null && workTypes.size() > 0) {
+			int count = workTypes.size();
+			String[] types = new String[count];
+
+			WorkType type;
+			for (int i = 0; i < count; i++) {
+				type = workTypes.get(i);
+				types[i] = type.getId();
+			}
+			if (types.length > 0) {
+				String json = JsonUtil.createGsonString(types);
+				((WorkerAuthenActivity) mActivity).getAuthInfo().setCrafts(json);
+			}
 		}
-		if (types.length > 0) {
-			String json = JsonUtil.createGsonString(types);
-			((WorkerAuthenActivity)mActivity).getAuthInfo().setCrafts(json);
+	}
+
+	/**
+	 * 获取已选工种的描述
+	 * @param workTypes
+	 * @return
+	 */
+	public String getWorkTypesDescriptions(ArrayList<WorkType> workTypes) {
+
+		if (workTypes != null && workTypes.size() > 0) {
+			StringBuilder builder = new StringBuilder();
+			builder.append("已选工种: ");
+			int count = workTypes.size();
+			WorkType type;
+
+			for (int i = 0; i < count; i++) {
+				type = workTypes.get(i);
+				if (i == count - 1) {
+					builder.append(type.getName());
+				}else {
+					builder.append(type.getName() + ", ");
+				}
+			}
+
+			return builder.toString();
 		}
+
+		return null;
 	}
 
 	@OnClick(R.id.btn_next)
@@ -288,13 +337,15 @@ public class WorkerBaseInfoFragment extends BaseFragment {
 	 * 把*变成红色
 	 */
 	public void setStarRed() {
-		int[] resId = new int[]{R.id.tv_a, R.id.tv_b, R.id.tv_c, R.id.tv_d, R.id.tv_e};
+		int[] resId = new int[]{R.id.tv_a, R.id.tv_b, R.id.tv_c, R.id.tv_d, R.id.tv_e, R.id.tv_f};
 		for (int i = 0; i < resId.length; i++) {
 			TextView a = (TextView) contentLayout.findViewById(resId[i]);
-			String s = a.getText().toString();
-			SpannableString spannableString = new SpannableString(s);
-			spannableString.setSpan(new ForegroundColorSpan(Color.RED), 0, 1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-			a.setText(spannableString);
+			if (null != a) {
+				String s = a.getText().toString();
+				SpannableString spannableString = new SpannableString(s);
+				spannableString.setSpan(new ForegroundColorSpan(Color.RED), 0, 1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+				a.setText(spannableString);
+			}
 		}
 	}
 

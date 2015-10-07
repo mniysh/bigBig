@@ -71,10 +71,9 @@ public class User implements Serializable {
 	@DatabaseField(columnName = "status")
 	private String status;
 
-
-
 	public User() {
 	}
+
 
 	public String getId() {
 		return id;
@@ -147,6 +146,7 @@ public class User implements Serializable {
 	public void setCategory(String category) {
 		this.category = category;
 	}
+
 	public String getNick_name() {
 		return nick_name;
 	}
@@ -205,6 +205,14 @@ public class User implements Serializable {
 			", gender='" + gender + '\'' +
 			", password='" + password + '\'' +
 			", phone='" + phone + '\'' +
+			", message='" + message + '\'' +
+			", category='" + category + '\'' +
+			", nick_name='" + nick_name + '\'' +
+			", rank='" + rank + '\'' +
+			", real_name='" + real_name + '\'' +
+			", area='" + area + '\'' +
+			", craft='" + craft + '\'' +
+			", status='" + status + '\'' +
 			'}';
 	}
 }

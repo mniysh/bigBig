@@ -89,6 +89,13 @@ public class WorkTypeActivity extends BaseActivity {
     @Override
     public void initData() {
         selectTypes = new ArrayList<>();
+        Bundle extras = getIntent().getExtras();
+        ArrayList<WorkType> workTypes = extras.getParcelableArrayList(Constants
+            .KEY_SELECTED_WORKTYPES);
+        if (null != workTypes) {
+            selectTypes = workTypes;
+        }
+
         loadWorkType();
     }
 
@@ -145,7 +152,7 @@ public class WorkTypeActivity extends BaseActivity {
         bundle.putParcelableArrayList(Constants.KEY_SELECTED_WORKTYPES,getSelectedWorkTypes());
         Intent intent = new Intent();
         intent.putExtras(bundle);
-        setResult(22, intent);
+        setResult(RESULT_OK, intent);
         finish();
     }
 
