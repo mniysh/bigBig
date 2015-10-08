@@ -109,4 +109,24 @@ public class Constants {
 
 
 	public final static String KEY_URL = "url";
+
+	/**
+	 * 认证状态
+	 * //状态游客 guest
+	 * 认证中auth_developers(认证开发者中)/
+	 * auth_worker(认证工人中)/
+	 * auth_headman(认证工头中)/
+	 * auth_investor(认证个人中)/
+	 * complete（完成认证）
+	 */
+
+	/**
+	 *
+	 */
+	public final static String AUTH_GUEST = "guest";
+	public final static String AUTH_WORKER = "auth_worker";
+	public final static String AUTH_HEADMAN = "auth_headman";
+	public final static String AUTH_DEVELOPERS = "auth_developers";
+	public final static String AUTH_INVESTOR = "auth_investor";
+	public final static String AUTH_COMPLETE = "complete";
 }

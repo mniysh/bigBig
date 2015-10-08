@@ -16,7 +16,7 @@ import com.ms.ebangw.bean.TotalRegion;
 import com.ms.ebangw.bean.User;
 import com.ms.ebangw.commons.Constants;
 import com.ms.ebangw.event.BottomTitleClickEvent;
-import com.ms.ebangw.event.ReloadUserInfoEvent;
+import com.ms.ebangw.event.RefreshUserEvent;
 import com.ms.ebangw.exception.ResponseException;
 import com.ms.ebangw.fragment.AuthenticationFragment;
 import com.ms.ebangw.fragment.FoundFragment;
@@ -214,8 +214,21 @@ public class HomeActivity extends BaseActivity {
 		}
 	}
 
-	public void onEvent(ReloadUserInfoEvent event) {
+	public void onEvent(RefreshUserEvent event) {
 		loadUserInformation();
+
+//		String category = event.getCategory(); //认证提交后
+//		User user = getUser();
+//		switch (category) {
+//			case Constants.INVESTOR:
+//				user.setStatus();
+//
+//				break;
+//
+//
+//		}
+
+
 	}
 
 	public String getTitleByStatus(String status) {
@@ -329,6 +342,7 @@ public class HomeActivity extends BaseActivity {
 				try {
 					User user = DataParseUtil.userInformation(response);
 					if (null != user) {
+						user.setApp_token(getUser().getApp_token());
 						MyApplication.getInstance().saveUser(user);
 						L.d(user.toString());
 					}

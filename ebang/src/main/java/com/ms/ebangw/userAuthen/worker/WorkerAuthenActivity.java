@@ -14,9 +14,11 @@ import com.ms.ebangw.R;
 import com.ms.ebangw.activity.BaseActivity;
 import com.ms.ebangw.bean.AuthInfo;
 import com.ms.ebangw.bean.TotalRegion;
+import com.ms.ebangw.bean.User;
 import com.ms.ebangw.bean.WorkType;
 import com.ms.ebangw.commons.Constants;
-import com.ms.ebangw.event.ReloadUserInfoEvent;
+import com.ms.ebangw.db.UserDao;
+import com.ms.ebangw.event.RefreshUserEvent;
 import com.ms.ebangw.exception.ResponseException;
 import com.ms.ebangw.service.DataAccessUtil;
 import com.ms.ebangw.service.DataParseUtil;
@@ -162,7 +164,8 @@ public class WorkerAuthenActivity extends BaseActivity {
 							boolean b = DataParseUtil.processDataResult(response);
 							if (b) {
 								T.show(response.getString("message"));
-								EventBus.getDefault().post(new ReloadUserInfoEvent());
+								saveAuthStatusInLocal();
+								EventBus.getDefault().post(new RefreshUserEvent(Constants.WORKER));
 								goResultFragment(Constants.WORKER);
 							}
 						} catch (ResponseException e) {
@@ -214,6 +217,13 @@ public class WorkerAuthenActivity extends BaseActivity {
 		InfoCommitSuccessFragment fragment = InfoCommitSuccessFragment.newInstance(category);
 		FragmentTransaction transaction = fm.beginTransaction();
 		transaction.replace(R.id.fl_content, fragment).commit();
+	}
+
+	public void saveAuthStatusInLocal() {
+		User user = getUser();
+		user.setStatus(Constants.AUTH_WORKER);
+		UserDao userDao = new UserDao(this);
+		userDao.update(user);
 	}
 
 }

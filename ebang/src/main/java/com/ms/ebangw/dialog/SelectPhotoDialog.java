@@ -3,6 +3,7 @@ package com.ms.ebangw.dialog;
 
 import android.app.Dialog;
 import android.app.DialogFragment;
+import android.app.Fragment;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -13,6 +14,7 @@ import android.view.Window;
 import android.widget.TextView;
 
 import com.ms.ebangw.R;
+import com.ms.ebangw.fragment.AuthenticationFragment;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -77,8 +79,37 @@ public class SelectPhotoDialog extends DialogFragment {
     }
 
     public void initData() {
-//        getParentFragment().start
+//        cameraTv.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Fragment parentFragment = getParentFragment();
+//                if (parentFragment instanceof AuthenticationFragment) {
+//
+//                    AuthenticationFragment authenticationFragment = (AuthenticationFragment) parentFragment;
+//                    authenticationFragment.captureImageByCamera();
+//                    dismiss();
+//                }
+//            }
+//        });
+//
+//        photoTv.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Fragment parentFragment = getParentFragment();
+//                if (parentFragment instanceof AuthenticationFragment) {
+//
+//                    AuthenticationFragment authenticationFragment = (AuthenticationFragment) parentFragment;
+//                    authenticationFragment.selectPhoto();
+//                    dismiss();
+//                }
+//            }
+//        });
+
+
+
     }
+
+
 
 
 }
