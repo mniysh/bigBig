@@ -82,6 +82,9 @@ public class Constants {
 	public final static String KEY_UPLOAD_IMAGE_RESULT = "UploadImageResult";
 	/*验证码*/
 	public final static String KEY_VERIFY_CODE = "verify_code";
+	public final static String KEY_HEAD_IMAGE = "head_image";
+	public final static String KEY_WHICH_PHOTO = "whichPhoto";
+	public final static String KEY_CURRENT_IMAGE_PATH = "current_image_path";
 
 	public final static int KEY_IMAGE_FLODER = R.drawable.back_ima;
 

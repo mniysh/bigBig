@@ -145,9 +145,9 @@ public class InvestorBaseInfoFragment extends BaseFragment {
 
 	@OnClick(R.id.btn_next)
 	public void goNext() {
-		if (!isInfoCorrect()) {
-			return;
-		}
+//		if (!isInfoCorrect()) {
+//			return;
+//		}
 		if(getAuthInfo() != null){
 			AuthInfo authInfo = getAuthInfo();
 			InvestorAuthenActivity activity = (InvestorAuthenActivity) mActivity;

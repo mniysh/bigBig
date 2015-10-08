@@ -516,6 +516,29 @@ public class DataAccessUtil {
         return doGet(RequestUrl.user_information, null, asyncHttpResponseHandler);
     }
 
+    /**
+     * 1-12、修改用户头像  get方式
+     */
+    public static RequestHandle headImage(File imageFile, AsyncHttpResponseHandler
+        asyncHttpResponseHandler) {
+
+        if (!NetUtils.isConnected(MyApplication.getInstance())) {
+            T.show("网络异常,请检查网络连接");
+            return null;
+        }
+        initAsyncHttpClient();
+        RequestParams params = new RequestParams();
+        try {
+            params.put("image", imageFile, "image/png");
+            params = addCommonParams(params);
+            mClient.post(RequestUrl.head_image, params, asyncHttpResponseHandler);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+            L.d(TAG, "headImage：文件不存在");
+        }
+        return null;
+    }
+
     public static RequestHandle doPost(String url, RequestParams params, AsyncHttpResponseHandler asyncHttpResponseHandler) {
 
         if (!NetUtils.isConnected(MyApplication.getInstance())) {
@@ -561,24 +584,6 @@ public class DataAccessUtil {
             mClient.cancelAllRequests(true);
     }
 
-//    /**
-//     * 上传:Post方式
-//     */
-//    public static void upLoad(String url, File file) {
-//
-//        if (!NetUtils.isConnected(MyApplication.getInstance())) {
-//            T.show("网络异常");
-//            return ;
-//        }
-//        initAsyncHttpClient();
-//        File myFile = new File("/path/to/file.png");
-//        RequestParams params = new RequestParams();
-//        try {
-//            params.put("profile_picture", myFile);
-//        } catch(FileNotFoundException e) {
-//            e.printStackTrace();
-//        }
-//    }
 
     /**
      * 上传图片:Post方式

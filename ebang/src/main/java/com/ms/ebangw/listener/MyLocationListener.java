@@ -106,7 +106,7 @@ public class MyLocationListener implements BDLocationListener {
      * @param str
      */
     public void logMsg(String str) {
-        L.d(str);
+//        L.d(str);
         try {
             if (mLocationResult != null)
                 mLocationResult.setText(str);

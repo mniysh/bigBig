@@ -3,18 +3,13 @@ package com.ms.ebangw.dialog;
 
 import android.app.Dialog;
 import android.app.DialogFragment;
-import android.app.Fragment;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
 import android.widget.TextView;
 
 import com.ms.ebangw.R;
-import com.ms.ebangw.fragment.AuthenticationFragment;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -55,15 +50,17 @@ public class SelectPhotoDialog extends DialogFragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+
     }
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
 
         Dialog dialog = super.onCreateDialog(savedInstanceState);
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+//        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+//        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         dialog.setCanceledOnTouchOutside(false);
+        setStyle(STYLE_NO_FRAME, 0);
         return dialog;
     }
 
@@ -79,37 +76,39 @@ public class SelectPhotoDialog extends DialogFragment {
     }
 
     public void initData() {
-//        cameraTv.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Fragment parentFragment = getParentFragment();
-//                if (parentFragment instanceof AuthenticationFragment) {
-//
-//                    AuthenticationFragment authenticationFragment = (AuthenticationFragment) parentFragment;
-//                    authenticationFragment.captureImageByCamera();
-//                    dismiss();
-//                }
-//            }
-//        });
-//
-//        photoTv.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Fragment parentFragment = getParentFragment();
-//                if (parentFragment instanceof AuthenticationFragment) {
-//
-//                    AuthenticationFragment authenticationFragment = (AuthenticationFragment) parentFragment;
-//                    authenticationFragment.selectPhoto();
-//                    dismiss();
-//                }
-//            }
-//        });
+        cameraTv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (selectListener != null) {
+                    selectListener.onCameraSelected();
+                    dismiss();
+                }
+            }
+        });
+
+        photoTv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (selectListener != null) {
+                    selectListener.onPhotoSelected();
+                    dismiss();
+                }
+            }
+        });
 
 
 
     }
 
+    public interface OnSelectListener{
+        void onCameraSelected();
+        void onPhotoSelected();
 
+    }
 
+    private OnSelectListener selectListener;
 
+    public void setSelectListener(OnSelectListener selectListener) {
+        this.selectListener = selectListener;
+    }
 }

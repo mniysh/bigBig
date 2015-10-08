@@ -40,6 +40,7 @@ import com.ms.ebangw.crop.GetPathFromUri4kitkat;
 import com.ms.ebangw.fragment.BaseFragment;
 import com.ms.ebangw.utils.BitmapUtil;
 import com.ms.ebangw.utils.CropImageUtil;
+import com.ms.ebangw.utils.L;
 import com.ms.ebangw.utils.T;
 import com.ms.ebangw.utils.VerifyUtils;
 
@@ -149,6 +150,10 @@ public class DevelopersBankVerifyFragment extends BaseFragment {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             category = getArguments().getString(CATEGORY);
+        }
+
+        if (savedInstanceState != null) {
+            mCurrentPhotoPath = savedInstanceState.getString(Constants.KEY_CURRENT_IMAGE_PATH);
         }
     }
 
@@ -690,5 +695,12 @@ public class DevelopersBankVerifyFragment extends BaseFragment {
 
     private String getAlbumName() {
         return "crop";
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        outState.putString(Constants.KEY_CURRENT_IMAGE_PATH, mCurrentPhotoPath);
+        L.d("onSaveInstanceState: " + mCurrentPhotoPath);
+        super.onSaveInstanceState(outState);
     }
 }

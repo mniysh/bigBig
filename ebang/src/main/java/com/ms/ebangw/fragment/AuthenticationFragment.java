@@ -1,6 +1,7 @@
 package com.ms.ebangw.fragment;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -16,15 +17,23 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.ms.ebangw.MyApplication;
 import com.ms.ebangw.R;
 import com.ms.ebangw.activity.HomeActivity;
 import com.ms.ebangw.activity.SettingActivity;
+import com.ms.ebangw.bean.UploadImageResult;
 import com.ms.ebangw.bean.User;
 import com.ms.ebangw.commons.Constants;
+import com.ms.ebangw.crop.CropImageActivity;
+import com.ms.ebangw.crop.FroyoAlbumDirFactory;
+import com.ms.ebangw.crop.GetPathFromUri4kitkat;
+import com.ms.ebangw.dialog.SelectPhotoDialog;
 import com.ms.ebangw.userAuthen.developers.DevelopersAuthenActivity;
 import com.ms.ebangw.userAuthen.headman.HeadmanAuthenActivity;
 import com.ms.ebangw.userAuthen.investor.InvestorAuthenActivity;
 import com.ms.ebangw.userAuthen.worker.WorkerAuthenActivity;
+import com.ms.ebangw.utils.BitmapUtil;
+import com.ms.ebangw.utils.CropImageUtil;
 import com.ms.ebangw.utils.L;
 
 import java.io.File;
@@ -76,6 +85,15 @@ public class AuthenticationFragment extends BaseFragment implements OnClickListe
 	LinearLayout noAuthLayout;
 	@Bind(R.id.iv_head)
 	ImageView headIv;
+
+
+	@Override
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		if (savedInstanceState != null) {
+			mCurrentPhotoPath = savedInstanceState.getString(Constants.KEY_CURRENT_IMAGE_PATH);
+		}
+	}
 
 	@Override
 	public View onCreateView(LayoutInflater inflater,
@@ -151,6 +169,8 @@ public class AuthenticationFragment extends BaseFragment implements OnClickListe
 				initCompletedUser();
 				break;
 		}
+
+		mAlbumStorageDirFactory = new FroyoAlbumDirFactory();
 	}
 
 
@@ -162,7 +182,7 @@ public class AuthenticationFragment extends BaseFragment implements OnClickListe
 		headIv.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-
+				showSelectPhotoDialog();
 			}
 		});
 
@@ -176,8 +196,20 @@ public class AuthenticationFragment extends BaseFragment implements OnClickListe
 	}
 
 	public void showSelectPhotoDialog() {
+		SelectPhotoDialog selectPhotoDialog = SelectPhotoDialog.newInstance("", "");
+		selectPhotoDialog.setSelectListener(new SelectPhotoDialog.OnSelectListener() {
+			@Override
+			public void onCameraSelected() {
+				captureImageByCamera();
+			}
 
+			@Override
+			public void onPhotoSelected() {
+				selectPhoto();
+			}
+		});
 
+		selectPhotoDialog.show(getFragmentManager(), "SelectPhotoDialog");
 
 	}
 
@@ -188,7 +220,7 @@ public class AuthenticationFragment extends BaseFragment implements OnClickListe
 			@Override
 			public void onClick(View v) {
 				//设置跳转
-				Intent intent=new Intent(mActivity, SettingActivity.class);
+				Intent intent = new Intent(mActivity, SettingActivity.class);
 
 				mActivity.startActivityForResult(intent, Constants.REQUEST_EXIT);
 			}
@@ -228,6 +260,44 @@ public class AuthenticationFragment extends BaseFragment implements OnClickListe
 		startActivity(intent);
 	}
 
+
+	@Override
+	public void onActivityResult(int requestCode, int resultCode, Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
+		if(resultCode != mActivity.RESULT_OK){
+			L.d("AuthenticationFragment + resultCode != mActivity.RESULT_OK" );
+			return;
+		}
+		if (requestCode == REQUEST_CAMERA ) { //拍照返回
+			L.d("AuthenticationFragment-->" + "REQUEST_CAMERA");
+
+			handleBigCameraPhoto();
+
+		}else if (requestCode == REQUEST_PICK) {
+			L.d("AuthenticationFragment-->" + "REQUEST_PICK");
+			Uri uri = data.getData();
+			Log.d("way", "uri: " + uri);
+
+			try {
+				String path = GetPathFromUri4kitkat.getPath(mActivity, uri);
+				Bitmap bitmap = BitmapUtil.getimage(path);
+				int bitmapDegree = CropImageUtil.getBitmapDegree(path);
+				if (bitmapDegree != 0) {
+					bitmap = CropImageUtil.rotateBitmapByDegree(bitmap, bitmapDegree);
+				}
+				MyApplication myApplication = (MyApplication) mActivity.getApplication();
+				myApplication.mBitmap = bitmap;
+				goCropActivity();
+
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+
+		}else if (requestCode == REQUEST_CROP) {        //剪切后返回
+			L.d("AuthenticationFragment-->" + "REQUEST_CROP");
+			handleCropBitmap(data);
+		}
+	}
 
 	//拍照与选择图片剪切相关
 
@@ -307,7 +377,69 @@ public class AuthenticationFragment extends BaseFragment implements OnClickListe
 		return "crop";
 	}
 
+	private void handleBigCameraPhoto() {
 
+		if (mCurrentPhotoPath != null) {
+			setPic(mCurrentPhotoPath , 400, 800);
+			galleryAddPic();
+			mCurrentPhotoPath = null;
+		}
+	}
+
+	private void galleryAddPic() {
+		Intent mediaScanIntent = new Intent("android.intent.action.MEDIA_SCANNER_SCAN_FILE");
+		File f = new File(mCurrentPhotoPath);
+		Uri contentUri = Uri.fromFile(f);
+		mediaScanIntent.setData(contentUri);
+		mActivity.sendBroadcast(mediaScanIntent);
+	}
+
+
+	private void setPic(String path, int targetW, int targetH) {
+
+		Bitmap bitmap = BitmapUtil.getimage(path);
+		int bitmapDegree = CropImageUtil.getBitmapDegree(path);
+		if (bitmapDegree != 0) {
+			bitmap = CropImageUtil.rotateBitmapByDegree(bitmap, bitmapDegree);
+		}
+
+		MyApplication application = (MyApplication) mActivity.getApplication();
+		application.mBitmap = bitmap;
+
+		Intent intent = new Intent(mActivity, CropImageActivity.class);
+		startActivityForResult(intent, REQUEST_CROP);
+
+	}
+
+	public void goCropActivity() {
+
+		Bundle bundle = new Bundle();
+		bundle.putBoolean(Constants.KEY_HEAD_IMAGE, true);
+		Intent intent = new Intent(mActivity, CropImageActivity.class);
+		intent.putExtras(bundle);
+		startActivityForResult(intent, REQUEST_CROP);
+
+	}
+
+	public void handleCropBitmap(Intent intent) {
+		if (intent == null) {
+			return;
+		}
+		UploadImageResult imageResult = intent.getParcelableExtra(Constants.KEY_UPLOAD_IMAGE_RESULT);
+		MyApplication myApplication = (MyApplication) mActivity.getApplication();
+		Bitmap bitmap = myApplication.mBitmap;
+
+		String id = imageResult.getId();
+		headIv.setImageBitmap(bitmap);
+	}
+
+
+	@Override
+	public void onSaveInstanceState(Bundle outState) {
+		outState.putString(Constants.KEY_CURRENT_IMAGE_PATH, mCurrentPhotoPath);
+		L.d("onSaveInstanceState: " + mCurrentPhotoPath);
+		super.onSaveInstanceState(outState);
+	}
 
 }
 

@@ -118,4 +118,9 @@ public class RequestUrl {
      */
     public static final String publish_craft =domain + "/api/common/craft/publish-craft";
 
+    /**
+     *1-12、修改用户头像
+     */
+    public static final String head_image =domain + "/api/user/upload/head-image";
+
 }

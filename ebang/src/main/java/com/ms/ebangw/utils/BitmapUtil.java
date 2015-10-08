@@ -31,13 +31,13 @@ public class BitmapUtil {
                 BitmapFactory.Options newOpts = new BitmapFactory.Options();
                 // 开始读入图片，此时把options.inJustDecodeBounds 设回true了
                 newOpts.inJustDecodeBounds = true;
-                Bitmap bitmap = BitmapFactory.decodeFile(srcPath, newOpts);// 此时返回bm为空
+                Bitmap bitmap = BitmapFactory.decodeFile(srcPath, newOpts);     // 此时返回bm为空
 
                 newOpts.inJustDecodeBounds = false;
                 int w = newOpts.outWidth;
                 int h = newOpts.outHeight;
                 // 现在主流手机比较多是800*480分辨率，所以高和宽我们设置为
-                float hh = 400f;// 这里设置高度为800f
+                float hh = 800f;// 这里设置高度为800f
                 float ww = 400f;// 这里设置宽度为480f
                 // 缩放比。由于是固定比例缩放，只用高或者宽其中一个数据进行计算即可
                 int be = 1;// be=1表示不缩放
