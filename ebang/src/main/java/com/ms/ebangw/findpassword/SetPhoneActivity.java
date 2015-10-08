@@ -21,6 +21,7 @@ import com.ms.ebangw.utils.T;
 import com.ms.ebangw.utils.VerifyUtils;
 
 import org.apache.http.Header;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import butterknife.Bind;
@@ -80,16 +81,41 @@ public class SetPhoneActivity extends BaseActivity {
 
     @OnClick(R.id.btn_next)
     public void goNext() {
-        String phone = phoneEt.getText().toString().trim();
-        String verifyCode = verifyCodeEt.getText().toString().trim();
+        final String phone = phoneEt.getText().toString().trim();
+        final String verifyCode = verifyCodeEt.getText().toString().trim();
         if (isInputRight(phone, verifyCode)) {
-            Bundle bundle = new Bundle();
-            bundle.putString(Constants.key_phone, phone);
-            bundle.putString(Constants.KEY_VERIFY_CODE, verifyCode);
+            DataAccessUtil.checkCode(phone, verifyCode, new JsonHttpResponseHandler() {
+                @Override
+                public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                    super.onSuccess(statusCode, headers, response);
+                    try {
+                        boolean b = DataParseUtil.processDataResult(response);
+                        if (b) {
+                            T.show(response.getString("message"));
+                            Bundle bundle = new Bundle();
+                            bundle.putString(Constants.key_phone, phone);
+                            bundle.putString(Constants.KEY_VERIFY_CODE, verifyCode);
 
-            Intent intent = new Intent(this, ResetPasswordActivity.class);
-            intent.putExtras(bundle);
-            startActivityForResult(intent, 1000);
+                            Intent intent = new Intent(SetPhoneActivity.this, ResetPasswordActivity.class);
+                            intent.putExtras(bundle);
+                            startActivityForResult(intent, 1000);
+                        }
+                    } catch (ResponseException e) {
+                        e.printStackTrace();
+                        T.show(e.getMessage());
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                        T.show(e.getMessage());
+                    }
+                }
+
+                @Override
+                public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                    super.onFailure(statusCode, headers, responseString, throwable);
+                }
+            });
+
+
         }
     }
 

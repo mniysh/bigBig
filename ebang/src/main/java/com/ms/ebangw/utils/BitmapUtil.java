@@ -59,6 +59,9 @@ public class BitmapUtil {
                 }
                 bitmap = BitmapFactory.decodeStream(fileInputStream, null, newOpts);
 //                bitmap = BitmapFactory.decodeFile(srcPath, newOpts);
+                if(bitmap != null){
+                        L.d("xxx", "bitmap不为空");
+                }
                 return compressImage(bitmap);// 压缩好比例大小后再进行质量压缩
         }
 

@@ -160,7 +160,7 @@ public class HomeActivity extends BaseActivity {
 		User user = getUser();
 		String status = user.getStatus();		//认证状态
 		String category = user.getCategory();		//类型
-
+		L.d("xxx","状态"+status);
 		String title = getTitleByStatus(status);
 		switch (status) {
 

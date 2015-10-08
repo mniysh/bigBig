@@ -7,7 +7,9 @@ android {
             keyPassword KEY_PASSWORD
             storeFile file('C:/Users/Administrator/ebang.jks')
             storePassword STORE_PASSWORD
+
         }
+
     }
     compileSdkVersion 23
     buildToolsVersion "23.0.0"
@@ -24,6 +26,7 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.config
             debuggable false
+            
         }
         debug {
             signingConfig signingConfigs.config
@@ -37,6 +40,7 @@ android {
 //            jniLibs.srcDirs = ['libs']
             jniLibs.srcDir 'libs'           //处理.so库
         }
+
     }
 
 
@@ -53,4 +57,5 @@ dependencies {
     compile 'com.android.support:appcompat-v7:23.0.1'
     compile 'com.android.support:support-v13:23.0.1'
         compile 'com.facebook.fresco:fresco:0.7.0'
+
 }

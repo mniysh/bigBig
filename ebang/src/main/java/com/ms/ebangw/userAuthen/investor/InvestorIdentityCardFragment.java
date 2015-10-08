@@ -221,7 +221,7 @@ public class InvestorIdentityCardFragment extends BaseFragment {
             f = setUpPhotoFile();
             mCurrentPhotoPath = f.getAbsolutePath();
             takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(f));
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
             f = null;
             mCurrentPhotoPath = null;
