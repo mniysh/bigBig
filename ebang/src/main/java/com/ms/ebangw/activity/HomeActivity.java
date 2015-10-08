@@ -266,6 +266,7 @@ public class HomeActivity extends BaseActivity {
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
+		L.d("activity aa");
 		if (resultCode == Constants.REQUEST_EXIT) {
 			radioGroup.getChildAt(0).performClick();
 		}

@@ -27,7 +27,6 @@ import com.ms.ebangw.commons.Constants;
 import com.ms.ebangw.crop.CropImageActivity;
 import com.ms.ebangw.crop.FroyoAlbumDirFactory;
 import com.ms.ebangw.crop.GetPathFromUri4kitkat;
-import com.ms.ebangw.dialog.SelectPhotoDialog;
 import com.ms.ebangw.userAuthen.developers.DevelopersAuthenActivity;
 import com.ms.ebangw.userAuthen.headman.HeadmanAuthenActivity;
 import com.ms.ebangw.userAuthen.investor.InvestorAuthenActivity;
@@ -196,20 +195,21 @@ public class AuthenticationFragment extends BaseFragment implements OnClickListe
 	}
 
 	public void showSelectPhotoDialog() {
-		SelectPhotoDialog selectPhotoDialog = SelectPhotoDialog.newInstance("", "");
-		selectPhotoDialog.setSelectListener(new SelectPhotoDialog.OnSelectListener() {
-			@Override
-			public void onCameraSelected() {
-				captureImageByCamera();
-			}
-
-			@Override
-			public void onPhotoSelected() {
-				selectPhoto();
-			}
-		});
-
-		selectPhotoDialog.show(getFragmentManager(), "SelectPhotoDialog");
+//		SelectPhotoDialog selectPhotoDialog = SelectPhotoDialog.newInstance("", "");
+//		selectPhotoDialog.setSelectListener(new SelectPhotoDialog.OnSelectListener() {
+//			@Override
+//			public void onCameraSelected() {
+//				captureImageByCamera();
+//			}
+//
+//			@Override
+//			public void onPhotoSelected() {
+//				selectPhoto();
+//			}
+//		});
+//
+//		selectPhotoDialog.show(getFragmentManager(), "SelectPhotoDialog");
+		captureImageByCamera();
 
 	}
 
@@ -264,6 +264,7 @@ public class AuthenticationFragment extends BaseFragment implements OnClickListe
 	@Override
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
+		L.d("AuthenticationFragment onActivityResult");
 		if(resultCode != mActivity.RESULT_OK){
 			L.d("AuthenticationFragment + resultCode != mActivity.RESULT_OK" );
 			return;
@@ -280,7 +281,7 @@ public class AuthenticationFragment extends BaseFragment implements OnClickListe
 
 			try {
 				String path = GetPathFromUri4kitkat.getPath(mActivity, uri);
-				Bitmap bitmap = BitmapUtil.getimage(path);
+				Bitmap bitmap = BitmapUtil.getImage(path);
 				int bitmapDegree = CropImageUtil.getBitmapDegree(path);
 				if (bitmapDegree != 0) {
 					bitmap = CropImageUtil.rotateBitmapByDegree(bitmap, bitmapDegree);
@@ -320,24 +321,18 @@ public class AuthenticationFragment extends BaseFragment implements OnClickListe
 		File f;
 
 		try {
-			f = setUpPhotoFile();
+			f = createImageFile();
 			mCurrentPhotoPath = f.getAbsolutePath();
-			takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(f));
+			if (takePictureIntent.resolveActivity(mActivity.getPackageManager()) != null && f !=
+				null) {
+				takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(f));
+				mActivity.startActivityForResult(takePictureIntent, REQUEST_CAMERA);
+			}
 		} catch (IOException e) {
 			e.printStackTrace();
 			f = null;
 			mCurrentPhotoPath = null;
 		}
-
-		startActivityForResult(takePictureIntent, REQUEST_CAMERA);
-	}
-
-	private File setUpPhotoFile() throws IOException {
-
-		File f = createImageFile();
-		mCurrentPhotoPath = f.getAbsolutePath();
-
-		return f;
 	}
 
 	private File createImageFile() throws IOException {
@@ -397,7 +392,7 @@ public class AuthenticationFragment extends BaseFragment implements OnClickListe
 
 	private void setPic(String path, int targetW, int targetH) {
 
-		Bitmap bitmap = BitmapUtil.getimage(path);
+		Bitmap bitmap = BitmapUtil.getImage(path);
 		int bitmapDegree = CropImageUtil.getBitmapDegree(path);
 		if (bitmapDegree != 0) {
 			bitmap = CropImageUtil.rotateBitmapByDegree(bitmap, bitmapDegree);

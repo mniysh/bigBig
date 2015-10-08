@@ -216,7 +216,7 @@ public class DevelopersBankVerifyFragment extends BaseFragment {
 
             try {
                 String path = GetPathFromUri4kitkat.getPath(mActivity, uri);
-                Bitmap bitmap = BitmapUtil.getimage(path);
+                Bitmap bitmap = BitmapUtil.getImage(path);
                 int bitmapDegree = CropImageUtil.getBitmapDegree(path);
                 if (bitmapDegree != 0) {
                     bitmap = CropImageUtil.rotateBitmapByDegree(bitmap, bitmapDegree);
@@ -604,7 +604,7 @@ public class DevelopersBankVerifyFragment extends BaseFragment {
 
     private void setPic(String path, int targetW, int targetH) {
 
-        Bitmap bitmap = BitmapUtil.getimage(path);
+        Bitmap bitmap = BitmapUtil.getImage(path);
         int bitmapDegree = CropImageUtil.getBitmapDegree(path);
         if (bitmapDegree != 0) {
             bitmap = CropImageUtil.rotateBitmapByDegree(bitmap, bitmapDegree);

@@ -270,7 +270,6 @@ public class LotteryFragment extends BaseFragment {
      * @param resultCode 0: 失败， 1：成功
      */
     public void onSharedResult(int platform, int resultCode) {
-        T.show("分享后回调js onSharedResult");
         String s = "javascript:onSharedResult(" + platform + "," + resultCode + ")";
         webview.loadUrl(s);
     }

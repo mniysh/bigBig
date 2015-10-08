@@ -4,6 +4,7 @@ import android.text.TextUtils;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.ms.ebangw.MyApplication;
 import com.ms.ebangw.bean.Bank;
 import com.ms.ebangw.bean.City;
 import com.ms.ebangw.bean.Craft;
@@ -63,11 +64,35 @@ public class DataParseUtil {
      * @throws ResponseException
      */
     public static User userInformation(JSONObject jsonObject) throws ResponseException {
-        String  data = processDataStr(jsonObject);
-        Gson gson = new Gson();
-        User user = gson.fromJson(data, User.class);
-        return user;
-    };
+        User user = MyApplication.getInstance().getUser();
+        JSONObject data = processData(jsonObject);
+        try {
+            String base_message = data.getString("base_message");
+            String real_message = data.getString("real_message");
+
+            Gson gson = new Gson();
+            User baseUser = gson.fromJson(base_message, User.class);
+            baseUser.setApp_token(user.getApp_token());
+
+            JSONObject realMessageObj = data.getJSONObject("real_message");
+            String real_name = realMessageObj.getString("real_name");
+            String identity_card = realMessageObj.getString("identity_card");
+            String card_image_front = realMessageObj.getString("card_image_front");
+            String card_image_back = realMessageObj.getString("card_image_back");
+            String craft = realMessageObj.getString("craft");
+
+            user.setReal_name(real_name);
+            user.setIdentity_card(identity_card);
+            user.setCard_image_front(card_image_front);
+            user.setCard_image_back(card_image_back);
+            user.setCraft(craft);
+
+            return user;
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 
     /**
      * 登出接口
