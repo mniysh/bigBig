@@ -132,6 +132,9 @@
 	 <string name="url_logo">http://www.ebngw.com/front/images/logo_last.png</string> <!--logo链接-->
 	 <!--<string name="url_lottery">http://labour.chinadeer.cn/phone/page/applogin.html</string> &lt;!&ndash;摇奖链接&ndash;&gt;-->
 	 <string name="url_lottery">http://labour.chinadeer.cn/phone/lottery/main/index</string> <!--摇奖链接-->
+	 <!--分享链接-->
+	 <string name="url_share">http://labour.chinadeer.cn/phone/common/app/share?type=android_normal</string>
+
 
 
 
@@ -146,7 +149,7 @@
 全（当年成立的公司可无年检章）必须为中国大陆工商局颁发</string>
 
 	 <!--摇奖-->
-	 <string name="lottery_desc">我正在【淼森次元】抢福利，这里有好多免费的福利，和满意的服务，见者有份，赶快加入淼森次元，领取你的福利！</string>
+	 <string name="lottery_desc">我正在【亿帮无忧】抢福利，这里有好多免费的福利，见者有份，赶快来领！</string>
     <string name="title_activity_lottery_home">LotteryHomeActivity</string>
 
 	 <!--找回密码-->

@@ -13,7 +13,10 @@ import com.ms.ebangw.R;
 import com.ms.ebangw.activity.BaseActivity;
 import com.ms.ebangw.bean.AuthInfo;
 import com.ms.ebangw.bean.TotalRegion;
+import com.ms.ebangw.bean.User;
 import com.ms.ebangw.commons.Constants;
+import com.ms.ebangw.db.UserDao;
+import com.ms.ebangw.event.RefreshUserEvent;
 import com.ms.ebangw.exception.ResponseException;
 import com.ms.ebangw.service.DataAccessUtil;
 import com.ms.ebangw.service.DataParseUtil;
@@ -30,6 +33,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.ButterKnife;
+import de.greenrobot.event.EventBus;
 
 /**
  * 个人用户认证
@@ -137,6 +141,8 @@ public class HeadmanAuthenActivity extends BaseActivity {
 						boolean b = DataParseUtil.processDataResult(response);
 						if (b) {
 							T.show(response.getString("message"));
+							saveAuthStatusInLocal();
+							EventBus.getDefault().post(new RefreshUserEvent(Constants.HEADMAN));
 							goResultFragment(Constants.HEADMAN);
 						}
 					} catch (ResponseException e) {
@@ -187,6 +193,13 @@ public class HeadmanAuthenActivity extends BaseActivity {
 		InfoCommitSuccessFragment fragment = InfoCommitSuccessFragment.newInstance(category);
 		FragmentTransaction transaction = fm.beginTransaction();
 		transaction.replace(R.id.fl_content, fragment).commit();
+	}
+
+	public void saveAuthStatusInLocal() {
+		User user = getUser();
+		user.setStatus(Constants.AUTH_HEADMAN);
+		UserDao userDao = new UserDao(this);
+		userDao.update(user);
 	}
 
 }
