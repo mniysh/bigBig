@@ -7,11 +7,11 @@ import android.view.View;
 import android.widget.Button;
 
 import com.loopj.android.http.JsonHttpResponseHandler;
+import com.loopj.android.http.RequestHandle;
 import com.ms.ebangw.MyApplication;
 import com.ms.ebangw.R;
 import com.ms.ebangw.activity.BaseActivity;
 import com.ms.ebangw.bean.UploadImageResult;
-import com.ms.ebangw.bean.User;
 import com.ms.ebangw.commons.Constants;
 import com.ms.ebangw.exception.ResponseException;
 import com.ms.ebangw.service.DataAccessUtil;
@@ -47,6 +47,8 @@ public class CropImageActivity extends BaseActivity {
     CropImageView mImageView;
     private String filePath;
     private Bitmap mBitmap;
+    private boolean isHeadImage = false;
+    private RequestHandle handle;
 
     @Override
     public void initView() {
@@ -60,7 +62,10 @@ public class CropImageActivity extends BaseActivity {
 
     @Override
     public void initData() {
-
+        Bundle extras = getIntent().getExtras();
+        if (null != extras) {
+            isHeadImage = extras.getBoolean(Constants.KEY_HEAD_IMAGE, false);
+        }
     }
 
     @Override
@@ -111,8 +116,20 @@ public class CropImageActivity extends BaseActivity {
         Bitmap croppedBitmap = mImageView.getCroppedBitmap();
         application.mBitmap = croppedBitmap;
         File file = saveBitmap(croppedBitmap);
+        if (isHeadImage) {
+            uploadAvatarImage(file);
+        }else {
+            uploadCommonImage(file);
+        }
 
-        DataAccessUtil.uploadImage(file, new JsonHttpResponseHandler(){
+    }
+
+    /**
+     * 通用图片上传方式
+     */
+    public void uploadCommonImage(File file) {
+
+        handle = DataAccessUtil.uploadImage(file, new JsonHttpResponseHandler(){
             @Override
             public void onStart() {
                 showProgressDialog("图片加载中...");
@@ -123,9 +140,9 @@ public class CropImageActivity extends BaseActivity {
                 super.onSuccess(statusCode, headers, response);
                 try {
                     UploadImageResult imageResult = DataParseUtil.upLoadImage(response);
-                    User user = getUser();
-                    L.d(user.toString());
-                    L.d(imageResult.toString());
+//                    User user = getUser();
+//                    L.d(user.toString());
+//                    L.d(imageResult.toString());
                     Intent intent = new Intent();
                     intent.putExtra(Constants.KEY_UPLOAD_IMAGE_RESULT, imageResult);
                     setResult(RESULT_OK, intent);
@@ -142,11 +159,45 @@ public class CropImageActivity extends BaseActivity {
                 T.show("图片上传失败，请重试");
                 dismissLoadingDialog();
             }
-
-
         });
+
 
     }
 
+    /**
+     * 上传头像
+     */
+    public void uploadAvatarImage(File file) {
+
+        handle = DataAccessUtil.headImage(file, new JsonHttpResponseHandler() {
+            @Override
+            public void onStart() {
+                showProgressDialog("头像上传中...");
+            }
+
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                super.onSuccess(statusCode, headers, response);
+                try {
+                    UploadImageResult imageResult = DataParseUtil.upLoadImage(response);
+//                    L.d(imageResult.toString());
+                    Intent intent = new Intent();
+                    intent.putExtra(Constants.KEY_UPLOAD_IMAGE_RESULT, imageResult);
+                    setResult(RESULT_OK, intent);
+                    finish();
+                    T.show("头像上传成功");
+                } catch (ResponseException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                super.onFailure(statusCode, headers, responseString, throwable);
+                T.show("头像上传失败，请重试");
+                dismissLoadingDialog();
+            }
+        });
+    }
 }
 

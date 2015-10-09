@@ -40,6 +40,7 @@ import com.ms.ebangw.crop.GetPathFromUri4kitkat;
 import com.ms.ebangw.fragment.BaseFragment;
 import com.ms.ebangw.utils.BitmapUtil;
 import com.ms.ebangw.utils.CropImageUtil;
+import com.ms.ebangw.utils.L;
 import com.ms.ebangw.utils.T;
 import com.ms.ebangw.utils.VerifyUtils;
 
@@ -150,6 +151,10 @@ public class DevelopersBankVerifyFragment extends BaseFragment {
         if (getArguments() != null) {
             category = getArguments().getString(CATEGORY);
         }
+
+        if (savedInstanceState != null) {
+            mCurrentPhotoPath = savedInstanceState.getString(Constants.KEY_CURRENT_IMAGE_PATH);
+        }
     }
 
     @Override
@@ -211,7 +216,7 @@ public class DevelopersBankVerifyFragment extends BaseFragment {
 
             try {
                 String path = GetPathFromUri4kitkat.getPath(mActivity, uri);
-                Bitmap bitmap = BitmapUtil.getimage(path);
+                Bitmap bitmap = BitmapUtil.getImage(path);
                 int bitmapDegree = CropImageUtil.getBitmapDegree(path);
                 if (bitmapDegree != 0) {
                     bitmap = CropImageUtil.rotateBitmapByDegree(bitmap, bitmapDegree);
@@ -599,7 +604,7 @@ public class DevelopersBankVerifyFragment extends BaseFragment {
 
     private void setPic(String path, int targetW, int targetH) {
 
-        Bitmap bitmap = BitmapUtil.getimage(path);
+        Bitmap bitmap = BitmapUtil.getImage(path);
         int bitmapDegree = CropImageUtil.getBitmapDegree(path);
         if (bitmapDegree != 0) {
             bitmap = CropImageUtil.rotateBitmapByDegree(bitmap, bitmapDegree);
@@ -690,5 +695,12 @@ public class DevelopersBankVerifyFragment extends BaseFragment {
 
     private String getAlbumName() {
         return "crop";
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        outState.putString(Constants.KEY_CURRENT_IMAGE_PATH, mCurrentPhotoPath);
+        L.d("onSaveInstanceState: " + mCurrentPhotoPath);
+        super.onSaveInstanceState(outState);
     }
 }

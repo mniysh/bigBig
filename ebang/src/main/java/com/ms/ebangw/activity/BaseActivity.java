@@ -1,6 +1,7 @@
 package com.ms.ebangw.activity;
 
 import android.app.DialogFragment;
+import android.content.DialogInterface;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -19,6 +20,7 @@ import com.ms.ebangw.bean.User;
 import com.ms.ebangw.dialog.LoadingDialog;
 import com.ms.ebangw.exception.ResponseException;
 import com.ms.ebangw.service.DataParseUtil;
+import com.ms.ebangw.utils.L;
 import com.umeng.analytics.MobclickAgent;
 
 import org.json.JSONException;
@@ -51,8 +53,6 @@ public abstract class BaseActivity extends AppCompatActivity {
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN |
             WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         MyApplication.unDestroyActivityList.add(this);
-
-
     }
 
     /**

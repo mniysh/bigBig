@@ -1,6 +1,8 @@
 package com.ms.ebangw.dialog;
 
+import android.app.Dialog;
 import android.app.DialogFragment;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -9,6 +11,8 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.ms.ebangw.R;
+import com.ms.ebangw.service.DataAccessUtil;
+import com.ms.ebangw.utils.L;
 
 /**
  * 正在加载中 的提示ProgressDialog
@@ -38,12 +42,23 @@ public class LoadingDialog extends DialogFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         if (getArguments() != null) {
 //            title = getArguments().getString(TITLE);
             message = getArguments().getString(MESSAGE);
         }
+
+
     }
 
+    @Override
+    public Dialog onCreateDialog(Bundle savedInstanceState) {
+        Dialog dialog = super.onCreateDialog(savedInstanceState);
+        dialog.setCanceledOnTouchOutside(false);
+
+        setStyle(STYLE_NO_FRAME, 0);
+        return dialog;
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -56,5 +71,16 @@ public class LoadingDialog extends DialogFragment {
         }
         return view;
     }
+
+    @Override
+    public void onDismiss(DialogInterface dialog) {
+        super.onDismiss(dialog);
+
+        DataAccessUtil.cancelAllRequests();
+        L.d("onDismiss");
+    }
+
+
+
 
 }

@@ -21,6 +21,12 @@ public class User implements Serializable {
 	private String name;
 	@DatabaseField(columnName = "email")
 	private String email;
+
+	/**
+	 * 头像Url
+	 */
+	@DatabaseField(columnName = "head_img")
+	private String head_img;
 	/**
 	 * 性别
 	 */
@@ -70,6 +76,25 @@ public class User implements Serializable {
 	 */
 	@DatabaseField(columnName = "status")
 	private String status;
+
+	/**
+	 * 身份证号
+	 */
+	@DatabaseField(columnName = "identity_card")
+	private String identity_card;
+
+	/**
+	 * 身份证前面照片
+	 */
+	@DatabaseField(columnName = "card_image_front")
+	private String card_image_front;
+
+
+	/**
+	 * 身份证后面照片
+	 */
+	@DatabaseField(columnName = "card_image_back")
+	private String card_image_back;
 
 	public User() {
 	}
@@ -195,6 +220,38 @@ public class User implements Serializable {
 		this.status = status;
 	}
 
+	public String getIdentity_card() {
+		return identity_card;
+	}
+
+	public void setIdentity_card(String identity_card) {
+		this.identity_card = identity_card;
+	}
+
+	public String getCard_image_front() {
+		return card_image_front;
+	}
+
+	public void setCard_image_front(String card_image_front) {
+		this.card_image_front = card_image_front;
+	}
+
+	public String getCard_image_back() {
+		return card_image_back;
+	}
+
+	public void setCard_image_back(String card_image_back) {
+		this.card_image_back = card_image_back;
+	}
+
+	public String getHead_img() {
+		return head_img;
+	}
+
+	public void setHead_img(String head_img) {
+		this.head_img = head_img;
+	}
+
 	@Override
 	public String toString() {
 		return "User{" +
@@ -202,6 +259,7 @@ public class User implements Serializable {
 			", app_token='" + app_token + '\'' +
 			", name='" + name + '\'' +
 			", email='" + email + '\'' +
+			", head_img='" + head_img + '\'' +
 			", gender='" + gender + '\'' +
 			", password='" + password + '\'' +
 			", phone='" + phone + '\'' +
@@ -213,6 +271,9 @@ public class User implements Serializable {
 			", area='" + area + '\'' +
 			", craft='" + craft + '\'' +
 			", status='" + status + '\'' +
+			", identity_card='" + identity_card + '\'' +
+			", card_image_front='" + card_image_front + '\'' +
+			", card_image_back='" + card_image_back + '\'' +
 			'}';
 	}
 }

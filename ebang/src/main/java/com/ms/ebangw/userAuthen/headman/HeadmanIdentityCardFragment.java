@@ -30,6 +30,7 @@ import com.ms.ebangw.crop.GetPathFromUri4kitkat;
 import com.ms.ebangw.fragment.BaseFragment;
 import com.ms.ebangw.utils.BitmapUtil;
 import com.ms.ebangw.utils.CropImageUtil;
+import com.ms.ebangw.utils.L;
 import com.ms.ebangw.utils.T;
 
 import java.io.File;
@@ -96,6 +97,11 @@ public class HeadmanIdentityCardFragment extends BaseFragment {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             category = getArguments().getString(Constants.KEY_CATEGORY);
+        }
+
+        if (savedInstanceState != null) {
+            mCurrentPhotoPath = savedInstanceState.getString(Constants.KEY_CURRENT_IMAGE_PATH);
+            whichPhoto = savedInstanceState.getString(Constants.KEY_WHICH_PHOTO);
         }
     }
 
@@ -169,7 +175,7 @@ public class HeadmanIdentityCardFragment extends BaseFragment {
 
             try {
                 String path = GetPathFromUri4kitkat.getPath(mActivity, uri);
-                Bitmap bitmap = BitmapUtil.getimage(path);
+                Bitmap bitmap = BitmapUtil.getImage(path);
                 int bitmapDegree = CropImageUtil.getBitmapDegree(path);
                 if (bitmapDegree != 0) {
                     bitmap = CropImageUtil.rotateBitmapByDegree(bitmap, bitmapDegree);
@@ -281,7 +287,7 @@ public class HeadmanIdentityCardFragment extends BaseFragment {
 
     private void setPic(String path, int targetW, int targetH) {
 
-        Bitmap bitmap = BitmapUtil.getimage(path);
+        Bitmap bitmap = BitmapUtil.getImage(path);
         int bitmapDegree = CropImageUtil.getBitmapDegree(path);
         if (bitmapDegree != 0) {
             bitmap = CropImageUtil.rotateBitmapByDegree(bitmap, bitmapDegree);
@@ -374,4 +380,11 @@ public class HeadmanIdentityCardFragment extends BaseFragment {
         return "crop";
     }
 
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        outState.putString(Constants.KEY_CURRENT_IMAGE_PATH, mCurrentPhotoPath);
+        outState.putString(Constants.KEY_WHICH_PHOTO, whichPhoto);
+        L.d("onSaveInstanceState: " + mCurrentPhotoPath);
+        super.onSaveInstanceState(outState);
+    }
 }

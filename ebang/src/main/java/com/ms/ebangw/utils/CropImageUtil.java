@@ -56,6 +56,7 @@ public class CropImageUtil {
             // 将原始图片按照旋转矩阵进行旋转，并得到新的图片
             returnBm = Bitmap.createBitmap(bm, 0, 0, bm.getWidth(), bm.getHeight(), matrix, true);
         } catch (OutOfMemoryError e) {
+            L.d("rotateBitmapByDegree OutOfMemoryError");
             e.printStackTrace();
         }
         if (returnBm == null) {

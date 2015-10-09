@@ -11,7 +11,6 @@ import android.provider.MediaStore;
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.style.ForegroundColorSpan;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,6 +29,7 @@ import com.ms.ebangw.crop.GetPathFromUri4kitkat;
 import com.ms.ebangw.fragment.BaseFragment;
 import com.ms.ebangw.utils.BitmapUtil;
 import com.ms.ebangw.utils.CropImageUtil;
+import com.ms.ebangw.utils.L;
 import com.ms.ebangw.utils.T;
 
 import java.io.File;
@@ -93,9 +93,15 @@ public class InvestorIdentityCardFragment extends BaseFragment {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+        L.d("onCreate");
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             category = getArguments().getString(Constants.KEY_CATEGORY);
+        }
+
+        if (savedInstanceState != null) {
+            mCurrentPhotoPath = savedInstanceState.getString(Constants.KEY_CURRENT_IMAGE_PATH);
+            whichPhoto = savedInstanceState.getString(Constants.KEY_WHICH_PHOTO);
         }
     }
 
@@ -177,8 +183,6 @@ public class InvestorIdentityCardFragment extends BaseFragment {
     @Override
     public void initData() {
         mAlbumStorageDirFactory = new FroyoAlbumDirFactory();
-
-
     }
 
 
@@ -218,31 +222,29 @@ public class InvestorIdentityCardFragment extends BaseFragment {
         File f;
 
         try {
-            f = setUpPhotoFile();
+            f = createImageFile();
             mCurrentPhotoPath = f.getAbsolutePath();
-            takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(f));
-        } catch (Exception e) {
+            if (takePictureIntent.resolveActivity(mActivity.getPackageManager()) != null && f !=
+                null) {
+                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(f));
+                startActivityForResult(takePictureIntent, REQUEST_CAMERA);
+            }
+        } catch (IOException e) {
             e.printStackTrace();
             f = null;
             mCurrentPhotoPath = null;
         }
 
-        startActivityForResult(takePictureIntent, REQUEST_CAMERA);
     }
 
-    private File setUpPhotoFile() throws IOException {
-
-        File f = createImageFile();
-        mCurrentPhotoPath = f.getAbsolutePath();
-
-        return f;
-    }
 
     private File createImageFile() throws IOException {
         // Create an image file name
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
         String imageFileName = JPEG_FILE_PREFIX + timeStamp + "_";
         File albumF = getAlbumDir();
+//        File albumF = Environment.getExternalStoragePublicDirectory(
+//            Environment.DIRECTORY_PICTURES);
         File imageF = File.createTempFile(imageFileName, JPEG_FILE_SUFFIX, albumF);
         return imageF;
     }
@@ -258,14 +260,14 @@ public class InvestorIdentityCardFragment extends BaseFragment {
             if (storageDir != null) {
                 if (! storageDir.mkdirs()) {
                     if (! storageDir.exists()){
-                        Log.d("CameraSample", "failed to create directory");
+                        L.d("failed to create directory");
                         return null;
                     }
                 }
             }
 
         } else {
-            Log.v(getString(R.string.app_name), "External storage is not mounted READ/WRITE.");
+            L.d("External storage is not mounted READ/WRITE.");
         }
 
         return storageDir;
@@ -286,11 +288,11 @@ public class InvestorIdentityCardFragment extends BaseFragment {
 
         }else if (requestCode == REQUEST_PICK) {
             Uri uri = data.getData();
-            Log.d("way", "uri: " + uri);
+            L.d("way", "uri: " + uri);
 
             try {
                 String path = GetPathFromUri4kitkat.getPath(mActivity, uri);
-                Bitmap bitmap = BitmapUtil.getimage(path);
+                Bitmap bitmap = BitmapUtil.getImage(path);
                 int bitmapDegree = CropImageUtil.getBitmapDegree(path);
                 if (bitmapDegree != 0) {
                     bitmap = CropImageUtil.rotateBitmapByDegree(bitmap, bitmapDegree);
@@ -343,9 +345,8 @@ public class InvestorIdentityCardFragment extends BaseFragment {
     }
 
     private void handleBigCameraPhoto() {
-
         if (mCurrentPhotoPath != null) {
-            setPic(mCurrentPhotoPath , 400, 800);
+            setPic(mCurrentPhotoPath, 400, 800);
             galleryAddPic();
             mCurrentPhotoPath = null;
         }
@@ -361,8 +362,7 @@ public class InvestorIdentityCardFragment extends BaseFragment {
 
 
     private void setPic(String path, int targetW, int targetH) {
-
-        Bitmap bitmap = BitmapUtil.getimage(path);
+        Bitmap bitmap = BitmapUtil.getImage(path);
         int bitmapDegree = CropImageUtil.getBitmapDegree(path);
         if (bitmapDegree != 0) {
             bitmap = CropImageUtil.rotateBitmapByDegree(bitmap, bitmapDegree);
@@ -376,6 +376,11 @@ public class InvestorIdentityCardFragment extends BaseFragment {
 
     }
 
-
-
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        outState.putString(Constants.KEY_CURRENT_IMAGE_PATH, mCurrentPhotoPath);
+        outState.putString(Constants.KEY_WHICH_PHOTO, whichPhoto);
+        L.d("onSaveInstanceState: " + mCurrentPhotoPath);
+        super.onSaveInstanceState(outState);
+    }
 }

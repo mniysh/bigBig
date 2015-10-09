@@ -56,6 +56,6 @@ dependencies {
     compile project(':social_sdk_library_project')
     compile 'com.android.support:appcompat-v7:23.0.1'
     compile 'com.android.support:support-v13:23.0.1'
-        compile 'com.facebook.fresco:fresco:0.7.0'
+    compile 'com.squareup.picasso:picasso:2.5.2'
 
 }

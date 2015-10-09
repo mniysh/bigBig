@@ -18,6 +18,7 @@ import com.ms.ebangw.exception.ResponseException;
 import com.ms.ebangw.findpassword.SetPhoneActivity;
 import com.ms.ebangw.service.DataAccessUtil;
 import com.ms.ebangw.service.DataParseUtil;
+import com.ms.ebangw.utils.L;
 import com.ms.ebangw.utils.T;
 import com.ms.ebangw.utils.VerifyUtils;
 
@@ -120,8 +121,15 @@ public class LoginActivity extends BaseActivity{
      */
     public void login(String phone, String password) {
         DataAccessUtil.login(phone,password,new JsonHttpResponseHandler(){
+
+            @Override
+            public void onStart() {
+                showProgressDialog("登录中...");
+            }
+
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                dismissLoadingDialog();
                 try {
                     User user = DataParseUtil.login(response);
 
@@ -130,7 +138,6 @@ public class LoginActivity extends BaseActivity{
                         MyApplication.getInstance().saveUser(user);     //保存或更新User信息
                         //跳转到主页
                         Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
-                        Bundle bundle = new Bundle();
                         startActivity(intent);
 
                         finish();
@@ -146,8 +153,10 @@ public class LoginActivity extends BaseActivity{
             }
 
             @Override
-            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
-                super.onFailure(statusCode, headers, throwable, errorResponse);
+            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                super.onFailure(statusCode, headers, responseString, throwable);
+                dismissLoadingDialog();
+                L.d(responseString);
             }
         });
     }
