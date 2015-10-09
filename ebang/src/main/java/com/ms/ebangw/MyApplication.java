@@ -7,7 +7,6 @@ import android.graphics.Bitmap;
 import com.baidu.location.BDLocation;
 import com.baidu.location.LocationClient;
 import com.baidu.location.LocationClientOption;
-import com.ms.ebangw.bean.Bank;
 import com.ms.ebangw.bean.Craft;
 import com.ms.ebangw.bean.User;
 import com.ms.ebangw.db.UserDao;
@@ -50,7 +49,6 @@ public class MyApplication extends Application {
         this.craft = craft;
     }
 
-    private List<Bank> banks;
 
     /**
      * 定位得到的位置描述
@@ -193,14 +191,6 @@ public class MyApplication extends Application {
     public boolean saveUser(User user) {
         UserDao userDao = new UserDao(this);
         return userDao.add(user);
-    }
-
-    public List<Bank> getBanks() {
-        return banks;
-    }
-
-    public void setBanks(List<Bank> banks) {
-        this.banks = banks;
     }
 
     public BDLocation getLocation() {

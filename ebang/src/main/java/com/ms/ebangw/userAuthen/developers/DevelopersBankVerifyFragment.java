@@ -31,7 +31,6 @@ import com.ms.ebangw.bean.AuthInfo;
 import com.ms.ebangw.bean.Bank;
 import com.ms.ebangw.bean.City;
 import com.ms.ebangw.bean.Province;
-import com.ms.ebangw.bean.TotalRegion;
 import com.ms.ebangw.bean.UploadImageResult;
 import com.ms.ebangw.commons.Constants;
 import com.ms.ebangw.crop.CropImageActivity;
@@ -400,14 +399,6 @@ public class DevelopersBankVerifyFragment extends BaseFragment {
 //        bankCitySp.setSelection(0, true);
     }
 
-    public List<Province> getProvinces() {
-        TotalRegion totalRegion = ((DevelopersAuthenActivity) mActivity).getTotalRegion();
-        if (totalRegion == null) {
-            return null;
-        }else {
-            return totalRegion.getProvince();
-        }
-    }
 
     private void setAuthInfo() {
         AuthInfo authInfo = ((DevelopersAuthenActivity) mActivity).getAuthInfo();
@@ -550,7 +541,7 @@ public class DevelopersBankVerifyFragment extends BaseFragment {
 
 
     private void initBankSpinner() {
-        banks = MyApplication.getInstance().getBanks();
+        banks = getBanks();
         ArrayAdapter<Bank> bankArrayAdapter = new ArrayAdapter<>(mActivity, R.layout.layout_spinner_item,
             banks);
         bankSp.setAdapter(bankArrayAdapter);

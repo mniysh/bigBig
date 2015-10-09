@@ -17,14 +17,11 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import com.ms.ebangw.MyApplication;
 import com.ms.ebangw.R;
 import com.ms.ebangw.bean.AuthInfo;
 import com.ms.ebangw.bean.Bank;
 import com.ms.ebangw.bean.City;
 import com.ms.ebangw.bean.Province;
-import com.ms.ebangw.bean.TotalRegion;
-import com.ms.ebangw.crop.FroyoAlbumDirFactory;
 import com.ms.ebangw.fragment.BaseFragment;
 import com.ms.ebangw.utils.L;
 import com.ms.ebangw.utils.T;
@@ -172,7 +169,7 @@ public class InvestorBankVerifyFragment extends BaseFragment {
 
         provinceSp.setSelection(0, true);
         citySp.setSelection(0, true);
-        banks = MyApplication.getInstance().getBanks();
+        banks = getBanks();
         if(banks != null){
             adapterBank=new ArrayAdapter<Bank>(mActivity,R.layout.layout_spinner_item,banks);
             bankSp.setAdapter(adapterBank);
@@ -181,14 +178,6 @@ public class InvestorBankVerifyFragment extends BaseFragment {
 
     }
 
-    public List<Province> getProvinces() {
-        TotalRegion totalRegion = ((InvestorAuthenActivity) mActivity).getTotalRegion();
-        if (totalRegion == null) {
-            return null;
-        }else {
-            return totalRegion.getProvince();
-        }
-    }
 
     private void setAuthInfo() {
         AuthInfo authInfo = ((InvestorAuthenActivity) mActivity).getAuthInfo();

@@ -22,7 +22,6 @@ import com.ms.ebangw.R;
 import com.ms.ebangw.bean.AuthInfo;
 import com.ms.ebangw.bean.City;
 import com.ms.ebangw.bean.Province;
-import com.ms.ebangw.bean.TotalRegion;
 import com.ms.ebangw.commons.Constants;
 import com.ms.ebangw.fragment.BaseFragment;
 import com.ms.ebangw.utils.T;
@@ -255,14 +254,4 @@ public class InvestorBaseInfoFragment extends BaseFragment {
 		}
 	}
 
-
-
-	public List<Province> getProvinces() {
-		TotalRegion totalRegion = ((InvestorAuthenActivity) mActivity).getTotalRegion();
-		if (totalRegion == null) {
-			return null;
-		}else {
-			return totalRegion.getProvince();
-		}
-	}
 }

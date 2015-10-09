@@ -12,10 +12,23 @@ import android.widget.TextView;
 
 import com.ms.ebangw.MyApplication;
 import com.ms.ebangw.R;
+import com.ms.ebangw.bean.Bank;
+import com.ms.ebangw.bean.Province;
+import com.ms.ebangw.bean.TotalRegion;
 import com.ms.ebangw.bean.User;
 import com.ms.ebangw.dialog.LoadingDialog;
+import com.ms.ebangw.exception.ResponseException;
+import com.ms.ebangw.service.DataParseUtil;
 import com.ms.ebangw.utils.L;
 import com.umeng.analytics.MobclickAgent;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.util.List;
 
 public abstract class BaseFragment extends Fragment {
     private final String TAG = getClass().getSimpleName();
@@ -147,7 +160,7 @@ public abstract class BaseFragment extends Fragment {
      * @param context
      * @return
      */
-    public static String getDeviceInfo(Context context) {
+    public  String getDeviceInfo(Context context) {
         try{
             org.json.JSONObject json = new org.json.JSONObject();
             android.telephony.TelephonyManager tm = (android.telephony.TelephonyManager) context
@@ -194,6 +207,72 @@ public abstract class BaseFragment extends Fragment {
         }else {
             return false;
         }
+    }
+
+    /**
+     *所有省一级
+     * @return
+     */
+    public List<Province> getProvinces() {
+        TotalRegion totalRegion = getAreaFromAssets();
+        if (totalRegion == null) {
+            return null;
+        }else {
+            return totalRegion.getProvince();
+        }
+    }
+
+
+    /**
+     * 获取所有省市信息
+     * @return
+     */
+    public TotalRegion getAreaFromAssets() {
+        try {
+            StringBuilder builder = new StringBuilder();
+            InputStream is = mActivity.getAssets().open("area.txt");
+            InputStreamReader inputStreamReader = new InputStreamReader(is);
+            char[] chars = new char[1024];
+            int len;
+            while ((len = inputStreamReader.read(chars)) != -1) {
+                builder.append(chars, 0, len);
+            }
+            String s = builder.toString();
+            JSONObject jsonObject = new JSONObject(s);
+            return DataParseUtil.provinceCityArea(jsonObject);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
+    /**
+     * 获取银行
+     * @return
+     */
+    public List<Bank> getBanks(){
+        StringBuilder sb= new StringBuilder();
+        try {
+            InputStream is = mActivity.getAssets().open("bank_list.txt");
+            InputStreamReader inputStreamReader = new InputStreamReader(is);
+            char[] chars = new char[1024];
+            int len;
+            while ((len = inputStreamReader.read(chars)) != -1){
+                sb.append(chars, 0 ,len);
+            }
+            String s = sb.toString();
+            JSONObject jsonObject = new JSONObject(s);
+            return DataParseUtil.bankList(jsonObject);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        } catch (ResponseException e) {
+            e.printStackTrace();
+        }
+        return  null;
+
     }
 
 }

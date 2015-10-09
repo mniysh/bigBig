@@ -80,12 +80,14 @@ public class DataParseUtil {
             if (data.has("real_message") && null != baseUser) {
 
                 JSONObject realMessageObj = data.getJSONObject("real_message");
+                String area = realMessageObj.getString("area");
                 String real_name = realMessageObj.getString("real_name");
                 String identity_card = realMessageObj.getString("identity_card");
                 String card_image_front = realMessageObj.getString("card_image_front");
                 String card_image_back = realMessageObj.getString("card_image_back");
                 String craft = realMessageObj.getString("craft");
 
+                baseUser.setArea(area);
                 baseUser.setReal_name(real_name);
                 baseUser.setIdentity_card(identity_card);
                 baseUser.setCard_image_front(card_image_front);

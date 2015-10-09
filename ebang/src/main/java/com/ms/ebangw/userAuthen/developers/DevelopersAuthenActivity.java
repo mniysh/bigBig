@@ -70,6 +70,11 @@ public class DevelopersAuthenActivity extends BaseActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_developers_authen);
 		ButterKnife.bind(this);
+		L.d("DevelopersAuthenActivity onCreate");
+		if (savedInstanceState != null) {
+			authInfo = savedInstanceState.getParcelable(Constants.KEY_AUTHINFO);
+		}
+
 		Bundle extras = getIntent().getExtras();
 		category = extras.getString(Constants.KEY_CATEGORY, Constants.INVESTOR);
 		totalRegion = (TotalRegion) extras.getSerializable(Constants.KEY_TOTAL_REGION);
@@ -228,5 +233,12 @@ public class DevelopersAuthenActivity extends BaseActivity {
 		user.setStatus(Constants.AUTH_DEVELOPERS);
 		UserDao userDao = new UserDao(this);
 		userDao.update(user);
+	}
+
+	@Override
+	protected void onSaveInstanceState(Bundle outState) {
+		outState.putParcelable(Constants.KEY_AUTHINFO, authInfo);
+		L.d("DevelopersAuthenActivity onSaveInstanceState");
+		super.onSaveInstanceState(outState);
 	}
 }

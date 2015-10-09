@@ -6,7 +6,15 @@ package com.ms.ebangw.service;
  */
 public class RequestUrl {
 
+    /**
+     * 测试用域名
+     */
     private final static String domain = "http://labour.chinadeer.cn";
+
+    /**
+     * 正式上线域名
+     */
+//    private final static String domain = "http://www.ebngw.com";
 
     /**
      * 1.注册

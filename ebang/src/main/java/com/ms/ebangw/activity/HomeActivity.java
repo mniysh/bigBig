@@ -141,8 +141,6 @@ public class HomeActivity extends BaseActivity {
 
         radioGroup.getChildAt(0).performClick();
         totalRegion = getAreaFromAssets();
-        loadBanks();
-
     }
 
     /**
@@ -326,11 +324,6 @@ public class HomeActivity extends BaseActivity {
         return super.onKeyDown(keyCode, event);
     }
 
-
-    private void loadBanks() {
-        banks = getBanks();
-        MyApplication.getInstance().setBanks(banks);
-    }
 
     public void loadUserInformation() {
 

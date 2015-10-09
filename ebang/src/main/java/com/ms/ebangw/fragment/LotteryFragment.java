@@ -214,6 +214,15 @@ public class LotteryFragment extends BaseFragment {
         }
 
         /**
+         * 展示Toast
+         */
+        @JavascriptInterface
+        public void showToast(String msg) {
+
+            T.show(msg);
+        }
+
+        /**
          * 跳转到认证页面
          */
         @JavascriptInterface

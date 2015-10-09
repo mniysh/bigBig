@@ -17,13 +17,11 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import com.ms.ebangw.MyApplication;
 import com.ms.ebangw.R;
 import com.ms.ebangw.bean.AuthInfo;
 import com.ms.ebangw.bean.Bank;
 import com.ms.ebangw.bean.City;
 import com.ms.ebangw.bean.Province;
-import com.ms.ebangw.bean.TotalRegion;
 import com.ms.ebangw.fragment.BaseFragment;
 import com.ms.ebangw.utils.T;
 import com.ms.ebangw.utils.VerifyUtils;
@@ -171,15 +169,6 @@ public class HeadmanBankVerifyFragment extends BaseFragment {
 
     }
 
-    public List<Province> getProvinces() {
-        TotalRegion totalRegion = ((HeadmanAuthenActivity) mActivity).getTotalRegion();
-        if (totalRegion == null) {
-            return null;
-        }else {
-            return totalRegion.getProvince();
-        }
-    }
-
     private void setAuthInfo() {
         AuthInfo authInfo = ((HeadmanAuthenActivity) mActivity).getAuthInfo();
         String accountName = reaNameEt.getText().toString().trim();
@@ -238,7 +227,7 @@ public class HeadmanBankVerifyFragment extends BaseFragment {
     }
 
     private void initBankSpinner() {
-        banks = MyApplication.getInstance().getBanks();
+        banks = getBanks();
         ArrayAdapter<Bank> bankArrayAdapter = new ArrayAdapter<>(mActivity, R.layout.layout_spinner_item,
             banks);
         bankSp.setAdapter(bankArrayAdapter);
