@@ -154,7 +154,10 @@ public class AuthenticationFragment extends BaseFragment implements OnClickListe
         phone2Tv.setText(phone);
         nativePlaceTv.setText(area);
 
-        if(!craft.equals(null)){
+        if(TextUtils.equals(craft,"null") || TextUtils.equals(craft,"") || TextUtils.equals(craft, "Null")){
+            LWorkType.setVisibility(View.GONE);
+
+        }else {
             LWorkType.setVisibility(View.VISIBLE);
             workTypeTv.setText(craft);
         }
