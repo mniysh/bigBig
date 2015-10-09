@@ -408,7 +408,7 @@ public class DataAccessUtil {
                                                   String account_name, String account_province,
                                                   String public_account, String organization_certificate,
                                                   String business_license_number, String business_scope,
-                                                  String bank_id,
+                                                  String bank_id, String gender,
                                                AsyncHttpResponseHandler
                                                    asyncHttpResponseHandler ) {
 
@@ -436,7 +436,7 @@ public class DataAccessUtil {
         params.put("business_license_number",business_license_number);
         params.put("business_scope",business_scope);
         params.put("bank_id",bank_id);
-
+        params.put("gender",gender);
 
         return doPost(RequestUrl.developer_identify, params, asyncHttpResponseHandler);
     }

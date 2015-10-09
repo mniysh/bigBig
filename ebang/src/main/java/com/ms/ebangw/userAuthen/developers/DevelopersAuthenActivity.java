@@ -151,6 +151,7 @@ public class DevelopersAuthenActivity extends BaseActivity {
 		String businessLicenseNumber = authInfo.getBusinessLicenseNumber();
 		String businessScope = authInfo.getBusinessScope();
 		String bankId = authInfo.getBankId();
+		String gender = authInfo.getGender();
 
 		DataAccessUtil.developerIdentify(linkman, identityCard, frontImageId,
 		backImageId, linkmanPhone, linkman_province,
@@ -158,7 +159,7 @@ public class DevelopersAuthenActivity extends BaseActivity {
 			oftenAddress, businessAge, timeState, companyNumber,
 			companyPhone, introduce, publicAccountName,
 			account_province, publicAccount, organizationCertificate,
-			businessLicenseNumber, businessScope, bankId, new JsonHttpResponseHandler(){
+			businessLicenseNumber, businessScope, bankId, gender, new JsonHttpResponseHandler(){
 				@Override
 				public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
 					try {

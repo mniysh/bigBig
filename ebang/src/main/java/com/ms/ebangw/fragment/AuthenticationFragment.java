@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -28,6 +29,7 @@ import com.ms.ebangw.crop.CropImageActivity;
 import com.ms.ebangw.crop.FroyoAlbumDirFactory;
 import com.ms.ebangw.crop.GetPathFromUri4kitkat;
 import com.ms.ebangw.dialog.SelectPhotoDialog;
+import com.ms.ebangw.service.DataAccessUtil;
 import com.ms.ebangw.userAuthen.developers.DevelopersAuthenActivity;
 import com.ms.ebangw.userAuthen.headman.HeadmanAuthenActivity;
 import com.ms.ebangw.userAuthen.investor.InvestorAuthenActivity;
@@ -35,6 +37,7 @@ import com.ms.ebangw.userAuthen.worker.WorkerAuthenActivity;
 import com.ms.ebangw.utils.BitmapUtil;
 import com.ms.ebangw.utils.CropImageUtil;
 import com.ms.ebangw.utils.L;
+import com.squareup.picasso.Picasso;
 
 import java.io.File;
 import java.io.IOException;
@@ -184,7 +187,7 @@ public class AuthenticationFragment extends BaseFragment implements OnClickListe
                 showSelectPhotoDialog();
             }
         });
-
+        loadAvatar();
         User user = getUser();
         if (null != user) {
             String rank = user.getRank();
@@ -433,6 +436,15 @@ public class AuthenticationFragment extends BaseFragment implements OnClickListe
 		L.d("onSaveInstanceState: " + mCurrentPhotoPath);
 		super.onSaveInstanceState(outState);
 	}
+
+    public void loadAvatar() {
+        User user = getUser();
+        String head_image = user.getHead_img();
+        if (!TextUtils.isEmpty(head_image)) {
+            String imageUrl = DataAccessUtil.getImageUrl(head_image);
+            Picasso.with(mActivity).load(Uri.parse(imageUrl)).into(headIv);
+        }
+    }
 
 }
 

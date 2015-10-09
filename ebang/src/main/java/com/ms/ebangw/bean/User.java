@@ -21,6 +21,12 @@ public class User implements Serializable {
 	private String name;
 	@DatabaseField(columnName = "email")
 	private String email;
+
+	/**
+	 * 头像Url
+	 */
+	@DatabaseField(columnName = "head_img")
+	private String head_img;
 	/**
 	 * 性别
 	 */
@@ -238,6 +244,14 @@ public class User implements Serializable {
 		this.card_image_back = card_image_back;
 	}
 
+	public String getHead_img() {
+		return head_img;
+	}
+
+	public void setHead_img(String head_img) {
+		this.head_img = head_img;
+	}
+
 	@Override
 	public String toString() {
 		return "User{" +
@@ -245,6 +259,7 @@ public class User implements Serializable {
 			", app_token='" + app_token + '\'' +
 			", name='" + name + '\'' +
 			", email='" + email + '\'' +
+			", head_img='" + head_img + '\'' +
 			", gender='" + gender + '\'' +
 			", password='" + password + '\'' +
 			", phone='" + phone + '\'' +

@@ -67,27 +67,33 @@ public class DataParseUtil {
         User user = MyApplication.getInstance().getUser();
         JSONObject data = processData(jsonObject);
         try {
-            String base_message = data.getString("base_message");
-            String real_message = data.getString("real_message");
+            User baseUser = null;
+            if (data.has("base_message")) {
+                String base_message = data.getString("base_message");
+                Gson gson = new Gson();
+                baseUser = gson.fromJson(base_message, User.class);
+                if (null != base_message) {
+                    baseUser.setApp_token(user.getApp_token());
+                }
+            }
 
-            Gson gson = new Gson();
-            User baseUser = gson.fromJson(base_message, User.class);
-            baseUser.setApp_token(user.getApp_token());
+            if (data.has("real_message") && null != baseUser) {
 
-            JSONObject realMessageObj = data.getJSONObject("real_message");
-            String real_name = realMessageObj.getString("real_name");
-            String identity_card = realMessageObj.getString("identity_card");
-            String card_image_front = realMessageObj.getString("card_image_front");
-            String card_image_back = realMessageObj.getString("card_image_back");
-            String craft = realMessageObj.getString("craft");
+                JSONObject realMessageObj = data.getJSONObject("real_message");
+                String real_name = realMessageObj.getString("real_name");
+                String identity_card = realMessageObj.getString("identity_card");
+                String card_image_front = realMessageObj.getString("card_image_front");
+                String card_image_back = realMessageObj.getString("card_image_back");
+                String craft = realMessageObj.getString("craft");
 
-            user.setReal_name(real_name);
-            user.setIdentity_card(identity_card);
-            user.setCard_image_front(card_image_front);
-            user.setCard_image_back(card_image_back);
-            user.setCraft(craft);
+                baseUser.setReal_name(real_name);
+                baseUser.setIdentity_card(identity_card);
+                baseUser.setCard_image_front(card_image_front);
+                baseUser.setCard_image_back(card_image_back);
+                baseUser.setCraft(craft);
 
-            return user;
+            }
+            return baseUser;
         } catch (JSONException e) {
             e.printStackTrace();
         }
