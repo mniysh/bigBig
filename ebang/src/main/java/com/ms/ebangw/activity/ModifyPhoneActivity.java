@@ -1,9 +1,13 @@
 package com.ms.ebangw.activity;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.CountDownTimer;
 import android.os.Message;
 import android.os.Bundle;
+import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.style.ForegroundColorSpan;
 import android.widget.Button;
 import android.widget.EditText;
 
@@ -23,6 +27,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.os.Handler;
+import android.widget.TextView;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -142,10 +147,11 @@ public class ModifyPhoneActivity extends BaseActivity {
 
     @Override
     public void initView() {
-        initTitle(null, "返回", "手机修改", null, null);
+        initTitle(null, "返回", "手机验证", null, null);
         if(getUser()!=null){
             etPhone.setText(getUser().getPhone());
         }
+        setStarRed();
 
 
     }
@@ -169,6 +175,16 @@ public class ModifyPhoneActivity extends BaseActivity {
         });
 
 
+    }
+    public void setStarRed() {
+        int[] resId = new int[]{R.id.tv_phone,R.id.tv_code};
+        for (int i = 0; i < resId.length; i++) {
+            TextView a = (TextView) findViewById(resId[i]);
+            String s = a.getText().toString();
+            SpannableString spannableString = new SpannableString(s);
+            spannableString.setSpan(new ForegroundColorSpan(Color.RED), 0, 1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+            a.setText(spannableString);
+        }
     }
 
     @Override

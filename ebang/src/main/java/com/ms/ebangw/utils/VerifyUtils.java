@@ -23,6 +23,7 @@ public class VerifyUtils {
      */
     public static Boolean isPhone(String phone) {
         if (TextUtils.isEmpty(phone)) {
+            T.show("手机号不能为空");
             return false;
         }
 
@@ -43,6 +44,7 @@ public class VerifyUtils {
      */
     public static boolean isEmail(String email){
         if (TextUtils.isEmpty(email)) {
+            T.show("邮箱不能为空");
             return false;
         }
         boolean flag = false;
@@ -64,6 +66,7 @@ public class VerifyUtils {
      */
     public static boolean isIdentifyCard(String identifyCard){
         if (TextUtils.isEmpty(identifyCard)) {
+
             return false;
         }
         return  IDCardUtil.isIDCard(identifyCard);

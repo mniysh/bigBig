@@ -76,9 +76,6 @@ public class SetPhoneActivity extends BaseActivity {
             }
         });
     }
-
-
-
     @OnClick(R.id.btn_next)
     public void goNext() {
         final String phone = phoneEt.getText().toString().trim();

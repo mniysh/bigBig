@@ -27,6 +27,8 @@ import butterknife.OnClick;
  * 设置页面
  */
 public class SettingActivity extends BaseActivity {
+    private final int REQUESTCODENAME = 111;
+    private final int REQUESTCODEPHONE = 222;
 
 
     @Bind(R.id.tv_nickName)
@@ -49,13 +51,13 @@ public class SettingActivity extends BaseActivity {
 
         Intent intent = new Intent(this, ModifyNickNameActivity.class);
 
-        startActivityForResult(intent, 111);
+        startActivityForResult(intent, REQUESTCODENAME);
 
     }
     @OnClick(R.id.tv_phoneModify)
     public void changePhone(){
-
-        startActivity(new Intent(this,ModifyPhoneActivity.class));
+        Intent intent = new Intent(this, ModifyPhoneActivity.class);
+        startActivityForResult(intent, REQUESTCODEPHONE);
 
     }
     @OnClick(R.id.tv_passModify)
@@ -73,6 +75,12 @@ public class SettingActivity extends BaseActivity {
             String nick_name = user.getNick_name();
             tvNickName.setText(nick_name);
         }
+        if(requestCode == 222 && resultCode == RESULT_OK){
+            User user = MyApplication.getInstance().getUser();
+            String phone = user.getPhone();
+            tPhone.setText(phone);
+        }
+
 
     }
 
@@ -97,21 +105,21 @@ public class SettingActivity extends BaseActivity {
         initData();
     }
 
-//    @Override
-//    public void onResume() {
-//        super.onResume();
-//        User user = getUser();
-//        L.d("xxx",user.toString());
-//        if(null!= user){
-//            String newName=user.getNick_name();
-//            String phone=user.getPhone();
-//            tvNickName.setText(newName);
-//            tPhone.setText(phone);
-//        }else{
-//            T.show("用户不存在");
-//        }
-//
-//    }
+    @Override
+    public void onResume() {
+        super.onResume();
+        User user = getUser();
+        L.d("xxx", user.toString());
+        if(null!= user){
+            String newName=user.getNick_name();
+            String phone=user.getPhone();
+            tvNickName.setText(newName);
+            tPhone.setText(phone);
+        }else{
+            T.show("用户不存在");
+        }
+
+    }
 
 
 
