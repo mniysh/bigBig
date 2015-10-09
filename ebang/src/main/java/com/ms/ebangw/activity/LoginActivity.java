@@ -138,7 +138,6 @@ public class LoginActivity extends BaseActivity{
                         MyApplication.getInstance().saveUser(user);     //保存或更新User信息
                         //跳转到主页
                         Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
-                        Bundle bundle = new Bundle();
                         startActivity(intent);
 
                         finish();

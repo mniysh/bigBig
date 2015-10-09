@@ -3,7 +3,6 @@ package com.ms.ebangw.dialog;
 
 import android.app.Dialog;
 import android.app.DialogFragment;
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,8 +10,6 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.ms.ebangw.R;
-import com.ms.ebangw.service.DataAccessUtil;
-import com.ms.ebangw.utils.L;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -112,17 +109,4 @@ public class SelectPhotoDialog extends DialogFragment {
         this.selectListener = selectListener;
     }
 
-    @Override
-    public void onDismiss(DialogInterface dialog) {
-        super.onDismiss(dialog);
-
-    }
-
-    @Override
-    public void onCancel(DialogInterface dialog) {
-        super.onCancel(dialog);
-        DataAccessUtil.cancelAllRequests();
-        L.d("SelectPhotoDialog onCancel");
-
-    }
 }
