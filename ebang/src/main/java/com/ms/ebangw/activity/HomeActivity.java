@@ -213,6 +213,7 @@ public class HomeActivity extends BaseActivity {
     }
 
     public void onEvent(RefreshUserEvent event) {
+        L.d("RefreshUserEvent");
         loadUserInformation();
 
 //		String category = event.getCategory(); //认证提交后
@@ -326,7 +327,7 @@ public class HomeActivity extends BaseActivity {
 
 
     public void loadUserInformation() {
-
+        L.d("loadUserInformation");
         DataAccessUtil.userInformation(new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {

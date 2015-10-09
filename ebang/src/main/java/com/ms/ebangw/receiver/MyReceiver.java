@@ -94,15 +94,14 @@ public class MyReceiver extends BroadcastReceiver {
 		if (!TextUtils.isEmpty(extras)) {
 			try {
 				JSONObject extraJson = new JSONObject(extras);
-				if (null != extraJson && extraJson.length() > 0) {
-					L.d(TAG, extraJson.toString());
-					if (extraJson.has("event_code")) {
-						int event_code = extraJson.optInt("event_code", -1);
-						if (event_code == 1) {
-							EventBus.getDefault().post(new RefreshUserEvent("1"));
-						}
+				if (extraJson.has("event_code")) {
+					String  event_code = extraJson.optString("event_code", "-1");
+					if (TextUtils.equals("1", event_code)) {
+						EventBus.getDefault().post(new RefreshUserEvent("1"));
+						L.d("post");
 					}
 				}
+
 			} catch (JSONException e) {
 				e.printStackTrace();
 			}
