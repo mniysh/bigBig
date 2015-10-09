@@ -58,10 +58,15 @@ public class BitmapUtil {
                         e.printStackTrace();
                 }
                 bitmap = BitmapFactory.decodeStream(fileInputStream, null, newOpts);
-//                bitmap = BitmapFactory.decodeFile(srcPath, newOpts);
                 if(bitmap != null){
                         L.d("xxx", "bitmap不为空");
                 }
+
+                int bitmapDegree = CropImageUtil.getBitmapDegree(srcPath);
+                if (bitmapDegree != 0) {
+                        bitmap = CropImageUtil.rotateBitmapByDegree(bitmap, bitmapDegree);
+                }
+
                 return compressImage(bitmap);// 压缩好比例大小后再进行质量压缩
         }
 

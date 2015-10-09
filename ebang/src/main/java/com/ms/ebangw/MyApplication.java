@@ -25,6 +25,7 @@ public class MyApplication extends Application {
 
     public static MyApplication instance;
     public Bitmap mBitmap;
+    public String imagePath;
     private int flag_sub;
     private String phone;
     private String password;

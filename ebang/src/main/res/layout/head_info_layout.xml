@@ -11,72 +11,56 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/blue_title"
-        android:paddingTop="10dp"
+        android:orientation="vertical"
         android:paddingBottom="10dp"
-        android:orientation="vertical">
+        android:paddingTop="10dp">
 
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            >
 
-           <!--  <com.facebook.drawee.view.SimpleDraweeView
-                 android:id="@+id/sdv_head"
-                 android:layout_width="50dp"
-                 android:layout_height="50dp"
-                 android:layout_marginLeft="50dp"
-                 android:layout_marginRight="20dp"
-                 android:src="@drawable/head"
-                 />-->
 
             <com.ms.ebangw.view.CircleImageView
                 android:id="@+id/iv_head"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_marginLeft="50dp"
-                android:layout_marginRight="20dp"
+                android:layout_marginRight="10dp"
                 android:src="@drawable/head"
                 />
-
-
-            <TextView
-                android:id="@+id/tv_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/white"
-                android:ellipsize="end"
-                android:singleLine="true"
-                android:maxLength="6"
-                android:textSize="15sp"/>
-
-            <TextView
-                android:id="@+id/tv_phone"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="12dp"
-                android:textColor="@color/white"
-                android:textSize="15sp"/>
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
+                android:orientation="vertical"
                 android:padding="10dp"
-                android:visibility="gone">
+                >
 
                 <TextView
+                    android:id="@+id/tv_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="完善资料"
+                    android:ellipsize="end"
+                    android:maxLength="10"
+                    android:singleLine="true"
                     android:textColor="@color/white"
                     android:textSize="15sp"/>
 
-                <ImageView
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:layout_marginLeft="6dp"
-                    android:src="@drawable/jiantou_right"/>
+                <TextView
+                    android:id="@+id/tv_phone"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:layout_marginTop="5dp"
+                    android:singleLine="true"
+                    android:textColor="@color/white"
+                    android:textSize="15sp"/>
+
             </LinearLayout>
+
         </LinearLayout>
 
 

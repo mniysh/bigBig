@@ -16,6 +16,7 @@ import com.ms.ebangw.commons.Constants;
 import com.ms.ebangw.exception.ResponseException;
 import com.ms.ebangw.service.DataAccessUtil;
 import com.ms.ebangw.service.DataParseUtil;
+import com.ms.ebangw.utils.BitmapUtil;
 import com.ms.ebangw.utils.L;
 import com.ms.ebangw.utils.T;
 import com.ms.ebangw.view.CropImageView;
@@ -77,8 +78,9 @@ public class CropImageActivity extends BaseActivity {
         initData();
 
         application = (MyApplication) getApplication();
-        mBitmap = application.mBitmap;
-        mImageView.setImageBitmap(mBitmap);
+        String path = application.imagePath;
+        Bitmap bitmap = BitmapUtil.getImage(path);
+        mImageView.setImageBitmap(bitmap);
     }
 
     /** 保存方法 */
@@ -101,11 +103,16 @@ public class CropImageActivity extends BaseActivity {
             out.flush();
             out.close();
             L.d("已经保存");
+
+            if (!bitmap.isRecycled()) {
+                bitmap.recycle();
+            }
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
+
 
         return f;
     }

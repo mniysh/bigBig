@@ -2,7 +2,6 @@ package com.ms.ebangw.userAuthen.headman;
 
 
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
@@ -28,10 +27,9 @@ import com.ms.ebangw.crop.CropImageActivity;
 import com.ms.ebangw.crop.FroyoAlbumDirFactory;
 import com.ms.ebangw.crop.GetPathFromUri4kitkat;
 import com.ms.ebangw.fragment.BaseFragment;
-import com.ms.ebangw.utils.BitmapUtil;
-import com.ms.ebangw.utils.CropImageUtil;
 import com.ms.ebangw.utils.L;
 import com.ms.ebangw.utils.T;
+import com.squareup.picasso.Picasso;
 
 import java.io.File;
 import java.io.IOException;
@@ -175,13 +173,8 @@ public class HeadmanIdentityCardFragment extends BaseFragment {
 
             try {
                 String path = GetPathFromUri4kitkat.getPath(mActivity, uri);
-                Bitmap bitmap = BitmapUtil.getImage(path);
-                int bitmapDegree = CropImageUtil.getBitmapDegree(path);
-                if (bitmapDegree != 0) {
-                    bitmap = CropImageUtil.rotateBitmapByDegree(bitmap, bitmapDegree);
-                }
                 MyApplication myApplication = (MyApplication) mActivity.getApplication();
-                myApplication.mBitmap = bitmap;
+                myApplication.imagePath = path;
                 goCropActivity();
 
             } catch (Exception e) {
@@ -241,19 +234,19 @@ public class HeadmanIdentityCardFragment extends BaseFragment {
         }
         UploadImageResult imageResult = intent.getParcelableExtra(Constants.KEY_UPLOAD_IMAGE_RESULT);
         MyApplication myApplication = (MyApplication) mActivity.getApplication();
-        Bitmap bitmap = myApplication.mBitmap;
 
         String id = imageResult.getId();
+        String imagePath = myApplication.imagePath;
         AuthInfo authInfo = ((HeadmanAuthenActivity) mActivity).getAuthInfo();
         switch (whichPhoto) {
             case Constants.PHOTO_FRONT:
-                frontIv.setImageBitmap(bitmap);
+                Picasso.with(mActivity).load(new File(imagePath)).into(frontIv);
                 authInfo.setFrontImageId(id);
                 isFrontUploaded = true;
                 break;
 
             case Constants.PHOTO_BACK:
-                backIv.setImageBitmap(bitmap);
+                Picasso.with(mActivity).load(new File(imagePath)).into(backIv);
                 authInfo.setBackImageId(id);
                 isBackUploaded = true;
                 break;
@@ -287,14 +280,8 @@ public class HeadmanIdentityCardFragment extends BaseFragment {
 
     private void setPic(String path, int targetW, int targetH) {
 
-        Bitmap bitmap = BitmapUtil.getImage(path);
-        int bitmapDegree = CropImageUtil.getBitmapDegree(path);
-        if (bitmapDegree != 0) {
-            bitmap = CropImageUtil.rotateBitmapByDegree(bitmap, bitmapDegree);
-        }
-
         MyApplication application = (MyApplication) mActivity.getApplication();
-        application.mBitmap = bitmap;
+        application.imagePath = path;
 
         Intent intent = new Intent(mActivity, CropImageActivity.class);
         startActivityForResult(intent, REQUEST_CROP);
