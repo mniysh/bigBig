@@ -8,12 +8,14 @@ import android.text.TextUtils;
 import android.util.Log;
 
 import com.ms.ebangw.activity.HomeActivity;
+import com.ms.ebangw.event.RefreshUserEvent;
 import com.ms.ebangw.utils.L;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import cn.jpush.android.api.JPushInterface;
+import de.greenrobot.event.EventBus;
 
 /**
  * 自定义接收器
@@ -96,18 +98,15 @@ public class MyReceiver extends BroadcastReceiver {
 					L.d(TAG, extraJson.toString());
 					if (extraJson.has("event_code")) {
 						int event_code = extraJson.optInt("event_code", -1);
-
-
+						if (event_code == 1) {
+							EventBus.getDefault().post(new RefreshUserEvent("1"));
+						}
 					}
 				}
 			} catch (JSONException e) {
 				e.printStackTrace();
 			}
-
 		}
-
-
-
 
 //		if (MainActivity.isForeground) {
 //			String message = bundle.getString(JPushInterface.EXTRA_MESSAGE);

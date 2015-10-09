@@ -128,12 +128,17 @@
 
 
 	 <!--Url   ==  start -->
-	 <string name="url_download">www.ebngw.com/front/app/download</string> <!--下载链接-->
+	 <string name="url_download">http://www.ebngw.com/front/app/download</string> <!--下载链接-->
 	 <string name="url_logo">http://www.ebngw.com/front/images/logo_last.png</string> <!--logo链接-->
-	 <!--<string name="url_lottery">http://labour.chinadeer.cn/phone/page/applogin.html</string> &lt;!&ndash;摇奖链接&ndash;&gt;-->
-	 <string name="url_lottery">http://labour.chinadeer.cn/phone/lottery/main/index</string> <!--摇奖链接-->
+	 <string name="url_lottery">http://www.ebngw.com/phone/lottery/main/index</string> <!--摇奖链接-->
 	 <!--分享链接-->
-	 <string name="url_share">http://labour.chinadeer.cn/phone/common/app/share?type=android_normal</string>
+	 <string name="url_share">http://www.ebngw.com/phone/common/app/share?type=android_normal</string>
+
+	 <!--地推  -->
+	 <!--<string name="url_share">http://www.ebngw.com/phone/common/app/share?type=android_push</string>-->
+	 <!--地推  end-->
+
+
 
 
 

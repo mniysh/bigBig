@@ -152,7 +152,7 @@
             android:value="55f7681f67e58e35a2001e76"/>
         <meta-data
             android:name="UMENG_CHANNEL"
-            android:value="umeng"/>
+            android:value="guanwang"/>
 
         <!-- 友盟更新 -->
         <service

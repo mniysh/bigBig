@@ -40,11 +40,13 @@ public class DataAccessUtil {
      * @param gender       性别 MALE、 FEMALE
      * @param code 验证码
      * @param password 密码
+     * @param come_from 渠道名称
      * @param asyncHttpResponseHandler 请求
      * @return
      */
     public static RequestHandle register(String name,String phone,String email,String gender,
-                                         String code, String password, AsyncHttpResponseHandler
+                                         String code,  String password, String come_from,
+                                         AsyncHttpResponseHandler
         asyncHttpResponseHandler ) {
         RequestParams params = new RequestParams();
         params.put("name",name);
@@ -53,6 +55,9 @@ public class DataAccessUtil {
         params.put("email", email);
         params.put("code", code);
         params.put("gender", gender);
+
+        //增加渠道标识，注册时提交
+        params.put("come_from", come_from);
 
         return doPost(RequestUrl.register, params, asyncHttpResponseHandler);
     }
