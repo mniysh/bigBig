@@ -103,9 +103,11 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/ll_workType"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:minHeight="@dimen/authen_item_height"
+        android:visibility="gone"
         android:gravity="center_vertical"
         android:orientation="horizontal"
         >

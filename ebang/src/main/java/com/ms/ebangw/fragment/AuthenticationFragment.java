@@ -61,6 +61,7 @@ public class AuthenticationFragment extends BaseFragment implements OnClickListe
     private com.ms.ebangw.crop.AlbumStorageDirFactory mAlbumStorageDirFactory = null;
     private String mCurrentPhotoPath;
 
+
     private Button but_self, but_worker, but_foreman, but_factory;
     private View mContentView;
     private User user;
@@ -86,6 +87,9 @@ public class AuthenticationFragment extends BaseFragment implements OnClickListe
     LinearLayout detailLayout;
     @Bind(R.id.ll_no_auth)
     LinearLayout noAuthLayout;
+    @Bind(R.id.ll_workType)
+    LinearLayout LWorkType;
+
     @Bind(R.id.iv_head)
     ImageView headIv;
 
@@ -97,6 +101,8 @@ public class AuthenticationFragment extends BaseFragment implements OnClickListe
 			mCurrentPhotoPath = savedInstanceState.getString(Constants.KEY_CURRENT_IMAGE_PATH);
 		}
     }
+
+
 
     @Override
     public View onCreateView(LayoutInflater inflater,
@@ -136,6 +142,7 @@ public class AuthenticationFragment extends BaseFragment implements OnClickListe
     public void initCompletedUser() {
         noAuthLayout.setVisibility(View.GONE);
         detailLayout.setVisibility(View.VISIBLE);
+        LWorkType.setVisibility(View.GONE);
         User user = getUser();
         String real_name = user.getReal_name();
         String gender = user.getGender();
@@ -146,7 +153,12 @@ public class AuthenticationFragment extends BaseFragment implements OnClickListe
         genderTv.setText(gender);
         phone2Tv.setText(phone);
         nativePlaceTv.setText(area);
-        workTypeTv.setText(craft);
+
+        if(!craft.equals(null)){
+            LWorkType.setVisibility(View.VISIBLE);
+            workTypeTv.setText(craft);
+        }
+
 
 
     }
