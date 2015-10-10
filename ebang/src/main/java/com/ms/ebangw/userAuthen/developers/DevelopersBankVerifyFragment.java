@@ -2,6 +2,7 @@ package com.ms.ebangw.userAuthen.developers;
 
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
@@ -36,10 +37,10 @@ import com.ms.ebangw.crop.CropImageActivity;
 import com.ms.ebangw.crop.FroyoAlbumDirFactory;
 import com.ms.ebangw.crop.GetPathFromUri4kitkat;
 import com.ms.ebangw.fragment.BaseFragment;
+import com.ms.ebangw.utils.BitmapUtil;
 import com.ms.ebangw.utils.L;
 import com.ms.ebangw.utils.T;
 import com.ms.ebangw.utils.VerifyUtils;
-import com.squareup.picasso.Picasso;
 
 import java.io.File;
 import java.io.IOException;
@@ -556,7 +557,8 @@ public class DevelopersBankVerifyFragment extends BaseFragment {
         String id = imageResult.getId();
         AuthInfo authInfo = ((DevelopersAuthenActivity) mActivity).getAuthInfo();
         String imagePath = myApplication.imagePath;
-        Picasso.with(mActivity).load(new File(imagePath)).into(frontIv);
+        Bitmap bitmap = BitmapUtil.getImage(imagePath);
+        frontIv.setImageBitmap(bitmap);
         authInfo.setOrganizationCertificate(id);
         isImageUploaded = true;
     }

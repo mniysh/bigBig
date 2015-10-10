@@ -1,6 +1,7 @@
 package com.ms.ebangw.fragment;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -33,6 +34,7 @@ import com.ms.ebangw.userAuthen.developers.DevelopersAuthenActivity;
 import com.ms.ebangw.userAuthen.headman.HeadmanAuthenActivity;
 import com.ms.ebangw.userAuthen.investor.InvestorAuthenActivity;
 import com.ms.ebangw.userAuthen.worker.WorkerAuthenActivity;
+import com.ms.ebangw.utils.BitmapUtil;
 import com.ms.ebangw.utils.L;
 import com.squareup.picasso.Picasso;
 
@@ -426,7 +428,8 @@ public class AuthenticationFragment extends BaseFragment implements OnClickListe
         MyApplication myApplication = (MyApplication) mActivity.getApplication();
 
         String imagePath = myApplication.imagePath;
-        Picasso.with(mActivity).load(new File(imagePath)).into(headIv);
+        Bitmap bitmap = BitmapUtil.getImage(imagePath);
+        headIv.setImageBitmap(bitmap);
     }
 
 

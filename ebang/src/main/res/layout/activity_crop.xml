@@ -52,7 +52,7 @@
 
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        custom:cropMode="ratio_1_1"
+        custom:cropMode="ratio_free"
         custom:backgroundColor="@color/base"
         custom:handleColor="@color/handle"
         custom:guideColor="@color/guide"

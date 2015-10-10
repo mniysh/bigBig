@@ -2,6 +2,7 @@ package com.ms.ebangw.userAuthen.developers;
 
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
@@ -27,9 +28,9 @@ import com.ms.ebangw.crop.CropImageActivity;
 import com.ms.ebangw.crop.FroyoAlbumDirFactory;
 import com.ms.ebangw.crop.GetPathFromUri4kitkat;
 import com.ms.ebangw.fragment.BaseFragment;
+import com.ms.ebangw.utils.BitmapUtil;
 import com.ms.ebangw.utils.L;
 import com.ms.ebangw.utils.T;
-import com.squareup.picasso.Picasso;
 
 import java.io.File;
 import java.io.IOException;
@@ -237,15 +238,16 @@ public class DevelopersIdentityCardFragment extends BaseFragment {
         String imagePath = myApplication.imagePath;
         String id = imageResult.getId();
         AuthInfo authInfo = ((DevelopersAuthenActivity) mActivity).getAuthInfo();
+        Bitmap bitmap = BitmapUtil.getImage(imagePath);
         switch (whichPhoto) {
             case Constants.PHOTO_FRONT:
-                Picasso.with(mActivity).load(new File(imagePath)).into(frontIv);
+                frontIv.setImageBitmap(bitmap);
                 authInfo.setFrontImageId(id);
                 isFrontUploaded = true;
                 break;
 
             case Constants.PHOTO_BACK:
-                Picasso.with(mActivity).load(new File(imagePath)).into(backIv);
+                backIv.setImageBitmap(bitmap);
                 authInfo.setBackImageId(id);
                 isBackUploaded = true;
                 break;
