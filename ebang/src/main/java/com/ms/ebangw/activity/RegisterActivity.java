@@ -12,7 +12,6 @@ import android.text.TextUtils;
 import android.text.style.ForegroundColorSpan;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.animation.BounceInterpolator;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -91,7 +90,7 @@ public class RegisterActivity extends BaseActivity  {
 		a.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				startActivity(new Intent (RegisterActivity.this,ServiceContractActivity.class));
+				startActivity(new Intent(RegisterActivity.this, ServiceContractActivity.class));
 			}
 		});
 
@@ -103,7 +102,7 @@ public class RegisterActivity extends BaseActivity  {
 		TextView textView = (TextView) findViewById(R.id.act_login_register);
 		String s = textView.getText().toString().trim();
 		SpannableString spannableString = new SpannableString(s);
-		spannableString.setSpan(new ForegroundColorSpan(Color.parseColor("#347A93")), 36, s.length()-1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+		spannableString.setSpan(new ForegroundColorSpan(Color.parseColor("#347A93")), 36, s.length() - 1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
 
 	}
 
@@ -189,6 +188,10 @@ public class RegisterActivity extends BaseActivity  {
 		if (VerifyUtils.isPhone(phone)) {
 
 			DataAccessUtil.messageCodeRegiste(phone, new JsonHttpResponseHandler(){
+				@Override
+				public void onStart() {
+					executeCountDown();
+				}
 
 				@Override
 				public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
@@ -197,9 +200,6 @@ public class RegisterActivity extends BaseActivity  {
 						L.d("xxx",b+"b的值");
 						if (b) {
 							T.show("验证码已发送，请注意查收");
-							smsCodeBtn.setPressed(true);
-							smsCodeBtn.setClickable(false);
-							executeCountDown();
 						}
 
 					} catch (ResponseException e) {
@@ -220,6 +220,8 @@ public class RegisterActivity extends BaseActivity  {
 	}
 
 	private void executeCountDown() {
+		smsCodeBtn.setPressed(true);
+		smsCodeBtn.setClickable(false);
 		countDownTimer = new CountDownTimer(60000, 1000) {
 			@Override
 			public void onTick(long millisUntilFinished) {

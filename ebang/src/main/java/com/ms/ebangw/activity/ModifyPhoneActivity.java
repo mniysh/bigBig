@@ -2,18 +2,19 @@ package com.ms.ebangw.activity;
 
 import android.content.Intent;
 import android.graphics.Color;
-import android.os.CountDownTimer;
-import android.os.Message;
 import android.os.Bundle;
+import android.os.CountDownTimer;
+import android.os.Handler;
+import android.os.Message;
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.style.ForegroundColorSpan;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.ms.ebangw.R;
-import com.ms.ebangw.bean.User;
 import com.ms.ebangw.commons.Constants;
 import com.ms.ebangw.exception.ResponseException;
 import com.ms.ebangw.service.DataAccessUtil;
@@ -23,11 +24,7 @@ import com.ms.ebangw.utils.T;
 import com.ms.ebangw.utils.VerifyUtils;
 
 import org.apache.http.Header;
-import org.json.JSONException;
 import org.json.JSONObject;
-
-import android.os.Handler;
-import android.widget.TextView;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -70,6 +67,13 @@ public class ModifyPhoneActivity extends BaseActivity {
             DataAccessUtil.messageCode(phone,new JsonHttpResponseHandler(){
 
                 @Override
+                public void onStart() {
+
+
+                    excuteDownCount();
+                }
+
+                @Override
                 public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                     super.onSuccess(statusCode, headers, response);
                     L.d("xxx", "phone的值" + phone);
@@ -78,9 +82,6 @@ public class ModifyPhoneActivity extends BaseActivity {
                         if(b){
                             T.show("验证码已发请注意查收");
 
-                            bCode.setPressed(true);
-                            bCode.setClickable(false);
-                            excuteDownCount();
                         }
 
                     } catch (ResponseException e) {
@@ -190,14 +191,14 @@ public class ModifyPhoneActivity extends BaseActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if(countDownTimer==null){
-        }else{
+        if(countDownTimer != null){
             countDownTimer.cancel();
-
         }
 
     }
     public void excuteDownCount(){
+        bCode.setPressed(true);
+        bCode.setClickable(false);
         countDownTimer=new CountDownTimer(60000,1000) {
             @Override
             public void onTick(long millisUntilFinished) {
