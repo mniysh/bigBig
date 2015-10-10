@@ -67,6 +67,10 @@ public class CropImageActivity extends BaseActivity {
         if (null != extras) {
             isHeadImage = extras.getBoolean(Constants.KEY_HEAD_IMAGE, false);
         }
+
+        if (isHeadImage) {
+            mImageView.setCropMode(CropImageView.CropMode.RATIO_1_1);
+        }
     }
 
     @Override

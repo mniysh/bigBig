@@ -404,8 +404,10 @@ public class AuthenticationFragment extends BaseFragment implements OnClickListe
 
         MyApplication application = (MyApplication) mActivity.getApplication();
         application.imagePath = path;
-
+        Bundle bundle = new Bundle();
+        bundle.putBoolean(Constants.KEY_HEAD_IMAGE, true);
         Intent intent = new Intent(mActivity, CropImageActivity.class);
+        intent.putExtras(bundle);
         startActivityForResult(intent, REQUEST_CROP);
 
     }

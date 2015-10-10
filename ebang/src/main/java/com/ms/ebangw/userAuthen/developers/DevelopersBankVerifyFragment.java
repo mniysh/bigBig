@@ -544,8 +544,6 @@ public class DevelopersBankVerifyFragment extends BaseFragment {
     }
 
 
-
-
     /*图片剪切==================*/
     public void handleCropBitmap(Intent intent) {
         if (intent == null) {
