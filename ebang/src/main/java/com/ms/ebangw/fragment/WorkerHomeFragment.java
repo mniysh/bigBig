@@ -59,6 +59,9 @@ public class WorkerHomeFragment extends BaseFragment {
         iv.post(new Runnable() {
             @Override
             public void run() {
+                if (!isAdded()) {
+                    return;
+                }
                 BitmapFactory.Options options = new BitmapFactory.Options();
                 options.inJustDecodeBounds = true;
 
