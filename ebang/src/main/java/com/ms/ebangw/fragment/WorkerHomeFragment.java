@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.ms.ebangw.R;
+import com.ms.ebangw.utils.L;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -18,6 +19,7 @@ import butterknife.ButterKnife;
  * 工友之家
  */
 public class WorkerHomeFragment extends BaseFragment {
+    private final String TAG = getClass().getSimpleName();
     private static final String RES_ID = "resId";
     private static final String TYPE = "type";
     private View mContentView;
@@ -60,6 +62,7 @@ public class WorkerHomeFragment extends BaseFragment {
             @Override
             public void run() {
                 if (!isAdded()) {
+                    L.d(TAG, "fragment没有与activity连接");
                     return;
                 }
                 BitmapFactory.Options options = new BitmapFactory.Options();
