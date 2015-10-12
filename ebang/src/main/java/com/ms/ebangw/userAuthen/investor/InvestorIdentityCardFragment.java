@@ -92,7 +92,7 @@ public class InvestorIdentityCardFragment extends BaseFragment {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        L.d("onCreate");
+        L.d("InvestorIdentityCardFragment onCreate" + savedInstanceState);
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             category = getArguments().getString(Constants.KEY_CATEGORY);
@@ -369,7 +369,8 @@ public class InvestorIdentityCardFragment extends BaseFragment {
     public void onSaveInstanceState(Bundle outState) {
         outState.putString(Constants.KEY_CURRENT_IMAGE_PATH, mCurrentPhotoPath);
         outState.putString(Constants.KEY_WHICH_PHOTO, whichPhoto);
-        L.d("onSaveInstanceState: " + mCurrentPhotoPath);
+        L.d("Fragment onSaveInstanceState: " + outState);
         super.onSaveInstanceState(outState);
     }
+
 }

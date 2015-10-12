@@ -86,6 +86,7 @@ public class Constants {
 	public final static String KEY_WHICH_PHOTO = "whichPhoto";
 	public final static String KEY_CURRENT_IMAGE_PATH = "current_image_path";
 	public final static String KEY_AUTHINFO = "authInfo";
+	public final static String KEY_CURRENT_STEP = "step";
 
 	public final static int KEY_IMAGE_FLODER = R.drawable.back_ima;
 

@@ -74,17 +74,27 @@ public class InvestorAuthenActivity extends BaseActivity {
 //	View view_title;
 //	@Bind(R.id.layout_step)
 //	View view_step;
+	private int currentStep;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_investor_authen);
 		ButterKnife.bind(this);
-		Bundle extras = getIntent().getExtras();
-		category = extras.getString(Constants.KEY_CATEGORY, Constants.INVESTOR);
-		totalRegion = (TotalRegion) extras.getSerializable(Constants.KEY_TOTAL_REGION);
-		initView();
-		initData();
+		L.d("InvestorAuthenActivity onCreate");
+		if (savedInstanceState != null) {
+			authInfo = savedInstanceState.getParcelable(Constants.KEY_AUTHINFO);
+			currentStep = savedInstanceState.getInt(Constants.KEY_CURRENT_STEP, 0);
+			L.d("currentStep" + currentStep);
+			goNext();
+			return;
+		}else {
+			Bundle extras = getIntent().getExtras();
+			category = extras.getString(Constants.KEY_CATEGORY, Constants.INVESTOR);
+			initView();
+			initData();
+
+		}
 	}
 
 	public void initView() {
@@ -94,24 +104,33 @@ public class InvestorAuthenActivity extends BaseActivity {
 		findViewById(R.id.tv_cardBind).setVisibility(View.GONE);
 
 		setStep(0);
+		currentStep = 0;
 	}
+
 
 	@Override
 	public void initData() {
 		fm = getFragmentManager();
-		personBaseInfoFragment = InvestorBaseInfoFragment.newInstance(category);
+		if (currentStep == 1) {
+			L.d("goNext");
+			goNext();
+		}else {
 
-		getFragmentManager().beginTransaction().replace(R.id.fl_content,personBaseInfoFragment).commit();
+			personBaseInfoFragment = InvestorBaseInfoFragment.newInstance(category);
+			getFragmentManager().beginTransaction().replace(R.id.fl_content,personBaseInfoFragment).commit();
+		}
 
 	}
 
 	public void goNext() {
 
 		identifyFragment = InvestorIdentityCardFragment.newInstance(category);
-		getFragmentManager().beginTransaction().replace(R.id.fl_content, identifyFragment)
-			.addToBackStack("IdentityCardPhotoVerifyFragment").commit();
+//		identifyFragment.setRetainInstance(true);
+//		getFragmentManager().beginTransaction().replace(R.id.fl_content, identifyFragment)
+//			.addToBackStack("IdentityCardPhotoVerifyFragment").commit();
+		getFragmentManager().beginTransaction().replace(R.id.fl_content, identifyFragment).commit();
 		setStep(1);
-
+		currentStep = 1;
 	}
 
 	/**
@@ -221,5 +240,13 @@ public class InvestorAuthenActivity extends BaseActivity {
 		user.setStatus(Constants.AUTH_INVESTOR);
 		UserDao userDao = new UserDao(this);
 		userDao.update(user);
+	}
+
+	@Override
+	protected void onSaveInstanceState(Bundle outState) {
+		outState.putParcelable(Constants.KEY_AUTHINFO, authInfo);
+		outState.putInt(Constants.KEY_CURRENT_STEP, currentStep);
+		L.d("InvestorAuthenActivity onSaveInstanceState");
+		super.onSaveInstanceState(outState);
 	}
 }

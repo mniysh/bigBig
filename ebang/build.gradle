@@ -26,7 +26,7 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.config
             debuggable false
-            
+            minifyEnabled false
         }
         debug {
             signingConfig signingConfigs.config
@@ -57,5 +57,4 @@ dependencies {
     compile 'com.android.support:appcompat-v7:23.0.1'
     compile 'com.android.support:support-v13:23.0.1'
     compile 'com.squareup.picasso:picasso:2.5.2'
-
 }

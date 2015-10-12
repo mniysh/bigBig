@@ -439,7 +439,6 @@ public class AuthenticationFragment extends BaseFragment implements OnClickListe
 	@Override
 	public void onSaveInstanceState(Bundle outState) {
 		outState.putString(Constants.KEY_CURRENT_IMAGE_PATH, mCurrentPhotoPath);
-		L.d("onSaveInstanceState: " + mCurrentPhotoPath);
 		super.onSaveInstanceState(outState);
 	}
 

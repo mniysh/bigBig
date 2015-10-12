@@ -132,7 +132,10 @@
         <activity android:name=".activity.ManagerBackActivity"/>
         <activity android:name=".Photo.PhotosActivity"/>
         <activity android:name=".Photo.SelectPhotosDirActivity"/>
-        <activity android:name=".userAuthen.investor.InvestorAuthenActivity"/>
+        <activity android:name=".userAuthen.investor.InvestorAuthenActivity"
+                  android:configChanges="keyboardHidden|orientation|screenSize"
+                  android:screenOrientation="portrait"
+            />
         <activity android:name=".userAuthen.worker.WorkerAuthenActivity"/>
         <activity android:name=".userAuthen.developers.DevelopersAuthenActivity"/>
         <activity android:name=".userAuthen.headman.HeadmanAuthenActivity"/>

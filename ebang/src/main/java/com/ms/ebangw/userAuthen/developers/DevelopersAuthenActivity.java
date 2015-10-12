@@ -60,11 +60,6 @@ public class DevelopersAuthenActivity extends BaseActivity {
 	private DevelopersBaseInfoFragment personBaseInfoFragment;
 	private DevelopersBankVerifyFragment developersBankVerifyFragment;
 
-
-
-
-
-
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -77,7 +72,6 @@ public class DevelopersAuthenActivity extends BaseActivity {
 
 		Bundle extras = getIntent().getExtras();
 		category = extras.getString(Constants.KEY_CATEGORY, Constants.INVESTOR);
-		totalRegion = (TotalRegion) extras.getSerializable(Constants.KEY_TOTAL_REGION);
 		initView();
 		initData();
 	}
