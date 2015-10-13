@@ -73,6 +73,8 @@ public class Constants {
 	 * 性别：女
 	 */
 	public static final String FEMALE = "female";
+	public static final String MONTH = "month";
+	public static final String DAY = "day";
 
 
 	/*Key=========*/

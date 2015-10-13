@@ -184,7 +184,6 @@ public class HomeActivity extends BaseActivity {
 			radioGroup.getChildAt(0).performClick();
 		}
 
-
 	}
 
 	/**

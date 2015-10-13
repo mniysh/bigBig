@@ -1,17 +1,39 @@
 package com.ms.ebangw.release;
 
 
+import android.content.ContentResolver;
+import android.content.Intent;
+import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.RadioGroup;
 
+import com.loopj.android.http.JsonHttpResponseHandler;
 import com.ms.ebangw.R;
 import com.ms.ebangw.activity.HomeActivity;
 import com.ms.ebangw.bean.Province;
+import com.ms.ebangw.bean.UploadImageResult;
+import com.ms.ebangw.commons.Constants;
+import com.ms.ebangw.exception.ResponseException;
 import com.ms.ebangw.fragment.BaseFragment;
+import com.ms.ebangw.service.DataAccessUtil;
+import com.ms.ebangw.service.DataParseUtil;
+import com.ms.ebangw.utils.L;
+import com.ms.ebangw.utils.T;
 import com.ms.ebangw.view.ProvinceAndCityView;
+import com.soundcloud.android.crop.Crop;
 
+import org.apache.http.Header;
+import org.json.JSONObject;
+
+import java.io.File;
 import java.util.List;
 
 import butterknife.Bind;
@@ -29,8 +51,24 @@ public class IncreaseDetailFragment extends BaseFragment {
     private String mParam1;
     private String mParam2;
     private ViewGroup contentLayout;
+    private File imageFile;
     @Bind(R.id.pac)
     ProvinceAndCityView provinceAndCityView;
+    @Bind(R.id.et_detail_address)
+    EditText detailAddressEt;
+    @Bind(R.id.et_title)
+    EditText titleEt;
+    @Bind(R.id.et_name)
+    EditText nameEt;
+    @Bind(R.id.et_phone)
+    EditText phoneEt;
+    @Bind(R.id.btn_pick)
+    Button pickBtn;
+    @Bind(R.id.btn_camera)
+    Button cameraBtn;
+    @Bind(R.id.rg_type)
+    RadioGroup typeRg;
+
 
     public static IncreaseDetailFragment newInstance(String param1, String param2) {
         IncreaseDetailFragment fragment = new IncreaseDetailFragment();
@@ -69,7 +107,7 @@ public class IncreaseDetailFragment extends BaseFragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        initTitle("发布");
+        initTitle("填写信息");
     }
 
 
@@ -86,8 +124,165 @@ public class IncreaseDetailFragment extends BaseFragment {
 
     }
 
+    /*** 打开照相机     */
+    @OnClick(R.id.btn_camera)
+    public void openCamera(){
+        Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        File file = new File(Environment.getExternalStorageDirectory() + "/Images");
+        if(!file.exists()){
+            file.mkdirs();
+        }
+        imageFile = new File(Environment.getExternalStorageDirectory() + "/Images/",
+            "cameraImg" + String.valueOf(System.currentTimeMillis()) + ".png");
+
+        Uri mUri = Uri.fromFile(imageFile);
+        cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, mUri);
+        cameraIntent.putExtra("return-data", true);
+        startActivityForResult(cameraIntent, Constants.REQUEST_CAMERA);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        L.d("onActivityResult");
+
+        if (requestCode == Constants.REQUEST_CAMERA && resultCode == mActivity.RESULT_OK) { //拍照返回
+            Uri uri;
+            if (null == data) {
+                uri = Uri.fromFile(imageFile);
+            }else {
+                uri = data.getData();
+            }
+
+
+            beginCrop(uri);
+
+        }else if (requestCode == Crop.REQUEST_PICK&& resultCode == mActivity.RESULT_OK) {
+            beginCrop(data.getData());
+
+        }else if (requestCode == Crop.REQUEST_CROP) {
+            handleCrop(resultCode, data);			//在Fragment中处理剪切后的图片
+        }
+    }
+
+    public void handleCrop(int resultCode, Intent result) {
+        if (resultCode == mActivity.RESULT_OK) {
+//            Uri uri = Crop.getOutput(result);
+//            L.d("Uri: " + uri);
+//            if (whichPhoto == Constants.PHOTO_FRONT) {
+//                frontIv.setImageURI(Crop.getOutput(result));
+//                uploadImage(uri, TYPE_FRONT);
+//            }else {
+//                backIv.setImageURI(Crop.getOutput(result));
+//                uploadImage(uri, TYPE_BACK);
+//            }
+
+
+
+        } else if (resultCode == Crop.RESULT_ERROR) {
+            T.show("选取图片失败");
+        }
+    }
+
+    private void beginCrop(Uri source) {
+        Uri destination = Uri.fromFile(new File(mActivity.getCacheDir(), "cropped.png"));
+        Crop.of(source, destination).asSquare().start(mActivity);
+    }
+
+    public void setDeveloperReleaseInfo() {
+
+        //性别
+        int checkId = typeRg.getCheckedRadioButtonId();
+        String type = Constants.MONTH;
+        if (checkId == R.id.rb_month) {
+            type =  Constants.MONTH;
+        }else {
+            type =  Constants.DAY;
+        }
+    }
+
+    private void uploadImage(Uri uri, final int type ) {
+        File file = uriToFile(uri);
+
+        DataAccessUtil.uploadImage(file, new JsonHttpResponseHandler() {
+            @Override
+            public void onStart() {
+                super.onStart();
+                showProgressDialog("图片上传中...");
+            }
+
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                dismissLoadingDialog();
+
+                try {
+                    if (DataParseUtil.processDataResult(response)) {
+                        UploadImageResult result = DataParseUtil.upLoadImage(response);
+                        String id = result.getId();
+//                        AuthInfo authInfo = ((InvestorAuthenActivity) mActivity).getAuthInfo();
+//                        if (type == TYPE_FRONT) {
+//                            isFrontUploaded = true;
+//                            authInfo.setFrontImageId(id);
+//                        }
+//
+//                        if (type == TYPE_BACK) {
+//                            isBackUploaded = true;
+//                            authInfo.setBackImageId(id);
+//                        }
+                        T.show("上传图片成功");
+                    } else {
+                        T.show("上传图片失败,请重试");
+                    }
+
+
+                } catch (ResponseException e) {
+                    e.printStackTrace();
+                }
+
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                super.onFailure(statusCode, headers, responseString, throwable);
+                L.d(responseString);
+                T.show("上传图片失败,请重试");
+                dismissLoadingDialog();
+            }
+        });
+    }
+
+
+    public File uriToFile(Uri uri) {
+
+        if ( null == uri ) return null;
+        final String scheme = uri.getScheme();
+        String data = null;
+        if ( scheme == null )
+            data = uri.getPath();
+        else if ( ContentResolver.SCHEME_FILE.equals( scheme ) ) {
+            data = uri.getPath();
+        } else if ( ContentResolver.SCHEME_CONTENT.equals( scheme ) ) {
+            Cursor cursor = mActivity.getContentResolver().query( uri, new String[] { MediaStore.Images
+                .ImageColumns.DATA }, null, null, null );
+            if ( null != cursor ) {
+                if ( cursor.moveToFirst() ) {
+                    int index = cursor.getColumnIndex( MediaStore.Images.ImageColumns.DATA );
+                    if ( index > -1 ) {
+                        data = cursor.getString( index );
+                    }
+                }
+                cursor.close();
+            }
+        }
+        File file = new File(data);
+        return file;
+    }
+
+    /**
+     * 开发商发布
+     */
     @OnClick(R.id.btn_release)
-    public void release() {
+    public void developerRelease() {
 
     }
 
