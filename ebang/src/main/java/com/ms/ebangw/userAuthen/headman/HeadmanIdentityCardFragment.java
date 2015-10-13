@@ -10,6 +10,7 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.text.SpannableString;
 import android.text.Spanned;
+import android.text.TextUtils;
 import android.text.style.ForegroundColorSpan;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -81,6 +82,8 @@ public class HeadmanIdentityCardFragment extends BaseFragment {
     @Bind(R.id.btn_next)
     Button nextBtn;
     private boolean isFrontUploaded, isBackUploaded;
+    private String frontImagePath;
+    private String backImagePath;
 
 
     public static HeadmanIdentityCardFragment newInstance(String category) {
@@ -155,6 +158,16 @@ public class HeadmanIdentityCardFragment extends BaseFragment {
     @Override
     public void initView() {
         setStarRed();
+        if (!TextUtils.isEmpty(frontImagePath)&& new File(frontImagePath).exists()) {
+            Bitmap bitmap = BitmapUtil.getImage(frontImagePath);
+            frontIv.setImageBitmap(bitmap);
+            isFrontUploaded = true;
+        }
+        if (!TextUtils.isEmpty(backImagePath)&& new File(backImagePath).exists()) {
+            Bitmap bitmap = BitmapUtil.getImage(backImagePath);
+            backIv.setImageBitmap(bitmap);
+            isBackUploaded = true;
+        }
 
     }
 
@@ -245,12 +258,14 @@ public class HeadmanIdentityCardFragment extends BaseFragment {
                 frontIv.setImageBitmap(bitmap);
                 authInfo.setFrontImageId(id);
                 isFrontUploaded = true;
+                frontImagePath = imagePath;
                 break;
 
             case Constants.PHOTO_BACK:
                 backIv.setImageBitmap(bitmap);
                 authInfo.setBackImageId(id);
                 isBackUploaded = true;
+                backImagePath = imagePath;
                 break;
         }
     }
@@ -373,7 +388,9 @@ public class HeadmanIdentityCardFragment extends BaseFragment {
     public void onSaveInstanceState(Bundle outState) {
         outState.putString(Constants.KEY_CURRENT_IMAGE_PATH, mCurrentPhotoPath);
         outState.putString(Constants.KEY_WHICH_PHOTO, whichPhoto);
-        L.d("onSaveInstanceState: " + mCurrentPhotoPath);
+        outState.putString(Constants.KEY_FRONT_IMAGE_PATH, frontImagePath);
+        outState.putString(Constants.KEY_BACK_IMAGE_PATH, backImagePath);
+        L.d("Fragment onSaveInstanceState: " + outState);
         super.onSaveInstanceState(outState);
     }
 }

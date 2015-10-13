@@ -44,7 +44,7 @@ public class InvestorAuthenActivity extends BaseActivity {
 	/**
 	 * 要认证的用户类型
 	 */
-	private String category;
+	private static final String category = Constants.INVESTOR;
 	private File imageFile;
 	private TotalRegion totalRegion;
 
@@ -92,8 +92,6 @@ public class InvestorAuthenActivity extends BaseActivity {
 			initTitle(null, "返回", "个人认证", null, null);
 
 		}else {
-			Bundle extras = getIntent().getExtras();
-			category = extras.getString(Constants.KEY_CATEGORY, Constants.INVESTOR);
 			initView();
 			initData();
 
@@ -102,12 +100,6 @@ public class InvestorAuthenActivity extends BaseActivity {
 
 	public void initView() {
 		initTitle(null, "返回", "个人认证", null, null);
-		initTitle(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				fm.popBackStack();
-			}
-		}, "返回", "个人认证", null, null);
 		findViewById(R.id.step_line).setVisibility(View.GONE);
 		findViewById(R.id.tv_three).setVisibility(View.GONE);
 		findViewById(R.id.tv_cardBind).setVisibility(View.GONE);

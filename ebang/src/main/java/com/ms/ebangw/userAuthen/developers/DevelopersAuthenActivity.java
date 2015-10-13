@@ -43,7 +43,7 @@ public class DevelopersAuthenActivity extends BaseActivity {
 	/**
 	 * 要认证的用户类型
 	 */
-	private String category;
+	private static final String category = Constants.DEVELOPERS;
 	private File imageFile;
 	private TotalRegion totalRegion;
 	@Bind(R.id.tv_cardBind)
@@ -65,15 +65,18 @@ public class DevelopersAuthenActivity extends BaseActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_developers_authen);
 		ButterKnife.bind(this);
+		fm = getFragmentManager();
 		L.d("DevelopersAuthenActivity onCreate");
 		if (savedInstanceState != null) {
 			authInfo = savedInstanceState.getParcelable(Constants.KEY_AUTHINFO);
+			currentStep = savedInstanceState.getInt(Constants.KEY_CURRENT_STEP, 0);
+			initTitle(null, "返回", "开发商认证", null, null);
+			cardBindTv.setText("企业完善");
+		}else {
+			initView();
+			initData();
 		}
 
-		Bundle extras = getIntent().getExtras();
-		category = extras.getString(Constants.KEY_CATEGORY, Constants.INVESTOR);
-		initView();
-		initData();
 	}
 
 	public void initView() {
@@ -232,6 +235,7 @@ public class DevelopersAuthenActivity extends BaseActivity {
 	@Override
 	protected void onSaveInstanceState(Bundle outState) {
 		outState.putParcelable(Constants.KEY_AUTHINFO, authInfo);
+		outState.putInt(Constants.KEY_CURRENT_STEP, currentStep);
 		L.d("DevelopersAuthenActivity onSaveInstanceState");
 		super.onSaveInstanceState(outState);
 	}

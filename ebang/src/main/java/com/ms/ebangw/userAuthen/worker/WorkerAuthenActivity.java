@@ -56,17 +56,27 @@ public class WorkerAuthenActivity extends BaseActivity {
 	private FragmentManager fm;
 	private WorkerIdentityCardFragment  identifyFragment;
 	private WorkerBaseInfoFragment personBaseInfoFragment;
+	private int currentStep;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_worker_authen);
 		ButterKnife.bind(this);
-		Bundle extras = getIntent().getExtras();
-		category = extras.getString(Constants.KEY_CATEGORY, Constants.INVESTOR);
-		totalRegion = (TotalRegion) extras.getSerializable(Constants.KEY_TOTAL_REGION);
-		initView();
-		initData();
+		fm = getFragmentManager();
+		L.d("WorkerAuthenActivity onCreate");
+		if (savedInstanceState != null) {
+			authInfo = savedInstanceState.getParcelable(Constants.KEY_AUTHINFO);
+			currentStep = savedInstanceState.getInt(Constants.KEY_CURRENT_STEP, 0);
+			L.d("currentStep" + currentStep);
+
+			initTitle(null, "返回", "务工认证", null, null);
+
+		}else {
+			initView();
+			initData();
+
+		}
 	}
 
 	public void initView() {
@@ -83,6 +93,7 @@ public class WorkerAuthenActivity extends BaseActivity {
 		getFragmentManager().beginTransaction().replace(R.id.fl_content, personBaseInfoFragment
 		).commit();
 		setStep(0);
+		currentStep = 0;
 	}
 
 	public void goNext() {
@@ -91,6 +102,7 @@ public class WorkerAuthenActivity extends BaseActivity {
 		getFragmentManager().beginTransaction().replace(R.id.fl_content, identifyFragment)
 			.addToBackStack("IdentityCardPhotoVerifyFragment").commit();
 		setStep(1);
+		currentStep = 1;
 	}
 
 	/**
@@ -102,6 +114,7 @@ public class WorkerAuthenActivity extends BaseActivity {
 			WorkerBankVerifyFragment.newInstance(category)).addToBackStack
 			("BankVerifyFragment").commit();
 		setStep(2);
+		currentStep = 2;
 	}
 
 	public AuthInfo getAuthInfo() {
@@ -224,6 +237,14 @@ public class WorkerAuthenActivity extends BaseActivity {
 		user.setStatus(Constants.AUTH_WORKER);
 		UserDao userDao = new UserDao(this);
 		userDao.update(user);
+	}
+
+	@Override
+	protected void onSaveInstanceState(Bundle outState) {
+		outState.putParcelable(Constants.KEY_AUTHINFO, authInfo);
+		outState.putInt(Constants.KEY_CURRENT_STEP, currentStep);
+		L.d("InvestorAuthenActivity onSaveInstanceState");
+		super.onSaveInstanceState(outState);
 	}
 
 }

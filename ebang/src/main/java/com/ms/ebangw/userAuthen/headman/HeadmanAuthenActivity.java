@@ -12,7 +12,6 @@ import com.loopj.android.http.JsonHttpResponseHandler;
 import com.ms.ebangw.R;
 import com.ms.ebangw.activity.BaseActivity;
 import com.ms.ebangw.bean.AuthInfo;
-import com.ms.ebangw.bean.TotalRegion;
 import com.ms.ebangw.bean.User;
 import com.ms.ebangw.commons.Constants;
 import com.ms.ebangw.db.UserDao;
@@ -42,9 +41,9 @@ public class HeadmanAuthenActivity extends BaseActivity {
 	/**
 	 * 要认证的用户类型
 	 */
-	private String category;
+	private static final String category = Constants.HEADMAN;
 	private File imageFile;
-	private TotalRegion totalRegion;
+//	private TotalRegion totalRegion;
 
 	/**
 	 * 认证的信息
@@ -55,17 +54,24 @@ public class HeadmanAuthenActivity extends BaseActivity {
 	private FragmentManager fm;
 	private HeadmanIdentityCardFragment identifyFragment;
 	private HeadmanBaseInfoFragment personBaseInfoFragment;
+	private int currentStep;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_headman_authen);
 		ButterKnife.bind(this);
-		Bundle extras = getIntent().getExtras();
-		category = extras.getString(Constants.KEY_CATEGORY, Constants.INVESTOR);
-		totalRegion = (TotalRegion) extras.getSerializable(Constants.KEY_TOTAL_REGION);
-		initView();
-		initData();
+		fm = getFragmentManager();
+		if (savedInstanceState != null) {
+			authInfo = savedInstanceState.getParcelable(Constants.KEY_AUTHINFO);
+			currentStep = savedInstanceState.getInt(Constants.KEY_CURRENT_STEP, 0);
+			L.d("currentStep" + currentStep);
+			initTitle(null, "返回", "工长认证", null, null);
+
+		}else {
+			initView();
+			initData();
+		}
 	}
 
 	public void initView() {
@@ -81,6 +87,7 @@ public class HeadmanAuthenActivity extends BaseActivity {
 		getFragmentManager().beginTransaction().replace(R.id.fl_content, personBaseInfoFragment
 		).commit();
 		setStep(0);
+		currentStep = 0;
 	}
 
 	public void goNext() {
@@ -89,6 +96,7 @@ public class HeadmanAuthenActivity extends BaseActivity {
 		getFragmentManager().beginTransaction().replace(R.id.fl_content, identifyFragment)
 			.addToBackStack("IdentityCardPhotoVerifyFragment").commit();
 		setStep(1);
+		currentStep = 1;
 	}
 
 	/**
@@ -100,6 +108,7 @@ public class HeadmanAuthenActivity extends BaseActivity {
 			HeadmanBankVerifyFragment.newInstance(category)).addToBackStack
 			("BankVerifyFragment").commit();
 		setStep(2);
+		currentStep = 2;
 	}
 
 	public AuthInfo getAuthInfo() {
@@ -111,9 +120,6 @@ public class HeadmanAuthenActivity extends BaseActivity {
 	}
 
 
-	public TotalRegion getTotalRegion() {
-		return totalRegion;
-	}
 
 	/**
 	 * 提交认证信息
@@ -200,6 +206,14 @@ public class HeadmanAuthenActivity extends BaseActivity {
 		user.setStatus(Constants.AUTH_HEADMAN);
 		UserDao userDao = new UserDao(this);
 		userDao.update(user);
+	}
+
+
+	@Override
+	protected void onSaveInstanceState(Bundle outState) {
+		outState.putParcelable(Constants.KEY_AUTHINFO, authInfo);
+		outState.putInt(Constants.KEY_CURRENT_STEP, currentStep);
+		super.onSaveInstanceState(outState);
 	}
 
 }
