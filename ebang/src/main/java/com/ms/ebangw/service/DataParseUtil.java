@@ -84,17 +84,14 @@ public class DataParseUtil {
         }
         User user = MyApplication.getInstance().getUser();
         Gson gson = new Gson();
-        if(processDataResult(jsonObject)){
-            String str = jsonObject.optString("base_message");
-            User user1 = gson.fromJson(str, new TypeToken<User>() {
-            }.getType());
-            user.setId(user1.getId());
-            user.setPhone(user1.getPhone());
-            user.setPassword(user1.getPassword());
-            user.setNick_name(user1.getNick_name());
-            user.setGender(user1.getGender());
+        JSONObject data = processData(jsonObject);
+        User baseUser = null;
+        if(data.has("base_message")){
+            String str = data.optString("base_message");
+           baseUser = gson.fromJson(str, User.class);
+        }
+        if(baseUser != null){
 
-return user;
         }
         return null;
     }
