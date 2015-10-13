@@ -12,7 +12,6 @@ import com.loopj.android.http.JsonHttpResponseHandler;
 import com.ms.ebangw.MyApplication;
 import com.ms.ebangw.R;
 import com.ms.ebangw.bean.Bank;
-import com.ms.ebangw.bean.TotalRegion;
 import com.ms.ebangw.bean.User;
 import com.ms.ebangw.commons.Constants;
 import com.ms.ebangw.event.BottomTitleClickEvent;
@@ -54,7 +53,6 @@ public class HomeActivity extends BaseActivity {
 
     private FoundFragment foundFragment;
     private ReleaseFragment releasefragment;
-    private TotalRegion totalRegion;
     private ServiceFragment serviceFragment;
     private ReleaseFrament01 releaseFrament01;
 
@@ -86,12 +84,8 @@ public class HomeActivity extends BaseActivity {
     }
 
     public void initView() {
-        getAreaFromAssets();
     }
 
-    public void executeRadioButtonAt(int index) {
-        radioGroup.getChildAt(3).performClick();
-    }
 
     @Override
     public void initData() {
@@ -138,7 +132,6 @@ public class HomeActivity extends BaseActivity {
         });
 
         radioGroup.getChildAt(0).performClick();
-        totalRegion = getAreaFromAssets();
     }
 
     /**
@@ -349,11 +342,6 @@ public class HomeActivity extends BaseActivity {
         });
 
 
-    }
-
-
-    public TotalRegion getTotalRegion() {
-        return totalRegion;
     }
 
     @Override

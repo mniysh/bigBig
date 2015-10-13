@@ -20,7 +20,6 @@ import android.widget.TextView;
 
 import com.ms.ebangw.MyApplication;
 import com.ms.ebangw.R;
-import com.ms.ebangw.activity.HomeActivity;
 import com.ms.ebangw.activity.SettingActivity;
 import com.ms.ebangw.bean.UploadImageResult;
 import com.ms.ebangw.bean.User;
@@ -271,9 +270,6 @@ public class AuthenticationFragment extends BaseFragment implements OnClickListe
                 break;
         }
 
-        Bundle bundle = new Bundle();
-        bundle.putSerializable(Constants.KEY_TOTAL_REGION, ((HomeActivity) mActivity).getTotalRegion());
-        intent.putExtras(bundle);
         startActivity(intent);
     }
 
