@@ -28,7 +28,6 @@ import com.ms.ebangw.service.DataParseUtil;
 import com.ms.ebangw.utils.L;
 import com.ms.ebangw.utils.T;
 import com.ms.ebangw.view.ProvinceAndCityView;
-import com.soundcloud.android.crop.Crop;
 
 import org.apache.http.Header;
 import org.json.JSONObject;
@@ -119,7 +118,7 @@ public class IncreaseDetailFragment extends BaseFragment {
     @Override
     public void initData() {
         HomeActivity homeActivity = (HomeActivity) mActivity;
-        List<Province> provinces = homeActivity.getTotalRegion().getProvince();
+        List<Province> provinces = getAreaFromAssets().getProvince();
         provinceAndCityView.setProvinces(provinces);
 
     }
@@ -144,49 +143,33 @@ public class IncreaseDetailFragment extends BaseFragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        L.d("onActivityResult");
-
-        if (requestCode == Constants.REQUEST_CAMERA && resultCode == mActivity.RESULT_OK) { //拍照返回
-            Uri uri;
-            if (null == data) {
-                uri = Uri.fromFile(imageFile);
-            }else {
-                uri = data.getData();
-            }
-
-
-            beginCrop(uri);
-
-        }else if (requestCode == Crop.REQUEST_PICK&& resultCode == mActivity.RESULT_OK) {
-            beginCrop(data.getData());
-
-        }else if (requestCode == Crop.REQUEST_CROP) {
-            handleCrop(resultCode, data);			//在Fragment中处理剪切后的图片
-        }
+//        L.d("onActivityResult");
+//
+//        if (requestCode == Constants.REQUEST_CAMERA && resultCode == mActivity.RESULT_OK) { //拍照返回
+//            Uri uri;
+//            if (null == data) {
+//                uri = Uri.fromFile(imageFile);
+//            }else {
+//                uri = data.getData();
+//            }
+//
+//
+//            beginCrop(uri);
+//
+//        }else if (requestCode == Crop.REQUEST_PICK&& resultCode == mActivity.RESULT_OK) {
+//            beginCrop(data.getData());
+//
+//        }else if (requestCode == Crop.REQUEST_CROP) {
+//            handleCrop(resultCode, data);			//在Fragment中处理剪切后的图片
+//        }
     }
 
     public void handleCrop(int resultCode, Intent result) {
-        if (resultCode == mActivity.RESULT_OK) {
-//            Uri uri = Crop.getOutput(result);
-//            L.d("Uri: " + uri);
-//            if (whichPhoto == Constants.PHOTO_FRONT) {
-//                frontIv.setImageURI(Crop.getOutput(result));
-//                uploadImage(uri, TYPE_FRONT);
-//            }else {
-//                backIv.setImageURI(Crop.getOutput(result));
-//                uploadImage(uri, TYPE_BACK);
-//            }
 
-
-
-        } else if (resultCode == Crop.RESULT_ERROR) {
-            T.show("选取图片失败");
-        }
     }
 
     private void beginCrop(Uri source) {
-        Uri destination = Uri.fromFile(new File(mActivity.getCacheDir(), "cropped.png"));
-        Crop.of(source, destination).asSquare().start(mActivity);
+
     }
 
     public void setDeveloperReleaseInfo() {

@@ -1,6 +1,7 @@
 package com.ms.ebangw.activity;
 
 import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -22,6 +23,7 @@ import com.ms.ebangw.fragment.FoundFragment;
 import com.ms.ebangw.fragment.LotteryFragment;
 import com.ms.ebangw.fragment.ServiceFragment;
 import com.ms.ebangw.fragment.WorkerHomeFragment;
+import com.ms.ebangw.release.IncreaseDetailFragment;
 import com.ms.ebangw.release.ReleaseFragment;
 import com.ms.ebangw.release.ReleaseFrament01;
 import com.ms.ebangw.release.SelectCraftFragment;
@@ -188,6 +190,18 @@ public class HomeActivity extends BaseActivity {
 //				break;
 //
 //		}
+    }
+
+    /**
+     * 去开发商发布页面
+     */
+    public void goDeveloperRelease() {
+
+        IncreaseDetailFragment increaseDetailFragment = IncreaseDetailFragment.newInstance("", "");
+        FragmentTransaction transaction = fm.beginTransaction();
+        transaction.replace(R.id.fl_content, increaseDetailFragment);
+        transaction.addToBackStack(null);
+        transaction.commit();
     }
 
     public void onEvent(BottomTitleClickEvent event) {

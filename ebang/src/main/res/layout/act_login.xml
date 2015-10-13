@@ -54,7 +54,6 @@
             android:text="登录"
             android:textColor="#fff"
             android:textSize="20sp"
-            android:textColor="#fff"
             android:layout_marginTop="30dp"
             />
         <LinearLayout 
@@ -74,23 +73,23 @@
                 android:paddingBottom="5dp"
                 />
             
-            <!--<TextView -->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:text="l"-->
-                <!--android:layout_marginLeft="10dp"-->
-                <!--/>-->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="l"
+                android:layout_marginLeft="10dp"
+                />
             
-            <!--<TextView -->
-                <!--android:clickable="true"-->
-                <!--android:id="@+id/tv_find_password"-->
-                <!--android:layout_marginLeft="10dp"-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:text="找回密码"-->
-                <!--android:paddingTop="5dp"-->
-                <!--android:paddingBottom="5dp"-->
-                <!--/>-->
+            <TextView
+                android:clickable="true"
+                android:id="@+id/tv_find_password"
+                android:layout_marginLeft="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="找回密码"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                />
             
         </LinearLayout>
 
