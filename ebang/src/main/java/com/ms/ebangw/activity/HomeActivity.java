@@ -148,25 +148,42 @@ public class HomeActivity extends BaseActivity {
 			fm.beginTransaction().replace(R.id.fl_content, authenticationfragment).commit();
 			return;
 		}
+		switch (state){
+			case "guess":
+			case "complete":
 
-		switch (category) {
-			case Constants.INVESTOR:        //个人
-				fm.beginTransaction().replace(R.id.fl_content, new InvestorCenterFragment()).commit();
 				break;
 
-			case Constants.HEADMAN:        //	工头
-				fm.beginTransaction().replace(R.id.fl_content, new HeadmanCenterFragment()).commit();
-				break;
 
-			case Constants.WORKER:    //工人
-				fm.beginTransaction().replace(R.id.fl_content, new WorkerCenterFragment()).commit();
-				break;
 
-			case Constants.DEVELOPERS:    //开发商
-				fm.beginTransaction().replace(R.id.fl_content, new DevelopersCenterFragment()).commit();
+			case "auth_developers":
+			case "auth_worker":
+			case "auth_headman":
+			case "auth_investor":
+
 				break;
 
 		}
+
+
+//		switch (category) {
+//			case Constants.INVESTOR:        //个人
+//				fm.beginTransaction().replace(R.id.fl_content, new InvestorCenterFragment()).commit();
+//				break;
+//
+//			case Constants.HEADMAN:        //	工头
+//				fm.beginTransaction().replace(R.id.fl_content, new HeadmanCenterFragment()).commit();
+//				break;
+//
+//			case Constants.WORKER:    //工人
+//				fm.beginTransaction().replace(R.id.fl_content, new WorkerCenterFragment()).commit();
+//				break;
+//
+//			case Constants.DEVELOPERS:    //开发商
+//				fm.beginTransaction().replace(R.id.fl_content, new DevelopersCenterFragment()).commit();
+//				break;
+//
+//		}
 	}
 
 	/**
