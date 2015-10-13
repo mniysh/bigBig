@@ -14,15 +14,29 @@ import android.widget.TextView;
 
 import com.ms.ebangw.MyApplication;
 import com.ms.ebangw.R;
+import com.ms.ebangw.bean.Bank;
+import com.ms.ebangw.bean.TotalRegion;
 import com.ms.ebangw.bean.User;
 import com.ms.ebangw.dialog.LoadingDialog;
+import com.ms.ebangw.exception.ResponseException;
+import com.ms.ebangw.service.DataParseUtil;
 import com.ms.ebangw.utils.L;
 import com.umeng.analytics.MobclickAgent;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.StringBufferInputStream;
+import java.util.List;
 
 public abstract class BaseActivity extends AppCompatActivity {
     private final String TAG = getClass().getSimpleName();
     private LoadingDialog mLoadingDialog;
-
+    private List<Bank> banks;
+    private TotalRegion totalRegion;
     /**
      * 初始化View
      */
@@ -187,6 +201,64 @@ public abstract class BaseActivity extends AppCompatActivity {
         }else {
             return false;
         }
+    }
+
+    /**
+     * 缓存所有省市区
+     * @return
+     */
+    public TotalRegion getAllarea(){
+        StringBuilder sb = new StringBuilder();
+        try {
+            InputStream in = getAssets().open("area.txt");
+            InputStreamReader isr = new InputStreamReader(in);
+            char[] chars = new char[1024];
+            int len;
+            while(((len = isr.read(chars)) != -1)){
+                sb.append(chars, 0 ,len);
+            }
+            String str = sb.toString();
+            JSONObject jsonObject = new JSONObject(str);
+            totalRegion = DataParseUtil.provinceCityArea(jsonObject);
+
+            return  totalRegion;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
+        return null;
+    }
+
+
+        /**
+     * 获取银行列表
+     * @return
+     */
+    public List<Bank> getBanks(){
+        StringBuilder sb = new StringBuilder();
+        try {
+            InputStream in = getAssets().open("bank_list");
+            InputStreamReader isr = new InputStreamReader(in);
+            char[] chars = new char[1024];
+            int len;
+            while((len = isr.read(chars)) != -1){
+                sb.append(chars, 0, len);
+            }
+            String strJson = sb.toString();
+            JSONObject jsonObject = new JSONObject(strJson);
+            banks = DataParseUtil.bankList(jsonObject);
+            return banks;
+        } catch (IOException e) {
+            e.printStackTrace();
+            L.d(e.getMessage());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        } catch (ResponseException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     @Override
