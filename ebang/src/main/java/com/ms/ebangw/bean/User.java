@@ -45,6 +45,16 @@ public class User implements Serializable {
 	private String craft;
 	@DatabaseField(columnName = "state")
 	private String state;
+	@DatabaseField(columnName = "realName")
+	private String realName;
+
+	public String getRealName() {
+		return realName;
+	}
+
+	public void setRealName(String realName) {
+		this.realName = realName;
+	}
 
 	public String getCraft() {
 		return craft;
