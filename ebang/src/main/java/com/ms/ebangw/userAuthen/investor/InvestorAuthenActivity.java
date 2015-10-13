@@ -81,13 +81,16 @@ public class InvestorAuthenActivity extends BaseActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_investor_authen);
 		ButterKnife.bind(this);
+		fm = getFragmentManager();
+
 		L.d("InvestorAuthenActivity onCreate");
 		if (savedInstanceState != null) {
 			authInfo = savedInstanceState.getParcelable(Constants.KEY_AUTHINFO);
 			currentStep = savedInstanceState.getInt(Constants.KEY_CURRENT_STEP, 0);
 			L.d("currentStep" + currentStep);
-			goNext();
-			return;
+
+			initTitle(null, "返回", "个人认证", null, null);
+
 		}else {
 			Bundle extras = getIntent().getExtras();
 			category = extras.getString(Constants.KEY_CATEGORY, Constants.INVESTOR);
@@ -99,6 +102,12 @@ public class InvestorAuthenActivity extends BaseActivity {
 
 	public void initView() {
 		initTitle(null, "返回", "个人认证", null, null);
+		initTitle(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				fm.popBackStack();
+			}
+		}, "返回", "个人认证", null, null);
 		findViewById(R.id.step_line).setVisibility(View.GONE);
 		findViewById(R.id.tv_three).setVisibility(View.GONE);
 		findViewById(R.id.tv_cardBind).setVisibility(View.GONE);
@@ -110,15 +119,9 @@ public class InvestorAuthenActivity extends BaseActivity {
 
 	@Override
 	public void initData() {
-		fm = getFragmentManager();
-		if (currentStep == 1) {
-			L.d("goNext");
-			goNext();
-		}else {
-
-			personBaseInfoFragment = InvestorBaseInfoFragment.newInstance(category);
-			getFragmentManager().beginTransaction().replace(R.id.fl_content,personBaseInfoFragment).commit();
-		}
+		personBaseInfoFragment = InvestorBaseInfoFragment.newInstance(category);
+		getFragmentManager().beginTransaction().replace(R.id.fl_content,
+			personBaseInfoFragment).addToBackStack(null).commit();
 
 	}
 
@@ -126,9 +129,8 @@ public class InvestorAuthenActivity extends BaseActivity {
 
 		identifyFragment = InvestorIdentityCardFragment.newInstance(category);
 //		identifyFragment.setRetainInstance(true);
-//		getFragmentManager().beginTransaction().replace(R.id.fl_content, identifyFragment)
-//			.addToBackStack("IdentityCardPhotoVerifyFragment").commit();
-		getFragmentManager().beginTransaction().replace(R.id.fl_content, identifyFragment).commit();
+		getFragmentManager().beginTransaction().replace(R.id.fl_content, identifyFragment)
+			.addToBackStack("IdentityCardPhotoVerifyFragment").commit();
 		setStep(1);
 		currentStep = 1;
 	}

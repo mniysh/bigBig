@@ -1,6 +1,7 @@
 package com.ms.ebangw.utils;
 
 import android.app.Activity;
+import android.content.pm.PackageManager;
 import android.graphics.BitmapFactory;
 import android.text.TextUtils;
 
@@ -242,6 +243,15 @@ public class ShareUtils {
         String title = "亿帮无忧";
         String shareContent = activity.getString(R.string.lottery_desc);// 设置分享内容
         String targetUrl = activity.getString(R.string.url_share);
+        try {
+            String appChannel = AppUtils.getAppChannel(activity);
+            if (TextUtils.equals("ground_push", appChannel)) {
+                targetUrl = activity.getString(R.string.url_share_for_ground_push);
+            }
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+
         UMImage umImage = new UMImage(activity, activity.getString(R.string.url_logo));// 设置分享图片, 参数2为图片的url地址
 
         WeiXinShareContent weixinContent = new WeiXinShareContent();

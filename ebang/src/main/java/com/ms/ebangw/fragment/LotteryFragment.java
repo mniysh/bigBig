@@ -23,6 +23,7 @@ import com.ms.ebangw.activity.LoginActivity;
 import com.ms.ebangw.bean.User;
 import com.ms.ebangw.db.UserDao;
 import com.ms.ebangw.event.BottomTitleClickEvent;
+import com.ms.ebangw.service.RequestUrl;
 import com.ms.ebangw.utils.DensityUtils;
 import com.ms.ebangw.utils.L;
 import com.ms.ebangw.utils.NetUtils;
@@ -92,7 +93,7 @@ public class LotteryFragment extends BaseFragment {
 
     @Override
     public void initData() {
-        url = getString(R.string.url_lottery);;
+        url = RequestUrl.lottery;;
 
         webview.setWebViewClient(new MyWebViewClient());
         // 设置WebView属性，能够执行Javascript脚本

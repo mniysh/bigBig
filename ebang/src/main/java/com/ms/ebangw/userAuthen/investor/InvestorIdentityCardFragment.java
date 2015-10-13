@@ -10,6 +10,7 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.text.SpannableString;
 import android.text.Spanned;
+import android.text.TextUtils;
 import android.text.style.ForegroundColorSpan;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -59,6 +60,9 @@ public class InvestorIdentityCardFragment extends BaseFragment {
     private File imageFile;
     private final int TYPE_FRONT = 1;
     private final int TYPE_BACK = 2;
+    private String frontImagePath;
+    private String backImagePath;
+
 
     private View contentLayout;
     /**正面身份证选择图片*/
@@ -101,6 +105,8 @@ public class InvestorIdentityCardFragment extends BaseFragment {
         if (savedInstanceState != null) {
             mCurrentPhotoPath = savedInstanceState.getString(Constants.KEY_CURRENT_IMAGE_PATH);
             whichPhoto = savedInstanceState.getString(Constants.KEY_WHICH_PHOTO);
+            frontImagePath = savedInstanceState.getString(Constants.KEY_FRONT_IMAGE_PATH);
+            backImagePath = savedInstanceState.getString(Constants.KEY_BACK_IMAGE_PATH);
         }
     }
 
@@ -157,7 +163,16 @@ public class InvestorIdentityCardFragment extends BaseFragment {
     public void initView() {
         setStarRed();
         nextBtn.setText("下一步");
-
+        if (!TextUtils.isEmpty(frontImagePath)&& new File(frontImagePath).exists()) {
+            Bitmap bitmap = BitmapUtil.getImage(frontImagePath);
+            frontIv.setImageBitmap(bitmap);
+            isFrontUploaded = true;
+        }
+        if (!TextUtils.isEmpty(backImagePath)&& new File(backImagePath).exists()) {
+            Bitmap bitmap = BitmapUtil.getImage(backImagePath);
+            backIv.setImageBitmap(bitmap);
+            isBackUploaded = true;
+        }
     }
 
     @OnClick(R.id.btn_next)
@@ -321,12 +336,14 @@ public class InvestorIdentityCardFragment extends BaseFragment {
                 frontIv.setImageBitmap(bitmap);
                 authInfo.setFrontImageId(id);
                 isFrontUploaded = true;
+                frontImagePath = imagePath;
                 break;
 
             case Constants.PHOTO_BACK:
                 backIv.setImageBitmap(bitmap);
                 authInfo.setBackImageId(id);
                 isBackUploaded = true;
+                backImagePath = imagePath;
                 break;
         }
 
@@ -369,6 +386,8 @@ public class InvestorIdentityCardFragment extends BaseFragment {
     public void onSaveInstanceState(Bundle outState) {
         outState.putString(Constants.KEY_CURRENT_IMAGE_PATH, mCurrentPhotoPath);
         outState.putString(Constants.KEY_WHICH_PHOTO, whichPhoto);
+        outState.putString(Constants.KEY_FRONT_IMAGE_PATH, frontImagePath);
+        outState.putString(Constants.KEY_BACK_IMAGE_PATH, backImagePath);
         L.d("Fragment onSaveInstanceState: " + outState);
         super.onSaveInstanceState(outState);
     }

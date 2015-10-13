@@ -9,12 +9,12 @@ public class RequestUrl {
     /**
      * 测试用域名
      */
-//    private final static String domain = "http://labour.chinadeer.cn";
+    private final static String domain = "http://labour.chinadeer.cn";
 
     /**
      * 正式上线域名
      */
-    private final static String domain = "http://www.ebngw.com";
+//    private final static String domain = "http://www.ebngw.com";
 
     /**
      * 1.注册
@@ -130,5 +130,12 @@ public class RequestUrl {
      *1-12、修改用户头像
      */
     public static final String head_image =domain + "/api/user/upload/head-image";
+
+    /**
+     * 摇奖WebUrl
+     */
+    public static final String lottery = domain + "/phone/lottery/main/index";
+
+
 
 }

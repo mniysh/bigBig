@@ -81,9 +81,7 @@ public class HomeActivity extends BaseActivity {
         EventBus.getDefault().register(this);
 
         initView();
-        if (savedInstanceState == null) {
-            initData();
-        }
+        initData();
         initUMengUpdate();
     }
 

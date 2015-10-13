@@ -85,6 +85,8 @@ public class Constants {
 	public final static String KEY_HEAD_IMAGE = "head_image";
 	public final static String KEY_WHICH_PHOTO = "whichPhoto";
 	public final static String KEY_CURRENT_IMAGE_PATH = "current_image_path";
+	public final static String KEY_FRONT_IMAGE_PATH = "front_image_path";
+	public final static String KEY_BACK_IMAGE_PATH = "back_image_path";
 	public final static String KEY_AUTHINFO = "authInfo";
 	public final static String KEY_CURRENT_STEP = "step";
 

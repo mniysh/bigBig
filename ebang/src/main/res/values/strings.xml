@@ -135,7 +135,8 @@
 	 <string name="url_share">http://www.ebngw.com/phone/common/app/share?type=android_normal</string>
 
 	 <!--地推  ground_push-->
-	 <!--<string name="url_share">http://www.ebngw.com/phone/common/app/share?type=android_push</string>-->
+	 <string name="url_share_for_ground_push">http://www.ebngw.com/phone/common/app/share?type
+		  =android_push</string>
 	 <!--地推  end-->
 
 
