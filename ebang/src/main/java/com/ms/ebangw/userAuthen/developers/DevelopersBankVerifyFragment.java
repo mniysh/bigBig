@@ -1,17 +1,18 @@
 package com.ms.ebangw.userAuthen.developers;
 
 
-import android.content.ContentResolver;
 import android.content.Intent;
-import android.database.Cursor;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.provider.MediaStore;
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.TextUtils;
 import android.text.style.ForegroundColorSpan;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,27 +25,27 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import com.loopj.android.http.JsonHttpResponseHandler;
 import com.ms.ebangw.MyApplication;
 import com.ms.ebangw.R;
 import com.ms.ebangw.bean.AuthInfo;
 import com.ms.ebangw.bean.Bank;
 import com.ms.ebangw.bean.City;
 import com.ms.ebangw.bean.Province;
-import com.ms.ebangw.bean.TotalRegion;
 import com.ms.ebangw.bean.UploadImageResult;
-import com.ms.ebangw.exception.ResponseException;
+import com.ms.ebangw.commons.Constants;
+import com.ms.ebangw.crop.CropImageActivity;
+import com.ms.ebangw.crop.FroyoAlbumDirFactory;
+import com.ms.ebangw.crop.GetPathFromUri4kitkat;
 import com.ms.ebangw.fragment.BaseFragment;
-import com.ms.ebangw.service.DataAccessUtil;
-import com.ms.ebangw.service.DataParseUtil;
+import com.ms.ebangw.utils.BitmapUtil;
 import com.ms.ebangw.utils.L;
 import com.ms.ebangw.utils.T;
-import com.soundcloud.android.crop.Crop;
-
-import org.apache.http.Header;
-import org.json.JSONObject;
+import com.ms.ebangw.utils.VerifyUtils;
 
 import java.io.File;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import butterknife.Bind;
@@ -57,9 +58,16 @@ import butterknife.OnClick;
  */
 public class DevelopersBankVerifyFragment extends BaseFragment {
     private static final String CATEGORY = "category";
+    private final int REQUEST_PICK = 4;
+    private final int REQUEST_CAMERA = 6;
+    private final int REQUEST_CROP = 8;
+    private static final String JPEG_FILE_PREFIX = "IMG_";
+    private static final String JPEG_FILE_SUFFIX = ".jpg";
+    private com.ms.ebangw.crop.AlbumStorageDirFactory mAlbumStorageDirFactory = null;
     private String category;
     private ViewGroup contentLayout;
     private  List<Bank> banks;
+    private String mCurrentPhotoPath;
 
     private List<Province> provinces, bankProvinces;
     private Province province, bankProvince;
@@ -122,7 +130,7 @@ public class DevelopersBankVerifyFragment extends BaseFragment {
 //    Spinner bankCitySp;
 
 
-
+//
     public static DevelopersBankVerifyFragment newInstance(String category) {
         DevelopersBankVerifyFragment fragment = new DevelopersBankVerifyFragment();
         Bundle args = new Bundle();
@@ -140,6 +148,10 @@ public class DevelopersBankVerifyFragment extends BaseFragment {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             category = getArguments().getString(CATEGORY);
+        }
+
+        if (savedInstanceState != null) {
+            mCurrentPhotoPath = savedInstanceState.getString(Constants.KEY_CURRENT_IMAGE_PATH);
         }
     }
 
@@ -159,8 +171,7 @@ public class DevelopersBankVerifyFragment extends BaseFragment {
      * 把*变成红色
      */
     public void setStarRed() {
-        int[] resId = new int[]{R.id.tv_a, R.id.tv_b, R.id.tv_c, R.id.tv_d, R.id.tv_e, R.id.tv_f,
-                R.id.tv_g, R.id.tv_h, R.id.tv_i, R.id.tv_j, R.id.tv_k, R.id.tv_l, R.id.tv_m, R.id.tv_n, R.id.tv_o, R.id.tv_v};
+        int[] resId = new int[]{R.id.tv_a, R.id.tv_b, R.id.tv_c, R.id.tv_d,R.id.tv_e,R.id.tv_f,R.id.tv_g,R.id.tv_h,R.id.tv_k};
         for (int i = 0; i < resId.length; i++) {
             TextView a = (TextView) contentLayout.findViewById(resId[i]);
             String s = a.getText().toString();
@@ -175,7 +186,7 @@ public class DevelopersBankVerifyFragment extends BaseFragment {
      */
     @OnClick(R.id.btn_select_front)
     public void selectFrontPhoto() {
-        ((DevelopersAuthenActivity)mActivity).selectPhoto();
+        selectPhoto();
     }
 
     /**
@@ -183,7 +194,37 @@ public class DevelopersBankVerifyFragment extends BaseFragment {
      */
     @OnClick(R.id.btn_photo_front)
     public void takeFrontPhoto() {
-        ((DevelopersAuthenActivity)mActivity).openCamera();
+
+        captureImageByCamera();
+
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(resultCode != mActivity.RESULT_OK){
+            return;
+        }
+        if (requestCode == REQUEST_CAMERA ) { //拍照返回
+            handleBigCameraPhoto();
+
+        }else if (requestCode == REQUEST_PICK) {
+            Uri uri = data.getData();
+            Log.d("way", "uri: " + uri);
+
+            try {
+                String path = GetPathFromUri4kitkat.getPath(mActivity, uri);
+                MyApplication myApplication = (MyApplication) mActivity.getApplication();
+                myApplication.imagePath = path;
+                goCropActivity();
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+        }else if (requestCode == REQUEST_CROP) {        //剪切后返回
+            handleCropBitmap(data);
+        }
     }
 
 
@@ -202,13 +243,20 @@ public class DevelopersBankVerifyFragment extends BaseFragment {
         String companyNumber = companyNumberEt.getText().toString().trim();
         String companyPhone = stablePhoneEt.getText().toString().trim();
         String businessLiceseNumber = businessLiceseNumberEt.getText().toString().trim();
-//        String linkman = linkmanEt.getText().toString().trim();
-//        String linkmanPhone = linkmanPhoneEt.getText().toString().trim();
         String publicName = publicAccountNameEt.getText().toString().trim();
-        String publicAccount = publicAccountEt.getText().toString().trim();
-        String publicAccount2 = publicAccountTwoEt.getText().toString().trim();
+        String aa = publicAccountEt.getText().toString().trim();
+        String cc = publicAccountTwoEt.getText().toString().trim();
+
+
+        String publicAccount = VerifyUtils.bankCard(aa);
+        String publicAccount2 = VerifyUtils.bankCard(cc);
         if (TextUtils.isEmpty(companyName)) {
             T.show("请填写企业名称");
+            return false;
+        }
+
+        if (TextUtils.isEmpty(businessLiceseNumber)) {
+            T.show("请填写营业执照注册号");
             return false;
         }
 
@@ -237,30 +285,17 @@ public class DevelopersBankVerifyFragment extends BaseFragment {
             return false;
         }
 
-        if (TextUtils.isEmpty(businessLiceseNumber)) {
-            T.show("请填写营业执照注册号");
+        if (!isImageUploaded) {
+            T.show("请上传组织机构代码证扫描件");
             return false;
         }
 
-        if (TextUtils.isEmpty(businessLiceseNumber)) {
-            T.show("请填写营业执照注册号");
-            return false;
-        }
-
-//        if (TextUtils.isEmpty(linkman)) {
-//            T.show("请填写企业联系人");
-//            return false;
-//        }
-//
-//        if (TextUtils.isEmpty(linkmanPhone)) {
-//            T.show("请填写企业联系人电话");
-//            return false;
-//        }
 
         if (TextUtils.isEmpty(publicName)) {
             T.show("请填写对公帐户户名");
             return false;
         }
+
 
         if (TextUtils.isEmpty(publicAccount)) {
             T.show("请填写对公帐户");
@@ -272,10 +307,7 @@ public class DevelopersBankVerifyFragment extends BaseFragment {
             return false;
         }
 
-        if (!isImageUploaded) {
-            T.show("请上传组织机构代码证扫描件");
-            return false;
-        }
+
 
         return true;
     }
@@ -361,14 +393,6 @@ public class DevelopersBankVerifyFragment extends BaseFragment {
 //        bankCitySp.setSelection(0, true);
     }
 
-    public List<Province> getProvinces() {
-        TotalRegion totalRegion = ((DevelopersAuthenActivity) mActivity).getTotalRegion();
-        if (totalRegion == null) {
-            return null;
-        }else {
-            return totalRegion.getProvince();
-        }
-    }
 
     private void setAuthInfo() {
         AuthInfo authInfo = ((DevelopersAuthenActivity) mActivity).getAuthInfo();
@@ -389,7 +413,10 @@ public class DevelopersBankVerifyFragment extends BaseFragment {
 //        String linkman = linkmanEt.getText().toString().trim();
 //        String linkmanPhone = linkmanPhoneEt.getText().toString().trim();
         String publicAccountName = publicAccountNameEt.getText().toString().trim();
-        String publicAccount = publicAccountEt.getText().toString().trim();
+
+        String aa = publicAccountEt.getText().toString().trim();
+
+        String publicAccount = VerifyUtils.bankCard(aa);
 //        String publicAccount2 = publicAccountTwoEt.getText().toString().trim();
         authInfo.setCompanyName(companyName);
         authInfo.setOftenAddress(oftenAddress);
@@ -485,10 +512,13 @@ public class DevelopersBankVerifyFragment extends BaseFragment {
     @Override
     public void initView() {
         setStarRed();
+        VerifyUtils.setBankCard(publicAccountEt);
+        VerifyUtils.setBankCard(publicAccountTwoEt);
     }
 
     @Override
     public void initData() {
+        mAlbumStorageDirFactory = new FroyoAlbumDirFactory();
         initSpinner();
         initPublicAccountAddressSpinner();
         initBankSpinner();
@@ -502,19 +532,10 @@ public class DevelopersBankVerifyFragment extends BaseFragment {
         }
     }
 
-    public void handleCrop(int resultCode, Intent result) {
-        if (resultCode == mActivity.RESULT_OK) {
-            Uri uri = Crop.getOutput(result);
-            L.d("Uri: " + uri);
-            frontIv.setImageURI(Crop.getOutput(result));
-            uploadImage(uri);
-        } else if (resultCode == Crop.RESULT_ERROR) {
-            T.show("选取图片失败");
-        }
-    }
+
 
     private void initBankSpinner() {
-        banks = MyApplication.getInstance().getBanks();
+        banks = getBanks();
         ArrayAdapter<Bank> bankArrayAdapter = new ArrayAdapter<>(mActivity, R.layout.layout_spinner_item,
             banks);
         bankSp.setAdapter(bankArrayAdapter);
@@ -522,72 +543,142 @@ public class DevelopersBankVerifyFragment extends BaseFragment {
 
     }
 
-    private void uploadImage(Uri uri) {
-        File file = uriToFile(uri);
 
-        DataAccessUtil.uploadImage(file, new JsonHttpResponseHandler() {
-            @Override
-            public void onStart() {
-                super.onStart();
-                showProgressDialog("图片上传中...");
-            }
-
-            @Override
-            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                dismissLoadingDialog();
-
-                try {
-                    if (DataParseUtil.processDataResult(response)) {
-                        UploadImageResult result = DataParseUtil.upLoadImage(response);
-                        String id = result.getId();
-                        AuthInfo authInfo = ((DevelopersAuthenActivity) mActivity).getAuthInfo();
-                        authInfo.setOrganizationCertificate(id);
-                        isImageUploaded = true;
-                        T.show("上传图片成功");
-                    } else {
-                        T.show("上传图片失败,请重试");
-                        isImageUploaded = false;
-                    }
-                } catch (ResponseException e) {
-                    e.printStackTrace();
-                }
-
-            }
-
-            @Override
-            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
-                super.onFailure(statusCode, headers, responseString, throwable);
-                L.d(responseString);
-                T.show("上传图片失败,请重试");
-                dismissLoadingDialog();
-            }
-        });
-    }
-
-    public File uriToFile(Uri uri) {
-
-        if ( null == uri ) return null;
-        final String scheme = uri.getScheme();
-        String data = null;
-        if ( scheme == null )
-            data = uri.getPath();
-        else if ( ContentResolver.SCHEME_FILE.equals( scheme ) ) {
-            data = uri.getPath();
-        } else if ( ContentResolver.SCHEME_CONTENT.equals( scheme ) ) {
-            Cursor cursor = mActivity.getContentResolver().query( uri, new String[] { MediaStore.Images
-                .ImageColumns.DATA }, null, null, null );
-            if ( null != cursor ) {
-                if ( cursor.moveToFirst() ) {
-                    int index = cursor.getColumnIndex( MediaStore.Images.ImageColumns.DATA );
-                    if ( index > -1 ) {
-                        data = cursor.getString( index );
-                    }
-                }
-                cursor.close();
-            }
+    /*图片剪切==================*/
+    public void handleCropBitmap(Intent intent) {
+        if (intent == null) {
+            return;
         }
-        File file = new File(data);
-        return file;
+        UploadImageResult imageResult = intent.getParcelableExtra(Constants.KEY_UPLOAD_IMAGE_RESULT);
+        MyApplication myApplication = (MyApplication) mActivity.getApplication();
+
+        String id = imageResult.getId();
+        AuthInfo authInfo = ((DevelopersAuthenActivity) mActivity).getAuthInfo();
+        String imagePath = myApplication.imagePath;
+        Bitmap bitmap = BitmapUtil.getImage(imagePath);
+        frontIv.setImageBitmap(bitmap);
+        authInfo.setOrganizationCertificate(id);
+        isImageUploaded = true;
     }
 
+    public void goCropActivity() {
+
+        Intent intent = new Intent(mActivity, CropImageActivity.class);
+        startActivityForResult(intent, REQUEST_CROP);
+
+    }
+
+    private void handleBigCameraPhoto() {
+
+        if (mCurrentPhotoPath != null) {
+            setPic(mCurrentPhotoPath , 400, 800);
+            galleryAddPic();
+            mCurrentPhotoPath = null;
+        }
+    }
+
+    private void galleryAddPic() {
+        Intent mediaScanIntent = new Intent("android.intent.action.MEDIA_SCANNER_SCAN_FILE");
+        File f = new File(mCurrentPhotoPath);
+        Uri contentUri = Uri.fromFile(f);
+        mediaScanIntent.setData(contentUri);
+        mActivity.sendBroadcast(mediaScanIntent);
+    }
+
+
+    private void setPic(String path, int targetW, int targetH) {
+
+        MyApplication application = (MyApplication) mActivity.getApplication();
+        application.imagePath = path;
+
+        Intent intent = new Intent(mActivity, CropImageActivity.class);
+        startActivityForResult(intent, REQUEST_CROP);
+
+    }
+
+
+    //拍照与选择图片剪切相关
+
+    public void selectPhoto() {
+        // 选择图片
+        Intent intent = new Intent();
+        intent.setAction(Intent.ACTION_PICK);
+        intent.setType("image/*");
+        startActivityForResult(intent, REQUEST_PICK);
+    }
+
+
+    /**
+     * 拍照
+     */
+    public void captureImageByCamera() {
+
+        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+
+        File f;
+
+        try {
+            f = setUpPhotoFile();
+            mCurrentPhotoPath = f.getAbsolutePath();
+            takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(f));
+        } catch (IOException e) {
+            e.printStackTrace();
+            f = null;
+            mCurrentPhotoPath = null;
+        }
+
+        startActivityForResult(takePictureIntent, REQUEST_CAMERA);
+    }
+
+    private File setUpPhotoFile() throws IOException {
+
+        File f = createImageFile();
+        mCurrentPhotoPath = f.getAbsolutePath();
+
+        return f;
+    }
+
+    private File createImageFile() throws IOException {
+        // Create an image file name
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        String imageFileName = JPEG_FILE_PREFIX + timeStamp + "_";
+        File albumF = getAlbumDir();
+        File imageF = File.createTempFile(imageFileName, JPEG_FILE_SUFFIX, albumF);
+        return imageF;
+    }
+
+
+    private File getAlbumDir() {
+        File storageDir = null;
+
+        if (Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState())) {
+
+            storageDir = mAlbumStorageDirFactory.getAlbumStorageDir(getAlbumName());
+
+            if (storageDir != null) {
+                if (! storageDir.mkdirs()) {
+                    if (! storageDir.exists()){
+                        Log.d("CameraSample", "failed to create directory");
+                        return null;
+                    }
+                }
+            }
+
+        } else {
+            Log.v(getString(R.string.app_name), "External storage is not mounted READ/WRITE.");
+        }
+
+        return storageDir;
+    }
+
+    private String getAlbumName() {
+        return "crop";
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        outState.putString(Constants.KEY_CURRENT_IMAGE_PATH, mCurrentPhotoPath);
+        L.d("onSaveInstanceState: " + mCurrentPhotoPath);
+        super.onSaveInstanceState(outState);
+    }
 }

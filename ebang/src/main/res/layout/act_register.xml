@@ -42,7 +42,7 @@
             </EditText>
 
             <Button
-
+                android:textColor="#fff"
                 android:id="@+id/btn_smsCode"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -87,17 +87,11 @@
                 android:id="@+id/act_login_register"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textSize="14sp"
                 android:clickable="true"
-                android:text="温馨提示：未注册E帮网的手机号，登录时将自动注册E帮账号，且代表您已同意 " />
+                android:text="温馨提示：未注的手机号，登录时将自动注册亿帮账号，且代表您已同意《服务协议》" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="10dp"
-                android:text="《亿帮网用户协议》"
-                android:textColor="#0075AA"
-                android:textSize="16sp" />
+
 
 
         </LinearLayout>

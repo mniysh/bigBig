@@ -1,23 +1,35 @@
 package com.ms.ebangw.activity;
 
 import android.app.DialogFragment;
+import android.content.DialogInterface;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.WindowManager;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import com.ms.ebangw.MyApplication;
 import com.ms.ebangw.R;
+import com.ms.ebangw.bean.Bank;
+import com.ms.ebangw.bean.TotalRegion;
 import com.ms.ebangw.bean.User;
 import com.ms.ebangw.dialog.LoadingDialog;
+import com.ms.ebangw.exception.ResponseException;
+import com.ms.ebangw.service.DataParseUtil;
 import com.ms.ebangw.utils.L;
 import com.umeng.analytics.MobclickAgent;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.util.List;
 
 public abstract class BaseActivity extends AppCompatActivity {
     private final String TAG = getClass().getSimpleName();
@@ -41,7 +53,6 @@ public abstract class BaseActivity extends AppCompatActivity {
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN |
             WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         MyApplication.unDestroyActivityList.add(this);
-
     }
 
     /**
@@ -57,21 +68,37 @@ public abstract class BaseActivity extends AppCompatActivity {
         TextView leftTv = (TextView) findViewById(R.id.tv_left);
         TextView titleTv = (TextView) findViewById(R.id.tv_center);
         TextView rightTv = (TextView) findViewById(R.id.tv_right);
-        //设置返回箭头
-        if (null != leftClickLister && backView != null) {
-            backView.setOnClickListener(leftClickLister);
-        } else {
-            backView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    onBackPressed();
-                }
-            });
-        }
+//        //设置返回箭头
+//        if (null != leftClickLister && backView != null) {
+//            backView.setOnClickListener(leftClickLister);
+//        } else {
+//            backView.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    onBackPressed();
+//                }
+//            });
+//        }
         //设置左标题
         if (leftTv != null && !TextUtils.isEmpty(left)) {
             leftTv.setText(left);
             leftTv.setVisibility(View.VISIBLE);
+
+            //设置返回箭头
+            backView.setVisibility(View.VISIBLE);
+            if (null != leftClickLister && backView != null) {
+                backView.setOnClickListener(leftClickLister);
+            } else {
+                backView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        onBackPressed();
+                    }
+                });
+            }
+
+        }else {
+            backView.setVisibility(View.INVISIBLE);
         }
 
         //设置中间的标题
@@ -188,6 +215,60 @@ public abstract class BaseActivity extends AppCompatActivity {
             return false;
         }
     }
+
+    /**
+     * 获取所有省市信息
+     * @return
+     */
+    public TotalRegion getAreaFromAssets() {
+        try {
+            StringBuilder builder = new StringBuilder();
+            InputStream is = getAssets().open("area.txt");
+            InputStreamReader inputStreamReader = new InputStreamReader(is);
+            char[] chars = new char[1024];
+            int len;
+            while ((len = inputStreamReader.read(chars)) != -1) {
+                builder.append(chars, 0, len);
+            }
+            String s = builder.toString();
+            JSONObject jsonObject = new JSONObject(s);
+            return DataParseUtil.provinceCityArea(jsonObject);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
+    /**
+     * 获取银行
+     * @return
+     */
+    public List<Bank> getBanks(){
+        StringBuilder sb= new StringBuilder();
+        try {
+            InputStream is = getAssets().open("bank_list.txt");
+            InputStreamReader inputStreamReader = new InputStreamReader(is);
+            char[] chars = new char[1024];
+            int len;
+            while ((len = inputStreamReader.read(chars)) != -1){
+                sb.append(chars, 0 ,len);
+            }
+            String s = sb.toString();
+            JSONObject jsonObject = new JSONObject(s);
+            return DataParseUtil.bankList(jsonObject);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        } catch (ResponseException e) {
+            e.printStackTrace();
+        }
+        return  null;
+
+    }
+
+
 
     @Override
     public void onResume() {

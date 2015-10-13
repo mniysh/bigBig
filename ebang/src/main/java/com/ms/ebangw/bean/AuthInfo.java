@@ -1,5 +1,8 @@
 package com.ms.ebangw.bean;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.io.Serializable;
 
 /**
@@ -7,7 +10,7 @@ import java.io.Serializable;
  * User: WangKai(123940232@qq.com)
  * 2015-09-21 15:13
  */
-public class AuthInfo implements Serializable{
+public class AuthInfo implements Parcelable, Serializable {
     private String phone;
     private String gender;
     /**
@@ -435,4 +438,98 @@ public class AuthInfo implements Serializable{
     public void setCrafts(String crafts) {
         this.crafts = crafts;
     }
+
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.phone);
+        dest.writeString(this.gender);
+        dest.writeString(this.nativePlace);
+        dest.writeString(this.realName);
+        dest.writeString(this.identityCard);
+        dest.writeString(this.bankCard);
+        dest.writeString(this.bankId);
+        dest.writeString(this.provinceId);
+        dest.writeString(this.cityId);
+        dest.writeString(this.frontImageId);
+        dest.writeString(this.backImageId);
+        dest.writeString(this.bankProvinceId);
+        dest.writeString(this.bankCityId);
+        dest.writeString(this.accountName);
+        dest.writeString(this.companyName);
+        dest.writeString(this.permitProvinceId);
+        dest.writeString(this.introduce);
+        dest.writeString(this.permitCityId);
+        dest.writeString(this.oftenAddress);
+        dest.writeString(this.businessAge);
+        dest.writeString(this.timeState);
+        dest.writeString(this.businessScope);
+        dest.writeString(this.companyNumber);
+        dest.writeString(this.companyPhone);
+        dest.writeString(this.businessLicenseNumber);
+        dest.writeString(this.organizationCertificate);
+        dest.writeString(this.linkman);
+        dest.writeString(this.linkmanPhone);
+        dest.writeString(this.publicAccountName);
+        dest.writeString(this.publicAccount);
+        dest.writeString(this.publicAccountBankId);
+        dest.writeString(this.publicAccountProvinceId);
+        dest.writeString(this.publicAccountCityId);
+        dest.writeString(this.crafts);
+    }
+
+    public AuthInfo() {
+    }
+
+    protected AuthInfo(Parcel in) {
+        this.phone = in.readString();
+        this.gender = in.readString();
+        this.nativePlace = in.readString();
+        this.realName = in.readString();
+        this.identityCard = in.readString();
+        this.bankCard = in.readString();
+        this.bankId = in.readString();
+        this.provinceId = in.readString();
+        this.cityId = in.readString();
+        this.frontImageId = in.readString();
+        this.backImageId = in.readString();
+        this.bankProvinceId = in.readString();
+        this.bankCityId = in.readString();
+        this.accountName = in.readString();
+        this.companyName = in.readString();
+        this.permitProvinceId = in.readString();
+        this.introduce = in.readString();
+        this.permitCityId = in.readString();
+        this.oftenAddress = in.readString();
+        this.businessAge = in.readString();
+        this.timeState = in.readString();
+        this.businessScope = in.readString();
+        this.companyNumber = in.readString();
+        this.companyPhone = in.readString();
+        this.businessLicenseNumber = in.readString();
+        this.organizationCertificate = in.readString();
+        this.linkman = in.readString();
+        this.linkmanPhone = in.readString();
+        this.publicAccountName = in.readString();
+        this.publicAccount = in.readString();
+        this.publicAccountBankId = in.readString();
+        this.publicAccountProvinceId = in.readString();
+        this.publicAccountCityId = in.readString();
+        this.crafts = in.readString();
+    }
+
+    public static final Parcelable.Creator<AuthInfo> CREATOR = new Parcelable.Creator<AuthInfo>() {
+        public AuthInfo createFromParcel(Parcel source) {
+            return new AuthInfo(source);
+        }
+
+        public AuthInfo[] newArray(int size) {
+            return new AuthInfo[size];
+        }
+    };
 }

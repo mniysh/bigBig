@@ -68,7 +68,7 @@
                 android:paddingLeft="8dp"
                 android:paddingRight="15dp"
                 android:paddingTop="8dp"
-                android:hint="昵称"
+                android:hint="请输入昵称"
 
                 android:textSize="14dp" />
 

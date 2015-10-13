@@ -1,5 +1,6 @@
 package com.ms.ebangw.adapter;
 
+import android.app.Activity;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,10 +22,7 @@ import java.util.List;
 public class CraftAdapter extends BaseAdapter {
     private WorkType firstWorkType;
     private List<WorkType> list;
-
-
-
-    private List<WorkType> selectedWorkTypes;
+    private Activity activity;
 
     public CraftAdapter(WorkType firstWorkType) {
         this.firstWorkType = firstWorkType;
@@ -34,7 +32,6 @@ public class CraftAdapter extends BaseAdapter {
         }else {
             list = firstWorkType.getWorkTypes();
         }
-        selectedWorkTypes = new ArrayList<>();
     }
 
     public void setWorkType(WorkType firstWorkType) {
@@ -71,7 +68,6 @@ public class CraftAdapter extends BaseAdapter {
             convertView = View.inflate(parent.getContext(), R.layout.layout_craft_item, null);
             holder = new ViewHolder();
             holder.titleTv = (TextView) convertView.findViewById(R.id.tv_title);
-//            holder.cb = (CheckBox) convertView.findViewById(R.id.cb);
             holder.gridView = (GridView) convertView.findViewById(R.id.gridView);
             convertView.setTag(holder);
         }else {
@@ -82,6 +78,7 @@ public class CraftAdapter extends BaseAdapter {
             List<WorkType> types = workType.getWorkTypes();
             holder.titleTv.setVisibility(View.GONE);
             CraftGridViewAdapter craftGridViewAdapter = new CraftGridViewAdapter(types);
+            craftGridViewAdapter.setActivity(activity);
             holder.gridView.setAdapter(craftGridViewAdapter);
 
         }
@@ -92,11 +89,10 @@ public class CraftAdapter extends BaseAdapter {
                 holder.titleTv.setVisibility(View.VISIBLE);
                 holder.titleTv.setText(workType.getName());
                 CraftGridViewAdapter craftGridViewAdapter = new CraftGridViewAdapter(types);
+                craftGridViewAdapter.setActivity(activity);
                 holder.gridView.setAdapter(craftGridViewAdapter);
             }
         }
-
-
 
         return convertView;
     }
@@ -114,12 +110,16 @@ public class CraftAdapter extends BaseAdapter {
         }
     }
 
-    public List<WorkType> getSelectedWorkTypes() {
-        return selectedWorkTypes;
-    }
-
     static class ViewHolder{
         TextView titleTv;
         GridView gridView;
+    }
+
+    public Activity getActivity() {
+        return activity;
+    }
+
+    public void setActivity(Activity activity) {
+        this.activity = activity;
     }
 }

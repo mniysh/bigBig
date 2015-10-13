@@ -6,7 +6,7 @@
 
     <include layout="@layout/layout_common_title" />
 
-    <com.vvpinche.view.ProgressWebView
+    <com.ms.ebangw.view.ProgressWebView
         android:id="@+id/wv_action_web"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />

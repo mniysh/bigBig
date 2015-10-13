@@ -17,16 +17,15 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import com.ms.ebangw.MyApplication;
 import com.ms.ebangw.R;
 import com.ms.ebangw.bean.AuthInfo;
 import com.ms.ebangw.bean.Bank;
 import com.ms.ebangw.bean.City;
 import com.ms.ebangw.bean.Province;
-import com.ms.ebangw.bean.TotalRegion;
 import com.ms.ebangw.fragment.BaseFragment;
 import com.ms.ebangw.utils.L;
 import com.ms.ebangw.utils.T;
+import com.ms.ebangw.utils.VerifyUtils;
 
 import java.util.List;
 
@@ -40,6 +39,8 @@ import butterknife.OnClick;
  */
 public class InvestorBankVerifyFragment extends BaseFragment {
     private static final String CATEGORY = "category";
+
+
     private String category;
     private ViewGroup contentLayout;
     private List<Province> provinces;
@@ -110,13 +111,17 @@ public class InvestorBankVerifyFragment extends BaseFragment {
 
 
     private boolean isInfoCorrect() {
+        String aa = cardEt.getText().toString().trim();
         String realName = reaNameEt.getText().toString().trim();
-        String cardId = cardEt.getText().toString().trim();
+        String cardId = VerifyUtils.bankCard(aa);
         if (TextUtils.isEmpty(realName)) {
             T.show("请输入真实姓名");
             return false;
         }
-
+        if(!((InvestorAuthenActivity)mActivity).getAuthInfo().getRealName().equals(realName)){
+            T.show("请保持此处姓名与基本信息姓名一致");
+            return false;
+        }
         if (TextUtils.isEmpty(cardId)) {
             T.show("请输入银行卡号");
             return false;
@@ -164,7 +169,7 @@ public class InvestorBankVerifyFragment extends BaseFragment {
 
         provinceSp.setSelection(0, true);
         citySp.setSelection(0, true);
-        banks = MyApplication.getInstance().getBanks();
+        banks = getBanks();
         if(banks != null){
             adapterBank=new ArrayAdapter<Bank>(mActivity,R.layout.layout_spinner_item,banks);
             bankSp.setAdapter(adapterBank);
@@ -173,19 +178,12 @@ public class InvestorBankVerifyFragment extends BaseFragment {
 
     }
 
-    public List<Province> getProvinces() {
-        TotalRegion totalRegion = ((InvestorAuthenActivity) mActivity).getTotalRegion();
-        if (totalRegion == null) {
-            return null;
-        }else {
-            return totalRegion.getProvince();
-        }
-    }
 
     private void setAuthInfo() {
         AuthInfo authInfo = ((InvestorAuthenActivity) mActivity).getAuthInfo();
         String realName = reaNameEt.getText().toString().trim();
-        String cardId = cardEt.getText().toString().trim();
+        String aa = cardEt.getText().toString().trim();
+        String cardId = VerifyUtils.bankCard(aa);
         //获取开户行
         TextView provinceTv = (TextView) provinceSp.getSelectedView();
         TextView cityTv = (TextView) citySp.getSelectedView();
@@ -233,6 +231,7 @@ public class InvestorBankVerifyFragment extends BaseFragment {
     @Override
     public void initView() {
         setStarRed();
+        VerifyUtils.setBankCard(cardEt);
     }
 
     @Override
@@ -243,10 +242,13 @@ public class InvestorBankVerifyFragment extends BaseFragment {
     @OnClick(R.id.btn_commit)
     public void completeAuthentication() {
         if (isInfoCorrect()) {
+
             setAuthInfo();
             ((InvestorAuthenActivity) mActivity).commit();
         }
     }
+
+
 
 
 }

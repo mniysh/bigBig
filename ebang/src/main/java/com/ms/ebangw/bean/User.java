@@ -21,6 +21,12 @@ public class User implements Serializable {
 	private String name;
 	@DatabaseField(columnName = "email")
 	private String email;
+
+	/**
+	 * 头像Url
+	 */
+	@DatabaseField(columnName = "head_img")
+	private String head_img;
 	/**
 	 * 性别
 	 */
@@ -41,11 +47,58 @@ public class User implements Serializable {
 
 	@DatabaseField(columnName = "rank")
 	private String rank;
+	/**
+	 * 真实姓名
+	 */
+	@DatabaseField(columnName = "real_name")
+	private String real_name;
+
+	/**
+	 * 籍贯
+	 */
+	@DatabaseField(columnName = "area")
+	private String area;
+
+	/**
+	 * 工种描述(只工人有)
+	 */
+	@DatabaseField(columnName = "craft")
+	private String craft;
+
+	/**
+	 * 认证状态
+	 * //状态游客guest/
+	 * 认证中auth_developers(认证开发者中)/
+	 * auth_worker(认证工人中)/
+	 * auth_headman(认证工头中)/
+	 * auth_investor(认证个人中)/
+	 * complete（完成认证）
+	 */
+	@DatabaseField(columnName = "status")
+	private String status;
+
+	/**
+	 * 身份证号
+	 */
+	@DatabaseField(columnName = "identity_card")
+	private String identity_card;
+
+	/**
+	 * 身份证前面照片
+	 */
+	@DatabaseField(columnName = "card_image_front")
+	private String card_image_front;
 
 
+	/**
+	 * 身份证后面照片
+	 */
+	@DatabaseField(columnName = "card_image_back")
+	private String card_image_back;
 
 	public User() {
 	}
+
 
 	public String getId() {
 		return id;
@@ -118,6 +171,7 @@ public class User implements Serializable {
 	public void setCategory(String category) {
 		this.category = category;
 	}
+
 	public String getNick_name() {
 		return nick_name;
 	}
@@ -134,6 +188,70 @@ public class User implements Serializable {
 		this.rank = rank;
 	}
 
+	public String getReal_name() {
+		return real_name;
+	}
+
+	public void setReal_name(String real_name) {
+		this.real_name = real_name;
+	}
+
+	public String getArea() {
+		return area;
+	}
+
+	public void setArea(String area) {
+		this.area = area;
+	}
+
+	public String getCraft() {
+		return craft;
+	}
+
+	public void setCraft(String craft) {
+		this.craft = craft;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+	public String getIdentity_card() {
+		return identity_card;
+	}
+
+	public void setIdentity_card(String identity_card) {
+		this.identity_card = identity_card;
+	}
+
+	public String getCard_image_front() {
+		return card_image_front;
+	}
+
+	public void setCard_image_front(String card_image_front) {
+		this.card_image_front = card_image_front;
+	}
+
+	public String getCard_image_back() {
+		return card_image_back;
+	}
+
+	public void setCard_image_back(String card_image_back) {
+		this.card_image_back = card_image_back;
+	}
+
+	public String getHead_img() {
+		return head_img;
+	}
+
+	public void setHead_img(String head_img) {
+		this.head_img = head_img;
+	}
+
 	@Override
 	public String toString() {
 		return "User{" +
@@ -141,9 +259,21 @@ public class User implements Serializable {
 			", app_token='" + app_token + '\'' +
 			", name='" + name + '\'' +
 			", email='" + email + '\'' +
+			", head_img='" + head_img + '\'' +
 			", gender='" + gender + '\'' +
 			", password='" + password + '\'' +
 			", phone='" + phone + '\'' +
+			", message='" + message + '\'' +
+			", category='" + category + '\'' +
+			", nick_name='" + nick_name + '\'' +
+			", rank='" + rank + '\'' +
+			", real_name='" + real_name + '\'' +
+			", area='" + area + '\'' +
+			", craft='" + craft + '\'' +
+			", status='" + status + '\'' +
+			", identity_card='" + identity_card + '\'' +
+			", card_image_front='" + card_image_front + '\'' +
+			", card_image_back='" + card_image_back + '\'' +
 			'}';
 	}
 }

@@ -38,7 +38,7 @@
                     android:id="@+id/iv_front"
                     android:layout_width="100dp"
                     android:layout_height="100dp"
-                    android:scaleType="centerCrop"
+                    android:scaleType="fitCenter"
                     android:src="@drawable/card_example"
                     />
 
@@ -53,7 +53,7 @@
                 <ImageView
                     android:layout_width="100dp"
                     android:layout_height="100dp"
-                    android:src="@drawable/card_front"
+                    android:src="@drawable/simple"
 
                     />
             </LinearLayout>
@@ -121,7 +121,7 @@
                     android:id="@+id/iv_back"
                     android:layout_width="100dp"
                     android:layout_height="100dp"
-                    android:scaleType="centerCrop"
+                    android:scaleType="fitCenter"
                     android:src="@drawable/card_example"
                     />
 
@@ -192,6 +192,7 @@
                 android:layout_marginBottom="5dp"
                 android:layout_marginTop="20dp"
                 android:paddingLeft="15dp"
+                android:gravity="center_horizontal"
                 android:paddingRight="15dp"
                 android:text="人工认证需要一定时间由工作人员审核，请耐心等待！"
                 android:textColor="@color/auther_red"

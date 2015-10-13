@@ -1,15 +1,20 @@
 package com.ms.ebangw.activity;
 
 import android.content.Intent;
-import android.os.CountDownTimer;
-import android.os.Message;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.os.CountDownTimer;
+import android.os.Handler;
+import android.os.Message;
+import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.style.ForegroundColorSpan;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.ms.ebangw.R;
-import com.ms.ebangw.bean.User;
 import com.ms.ebangw.commons.Constants;
 import com.ms.ebangw.exception.ResponseException;
 import com.ms.ebangw.service.DataAccessUtil;
@@ -19,10 +24,7 @@ import com.ms.ebangw.utils.T;
 import com.ms.ebangw.utils.VerifyUtils;
 
 import org.apache.http.Header;
-import org.json.JSONException;
 import org.json.JSONObject;
-
-import android.os.Handler;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -51,16 +53,25 @@ public class ModifyPhoneActivity extends BaseActivity {
 
     @Bind(R.id.et_code)
     EditText code;
+
     @Bind(R.id.bt_twoFinish)
     Button bfinish;
+
     @Bind(R.id.bt_code)
     Button bCode;
+
     @OnClick(R.id.bt_code)
     public void getCode(){
         phone=etPhone.getText().toString();
         if(VerifyUtils.isPhone(phone)){
-            excuteDownCount();
             DataAccessUtil.messageCode(phone,new JsonHttpResponseHandler(){
+
+                @Override
+                public void onStart() {
+
+
+                    excuteDownCount();
+                }
 
                 @Override
                 public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
@@ -68,13 +79,10 @@ public class ModifyPhoneActivity extends BaseActivity {
                     L.d("xxx", "phone的值" + phone);
                     try {
                         boolean b= DataParseUtil.messageCode(response);
+                        if(b){
+                            T.show("验证码已发请注意查收");
 
-                        T.show("验证码已发请注意查收");
-
-                        bCode.setPressed(true);
-                        bCode.setClickable(false);
-
-
+                        }
 
                     } catch (ResponseException e) {
                         e.printStackTrace();
@@ -104,14 +112,34 @@ public class ModifyPhoneActivity extends BaseActivity {
     public  void bFinish(){
         phone=etPhone.getText().toString().trim();
         codeValue=code.getText().toString().trim();
-        if(VerifyUtils.isPhone(phone) && VerifyUtils.isCode(codeValue)){
-            Bundle bundle=new Bundle();
-            bundle.putString(Constants.KEY_VERIFY_CODE, codeValue);
-            Intent intent=new Intent(ModifyPhoneActivity.this, ModifyPhone02Activity.class);
-            intent.putExtras(bundle);
-            startActivity(intent);
 
-            ModifyPhoneActivity.this.finish();
+        if(VerifyUtils.isPhone(phone)&&VerifyUtils.isCode(codeValue)){
+            DataAccessUtil.checkCode(phone, codeValue, new JsonHttpResponseHandler() {
+                @Override
+                public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                    super.onSuccess(statusCode, headers, response);
+                    try {
+                        boolean b = DataParseUtil.processDataResult(response);
+                        if (b) {
+                            Bundle bundle = new Bundle();
+                            bundle.putString(Constants.KEY_VERIFY_CODE, codeValue);
+                            Intent intent = new Intent(ModifyPhoneActivity.this, ModifyPhone02Activity.class);
+                            intent.putExtras(bundle);
+                            startActivity(intent);
+                            ModifyPhoneActivity.this.finish();
+                        }
+                    } catch (ResponseException e) {
+                        e.printStackTrace();
+                        T.show(e.getMessage());
+                    }
+                }
+
+                @Override
+                public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                    super.onFailure(statusCode, headers, responseString, throwable);
+                }
+            });
+
         }
 
 
@@ -120,10 +148,11 @@ public class ModifyPhoneActivity extends BaseActivity {
 
     @Override
     public void initView() {
-        initTitle(null, "返回", "手机修改", null, null);
+        initTitle(null, "返回", "手机验证", null, null);
         if(getUser()!=null){
             etPhone.setText(getUser().getPhone());
         }
+        setStarRed();
 
 
     }
@@ -148,18 +177,28 @@ public class ModifyPhoneActivity extends BaseActivity {
 
 
     }
+    public void setStarRed() {
+        int[] resId = new int[]{R.id.tv_phone,R.id.tv_code};
+        for (int i = 0; i < resId.length; i++) {
+            TextView a = (TextView) findViewById(resId[i]);
+            String s = a.getText().toString();
+            SpannableString spannableString = new SpannableString(s);
+            spannableString.setSpan(new ForegroundColorSpan(Color.RED), 0, 1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+            a.setText(spannableString);
+        }
+    }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if(countDownTimer==null){
-        }else{
+        if(countDownTimer != null){
             countDownTimer.cancel();
-
         }
 
     }
     public void excuteDownCount(){
+        bCode.setPressed(true);
+        bCode.setClickable(false);
         countDownTimer=new CountDownTimer(60000,1000) {
             @Override
             public void onTick(long millisUntilFinished) {
@@ -172,11 +211,5 @@ public class ModifyPhoneActivity extends BaseActivity {
             }
         };
         countDownTimer.start();
-    }
-
-    @Override
-    public void onDetachedFromWindow() {
-        super.onDetachedFromWindow();
-
     }
 }

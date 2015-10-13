@@ -13,9 +13,9 @@ import com.loopj.android.http.JsonHttpResponseHandler;
 import com.ms.ebangw.MyApplication;
 import com.ms.ebangw.R;
 import com.ms.ebangw.bean.User;
-import com.ms.ebangw.commons.Constants;
 import com.ms.ebangw.db.UserDao;
 import com.ms.ebangw.exception.ResponseException;
+import com.ms.ebangw.findpassword.SetPhoneActivity;
 import com.ms.ebangw.service.DataAccessUtil;
 import com.ms.ebangw.service.DataParseUtil;
 import com.ms.ebangw.utils.L;
@@ -43,8 +43,8 @@ public class LoginActivity extends BaseActivity{
     Button loginBtn;            //登录
     @Bind(R.id.tv_register)
     TextView registerTv;        //注册
-//    @Bind(R.id.tv_find_password)       //找回密码
-//    TextView findPwdTv;
+    @Bind(R.id.tv_find_password)       //找回密码
+    TextView findPwdTv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,16 +53,10 @@ public class LoginActivity extends BaseActivity{
         ButterKnife.bind(this);
         initView();
         initData();
-
     }
 
     public void initView() {
-        initTitle(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                LoginActivity.this.finish();
-            }
-        }, "返回", "登录", null, null);
+        initTitle("登录", null, null);
     }
 
     @Override
@@ -72,18 +66,17 @@ public class LoginActivity extends BaseActivity{
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(LoginActivity.this, RegisterActivity.class));
-                finish();
+
             }
         });
 
-//        findPwdTv.setOnClickListener(new OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//            }
-//        });
+        findPwdTv.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
-
-
+                startActivity(new Intent(LoginActivity.this, SetPhoneActivity.class));
+            }
+        });
     }
 
     @OnClick(R.id.act_login_but_login)
@@ -128,22 +121,25 @@ public class LoginActivity extends BaseActivity{
      */
     public void login(String phone, String password) {
         DataAccessUtil.login(phone,password,new JsonHttpResponseHandler(){
+
+            @Override
+            public void onStart() {
+                showProgressDialog("登录中...");
+            }
+
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                dismissLoadingDialog();
                 try {
                     User user = DataParseUtil.login(response);
 
                     if(null != user) {
 
                         MyApplication.getInstance().saveUser(user);     //保存或更新User信息
-                        L.d("xxx", "user的内容登录部分的" + MyApplication.getInstance().saveUser(user));
-                        L.d("xxx", "user的内容登录部分的" + user.toString());
                         //跳转到主页
                         Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
-                        Bundle bundle = new Bundle();
-                        bundle.putSerializable(Constants.KEY_USER, user);
-                        intent.putExtras(bundle);
                         startActivity(intent);
+
                         finish();
 
                     }else {
@@ -157,8 +153,10 @@ public class LoginActivity extends BaseActivity{
             }
 
             @Override
-            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
-                super.onFailure(statusCode, headers, throwable, errorResponse);
+            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                super.onFailure(statusCode, headers, responseString, throwable);
+                dismissLoadingDialog();
+                L.d(responseString);
             }
         });
     }

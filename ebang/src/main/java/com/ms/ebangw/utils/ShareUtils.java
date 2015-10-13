@@ -1,6 +1,7 @@
 package com.ms.ebangw.utils;
 
 import android.app.Activity;
+import android.content.pm.PackageManager;
 import android.graphics.BitmapFactory;
 import android.text.TextUtils;
 
@@ -9,6 +10,7 @@ import com.ms.ebangw.commons.Constants;
 import com.umeng.socialize.bean.SHARE_MEDIA;
 import com.umeng.socialize.controller.UMServiceFactory;
 import com.umeng.socialize.controller.UMSocialService;
+import com.umeng.socialize.controller.listener.SocializeListeners;
 import com.umeng.socialize.media.QQShareContent;
 import com.umeng.socialize.media.SinaShareContent;
 import com.umeng.socialize.media.UMImage;
@@ -25,7 +27,7 @@ import com.umeng.socialize.weixin.media.WeiXinShareContent;
  * 2015-09-15 16:04
  */
 public class ShareUtils {
-    private static final UMSocialService mController = UMServiceFactory.getUMSocialService(Constants
+    public static final UMSocialService mController = UMServiceFactory.getUMSocialService(Constants
         .DESCRIPTOR);
 
     // 配置需要分享的相关平台
@@ -33,19 +35,29 @@ public class ShareUtils {
 //    // 设置分享的内容
 //    setShareContent();
 
+    static {
+
+        // 配置需要分享的相关平台
+//        configPlatforms();
+//    // 设置分享的内容
+//    setShareContent();
+
+    }
+
 
     /**
      * 配置分享平台参数</br>
      */
     private static void configPlatforms(Activity activity) {
         // 添加新浪SSO授权
-        mController.getConfig().setSsoHandler(new SinaSsoHandler());
+//        mController.getConfig().setSsoHandler(new SinaSsoHandler());
 
         // 添加QQ平台
-        addQQPlatform(activity, "");
+//        addQQPlatform(activity, "");
 
         // 添加微信、微信朋友圈平台
         addWXPlatform(activity);
+
     }
 
     /**
@@ -90,6 +102,15 @@ public class ShareUtils {
         wxCircleHandler.addToSocialSDK();
     }
 
+    private static void addSinaPlatform(Activity activity) {
+        String appId = "250536578";
+        String appSecret = "33d07f4f624541337ee8311cd90ff459";
+//        SinaSsoHandler sinaSsoHandler = new SinaSsoHandler();
+//        sinaSsoHandler.addToSocialSDK();
+        //设置新浪SSO handler
+        mController.getConfig().setSsoHandler(new SinaSsoHandler());
+    }
+
 
 
     /**
@@ -105,7 +126,7 @@ public class ShareUtils {
 
    
 
-        UMImage localImage = new UMImage(activity, R.drawable.logo);
+        UMImage localImage = new UMImage(activity, R.drawable.ms_logo);
         UMImage urlImage = new UMImage(activity,
             "http://www.umeng.com/images/pic/social/integrated_3.png");
         // UMImage resImage = new UMImage(activity, R.drawable.icon);
@@ -164,7 +185,7 @@ public class ShareUtils {
 //        mController.setShareMedia(qzone);
 
         video.setThumb(new UMImage(activity, BitmapFactory.decodeResource(
-            activity.getResources(), R.drawable.logo)));
+            activity.getResources(), R.drawable.ms_logo)));
 
         QQShareContent qqShareContent = new QQShareContent();
         qqShareContent.setShareContent("来自友盟社会化组件（SDK）让移动应用快速整合社交分享功能 -- QQ");
@@ -177,7 +198,7 @@ public class ShareUtils {
         SinaShareContent sinaContent = new SinaShareContent();
         sinaContent
             .setShareContent("来自友盟社会化组件（SDK）让移动应用快速整合社交分享功能-新浪微博。http://www.umeng.com/social");
-        sinaContent.setShareImage( new UMImage( activity, R.drawable.logo));
+        sinaContent.setShareImage( new UMImage( activity, R.drawable.ms_logo));
         mController.setShareMedia(sinaContent);
 
     }
@@ -204,9 +225,62 @@ public class ShareUtils {
 
         addQQPlatform(activity, url);
         addWXPlatform(activity);
-        mController.getConfig().setPlatforms(SHARE_MEDIA.WEIXIN, SHARE_MEDIA.WEIXIN_CIRCLE,
-            SHARE_MEDIA.QQ, SHARE_MEDIA.SINA);
+//        mController.getConfig().setPlatforms(SHARE_MEDIA.WEIXIN, SHARE_MEDIA.WEIXIN_CIRCLE,
+//            SHARE_MEDIA.QQ, SHARE_MEDIA.SINA);
 
+         mController.getConfig().setPlatforms(SHARE_MEDIA.WEIXIN, SHARE_MEDIA.WEIXIN_CIRCLE,
+            SHARE_MEDIA.SINA);
         mController.openShare(activity, false);
     }
+
+    public static void directShare(final Activity activity, SHARE_MEDIA share_media,
+                                   SocializeListeners.SnsPostListener listener) {
+
+        addWXPlatform(activity);
+        addSinaPlatform(activity);
+
+
+        String title = "亿帮无忧";
+        String shareContent = activity.getString(R.string.lottery_desc);// 设置分享内容
+        String targetUrl = activity.getString(R.string.url_share);
+        try {
+            String appChannel = AppUtils.getAppChannel(activity);
+            if (TextUtils.equals("ground_push", appChannel)) {
+                targetUrl = activity.getString(R.string.url_share_for_ground_push);
+            }
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        UMImage umImage = new UMImage(activity, activity.getString(R.string.url_logo));// 设置分享图片, 参数2为图片的url地址
+
+        WeiXinShareContent weixinContent = new WeiXinShareContent();
+        weixinContent.setShareContent(shareContent);
+        weixinContent.setTitle(title);
+        weixinContent.setTargetUrl(targetUrl);
+        weixinContent.setShareMedia(umImage);
+        mController.setShareMedia(weixinContent);
+
+        // 设置朋友圈分享的内容
+        CircleShareContent circleMedia = new CircleShareContent();
+        circleMedia.setShareContent(shareContent);
+        circleMedia.setTitle(title);
+        circleMedia.setShareMedia(umImage);
+        // circleMedia.setShareMedia(uMusic);
+        // circleMedia.setShareMedia(video);
+        circleMedia.setTargetUrl(targetUrl);
+        mController.setShareMedia(circleMedia);
+
+        //设置新浪微博分享的内容
+        SinaShareContent sinaShareContent = new SinaShareContent();
+        sinaShareContent.setShareContent(shareContent + targetUrl);
+        sinaShareContent.setTitle(title);
+        sinaShareContent.setShareImage(umImage);
+        sinaShareContent.setTargetUrl(targetUrl);
+        mController.setShareMedia(sinaShareContent);
+
+        mController.directShare(activity, share_media, listener);
+    }
+
+
 }  

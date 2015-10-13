@@ -9,7 +9,9 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 
+import com.ms.ebangw.MyApplication;
 import com.ms.ebangw.R;
+import com.ms.ebangw.bean.User;
 import com.ms.ebangw.utils.DensityUtils;
 import com.ms.ebangw.view.Circle;
 
@@ -43,9 +45,24 @@ public class LoadingActivity extends BaseActivity {
 			@Override
 			public boolean handleMessage(Message msg) {
 				int what = msg.what;
-				if (100 == what) {
-					Intent intent = new Intent(LoadingActivity.this, HomeActivity.class);
-					startActivity(intent);
+
+				if (200 == what) {
+					animation.cancel();
+//					Intent intent = new Intent(LoadingActivity.this, HomeActivity.class);
+//					startActivity(intent);
+					User user = MyApplication.getInstance().getUser();
+					if (null != user) {
+//						Intent lotteryIntent = new Intent(LoadingActivity.this, WebActivity.class);
+//						lotteryIntent.putExtra(Constants.KEY_URL, getString(R.string.url_lottery));
+//						startActivity(lotteryIntent);
+
+						Intent lotteryIntent = new Intent(LoadingActivity.this, HomeActivity.class);
+						startActivity(lotteryIntent);
+					}else {
+						startActivity(new Intent(LoadingActivity.this, LoginActivity.class));
+					}
+
+
 					finish();
 				}
 				return false;
@@ -135,7 +152,7 @@ public class LoadingActivity extends BaseActivity {
 
 		animation.playTogether(s1, s2, s3);
 		animation.start();
-
+		mHandler.sendEmptyMessageDelayed(200, 2000);
 	}
 
 

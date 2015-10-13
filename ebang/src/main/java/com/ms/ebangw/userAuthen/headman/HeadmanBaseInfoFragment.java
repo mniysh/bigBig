@@ -22,7 +22,6 @@ import com.ms.ebangw.R;
 import com.ms.ebangw.bean.AuthInfo;
 import com.ms.ebangw.bean.City;
 import com.ms.ebangw.bean.Province;
-import com.ms.ebangw.bean.TotalRegion;
 import com.ms.ebangw.commons.Constants;
 import com.ms.ebangw.fragment.BaseFragment;
 import com.ms.ebangw.utils.T;
@@ -145,9 +144,9 @@ public class HeadmanBaseInfoFragment extends BaseFragment {
 
 	@OnClick(R.id.btn_next)
 	public void goNext() {
-//		if (!isInfoCorrect()) {
-//			return;
-//		}
+		if (!isInfoCorrect()) {
+			return;
+		}
 		AuthInfo authInfo = getAuthInfo();
 		HeadmanAuthenActivity activity = (HeadmanAuthenActivity) mActivity;
 		activity.setAuthInfo(authInfo);
@@ -251,17 +250,6 @@ public class HeadmanBaseInfoFragment extends BaseFragment {
 			SpannableString spannableString = new SpannableString(s);
 			spannableString.setSpan(new ForegroundColorSpan(Color.RED), 0, 1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
 			a.setText(spannableString);
-		}
-	}
-
-
-
-	public List<Province> getProvinces() {
-		TotalRegion totalRegion = ((HeadmanAuthenActivity) mActivity).getTotalRegion();
-		if (totalRegion == null) {
-			return null;
-		}else {
-			return totalRegion.getProvince();
 		}
 	}
 

@@ -1,6 +1,7 @@
 package com.ms.ebangw.activity;
 
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -15,7 +16,7 @@ import com.ms.ebangw.commons.Constants;
 import com.ms.ebangw.exception.ResponseException;
 import com.ms.ebangw.service.DataAccessUtil;
 import com.ms.ebangw.service.DataParseUtil;
-import com.ms.ebangw.utils.L;
+import com.ms.ebangw.utils.AppUtils;
 import com.ms.ebangw.utils.T;
 import com.ms.ebangw.utils.VerifyUtils;
 
@@ -75,8 +76,14 @@ public class RegisterActivity_2 extends BaseActivity{
 	public void registerAccount(View view) {
 		String password = passwordEt.getText().toString().trim();
 		String confirmPassword = confirmPasswordEt.getText().toString().trim();
+		String come_from = "";
+		try {
+			come_from = AppUtils.getAppChannel(this);
+		} catch (PackageManager.NameNotFoundException e) {
+			e.printStackTrace();
+		}
 		if (isInputRight(password, confirmPassword)) {
-			DataAccessUtil.register(null, phone, null, null, verifyCode, password, new
+			DataAccessUtil.register(null, phone, null, null, verifyCode, password, come_from, new
 				JsonHttpResponseHandler(){
 				@Override
 				public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
@@ -87,6 +94,10 @@ public class RegisterActivity_2 extends BaseActivity{
 							MyApplication.getInstance().saveUser(user);
 							Intent intent = new Intent(RegisterActivity_2.this, HomeActivity.class);
 							startActivity(intent);
+
+							//跳转到主页
+
+							finish();
 						}
 
 					} catch (ResponseException e) {

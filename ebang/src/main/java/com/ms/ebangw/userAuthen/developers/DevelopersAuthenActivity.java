@@ -2,13 +2,9 @@ package com.ms.ebangw.userAuthen.developers;
 
 import android.app.Fragment;
 import android.app.FragmentManager;
-import android.content.Intent;
-import android.database.Cursor;
+import android.app.FragmentTransaction;
 import android.graphics.Color;
-import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
-import android.provider.MediaStore;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -17,15 +13,19 @@ import com.ms.ebangw.R;
 import com.ms.ebangw.activity.BaseActivity;
 import com.ms.ebangw.bean.AuthInfo;
 import com.ms.ebangw.bean.TotalRegion;
+import com.ms.ebangw.bean.User;
 import com.ms.ebangw.commons.Constants;
+import com.ms.ebangw.db.UserDao;
+import com.ms.ebangw.event.RefreshUserEvent;
 import com.ms.ebangw.exception.ResponseException;
 import com.ms.ebangw.service.DataAccessUtil;
 import com.ms.ebangw.service.DataParseUtil;
+import com.ms.ebangw.userAuthen.InfoCommitSuccessFragment;
 import com.ms.ebangw.utils.L;
 import com.ms.ebangw.utils.T;
-import com.soundcloud.android.crop.Crop;
 
 import org.apache.http.Header;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.File;
@@ -34,6 +34,7 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import de.greenrobot.event.EventBus;
 
 /**
  * 个人用户认证
@@ -42,7 +43,7 @@ public class DevelopersAuthenActivity extends BaseActivity {
 	/**
 	 * 要认证的用户类型
 	 */
-	private String category;
+	private static final String category = Constants.DEVELOPERS;
 	private File imageFile;
 	private TotalRegion totalRegion;
 	@Bind(R.id.tv_cardBind)
@@ -59,17 +60,23 @@ public class DevelopersAuthenActivity extends BaseActivity {
 	private DevelopersBaseInfoFragment personBaseInfoFragment;
 	private DevelopersBankVerifyFragment developersBankVerifyFragment;
 
-
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_developers_authen);
 		ButterKnife.bind(this);
-		Bundle extras = getIntent().getExtras();
-		category = extras.getString(Constants.KEY_CATEGORY, Constants.INVESTOR);
-		totalRegion = (TotalRegion) extras.getSerializable(Constants.KEY_TOTAL_REGION);
-		initView();
-		initData();
+		fm = getFragmentManager();
+		L.d("DevelopersAuthenActivity onCreate");
+		if (savedInstanceState != null) {
+			authInfo = savedInstanceState.getParcelable(Constants.KEY_AUTHINFO);
+			currentStep = savedInstanceState.getInt(Constants.KEY_CURRENT_STEP, 0);
+			initTitle(null, "返回", "开发商认证", null, null);
+			cardBindTv.setText("企业完善");
+		}else {
+			initView();
+			initData();
+		}
+
 	}
 
 	public void initView() {
@@ -115,97 +122,6 @@ public class DevelopersAuthenActivity extends BaseActivity {
 		this.authInfo = authInfo;
 	}
 
-
-	/*** 打开照相机     */
-	public void openCamera(){
-		Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-		File file = new File(Environment.getExternalStorageDirectory() + "/Images");
-		if(!file.exists()){
-			file.mkdirs();
-		}
-		imageFile = new File(Environment.getExternalStorageDirectory() + "/Images/",
-			"cameraImg" + String.valueOf(System.currentTimeMillis()) + ".png");
-
-		Uri mUri = Uri.fromFile(imageFile);
-		cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, mUri);
-		cameraIntent.putExtra("return-data", true);
-		startActivityForResult(cameraIntent, Constants.REQUEST_CAMERA);
-	}
-
-
-	@Override
-	public void onActivityResult(int requestCode, int resultCode, Intent data) {
-		super.onActivityResult(requestCode, resultCode, data);
-		L.d("onActivityResult");
-
-		if (requestCode == Constants.REQUEST_CAMERA && resultCode == RESULT_OK) { //拍照返回
-			Uri uri;
-			if (null == data) {
-				uri = Uri.fromFile(imageFile);
-			}else {
-				uri = data.getData();
-			}
-
-
-			beginCrop(uri);
-
-		}else if (requestCode == Crop.REQUEST_PICK&& resultCode == RESULT_OK) {
-			beginCrop(data.getData());
-
-		}else if (requestCode == Crop.REQUEST_CROP) {
-			if (currentStep == 1) {
-				identifyFragment.handleCrop(resultCode, data);            //在Fragment中处理剪切后的图片
-			}else if (currentStep == 2) {
-				developersBankVerifyFragment.handleCrop(resultCode, data);
-			}
-		}
-	}
-
-	private void beginCrop(Uri source) {
-        Uri destination = Uri.fromFile(new File(getCacheDir(), "cropped.png"));
-		Crop.of(source, destination).asSquare().start(this);
-	}
-
-	public void selectPhoto() {
-
-		// 选择图片
-		Intent intent = new Intent();
-		intent.setAction(Intent.ACTION_PICK);
-		intent.setType("image/*");
-		startActivityForResult(intent, Crop.REQUEST_PICK);
-//		Crop.pickImage(this);
-	}
-
-	/**
-	 * 组织机构证件照
-	 */
-	public void organizationSelectPhoto() {
-
-		// 选择图片
-		Intent intent = new Intent();
-		intent.setAction(Intent.ACTION_PICK);
-		intent.setType("image/*");
-		startActivityForResult(intent, Crop.REQUEST_PICK);
-//		Crop.pickImage(this);
-	}
-
-	public File uriToFile(Uri uri) {
-//		Uri uri = data.getData();
-
-		String[] proj = { MediaStore.Images.Media.DATA };
-
-		Cursor actualimagecursor = managedQuery(uri,proj,null,null,null);
-
-		int actual_image_column_index = actualimagecursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
-
-		actualimagecursor.moveToFirst();
-
-		String img_path = actualimagecursor.getString(actual_image_column_index);
-
-		File file = new File(img_path);
-		return file;
-	}
-
 	public TotalRegion getTotalRegion() {
 		return totalRegion;
 	}
@@ -237,6 +153,7 @@ public class DevelopersAuthenActivity extends BaseActivity {
 		String businessLicenseNumber = authInfo.getBusinessLicenseNumber();
 		String businessScope = authInfo.getBusinessScope();
 		String bankId = authInfo.getBankId();
+		String gender = authInfo.getGender();
 
 		DataAccessUtil.developerIdentify(linkman, identityCard, frontImageId,
 		backImageId, linkmanPhone, linkman_province,
@@ -244,28 +161,33 @@ public class DevelopersAuthenActivity extends BaseActivity {
 			oftenAddress, businessAge, timeState, companyNumber,
 			companyPhone, introduce, publicAccountName,
 			account_province, publicAccount, organizationCertificate,
-			businessLicenseNumber, businessScope, bankId, new JsonHttpResponseHandler(){
+			businessLicenseNumber, businessScope, bankId, gender, new JsonHttpResponseHandler(){
 				@Override
 				public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
 					try {
 						boolean b = DataParseUtil.processDataResult(response);
 						if(b){
-							T.show("认证成功");
-							DevelopersAuthenActivity.this.finish();
+							T.show(response.getString("message"));
+							saveAuthStatusInLocal();
+							EventBus.getDefault().post(new RefreshUserEvent(Constants.DEVELOPERS));
+							goResultFragment(Constants.DEVELOPERS);
 						}
 					} catch (ResponseException e) {
 						e.printStackTrace();
+						T.show(e.getMessage());
+					} catch (JSONException e) {
+						e.printStackTrace();
+						T.show(e.getMessage());
 					}
 
 				}
 
 				@Override
 				public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
-
+					L.d(responseString);
 				}
 			}
 		);
-
 	}
 
 
@@ -295,5 +217,26 @@ public class DevelopersAuthenActivity extends BaseActivity {
 				descTv.setTextColor(Color.BLACK);
 			}
 		}
+	}
+
+	public void goResultFragment(String category) {
+		InfoCommitSuccessFragment fragment = InfoCommitSuccessFragment.newInstance(category);
+		FragmentTransaction transaction = fm.beginTransaction();
+		transaction.replace(R.id.fl_content, fragment).commit();
+	}
+
+	public void saveAuthStatusInLocal() {
+		User user = getUser();
+		user.setStatus(Constants.AUTH_DEVELOPERS);
+		UserDao userDao = new UserDao(this);
+		userDao.update(user);
+	}
+
+	@Override
+	protected void onSaveInstanceState(Bundle outState) {
+		outState.putParcelable(Constants.KEY_AUTHINFO, authInfo);
+		outState.putInt(Constants.KEY_CURRENT_STEP, currentStep);
+		L.d("DevelopersAuthenActivity onSaveInstanceState");
+		super.onSaveInstanceState(outState);
 	}
 }
