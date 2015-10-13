@@ -81,7 +81,7 @@ public class HomeActivity extends BaseActivity {
 	}
 
 	public void initView() {
-		getUserInfo();
+		//getUserInfo();
 	}
 
 	@Override
@@ -345,11 +345,11 @@ public class HomeActivity extends BaseActivity {
 
 
 	public void getUserInfo() {
-		DataAccessUtil.getUserInfo(new JsonHttpResponseHandler(){
+		DataAccessUtil.getUserInfo(new JsonHttpResponseHandler() {
 			@Override
 			public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
 				super.onSuccess(statusCode, headers, response);
-				
+
 			}
 
 			@Override

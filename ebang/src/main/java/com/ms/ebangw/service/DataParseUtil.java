@@ -4,6 +4,7 @@ import android.text.TextUtils;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.ms.ebangw.MyApplication;
 import com.ms.ebangw.bean.Bank;
 import com.ms.ebangw.bean.City;
 import com.ms.ebangw.bean.Craft;
@@ -43,6 +44,7 @@ public class DataParseUtil {
         return user;
     };
 
+
     /**
      * 登录
      * @param jsonObject
@@ -75,6 +77,27 @@ public class DataParseUtil {
     public static boolean messageCode(JSONObject jsonObject) throws ResponseException {
         return processDataResult(jsonObject);
     };
+
+    public static User getUserInfor(JSONObject jsonObject)throws  ResponseException{
+        if(jsonObject == null){
+            return null;
+        }
+        User user = MyApplication.getInstance().getUser();
+        Gson gson = new Gson();
+        if(processDataResult(jsonObject)){
+            String str = jsonObject.optString("base_message");
+            User user1 = gson.fromJson(str, new TypeToken<User>() {
+            }.getType());
+            user.setId(user1.getId());
+            user.setPhone(user1.getPhone());
+            user.setPassword(user1.getPassword());
+            user.setNick_name(user1.getNick_name());
+            user.setGender(user1.getGender());
+
+return user;
+        }
+        return null;
+    }
 
     /**
      * 修改昵称接口
