@@ -139,6 +139,10 @@ public class HomeActivity extends BaseActivity {
 	 * @param category	//用户已认证类型  worker(工人)/headman(工头)/developers(开发商)/investor(个人)  null（未认证）
 	 */
 	public void goCenter(String category) {
+		User user = getUser();
+		String state = user.getState();
+
+
 		if (TextUtils.isEmpty(category)) {		////用户未认证类型
 			AuthenticationFragment authenticationfragment = new AuthenticationFragment();
 			fm.beginTransaction().replace(R.id.fl_content, authenticationfragment).commit();

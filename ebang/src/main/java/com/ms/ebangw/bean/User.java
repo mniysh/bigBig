@@ -41,8 +41,26 @@ public class User implements Serializable {
 
 	@DatabaseField(columnName = "rank")
 	private String rank;
+	@DatabaseField(columnName = "craft")
+	private String craft;
+	@DatabaseField(columnName = "state")
+	private String state;
 
+	public String getCraft() {
+		return craft;
+	}
 
+	public void setCraft(String craft) {
+		this.craft = craft;
+	}
+
+	public String getState() {
+		return state;
+	}
+
+	public void setState(String state) {
+		this.state = state;
+	}
 
 	public User() {
 	}
