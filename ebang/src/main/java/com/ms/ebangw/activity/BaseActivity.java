@@ -15,6 +15,7 @@ import android.widget.TextView;
 import com.ms.ebangw.MyApplication;
 import com.ms.ebangw.R;
 import com.ms.ebangw.bean.Bank;
+import com.ms.ebangw.bean.Province;
 import com.ms.ebangw.bean.TotalRegion;
 import com.ms.ebangw.bean.User;
 import com.ms.ebangw.dialog.LoadingDialog;
@@ -37,6 +38,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     private LoadingDialog mLoadingDialog;
     private List<Bank> banks;
     private TotalRegion totalRegion;
+    private List<Province> provinces;
     /**
      * 初始化View
      */
@@ -229,6 +231,23 @@ public abstract class BaseActivity extends AppCompatActivity {
 
 
         return null;
+    }
+
+    /**
+     * 获取省份
+     * @return
+     */
+
+
+
+    public List<Province> getAllProvince(){
+        if(totalRegion != null){
+            provinces = totalRegion.getProvince();
+            return provinces;
+        }else{
+            return  null;
+        }
+
     }
 
 

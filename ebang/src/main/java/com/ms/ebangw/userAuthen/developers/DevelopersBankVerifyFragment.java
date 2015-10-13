@@ -525,7 +525,7 @@ public class DevelopersBankVerifyFragment extends BaseFragment {
     }
 
     private void initBankSpinner() {
-        banks = MyApplication.getInstance().getBanks();
+        banks = ((DevelopersAuthenActivity)mActivity).getBanks();
         ArrayAdapter<Bank> bankArrayAdapter = new ArrayAdapter<>(mActivity, R.layout.layout_spinner_item,
             banks);
         bankSp.setAdapter(bankArrayAdapter);

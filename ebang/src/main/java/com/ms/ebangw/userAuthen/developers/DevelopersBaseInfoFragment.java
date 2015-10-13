@@ -19,12 +19,14 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.ms.ebangw.R;
+import com.ms.ebangw.activity.HomeActivity;
 import com.ms.ebangw.bean.AuthInfo;
 import com.ms.ebangw.bean.City;
 import com.ms.ebangw.bean.Province;
 import com.ms.ebangw.bean.TotalRegion;
 import com.ms.ebangw.commons.Constants;
 import com.ms.ebangw.fragment.BaseFragment;
+import com.ms.ebangw.utils.L;
 import com.ms.ebangw.utils.T;
 import com.ms.ebangw.utils.VerifyUtils;
 
@@ -107,7 +109,9 @@ public class DevelopersBaseInfoFragment extends BaseFragment {
 	}
 
 	public void initSpinner() {
-		provinces = getProvinces();
+		provinces = ((DevelopersAuthenActivity)mActivity).getAllarea().getProvince();
+
+//		provinces = getProvinces();
 		if (null == provinces) {
 			return;
 		}
@@ -269,7 +273,10 @@ public class DevelopersBaseInfoFragment extends BaseFragment {
 	}
 
 
-
+	/**
+	 * 获取省份
+	 * @return
+	 */
 	public List<Province> getProvinces() {
 		TotalRegion totalRegion = ((DevelopersAuthenActivity) mActivity).getTotalRegion();
 		if (totalRegion == null) {
