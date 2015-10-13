@@ -73,6 +73,10 @@ public class RequestUrl {
      */
     public static final  String developer_identify = domain + "/api/user/developers/identify";
     /**
+     * 1-11.获取用户信息
+     */
+    public static  final String loadUserInfo = domain + "/api/user/index/information";
+    /**
      * 11.工头认证接口
      */
     public static final  String header_identify = domain + "/api/user/headman/identify";

@@ -68,6 +68,7 @@ public class HomeActivity extends BaseActivity {
 
 	@Bind(R.id.radioGroup)
 	RadioGroup radioGroup;
+	private Object userInfo;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -80,7 +81,7 @@ public class HomeActivity extends BaseActivity {
 	}
 
 	public void initView() {
-
+		getUserInfo();
 	}
 
 	@Override
@@ -343,6 +344,20 @@ public class HomeActivity extends BaseActivity {
 	}
 
 
+	public void getUserInfo() {
+		DataAccessUtil.getUserInfo(new JsonHttpResponseHandler(){
+			@Override
+			public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+				super.onSuccess(statusCode, headers, response);
+				
+			}
 
+			@Override
+			public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+				super.onFailure(statusCode, headers, responseString, throwable);
+				L.d(responseString);
+			}
+		});
 
+	}
 }

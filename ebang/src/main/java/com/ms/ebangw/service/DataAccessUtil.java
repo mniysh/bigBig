@@ -304,6 +304,15 @@ public class DataAccessUtil {
         return doPost(RequestUrl.header_identify, params, asyncHttpResponseHandler);
     }
 
+    /**
+     * 获取用户信息
+     * @param asyncHttpResponseHandler
+     * @return
+     */
+
+    public static RequestHandle getUserInfo(AsyncHttpResponseHandler asyncHttpResponseHandler){
+        return doGet(RequestUrl.loadUserInfo, null , asyncHttpResponseHandler);
+    }
 
     /**
      *1-8.工人认证接口
