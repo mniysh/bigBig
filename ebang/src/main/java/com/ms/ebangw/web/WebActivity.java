@@ -1,6 +1,5 @@
 package com.ms.ebangw.web;
 
-import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -11,19 +10,27 @@ import android.webkit.DownloadListener;
 import android.webkit.JavascriptInterface;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.Toast;
 
+import com.baidu.location.BDLocation;
 import com.ms.ebangw.MyApplication;
 import com.ms.ebangw.R;
 import com.ms.ebangw.activity.BaseActivity;
 import com.ms.ebangw.bean.User;
 import com.ms.ebangw.commons.Constants;
+import com.ms.ebangw.utils.L;
+import com.ms.ebangw.utils.NetUtils;
+import com.ms.ebangw.utils.ShareUtils;
 import com.ms.ebangw.utils.T;
 import com.ms.ebangw.view.ProgressWebView;
+import com.umeng.socialize.bean.SHARE_MEDIA;
+import com.umeng.socialize.bean.SocializeEntity;
+import com.umeng.socialize.bean.StatusCode;
+import com.umeng.socialize.controller.listener.SocializeListeners;
 
 public class WebActivity extends BaseActivity {
 
     private ProgressWebView webview;
-
     /**
      * 访问URL
      */
@@ -34,9 +41,7 @@ public class WebActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_web);
-
         initData();
 
         initView();
@@ -44,12 +49,8 @@ public class WebActivity extends BaseActivity {
 
     @Override
     public void initView() {
-        initTitle("幸运大转盘", "活动规则", new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onSharedResult(1,1);
-            }
-        });
+        initTitle("幸运大转盘");
+        findViewById(R.id.iv_back).setVisibility(View.GONE);
         webview = (ProgressWebView) findViewById(R.id.wv_action_web);
         url = getIntent().getStringExtra(Constants.KEY_URL);
         webview.setWebViewClient(new MyWebViewClient());
@@ -58,16 +59,39 @@ public class WebActivity extends BaseActivity {
         webview.requestFocus();
         webview.getSettings().setDefaultTextEncodingName("utf-8");
         user = MyApplication.instance.getUser();
-        if (!TextUtils.isEmpty(url)) {
 
-            webview.loadUrl(url+ "?id=" + user.getId() + "&app_token=" + user.getApp_token());
-        }
         // 设置web视图客户端
-        webview.setDownloadListener(new MyWebViewDownLoadListener(this));
+        webview.setDownloadListener(new MyWebViewDownLoadListener());
 
         webview.addJavascriptInterface(new JsObject(), "share");
+        if (!TextUtils.isEmpty(url) && null != user) {
+            BDLocation bdLocation = MyApplication.getInstance().getLocation();
+            url = url+ "?id=" + user.getId() + "&app_token=" + user.getApp_token();
+            if (null != bdLocation) {
+                double latitude = bdLocation.getLatitude();
+                double longitude = bdLocation.getLongitude(); //经度
+                url = url + "&current_dimensionality=" + latitude + "&current_longitude=" +
+                    longitude;
+            }
+            L.d("webUrl: " + url);
+            if (NetUtils.isConnected(this)) {
+                webview.loadUrl(url);
+            }else {
+                T.show("网络异常,请检查网络连接");
+            }
+        }
 
     }
+
+//    @Override
+//    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+//        super.onActivityResult(requestCode, resultCode, data);
+//        /**使用SSO授权必须添加如下代码 */
+//        UMSsoHandler ssoHandler = ShareUtils.mController.getConfig().getSsoHandler(requestCode) ;
+//        if(ssoHandler != null){
+//            ssoHandler.authorizeCallBack(requestCode, resultCode, data);
+//        }
+//    }
 
     @Override
     // 设置回退
@@ -86,7 +110,11 @@ public class WebActivity extends BaseActivity {
     private class MyWebViewClient extends WebViewClient {
         @Override
         public boolean shouldOverrideUrlLoading(WebView view, String url) {
-            view.loadUrl(url);
+            if (NetUtils.isConnected(WebActivity.this)) {
+                view.loadUrl(url);
+            }else {
+                T.show("网络异常,请检查网络连接");
+            }
             return true;
         }
     }
@@ -97,38 +125,23 @@ public class WebActivity extends BaseActivity {
         url = null;
     }
 
+
+
     @Override
     public void initData() {
         url = getIntent().getStringExtra(Constants.KEY_URL);
     }
 
     public class MyWebViewDownLoadListener implements DownloadListener {
-        private Context context;
-
-        public MyWebViewDownLoadListener(Context context) {
-            this.context = context;
-        }
 
         @Override
         public void onDownloadStart(String url, String userAgent, String contentDisposition, String mimetype, long contentLength) {
             Uri uri = Uri.parse(url);
             Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-            context.startActivity(intent);
+            startActivity(intent);
         }
     }
 
-
-
-
-
-
-
-    private class ShareInfo{
-        String title;
-        String desc;
-        String link;
-        String imageUrl;
-    }
 
     /**
      * 分享后回调js
@@ -141,7 +154,14 @@ public class WebActivity extends BaseActivity {
 
     class JsObject {
         @JavascriptInterface
-        public void sharePlatform(int platform) {
+        public void sharePlatform(final int platform) {
+
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    directShare(platform);
+                }
+            });
 
         }
 
@@ -160,5 +180,47 @@ public class WebActivity extends BaseActivity {
 
         }
 
+        public void directShare(int platform) {
+            SHARE_MEDIA share_media;
+            if (platform == 1) {
+                share_media = SHARE_MEDIA.WEIXIN;
+            } else if (platform == 2) {
+                share_media = SHARE_MEDIA.WEIXIN_CIRCLE;
+            } else {
+                share_media = SHARE_MEDIA.SINA;
+            }
+
+            ShareUtils.directShare(WebActivity.this, share_media, new SocializeListeners.SnsPostListener() {
+
+                @Override
+                public void onStart() {
+                    L.d("Share: onStart");
+                }
+
+                @Override
+                public void onComplete(SHARE_MEDIA platform, final int eCode, SocializeEntity entity) {
+                    L.d("Share: onComplete");
+                    String showText = "分享成功";
+                    if (eCode != StatusCode.ST_CODE_SUCCESSED) {
+                        showText = "分享失败 [" + eCode + "]";
+                    }
+                    Toast.makeText(WebActivity.this, showText, Toast.LENGTH_SHORT).show();
+
+                    final int p;
+                    if (platform == SHARE_MEDIA.WEIXIN){
+                        p = 1;
+                    }else if (platform == SHARE_MEDIA.WEIXIN_CIRCLE) {
+                        p = 2;
+                    } else {
+                        p = 3;
+                    }
+
+                    onSharedResult(p, eCode == StatusCode.ST_CODE_SUCCESSED ? 1 : 0);
+
+                }
+
+            });
+        }
     }
+
 }

@@ -20,11 +20,11 @@
         android:layout_marginTop="30dp"
         >
         <EditText 
-            
+            android:singleLine="true"
             android:id="@+id/et_account"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:hint="手机号 / 邮箱"
+            android:hint="手机号 "
             android:drawableLeft="@drawable/user"
             android:background="#fff"
             android:padding="15dp"
@@ -73,23 +73,23 @@
                 android:paddingBottom="5dp"
                 />
             
-            <!--<TextView -->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:text="l"-->
-                <!--android:layout_marginLeft="10dp"-->
-                <!--/>-->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="l"
+                android:layout_marginLeft="10dp"
+                />
             
-            <!--<TextView -->
-                <!--android:clickable="true"-->
-                <!--android:id="@+id/tv_find_password"-->
-                <!--android:layout_marginLeft="10dp"-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:text="找回密码"-->
-                <!--android:paddingTop="5dp"-->
-                <!--android:paddingBottom="5dp"-->
-                <!--/>-->
+            <TextView
+                android:clickable="true"
+                android:id="@+id/tv_find_password"
+                android:layout_marginLeft="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="找回密码"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                />
             
         </LinearLayout>
 

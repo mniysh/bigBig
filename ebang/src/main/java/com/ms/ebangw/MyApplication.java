@@ -2,29 +2,45 @@ package com.ms.ebangw;
 
 import android.app.Activity;
 import android.app.Application;
+import android.graphics.Bitmap;
 
+import com.baidu.location.BDLocation;
 import com.baidu.location.LocationClient;
 import com.baidu.location.LocationClientOption;
-import com.ms.ebangw.bean.Bank;
 import com.ms.ebangw.bean.Craft;
 import com.ms.ebangw.bean.User;
 import com.ms.ebangw.db.UserDao;
 import com.ms.ebangw.listener.MyLocationListener;
+import com.ms.ebangw.utils.L;
 import com.umeng.analytics.MobclickAgent;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import cn.jpush.android.api.JPushInterface;
+import cn.jpush.android.api.TagAliasCallback;
 
 public class MyApplication extends Application {
 
     public static MyApplication instance;
+    public Bitmap mBitmap;
+    public String imagePath;
     private int flag_sub;
     private String phone;
     private String password;
     private Craft craft;
+    private BDLocation location;
     public LocationClient mLocationClient = null;
+    private boolean flag_home;
+
+    public boolean isFlag_home() {
+        return flag_home;
+    }
+
+    public void setFlag_home(boolean flag_home) {
+        this.flag_home = flag_home;
+    }
 
     public Craft getCraft() {
         return craft;
@@ -34,7 +50,6 @@ public class MyApplication extends Application {
         this.craft = craft;
     }
 
-    private List<Bank> banks;
 
     /**
      * 定位得到的位置描述
@@ -83,7 +98,6 @@ public class MyApplication extends Application {
         option.SetIgnoreCacheException(false);//可选，默认false，设置是否收集CRASH信息，默认收集
         option.setEnableSimulateGps(false);//可选，默认false，设置是否需要过滤gps仿真结果，默认需要
         mLocationClient.setLocOption(option);
-
         mLocationClient.registerLocationListener(new MyLocationListener());    //注册监听函数
         mLocationClient.start();
 
@@ -101,7 +115,22 @@ public class MyApplication extends Application {
      * 初始化极光推送
      */
     private void initJpush() {
-        JPushInterface.setDebugMode(true);
+        JPushInterface.setDebugMode(false);
+        User user = getUser();
+        if (null != user) {
+            String id = user.getId();
+            JPushInterface.setAlias(this, id, new TagAliasCallback() {
+                @Override
+                public void gotResult(int i, String s, Set<String> set) {
+                    if (i == 0) {
+                        L.d("setAlias: 极光alias设置成功, alias: " + s);
+                    }else {
+                        L.d("setAlias: 极光alias设置失败, 返回的状态码: " + i);
+                    }
+                }
+            });
+        }
+
         JPushInterface.init(this);
     }
 
@@ -145,11 +174,13 @@ public class MyApplication extends Application {
      * 退出应用
      */
     public void quit() {
+
         for (Activity activity : unDestroyActivityList) {
             if (null != activity) {
                 activity.finish();
             }
         }
+
         unDestroyActivityList.clear();
     }
 
@@ -160,27 +191,14 @@ public class MyApplication extends Application {
 
     public boolean saveUser(User user) {
         UserDao userDao = new UserDao(this);
-        return userDao.update(user);
+        return userDao.add(user);
     }
 
-    public List<Bank> getBanks() {
-        return banks;
+    public BDLocation getLocation() {
+        return mLocationClient.getLastKnownLocation();
     }
 
-    public void setBanks(List<Bank> banks) {
-        this.banks = banks;
+    public void setLocation(BDLocation location) {
+        this.location = location;
     }
-
 }
-
-
-
-
-
-
-
-
-
-
-
-

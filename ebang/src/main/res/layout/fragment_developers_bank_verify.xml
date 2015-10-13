@@ -13,54 +13,54 @@
         android:orientation="vertical"
         android:showDividers="middle"
         >
+
         <TextView
-            android:padding="15dp"
-            android:textSize="10dp"
+            style="@style/authorization_alert"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="        请确保您是具有法人资格的商户，您需要提供可证明您依法设立可依法经营，开展社会活动的执照，证件等(如营业执照副本管)有效期三个月内的证件不予受理。"
-
+            android:text="@string/developer_alert"
             />
+
         <LinearLayout
             android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
             android:orientation="vertical"
-            android:layout_height="wrap_content">
-
-
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/authen_item_height"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
 
             >
 
-            <TextView
-                android:id="@+id/tv_a"
-                android:gravity="right|center_horizontal"
-                android:layout_width="@dimen/bank_verify_width"
-                android:layout_height="wrap_content"
-                android:text="*企业名称："
-                />
-
-            <EditText
-                android:id="@+id/et_company_name"
-                style="@style/authorization_edit"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="请输入企业名称"
-                />
-        </LinearLayout>
-            <TextView
-                android:textSize="10sp"
-                android:paddingLeft="15dp"
-                android:paddingRight="15dp"
+                android:layout_marginTop="5dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                >
 
+                <TextView
+                    android:id="@+id/tv_k"
+                    style="@style/authorization_developer_text"
+                    android:layout_width="@dimen/bank_verify_width"
+                    android:layout_height="wrap_content"
+                    android:text="*企业名称："
+
+                    />
+
+                <EditText
+                    android:id="@+id/et_company_name"
+                    style="@style/authorization_edit"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="请输入企业名称"
+                    />
+
+            </LinearLayout>
+
+            <TextView
+                style="@style/authorization_alert"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="        请填写与经营执照上一致的名;如果此处您填写的名称与注册时填写的名称不一致,我们将以此处你填写的名称更新您的信息。"
-                android:paddingBottom="10dp"
+                android:text="@string/developer_alert_1"
                 />
 
         </LinearLayout>
@@ -70,12 +70,11 @@
             android:layout_height="@dimen/authen_item_height"
             android:gravity="center_vertical"
             android:orientation="horizontal"
-
             >
 
             <TextView
-                android:id="@+id/tv_b"
-                style="@style/authorization_text"
+                android:id="@+id/tv_g"
+                style="@style/authorization_developer_text"
                 android:layout_width="@dimen/bank_verify_width"
                 android:layout_height="wrap_content"
                 android:text="*营业执照注册号："
@@ -98,8 +97,8 @@
             >
 
             <TextView
-                android:id="@+id/tv_v"
-                style="@style/authorization_text"
+                android:id="@+id/tv_a"
+                style="@style/authorization_developer_text"
                 android:layout_width="@dimen/bank_verify_width"
                 android:layout_height="wrap_content"
                 android:text="*营业执照所在地："
@@ -128,8 +127,8 @@
             >
 
             <TextView
-                android:id="@+id/tv_c"
-                style="@style/authorization_text"
+                android:id="@+id/tv_b"
+                style="@style/authorization_developer_text"
                 android:layout_width="@dimen/bank_verify_width"
                 android:layout_height="wrap_content"
                 android:text="*常住地址："
@@ -159,8 +158,8 @@
                 >
 
                 <TextView
-                    android:id="@+id/tv_d"
-                    style="@style/authorization_text"
+                    android:id="@+id/tv_c"
+                    style="@style/authorization_developer_text"
                     android:layout_width="@dimen/bank_verify_width"
                     android:layout_height="wrap_content"
                     android:text="*营业年限："
@@ -169,7 +168,7 @@
                 <EditText
                     android:id="@+id/et_business_age"
                     style="@style/authorization_edit"
-                    android:layout_width="40dp"
+                    android:layout_width="30dp"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="5dp"
                     android:background="@drawable/border_gray"
@@ -195,15 +194,12 @@
             </LinearLayout>
 
             <TextView
-                style="@style/authorization_text"
-                android:layout_width="wrap_content"
+                style="@style/authorization_alert"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="left"
-                android:singleLine="false"
                 android:text="@string/developer_long"
-                android:textColor="@color/auth_description"
-                android:textSize="12sp"
                 />
+
         </LinearLayout>
 
 
@@ -216,8 +212,8 @@
             >
 
             <TextView
-                android:id="@+id/tv_e"
-                style="@style/authorization_text"
+                android:id="@+id/tv_d"
+                style="@style/authorization_developer_text"
                 android:layout_width="@dimen/bank_verify_width"
                 android:layout_height="wrap_content"
                 android:text="*经营范围："
@@ -241,10 +237,10 @@
             >
 
             <TextView
-                android:id="@+id/tv_f"
-                style="@style/authorization_text"
+                android:id="@+id/tv_e"
+                style="@style/authorization_developer_text"
                 android:layout_height="wrap_content"
-                android:text="*组织机构代码证号："
+                android:text="*组织机构代码证号: "
                 />
 
             <EditText
@@ -264,8 +260,8 @@
             >
 
             <TextView
-                android:id="@+id/tv_g"
-                style="@style/authorization_text"
+                android:id="@+id/tv_f"
+                style="@style/authorization_developer_text"
                 android:layout_width="@dimen/bank_verify_width"
                 android:layout_height="wrap_content"
                 android:text="*公司座机："
@@ -288,7 +284,7 @@
 
             <TextView
                 android:id="@+id/tv_h"
-                style="@style/authorization_card"
+                style="@style/authorization_developer_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
@@ -306,18 +302,18 @@
                     android:id="@+id/iv_front"
                     android:layout_width="100dp"
                     android:layout_height="100dp"
+                    android:layout_marginLeft="50dp"
                     android:scaleType="centerCrop"
                     android:src="@drawable/card_example"
-                    android:layout_marginLeft="50dp"
                     />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="15dp"
+                    android:layout_marginLeft="30dp"
                     android:gravity="center_horizontal"
                     android:orientation="vertical"
-                    android:layout_marginLeft="30dp"
                     >
 
                     <Button
@@ -334,10 +330,10 @@
                         android:id="@+id/btn_select_front"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
                         android:background="@color/titleBar_bg"
                         android:padding="10dp"
                         android:text="上传照片"
-                        android:layout_marginTop="10dp"
                         android:textColor="#fff"
                         />
 
@@ -367,6 +363,7 @@
                 android:textSize="12sp"
                 />
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="@dimen/authen_item_height"
@@ -390,6 +387,7 @@
                 android:layout_height="wrap_content"
                 />
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="@dimen/authen_item_height"
@@ -417,13 +415,14 @@
 
         <TextView
             style="@style/authorization_text"
-            android:textColor="@color/black"
-            android:textSize="18sp"
-            android:gravity="left"
-            android:padding="10dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@color/gray_bg"
+            android:gravity="left"
+            android:padding="10dp"
             android:text="对公帐户"
+            android:textColor="@color/black"
+            android:textSize="16sp"
             />
 
         <LinearLayout
@@ -435,11 +434,10 @@
             >
 
             <TextView
-                android:id="@+id/tv_k"
-                style="@style/authorization_text"
+                style="@style/authorization_developer_text"
                 android:layout_width="@dimen/bank_verify_width"
                 android:layout_height="wrap_content"
-                android:text="*户名:"
+                android:text="户名:"
                 />
 
             <EditText
@@ -460,15 +458,13 @@
             >
 
             <TextView
-                android:id="@+id/tv_l"
-                style="@style/authorization_text"
+                style="@style/authorization_developer_text"
                 android:layout_width="@dimen/bank_verify_width"
                 android:layout_height="wrap_content"
-                android:text="*对公帐户:"
+                android:text="对公帐户:"
                 />
 
             <EditText
-
                 android:id="@+id/et_public_account"
                 style="@style/authorization_edit"
                 android:layout_width="match_parent"
@@ -476,49 +472,30 @@
                 android:hint="请输入对公帐户"
                 />
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
+            android:layout_height="@dimen/authen_item_height"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+
             >
-            <LinearLayout
-                android:layout_width="match_parent"
 
-                android:layout_height="@dimen/authen_item_height"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-
-                >
-
-                <TextView
-                    android:id="@+id/tv_m"
-                    style="@style/authorization_text"
-                    android:layout_width="140dp"
-                    android:layout_height="wrap_content"
-                    android:text="*再次输入对公帐户:"
-                    />
-
-                <EditText
-                    android:id="@+id/et_public_account_two"
-                    style="@style/authorization_edit"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="请输入对公帐户"
-                    />
-
-            </LinearLayout>
             <TextView
-                android:padding="10dp"
-                android:textColor="@color/auther_red"
-                android:textSize="12sp"
-                android:layout_width="wrap_content"
+                style="@style/authorization_developer_text"
+                android:layout_width="@dimen/bank_verify_width"
                 android:layout_height="wrap_content"
-                android:text="@string/developer_duigong_account"
+                android:text="再次输入对公帐户:"
                 />
 
+            <EditText
+                android:id="@+id/et_public_account_two"
+                style="@style/authorization_edit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="请输入对公帐户"
+                />
         </LinearLayout>
-
-
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -528,11 +505,11 @@
             >
 
             <TextView
-                android:id="@+id/tv_n"
-                style="@style/authorization_text"
+                android:id="@+id/tv_aa"
+                style="@style/authorization_developer_text"
                 android:layout_width="@dimen/bank_verify_width"
                 android:layout_height="wrap_content"
-                android:text="*开户银行："
+                android:text="开户银行："
                 />
 
             <Spinner
@@ -553,16 +530,15 @@
             >
 
             <TextView
-                android:id="@+id/tv_o"
-                style="@style/authorization_text"
+                style="@style/authorization_developer_text"
                 android:layout_width="@dimen/bank_verify_width"
                 android:layout_height="wrap_content"
-                android:text="*开户地点："
+                android:text="开户地点："
                 />
 
             <Spinner
                 android:id="@+id/sp_bank_province"
-                android:layout_width="wrap_content"
+                android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 />
 
@@ -598,6 +574,7 @@
                 android:id="@+id/btn_commit"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="15dp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
                 android:layout_marginTop="10dp"
@@ -605,7 +582,6 @@
                 android:text="完成"
                 android:textColor="#fff"
                 android:textSize="15dp"
-                android:layout_marginBottom="15dp"
                 />
         </LinearLayout>
 

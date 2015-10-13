@@ -59,6 +59,51 @@ public class DataParseUtil {
     };
 
     /**
+     * 获取用户的基本信息
+     * @param jsonObject
+     * @return
+     * @throws ResponseException
+     */
+    public static User userInformation(JSONObject jsonObject) throws ResponseException {
+        User user = MyApplication.getInstance().getUser();
+        JSONObject data = processData(jsonObject);
+        try {
+            User baseUser = null;
+            if (data.has("base_message")) {
+                String base_message = data.getString("base_message");
+                Gson gson = new Gson();
+                baseUser = gson.fromJson(base_message, User.class);
+                if (null != base_message) {
+                    baseUser.setApp_token(user.getApp_token());
+                }
+            }
+
+            if (data.has("real_message") && null != baseUser) {
+
+                JSONObject realMessageObj = data.getJSONObject("real_message");
+                String area = realMessageObj.getString("area");
+                String real_name = realMessageObj.getString("real_name");
+                String identity_card = realMessageObj.getString("identity_card");
+                String card_image_front = realMessageObj.getString("card_image_front");
+                String card_image_back = realMessageObj.getString("card_image_back");
+                String craft = realMessageObj.getString("craft");
+
+                baseUser.setArea(area);
+                baseUser.setReal_name(real_name);
+                baseUser.setIdentity_card(identity_card);
+                baseUser.setCard_image_front(card_image_front);
+                baseUser.setCard_image_back(card_image_back);
+                baseUser.setCraft(craft);
+
+            }
+            return baseUser;
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    /**
      * 登出接口
      * @param jsonObject
      * @return
@@ -203,6 +248,8 @@ public class DataParseUtil {
      * @throws ResponseException
      */
     public static TotalRegion provinceCityArea(JSONObject jsonObject)throws  ResponseException{
+        String s = jsonObject.toString();
+        System.out.print(s);
         JSONObject datas=processData(jsonObject);
         Gson gson=new Gson();
         String dataProvince=datas.optString("province");

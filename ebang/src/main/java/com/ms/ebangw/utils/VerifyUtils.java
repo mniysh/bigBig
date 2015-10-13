@@ -4,10 +4,7 @@ import android.text.Editable;
 import android.text.Selection;
 import android.text.TextUtils;
 import android.text.TextWatcher;
-import android.view.View;
 import android.widget.EditText;
-
-import com.ms.ebangw.bean.User;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -26,6 +23,7 @@ public class VerifyUtils {
      */
     public static Boolean isPhone(String phone) {
         if (TextUtils.isEmpty(phone)) {
+            T.show("手机号不能为空");
             return false;
         }
 
@@ -46,6 +44,7 @@ public class VerifyUtils {
      */
     public static boolean isEmail(String email){
         if (TextUtils.isEmpty(email)) {
+            T.show("邮箱不能为空");
             return false;
         }
         boolean flag = false;
@@ -67,6 +66,7 @@ public class VerifyUtils {
      */
     public static boolean isIdentifyCard(String identifyCard){
         if (TextUtils.isEmpty(identifyCard)) {
+
             return false;
         }
         return  IDCardUtil.isIDCard(identifyCard);
@@ -103,22 +103,6 @@ public class VerifyUtils {
         }
         return true;
     }
-
-    /**
-     * 正则表达式判断汉字
-     * @param str
-     * @return
-     */
-    public static boolean isChinese(String str){
-        Pattern pattern = Pattern.compile("[\\u4e00-\\u9fa5]+");
-        Matcher isNum = pattern.matcher(str);
-        if(!isNum.matches() ){
-
-            return false;
-        }
-        return true;
-    }
-
     /**
      * 处理银行卡号
      * @param view
@@ -221,5 +205,18 @@ public class VerifyUtils {
     }
 
 
+    /**
+     * 正则表达式判断汉字
+     * @param str
+     * @return
+     */
+    public static boolean isChinese(String str){
+        Pattern pattern = Pattern.compile("[\\u4e00-\\u9fa5]+");
+        Matcher isNum = pattern.matcher(str);
+        if(!isNum.matches() ){
 
+            return false;
+        }
+        return true;
+    }
 }  

@@ -30,35 +30,27 @@ public class UserDao {
      * @param user
      * @throws SQLException
      */
-    public void add(User user) {
-        /*//事务操作
-		TransactionManager.callInTransaction(helper.getConnectionSource(),
-				new Callable<Void>()
-				{
+    public boolean add(User user) {
 
-					@Override
-					public Void call() throws Exception
-					{
-						return null;
-					}
-				});*/
         try {
-//			userDaoOpe.createOrUpdate(user);
-            userDaoOpe.create(user);
+            Dao.CreateOrUpdateStatus orUpdate = userDaoOpe.createOrUpdate(user);
+            if (orUpdate.isUpdated() || orUpdate.isCreated()) {
+                L.d("add User 成功");
+                return true;
+            }
+
         } catch (SQLException e) {
-            L.d("add User失败");
             e.printStackTrace();
+            L.d("add User 失败");
         }
+        return false;
 
     }
 
     public boolean update(User user) {
         try {
-            Dao.CreateOrUpdateStatus orUpdate = userDaoOpe.createOrUpdate(user);
-            if (orUpdate.isCreated()) {
-                return true;
-            }
-            if (orUpdate.isUpdated()) {
+            int update = userDaoOpe.update(user);
+            if (update > 0) {
                 return true;
             }
         } catch (SQLException e) {
@@ -83,7 +75,7 @@ public class UserDao {
         try {
             return userDaoOpe.queryForId(id);
         } catch (SQLException e) {
-            L.d("获取User失败");
+            L.d("getUserById 获取User失败");
             e.printStackTrace();
         }
         return null;
@@ -105,7 +97,7 @@ public class UserDao {
 
     public void removeAll() {
 
-        List<User> users = null;
+        List<User> users;
         try {
             users = userDaoOpe.queryForAll();
             if (null != users && users.size() > 0) {

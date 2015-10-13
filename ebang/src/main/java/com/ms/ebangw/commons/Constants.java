@@ -82,8 +82,16 @@ public class Constants {
 	public final static String KEY_BANKS = "bank_list";
 	public final static String key_phone = "phone";
 	public final static String KEY_CATEGORY = "category";
+	public final static String KEY_UPLOAD_IMAGE_RESULT = "UploadImageResult";
 	/*验证码*/
 	public final static String KEY_VERIFY_CODE = "verify_code";
+	public final static String KEY_HEAD_IMAGE = "head_image";
+	public final static String KEY_WHICH_PHOTO = "whichPhoto";
+	public final static String KEY_CURRENT_IMAGE_PATH = "current_image_path";
+	public final static String KEY_FRONT_IMAGE_PATH = "front_image_path";
+	public final static String KEY_BACK_IMAGE_PATH = "back_image_path";
+	public final static String KEY_AUTHINFO = "authInfo";
+	public final static String KEY_CURRENT_STEP = "step";
 
 	public final static int KEY_IMAGE_FLODER = R.drawable.back_ima;
 
@@ -111,4 +119,24 @@ public class Constants {
 
 
 	public final static String KEY_URL = "url";
+
+	/**
+	 * 认证状态
+	 * //状态游客 guest
+	 * 认证中auth_developers(认证开发者中)/
+	 * auth_worker(认证工人中)/
+	 * auth_headman(认证工头中)/
+	 * auth_investor(认证个人中)/
+	 * complete（完成认证）
+	 */
+
+	/**
+	 *
+	 */
+	public final static String AUTH_GUEST = "guest";
+	public final static String AUTH_WORKER = "auth_worker";
+	public final static String AUTH_HEADMAN = "auth_headman";
+	public final static String AUTH_DEVELOPERS = "auth_developers";
+	public final static String AUTH_INVESTOR = "auth_investor";
+	public final static String AUTH_COMPLETE = "complete";
 }

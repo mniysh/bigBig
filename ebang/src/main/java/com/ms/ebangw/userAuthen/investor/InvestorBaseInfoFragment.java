@@ -22,10 +22,8 @@ import com.ms.ebangw.R;
 import com.ms.ebangw.bean.AuthInfo;
 import com.ms.ebangw.bean.City;
 import com.ms.ebangw.bean.Province;
-import com.ms.ebangw.bean.TotalRegion;
 import com.ms.ebangw.commons.Constants;
 import com.ms.ebangw.fragment.BaseFragment;
-import com.ms.ebangw.userAuthen.headman.HeadmanAuthenActivity;
 import com.ms.ebangw.utils.T;
 import com.ms.ebangw.utils.VerifyUtils;
 
@@ -41,6 +39,7 @@ import butterknife.OnClick;
 public class InvestorBaseInfoFragment extends BaseFragment {
 
 	private static final String CATEGORY = "category";
+
 
 	private String category;
 	private ViewGroup contentLayout;
@@ -100,12 +99,11 @@ public class InvestorBaseInfoFragment extends BaseFragment {
 
 	@Override
 	public void initData() {
-
 		initSpinner();
 	}
 
 	public void initSpinner() {
-		provinces = ((InvestorAuthenActivity)mActivity).getAllarea().getProvince();
+		provinces = getProvinces();
 		if (null == provinces) {
 			return;
 		}
@@ -129,8 +127,8 @@ public class InvestorBaseInfoFragment extends BaseFragment {
 				province = provinces.get(position);
 
 				adapter02 = new ArrayAdapter<>(mActivity,
-					R.layout.layout_spinner_item, provinces.get(
-					position).getCitys());
+						R.layout.layout_spinner_item, provinces.get(
+						position).getCitys());
 
 				citySp.setAdapter(adapter02);
 
@@ -145,13 +143,16 @@ public class InvestorBaseInfoFragment extends BaseFragment {
 
 	@OnClick(R.id.btn_next)
 	public void goNext() {
-//		if (!isInfoCorrect()) {
-//			return;
-//		}
-		AuthInfo authInfo = getAuthInfo();
-		InvestorAuthenActivity activity = (InvestorAuthenActivity) mActivity;
-		activity.setAuthInfo(authInfo);
-		activity.goNext();
+		if (!isInfoCorrect()) {
+			return;
+		}
+		if(getAuthInfo() != null){
+			AuthInfo authInfo = getAuthInfo();
+			InvestorAuthenActivity activity = (InvestorAuthenActivity) mActivity;
+			activity.setAuthInfo(authInfo);
+			activity.goNext();
+		}
+
 	}
 
 	private boolean isInfoCorrect() {
@@ -213,22 +214,25 @@ public class InvestorBaseInfoFragment extends BaseFragment {
 		String  provinceId = null;
 		String cityId = null;
 
-		List<Province> provinces = ((InvestorAuthenActivity)mActivity).getAllarea().getProvince();
-		for (int i = 0; i < provinces.size(); i++) {
-			Province p = provinces.get(i);
-			if(TextUtils.equals(p.getName(), province)){
-				provinceId = p.getId();
-				List<City> citys = p.getCitys();
-				for (int j = 0; j < citys.size(); j++) {
-					City c = citys.get(j);
-					if(TextUtils.equals(c.getName(), city)){
-						cityId = c.getId();
-						break;
+		List<Province> provinces = getProvinces();
+		if(provinces != null){
+			for (int i = 0; i < provinces.size(); i++) {
+				Province p = provinces.get(i);
+				if(TextUtils.equals(p.getName(), province)){
+					provinceId = p.getId();
+					List<City> citys = p.getCitys();
+					for (int j = 0; j < citys.size(); j++) {
+						City c = citys.get(j);
+						if(TextUtils.equals(c.getName(), city)){
+							cityId = c.getId();
+							break;
+						}
 					}
+					break;
 				}
-				break;
 			}
 		}
+
 
 		authInfo.setRealName(realName);
 		authInfo.setIdentityCard(cardId);
@@ -250,17 +254,6 @@ public class InvestorBaseInfoFragment extends BaseFragment {
 			SpannableString spannableString = new SpannableString(s);
 			spannableString.setSpan(new ForegroundColorSpan(Color.RED), 0, 1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
 			a.setText(spannableString);
-		}
-	}
-
-
-
-	public List<Province> getProvinces() {
-		TotalRegion totalRegion = ((InvestorAuthenActivity) mActivity).getTotalRegion();
-		if (totalRegion == null) {
-			return null;
-		}else {
-			return totalRegion.getProvince();
 		}
 	}
 

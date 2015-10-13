@@ -12,6 +12,7 @@
         android:layout_height="match_parent"
         android:paddingLeft="15dp"
         android:paddingRight="15dp"
+        android:visibility="gone"
         android:background="@drawable/selector_back_arrow"
         android:src="@drawable/jiantou" />
 

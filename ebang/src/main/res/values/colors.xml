@@ -3,11 +3,18 @@
 
     <!--系统相关颜色-->
     <color name="colorPrimary">@color/titleBar_bg</color>
-    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorPrimaryDark">#000000</color>
     <color name="colorAccent">#FF4081</color>
-    <color name="black_overlay">#66000000</color>
+    <color name="black_overlay">#000000</color>
 
-
+    <!--图片剪切相关-->
+    <color name="base">#FFFFFB</color>
+    <color name="overlay">#AA1C1C1C</color>
+    <color name="text">#1C1C1C</color>
+    <color name="handle">#86C166</color>
+    <color name="frame">#86C166</color>
+    <color name="guide">#AA86C166</color>
+    <color name="menu_bg">#FFFFFB</color>
 
 
     <!--start-->
@@ -32,6 +39,7 @@
     <color name="common_yellow">#e56402</color>
     <color name="auth_step_bg">#f6f5f5</color>
     <color name="auth_step_line">#d8d8d8</color>
+    <color name="gray_bg">#f7f7f7</color>
 
 
     <!--标题栏-->
@@ -42,6 +50,9 @@
     <!--认证页面-->
     <color name="auth_hint">#383838</color>
     <color name="auth_description">#9e9e9e</color>
+    <!--用户中心-->
+    <color name="user_center_desc">#676666</color>
+    <color name="user_center_desc_left">#383838</color>
 
 
 </resources>

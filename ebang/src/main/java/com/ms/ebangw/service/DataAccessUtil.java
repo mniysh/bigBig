@@ -40,11 +40,13 @@ public class DataAccessUtil {
      * @param gender       性别 MALE、 FEMALE
      * @param code 验证码
      * @param password 密码
+     * @param come_from 渠道名称
      * @param asyncHttpResponseHandler 请求
      * @return
      */
     public static RequestHandle register(String name,String phone,String email,String gender,
-                                         String code, String password, AsyncHttpResponseHandler
+                                         String code,  String password, String come_from,
+                                         AsyncHttpResponseHandler
         asyncHttpResponseHandler ) {
         RequestParams params = new RequestParams();
         params.put("name",name);
@@ -53,6 +55,9 @@ public class DataAccessUtil {
         params.put("email", email);
         params.put("code", code);
         params.put("gender", gender);
+
+        //增加渠道标识，注册时提交
+        params.put("come_from", come_from);
 
         return doPost(RequestUrl.register, params, asyncHttpResponseHandler);
     }
@@ -84,23 +89,11 @@ public class DataAccessUtil {
 //        params.put("phone", phone);
 //        params.put("password", password);
 
-        return doPost(RequestUrl.logout, params, asyncHttpResponseHandler);
+        return doGet(RequestUrl.logout, params, asyncHttpResponseHandler);
     }
 
     /**
-     * 4.短信接口,注册
-     * @param phone 电话
-     * @param asyncHttpResponseHandler
-     * @return
-     */
-    public static RequestHandle messageCodeRegiste(String phone, AsyncHttpResponseHandler
-        asyncHttpResponseHandler ) {
-        RequestParams params = new RequestParams();
-        params.put("phone", phone);
-        return doPost(RequestUrl.msg_register, params, asyncHttpResponseHandler);
-    }
-    /**
-     * 4.1短信接口，普通
+     * 4.短信接口,普通
      * @param phone 电话
      * @param asyncHttpResponseHandler
      * @return
@@ -110,6 +103,18 @@ public class DataAccessUtil {
         RequestParams params = new RequestParams();
         params.put("phone", phone);
         return doPost(RequestUrl.msg, params, asyncHttpResponseHandler);
+    }
+    /**
+     * 4.1短信接口,注册
+     * @param phone 电话
+     * @param asyncHttpResponseHandler
+     * @return
+     */
+    public static RequestHandle messageCodeRegiste(String phone, AsyncHttpResponseHandler
+        asyncHttpResponseHandler ) {
+        RequestParams params = new RequestParams();
+        params.put("phone", phone);
+        return doPost(RequestUrl.msg_registe, params, asyncHttpResponseHandler);
     }
 
 
@@ -151,6 +156,25 @@ public class DataAccessUtil {
         params.put("newpassword", newPassword);
 
         return doPost(RequestUrl.change_pwd, params, asyncHttpResponseHandler);
+    }
+
+    /**
+     * 3-16、修改密码接口(找回密码)
+     * @param phone
+     * @param code
+     * @param password
+     * @param asyncHttpResponseHandler
+     * @return
+     */
+    public static RequestHandle recoveredPassword(String phone, String code, String password,
+                                               AsyncHttpResponseHandler
+                                                   asyncHttpResponseHandler) {
+        RequestParams params = new RequestParams();
+        params.put("phone",phone);
+        params.put("code", code);
+        params.put("password", password);
+
+        return doPost(RequestUrl.recovered_pwd, params, asyncHttpResponseHandler);
     }
 
     /**
@@ -252,7 +276,7 @@ public class DataAccessUtil {
         params.put("card_image_front",card_image_front);
         params.put("card_image_back",card_image_back);
         params.put("card_expiration_time",card_expiration_time);
-
+        L.d("xxx", "请求类");
 
         return doPost(RequestUrl.penson_identify, params, asyncHttpResponseHandler);
     }
@@ -299,20 +323,11 @@ public class DataAccessUtil {
         params.put("open_account_name",open_account_name);
         params.put("open_account_province",open_account_province);
         params.put("open_account_city",open_account_city);
-        params.put("bank_id",bank_id);
+        params.put("bank_id", bank_id);
 
         return doPost(RequestUrl.header_identify, params, asyncHttpResponseHandler);
     }
 
-    /**
-     * 获取用户信息
-     * @param asyncHttpResponseHandler
-     * @return
-     */
-
-    public static RequestHandle getUserInfo(AsyncHttpResponseHandler asyncHttpResponseHandler){
-        return doGet(RequestUrl.loadUserInfo, null , asyncHttpResponseHandler);
-    }
 
     /**
      *1-8.工人认证接口
@@ -398,7 +413,7 @@ public class DataAccessUtil {
                                                   String account_name, String account_province,
                                                   String public_account, String organization_certificate,
                                                   String business_license_number, String business_scope,
-                                                  String bank_id,
+                                                  String bank_id, String gender,
                                                AsyncHttpResponseHandler
                                                    asyncHttpResponseHandler ) {
 
@@ -426,7 +441,7 @@ public class DataAccessUtil {
         params.put("business_license_number",business_license_number);
         params.put("business_scope",business_scope);
         params.put("bank_id",bank_id);
-
+        params.put("gender",gender);
 
         return doPost(RequestUrl.developer_identify, params, asyncHttpResponseHandler);
     }
@@ -439,7 +454,7 @@ public class DataAccessUtil {
      */
     public static RequestHandle modifyNickName(String nickname,AsyncHttpResponseHandler asyncHttpResponseHandler){
         RequestParams params=new RequestParams();
-        params.put("nickname",nickname);
+        params.put("nick_name",nickname);
         return doPost(RequestUrl.modify_nickName, params, asyncHttpResponseHandler);
     }
 
@@ -479,19 +494,11 @@ public class DataAccessUtil {
         return doGet(RequestUrl.publish_craft, null, asyncHttpResponseHandler);
     }
 
-    /**
-     * 3-13 仅仅验证验证码
-     * @param phone
-     * @param code
-     * @param asyncHttpResponseHandler
-     * @return
-     */
-    public static RequestHandle checkCode(String phone, String code , AsyncHttpResponseHandler asyncHttpResponseHandler){
+    public static  RequestHandle checkCode(String phone, String code, AsyncHttpResponseHandler asyncHttpResponseHandler){
         RequestParams params = new RequestParams();
         params.put("phone", phone);
         params.put("code", code);
-        return doPost(RequestUrl.only_check_code, params, asyncHttpResponseHandler);
-
+        return  doPost(RequestUrl.checkCode, params, asyncHttpResponseHandler);
     }
 
     /**
@@ -502,6 +509,39 @@ public class DataAccessUtil {
     public static RequestHandle bankList(AsyncHttpResponseHandler
                                                      asyncHttpResponseHandler){
         return doGet(RequestUrl.bank_list, null, asyncHttpResponseHandler);
+    }
+
+    /**
+     * 1-11、获取用户信息接口 get方式
+     * @param asyncHttpResponseHandler
+     * @return
+     */
+    public static RequestHandle userInformation(AsyncHttpResponseHandler
+                                             asyncHttpResponseHandler){
+        return doGet(RequestUrl.user_information, null, asyncHttpResponseHandler);
+    }
+
+    /**
+     * 1-12、修改用户头像  get方式
+     */
+    public static RequestHandle headImage(File imageFile, AsyncHttpResponseHandler
+        asyncHttpResponseHandler) {
+
+        if (!NetUtils.isConnected(MyApplication.getInstance())) {
+            T.show("网络异常,请检查网络连接");
+            return null;
+        }
+        initAsyncHttpClient();
+        RequestParams params = new RequestParams();
+        try {
+            params.put("image", imageFile, "image/png");
+            params = addCommonParams(params);
+            mClient.post(RequestUrl.head_image, params, asyncHttpResponseHandler);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+            L.d(TAG, "headImage：文件不存在");
+        }
+        return null;
     }
 
     public static RequestHandle doPost(String url, RequestParams params, AsyncHttpResponseHandler asyncHttpResponseHandler) {
@@ -523,6 +563,7 @@ public class DataAccessUtil {
 
 
 
+
     public static RequestHandle doGet(String url, RequestParams params, AsyncHttpResponseHandler
         asyncHttpResponseHandler) {
 
@@ -534,7 +575,7 @@ public class DataAccessUtil {
         if (params == null) {
             params = new RequestParams();
         }
-        addCommonParams(params);
+        params = addCommonParams(params);
         L.d(TAG, "doGet Url : " + url + "?"+ params.toString());
         return mClient.get(url, params, asyncHttpResponseHandler);
 
@@ -548,24 +589,6 @@ public class DataAccessUtil {
             mClient.cancelAllRequests(true);
     }
 
-//    /**
-//     * 上传:Post方式
-//     */
-//    public static void upLoad(String url, File file) {
-//
-//        if (!NetUtils.isConnected(MyApplication.getInstance())) {
-//            T.show("网络异常");
-//            return ;
-//        }
-//        initAsyncHttpClient();
-//        File myFile = new File("/path/to/file.png");
-//        RequestParams params = new RequestParams();
-//        try {
-//            params.put("profile_picture", myFile);
-//        } catch(FileNotFoundException e) {
-//            e.printStackTrace();
-//        }
-//    }
 
     /**
      * 上传图片:Post方式
@@ -574,7 +597,7 @@ public class DataAccessUtil {
         asyncHttpResponseHandler) {
 
         if (!NetUtils.isConnected(MyApplication.getInstance())) {
-            T.show("网络异常");
+            T.show("网络异常,请检查网络连接");
             return null;
         }
         initAsyncHttpClient();
@@ -601,5 +624,21 @@ public class DataAccessUtil {
         }
 
         return params;
+    }
+
+    /**
+     * 获取包含有id和app_token的图片Url
+     * @param url
+     * @return
+     */
+    public static String getImageUrl(String url) {
+        User user = MyApplication.getInstance().getUser();
+        if (null != user) {
+            String id = user.getId();
+            String app_token = user.getApp_token();
+            url = url + "?id=" + id + "&app_token=" + app_token;
+            return url;
+        }
+        return url;
     }
 }  

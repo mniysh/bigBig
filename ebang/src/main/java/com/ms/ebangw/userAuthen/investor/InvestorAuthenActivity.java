@@ -2,13 +2,9 @@ package com.ms.ebangw.userAuthen.investor;
 
 import android.app.Fragment;
 import android.app.FragmentManager;
-import android.content.Intent;
-import android.database.Cursor;
+import android.app.FragmentTransaction;
 import android.graphics.Color;
-import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
-import android.provider.MediaStore;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -18,13 +14,16 @@ import com.ms.ebangw.R;
 import com.ms.ebangw.activity.BaseActivity;
 import com.ms.ebangw.bean.AuthInfo;
 import com.ms.ebangw.bean.TotalRegion;
+import com.ms.ebangw.bean.User;
 import com.ms.ebangw.commons.Constants;
+import com.ms.ebangw.db.UserDao;
+import com.ms.ebangw.event.RefreshUserEvent;
 import com.ms.ebangw.exception.ResponseException;
 import com.ms.ebangw.service.DataAccessUtil;
 import com.ms.ebangw.service.DataParseUtil;
+import com.ms.ebangw.userAuthen.InfoCommitSuccessFragment;
 import com.ms.ebangw.utils.L;
 import com.ms.ebangw.utils.T;
-import com.soundcloud.android.crop.Crop;
 
 import org.apache.http.Header;
 import org.json.JSONException;
@@ -36,17 +35,19 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import de.greenrobot.event.EventBus;
 
 /**
- * 开发商用户认证
+ * 个人用户认证
  */
 public class InvestorAuthenActivity extends BaseActivity {
 	/**
 	 * 要认证的用户类型
 	 */
-	private String category;
+	private static final String category = Constants.INVESTOR;
 	private File imageFile;
 	private TotalRegion totalRegion;
+
 
 	/**
 	 * 认证的信息
@@ -69,17 +70,32 @@ public class InvestorAuthenActivity extends BaseActivity {
 	TextView twoTv;
 	@Bind(R.id.tv_three)
 	TextView threeTv;
+//	@Bind(R.id.layout_title)
+//	View view_title;
+//	@Bind(R.id.layout_step)
+//	View view_step;
+	private int currentStep;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_investor_authen);
 		ButterKnife.bind(this);
-		Bundle extras = getIntent().getExtras();
-		category = extras.getString(Constants.KEY_CATEGORY, Constants.INVESTOR);
-		totalRegion = (TotalRegion) extras.getSerializable(Constants.KEY_TOTAL_REGION);
-		initView();
-		initData();
+		fm = getFragmentManager();
+
+		L.d("InvestorAuthenActivity onCreate");
+		if (savedInstanceState != null) {
+			authInfo = savedInstanceState.getParcelable(Constants.KEY_AUTHINFO);
+			currentStep = savedInstanceState.getInt(Constants.KEY_CURRENT_STEP, 0);
+			L.d("currentStep" + currentStep);
+
+			initTitle(null, "返回", "个人认证", null, null);
+
+		}else {
+			initView();
+			initData();
+
+		}
 	}
 
 	public void initView() {
@@ -89,25 +105,26 @@ public class InvestorAuthenActivity extends BaseActivity {
 		findViewById(R.id.tv_cardBind).setVisibility(View.GONE);
 
 		setStep(0);
+		currentStep = 0;
 	}
+
 
 	@Override
 	public void initData() {
-		fm = getFragmentManager();
 		personBaseInfoFragment = InvestorBaseInfoFragment.newInstance(category);
-
-		getFragmentManager().beginTransaction().replace(R.id.fl_content,personBaseInfoFragment).commit();
+		getFragmentManager().beginTransaction().replace(R.id.fl_content,
+			personBaseInfoFragment).addToBackStack(null).commit();
 
 	}
 
 	public void goNext() {
 
 		identifyFragment = InvestorIdentityCardFragment.newInstance(category);
+//		identifyFragment.setRetainInstance(true);
 		getFragmentManager().beginTransaction().replace(R.id.fl_content, identifyFragment)
 			.addToBackStack("IdentityCardPhotoVerifyFragment").commit();
 		setStep(1);
-
-
+		currentStep = 1;
 	}
 
 	/**
@@ -119,7 +136,7 @@ public class InvestorAuthenActivity extends BaseActivity {
 			InvestorBankVerifyFragment.newInstance(category)).addToBackStack
 			("BankVerifyFragment").commit();
 
-		//commit();
+//		commit();
 
 	}
 
@@ -129,80 +146,6 @@ public class InvestorAuthenActivity extends BaseActivity {
 
 	public void setAuthInfo(AuthInfo authInfo) {
 		this.authInfo = authInfo;
-	}
-
-
-	/*** 打开照相机     */
-	public void openCamera(){
-		Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-		File file = new File(Environment.getExternalStorageDirectory() + "/Images");
-		if(!file.exists()){
-			file.mkdirs();
-		}
-		imageFile = new File(Environment.getExternalStorageDirectory() + "/Images/",
-			"cameraImg" + String.valueOf(System.currentTimeMillis()) + ".png");
-
-		Uri mUri = Uri.fromFile(imageFile);
-		cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, mUri);
-		cameraIntent.putExtra("return-data", true);
-		startActivityForResult(cameraIntent, Constants.REQUEST_CAMERA);
-	}
-
-
-	@Override
-	public void onActivityResult(int requestCode, int resultCode, Intent data) {
-		super.onActivityResult(requestCode, resultCode, data);
-		L.d("onActivityResult");
-
-		if (requestCode == Constants.REQUEST_CAMERA && resultCode == RESULT_OK) { //拍照返回
-			Uri uri;
-			if (null == data) {
-				uri = Uri.fromFile(imageFile);
-			}else {
-				uri = data.getData();
-			}
-
-
-			beginCrop(uri);
-
-		}else if (requestCode == Crop.REQUEST_PICK&& resultCode == RESULT_OK) {
-			beginCrop(data.getData());
-
-		}else if (requestCode == Crop.REQUEST_CROP) {
-			identifyFragment.handleCrop(resultCode, data);			//在Fragment中处理剪切后的图片
-		}
-	}
-
-	private void beginCrop(Uri source) {
-        Uri destination = Uri.fromFile(new File(getCacheDir(), "cropped.png"));
-		Crop.of(source, destination).asSquare().start(this);
-	}
-
-	public void selectPhoto() {
-
-		// 选择图片
-		Intent intent = new Intent();
-		intent.setAction(Intent.ACTION_PICK);
-		intent.setType("image/*");
-		startActivityForResult(intent, Crop.REQUEST_PICK);
-//		Crop.pickImage(this);
-	}
-
-	public File uriToFile(Uri uri) {
-//		Uri uri = data.getData();
-
-		String[] proj = { MediaStore.Images.Media.DATA };
-
-		Cursor actualimagecursor = managedQuery(uri,proj,null,null,null);
-
-		int actual_image_column_index = actualimagecursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
-
-		actualimagecursor.moveToFirst();
-
-		String img_path = actualimagecursor.getString(actual_image_column_index);
-
-		File file = new File(img_path);
-		return file;
 	}
 
 	public TotalRegion getTotalRegion() {
@@ -220,7 +163,7 @@ public class InvestorAuthenActivity extends BaseActivity {
 		String cityId = authInfo.getCityId();
 		String frontImageId = authInfo.getFrontImageId();
 		String backImageId = authInfo.getBackImageId();
-
+		L.d("xxx","进来了吗");
 		DataAccessUtil.personIdentify(realName, gender, identityCard, provinceId, cityId,
 			frontImageId,
 			backImageId, null, new JsonHttpResponseHandler(){
@@ -228,15 +171,19 @@ public class InvestorAuthenActivity extends BaseActivity {
 				public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
 					try {
 						boolean b = DataParseUtil.processDataResult(response);
+						L.d("xxx","boolean值"+b);
 						if (b) {
 							T.show(response.getString("message"));
-							InvestorAuthenActivity.this.finish();
+							saveAuthStatusInLocal();
+							EventBus.getDefault().post(new RefreshUserEvent(Constants.INVESTOR));
+							goResultFragment(Constants.INVESTOR);
 						}
 					} catch (ResponseException e) {
 						e.printStackTrace();
 						T.show(e.getMessage());
 					} catch (JSONException e) {
 						e.printStackTrace();
+						T.show(e.getMessage());
 					}
 				}
 
@@ -273,5 +220,27 @@ public class InvestorAuthenActivity extends BaseActivity {
 				descTv.setTextColor(Color.BLACK);
 			}
 		}
+	}
+
+	public void goResultFragment(String category) {
+
+		InfoCommitSuccessFragment fragment = InfoCommitSuccessFragment.newInstance(category);
+		FragmentTransaction transaction = fm.beginTransaction();
+		transaction.replace(R.id.fl_content, fragment).commit();
+	}
+
+	public void saveAuthStatusInLocal() {
+		User user = getUser();
+		user.setStatus(Constants.AUTH_INVESTOR);
+		UserDao userDao = new UserDao(this);
+		userDao.update(user);
+	}
+
+	@Override
+	protected void onSaveInstanceState(Bundle outState) {
+		outState.putParcelable(Constants.KEY_AUTHINFO, authInfo);
+		outState.putInt(Constants.KEY_CURRENT_STEP, currentStep);
+		L.d("InvestorAuthenActivity onSaveInstanceState");
+		super.onSaveInstanceState(outState);
 	}
 }

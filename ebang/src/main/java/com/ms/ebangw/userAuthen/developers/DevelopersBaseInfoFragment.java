@@ -19,14 +19,11 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.ms.ebangw.R;
-import com.ms.ebangw.activity.HomeActivity;
 import com.ms.ebangw.bean.AuthInfo;
 import com.ms.ebangw.bean.City;
 import com.ms.ebangw.bean.Province;
-import com.ms.ebangw.bean.TotalRegion;
 import com.ms.ebangw.commons.Constants;
 import com.ms.ebangw.fragment.BaseFragment;
-import com.ms.ebangw.utils.L;
 import com.ms.ebangw.utils.T;
 import com.ms.ebangw.utils.VerifyUtils;
 
@@ -109,9 +106,7 @@ public class DevelopersBaseInfoFragment extends BaseFragment {
 	}
 
 	public void initSpinner() {
-		provinces = ((DevelopersAuthenActivity)mActivity).getAllarea().getProvince();
-
-//		provinces = getProvinces();
+		provinces = getProvinces();
 		if (null == provinces) {
 			return;
 		}
@@ -136,8 +131,8 @@ public class DevelopersBaseInfoFragment extends BaseFragment {
 				province = provinces.get(position);
 
 				adapter02 = new ArrayAdapter<>(mActivity,
-						R.layout.layout_spinner_item, provinces.get(
-						position).getCitys());
+					R.layout.layout_spinner_item, provinces.get(
+					position).getCitys());
 
 				citySp.setAdapter(adapter02);
 
@@ -226,7 +221,8 @@ public class DevelopersBaseInfoFragment extends BaseFragment {
 		}
 		String  provinceId = null;
 		String cityId = null;
-		List<Province> provinces = ((DevelopersAuthenActivity)mActivity).getAllarea().getProvince();
+
+		List<Province> provinces = getProvinces();
 		for (int i = 0; i < provinces.size(); i++) {
 			Province p = provinces.get(i);
 			if(TextUtils.equals(p.getName(), province)){
@@ -270,21 +266,5 @@ public class DevelopersBaseInfoFragment extends BaseFragment {
 			}
 		}
 	}
-
-
-	/**
-	 * 获取省份
-	 * @return
-	 */
-	public List<Province> getProvinces() {
-		TotalRegion totalRegion = ((DevelopersAuthenActivity) mActivity).getTotalRegion();
-		if (totalRegion == null) {
-			return null;
-		}else {
-			return totalRegion.getProvince();
-		}
-	}
-
-
 
 }

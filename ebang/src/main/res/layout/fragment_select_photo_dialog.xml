@@ -1,0 +1,40 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             xmlns:tools="http://schemas.android.com/tools"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+              android:orientation="vertical"
+              android:divider="@drawable/divider_line_gray"
+              android:showDividers="middle"
+             tools:context="com.ms.ebangw.dialog.SelectPhotoDialog">
+
+    <TextView
+        android:id="@+id/tv_camera"
+        android:layout_width="270dp"
+        android:layout_height="wrap_content"
+        android:text="拍照"
+        android:paddingLeft="10dp"
+        android:paddingTop="15dp"
+        android:paddingBottom="15dp"
+        android:textColor="#626262"
+        android:textSize="18sp"
+        android:drawablePadding="10dp"
+        android:gravity="center_vertical"
+        android:drawableLeft="@drawable/select_camera"
+        />
+
+    <TextView
+        android:id="@+id/tv_photo"
+        android:layout_width="270dp"
+        android:layout_height="wrap_content"
+        android:text="从手机相册选择"
+        android:paddingLeft="10dp"
+        android:paddingTop="15dp"
+        android:paddingBottom="15dp"
+        android:textColor="#626262"
+        android:textSize="18sp"
+        android:drawablePadding="10dp"
+        android:gravity="center_vertical"
+        android:drawableLeft="@drawable/select_photo"
+        />
+
+</LinearLayout>

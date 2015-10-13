@@ -40,13 +40,11 @@
         <item name="android:layout_height">1.5dp</item>
         <item name="android:background">@drawable/bk_line</item>
     </style>
-
     <style name="bbb_hor">
         <item name="android:layout_width">60dp</item>
         <item name="android:layout_height">4dp</item>
         <item name="android:background">@drawable/bk_line</item>
     </style>
-
     <style name="aaa_ver">
         <item name="android:layout_width">1.5dp</item>
         <item name="android:layout_height">wrap_content</item>
@@ -80,7 +78,7 @@
 
     <!--认证页面-->
     <style name="authorization_text">
-        <item name="android:layout_width">150dp</item>
+        <item name="android:layout_width">110dp</item>
         <item name="android:textColor">@color/auth_description</item>
         <item name="android:textSize">@dimen/authen_item_text</item>
         <item name="android:padding">5dp</item>
@@ -89,31 +87,51 @@
         <item name="android:layout_gravity">center_vertical</item>
     </style>
 
-    <style name="authorization_edit">
+    <style name="authorization_developer_text">
+        <item name="android:layout_width">140dp</item>
+        <item name="android:textColor">@color/auth_description</item>
+        <item name="android:textSize">@dimen/authen_item_text</item>
+        <item name="android:padding">5dp</item>
         <item name="android:singleLine">true</item>
-        <item name="android:textColor">@color/black</item>
-        <item name="android:textSize">14sp</item>
-        <!--<item name="android:background">@drawable/border_gray</item>-->
+        <item name="android:gravity">right|center_vertical</item>
+        <item name="android:layout_gravity">center_vertical</item>
+    </style>
+
+    <style name="authorization_alert">
+        <item name="android:textColor">@color/auth_description</item>
+        <item name="android:padding">5dp</item>
+        <item name="android:singleLine">false</item>
+        <item name="android:gravity">left</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:layout_marginTop">5dp</item>
+        <item name="android:layout_marginBottom">5dp</item>
+        <item name="android:layout_gravity">center_vertical</item>
+    </style>
+
+    <style name="authorization_edit">
+    <item name="android:textColor">@color/black_overlay</item>
+    <item name="android:textSize">@dimen/authen_item_text</item>
+    <!--<item name="android:background">@drawable/border_gray</item>-->
         <item name="android:background">@null</item>
         <item name="android:layout_marginRight">10dp</item>
-        <item name="android:padding">5dp</item>
+    <item name="android:padding">5dp</item>
         <item name="android:textColorHint">@color/black</item>
     </style>
 
-    <!--身份证认证页面-->
+        <!--身份证认证页面-->
 
-    <style name="authorization_card">
-        <item name="android:textColor">@color/auth_description</item>
-        <item name="android:textSize">@dimen/authen_item_text</item>
-        <item name="android:background">@null</item>
-        <item name="android:paddingTop">15dp</item>
-        <item name="android:paddingBottom">15dp</item>
+        <style name="authorization_card">
+            <item name="android:textColor">@color/auth_description</item>
+            <item name="android:textSize">@dimen/authen_item_text</item>
+            <item name="android:background">@null</item>
+            <item name="android:paddingTop">15dp</item>
+            <item name="android:paddingBottom">15dp</item>
 
-    </style>
+        </style>
 
-    <!--用户银行信息验证 BankVerifyFragment-->
+        <!--用户银行信息验证 BankVerifyFragment-->
 
-    <!--服务页面的按钮样式-->
+<!--服务页面的按钮样式-->
     <style name="service_but">
         <item name="android:layout_width">80dp</item>
         <item name="android:layout_height">wrap_content</item>
@@ -188,8 +206,24 @@
         <item name="android:layout_gravity">center_vertical</item>
     </style>
 
-    <!--spinner-->
-    <style name="sp_padding">
-        <item name="android:paddingLeft">8dp</item>
+    <!--发布  start-->
+
+    <!--用户中心-->
+    <style name="user_center_desc_left">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/user_center_desc_left</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:padding">5dp</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:layout_gravity">center_vertical</item>
+    </style>
+
+    <style name="user_center_desc">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/user_center_desc</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:padding">5dp</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:layout_gravity">center_vertical</item>
     </style>
 </resources>

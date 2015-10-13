@@ -14,10 +14,11 @@ import android.graphics.drawable.Drawable;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 
 /**
  * @author yanzi
- *����Bitmap��byte[] Drawable����ת��
  */
 public class BitmapUtil {
 
@@ -26,18 +27,18 @@ public class BitmapUtil {
          * @param srcPath
          * @return
          */
-        public static Bitmap getimage(String srcPath) {
+        public static Bitmap getImage(String srcPath) {
                 BitmapFactory.Options newOpts = new BitmapFactory.Options();
                 // 开始读入图片，此时把options.inJustDecodeBounds 设回true了
                 newOpts.inJustDecodeBounds = true;
-                Bitmap bitmap = BitmapFactory.decodeFile(srcPath, newOpts);// 此时返回bm为空
+                Bitmap bitmap = BitmapFactory.decodeFile(srcPath, newOpts);     // 此时返回bm为空
 
                 newOpts.inJustDecodeBounds = false;
                 int w = newOpts.outWidth;
                 int h = newOpts.outHeight;
                 // 现在主流手机比较多是800*480分辨率，所以高和宽我们设置为
-                float hh = 800f;// 这里设置高度为800f
-                float ww = 480f;// 这里设置宽度为480f
+                float hh = 400f;// 这里设置高度为800f
+                float ww = 400f;// 这里设置宽度为480f
                 // 缩放比。由于是固定比例缩放，只用高或者宽其中一个数据进行计算即可
                 int be = 1;// be=1表示不缩放
                 if (w > h && w > ww) {// 如果宽度大的话根据宽度固定大小缩放
@@ -48,8 +49,24 @@ public class BitmapUtil {
                 if (be <= 0)
                         be = 1;
                 newOpts.inSampleSize = be;// 设置缩放比例
+                newOpts.inPreferredConfig = Config.RGB_565;
                 // 重新读入图片，注意此时已经把options.inJustDecodeBounds 设回false了
-                bitmap = BitmapFactory.decodeFile(srcPath, newOpts);
+                FileInputStream fileInputStream = null;
+                try {
+                        fileInputStream = new FileInputStream(srcPath);
+                } catch (FileNotFoundException e) {
+                        e.printStackTrace();
+                }
+                bitmap = BitmapFactory.decodeStream(fileInputStream, null, newOpts);
+                if(bitmap != null){
+                        L.d("xxx", "bitmap不为空");
+                }
+
+                int bitmapDegree = CropImageUtil.getBitmapDegree(srcPath);
+                if (bitmapDegree != 0) {
+                        bitmap = CropImageUtil.rotateBitmapByDegree(bitmap, bitmapDegree);
+                }
+
                 return compressImage(bitmap);// 压缩好比例大小后再进行质量压缩
         }
 

@@ -6,7 +6,15 @@ package com.ms.ebangw.service;
  */
 public class RequestUrl {
 
+    /**
+     * 测试用域名
+     */
     private final static String domain = "http://labour.chinadeer.cn";
+
+    /**
+     * 正式上线域名
+     */
+//    private final static String domain = "http://www.ebngw.com";
 
     /**
      * 1.注册
@@ -17,27 +25,31 @@ public class RequestUrl {
      */
     public static final String login = domain + "/api/user/index/login";
     /**
-     * 3.退出接口
+     * 1-3.退出接口  请求：get
      */
     public static final String logout = domain + "/api/user/index/logout";
     /**
-     * 个人信息
+     * 1-11、获取用户信息接口 get方式
      */
     public static final String user_information = domain + "/api/user/index/information";
     /**
      * 4.短信验证码
      */
-    public static final  String msg = domain+"/api/user/index/msg";
-
+    public static final  String msg =domain+"/api/user/index/msg";
     /**
-     * 4.短信验证码,注册
+     * 4.1短信验证码
      */
-    public static final  String msg_register =domain+"/api/user/index/msg/1";
+    public static final  String msg_registe =domain+"/api/user/index/msg/1";
 
     /**
-     * 5.短信修改密码接口
+     * 1-4.短信修改密码接口
      */
     public static final  String update_pwd= domain + "/api/user/index/update-pwd";
+
+    /**
+     * 3-16、修改密码接口
+     */
+    public static final  String recovered_pwd= domain + "/api/user/index/recovered-password";
 
     /**
      * 6.用旧密码修改新密码接口
@@ -47,7 +59,7 @@ public class RequestUrl {
     /**
      * 7.个人信息验证接口
      */
-    public static final  String person_identify = domain + "api/user/investor/person-identify";
+    public static final  String person_identify = domain + "/api/user/investor/person-identify";
 
     /**
      * 8.上传图片
@@ -72,10 +84,6 @@ public class RequestUrl {
      * 1-9.开发商认证接口
      */
     public static final  String developer_identify = domain + "/api/user/developers/identify";
-    /**
-     * 1-11.获取用户信息
-     */
-    public static  final String loadUserInfo = domain + "/api/user/index/information";
     /**
      * 11.工头认证接口
      */
@@ -104,9 +112,9 @@ public class RequestUrl {
      */
     public static final String modify_phone =domain + "/api/user/index/change-phone";
     /**
-     * 3-13.仅仅验证验证码的接口
+     * 3-13.仅仅验证验证码接口
      */
-    public static final String only_check_code = domain + "/api/user/index/check-code-only";
+    public static final String checkCode = domain + "/api/user/index/check-code-only";
 
     /**
      *3-14、获取银行列表
@@ -117,5 +125,17 @@ public class RequestUrl {
      * 3-7 发布选择的接口 (建筑， 装修， 工程管理)  Get方式
      */
     public static final String publish_craft =domain + "/api/common/craft/publish-craft";
+
+    /**
+     *1-12、修改用户头像
+     */
+    public static final String head_image =domain + "/api/user/upload/head-image";
+
+    /**
+     * 摇奖WebUrl
+     */
+    public static final String lottery = domain + "/phone/lottery/main/index";
+
+
 
 }

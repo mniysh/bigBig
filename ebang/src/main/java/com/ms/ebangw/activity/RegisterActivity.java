@@ -72,7 +72,38 @@ public class RegisterActivity extends BaseActivity  {
 			}
 		}, "返回", "注册", null, null);
 
+		changeColor();
 		setStarRed();
+	}
+
+	/**
+	 * 变颜色
+	 */
+	public void setStarRed() {
+
+
+		TextView a = (TextView) findViewById(R.id.act_login_register);
+		String s = a.getText().toString();
+		SpannableString spannableString = new SpannableString(s);
+		spannableString.setSpan(new ForegroundColorSpan(Color.parseColor("#036287")), 32, s.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+		a.setText(spannableString);
+		a.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				startActivity(new Intent(RegisterActivity.this, ServiceContractActivity.class));
+			}
+		});
+
+	}
+	/**
+	 * 变色
+	 */
+	public void changeColor(){
+		TextView textView = (TextView) findViewById(R.id.act_login_register);
+		String s = textView.getText().toString().trim();
+		SpannableString spannableString = new SpannableString(s);
+		spannableString.setSpan(new ForegroundColorSpan(Color.parseColor("#347A93")), 36, s.length() - 1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+
 	}
 
 	@Override
@@ -94,22 +125,6 @@ public class RegisterActivity extends BaseActivity  {
 		});
 	}
 
-	/**
-	 * 变颜色
-	 */
-	public void setStarRed() {
-
-
-		TextView a = (TextView) findViewById(R.id.act_login_register);
-		String s = a.getText().toString();
-		SpannableString spannableString = new SpannableString(s);
-		spannableString.setSpan(new ForegroundColorSpan(Color.parseColor("#036287")), 36, s.length()-1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-		a.setText(spannableString);
-
-	}
-
-
-
 	/**点击：注册*/
 	@OnClick(R.id.btn_register)
 	public void goRegister2(View view) {
@@ -122,7 +137,6 @@ public class RegisterActivity extends BaseActivity  {
 				try {
 					boolean b = DataParseUtil.processDataResult(response);
 					if (b) {
-						T.show("验证成功");
 						Bundle bundle = new Bundle();
 						bundle.putString(Constants.key_phone, phone);
 						bundle.putString(Constants.KEY_VERIFY_CODE, verifyCode);
@@ -151,7 +165,7 @@ public class RegisterActivity extends BaseActivity  {
 	public boolean isInputRight(String phone, String verifyCode) {
 
 		if (!VerifyUtils.isPhone(phone)) {
-			T.show("手机号不能为空");
+			T.show("请输入正确的手机号");
 			return false;
 		}
 
@@ -170,55 +184,48 @@ public class RegisterActivity extends BaseActivity  {
 	 */
 	@OnClick(R.id.btn_smsCode)
 	public void getMsmCode() {
+		phone = phonetEt.getText().toString().trim();
+		if (VerifyUtils.isPhone(phone)) {
 
+			DataAccessUtil.messageCodeRegiste(phone, new JsonHttpResponseHandler(){
+				@Override
+				public void onStart() {
+					executeCountDown();
+				}
 
-			phone = phonetEt.getText().toString().trim();
-			if (VerifyUtils.isPhone(phone)) {
-
-
-
-
-				DataAccessUtil.messageCodeRegiste(phone, new JsonHttpResponseHandler(){
-
-					@Override
-					public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-						try {
-							boolean b = DataParseUtil.messageCode(response);
-							if(b){
-								T.show("验证码已发送，请注意查收");
-								executeCountDown();
-								smsCodeBtn.setPressed(true);
-								smsCodeBtn.setClickable(false);
-							}
-
-
-
-						} catch (ResponseException e) {
-							e.printStackTrace();
-							T.show(e.getMessage());
+				@Override
+				public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+					try {
+						boolean b = DataParseUtil.messageCode(response);
+						L.d("xxx",b+"b的值");
+						if (b) {
+							T.show("验证码已发送，请注意查收");
 						}
+
+					} catch (ResponseException e) {
+						e.printStackTrace();
+						T.show(e.getMessage());
 					}
+				}
 
-					@Override
-					public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
-						super.onFailure(statusCode, headers, throwable, errorResponse);
-					}
-				});
-			} else {
-				T.show("请输入正确的手机号");
+				@Override
+				public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+					super.onFailure(statusCode, headers, throwable, errorResponse);
+				}
+			});
+		}else {
+			T.show("请输入正确的手机号");
 
-			}
-
-
-
+		}
 	}
 
 	private void executeCountDown() {
+		smsCodeBtn.setPressed(true);
+		smsCodeBtn.setClickable(false);
 		countDownTimer = new CountDownTimer(60000, 1000) {
 			@Override
 			public void onTick(long millisUntilFinished) {
 				mHandler.sendEmptyMessage((int)(millisUntilFinished / 1000));
-
 			}
 
 			@Override
