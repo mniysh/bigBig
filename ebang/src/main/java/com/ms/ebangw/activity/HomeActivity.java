@@ -20,6 +20,7 @@ import com.ms.ebangw.event.RefreshUserEvent;
 import com.ms.ebangw.exception.ResponseException;
 import com.ms.ebangw.fragment.AuthenticationFragment;
 import com.ms.ebangw.fragment.FoundFragment;
+import com.ms.ebangw.fragment.HomeFragment;
 import com.ms.ebangw.fragment.LotteryFragment;
 import com.ms.ebangw.fragment.ServiceFragment;
 import com.ms.ebangw.fragment.WorkerHomeFragment;
@@ -103,8 +104,8 @@ public class HomeActivity extends BaseActivity {
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 switch (checkedId) {
                     case R.id.rb_home:
-//						fm.beginTransaction().replace(R.id.fl_content, new HomeFragment()).commit();
-                        fm.beginTransaction().replace(R.id.fl_content, lotteryFragment).commit();
+						fm.beginTransaction().replace(R.id.fl_content, new HomeFragment()).commit();
+//                        fm.beginTransaction().replace(R.id.fl_content, lotteryFragment).commit();
                         break;
                     case R.id.rb_discovery:
 //						fm.beginTransaction().replace(R.id.fl_content, foundFragment).commit();

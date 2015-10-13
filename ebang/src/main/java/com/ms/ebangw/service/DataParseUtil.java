@@ -147,7 +147,7 @@ public class DataParseUtil {
                 String card_image_frond = realJsonObject.getString("card_image_frond");
                 String card_image_back = realJsonObject.getString("card_image_back");
                 String craft = realJsonObject.getString("craft");
-                baseUser.setRealName(realName);
+
 
 
             } catch (JSONException e) {

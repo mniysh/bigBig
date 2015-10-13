@@ -35,7 +35,7 @@
             android:layout_weight="1"
             android:gravity="center"
             android:layout_height="wrap_content"
-            android:text="抽奖"
+            android:text="主页"
             android:button="@drawable/empty"
             android:drawableTop="@drawable/home_page_selector"
             android:textColor="@color/home_bottom_selector"
@@ -47,7 +47,19 @@
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="wrap_content"
-            android:text="工友之家"
+            android:text="发现"
+            android:gravity="center"
+            android:button="@drawable/empty"
+            android:drawableTop="@drawable/home_descovery_selector"
+            android:textColor="@color/home_bottom_selector"
+
+            />
+        <RadioButton
+            android:id="@+id/rb_release"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="发布"
             android:gravity="center"
             android:button="@drawable/empty"
             android:drawableTop="@drawable/home_descovery_selector"
@@ -56,11 +68,11 @@
             />
 
         <RadioButton
-            android:id="@+id/rb_release"
+            android:id="@+id/rb_service"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="wrap_content"
-            android:text="在线商城"
+            android:text="服务"
             android:gravity="center"
             android:button="@drawable/empty"
             android:drawableTop="@drawable/home_release_selector"
