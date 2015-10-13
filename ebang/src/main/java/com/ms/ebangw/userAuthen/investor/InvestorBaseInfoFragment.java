@@ -25,6 +25,7 @@ import com.ms.ebangw.bean.Province;
 import com.ms.ebangw.bean.TotalRegion;
 import com.ms.ebangw.commons.Constants;
 import com.ms.ebangw.fragment.BaseFragment;
+import com.ms.ebangw.userAuthen.headman.HeadmanAuthenActivity;
 import com.ms.ebangw.utils.T;
 import com.ms.ebangw.utils.VerifyUtils;
 
@@ -104,7 +105,7 @@ public class InvestorBaseInfoFragment extends BaseFragment {
 	}
 
 	public void initSpinner() {
-		provinces = getProvinces();
+		provinces = ((InvestorAuthenActivity)mActivity).getAllarea().getProvince();
 		if (null == provinces) {
 			return;
 		}
@@ -212,7 +213,7 @@ public class InvestorBaseInfoFragment extends BaseFragment {
 		String  provinceId = null;
 		String cityId = null;
 
-		List<Province> provinces = getProvinces();
+		List<Province> provinces = ((InvestorAuthenActivity)mActivity).getAllarea().getProvince();
 		for (int i = 0; i < provinces.size(); i++) {
 			Province p = provinces.get(i);
 			if(TextUtils.equals(p.getName(), province)){

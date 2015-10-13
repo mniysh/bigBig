@@ -288,7 +288,7 @@ public class DevelopersBankVerifyFragment extends BaseFragment {
     }
 
     public void initSpinner() {
-        provinces = getProvinces();
+        provinces = ((DevelopersAuthenActivity)mActivity).getAllarea().getProvince();
         if (null == provinces) {
             return;
         }
@@ -329,7 +329,7 @@ public class DevelopersBankVerifyFragment extends BaseFragment {
     }
 
     public void initPublicAccountAddressSpinner() {
-        bankProvinces = getProvinces();
+        bankProvinces = ((DevelopersAuthenActivity)mActivity).getAllarea().getProvince();
         if (null == bankProvinces) {
             return;
         }
@@ -526,6 +526,9 @@ public class DevelopersBankVerifyFragment extends BaseFragment {
 
     private void initBankSpinner() {
         banks = ((DevelopersAuthenActivity)mActivity).getBanks();
+        if(banks == null){
+            return;
+        }
         ArrayAdapter<Bank> bankArrayAdapter = new ArrayAdapter<>(mActivity, R.layout.layout_spinner_item,
             banks);
         bankSp.setAdapter(bankArrayAdapter);

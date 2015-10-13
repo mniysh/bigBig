@@ -130,7 +130,7 @@ public class WorkerBankVerifyFragment extends BaseFragment {
     }
 
     public void initSpinner() {
-        provinces = getProvinces();
+        provinces = ((WorkerAuthenActivity)mActivity).getAllarea().getProvince();
         if (null == provinces) {
             return;
         }
@@ -173,7 +173,7 @@ public class WorkerBankVerifyFragment extends BaseFragment {
     }
 
     private void initBankSpinner() {
-        banks = MyApplication.getInstance().getBanks();
+        banks = ((WorkerAuthenActivity)mActivity).getBanks();
         ArrayAdapter<Bank> bankArrayAdapter = new ArrayAdapter<>(mActivity, R.layout.layout_spinner_item,
             banks);
         bankSp.setAdapter(bankArrayAdapter);
@@ -209,7 +209,7 @@ public class WorkerBankVerifyFragment extends BaseFragment {
         String  provinceId = null;
         String cityId = null;
 
-        List<Province> provinces = getProvinces();
+        List<Province> provinces = ((WorkerAuthenActivity)mActivity).getAllarea().getProvince();
         for (int i = 0; i < provinces.size(); i++) {
             Province p = provinces.get(i);
             if(TextUtils.equals(p.getName(), province)){

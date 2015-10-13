@@ -258,7 +258,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     public List<Bank> getBanks(){
         StringBuilder sb = new StringBuilder();
         try {
-            InputStream in = getAssets().open("bank_list");
+            InputStream in = getAssets().open("bank_list.txt");
             InputStreamReader isr = new InputStreamReader(in);
             char[] chars = new char[1024];
             int len;

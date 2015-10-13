@@ -29,6 +29,7 @@ import com.ms.ebangw.bean.User;
 import com.ms.ebangw.bean.WorkType;
 import com.ms.ebangw.commons.Constants;
 import com.ms.ebangw.fragment.BaseFragment;
+import com.ms.ebangw.userAuthen.investor.InvestorAuthenActivity;
 import com.ms.ebangw.utils.JsonUtil;
 import com.ms.ebangw.utils.L;
 import com.ms.ebangw.utils.T;
@@ -122,7 +123,7 @@ public class WorkerBaseInfoFragment extends BaseFragment {
 
 
 	public void initSpinner() {
-		provinces = getProvinces();
+		provinces = ((WorkerAuthenActivity)mActivity).getAllarea().getProvince();
 		if (null == provinces) {
 			return;
 		}
@@ -267,7 +268,7 @@ public class WorkerBaseInfoFragment extends BaseFragment {
 		String  provinceId = null;
 		String cityId = null;
 
-		List<Province> provinces = getProvinces();
+		List<Province> provinces = ((WorkerAuthenActivity)mActivity).getAllarea().getProvince();
 		for (int i = 0; i < provinces.size(); i++) {
 			Province p = provinces.get(i);
 			if(TextUtils.equals(p.getName(), province)){

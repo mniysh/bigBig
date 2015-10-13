@@ -105,7 +105,7 @@ public class HeadmanBaseInfoFragment extends BaseFragment {
 	}
 
 	public void initSpinner() {
-		provinces = getProvinces();
+		provinces = ((HeadmanAuthenActivity)mActivity).getAllarea().getProvince();
 		if (null == provinces) {
 			return;
 		}
@@ -216,7 +216,7 @@ public class HeadmanBaseInfoFragment extends BaseFragment {
 		String  provinceId = null;
 		String cityId = null;
 
-		List<Province> provinces = getProvinces();
+		List<Province> provinces = ((HeadmanAuthenActivity)mActivity).getAllarea().getProvince();
 		for (int i = 0; i < provinces.size(); i++) {
 			Province p = provinces.get(i);
 			if(TextUtils.equals(p.getName(), province)){

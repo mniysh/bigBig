@@ -136,8 +136,8 @@ public class DevelopersBaseInfoFragment extends BaseFragment {
 				province = provinces.get(position);
 
 				adapter02 = new ArrayAdapter<>(mActivity,
-					R.layout.layout_spinner_item, provinces.get(
-					position).getCitys());
+						R.layout.layout_spinner_item, provinces.get(
+						position).getCitys());
 
 				citySp.setAdapter(adapter02);
 
@@ -226,8 +226,7 @@ public class DevelopersBaseInfoFragment extends BaseFragment {
 		}
 		String  provinceId = null;
 		String cityId = null;
-
-		List<Province> provinces = getProvinces();
+		List<Province> provinces = ((DevelopersAuthenActivity)mActivity).getAllarea().getProvince();
 		for (int i = 0; i < provinces.size(); i++) {
 			Province p = provinces.get(i);
 			if(TextUtils.equals(p.getName(), province)){
