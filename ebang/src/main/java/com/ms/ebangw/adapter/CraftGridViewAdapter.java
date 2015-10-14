@@ -55,12 +55,13 @@ public class CraftGridViewAdapter extends BaseAdapter{
         final CheckBox cb = (CheckBox) View.inflate(parent.getContext(), R.layout
             .layout_craft_gridview_item, null);
         cb.setText(workType.getName());
-        selectedWorkTypes = getSelectedWorkTypes();
-        if (selectedWorkTypes.contains(workType)) {
-            cb.setChecked(true);
-        }else {
-            cb.setChecked(false);
-        }
+        activity = getActivity();
+//        selectedWorkTypes = getSelectedWorkTypes();
+//        if (selectedWorkTypes.contains(workType)) {
+//            cb.setChecked(true);
+//        }else {
+//            cb.setChecked(false);
+//        }
         cb.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {

@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.ms.ebangw.R;
 import com.ms.ebangw.bean.WorkType;
+import com.ms.ebangw.utils.L;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,6 +27,7 @@ public class CraftAdapter extends BaseAdapter {
 
     public CraftAdapter(WorkType firstWorkType) {
         this.firstWorkType = firstWorkType;
+        L.d("xxx",firstWorkType.toString());
         if (getType() == 1) {
             list = new ArrayList<>();
             list.add(firstWorkType);
@@ -89,6 +91,7 @@ public class CraftAdapter extends BaseAdapter {
                 holder.titleTv.setVisibility(View.VISIBLE);
                 holder.titleTv.setText(workType.getName());
                 CraftGridViewAdapter craftGridViewAdapter = new CraftGridViewAdapter(types);
+//                activity = getActivity();
                 craftGridViewAdapter.setActivity(activity);
                 holder.gridView.setAdapter(craftGridViewAdapter);
             }

@@ -14,6 +14,7 @@ import android.widget.RadioGroup;
 
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.ms.ebangw.R;
+import com.ms.ebangw.activity.HomeActivity;
 import com.ms.ebangw.adapter.CraftAdapter;
 import com.ms.ebangw.adapter.ReleaseFragmentAdapter;
 import com.ms.ebangw.bean.Craft;
@@ -25,6 +26,7 @@ import com.ms.ebangw.fragment.ReleaseOtherFragment;
 import com.ms.ebangw.fragment.ReleaseProjectManageFragment;
 import com.ms.ebangw.service.DataAccessUtil;
 import com.ms.ebangw.service.DataParseUtil;
+import com.ms.ebangw.userAuthen.worker.WorkTypeActivity;
 import com.ms.ebangw.utils.Utility;
 
 import org.apache.http.Header;
@@ -160,6 +162,7 @@ public class ReleaseFrament01 extends BaseFragment {
                 super.onSuccess(statusCode, headers, response);
                 try {
                     craft = DataParseUtil.publishCraft(response);
+
                     craftAdapter = new CraftAdapter(craft.getBuilding());
                     listView.setAdapter(craftAdapter);
                     Utility.setlistview(listView);

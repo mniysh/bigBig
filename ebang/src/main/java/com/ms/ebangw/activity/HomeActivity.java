@@ -98,6 +98,9 @@ public class HomeActivity extends BaseActivity {
         lotteryFragment = LotteryFragment.newInstance("lotteryFragment", "lotteryFragment");
         workerHomeFragment = WorkerHomeFragment.newInstance(R.drawable.worker_home, 2);
         eMallFragment = WorkerHomeFragment.newInstance(R.drawable.e_mall, 1);
+        releaseFrament01 = new ReleaseFrament01();
+        foundFragment = new FoundFragment();
+        serviceFragment = new ServiceFragment();
 
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
@@ -108,12 +111,17 @@ public class HomeActivity extends BaseActivity {
 //                        fm.beginTransaction().replace(R.id.fl_content, lotteryFragment).commit();
                         break;
                     case R.id.rb_discovery:
-//						fm.beginTransaction().replace(R.id.fl_content, foundFragment).commit();
-                        fm.beginTransaction().replace(R.id.fl_content, workerHomeFragment).commit();
+						fm.beginTransaction().replace(R.id.fl_content, foundFragment).commit();
+//                        fm.beginTransaction().replace(R.id.fl_content, workerHomeFragment).commit();
                         break;
                     case R.id.rb_release:
-//						fm.beginTransaction().replace(R.id.fl_content, releaseFrament01).commit();
-                        fm.beginTransaction().replace(R.id.fl_content, eMallFragment).commit();
+						fm.beginTransaction().replace(R.id.fl_content, releaseFrament01).commit();
+//                        fm.beginTransaction().replace(R.id.fl_content, eMallFragment).commit();
+                        break;
+                    case R.id.rb_service:
+                       // L.d("xxx","被点击");
+						fm.beginTransaction().replace(R.id.fl_content, serviceFragment).commit();
+//                        fm.beginTransaction().replace(R.id.fl_content, eMallFragment).commit();
                         break;
 
                     case R.id.rb_mine:
