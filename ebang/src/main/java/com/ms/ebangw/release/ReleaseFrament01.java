@@ -2,6 +2,7 @@ package com.ms.ebangw.release;
 
 
 import android.annotation.TargetApi;
+import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.os.Build;
@@ -9,6 +10,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.RadioGroup;
 
@@ -35,6 +37,10 @@ import org.json.JSONObject;
 import java.lang.reflect.Field;
 import java.util.List;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+
 /**
  * homeactivity跳转过来的第一个页面
  */
@@ -59,8 +65,11 @@ public class ReleaseFrament01 extends BaseFragment {
     private RadioGroup radioGroup;
     private ListView listView;
     private CraftAdapter craftAdapter;
-
+    private ViewGroup viewGroup;
     private Craft craft;
+
+    @Bind(R.id.bt_next)
+    Button bNext;
 
 
     public static ReleaseFrament01 newInstance(String param1, String param2) {
@@ -75,6 +84,12 @@ public class ReleaseFrament01 extends BaseFragment {
     public ReleaseFrament01() {
         // Required empty public constructor
     }
+    //下一步
+    @OnClick(R.id.bt_next)
+    public void goNext(){
+
+
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -88,8 +103,9 @@ public class ReleaseFrament01 extends BaseFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
-        return inflater.inflate(R.layout.fragment_release_frament01, container, false);
+        viewGroup = (ViewGroup) inflater.inflate(R.layout.fragment_release_frament01, container, false);
+        ButterKnife.bind(this, viewGroup);
+        return viewGroup;
     }
 
     @Override
@@ -164,6 +180,7 @@ public class ReleaseFrament01 extends BaseFragment {
                     craft = DataParseUtil.publishCraft(response);
 
                     craftAdapter = new CraftAdapter(craft.getBuilding());
+                    craftAdapter.setActivity((HomeActivity)mActivity);
                     listView.setAdapter(craftAdapter);
                     Utility.setlistview(listView);
 

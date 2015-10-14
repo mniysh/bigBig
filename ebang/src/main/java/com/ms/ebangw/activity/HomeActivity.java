@@ -14,9 +14,11 @@ import com.ms.ebangw.MyApplication;
 import com.ms.ebangw.R;
 import com.ms.ebangw.bean.Bank;
 import com.ms.ebangw.bean.User;
+import com.ms.ebangw.bean.WorkType;
 import com.ms.ebangw.commons.Constants;
 import com.ms.ebangw.event.BottomTitleClickEvent;
 import com.ms.ebangw.event.RefreshUserEvent;
+import com.ms.ebangw.event.WorkTypeEvent;
 import com.ms.ebangw.exception.ResponseException;
 import com.ms.ebangw.fragment.AuthenticationFragment;
 import com.ms.ebangw.fragment.FoundFragment;
@@ -38,6 +40,7 @@ import com.umeng.update.UmengUpdateAgent;
 import org.apache.http.Header;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
@@ -65,6 +68,8 @@ public class HomeActivity extends BaseActivity {
     private LotteryFragment lotteryFragment;
     private List<Bank> banks;
     private Handler mHandler;
+    private List<WorkType> selectWorkType;
+
 
     @Bind(R.id.radioGroup)
     RadioGroup radioGroup;
@@ -87,6 +92,11 @@ public class HomeActivity extends BaseActivity {
     }
 
     public void initView() {
+        selectWorkType = new ArrayList<WorkType>();
+
+    }
+    public List<WorkType> getSelectWorkType(){
+        return selectWorkType;
     }
 
 
@@ -144,6 +154,16 @@ public class HomeActivity extends BaseActivity {
 
         radioGroup.getChildAt(0).performClick();
     }
+    public void onEvent(WorkTypeEvent event){
+        WorkType workType = event.getWorkType();
+        boolean isAdd = event.isAdd();
+        if(workType != null && isAdd){
+            selectWorkType.add(workType);
+        }else{
+            selectWorkType.remove(workType);
+        }
+    }
+
 
     /**
      * 根据人员类型跳转到相应的内容

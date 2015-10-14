@@ -8,6 +8,7 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 
 import com.ms.ebangw.R;
+import com.ms.ebangw.activity.HomeActivity;
 import com.ms.ebangw.bean.WorkType;
 import com.ms.ebangw.commons.Constants;
 import com.ms.ebangw.event.WorkTypeEvent;
@@ -52,36 +53,62 @@ public class CraftGridViewAdapter extends BaseAdapter{
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         final WorkType workType = list.get(position);
-        final CheckBox cb = (CheckBox) View.inflate(parent.getContext(), R.layout
-            .layout_craft_gridview_item, null);
+        final CheckBox cb = (CheckBox) View.inflate(parent.getContext(), R.layout.layout_craft_gridview_item, null);
         cb.setText(workType.getName());
         activity = getActivity();
-//        selectedWorkTypes = getSelectedWorkTypes();
-//        if (selectedWorkTypes.contains(workType)) {
-//            cb.setChecked(true);
-//        }else {
-//            cb.setChecked(false);
-//        }
-        cb.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-
-                WorkType type = (WorkType) buttonView.getTag(Constants.KEY_WORK_TYPE);
-                if (isChecked) {
-                    if (!isNumBeyondFive()) {
-                        EventBus.getDefault().post(new WorkTypeEvent(workType, true));
-
-                    }else {
-                        cb.toggle();
-                        return;
-                    }
-                } else {
-                    EventBus.getDefault().post(new WorkTypeEvent(workType, false));
-                }
+        if(activity != null && activity instanceof  WorkTypeActivity){
+            selectedWorkTypes = getSelectedWorkTypes();
+            if (selectedWorkTypes.contains(workType)) {
+                cb.setChecked(true);
+            }else {
+                cb.setChecked(false);
             }
-        });
-        cb.setTag(Constants.KEY_WORK_TYPE, workType);
-        return cb;
+            cb.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+
+                    WorkType type = (WorkType) buttonView.getTag(Constants.KEY_WORK_TYPE);
+                    if (isChecked) {
+                        if (!isNumBeyondFive()) {
+                            EventBus.getDefault().post(new WorkTypeEvent(workType, true));
+
+                        }else {
+                            cb.toggle();
+                            return;
+                        }
+                    } else {
+                        EventBus.getDefault().post(new WorkTypeEvent(workType, false));
+                    }
+                }
+            });
+            cb.setTag(Constants.KEY_WORK_TYPE, workType);
+            return cb;
+        }else  if (activity != null && activity instanceof HomeActivity){
+
+
+                cb.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                    @Override
+                    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                        WorkType type = (WorkType) buttonView.getTag(Constants.KEY_WORK_TYPE);
+                        if (isChecked) {
+
+                            EventBus.getDefault().post(new WorkTypeEvent(workType, true));
+
+                        } else {
+                            cb.toggle();
+                            return;
+                        }
+
+                    }
+
+                });
+                return cb;
+        }
+        return null;
+
+
+
+
     }
 
     /**
@@ -110,6 +137,11 @@ public class CraftGridViewAdapter extends BaseAdapter{
             WorkTypeActivity workTypeActivity = (WorkTypeActivity) activity;
             ArrayList<WorkType> selectedWorkTypes = workTypeActivity.getSelectedWorkTypes();
             return selectedWorkTypes;
+        }
+        if(activity != null && activity instanceof  HomeActivity){
+            HomeActivity homeActivity = (HomeActivity) activity;
+            ArrayList<WorkType> selecteWorkTypes = (ArrayList<WorkType>) homeActivity.getSelectWorkType();
+            return selecteWorkTypes;
         }
 
         return null;
