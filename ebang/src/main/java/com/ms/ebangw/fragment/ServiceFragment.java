@@ -2,6 +2,7 @@ package com.ms.ebangw.fragment;
 
 
 import android.annotation.TargetApi;
+import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.os.Build;
@@ -14,15 +15,30 @@ import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
 import android.widget.RadioGroup;
 
 
+import com.loopj.android.http.JsonHttpResponseHandler;
+import com.ms.ebangw.MyApplication;
 import com.ms.ebangw.R;
+import com.ms.ebangw.activity.HomeActivity;
+import com.ms.ebangw.adapter.ServiceCraftAdapter;
 import com.ms.ebangw.adapter.ServicePagerAdapter;
+import com.ms.ebangw.bean.Craft;
+import com.ms.ebangw.exception.ResponseException;
+import com.ms.ebangw.service.DataAccessUtil;
+import com.ms.ebangw.service.DataParseUtil;
+import com.ms.ebangw.utils.L;
+import com.ms.ebangw.utils.Utility;
+
+import org.apache.http.Header;
+import org.json.JSONObject;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.zip.CheckedInputStream;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -51,6 +67,18 @@ public class ServiceFragment extends BaseFragment {
     private String mParam2;
     private ServicePagerAdapter adapter;
 
+    private Activity activity;
+    private View view;
+    @Bind(R.id.rg_but)
+    RadioGroup rBut;
+    @Bind(R.id.ls_list)
+    ListView listView;
+    private Object allWorkType;
+    private Craft craft;
+    private ServiceCraftAdapter serviceCraftAdapter;
+
+
+
     /**
      * 实例化方法
      * @param param1
@@ -70,6 +98,7 @@ public class ServiceFragment extends BaseFragment {
         // Required empty public constructor
     }
 
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -77,14 +106,17 @@ public class ServiceFragment extends BaseFragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+        activity = (HomeActivity)mActivity;
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        ButterKnife.bind(mActivity);
+
+        view = inflater.inflate(R.layout.fragment_service, container, false);
+        ButterKnife.bind(this, view);
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_service, container, false);
+        return view;
     }
 
     @Override
@@ -99,12 +131,37 @@ public class ServiceFragment extends BaseFragment {
 
     @Override
     public void initView() {
-        initTitle(null,null,"服务",null,null);
-        serviceBuildFragment=new ServiceBuildFragment();
-        serviceDecorateFragment=new ServiceDecorateFragment();
-        serviceOtherFragment=new ServiceOtherFragment();
-        serviceProjectManageFragment=new ServiceProjectManageFragment();
-        datas=new ArrayList<Fragment>();
+        initTitle(null, null, "服务", null, null);
+        getAllWorkType();
+//        serviceBuildFragment=new ServiceBuildFragment();
+//        serviceDecorateFragment=new ServiceDecorateFragment();
+//        serviceOtherFragment=new ServiceOtherFragment();
+//        serviceProjectManageFragment=new ServiceProjectManageFragment();
+//        datas=new ArrayList<Fragment>();
+        rBut.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                if(serviceCraftAdapter == null || craft == null){
+                    return;
+                }
+                switch (checkedId) {
+                    case R.id.rb_build:
+                        serviceCraftAdapter.setWorkType(craft.getBuilding(), (HomeActivity)mActivity);
+                        break;
+                    case R.id.rb_decorate:
+                        serviceCraftAdapter.setWorkType(craft.getFitment(), (HomeActivity)mActivity);
+                        break;
+                    case R.id.rb_projectManager:
+                        serviceCraftAdapter.setWorkType(craft.getProjectManage(),(HomeActivity)mActivity);
+                        break;
+                    case R.id.rb_other:
+
+                        break;
+                }
+                serviceCraftAdapter.notifyDataSetChanged();
+            }
+        });
+
 
 
     }
@@ -115,36 +172,36 @@ public class ServiceFragment extends BaseFragment {
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
     @Override
     public void initData() {
-        vPager= (ViewPager) getView().findViewById(R.id.vp_con);
-        datas.add(serviceBuildFragment);
-        datas.add(serviceDecorateFragment);
-        datas.add(serviceOtherFragment);
-        datas.add(serviceProjectManageFragment);
-        adapter = new ServicePagerAdapter(getChildFragmentManager(), datas);
-        vPager.setAdapter(adapter);
-        radioGroup= (RadioGroup) getView().findViewById(R.id.rg_but);
-        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup group, int checkedId) {
-                switch (checkedId) {
-                    case R.id.rb_build:
-                        vPager.setCurrentItem(0);
-                        break;
-                    case R.id.rb_decorate:
-                        vPager.setCurrentItem(1);
-                        break;
-                    case R.id.rb_projectManager:
-                        vPager.setCurrentItem(2);
-                        break;
-                    case R.id.rb_other:
-                       vPager.setCurrentItem(3);
-                        break;
-
-
-                }
-            }
-        });
-        radioGroup.getChildAt(0).performClick();
+//        vPager= (ViewPager) getView().findViewById(R.id.vp_con);
+//        datas.add(serviceBuildFragment);
+//        datas.add(serviceDecorateFragment);
+//        datas.add(serviceOtherFragment);
+//        datas.add(serviceProjectManageFragment);
+//        adapter = new ServicePagerAdapter(getChildFragmentManager(), datas);
+//        vPager.setAdapter(adapter);
+//        radioGroup= (RadioGroup) getView().findViewById(R.id.rg_but);
+//        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+//            @Override
+//            public void onCheckedChanged(RadioGroup group, int checkedId) {
+//                switch (checkedId) {
+//                    case R.id.rb_build:
+//                        vPager.setCurrentItem(0);
+//                        break;
+//                    case R.id.rb_decorate:
+//                        vPager.setCurrentItem(1);
+//                        break;
+//                    case R.id.rb_projectManager:
+//                        vPager.setCurrentItem(2);
+//                        break;
+//                    case R.id.rb_other:
+//                       vPager.setCurrentItem(3);
+//                        break;
+//
+//
+//                }
+//            }
+//        });
+//        radioGroup.getChildAt(0).performClick();
 
     }
     @Override
@@ -161,5 +218,36 @@ public class ServiceFragment extends BaseFragment {
         } catch (IllegalAccessException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public Craft getAllWorkType() {
+        craft = MyApplication.getInstance().getCraft();
+        if(craft == null){
+            DataAccessUtil.publishCraft(new JsonHttpResponseHandler(){
+                @Override
+                public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                    super.onSuccess(statusCode, headers, response);
+                    try {
+                        craft = DataParseUtil.publishCraft(response);
+                        MyApplication.getInstance().setCraft(craft);
+                        serviceCraftAdapter = new ServiceCraftAdapter(craft.getBuilding(), (HomeActivity)mActivity);
+                        listView.setAdapter(serviceCraftAdapter);
+                        Utility.setlistview(listView);
+
+                    } catch (ResponseException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                @Override
+                public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                    super.onFailure(statusCode, headers, responseString, throwable);
+                    L.d(responseString);
+                }
+            });
+        }
+
+
+        return craft;
     }
 }

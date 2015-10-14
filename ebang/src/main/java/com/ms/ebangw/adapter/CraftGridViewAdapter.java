@@ -6,6 +6,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.PopupWindow;
 
 import com.ms.ebangw.R;
 import com.ms.ebangw.activity.HomeActivity;
@@ -93,7 +94,7 @@ public class CraftGridViewAdapter extends BaseAdapter{
                         if (isChecked) {
 
                             EventBus.getDefault().post(new WorkTypeEvent(workType, true));
-
+                            showWindow();
                         } else {
                             cb.toggle();
                             return;
@@ -154,6 +155,11 @@ public class CraftGridViewAdapter extends BaseAdapter{
 
     public void setActivity(Activity activity) {
         this.activity = activity;
+    }
+
+    public void showWindow(){
+        PopupWindow pw = new PopupWindow();
+
     }
 
 }

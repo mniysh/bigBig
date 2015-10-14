@@ -27,7 +27,7 @@ public class CraftAdapter extends BaseAdapter {
 
     public CraftAdapter(WorkType firstWorkType) {
         this.firstWorkType = firstWorkType;
-        L.d("xxx",firstWorkType.toString());
+        //L.d("xxx",firstWorkType.toString());
         if (getType() == 1) {
             list = new ArrayList<>();
             list.add(firstWorkType);
@@ -76,7 +76,7 @@ public class CraftAdapter extends BaseAdapter {
             holder = (ViewHolder) convertView.getTag();
         }
         WorkType workType = list.get(position);
-        if (getType() == 1) {
+            if (getType() == 1) {
             List<WorkType> types = workType.getWorkTypes();
             holder.titleTv.setVisibility(View.GONE);
             CraftGridViewAdapter craftGridViewAdapter = new CraftGridViewAdapter(types);

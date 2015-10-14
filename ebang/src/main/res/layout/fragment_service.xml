@@ -22,7 +22,6 @@
                 android:layout_width="80dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"
-
                 android:gravity="center_horizontal"
                 android:orientation="vertical">
 
@@ -57,12 +56,18 @@
                 android:layout_weight="1" />
 
         </LinearLayout>
-        <com.ms.ebangw.view.NoScrollViewPager
-            android:id="@+id/vp_con"
+        <ListView
+            android:id="@+id/ls_list"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
 
-        </com.ms.ebangw.view.NoScrollViewPager>
+        </ListView>
+        <!--<com.ms.ebangw.view.NoScrollViewPager-->
+            <!--android:id="@+id/vp_con"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content">-->
+
+        <!--</com.ms.ebangw.view.NoScrollViewPager>-->
 
 
     </LinearLayout>

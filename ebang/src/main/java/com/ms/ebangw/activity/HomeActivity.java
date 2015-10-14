@@ -1,5 +1,6 @@
 package com.ms.ebangw.activity;
 
+import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Intent;
@@ -24,11 +25,16 @@ import com.ms.ebangw.fragment.AuthenticationFragment;
 import com.ms.ebangw.fragment.FoundFragment;
 import com.ms.ebangw.fragment.HomeFragment;
 import com.ms.ebangw.fragment.LotteryFragment;
+import com.ms.ebangw.fragment.ServiceBuildFragment;
+import com.ms.ebangw.fragment.ServiceDecorateFragment;
 import com.ms.ebangw.fragment.ServiceFragment;
+import com.ms.ebangw.fragment.ServiceOtherFragment;
+import com.ms.ebangw.fragment.ServiceProjectManageFragment;
 import com.ms.ebangw.fragment.WorkerHomeFragment;
 import com.ms.ebangw.release.IncreaseDetailFragment;
 import com.ms.ebangw.release.ReleaseFragment;
 import com.ms.ebangw.release.ReleaseFrament01;
+import com.ms.ebangw.release.ReleaseWorkTypeFragment;
 import com.ms.ebangw.release.SelectCraftFragment;
 import com.ms.ebangw.service.DataAccessUtil;
 import com.ms.ebangw.service.DataParseUtil;
@@ -61,6 +67,7 @@ public class HomeActivity extends BaseActivity {
     private ReleaseFragment releasefragment;
     private ServiceFragment serviceFragment;
     private ReleaseFrament01 releaseFrament01;
+    private ReleaseWorkTypeFragment releaseWorkTypeFragment;
 
     private WorkerHomeFragment workerHomeFragment, eMallFragment;
 
@@ -111,6 +118,7 @@ public class HomeActivity extends BaseActivity {
         releaseFrament01 = new ReleaseFrament01();
         foundFragment = new FoundFragment();
         serviceFragment = new ServiceFragment();
+        //releaseWorkTypeFragment = ReleaseWorkTypeFragment.newInstance();
 
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
@@ -125,7 +133,7 @@ public class HomeActivity extends BaseActivity {
 //                        fm.beginTransaction().replace(R.id.fl_content, workerHomeFragment).commit();
                         break;
                     case R.id.rb_release:
-						fm.beginTransaction().replace(R.id.fl_content, releaseFrament01).commit();
+						fm.beginTransaction().replace(R.id.fl_content, new ReleaseWorkTypeFragment()).commit();
 //                        fm.beginTransaction().replace(R.id.fl_content, eMallFragment).commit();
                         break;
                     case R.id.rb_service:
@@ -220,6 +228,7 @@ public class HomeActivity extends BaseActivity {
 //
 //		}
     }
+
 
     /**
      * 去开发商发布页面
@@ -392,5 +401,21 @@ public class HomeActivity extends BaseActivity {
         super.onDestroy();
         L.d("==onDestroy");
         EventBus.getDefault().unregister(this);
+    }
+    public void changeWorkType(int flag){
+        switch (flag){
+            case 1 :
+                fm.beginTransaction().replace(R.id.fl_content, new ServiceBuildFragment()).commit();
+                break;
+            case 2 :
+                fm.beginTransaction().replace(R.id.fl_content, new ServiceDecorateFragment()).commit();
+                break;
+            case 3 :
+                fm.beginTransaction().replace(R.id.fl_content, new ServiceProjectManageFragment()).commit();
+                break;
+            case 4 :
+                fm.beginTransaction().replace(R.id.fl_content, new ServiceOtherFragment()).commit();
+                break;
+        }
     }
 }
