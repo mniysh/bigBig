@@ -56,7 +56,8 @@ public class ServiceCraftGridViewAdapter extends BaseAdapter {
         }
         TextView tItem = ViewHolder.get(convertView, R.id.tv_item);
         WorkType workType = list.get(position);
-        tItem.setText(workType.getName());
+        String name = setName(workType.getName());
+        tItem.setText(name);
         tItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -65,5 +66,18 @@ public class ServiceCraftGridViewAdapter extends BaseAdapter {
         });
 
         return convertView;
+    }
+    public String setName(String string){
+        StringBuilder sb = new StringBuilder();
+        if(string.length() > 5){
+            char[] chars = string.toCharArray();
+            for (int i = 0; i < 5; i++) {
+                sb.append(chars[i]);
+            }
+            sb.append("...");
+            return sb.toString();
+        }
+
+        return string ;
     }
 }

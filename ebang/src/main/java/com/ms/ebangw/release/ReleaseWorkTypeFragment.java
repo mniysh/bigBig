@@ -6,10 +6,22 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.RadioGroup;
 
+import com.loopj.android.http.JsonHttpResponseHandler;
+import com.ms.ebangw.MyApplication;
 import com.ms.ebangw.R;
+import com.ms.ebangw.activity.HomeActivity;
+import com.ms.ebangw.bean.Craft;
 import com.ms.ebangw.bean.WorkType;
+import com.ms.ebangw.exception.ResponseException;
 import com.ms.ebangw.fragment.BaseFragment;
+import com.ms.ebangw.service.DataAccessUtil;
+import com.ms.ebangw.service.DataParseUtil;
+import com.ms.ebangw.utils.L;
+
+import org.apache.http.Header;
+import org.json.JSONObject;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -23,8 +35,11 @@ public class ReleaseWorkTypeFragment extends BaseFragment {
     private WorkType workType;
     private ViewGroup contentLayout;
     private ReleaseCraftAdapter craftAdapter;
+    @Bind(R.id.rg_but)
+    RadioGroup radioGroup;
     @Bind(R.id.listView)
     ListView listView;
+    private Craft craft;
 
     public static ReleaseWorkTypeFragment newInstance(WorkType workType) {
         ReleaseWorkTypeFragment fragment = new ReleaseWorkTypeFragment();
@@ -41,6 +56,7 @@ public class ReleaseWorkTypeFragment extends BaseFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         if (getArguments() != null) {
             workType = getArguments().getParcelable(WORK_TYPE);
         }
@@ -61,14 +77,69 @@ public class ReleaseWorkTypeFragment extends BaseFragment {
 
     @Override
     public void initView() {
+        craft = getAllWorkType();
 
+        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                if(craft == null || craftAdapter == null){
+                    return;
+                }
+                switch (checkedId){
+                    case R.id.rb_build:
+                        craftAdapter.setWorkType(craft.getBuilding());
+                        break;
+                    case R.id.rb_decorate:
+                        craftAdapter.setWorkType(craft.getFitment());
+
+                        break;
+                    case R.id.rb_projectManager:
+                        craftAdapter.setWorkType(craft.getProjectManage());
+                        break;
+                }
+                craftAdapter.notifyDataSetChanged();
+            }
+        });
+        radioGroup.getChildAt(0).setClickable(true);
     }
 
     @Override
     public void initData() {
 
-        craftAdapter = new ReleaseCraftAdapter(getFragmentManager(), workType);
-        listView.setAdapter(craftAdapter);
+//        craftAdapter = new ReleaseCraftAdapter(getFragmentManager(), workType);
+//        listView.setAdapter(craftAdapter);
 
+    }
+    public Craft getAllWorkType(){
+        craft = MyApplication.getInstance().getCraft();
+        if(craft == null){
+            DataAccessUtil.publishCraft(new JsonHttpResponseHandler(){
+                @Override
+                public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                    super.onSuccess(statusCode, headers, response);
+                    try {
+                        craft = DataParseUtil.publishCraft(response);
+                        MyApplication.getInstance().setCraft(craft);
+                        craftAdapter = new ReleaseCraftAdapter(((HomeActivity)mActivity).getFragmentManager(), craft.getBuilding());
+                        listView.setAdapter(craftAdapter);
+
+                    } catch (ResponseException e) {
+                        e.printStackTrace();
+                    }
+
+                }
+
+                @Override
+                public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                    super.onFailure(statusCode, headers, responseString, throwable);
+                    L.d(responseString);
+                }
+            });
+
+        }else{
+            craftAdapter = new ReleaseCraftAdapter(((HomeActivity)mActivity).getFragmentManager(), craft.getBuilding());
+            listView.setAdapter(craftAdapter);
+        }
+        return craft;
     }
 }

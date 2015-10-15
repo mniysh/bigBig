@@ -1,35 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-                android:orientation="vertical"
-    >
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:divider="@drawable/divider_line_gray"
+    android:orientation="vertical"
+    android:showDividers="middle">
 
     <TextView
         android:id="@+id/tv_title"
         android:layout_width="80dp"
-        android:singleLine="true"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
-        android:padding="5dp"
-        android:text="建筑结构"
-        android:textSize="14sp"
-        android:gravity="center"
-        android:textColor="@android:color/black"
         android:background="@drawable/border_round_bg"
-        />
+        android:gravity="center"
+        android:padding="5dp"
+        android:singleLine="true"
+        android:text="建筑结构"
+        android:textColor="@android:color/black"
+        android:textSize="14sp" />
 
 
     <com.ms.ebangw.view.MyGridView
-              android:id="@+id/gridView"
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:columnWidth="90dp"
-              android:numColumns="2"
-              android:verticalSpacing="10dp"
-              android:horizontalSpacing="10dp"
-              android:stretchMode="columnWidth"
-              android:gravity="center"
-              android:paddingLeft="5dp"
-        />
+        android:layout_marginTop="10dp"
+        android:id="@+id/gridView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:columnWidth="90dp"
+        android:gravity="center"
+        android:horizontalSpacing="10dp"
+        android:numColumns="2"
+        android:paddingLeft="5dp"
+        android:layout_marginBottom="10dp"
+        android:stretchMode="columnWidth"
+        android:verticalSpacing="10dp" />
 </LinearLayout>

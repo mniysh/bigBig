@@ -86,11 +86,11 @@ public class ServiceCraftAdapter extends BaseAdapter {
         }
         if(getType() == 2){
 
-            for(int i = 0; i < workTypeList.size(); i++ ){
-                List<WorkType> workTypeList1 = workTypeList.get(i).getWorkTypes();
+            for(int i = 0; i < data.size(); i++ ){
+                //List<WorkType> workType = workTypeList.get(i).getWorkTypes();
                 tTitle.setVisibility(View.VISIBLE);
                 tTitle.setText(workTypes.getName());
-                ServiceCraftGridViewAdapter serviceCraftGridViewAdapter = new ServiceCraftGridViewAdapter(workTypeList1, activity);
+                ServiceCraftGridViewAdapter serviceCraftGridViewAdapter = new ServiceCraftGridViewAdapter(workTypeList, activity);
                 gridView.setAdapter(serviceCraftGridViewAdapter);
             }
 

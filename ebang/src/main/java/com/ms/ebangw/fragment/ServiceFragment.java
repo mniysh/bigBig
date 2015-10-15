@@ -15,7 +15,9 @@ import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
 
@@ -31,6 +33,7 @@ import com.ms.ebangw.service.DataAccessUtil;
 import com.ms.ebangw.service.DataParseUtil;
 import com.ms.ebangw.utils.L;
 import com.ms.ebangw.utils.Utility;
+import com.ms.ebangw.view.XListView;
 
 import org.apache.http.Header;
 import org.json.JSONObject;
@@ -73,6 +76,8 @@ public class ServiceFragment extends BaseFragment {
     RadioGroup rBut;
     @Bind(R.id.ls_list)
     ListView listView;
+    @Bind(R.id.rb_build)
+    RadioButton rBuilding;
     private Object allWorkType;
     private Craft craft;
     private ServiceCraftAdapter serviceCraftAdapter;
@@ -141,18 +146,18 @@ public class ServiceFragment extends BaseFragment {
         rBut.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
-                if(serviceCraftAdapter == null || craft == null){
+                if (serviceCraftAdapter == null || craft == null) {
                     return;
                 }
                 switch (checkedId) {
                     case R.id.rb_build:
-                        serviceCraftAdapter.setWorkType(craft.getBuilding(), (HomeActivity)mActivity);
+                        serviceCraftAdapter.setWorkType(craft.getBuilding(), (HomeActivity) mActivity);
                         break;
                     case R.id.rb_decorate:
-                        serviceCraftAdapter.setWorkType(craft.getFitment(), (HomeActivity)mActivity);
+                        serviceCraftAdapter.setWorkType(craft.getFitment(), (HomeActivity) mActivity);
                         break;
                     case R.id.rb_projectManager:
-                        serviceCraftAdapter.setWorkType(craft.getProjectManage(),(HomeActivity)mActivity);
+                        serviceCraftAdapter.setWorkType(craft.getProjectManage(), (HomeActivity) mActivity);
                         break;
                     case R.id.rb_other:
 
@@ -161,7 +166,7 @@ public class ServiceFragment extends BaseFragment {
                 serviceCraftAdapter.notifyDataSetChanged();
             }
         });
-
+            rBut.getChildAt(0).setClickable(true);
 
 
     }
@@ -232,7 +237,8 @@ public class ServiceFragment extends BaseFragment {
                         MyApplication.getInstance().setCraft(craft);
                         serviceCraftAdapter = new ServiceCraftAdapter(craft.getBuilding(), (HomeActivity)mActivity);
                         listView.setAdapter(serviceCraftAdapter);
-                        Utility.setlistview(listView);
+                        rBuilding.toggle();
+//                        Utility.setlistview(listView);
 
                     } catch (ResponseException e) {
                         e.printStackTrace();
@@ -245,9 +251,15 @@ public class ServiceFragment extends BaseFragment {
                     L.d(responseString);
                 }
             });
+        }else{
+            serviceCraftAdapter = new ServiceCraftAdapter(craft.getBuilding(), (HomeActivity)mActivity);
+            listView.setAdapter(serviceCraftAdapter);
+            rBuilding.toggle();
+//            Utility.setlistview(listView);
         }
 
 
         return craft;
     }
+
 }
