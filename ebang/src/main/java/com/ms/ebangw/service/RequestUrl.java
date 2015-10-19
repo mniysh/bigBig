@@ -98,7 +98,10 @@ public class RequestUrl {
      *13.修改昵称接口
      */
     public static final  String modify_nickName = domain + "/api/user/index/change-nickname";
-
+    /**
+     * 2-1.开发商发布页面
+     */
+    public static  final  String developer_release = domain + "/api/developers/project/add-total";
 
     /**
      * 3-6. 获取全部省市区数据   get方式

@@ -211,6 +211,47 @@ public class DataAccessUtil {
 //        return doPost(RequestUrl.person_identify, params, asyncHttpResponseHandler);
 //    }
 
+    /** 2-1.
+     * 开发商发布的接口
+     * @param title
+     * @param description
+     * @param link_man
+     * @param link_phone
+     * @param province
+     * @param city
+     * @param area
+     * @param area_other
+     * @param point_longitude
+     * @param point_dimention
+     * @param pay_type
+     * @param image_ary
+     * @param staffs
+     * @param asyncHttpResponseHandler
+     * @return
+     */
+    public static RequestHandle developerRelease(String title, String description, String link_man,
+                                                 String link_phone, String province, String city,
+                                                 String area, String area_other, String point_longitude,
+                                                 String point_dimention, String pay_type,
+                                                 String image_ary, String staffs, AsyncHttpResponseHandler asyncHttpResponseHandler){
+        RequestParams params = new RequestParams();
+        params.put("title",title);
+        params.put("description",description);
+        params.put("link_man",link_man);
+        params.put("link_phone",link_phone);
+        params.put("province",province);
+        params.put("city",city);
+        params.put("area",area);
+        params.put("area_other",area_other);
+        params.put("point_longitude",point_longitude);
+        params.put("point_dimention",point_dimention);
+        params.put("pay_type",pay_type);
+        params.put("image_ary",image_ary);
+        params.put("staffs",staffs);
+        return doPost(RequestUrl.developer_release, params, asyncHttpResponseHandler);
+
+    }
+
     /**
      * 8.上传图片
      * @param imageFile 图片文件

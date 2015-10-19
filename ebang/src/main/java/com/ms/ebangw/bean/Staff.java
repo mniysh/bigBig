@@ -3,6 +3,8 @@ package com.ms.ebangw.bean;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import java.util.List;
+
 /**
  * 开发商发布页面的工种具体雇佣信息
  * User: WangKai(123940232@qq.com)
@@ -26,6 +28,16 @@ public class Staff implements Parcelable {
      */
     private String start_time;
     private String end_time;
+
+    private List<Staff> staffs;
+
+    public List<Staff> getStaffs() {
+        return staffs;
+    }
+
+    public void setStaffs(List<Staff> staffs) {
+        this.staffs = staffs;
+    }
 
     public String getCraft_id() {
         return craft_id;

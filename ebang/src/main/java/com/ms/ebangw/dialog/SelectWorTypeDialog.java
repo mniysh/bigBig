@@ -157,6 +157,7 @@ public class SelectWorTypeDialog extends DialogFragment {
                     String start = startDateTv.getText().toString().trim();
                     String end = endDateTv.getText().toString().trim();
                     Staff staff = new Staff();
+                    staff.setCraft_id(workType.getId());
                     staff.setMoney(price);
                     staff.setStaff_account(peopleNum);
                     staff.setStart_time(start);

@@ -11,6 +11,7 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.ms.ebangw.MyApplication;
 import com.ms.ebangw.R;
@@ -20,6 +21,7 @@ import com.ms.ebangw.bean.Craft;
 import com.ms.ebangw.bean.DeveloperReleaseInfo;
 import com.ms.ebangw.bean.Staff;
 import com.ms.ebangw.bean.WorkType;
+import com.ms.ebangw.commons.Constants;
 import com.ms.ebangw.event.OnCheckedWorkTypeEvent;
 import com.ms.ebangw.exception.ResponseException;
 import com.ms.ebangw.fragment.BaseFragment;
@@ -152,17 +154,34 @@ public class SelectCraftFragment extends BaseFragment {
 
     @OnClick(R.id.btn_next)
     public void goNext() {
-        if(totalMoney == 0 ){
-            T.show("没有选择工种");
-            return;
-        }else{
+        if(releaseGoNext() ){
+//            Bundle bundle = new Bundle();
+//            bundle.putString(Constants.RELEASE_WORKTYPE_KEY,getStaff(workTypeSet));
 
             HomeActivity homeActivity = (HomeActivity) mActivity;
-            homeActivity.goDeveloperRelease();
+            homeActivity.goDeveloperRelease(getStaff(workTypeSet));
         }
 
 
 
+    }
+    public String  getStaff(Set<WorkType> workTypes){
+        List<Staff> staffs = new ArrayList<Staff>();
+        Gson g = new Gson();
+        if(workTypes == null ){
+            return null;
+        }
+        Iterator<WorkType> iterator = workTypes.iterator();
+        WorkType workType ;
+        while(iterator.hasNext()){
+            workType = iterator.next();
+            Staff staff = workType.getStaff();
+            staffs.add(staff);
+        }
+        String string = g.toJson(staffs);
+        L.d(string);
+
+        return string ;
     }
 
     public Craft getWorkType() {
@@ -244,6 +263,14 @@ public class SelectCraftFragment extends BaseFragment {
             workTypeSet.remove(workType);
         }
         notifyWorkTypeChanged();
+    }
+
+    public boolean releaseGoNext(){
+        if(workTypeSet == null || workTypeSet.size() == 0){
+            T.show("至少选择一个工种");
+            return false;
+        }
+        return true;
     }
 
     /**

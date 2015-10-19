@@ -94,7 +94,9 @@ public class HomeActivity extends BaseActivity {
         setContentView(R.layout.activity_home);
         ButterKnife.bind(this);
         EventBus.getDefault().register(this);
-
+//        double longitude = MyApplication.getInstance().getLocation().getLongitude();
+//        double latitude = MyApplication.getInstance().getLocation().getLatitude();
+//        L.d(latitude + "  " + longitude);
         initView();
         initData();
         initUMengUpdate();
@@ -242,9 +244,9 @@ public class HomeActivity extends BaseActivity {
     /**
      * 去开发商发布页面
      */
-    public void goDeveloperRelease() {
+    public void goDeveloperRelease(String staff) {
 
-        IncreaseDetailFragment increaseDetailFragment = IncreaseDetailFragment.newInstance("", "");
+        IncreaseDetailFragment increaseDetailFragment = IncreaseDetailFragment.newInstance(staff, "");
         FragmentTransaction transaction = fm.beginTransaction();
         transaction.replace(R.id.fl_content, increaseDetailFragment);
         transaction.addToBackStack(null);

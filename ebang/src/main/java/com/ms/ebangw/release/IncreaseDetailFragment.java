@@ -16,6 +16,7 @@ import android.widget.EditText;
 import android.widget.RadioGroup;
 
 import com.loopj.android.http.JsonHttpResponseHandler;
+import com.ms.ebangw.MyApplication;
 import com.ms.ebangw.R;
 import com.ms.ebangw.activity.HomeActivity;
 import com.ms.ebangw.bean.Province;
@@ -46,9 +47,18 @@ import butterknife.OnClick;
 public class IncreaseDetailFragment extends BaseFragment {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+    //经纬度
+    private double longitude;
+    private double latitude;
+
+//    private String JPEG_FILE_PREFIX =
+
+
+
 
     private String mParam1;
     private String mParam2;
+    private String staff;
     private ViewGroup contentLayout;
     private File imageFile;
     @Bind(R.id.pac)
@@ -69,6 +79,7 @@ public class IncreaseDetailFragment extends BaseFragment {
     RadioGroup typeRg;
 
 
+
     public static IncreaseDetailFragment newInstance(String param1, String param2) {
         IncreaseDetailFragment fragment = new IncreaseDetailFragment();
         Bundle args = new Bundle();
@@ -86,7 +97,7 @@ public class IncreaseDetailFragment extends BaseFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
+            staff = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
@@ -100,6 +111,7 @@ public class IncreaseDetailFragment extends BaseFragment {
         ButterKnife.bind(this, contentLayout);
         initView();
         initData();
+
         return contentLayout;
     }
 
@@ -140,9 +152,17 @@ public class IncreaseDetailFragment extends BaseFragment {
         startActivityForResult(cameraIntent, Constants.REQUEST_CAMERA);
     }
 
+
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        if(data == null){
+            return;
+        }
+        if(requestCode == Constants.REQUEST_CAMERA && requestCode == mActivity.RESULT_OK){
+
+        }
 //        L.d("onActivityResult");
 //
 //        if (requestCode == Constants.REQUEST_CAMERA && resultCode == mActivity.RESULT_OK) { //拍照返回
