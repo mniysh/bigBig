@@ -239,6 +239,7 @@ public abstract class BaseFragment extends Fragment {
      * @return
      */
     public TotalRegion getAreaFromAssets() {
+        TotalRegion totalRegion = new TotalRegion();
         try {
             StringBuilder builder = new StringBuilder();
             InputStream is = mActivity.getAssets().open("area.txt");
@@ -250,7 +251,8 @@ public abstract class BaseFragment extends Fragment {
             }
             String s = builder.toString();
             JSONObject jsonObject = new JSONObject(s);
-            return DataParseUtil.provinceCityArea(jsonObject);
+            totalRegion = DataParseUtil.provinceCityArea(jsonObject);
+            return totalRegion;
         } catch (Exception e) {
             e.printStackTrace();
         }
