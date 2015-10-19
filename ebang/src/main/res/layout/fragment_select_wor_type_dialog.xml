@@ -57,6 +57,7 @@
         <EditText
             android:id="@+id/et_people_num"
             style="@style/release_select_dialog_edit"
+            android:inputType="number"
             />
 
         <TextView
@@ -82,10 +83,11 @@
             />
 
         <TextView
+
             android:id="@+id/tv_start_date"
             android:layout_width="wrap_content"
             style="@style/release_select_dialog_text"
-            android:text="请选择结束时间"
+            android:text="请选择上门时间"
             />
 
     </LinearLayout>

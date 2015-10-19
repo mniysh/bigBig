@@ -14,10 +14,12 @@ import com.loopj.android.http.JsonHttpResponseHandler;
 import com.ms.ebangw.MyApplication;
 import com.ms.ebangw.R;
 import com.ms.ebangw.bean.Bank;
+import com.ms.ebangw.bean.Staff;
 import com.ms.ebangw.bean.User;
 import com.ms.ebangw.bean.WorkType;
 import com.ms.ebangw.commons.Constants;
 import com.ms.ebangw.event.BottomTitleClickEvent;
+import com.ms.ebangw.event.OnCheckedWorkTypeEvent;
 import com.ms.ebangw.event.RefreshUserEvent;
 import com.ms.ebangw.event.WorkTypeEvent;
 import com.ms.ebangw.exception.ResponseException;
@@ -62,7 +64,7 @@ import de.greenrobot.event.EventBus;
 public class HomeActivity extends BaseActivity {
     private FragmentManager fm;
     private long exitTime = 0;
-
+    private List<WorkType> data;
     private FoundFragment foundFragment;
     private ReleaseFragment releasefragment;
     private ServiceFragment serviceFragment;
@@ -118,7 +120,9 @@ public class HomeActivity extends BaseActivity {
         releaseFrament01 = new ReleaseFrament01();
         foundFragment = new FoundFragment();
         serviceFragment = new ServiceFragment();
-        //releaseWorkTypeFragment = ReleaseWorkTypeFragment.newInstance();
+
+
+        releaseWorkTypeFragment = new ReleaseWorkTypeFragment();
 
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
@@ -133,7 +137,7 @@ public class HomeActivity extends BaseActivity {
 //                        fm.beginTransaction().replace(R.id.fl_content, workerHomeFragment).commit();
                         break;
                     case R.id.rb_release:
-						fm.beginTransaction().replace(R.id.fl_content, new ReleaseWorkTypeFragment()).commit();
+						fm.beginTransaction().replace(R.id.fl_content, new SelectCraftFragment()).commit();
 //                        fm.beginTransaction().replace(R.id.fl_content, eMallFragment).commit();
                         break;
                     case R.id.rb_service:
@@ -170,6 +174,11 @@ public class HomeActivity extends BaseActivity {
         }else{
             selectWorkType.remove(workType);
         }
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
     }
 
 
@@ -315,6 +324,7 @@ public class HomeActivity extends BaseActivity {
 
     }
 
+
     /**
      * 友盟版本更新
      */
@@ -333,6 +343,7 @@ public class HomeActivity extends BaseActivity {
             MyApplication.getInstance().setFlag_home(b);
             radioGroup.getChildAt(0).performClick();
         }
+
 
 
     }
@@ -402,20 +413,24 @@ public class HomeActivity extends BaseActivity {
         L.d("==onDestroy");
         EventBus.getDefault().unregister(this);
     }
-    public void changeWorkType(int flag){
-        switch (flag){
-            case 1 :
-                fm.beginTransaction().replace(R.id.fl_content, new ServiceBuildFragment()).commit();
-                break;
-            case 2 :
-                fm.beginTransaction().replace(R.id.fl_content, new ServiceDecorateFragment()).commit();
-                break;
-            case 3 :
-                fm.beginTransaction().replace(R.id.fl_content, new ServiceProjectManageFragment()).commit();
-                break;
-            case 4 :
-                fm.beginTransaction().replace(R.id.fl_content, new ServiceOtherFragment()).commit();
-                break;
+
+
+    /**
+     * 接收选中的工种，发布界面的工种页面
+     * @param event
+     *
+     */
+    public void onEvent(OnCheckedWorkTypeEvent event){
+
+        WorkType workType = event.getWorkType();
+        boolean b = event.isSelected();
+        if(event != null && b){
+
+            data.add(workType);
+            releaseWorkTypeFragment = ReleaseWorkTypeFragment.newInstance(workType);
+        }else if(event != null && !b){
+            data.remove(workType);
         }
     }
+
 }

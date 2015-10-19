@@ -20,6 +20,7 @@ import android.widget.TextView;
 import com.ms.ebangw.R;
 import com.ms.ebangw.bean.Staff;
 import com.ms.ebangw.bean.WorkType;
+import com.ms.ebangw.event.OnCheckedWorkTypeEvent;
 import com.ms.ebangw.utils.T;
 
 import java.text.SimpleDateFormat;
@@ -27,6 +28,7 @@ import java.util.Calendar;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import de.greenrobot.event.EventBus;
 
 /**
  * 发布  选择工种时弹出的对话框
@@ -102,10 +104,12 @@ public class SelectWorTypeDialog extends DialogFragment {
         startDateTv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 DatePickerFragment datePickerFragment = new DatePickerFragment();
                 datePickerFragment.setListener(new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                        //T.show("数据是"+"");
                         Calendar cal = Calendar.getInstance();
                         cal.set(Calendar.YEAR, year);
                         cal.set(Calendar. MONTH , monthOfYear);
@@ -113,10 +117,14 @@ public class SelectWorTypeDialog extends DialogFragment {
 
                         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
                         String dateStr = format.format(cal.getTime());
+//                        if(dateStr == null){
+//                            T.show("数据是"+dateStr);
+//                        }
+
                         startDateTv.setText(dateStr);
                     }
                 });
-                new DatePickerFragment().show(getFragmentManager(), "date");
+                datePickerFragment.show(getFragmentManager(), "date");
             }
         });
 
@@ -136,7 +144,7 @@ public class SelectWorTypeDialog extends DialogFragment {
                         endDateTv.setText(dateStr);
                     }
                 });
-                new DatePickerFragment().show(getFragmentManager(), "date");
+                datePickerFragment.show(getFragmentManager(), "date");
             }
         });
 
@@ -154,6 +162,8 @@ public class SelectWorTypeDialog extends DialogFragment {
                     staff.setStart_time(start);
                     staff.setEnd_time(end);
                     workType.setStaff(staff);
+                    //添加的
+                    //EventBus.getDefault().post(new OnCheckedWorkTypeEvent(workType, true));
                     onStaffSelectedListener.onStaffSelected(workType, true);
                     dismiss();
                 }
@@ -185,12 +195,12 @@ public class SelectWorTypeDialog extends DialogFragment {
             return false;
         }
 
-        if (start.contains("-")) {
+        if (!start.contains("-")) {
             T.show("请输入上门时间");
             return false;
         }
 
-        if (end.contains("-")) {
+        if (!end.contains("-")) {
             T.show("请输入结束时间");
             return false;
         }

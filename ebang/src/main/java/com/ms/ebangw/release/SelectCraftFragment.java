@@ -12,6 +12,7 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.loopj.android.http.JsonHttpResponseHandler;
+import com.ms.ebangw.MyApplication;
 import com.ms.ebangw.R;
 import com.ms.ebangw.activity.HomeActivity;
 import com.ms.ebangw.adapter.SelectTypePagerAdapter;
@@ -25,6 +26,7 @@ import com.ms.ebangw.fragment.BaseFragment;
 import com.ms.ebangw.service.DataAccessUtil;
 import com.ms.ebangw.service.DataParseUtil;
 import com.ms.ebangw.utils.L;
+import com.ms.ebangw.utils.T;
 
 import org.apache.http.Header;
 import org.json.JSONObject;
@@ -59,6 +61,7 @@ public class SelectCraftFragment extends BaseFragment {
     private Set<WorkType> workTypeSet;
 
     private Craft craft;
+    private long totalMoney = 0 ;
 
     @Bind(R.id.viewPager)
     ViewPager viewPager;
@@ -80,6 +83,12 @@ public class SelectCraftFragment extends BaseFragment {
     public SelectCraftFragment() {
         // Required empty public constructor
     }
+
+//    @Override
+//    public void onResume() {
+//        super.onResume();
+//        initViewPager(craft);
+//    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -130,43 +139,60 @@ public class SelectCraftFragment extends BaseFragment {
 
         RadioButton radioButton = (RadioButton) radioGroup.getChildAt(0);
         radioButton.setChecked(true);
+        initViewPager(craft);
+
     }
 
     @Override
     public void initData() {
-        getWorkType();
+        craft = getWorkType();
         releaseInfo = new DeveloperReleaseInfo();
         workTypeSet = new HashSet<>();
     }
 
     @OnClick(R.id.btn_next)
     public void goNext() {
+        if(totalMoney == 0 ){
+            T.show("没有选择工种");
+            return;
+        }else{
 
-        HomeActivity homeActivity = (HomeActivity) mActivity;
-        homeActivity.goDeveloperRelease();
+            HomeActivity homeActivity = (HomeActivity) mActivity;
+            homeActivity.goDeveloperRelease();
+        }
+
 
 
     }
 
     public Craft getWorkType() {
-        DataAccessUtil.publishCraft(new JsonHttpResponseHandler() {
-            @Override
-            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                super.onSuccess(statusCode, headers, response);
-                try {
-                    craft = DataParseUtil.publishCraft(response);
-                    initViewPager(craft);
+        craft = MyApplication.getInstance().getCraft();
+        if(craft == null){
+            DataAccessUtil.publishCraft(new JsonHttpResponseHandler() {
+                @Override
+                public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                    super.onSuccess(statusCode, headers, response);
+                    try {
+                        craft = DataParseUtil.publishCraft(response);
+                        MyApplication.getInstance().setCraft(craft);
+                        initViewPager(craft);
 
-                } catch (ResponseException e) {
-                    e.printStackTrace();
+
+                    } catch (ResponseException e) {
+                        e.printStackTrace();
+                    }
                 }
-            }
 
-            @Override
-            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
-                super.onFailure(statusCode, headers, responseString, throwable);
-            }
-        });
+                @Override
+                public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                    super.onFailure(statusCode, headers, responseString, throwable);
+                }
+            });
+
+        }else{
+            initViewPager(craft);
+        }
+
 
         return craft;
     }
@@ -226,7 +252,7 @@ public class SelectCraftFragment extends BaseFragment {
     public void notifyWorkTypeChanged() {
 
         Iterator<WorkType> iterator = workTypeSet.iterator();
-        long totalMoney = 0;
+
         while (iterator.hasNext()) {
             WorkType next = iterator.next();
             Staff staff = next.getStaff();

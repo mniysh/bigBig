@@ -12,6 +12,7 @@ import com.ms.ebangw.bean.WorkType;
 import com.ms.ebangw.commons.Constants;
 import com.ms.ebangw.dialog.SelectWorTypeDialog;
 import com.ms.ebangw.event.OnCheckedWorkTypeEvent;
+import com.ms.ebangw.utils.T;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -80,7 +81,8 @@ public class ReleaseCraftGridViewAdapter extends BaseAdapter{
             @Override
             public void onStaffSelected(WorkType workType, boolean isSelected) {
                 if (isSelected) {
-                    EventBus.getDefault().post(new OnCheckedWorkTypeEvent(workType, isSelected));
+                    //T.show("adapter能收到");
+                    EventBus.getDefault().post(new OnCheckedWorkTypeEvent(workType, true));
                 }else {
                     cb.toggle();
                 }

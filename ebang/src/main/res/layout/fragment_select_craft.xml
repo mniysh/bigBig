@@ -9,48 +9,83 @@
     <include layout="@layout/layout_common_title"/>
 
     <RadioGroup
-        android:id="@+id/rg_select_type"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:orientation="horizontal"
-        android:paddingBottom="10dp"
-        android:paddingTop="10dp"
-        >
+    android:id="@+id/rg_select_type"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="5dp"
+    android:layout_marginTop="10dp"
+    android:gravity="center_horizontal"
+    android:orientation="horizontal">
 
-        <RadioButton
-            android:id="@+id/rb_build"
-            style="@style/release_work_type_button"
-            android:layout_height="wrap_content"
-            android:text="建筑"
-            />
+    <RadioButton
+    android:id="@+id/rb_build"
+    style="@style/release_but"
 
-        <RadioButton
-            android:id="@+id/rb_fitment"
-            style="@style/release_work_type_button"
-            android:layout_height="wrap_content"
-            android:text="装修"
+    android:text="建筑类"/>
 
-            />
+    <RadioButton
+    android:id="@+id/rb_fitment"
+    style="@style/release_but"
+    android:layout_marginLeft="5dp"
+    android:text="装修类"/>
 
-        <RadioButton
-            android:id="@+id/rb_projectManager"
-            style="@style/release_work_type_button"
-            android:layout_height="wrap_content"
-            android:text="工程管理"
-            />
+    <RadioButton
+    android:id="@+id/rb_projectManager"
+    style="@style/release_but"
+    android:layout_marginLeft="5dp"
+    android:text="工程管理"
+    />
 
-        <RadioButton
-            android:id="@+id/rb_other"
-            style="@style/release_work_type_button"
-            android:layout_height="wrap_content"
-            android:text="其他"/>
-
+    <RadioButton
+    android:id="@+id/rb_other"
+    style="@style/release_but"
+    android:layout_marginLeft="10dp"
+    android:text="其他"/>
     </RadioGroup>
+    <!--<RadioGroup-->
+        <!--android:id="@+id/rg_select_type"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:gravity="center"-->
+        <!--android:orientation="horizontal"-->
+        <!--android:paddingBottom="10dp"-->
+        <!--android:paddingTop="10dp"-->
+        <!-->-->
+
+        <!--<RadioButton-->
+            <!--android:id="@+id/rb_build"-->
+            <!--style="@style/release_but"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="建筑"-->
+            <!--/>-->
+
+        <!--<RadioButton-->
+            <!--android:id="@+id/rb_fitment"-->
+            <!--style="@style/release_work_type_button"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="装修"-->
+
+            <!--/>-->
+
+        <!--<RadioButton-->
+            <!--android:id="@+id/rb_projectManager"-->
+            <!--style="@style/release_work_type_button"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="工程管理"-->
+            <!--/>-->
+
+        <!--<RadioButton-->
+            <!--android:id="@+id/rb_other"-->
+            <!--style="@style/release_work_type_button"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="其他"/>-->
+
+    <!--</RadioGroup>-->
 
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
+        android:layout_marginTop="5dp"
         android:background="@drawable/divider_line_gray"/>
 
     <ScrollView
@@ -64,10 +99,11 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
+            android:layout_marginTop="10dp"
 
             >
 
-            <android.support.v4.view.ViewPager
+            <com.ms.ebangw.view.MyViewPager
                 android:id="@+id/viewPager"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"

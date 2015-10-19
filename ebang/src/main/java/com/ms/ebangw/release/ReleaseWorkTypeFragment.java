@@ -5,20 +5,25 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ListView;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.ms.ebangw.MyApplication;
 import com.ms.ebangw.R;
 import com.ms.ebangw.activity.HomeActivity;
 import com.ms.ebangw.bean.Craft;
+import com.ms.ebangw.bean.Staff;
 import com.ms.ebangw.bean.WorkType;
 import com.ms.ebangw.exception.ResponseException;
 import com.ms.ebangw.fragment.BaseFragment;
 import com.ms.ebangw.service.DataAccessUtil;
 import com.ms.ebangw.service.DataParseUtil;
 import com.ms.ebangw.utils.L;
+import com.ms.ebangw.utils.T;
 
 import org.apache.http.Header;
 import org.json.JSONObject;
@@ -35,15 +40,25 @@ public class ReleaseWorkTypeFragment extends BaseFragment {
     private WorkType workType;
     private ViewGroup contentLayout;
     private ReleaseCraftAdapter craftAdapter;
-    @Bind(R.id.rg_but)
-    RadioGroup radioGroup;
+//    @Bind(R.id.rg_but)
+//    RadioGroup radioGroup;
     @Bind(R.id.listView)
     ListView listView;
+//    @Bind(R.id.rb_build)
+//    RadioButton rBuilding;
+//    @Bind(R.id.bt_next)
+//    Button bNext;
+//    @Bind(R.id.tv_money)
+
+//    TextView tMoney;
+    private static String money;
+
     private Craft craft;
 
     public static ReleaseWorkTypeFragment newInstance(WorkType workType) {
         ReleaseWorkTypeFragment fragment = new ReleaseWorkTypeFragment();
         Bundle args = new Bundle();
+
         args.putParcelable(WORK_TYPE, workType);
         fragment.setArguments(args);
         return fragment;
@@ -70,44 +85,26 @@ public class ReleaseWorkTypeFragment extends BaseFragment {
         contentLayout = (ViewGroup) inflater.inflate(R.layout.fragment_work_type, container,
             false);
         ButterKnife.bind(this, contentLayout);
+
         initView();
         initData();
         return contentLayout;
     }
 
+
     @Override
     public void initView() {
         craft = getAllWorkType();
 
-        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup group, int checkedId) {
-                if(craft == null || craftAdapter == null){
-                    return;
-                }
-                switch (checkedId){
-                    case R.id.rb_build:
-                        craftAdapter.setWorkType(craft.getBuilding());
-                        break;
-                    case R.id.rb_decorate:
-                        craftAdapter.setWorkType(craft.getFitment());
-
-                        break;
-                    case R.id.rb_projectManager:
-                        craftAdapter.setWorkType(craft.getProjectManage());
-                        break;
-                }
-                craftAdapter.notifyDataSetChanged();
-            }
-        });
-        radioGroup.getChildAt(0).setClickable(true);
     }
 
     @Override
     public void initData() {
+        if(workType != null){
+            craftAdapter = new ReleaseCraftAdapter(((HomeActivity)mActivity).getFragmentManager(), workType);
+            listView.setAdapter(craftAdapter);
+        }
 
-//        craftAdapter = new ReleaseCraftAdapter(getFragmentManager(), workType);
-//        listView.setAdapter(craftAdapter);
 
     }
     public Craft getAllWorkType(){
@@ -122,7 +119,7 @@ public class ReleaseWorkTypeFragment extends BaseFragment {
                         MyApplication.getInstance().setCraft(craft);
                         craftAdapter = new ReleaseCraftAdapter(((HomeActivity)mActivity).getFragmentManager(), craft.getBuilding());
                         listView.setAdapter(craftAdapter);
-
+//                        rBuilding.toggle();
                     } catch (ResponseException e) {
                         e.printStackTrace();
                     }
