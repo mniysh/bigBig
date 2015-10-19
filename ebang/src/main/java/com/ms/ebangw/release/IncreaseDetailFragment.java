@@ -47,6 +47,11 @@ import butterknife.OnClick;
 public class IncreaseDetailFragment extends BaseFragment {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+    private static final int REQUEST_CAMERA = 2;
+    private static final int REQUEST_PICK = 4;
+    private static final int REAQUEST_CROP = 8;
+    private String whickPhoto ;
+
     //经纬度
     private double longitude;
     private double latitude;
@@ -59,24 +64,33 @@ public class IncreaseDetailFragment extends BaseFragment {
     private String mParam1;
     private String mParam2;
     private String staff;
+    private String pay_type = "月结";
     private ViewGroup contentLayout;
     private File imageFile;
     @Bind(R.id.pac)
     ProvinceAndCityView provinceAndCityView;
+    //详细地址
     @Bind(R.id.et_detail_address)
     EditText detailAddressEt;
+    //title
     @Bind(R.id.et_title)
     EditText titleEt;
+    //联系人和电话
     @Bind(R.id.et_name)
     EditText nameEt;
     @Bind(R.id.et_phone)
     EditText phoneEt;
+    //内容
+    @Bind(R.id.et_introduce)
+    EditText introduceEt;
+
     @Bind(R.id.btn_pick)
     Button pickBtn;
     @Bind(R.id.btn_camera)
     Button cameraBtn;
     @Bind(R.id.rg_type)
     RadioGroup typeRg;
+    private String province, city , area, detailAddress, title, link_name, link_phone, count;
 
 
 
@@ -120,6 +134,9 @@ public class IncreaseDetailFragment extends BaseFragment {
         super.onActivityCreated(savedInstanceState);
         initTitle("填写信息");
     }
+    public void getData(){
+
+    }
 
 
     @Override
@@ -157,10 +174,18 @@ public class IncreaseDetailFragment extends BaseFragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(data == null){
+        if( mActivity.RESULT_OK != -1){
             return;
         }
-        if(requestCode == Constants.REQUEST_CAMERA && requestCode == mActivity.RESULT_OK){
+        if(requestCode == Constants.REQUEST_CAMERA ){
+            Uri uri ;
+            if(data == null){
+                uri = Uri.fromFile(imageFile);
+            }else{
+                uri = data.getData();
+            }
+            beginCrop(uri);
+
 
         }
 //        L.d("onActivityResult");

@@ -55,6 +55,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint=""
+
                 android:textColorHint="@color/auth_hint"
                 />
         </LinearLayout>
@@ -182,6 +183,7 @@
                 android:layout_marginTop="10dp"
                 android:background="@drawable/border_gray"
                 android:minHeight="60dp"
+                android:hint="请输入内容"
                 android:textColorHint="@color/auth_hint"
                 />
 

@@ -177,36 +177,7 @@ public class ServiceFragment extends BaseFragment {
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
     @Override
     public void initData() {
-//        vPager= (ViewPager) getView().findViewById(R.id.vp_con);
-//        datas.add(serviceBuildFragment);
-//        datas.add(serviceDecorateFragment);
-//        datas.add(serviceOtherFragment);
-//        datas.add(serviceProjectManageFragment);
-//        adapter = new ServicePagerAdapter(getChildFragmentManager(), datas);
-//        vPager.setAdapter(adapter);
-//        radioGroup= (RadioGroup) getView().findViewById(R.id.rg_but);
-//        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-//            @Override
-//            public void onCheckedChanged(RadioGroup group, int checkedId) {
-//                switch (checkedId) {
-//                    case R.id.rb_build:
-//                        vPager.setCurrentItem(0);
-//                        break;
-//                    case R.id.rb_decorate:
-//                        vPager.setCurrentItem(1);
-//                        break;
-//                    case R.id.rb_projectManager:
-//                        vPager.setCurrentItem(2);
-//                        break;
-//                    case R.id.rb_other:
-//                       vPager.setCurrentItem(3);
-//                        break;
-//
-//
-//                }
-//            }
-//        });
-//        radioGroup.getChildAt(0).performClick();
+
 
     }
     @Override
