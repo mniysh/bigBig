@@ -231,8 +231,8 @@ public class DataAccessUtil {
      */
     public static RequestHandle developerRelease(String title, String description, String link_man,
                                                  String link_phone, String province, String city,
-                                                 String area, String area_other, float point_longitude,
-                                                 float point_dimention, String pay_type,
+                                                 String area, String area_other, double point_longitude,
+                                                 double point_dimention, String pay_type,
                                                  String image_ary, String staffs, AsyncHttpResponseHandler asyncHttpResponseHandler){
         RequestParams params = new RequestParams();
         params.put("title",title);

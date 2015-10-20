@@ -5,6 +5,7 @@ import android.text.TextUtils;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.ms.ebangw.MyApplication;
+import com.ms.ebangw.bean.Area;
 import com.ms.ebangw.bean.Bank;
 import com.ms.ebangw.bean.City;
 import com.ms.ebangw.bean.Craft;
@@ -103,6 +104,7 @@ public class DataParseUtil {
         return null;
     }
 
+
     /**
      * 登出接口
      * @param jsonObject
@@ -190,7 +192,7 @@ public class DataParseUtil {
         Gson gson=new Gson();
         String dataProvince=datas.optString("province");
         JSONObject cityobj=datas.optJSONObject("city");
-       // JSONObject areaObj=datas.optJSONObject("area");
+        JSONObject areaObj=datas.optJSONObject("area");
         //通过goon工具转换为集合
         List<Province> provinces=gson.fromJson(dataProvince,new TypeToken<List<Province>>(){}.getType());
 
@@ -202,11 +204,18 @@ public class DataParseUtil {
                 continue;
             }
             try {
-                String datacity=cityobj.getString(id);
-                List<City> citys=gson.fromJson(datacity,new TypeToken<List<City>>(){}.getType());
+                String datacity = cityobj.getString(id);
+                List<City> citys = gson.fromJson(datacity,new TypeToken<List<City>>(){}.getType());
                 City city;
                 for (int j=0; j < citys.size() ;j++){
                     city=citys.get(j);
+                    String idCity = city.getId();
+                    if(!areaObj.has(idCity)){
+                        continue;
+                    }
+                    String dataArea = areaObj.getString(idCity);
+                    List<Area> areas = gson.fromJson(dataArea, new TypeToken<List<Area>>(){}.getType());
+                    city.setAreas(areas);
 
                 }
                 province.setCitys(citys);

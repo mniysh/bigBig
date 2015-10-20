@@ -11,6 +11,7 @@ import android.widget.FrameLayout;
 import android.widget.Spinner;
 
 import com.ms.ebangw.R;
+import com.ms.ebangw.bean.Area;
 import com.ms.ebangw.bean.City;
 import com.ms.ebangw.bean.Province;
 
@@ -30,8 +31,16 @@ public class ProvinceAndCityView extends FrameLayout {
 
     private List<Province> provinces;
     private List<City> citys;
+
+
     private Province currentProvince;
     private City currentCity;
+
+    private Spinner areaSp;
+    private List<Area> areas;
+    private Area currentArea;
+    ArrayAdapter<Area> adapter03;
+
     ArrayAdapter<Province> adapter01;
     ArrayAdapter<City> adapter02;
 //    protected String provinceId;
@@ -48,6 +57,7 @@ public class ProvinceAndCityView extends FrameLayout {
         layout = (ViewGroup) LayoutInflater.from(context).inflate(R.layout.layout_province_and_city, this, true);
         provinceSp = (Spinner) layout.findViewById(R.id.sp_a);
         citySp = (Spinner) layout.findViewById(R.id.sp_b);
+        areaSp = (Spinner) layout.findViewById(R.id.sp_c);
 
     }
 
@@ -74,6 +84,10 @@ public class ProvinceAndCityView extends FrameLayout {
         citySp.setAdapter(adapter02);
         citySp.setSelection(0, true);
 
+        adapter03 = new ArrayAdapter<Area>(mContext, R.layout.layout_spinner_item, provinces.get(0).getCitys().get(0).getAreas());
+        areaSp.setAdapter(adapter03);
+        areaSp.setSelection(0, true);
+
         provinceSp.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
             @Override
@@ -82,8 +96,9 @@ public class ProvinceAndCityView extends FrameLayout {
                 currentProvince = provinces.get(position);
 
                 citys = provinces.get(position).getCitys();
+
                 adapter02 = new ArrayAdapter<>(mContext,
-                    R.layout.layout_spinner_item, citys);
+                        R.layout.layout_spinner_item, citys);
 
                 citySp.setAdapter(adapter02);
             }
@@ -99,12 +114,41 @@ public class ProvinceAndCityView extends FrameLayout {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view,
                                        int position, long id) {
+//                currentCity = citys.get(position);
+//
+//                adapter02 = new ArrayAdapter<>(mContext,
+//                    R.layout.layout_spinner_item, citys);
+//
+//                citySp.setAdapter(adapter02);
                 currentCity = citys.get(position);
+                areas = currentCity.getAreas();
 
-                adapter02 = new ArrayAdapter<>(mContext,
-                    R.layout.layout_spinner_item, citys);
+                if(areas == null){
+                    areaSp.setVisibility(View.GONE);
+                    return;
+                }else{
+                    areaSp.setVisibility(View.VISIBLE);
+                    adapter03 = new ArrayAdapter<>(mContext,
+                            R.layout.layout_spinner_item, areas);
 
-                citySp.setAdapter(adapter02);
+                    areaSp.setAdapter(adapter03);
+                }
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+        areaSp.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                currentArea = areas.get(position);
+
+//                adapter03 = new ArrayAdapter<Area>(mContext, R.layout.layout_spinner_item, areas);
+//                areaSp.setAdapter(adapter03);
             }
 
             @Override
@@ -135,5 +179,12 @@ public class ProvinceAndCityView extends FrameLayout {
         }
         return null;
     }
+    public String getAreaId(){
+        if(null != currentArea){
+            return currentArea.getId();
+        }
+        return null;
+    }
+
 
 }

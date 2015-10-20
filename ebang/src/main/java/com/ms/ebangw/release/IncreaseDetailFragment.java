@@ -54,8 +54,8 @@ public class IncreaseDetailFragment extends BaseFragment {
     private String whickPhoto ;
 
     //经纬度
-    private float longitude;
-    private float latitude;
+    private double longitude;
+    private double latitude;
 
 //    private String JPEG_FILE_PREFIX =
 
@@ -332,6 +332,7 @@ public class IncreaseDetailFragment extends BaseFragment {
         return file;
     }
 
+
     /**
      * 开发商发布
      */
@@ -342,14 +343,14 @@ public class IncreaseDetailFragment extends BaseFragment {
         if(user == null){
             return;
         }
-        province = "北京";
-        city = "北京";
-        area = "北京";
+        province = "1";
+        city = "1";
+        area = "1";
         detailAddress = detailAddressEt.getText().toString().trim();
         title = titleEt.getText().toString().trim();
         link_name = nameEt.getText().toString().trim();
-        latitude = 0.0f;
-        longitude = 0.0f;
+        latitude = 0.5;
+        longitude = 0.5;
         link_phone = phoneEt.getText().toString().trim();
         count = introduceEt.getText().toString().trim();
         image_ary = getJO();
@@ -367,6 +368,7 @@ public class IncreaseDetailFragment extends BaseFragment {
                     }
                 } catch (ResponseException e) {
                     e.printStackTrace();
+                    T.show(e.getMessage());
                 }
 
             }
