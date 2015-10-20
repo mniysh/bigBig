@@ -54,8 +54,8 @@ public class IncreaseDetailFragment extends BaseFragment {
     private String whickPhoto ;
 
     //经纬度
-    private double longitude;
-    private double latitude;
+    private float longitude;
+    private float latitude;
 
 //    private String JPEG_FILE_PREFIX =
 
@@ -66,6 +66,7 @@ public class IncreaseDetailFragment extends BaseFragment {
     private String mParam2;
     private String staff;
     private String pay_type = "月结";
+    private String image_ary;
     private ViewGroup contentLayout;
     private File imageFile;
     @Bind(R.id.pac)
@@ -183,6 +184,15 @@ public class IncreaseDetailFragment extends BaseFragment {
         cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, mUri);
         cameraIntent.putExtra("return-data", true);
         startActivityForResult(cameraIntent, Constants.REQUEST_CAMERA);
+    }
+
+    /**
+     * 临时的
+     * @return
+     */
+    public String  getJO(){
+        String a = "{1.jpg}";
+        return a;
     }
 
 
@@ -337,10 +347,36 @@ public class IncreaseDetailFragment extends BaseFragment {
         area = "北京";
         detailAddress = detailAddressEt.getText().toString().trim();
         title = titleEt.getText().toString().trim();
-        link_name = "杨少华";
-        link_phone = "15321214698";
+        link_name = nameEt.getText().toString().trim();
+        latitude = 0.0f;
+        longitude = 0.0f;
+        link_phone = phoneEt.getText().toString().trim();
         count = introduceEt.getText().toString().trim();
+        image_ary = getJO();
+        DataAccessUtil.developerRelease(title,detailAddress,
+                link_name, link_phone, province, city, area, ".....",
+                longitude, latitude, "月结", image_ary, staff,
+                new JsonHttpResponseHandler(){
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                super.onSuccess(statusCode, headers, response);
+                try {
+                    boolean b = DataParseUtil.processDataResult(response);
+                    if(b){
+                        T.show("请求成功");
+                    }
+                } catch (ResponseException e) {
+                    e.printStackTrace();
+                }
 
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                super.onFailure(statusCode, headers, responseString, throwable);
+                L.d(responseString);
+            }
+        } );
 
     }
 

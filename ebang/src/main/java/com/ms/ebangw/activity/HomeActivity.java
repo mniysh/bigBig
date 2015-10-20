@@ -10,7 +10,7 @@ import android.view.KeyEvent;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
-import com.baidu.mapapi.SDKInitializer;
+
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.ms.ebangw.MyApplication;
 import com.ms.ebangw.R;
@@ -437,7 +437,9 @@ public class HomeActivity extends BaseActivity {
      *
      */
     public void onEvent(OnCheckedWorkTypeEvent event){
-
+        if(event == null){
+            return;
+        }
         WorkType workType = event.getWorkType();
         boolean b = event.isSelected();
         if(event != null && b){

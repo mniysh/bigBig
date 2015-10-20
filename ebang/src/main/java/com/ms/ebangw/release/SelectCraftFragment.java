@@ -165,6 +165,12 @@ public class SelectCraftFragment extends BaseFragment {
 
 
     }
+
+    /**
+     * json类型的staff字符串
+     * @param workTypes
+     * @return
+     */
     public String  getStaff(Set<WorkType> workTypes){
         List<Staff> staffs = new ArrayList<Staff>();
         Gson g = new Gson();
