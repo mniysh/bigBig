@@ -90,6 +90,10 @@ public class IncreaseDetailFragment extends BaseFragment {
     Button cameraBtn;
     @Bind(R.id.rg_type)
     RadioGroup typeRg;
+
+
+
+
     private String province, city , area, detailAddress, title, link_name, link_phone, count;
 
 
@@ -105,6 +109,12 @@ public class IncreaseDetailFragment extends BaseFragment {
 
     public IncreaseDetailFragment() {
         // Required empty public constructor
+    }
+    //地图获取信息
+    @OnClick(R.id.et_detail_address)
+    public void getMap(){
+
+
     }
 
     @Override

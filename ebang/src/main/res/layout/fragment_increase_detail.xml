@@ -54,9 +54,11 @@
                 style="@style/authorization_edit"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint=""
-
-                android:textColorHint="@color/auth_hint"
+                android:drawableLeft="@drawable/marker"
+                android:hint="请选择"
+                android:textColorHint="@color/auther_red"
+                android:drawablePadding="5dp"
+                android:editable="false"
                 />
         </LinearLayout>
 
