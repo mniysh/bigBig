@@ -111,9 +111,10 @@ public class IncreaseDetailFragment extends BaseFragment {
         // Required empty public constructor
     }
     //地图获取信息
-    @OnClick(R.id.et_detail_address)
+    @OnClick(R.id.et_address)
     public void getMap(){
-
+        HomeActivity homeActivity = (HomeActivity)mActivity;
+        homeActivity.goMapAdd();
 
     }
 

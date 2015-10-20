@@ -10,6 +10,7 @@ import android.view.KeyEvent;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
+import com.baidu.mapapi.SDKInitializer;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.ms.ebangw.MyApplication;
 import com.ms.ebangw.R;
@@ -34,6 +35,7 @@ import com.ms.ebangw.fragment.ServiceOtherFragment;
 import com.ms.ebangw.fragment.ServiceProjectManageFragment;
 import com.ms.ebangw.fragment.WorkerHomeFragment;
 import com.ms.ebangw.release.IncreaseDetailFragment;
+import com.ms.ebangw.release.MapGetAddFragment;
 import com.ms.ebangw.release.ReleaseFragment;
 import com.ms.ebangw.release.ReleaseFrament01;
 import com.ms.ebangw.release.ReleaseWorkTypeFragment;
@@ -91,6 +93,7 @@ public class HomeActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+//        SDKInitializer.initialize(getApplicationContext());
         setContentView(R.layout.activity_home);
         ButterKnife.bind(this);
         EventBus.getDefault().register(this);
@@ -249,6 +252,17 @@ public class HomeActivity extends BaseActivity {
         IncreaseDetailFragment increaseDetailFragment = IncreaseDetailFragment.newInstance(staff, "");
         FragmentTransaction transaction = fm.beginTransaction();
         transaction.replace(R.id.fl_content, increaseDetailFragment);
+        transaction.addToBackStack(null);
+        transaction.commit();
+    }
+    /**
+     * 去地图选点页面
+     */
+    public void goMapAdd() {
+
+         MapGetAddFragment mf= MapGetAddFragment.newInstance("", "");
+        FragmentTransaction transaction = fm.beginTransaction();
+        transaction.replace(R.id.fl_content, mf);
         transaction.addToBackStack(null);
         transaction.commit();
     }

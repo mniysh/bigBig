@@ -7,6 +7,7 @@ import android.graphics.Bitmap;
 import com.baidu.location.BDLocation;
 import com.baidu.location.LocationClient;
 import com.baidu.location.LocationClientOption;
+import com.baidu.mapapi.SDKInitializer;
 import com.ms.ebangw.bean.Craft;
 import com.ms.ebangw.bean.User;
 import com.ms.ebangw.db.UserDao;
@@ -64,7 +65,9 @@ public class MyApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+
         instance = this;
+
         initUMeng();
         initLocation();
         initJpush();
@@ -81,7 +84,7 @@ public class MyApplication extends Application {
      * 初始化百度定位
      */
     private void initLocation(){
-
+//        SDKInitializer.initialize(getApplicationContext());
         mLocationClient = new LocationClient(this);     //声明LocationClient类
         LocationClientOption option = new LocationClientOption();
         option.setLocationMode(LocationClientOption.LocationMode.Hight_Accuracy
