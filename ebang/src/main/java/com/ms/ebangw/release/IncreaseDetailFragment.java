@@ -21,6 +21,7 @@ import com.ms.ebangw.R;
 import com.ms.ebangw.activity.HomeActivity;
 import com.ms.ebangw.bean.Province;
 import com.ms.ebangw.bean.UploadImageResult;
+import com.ms.ebangw.bean.User;
 import com.ms.ebangw.commons.Constants;
 import com.ms.ebangw.exception.ResponseException;
 import com.ms.ebangw.fragment.BaseFragment;
@@ -145,6 +146,10 @@ public class IncreaseDetailFragment extends BaseFragment {
         super.onActivityCreated(savedInstanceState);
         initTitle("填写信息");
     }
+
+    /**
+     * 获取数据
+     */
     public void getData(){
 
     }
@@ -322,7 +327,44 @@ public class IncreaseDetailFragment extends BaseFragment {
      */
     @OnClick(R.id.btn_release)
     public void developerRelease() {
+       // private String province, city , area, detailAddress, title, link_name, link_phone, count;
+        User user = getUser();
+        if(user == null){
+            return;
+        }
+        province = "北京";
+        city = "北京";
+        area = "北京";
+        detailAddress = detailAddressEt.getText().toString().trim();
+        title = titleEt.getText().toString().trim();
+        link_name = "杨少华";
+        link_phone = "15321214698";
+        count = introduceEt.getText().toString().trim();
+
 
     }
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
