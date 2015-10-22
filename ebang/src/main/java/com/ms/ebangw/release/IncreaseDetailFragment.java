@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.ms.ebangw.MyApplication;
@@ -97,6 +98,8 @@ public class IncreaseDetailFragment extends BaseFragment {
 
 
     private String province, city , area, detailAddress, title, link_name, link_phone, count;
+    private String provinceId, cityId, areaId;
+
 
 
 
@@ -166,6 +169,10 @@ public class IncreaseDetailFragment extends BaseFragment {
         HomeActivity homeActivity = (HomeActivity) mActivity;
         List<Province> provinces = getAreaFromAssets().getProvince();
         provinceAndCityView.setProvinces(provinces);
+        provinceId = provinceAndCityView.getProvinceId();
+        cityId = provinceAndCityView.getCityId();
+        areaId = provinceAndCityView.getAreaId();
+
 
     }
 
@@ -186,14 +193,7 @@ public class IncreaseDetailFragment extends BaseFragment {
         startActivityForResult(cameraIntent, Constants.REQUEST_CAMERA);
     }
 
-    /**
-     * 临时的
-     * @return
-     */
-    public String  getJO(){
-        String a = "{1.jpg}";
-        return a;
-    }
+
 
 
 
@@ -332,6 +332,11 @@ public class IncreaseDetailFragment extends BaseFragment {
         return file;
     }
 
+    public void getAreaId(){
+
+
+
+    }
 
     /**
      * 开发商发布
@@ -343,9 +348,8 @@ public class IncreaseDetailFragment extends BaseFragment {
         if(user == null){
             return;
         }
-        province = "1";
-        city = "1";
-        area = "1";
+
+
         detailAddress = detailAddressEt.getText().toString().trim();
         title = titleEt.getText().toString().trim();
         link_name = nameEt.getText().toString().trim();
@@ -353,9 +357,9 @@ public class IncreaseDetailFragment extends BaseFragment {
         longitude = 0.5;
         link_phone = phoneEt.getText().toString().trim();
         count = introduceEt.getText().toString().trim();
-        image_ary = getJO();
+
         DataAccessUtil.developerRelease(title,detailAddress,
-                link_name, link_phone, province, city, area, ".....",
+                link_name, link_phone, provinceId, cityId, areaId, count,
                 longitude, latitude, "月结", image_ary, staff,
                 new JsonHttpResponseHandler(){
             @Override

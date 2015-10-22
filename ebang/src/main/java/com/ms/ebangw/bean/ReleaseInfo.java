@@ -12,6 +12,35 @@ public class ReleaseInfo {
     private String area_other;
     private String account_staffs;
     private String total_money;
+    private String privinceId;
+
+    public String getPrivinceId() {
+        return privinceId;
+    }
+
+    public void setPrivinceId(String privinceId) {
+        this.privinceId = privinceId;
+    }
+
+    public String getCityId() {
+        return cityId;
+    }
+
+    public void setCityId(String cityId) {
+        this.cityId = cityId;
+    }
+
+    public String getAreaId() {
+        return areaId;
+    }
+
+    public void setAreaId(String areaId) {
+        this.areaId = areaId;
+    }
+
+    private String cityId;
+    private String areaId;
+
 
     public String getId() {
         return id;
