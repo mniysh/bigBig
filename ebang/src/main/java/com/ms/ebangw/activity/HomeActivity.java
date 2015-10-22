@@ -260,7 +260,7 @@ public class HomeActivity extends BaseActivity {
      */
     public void goMapAdd() {
 
-         MapGetAddFragment mf= MapGetAddFragment.newInstance("", "");
+        MapGetAddFragment mf= MapGetAddFragment.newInstance("", "");
         FragmentTransaction transaction = fm.beginTransaction();
         transaction.replace(R.id.fl_content, mf);
         transaction.addToBackStack(null);

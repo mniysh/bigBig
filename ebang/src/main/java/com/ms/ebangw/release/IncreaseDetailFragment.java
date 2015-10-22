@@ -8,6 +8,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -155,7 +156,41 @@ public class IncreaseDetailFragment extends BaseFragment {
      * 获取数据
      */
     public void getData(){
+        detailAddress = detailAddressEt.getText().toString().trim();
+        title = titleEt.getText().toString().trim();
+        link_name = nameEt.getText().toString().trim();
+        latitude = 0.5;
+        longitude = 0.5;
+        link_phone = phoneEt.getText().toString().trim();
+        count = introduceEt.getText().toString().trim();
+    }
+    public boolean isRight(){
+        if(TextUtils.isEmpty(detailAddress)){
+            T.show("详细地址不可为空");
+            return  false;
+        }
+        if(TextUtils.isEmpty(title)){
+            T.show("标题不可为空");
+            return  false;
+        }
+        if(TextUtils.isEmpty(link_name)){
+            T.show("姓名不可为空");
+            return  false;
+        }
+        if(TextUtils.isEmpty(link_phone)){
+            T.show("电话不可为空");
+            return  false;
+        }
+        if(TextUtils.isEmpty(count)){
+            T.show("简介不可为空");
+            return  false;
+        }
+        if(latitude == 0 || longitude == 0){
+            T.show("请地图选点");
+            return false;
+        }
 
+        return true;
     }
 
 
@@ -348,41 +383,38 @@ public class IncreaseDetailFragment extends BaseFragment {
         if(user == null){
             return;
         }
+        if(isRight()){
+            DataAccessUtil.developerRelease(title,detailAddress,
+                    link_name, link_phone, provinceId, cityId, areaId, count,
+                    longitude, latitude, "月结", image_ary, staff,
+                    new JsonHttpResponseHandler(){
+                        @Override
+                        public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                            super.onSuccess(statusCode, headers, response);
+                            try {
+                                boolean b = DataParseUtil.processDataResult(response);
+                                if(b){
+                                    T.show("请求成功");
+                                }
+                            } catch (ResponseException e) {
+                                e.printStackTrace();
+                                T.show(e.getMessage());
+                            }
+
+                        }
+
+                        @Override
+                        public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                            super.onFailure(statusCode, headers, responseString, throwable);
+                            L.d(responseString);
+                        }
+                    } );
+        }
 
 
-        detailAddress = detailAddressEt.getText().toString().trim();
-        title = titleEt.getText().toString().trim();
-        link_name = nameEt.getText().toString().trim();
-        latitude = 0.5;
-        longitude = 0.5;
-        link_phone = phoneEt.getText().toString().trim();
-        count = introduceEt.getText().toString().trim();
 
-        DataAccessUtil.developerRelease(title,detailAddress,
-                link_name, link_phone, provinceId, cityId, areaId, count,
-                longitude, latitude, "月结", image_ary, staff,
-                new JsonHttpResponseHandler(){
-            @Override
-            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                super.onSuccess(statusCode, headers, response);
-                try {
-                    boolean b = DataParseUtil.processDataResult(response);
-                    if(b){
-                        T.show("请求成功");
-                    }
-                } catch (ResponseException e) {
-                    e.printStackTrace();
-                    T.show(e.getMessage());
-                }
 
-            }
 
-            @Override
-            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
-                super.onFailure(statusCode, headers, responseString, throwable);
-                L.d(responseString);
-            }
-        } );
 
     }
 

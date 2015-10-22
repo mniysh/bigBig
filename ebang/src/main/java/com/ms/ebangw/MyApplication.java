@@ -67,7 +67,7 @@ public class MyApplication extends Application {
         super.onCreate();
 
         instance = this;
-
+//        SDKInitializer.initialize(getApplicationContext());
         initUMeng();
         initLocation();
         initJpush();
