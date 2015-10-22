@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import com.ms.ebangw.R;
 import com.ms.ebangw.activity.NextPageActivity;
+import com.ms.ebangw.bean.WorkType;
 import com.ms.ebangw.view.ViewHolder;
 
 import java.util.List;
@@ -17,10 +18,10 @@ import java.util.List;
  * Created by admin on 2015/9/20.
  */
 public class GridAdapter extends BaseAdapter {
-    private List<String> datas;
+    private List<WorkType> datas;
     private NextPageActivity act;
 
-    public GridAdapter(List<String> datas, NextPageActivity act) {
+    public GridAdapter(List<WorkType> datas, NextPageActivity act) {
         this.datas = datas;
         this.act = act;
     }
@@ -52,7 +53,7 @@ public class GridAdapter extends BaseAdapter {
 
         }
         TextView bItem= ViewHolder.get(convertView,R.id.bt_pre);
-        bItem.setText(datas.get(position));
+        bItem.setText(datas.get(position).getName());
 
         return convertView;
     }

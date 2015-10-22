@@ -63,7 +63,12 @@ public class FoundFragment extends BaseFragment implements XListView.IXListViewL
     private void initDatas() {
         datas = new ArrayList<FoundBean>();
         //数据要从服务器后台获取现在没有，暂时用临时数据代替
-        FoundBean fb = new FoundBean("测试的url", "临时的title", "临时的距离", "临时的内容", "临时的钱数", "临时的抢单人数");
+        FoundBean fb = new FoundBean();
+        fb.setTitle("不锈钢玻璃隔断");
+        fb.setArea("1.4公里");
+        fb.setContent("工程简介");
+        fb.setMoney("200元/天");
+        fb.setQiangdan("已有5人抢单");
         datas.add(fb);
     }
 

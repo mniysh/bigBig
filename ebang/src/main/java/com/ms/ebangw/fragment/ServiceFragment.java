@@ -160,6 +160,7 @@ public class ServiceFragment extends BaseFragment {
                         serviceCraftAdapter.setWorkType(craft.getProjectManage(), (HomeActivity) mActivity);
                         break;
                     case R.id.rb_other:
+                        serviceCraftAdapter.setWorkType(craft.getOther(), (HomeActivity)mActivity);
 
                         break;
                 }

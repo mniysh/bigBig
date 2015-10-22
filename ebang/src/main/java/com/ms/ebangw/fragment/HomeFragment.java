@@ -16,8 +16,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 
+import com.loopj.android.http.JsonHttpResponseHandler;
+import com.ms.ebangw.MyApplication;
 import com.ms.ebangw.R;
 import com.ms.ebangw.activity.HomeActivity;
 import com.ms.ebangw.activity.MessageCenterActivit;
@@ -25,8 +28,17 @@ import com.ms.ebangw.activity.NextPageActivity;
 import com.ms.ebangw.activity.RecommendActivity;
 import com.ms.ebangw.adapter.HomeListAdapter;
 import com.ms.ebangw.adapter.HomeViewpagerAdapter;
+import com.ms.ebangw.bean.Craft;
 import com.ms.ebangw.bean.FoundBean;
+import com.ms.ebangw.commons.Constants;
+import com.ms.ebangw.exception.ResponseException;
+import com.ms.ebangw.service.DataAccessUtil;
+import com.ms.ebangw.service.DataParseUtil;
 import com.ms.ebangw.utils.MyListView;
+import com.ms.ebangw.utils.T;
+
+import org.apache.http.Header;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,7 +54,7 @@ public class HomeFragment extends BaseFragment implements OnClickListener   {
 	private HomeActivity act;
 	private ViewPager viewpager;// 滑动条
 	private LinearLayout ldot;// 点布局
-	private EditText search;
+
 	private MyListView mylistview;
 	FragmentManager fm;
 	private int[] images = { R.drawable.banner_aaa, R.drawable.banner_bb
@@ -57,18 +69,20 @@ public class HomeFragment extends BaseFragment implements OnClickListener   {
 	private View mContentView;
 	@Bind(R.id.lin_build)
 	LinearLayout lBuild;
-	@Bind(R.id.lin_decorate)
-	LinearLayout lDecorate;
-	@Bind(R.id.lin_projectManage)
-	LinearLayout lProjectManage;
-	@Bind(R.id.lin_other)
-	LinearLayout lOther;
-	@OnClick({R.id.lin_build,R.id.lin_other,R.id.lin_decorate,R.id.lin_projectManage})
-	void click(View view){
-		startActivity(new Intent(act, NextPageActivity.class));
-	}
+//	@Bind(R.id.lin_decorate)
+//	LinearLayout lDecorate;
+//	@Bind(R.id.lin_projectManage)
+//	LinearLayout lProjectManage;
+//	@Bind(R.id.lin_other)
+//	LinearLayout lOther;
+	private Craft craft;
+
 	@Bind(R.id.tv_message)
 	TextView tMessage;
+	@Bind(R.id.rg_type)
+	RadioGroup typeRg;
+	@Bind(R.id.home_search)
+	EditText etSearch;
 
 	/**
 	 * 消息按钮
@@ -78,6 +92,10 @@ public class HomeFragment extends BaseFragment implements OnClickListener   {
 		Intent intent=new Intent(act, MessageCenterActivit.class);
 
 		startActivity(intent);
+	}
+	@OnClick(R.id.home_search)
+	public void startSearch(){
+		T.show("开始搜索");
 	}
 
 
@@ -92,7 +110,7 @@ public class HomeFragment extends BaseFragment implements OnClickListener   {
 	public View onCreateView(LayoutInflater inflater,
 							 @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 		mContentView = inflater.inflate(R.layout.fragment_home, container, false);
-		ButterKnife.bind(this,mContentView);
+		ButterKnife.bind(this, mContentView);
 		return mContentView;
 	}
 
@@ -108,7 +126,7 @@ public class HomeFragment extends BaseFragment implements OnClickListener   {
 		adapter=new HomeViewpagerAdapter(pager);
 		viewpager.setAdapter(adapter);
 		//下面设置adapter，暂时没数据
-		mylistview.setAdapter(new HomeListAdapter(act,datas));
+		mylistview.setAdapter(new HomeListAdapter(act, datas));
 		dot();
 		viewpager.addOnPageChangeListener(new viewpagechangelistener());
 //		act_home_class.setAdapter(new HomeClassAdapter(fm, act, imgclass, txtclass));
@@ -119,7 +137,12 @@ public class HomeFragment extends BaseFragment implements OnClickListener   {
 	private void initDatas() {
 		pager = new ArrayList<View>();
 		datas=new ArrayList<FoundBean>();
-		FoundBean fb=new FoundBean("标题","公里数","简单的内同介绍","价格","价格","现在已有多少人抢单了");
+		FoundBean fb = new FoundBean();
+		fb.setTitle("不锈钢玻璃隔断");
+		fb.setArea("1.4公里");
+		fb.setContent("工程简介");
+		fb.setMoney("200元/天");
+		fb.setQiangdan("已有5人抢单");
 		datas.add(fb);
 
 
@@ -133,9 +156,70 @@ public class HomeFragment extends BaseFragment implements OnClickListener   {
 		pager.add(v1);
 		pager.add(v2);
 //		pager.add(v3);
+		typeRg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+			@Override
+			public void onCheckedChanged(RadioGroup group, int checkedId) {
+				getWorkType();
+
+				if(craft == null){
+					return;
+				}
+				Intent intent = new Intent(mActivity, NextPageActivity.class);
+				Bundle bundle = new Bundle();
+				switch (checkedId) {
+					case R.id.iv_building:
+
+						bundle.putParcelable(Constants.CRAFT_BUILDING, craft.getBuilding());
+						break;
+					case R.id.iv_decorator:
+						bundle.putParcelable(Constants.CRAFT_BUILDING, craft.getFitment());
+
+						break;
+					case R.id.iv_projectManage:
+						bundle.putParcelable(Constants.CRAFT_BUILDING, craft.getProjectManage());
+
+						break;
+					case R.id.iv_other:
+						bundle.putParcelable(Constants.CRAFT_BUILDING, craft.getOther());
+
+						break;
+				}
+				intent.putExtras(bundle);
+				startActivity(intent);
+			}
+		});
 
 
 	}
+
+	public void getWorkType(){
+		craft = MyApplication.getInstance().getCraft();
+		if(craft == null){
+			DataAccessUtil.publishCraft(new JsonHttpResponseHandler(){
+				@Override
+				public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+					super.onSuccess(statusCode, headers, response);
+					try {
+
+							craft = DataParseUtil.publishCraft(response);
+							MyApplication.getInstance().setCraft(craft);
+
+
+					} catch (ResponseException e) {
+						e.printStackTrace();
+					}
+				}
+
+				@Override
+				public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+					super.onFailure(statusCode, headers, responseString, throwable);
+				}
+			});
+		}
+
+
+	}
+
 	@Override
 	public void onResume() {
 		super.onResume();

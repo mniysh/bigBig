@@ -141,4 +141,12 @@ public class Constants {
 	public final static String AUTH_COMPLETE = "complete";
 
 	public final static String RELEASE_WORKTYPE_KEY = "release_workType_key";
+
+	/**
+	 * 四大工种
+	 */
+	public final static String CRAFT_BUILDING = "craft_building";
+	public final static String CRAFT_DEVORATOR = "craft_devorator";
+	public final static String CRAFT_PROJECTMANAGE = "craft_projectmanage";
+	public final static String CRAFT_OTHER = "craft_other";
 }

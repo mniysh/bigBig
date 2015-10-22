@@ -21,7 +21,7 @@ public class MessageCenterActivit extends BaseActivity {
     private MessageAdapter adapter;
     @Override
     public void initView() {
-        initTitle(null, null, "消息中心", null, null);
+        initTitle(null, "返回", "消息中心", null, null);
     }
 
     @Override
