@@ -89,58 +89,138 @@
             android:gravity="center_vertical"
             android:background="@android:color/white"
             android:orientation="horizontal">
-            <RadioGroup
-                android:id="@+id/rg_type"
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:layout_gravity="center_vertical"
                 android:layout_height="wrap_content">
-                <RadioButton
+                <ImageView
                     android:id="@+id/iv_building"
-                    android:layout_width="0dp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_width="wrap_content"
+                    android:src="@drawable/home_build"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:layout_gravity="center_horizontal"
+                    android:layout_width="wrap_content"
+                    android:layout_marginTop="10dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:button="@drawable/empty"
-                    android:drawableTop="@drawable/home_build"
                     android:text="建筑"
-                    android:drawablePadding="10dp"
-                    android:gravity="center"
                     />
-                <RadioButton
-                    android:id="@+id/iv_decorator"
-                    android:layout_width="0dp"
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:layout_gravity="center_vertical"
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:id="@+id/iv_decorater"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_width="wrap_content"
+                    android:src="@drawable/home_zxiu"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:layout_gravity="center_horizontal"
+                    android:layout_width="wrap_content"
+                    android:layout_marginTop="10dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:button="@drawable/empty"
-                    android:drawableTop="@drawable/home_zxiu"
-                    android:text="装修"
-                    android:drawablePadding="10dp"
-                    android:gravity="center"
+                    android:text="专修"
                     />
-                <RadioButton
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:layout_gravity="center_vertical"
+                android:layout_height="wrap_content">
+                <ImageView
                     android:id="@+id/iv_projectManage"
-                    android:layout_width="0dp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_width="wrap_content"
+                    android:src="@drawable/home_life"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:layout_gravity="center_horizontal"
+                    android:layout_width="wrap_content"
+                    android:layout_marginTop="10dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:button="@drawable/empty"
-                    android:drawableTop="@drawable/home_life"
                     android:text="工程管理"
-                    android:drawablePadding="10dp"
-                    android:gravity="center"
                     />
-                <RadioButton
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:layout_gravity="center_vertical"
+                android:layout_height="wrap_content">
+                <ImageView
                     android:id="@+id/iv_other"
-                    android:layout_width="0dp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_width="wrap_content"
+                    android:src="@drawable/home_business"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:layout_gravity="center_horizontal"
+                    android:layout_width="wrap_content"
+                    android:layout_marginTop="10dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:button="@drawable/empty"
-                    android:drawableTop="@drawable/home_business"
                     android:text="其他"
-                    android:drawablePadding="10dp"
-                    android:gravity="center"
                     />
+            </LinearLayout>
+            <!--<RadioGroup-->
+                <!--android:id="@+id/rg_type"-->
+                <!--android:orientation="horizontal"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content">-->
+                <!--<RadioButton-->
+                    <!--android:id="@+id/iv_building"-->
+                    <!--android:layout_width="0dp"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_weight="1"-->
+                    <!--android:button="@drawable/empty"-->
+                    <!--android:drawableTop="@drawable/home_build"-->
+                    <!--android:text="建筑"-->
+                    <!--android:drawablePadding="10dp"-->
+                    <!--android:gravity="center"-->
+                    <!--/>-->
+                <!--<RadioButton-->
+                    <!--android:id="@+id/iv_decorator"-->
+                    <!--android:layout_width="0dp"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_weight="1"-->
+                    <!--android:button="@drawable/empty"-->
+                    <!--android:drawableTop="@drawable/home_zxiu"-->
+                    <!--android:text="装修"-->
+                    <!--android:drawablePadding="10dp"-->
+                    <!--android:gravity="center"-->
+                    <!--/>-->
+                <!--<RadioButton-->
+                    <!--android:id="@+id/iv_projectManage"-->
+                    <!--android:layout_width="0dp"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_weight="1"-->
+                    <!--android:button="@drawable/empty"-->
+                    <!--android:drawableTop="@drawable/home_life"-->
+                    <!--android:text="工程管理"-->
+                    <!--android:drawablePadding="10dp"-->
+                    <!--android:gravity="center"-->
+                    <!--/>-->
+                <!--<RadioButton-->
+                    <!--android:id="@+id/iv_other"-->
+                    <!--android:layout_width="0dp"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_weight="1"-->
+                    <!--android:button="@drawable/empty"-->
+                    <!--android:drawableTop="@drawable/home_business"-->
+                    <!--android:text="其他"-->
+                    <!--android:drawablePadding="10dp"-->
+                    <!--android:gravity="center"-->
+                    <!--/>-->
 
 
-            </RadioGroup>
+            <!--</RadioGroup>-->
 
 
 

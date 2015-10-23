@@ -79,10 +79,19 @@ public class HomeFragment extends BaseFragment implements OnClickListener   {
 
 	@Bind(R.id.tv_message)
 	TextView tMessage;
-	@Bind(R.id.rg_type)
-	RadioGroup typeRg;
+//	@Bind(R.id.rg_type)
+//	RadioGroup typeRg;
 	@Bind(R.id.home_search)
 	EditText etSearch;
+	@Bind(R.id.iv_building)
+	ImageView buildingIv;
+	@Bind(R.id.iv_decorater)
+	ImageView decoratorIv;
+	@Bind(R.id.iv_projectManage)
+	ImageView projectManageIv;
+	@Bind(R.id.iv_other)
+	ImageView otherIv;
+
 
 	/**
 	 * 消息按钮
@@ -111,6 +120,7 @@ public class HomeFragment extends BaseFragment implements OnClickListener   {
 							 @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 		mContentView = inflater.inflate(R.layout.fragment_home, container, false);
 		ButterKnife.bind(this, mContentView);
+
 		return mContentView;
 	}
 
@@ -156,38 +166,38 @@ public class HomeFragment extends BaseFragment implements OnClickListener   {
 		pager.add(v1);
 		pager.add(v2);
 //		pager.add(v3);
-		typeRg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-			@Override
-			public void onCheckedChanged(RadioGroup group, int checkedId) {
-				getWorkType();
-
-				if(craft == null){
-					return;
-				}
-				Intent intent = new Intent(mActivity, NextPageActivity.class);
-				Bundle bundle = new Bundle();
-				switch (checkedId) {
-					case R.id.iv_building:
-
-						bundle.putParcelable(Constants.CRAFT_BUILDING, craft.getBuilding());
-						break;
-					case R.id.iv_decorator:
-						bundle.putParcelable(Constants.CRAFT_BUILDING, craft.getFitment());
-
-						break;
-					case R.id.iv_projectManage:
-						bundle.putParcelable(Constants.CRAFT_BUILDING, craft.getProjectManage());
-
-						break;
-					case R.id.iv_other:
-						bundle.putParcelable(Constants.CRAFT_BUILDING, craft.getOther());
-
-						break;
-				}
-				intent.putExtras(bundle);
-				startActivity(intent);
-			}
-		});
+//		typeRg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+//			@Override
+//			public void onCheckedChanged(RadioGroup group, int checkedId) {
+//				getWorkType();
+//
+//				if(craft == null){
+//					return;
+//				}
+//				Intent intent = new Intent(mActivity, NextPageActivity.class);
+//				Bundle bundle = new Bundle();
+//				switch (checkedId) {
+//					case R.id.iv_building:
+//
+//						bundle.putParcelable(Constants.CRAFT_BUILDING, craft.getBuilding());
+//						break;
+//					case R.id.iv_decorator:
+//						bundle.putParcelable(Constants.CRAFT_BUILDING, craft.getFitment());
+//
+//						break;
+//					case R.id.iv_projectManage:
+//						bundle.putParcelable(Constants.CRAFT_BUILDING, craft.getProjectManage());
+//
+//						break;
+//					case R.id.iv_other:
+//						bundle.putParcelable(Constants.CRAFT_BUILDING, craft.getOther());
+//
+//						break;
+//				}
+//				intent.putExtras(bundle);
+//				startActivity(intent);
+//			}
+//		});
 
 
 	}
@@ -224,6 +234,7 @@ public class HomeFragment extends BaseFragment implements OnClickListener   {
 	public void onResume() {
 		super.onResume();
 		handler.sendEmptyMessageDelayed(1, 2000);// 延迟两秒发送message请求，改变viewpager图片
+
 	}
 
 	@Override
@@ -244,6 +255,8 @@ public class HomeFragment extends BaseFragment implements OnClickListener   {
 		lin01.setOnClickListener(this);
 		lin02.setOnClickListener(this);
 		lin03.setOnClickListener(this);
+		buildingIv.setOnClickListener(this);
+
 
 	}
 
@@ -320,8 +333,12 @@ public class HomeFragment extends BaseFragment implements OnClickListener   {
 	public void onDestroyView() {
 		// TODO Auto-generated method stub
 		super.onDestroyView();
+//		typeRg.clearCheck();
 
 
+	}
+	public void xiaohui(){
+//		typeRg.clearCheck();
 	}
 
 	@Override

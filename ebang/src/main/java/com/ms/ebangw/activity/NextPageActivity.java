@@ -16,6 +16,7 @@ import com.ms.ebangw.adapter.GridAdapter;
 import com.ms.ebangw.bean.FoundBean;
 import com.ms.ebangw.bean.WorkType;
 import com.ms.ebangw.commons.Constants;
+import com.ms.ebangw.fragment.HomeFragment;
 
 import java.text.Normalizer;
 import java.util.ArrayList;
@@ -89,5 +90,9 @@ public class NextPageActivity extends BaseActivity {
 
     }
 
-
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+//        new HomeFragment().xiaohui();
+    }
 }
