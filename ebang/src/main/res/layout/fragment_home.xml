@@ -169,61 +169,6 @@
                     android:text="其他"
                     />
             </LinearLayout>
-            <!--<RadioGroup-->
-                <!--android:id="@+id/rg_type"-->
-                <!--android:orientation="horizontal"-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="wrap_content">-->
-                <!--<RadioButton-->
-                    <!--android:id="@+id/iv_building"-->
-                    <!--android:layout_width="0dp"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:layout_weight="1"-->
-                    <!--android:button="@drawable/empty"-->
-                    <!--android:drawableTop="@drawable/home_build"-->
-                    <!--android:text="建筑"-->
-                    <!--android:drawablePadding="10dp"-->
-                    <!--android:gravity="center"-->
-                    <!--/>-->
-                <!--<RadioButton-->
-                    <!--android:id="@+id/iv_decorator"-->
-                    <!--android:layout_width="0dp"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:layout_weight="1"-->
-                    <!--android:button="@drawable/empty"-->
-                    <!--android:drawableTop="@drawable/home_zxiu"-->
-                    <!--android:text="装修"-->
-                    <!--android:drawablePadding="10dp"-->
-                    <!--android:gravity="center"-->
-                    <!--/>-->
-                <!--<RadioButton-->
-                    <!--android:id="@+id/iv_projectManage"-->
-                    <!--android:layout_width="0dp"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:layout_weight="1"-->
-                    <!--android:button="@drawable/empty"-->
-                    <!--android:drawableTop="@drawable/home_life"-->
-                    <!--android:text="工程管理"-->
-                    <!--android:drawablePadding="10dp"-->
-                    <!--android:gravity="center"-->
-                    <!--/>-->
-                <!--<RadioButton-->
-                    <!--android:id="@+id/iv_other"-->
-                    <!--android:layout_width="0dp"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:layout_weight="1"-->
-                    <!--android:button="@drawable/empty"-->
-                    <!--android:drawableTop="@drawable/home_business"-->
-                    <!--android:text="其他"-->
-                    <!--android:drawablePadding="10dp"-->
-                    <!--android:gravity="center"-->
-                    <!--/>-->
-
-
-            <!--</RadioGroup>-->
-
-
-
         </LinearLayout>
 
 

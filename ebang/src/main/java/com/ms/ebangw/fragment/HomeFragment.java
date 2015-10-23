@@ -34,6 +34,7 @@ import com.ms.ebangw.commons.Constants;
 import com.ms.ebangw.exception.ResponseException;
 import com.ms.ebangw.service.DataAccessUtil;
 import com.ms.ebangw.service.DataParseUtil;
+import com.ms.ebangw.utils.L;
 import com.ms.ebangw.utils.MyListView;
 import com.ms.ebangw.utils.T;
 
@@ -165,39 +166,7 @@ public class HomeFragment extends BaseFragment implements OnClickListener   {
 
 		pager.add(v1);
 		pager.add(v2);
-//		pager.add(v3);
-//		typeRg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-//			@Override
-//			public void onCheckedChanged(RadioGroup group, int checkedId) {
-//				getWorkType();
-//
-//				if(craft == null){
-//					return;
-//				}
-//				Intent intent = new Intent(mActivity, NextPageActivity.class);
-//				Bundle bundle = new Bundle();
-//				switch (checkedId) {
-//					case R.id.iv_building:
-//
-//						bundle.putParcelable(Constants.CRAFT_BUILDING, craft.getBuilding());
-//						break;
-//					case R.id.iv_decorator:
-//						bundle.putParcelable(Constants.CRAFT_BUILDING, craft.getFitment());
-//
-//						break;
-//					case R.id.iv_projectManage:
-//						bundle.putParcelable(Constants.CRAFT_BUILDING, craft.getProjectManage());
-//
-//						break;
-//					case R.id.iv_other:
-//						bundle.putParcelable(Constants.CRAFT_BUILDING, craft.getOther());
-//
-//						break;
-//				}
-//				intent.putExtras(bundle);
-//				startActivity(intent);
-//			}
-//		});
+
 
 
 	}
@@ -217,12 +186,14 @@ public class HomeFragment extends BaseFragment implements OnClickListener   {
 
 					} catch (ResponseException e) {
 						e.printStackTrace();
+						T.show(e.getMessage());
 					}
 				}
 
 				@Override
 				public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
 					super.onFailure(statusCode, headers, responseString, throwable);
+					L.d(responseString);
 				}
 			});
 		}
@@ -252,9 +223,11 @@ public class HomeFragment extends BaseFragment implements OnClickListener   {
 		lin01=(LinearLayout) mContentView.findViewById(R.id.fragment_home_lin_recommend01);
 		lin02=(LinearLayout) mContentView.findViewById(R.id.fragment_home_lin_recommend02);
 		lin03=(LinearLayout) mContentView.findViewById(R.id.fragment_home_lin_recommend03);
+		//下面三个不和下面的混在一起处理
 		lin01.setOnClickListener(this);
 		lin02.setOnClickListener(this);
 		lin03.setOnClickListener(this);
+
 		buildingIv.setOnClickListener(this);
 		decoratorIv.setOnClickListener(this);
 		projectManageIv.setOnClickListener(this);
@@ -354,11 +327,11 @@ public class HomeFragment extends BaseFragment implements OnClickListener   {
 		Intent intent = new Intent(mActivity, NextPageActivity.class);
 		Bundle bundle = new Bundle();
 		switch (v.getId()) {
-			case R.id.fragment_home_lin_recommend01:
-			case R.id.fragment_home_lin_recommend02:
-			case R.id.fragment_home_lin_recommend03:
-				startActivity(new Intent(act,RecommendActivity.class));
-				break;
+//			case R.id.fragment_home_lin_recommend01:
+//			case R.id.fragment_home_lin_recommend02:
+//			case R.id.fragment_home_lin_recommend03:
+//				startActivity(new Intent(act,RecommendActivity.class));
+//				break;
 			case R.id.iv_building:
 				bundle.putParcelable(Constants.CRAFT_BUILDING, craft.getBuilding());
 				break;
