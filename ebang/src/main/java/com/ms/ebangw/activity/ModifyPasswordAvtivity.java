@@ -104,6 +104,10 @@ public class ModifyPasswordAvtivity extends BaseActivity {
                 //L.d("xxx","getuserdezhi"+getUser().toString());
                 if(TextUtils.equals(newP,confrimP)){
                     return true;
+                }else{
+                    T.show("两次密码输入不一致，请重新输入");
+                    eNewPassAgain.setText("");
+                    eNewpass.setText("");
                 }
             }
 
