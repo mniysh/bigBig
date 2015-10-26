@@ -174,7 +174,7 @@ public class WorkerIdentityCardFragment extends BaseFragment {
         if (requestCode == REQUEST_CAMERA ) { //拍照返回
             handleBigCameraPhoto();
 
-        }else if (requestCode == REQUEST_PICK) {
+        }else if (requestCode == REQUEST_PICK) {//选择照片上传的处理
             Uri uri = data.getData();
             Log.d("way", "uri: " + uri);
 
@@ -188,7 +188,7 @@ public class WorkerIdentityCardFragment extends BaseFragment {
                 e.printStackTrace();
             }
 
-        }else if (requestCode == REQUEST_CROP) {        //剪切后返回
+        }else if (requestCode == REQUEST_CROP) {        //剪切后返回的处理
             handleCropBitmap(data);
         }
     }

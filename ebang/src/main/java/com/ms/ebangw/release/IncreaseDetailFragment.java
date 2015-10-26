@@ -4,6 +4,7 @@ package com.ms.ebangw.release;
 import android.content.ContentResolver;
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -14,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
@@ -25,10 +27,12 @@ import com.ms.ebangw.bean.Province;
 import com.ms.ebangw.bean.UploadImageResult;
 import com.ms.ebangw.bean.User;
 import com.ms.ebangw.commons.Constants;
+import com.ms.ebangw.crop.CropImageActivity;
 import com.ms.ebangw.exception.ResponseException;
 import com.ms.ebangw.fragment.BaseFragment;
 import com.ms.ebangw.service.DataAccessUtil;
 import com.ms.ebangw.service.DataParseUtil;
+import com.ms.ebangw.utils.BitmapUtil;
 import com.ms.ebangw.utils.L;
 import com.ms.ebangw.utils.T;
 import com.ms.ebangw.view.ProvinceAndCityView;
@@ -54,6 +58,7 @@ public class IncreaseDetailFragment extends BaseFragment {
     private static final int REQUEST_PICK = 4;
     private static final int REAQUEST_CROP = 8;
     private String whickPhoto ;
+    private int a;
 
     //经纬度
     private double longitude;
@@ -94,12 +99,20 @@ public class IncreaseDetailFragment extends BaseFragment {
     Button cameraBtn;
     @Bind(R.id.rg_type)
     RadioGroup typeRg;
+    @Bind(R.id.iv_picture01)
+    ImageView picture01Iv;
+    @Bind(R.id.iv_picture02)
+    ImageView picture02Iv;
+    @Bind(R.id.iv_picture03)
+    ImageView picture03Iv;
 
 
 
 
     private String province, city , area, detailAddress, title, link_name, link_phone, count;
     private String provinceId, cityId, areaId;
+    private String mCurrentPhotoPuth;
+    private MyApplication myApplication;
 
 
 
@@ -163,6 +176,9 @@ public class IncreaseDetailFragment extends BaseFragment {
         longitude = 0.5;
         link_phone = phoneEt.getText().toString().trim();
         count = introduceEt.getText().toString().trim();
+        provinceId = provinceAndCityView.getProvinceId();
+        cityId = provinceAndCityView.getCityId();
+        areaId = provinceAndCityView.getAreaId();
     }
     public boolean isRight(){
         if(TextUtils.isEmpty(detailAddress)){
@@ -204,9 +220,7 @@ public class IncreaseDetailFragment extends BaseFragment {
         HomeActivity homeActivity = (HomeActivity) mActivity;
         List<Province> provinces = getAreaFromAssets().getProvince();
         provinceAndCityView.setProvinces(provinces);
-        provinceId = provinceAndCityView.getProvinceId();
-        cityId = provinceAndCityView.getCityId();
-        areaId = provinceAndCityView.getAreaId();
+
 
 
     }
@@ -228,6 +242,18 @@ public class IncreaseDetailFragment extends BaseFragment {
         startActivityForResult(cameraIntent, Constants.REQUEST_CAMERA);
     }
 
+    /**
+     * 手机选照片
+     */
+    @OnClick(R.id.btn_pick)
+    public void selectImageFromPhone(){
+        Intent intent = new Intent();
+        intent.setAction(Intent.ACTION_PICK);
+        intent.setType("image/*");
+        startActivityForResult(intent,Constants.REQUEST_PICK);
+
+    }
+
 
 
 
@@ -239,6 +265,7 @@ public class IncreaseDetailFragment extends BaseFragment {
             return;
         }
         if(requestCode == Constants.REQUEST_CAMERA ){
+            //照相上传
             Uri uri ;
             if(data == null){
                 uri = Uri.fromFile(imageFile);
@@ -246,6 +273,15 @@ public class IncreaseDetailFragment extends BaseFragment {
                 uri = data.getData();
             }
             beginCrop(uri);
+
+
+        }else if(requestCode == Constants.REQUEST_PICK){
+            //手机内部选图处理
+
+
+        }else if(requestCode == Constants.REQUEST_CROP){
+            //剪切后的处理
+            settingImage(data);
 
 
         }
@@ -275,6 +311,13 @@ public class IncreaseDetailFragment extends BaseFragment {
     }
 
     private void beginCrop(Uri source) {
+        Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        mCurrentPhotoPuth = imageFile.getAbsolutePath();
+        myApplication = (MyApplication) mActivity.getApplication();
+        myApplication.imagePath = mCurrentPhotoPuth;
+        Intent intent = new Intent(mActivity, CropImageActivity.class);
+        startActivityForResult(intent, Constants.REQUEST_CROP);
+
 
     }
 
@@ -383,6 +426,8 @@ public class IncreaseDetailFragment extends BaseFragment {
         if(user == null){
             return;
         }
+        getData();
+        image_ary = "";
         if(isRight()){
             DataAccessUtil.developerRelease(title,detailAddress,
                     link_name, link_phone, provinceId, cityId, areaId, count,
@@ -418,6 +463,29 @@ public class IncreaseDetailFragment extends BaseFragment {
 
     }
 
+    public void settingImage(Intent intent) {
+        if(intent == null){
+            return;
+        }
+
+        UploadImageResult upLoadImageResult = intent.getParcelableExtra(Constants.KEY_UPLOAD_IMAGE_RESULT);
+        String id = upLoadImageResult.getId();
+        String name = upLoadImageResult.getName();
+        String imagePuth = myApplication.imagePath;
+        Bitmap bitmap = BitmapUtil.getImage(imagePuth);
+        if(bitmap != null){
+            a++;
+        }
+        if(a % 3 == 1){
+            picture01Iv.setImageBitmap(bitmap);
+        }else if(a % 3 == 2){
+            picture02Iv.setImageBitmap(bitmap);
+        }else if(a %3 == 0){
+            picture03Iv.setImageBitmap(bitmap);
+        }
+
+
+    }
 }
 
 

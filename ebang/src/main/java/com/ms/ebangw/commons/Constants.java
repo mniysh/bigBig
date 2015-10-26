@@ -32,6 +32,8 @@ public class Constants {
 		"/ebangLogs";
 
 	public static final int REQUEST_CAMERA = 2;
+	public static final int REQUEST_CROP = 4;
+	public static final int REQUEST_PICK = 6;
 	/**
 	 * 退出
 	 */
