@@ -2,6 +2,7 @@ package com.ms.ebangw.utils;
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.text.TextUtils;
 
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.EncodeHintType;
@@ -29,9 +30,10 @@ public class QRCodeUtil {
      * @param filePath  用于存储二维码图片的文件路径
      * @return 生成二维码及保存文件是否成功
      */ 
-    public static boolean createQRImage(String content, int widthPix, int heightPix, Bitmap logoBm, String filePath) {
+    public static boolean createQRImage( String content, int widthPix, int heightPix, Bitmap
+        logoBm, String filePath) {
         try { 
-            if (content == null || "".equals(content)) { 
+            if (TextUtils.isEmpty(content)) {
                 return false; 
             } 
    
