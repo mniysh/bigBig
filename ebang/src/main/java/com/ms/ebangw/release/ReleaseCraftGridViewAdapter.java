@@ -8,6 +8,7 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 
 import com.ms.ebangw.R;
+import com.ms.ebangw.activity.HomeActivity;
 import com.ms.ebangw.bean.WorkType;
 import com.ms.ebangw.commons.Constants;
 import com.ms.ebangw.dialog.SelectWorTypeDialog;
@@ -28,13 +29,15 @@ public class ReleaseCraftGridViewAdapter extends BaseAdapter{
 
     private List<WorkType> list;
     private FragmentManager fm;
+    private HomeActivity activity;
 
 
     private List<WorkType> selectedWorkTypes;
 
-    public ReleaseCraftGridViewAdapter(FragmentManager fm, List<WorkType> list) {
+    public ReleaseCraftGridViewAdapter(FragmentManager fm, List<WorkType> list, HomeActivity activity) {
         this.fm = fm;
         this.list = list;
+        this.activity = activity;
         selectedWorkTypes = new ArrayList<>();
     }
 
@@ -58,6 +61,15 @@ public class ReleaseCraftGridViewAdapter extends BaseAdapter{
         final CheckBox cb = (CheckBox) View.inflate(parent.getContext(), R.layout
             .layout_craft_gridview_item, null);
         cb.setText(workType.getName());
+        if(activity != null && activity instanceof HomeActivity){
+            selectedWorkTypes = getSelectedWorkTypes();
+            if(selectedWorkTypes.contains(workType)){
+                cb.setChecked(true);
+            }else{
+                cb.setChecked(false);
+            }
+        }
+
         cb.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -91,8 +103,15 @@ public class ReleaseCraftGridViewAdapter extends BaseAdapter{
         dialog.show(fm, "workType");
     }
 
+    /**
+     * 获取已选中的工种
+     * @return
+     */
     public List<WorkType> getSelectedWorkTypes() {
-        return selectedWorkTypes;
+        if(activity != null && activity instanceof HomeActivity){
+            return activity.getSelectWorkType();
+        }
+        return null;
     }
 
 }

@@ -1,6 +1,7 @@
 package com.ms.ebangw.release;
 
 
+import android.app.DatePickerDialog;
 import android.content.ContentResolver;
 import android.content.Intent;
 import android.database.Cursor;
@@ -8,17 +9,20 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.provider.ContactsContract;
 import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.ms.ebangw.MyApplication;
 import com.ms.ebangw.R;
@@ -28,6 +32,8 @@ import com.ms.ebangw.bean.UploadImageResult;
 import com.ms.ebangw.bean.User;
 import com.ms.ebangw.commons.Constants;
 import com.ms.ebangw.crop.CropImageActivity;
+import com.ms.ebangw.crop.GetPathFromUri4kitkat;
+import com.ms.ebangw.dialog.DatePickerFragment;
 import com.ms.ebangw.exception.ResponseException;
 import com.ms.ebangw.fragment.BaseFragment;
 import com.ms.ebangw.service.DataAccessUtil;
@@ -41,6 +47,9 @@ import org.apache.http.Header;
 import org.json.JSONObject;
 
 import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import butterknife.Bind;
@@ -67,6 +76,7 @@ public class IncreaseDetailFragment extends BaseFragment {
 //    private String JPEG_FILE_PREFIX =
 
 
+    private List<String> imageNames;
 
 
     private String mParam1;
@@ -105,11 +115,16 @@ public class IncreaseDetailFragment extends BaseFragment {
     ImageView picture02Iv;
     @Bind(R.id.iv_picture03)
     ImageView picture03Iv;
+    //工期开始结束时间
+    @Bind(R.id.tv_start_time)
+    TextView startTimeTv;
+    @Bind(R.id.tv_end_time)
+    TextView endTimeTv;
 
 
 
 
-    private String province, city , area, detailAddress, title, link_name, link_phone, count;
+    private String province, city , area, detailAddress, title, link_name, link_phone, count, startTime, endTime;
     private String provinceId, cityId, areaId;
     private String mCurrentPhotoPuth;
     private MyApplication myApplication;
@@ -135,6 +150,41 @@ public class IncreaseDetailFragment extends BaseFragment {
         HomeActivity homeActivity = (HomeActivity)mActivity;
         homeActivity.goMapAdd();
 
+    }
+    @OnClick(R.id.tv_start_time)
+    public void projectStartTime(){
+        DatePickerFragment datePickerFragment = new DatePickerFragment();
+        datePickerFragment.setListener(new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                Calendar calendar = Calendar.getInstance();
+                calendar.set(Calendar.YEAR, year);
+                calendar.set(Calendar.MONTH, monthOfYear);
+                calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+                String dateStr = simpleDateFormat.format(calendar.getTime());
+                startTimeTv.setText(dateStr);
+            }
+
+        });
+        datePickerFragment.show(getFragmentManager(), "date");
+    }
+    @OnClick(R.id.tv_end_time)
+    public void projectEndTime(){
+        DatePickerFragment datePickerFragment = new DatePickerFragment();
+        datePickerFragment.setListener(new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                Calendar calendar = Calendar.getInstance();
+                calendar.set(Calendar.YEAR, year);
+                calendar.set(Calendar.MONTH, monthOfYear);
+                calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+                String dateStr = simpleDateFormat.format(calendar.getTime());
+                endTimeTv.setText(dateStr);
+            }
+        });
+        datePickerFragment.show(getFragmentManager(), "date");
     }
 
     @Override
@@ -169,6 +219,13 @@ public class IncreaseDetailFragment extends BaseFragment {
      * 获取数据
      */
     public void getData(){
+
+        if(imageNames == null){
+            return;
+        }
+
+
+        image_ary = disposeImage(imageNames);
         detailAddress = detailAddressEt.getText().toString().trim();
         title = titleEt.getText().toString().trim();
         link_name = nameEt.getText().toString().trim();
@@ -179,8 +236,19 @@ public class IncreaseDetailFragment extends BaseFragment {
         provinceId = provinceAndCityView.getProvinceId();
         cityId = provinceAndCityView.getCityId();
         areaId = provinceAndCityView.getAreaId();
+        startTime = startTimeTv.getText().toString().trim();
+        endTime = endTimeTv.getText().toString().trim();
+
+    }
+    public String disposeImage(List<String> data){
+        Gson gson = new Gson();
+        return gson.toJson(data);
     }
     public boolean isRight(){
+        if(imageNames == null){
+            T.show("请至少上传一张图片");
+            return false;
+        }
         if(TextUtils.isEmpty(detailAddress)){
             T.show("详细地址不可为空");
             return  false;
@@ -212,7 +280,7 @@ public class IncreaseDetailFragment extends BaseFragment {
 
     @Override
     public void initView() {
-
+        imageNames = new ArrayList<String>();
     }
 
     @Override
@@ -250,7 +318,7 @@ public class IncreaseDetailFragment extends BaseFragment {
         Intent intent = new Intent();
         intent.setAction(Intent.ACTION_PICK);
         intent.setType("image/*");
-        startActivityForResult(intent,Constants.REQUEST_PICK);
+        startActivityForResult(intent, Constants.REQUEST_PICK);
 
     }
 
@@ -277,8 +345,12 @@ public class IncreaseDetailFragment extends BaseFragment {
 
         }else if(requestCode == Constants.REQUEST_PICK){
             //手机内部选图处理
-
-
+            Uri uri = data.getData();
+            String path = GetPathFromUri4kitkat.getPath(mActivity,uri);
+            myApplication = (MyApplication) mActivity.getApplication();
+            myApplication.imagePath = path;
+            Intent intent = new Intent(mActivity, CropImageActivity.class);
+            startActivityForResult(intent, Constants.REQUEST_CROP);
         }else if(requestCode == Constants.REQUEST_CROP){
             //剪切后的处理
             settingImage(data);
@@ -427,7 +499,7 @@ public class IncreaseDetailFragment extends BaseFragment {
             return;
         }
         getData();
-        image_ary = "";
+
         if(isRight()){
             DataAccessUtil.developerRelease(title,detailAddress,
                     link_name, link_phone, provinceId, cityId, areaId, count,
@@ -471,6 +543,7 @@ public class IncreaseDetailFragment extends BaseFragment {
         UploadImageResult upLoadImageResult = intent.getParcelableExtra(Constants.KEY_UPLOAD_IMAGE_RESULT);
         String id = upLoadImageResult.getId();
         String name = upLoadImageResult.getName();
+        imageNames.add(name);
         String imagePuth = myApplication.imagePath;
         Bitmap bitmap = BitmapUtil.getImage(imagePuth);
         if(bitmap != null){

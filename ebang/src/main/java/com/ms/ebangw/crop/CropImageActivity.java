@@ -28,6 +28,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -50,6 +52,7 @@ public class CropImageActivity extends BaseActivity {
     private Bitmap mBitmap;
     private boolean isHeadImage = false;
     private RequestHandle handle;
+//    private List<String> imagenNames;
 
     @Override
     public void initView() {
@@ -59,6 +62,7 @@ public class CropImageActivity extends BaseActivity {
                 finish();
             }
         });
+//        imagenNames = new ArrayList<>();
     }
 
     @Override
@@ -151,6 +155,8 @@ public class CropImageActivity extends BaseActivity {
                 super.onSuccess(statusCode, headers, response);
                 try {
                     UploadImageResult imageResult = DataParseUtil.upLoadImage(response);
+                    String name = imageResult.getName();
+
 //                    User user = getUser();
 //                    L.d(user.toString());
 //                    L.d(imageResult.toString());

@@ -9,6 +9,7 @@ import android.widget.GridView;
 import android.widget.TextView;
 
 import com.ms.ebangw.R;
+import com.ms.ebangw.activity.HomeActivity;
 import com.ms.ebangw.bean.WorkType;
 
 import java.util.ArrayList;
@@ -23,12 +24,14 @@ public class ReleaseCraftAdapter extends BaseAdapter {
     private WorkType firstWorkType;
     private List<WorkType> list;
     private FragmentManager fm;
+    private HomeActivity activity;
 
 
     private List<WorkType> selectedWorkTypes;
 
-    public ReleaseCraftAdapter(FragmentManager fm, WorkType firstWorkType) {
+    public ReleaseCraftAdapter(FragmentManager fm, WorkType firstWorkType, HomeActivity activity) {
         this.fm = fm;
+        this.activity = activity;
         this.firstWorkType = firstWorkType;
         if (getType() == 1) {
             list = new ArrayList<>();
@@ -83,7 +86,7 @@ public class ReleaseCraftAdapter extends BaseAdapter {
         List<WorkType> types = workType.getWorkTypes();
         if (getType() == 1) {
             holder.titleTv.setVisibility(View.GONE);
-            ReleaseCraftGridViewAdapter craftGridViewAdapter = new ReleaseCraftGridViewAdapter(fm, types);
+            ReleaseCraftGridViewAdapter craftGridViewAdapter = new ReleaseCraftGridViewAdapter(fm, types, activity);
             holder.gridView.setAdapter(craftGridViewAdapter);
 
         }
@@ -92,7 +95,7 @@ public class ReleaseCraftAdapter extends BaseAdapter {
             for (int i = 0; i < types.size(); i++) {
                 holder.titleTv.setVisibility(View.VISIBLE);
                 holder.titleTv.setText(workType.getName());
-                ReleaseCraftGridViewAdapter craftGridViewAdapter = new ReleaseCraftGridViewAdapter(fm, types);
+                ReleaseCraftGridViewAdapter craftGridViewAdapter = new ReleaseCraftGridViewAdapter(fm, types,activity);
                 holder.gridView.setAdapter(craftGridViewAdapter);
             }
         }
@@ -112,9 +115,7 @@ public class ReleaseCraftAdapter extends BaseAdapter {
         }
     }
 
-    public List<WorkType> getSelectedWorkTypes() {
-        return selectedWorkTypes;
-    }
+
 
     static class ViewHolder{
         TextView titleTv;

@@ -101,7 +101,7 @@ public class ReleaseWorkTypeFragment extends BaseFragment {
     @Override
     public void initData() {
         if(workType != null){
-            craftAdapter = new ReleaseCraftAdapter(((HomeActivity)mActivity).getFragmentManager(), workType);
+            craftAdapter = new ReleaseCraftAdapter(((HomeActivity)mActivity).getFragmentManager(), workType, (HomeActivity)mActivity);
             listView.setAdapter(craftAdapter);
         }
 
@@ -117,7 +117,7 @@ public class ReleaseWorkTypeFragment extends BaseFragment {
                     try {
                         craft = DataParseUtil.publishCraft(response);
                         MyApplication.getInstance().setCraft(craft);
-                        craftAdapter = new ReleaseCraftAdapter(((HomeActivity)mActivity).getFragmentManager(), craft.getBuilding());
+                        craftAdapter = new ReleaseCraftAdapter(((HomeActivity)mActivity).getFragmentManager(), craft.getBuilding(), (HomeActivity)mActivity);
                         listView.setAdapter(craftAdapter);
 //                        rBuilding.toggle();
                     } catch (ResponseException e) {
@@ -134,7 +134,7 @@ public class ReleaseWorkTypeFragment extends BaseFragment {
             });
 
         }else{
-            craftAdapter = new ReleaseCraftAdapter(((HomeActivity)mActivity).getFragmentManager(), craft.getBuilding());
+            craftAdapter = new ReleaseCraftAdapter(((HomeActivity)mActivity).getFragmentManager(), craft.getBuilding(),(HomeActivity)mActivity);
             listView.setAdapter(craftAdapter);
         }
         return craft;

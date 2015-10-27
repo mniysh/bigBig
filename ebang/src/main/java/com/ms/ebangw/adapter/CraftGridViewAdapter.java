@@ -22,6 +22,7 @@ import java.util.List;
 import de.greenrobot.event.EventBus;
 
 /**
+ * 工人认证的adapter
  * User: WangKai(123940232@qq.com)
  * 2015-09-26 16:21
  */

@@ -327,29 +327,36 @@ public class HomeFragment extends BaseFragment implements OnClickListener   {
 		Intent intent = new Intent(mActivity, NextPageActivity.class);
 		Bundle bundle = new Bundle();
 		switch (v.getId()) {
-//			case R.id.fragment_home_lin_recommend01:
-//			case R.id.fragment_home_lin_recommend02:
-//			case R.id.fragment_home_lin_recommend03:
-//				startActivity(new Intent(act,RecommendActivity.class));
-//				break;
+			case R.id.fragment_home_lin_recommend01:
+			case R.id.fragment_home_lin_recommend02:
+			case R.id.fragment_home_lin_recommend03:
+				startActivity(new Intent(act,RecommendActivity.class));
+				break;
 			case R.id.iv_building:
 				bundle.putParcelable(Constants.CRAFT_BUILDING, craft.getBuilding());
+				intent.putExtras(bundle);
+				startActivity(intent);
 				break;
 			case R.id.iv_decorater:
 				bundle.putParcelable(Constants.CRAFT_BUILDING, craft.getFitment());
+				intent.putExtras(bundle);
+				startActivity(intent);
 				break;
 			case R.id.iv_projectManage:
 				bundle.putParcelable(Constants.CRAFT_BUILDING, craft.getProjectManage());
+				intent.putExtras(bundle);
+				startActivity(intent);
 				break;
 			case R.id.iv_other:
 				bundle.putParcelable(Constants.CRAFT_BUILDING, craft.getOther());
+				intent.putExtras(bundle);
+				startActivity(intent);
 
 				break;
 			default:
 				break;
 		}
-		intent.putExtras(bundle);
-		startActivity(intent);
+
 
 	}
 }

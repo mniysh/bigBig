@@ -25,13 +25,34 @@
                 android:id="@+id/tv_a"
                 style="@style/authorization_text"
                 android:layout_height="wrap_content"
-                android:text="区域: "
+                android:text="*区域: "
                 />
 
             <com.ms.ebangw.view.ProvinceAndCityView
                 android:id="@+id/pac"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            >
+            <TextView
+                android:id="@+id/tv_q"
+                style="@style/authorization_text"
+                android:layout_height="wrap_content"
+                android:text="*工地地址："
+                />
+            <EditText
+                android:id="@+id/et_detail_address"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/authorization_edit"
+                android:hint="请输入工地详细地址"
+                android:textColorHint="@color/auth_hint"
+                />
         </LinearLayout>
 
         <LinearLayout
@@ -45,7 +66,7 @@
                 android:id="@+id/tv_b"
                 style="@style/authorization_text"
                 android:layout_height="wrap_content"
-                android:text="详细地址："
+                android:text="*工地坐标："
                 />
 
 
@@ -62,23 +83,24 @@
                 />
         </LinearLayout>
 
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="@dimen/authen_item_height"
             android:gravity="center_vertical"
             android:orientation="horizontal"
+            android:visibility="gone"
             >
 
             <TextView
                 android:id="@+id/tv_c"
                 style="@style/authorization_text"
                 android:layout_height="wrap_content"
-                android:text="具体地址："
+                android:text="*工地地址："
                 />
 
 
             <EditText
-                android:id="@+id/et_detail_address"
                 style="@style/authorization_edit"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -86,6 +108,45 @@
                 android:textColorHint="@color/auth_hint"
                 />
         </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            >
+            <TextView
+                android:id="@+id/tv_k"
+                style="@style/authorization_text"
+                android:layout_height="wrap_content"
+                android:text="*开始时间："
+                />
+            <TextView
+                android:id="@+id/tv_start_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="请选择"
+                />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            >
+            <TextView
+                android:id="@+id/tv_l"
+                style="@style/authorization_text"
+                android:layout_height="wrap_content"
+                android:text="*结束时间："
+                />
+            <TextView
+                android:id="@+id/tv_end_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="请选择"
+                />
+        </LinearLayout>
+
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -98,7 +159,7 @@
                 android:id="@+id/tv_d"
                 style="@style/authorization_text"
                 android:layout_height="wrap_content"
-                android:text="标题："
+                android:text="*标题："
                 />
 
 
@@ -117,6 +178,7 @@
             android:layout_height="@dimen/authen_item_height"
             android:gravity="center_vertical"
             android:orientation="horizontal"
+            android:visibility="gone"
             >
 
             <TextView
@@ -202,7 +264,7 @@
                 android:id="@+id/tv_f"
                 style="@style/authorization_text"
                 android:layout_height="wrap_content"
-                android:text="联系人："
+                android:text="*联系人："
                 />
 
 
@@ -228,7 +290,7 @@
                 android:id="@+id/tv_g"
                 style="@style/authorization_text"
                 android:layout_height="wrap_content"
-                android:text="*手机号: "
+                android:text="*联系电话: "
                 />
 
 
@@ -256,7 +318,7 @@
                 android:id="@+id/tv_h"
                 style="@style/authorization_text"
                 android:layout_height="wrap_content"
-                android:text="上传照片: "
+                android:text="*上传照片: "
                 />
 
 

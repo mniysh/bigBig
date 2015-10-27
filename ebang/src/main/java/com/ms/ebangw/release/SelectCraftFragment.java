@@ -255,7 +255,7 @@ public class SelectCraftFragment extends BaseFragment {
     }
 
     /**
-     *
+     *处理发布的工种
      * @param event
      */
     public void onEvent(OnCheckedWorkTypeEvent event) {
@@ -271,6 +271,11 @@ public class SelectCraftFragment extends BaseFragment {
         notifyWorkTypeChanged();
     }
 
+    public Set<WorkType> getWorkTypeSet(){
+        return workTypeSet;
+    }
+
+
     public boolean releaseGoNext(){
         if(workTypeSet == null || workTypeSet.size() == 0){
             T.show("至少选择一个工种");
@@ -285,7 +290,7 @@ public class SelectCraftFragment extends BaseFragment {
     public void notifyWorkTypeChanged() {
 
         Iterator<WorkType> iterator = workTypeSet.iterator();
-
+        totalMoney = 0;
         while (iterator.hasNext()) {
             WorkType next = iterator.next();
             Staff staff = next.getStaff();
@@ -294,8 +299,10 @@ public class SelectCraftFragment extends BaseFragment {
                 int count  = Integer.parseInt(staff.getStaff_account());
                 totalMoney += money * count;
             }
+
         }
         totalMoneyTv.setText("总金额：" + totalMoney + " 元");
+
     }
 
 }

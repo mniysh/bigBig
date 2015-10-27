@@ -23,7 +23,7 @@
     <Spinner
         android:id="@+id/sp_c"
         android:layout_width="100dp"
-
+        android:visibility="gone"
         android:layout_height="wrap_content"
         android:layout_marginLeft="5dp"
         />
