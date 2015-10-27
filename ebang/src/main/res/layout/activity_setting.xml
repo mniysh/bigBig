@@ -1,173 +1,173 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="#fff"
-    android:orientation="vertical"
-    tools:context="com.ms.ebangw.activity.SettingActivity">
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="#fff"
+              android:divider="@drawable/divider_line_gray"
+              android:orientation="vertical"
+              android:showDividers="middle"
+              tools:context="com.ms.ebangw.activity.SettingActivity">
+
     <include layout="@layout/layout_common_title"/>
-    <RelativeLayout
-
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-
-        >
-
-
 
     <LinearLayout
         android:id="@+id/lin_original01"
         android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:paddingLeft="15dp"
         android:paddingBottom="10dp"
-        android:paddingTop="10dp"
-        android:layout_height="wrap_content">
+        android:paddingLeft="15dp"
+        android:paddingTop="10dp">
+
         <TextView
             android:layout_width="0dp"
-            android:layout_weight="1"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:text="会员昵称"
             android:textColor="@color/black"
             android:textSize="16dp"
             />
+
         <TextView
             android:id="@+id/tv_nickName"
             android:layout_width="0dp"
-            android:layout_weight="2"
             android:layout_height="wrap_content"
-            android:text="放手机号或户名"
             android:layout_marginLeft="20dp"
+            android:layout_weight="2"
+            android:text="放手机号或户名"
             android:textSize="16dp"
             />
+
         <TextView
-            android:clickable="true"
             android:id="@+id/tv_nameModify"
-            android:layout_weight="1"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="修改"
             android:layout_marginRight="10dp"
+            android:layout_weight="1"
+            android:clickable="true"
             android:gravity="center_horizontal"
-            android:textSize="16dp"
+            android:text="修改"
             android:textColor="@color/auther_red"
+            android:textSize="16dp"
             />
-
-
     </LinearLayout>
 
 
-    </RelativeLayout>
-
-
-
-
-
-
-    <View style="@style/aaa_hor"/>
-    <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
-
-
-
     <LinearLayout
-        android:layout_width="match_parent"
-        android:orientation="horizontal"
-        android:paddingLeft="15dp"
-        android:paddingBottom="10dp"
         android:id="@+id/lin_original02"
-        android:paddingTop="10dp"
-        android:layout_height="wrap_content">
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingBottom="10dp"
+        android:paddingLeft="15dp"
+        android:paddingTop="10dp">
+
         <TextView
             android:layout_width="0dp"
-            android:layout_weight="1"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:text="手机验证"
             android:textColor="@color/black"
             android:textSize="16dp"
             />
+
         <TextView
             android:id="@+id/tv_phone"
             android:layout_width="0dp"
-            android:layout_weight="2"
             android:layout_height="wrap_content"
-            android:text="放手机号"
             android:layout_marginLeft="20dp"
+            android:layout_weight="2"
+            android:text="放手机号"
             android:textSize="16dp"
             />
+
         <TextView
-            android:clickable="true"
             android:id="@+id/tv_phoneModify"
-            android:layout_weight="1"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="修改"
             android:layout_marginRight="10dp"
+            android:layout_weight="1"
+            android:clickable="true"
             android:gravity="center_horizontal"
-            android:textSize="16dp"
+            android:text="修改"
             android:textColor="@color/auther_red"
+            android:textSize="16dp"
             />
-
-
     </LinearLayout>
-
-
-    </RelativeLayout>
-    <View style="@style/aaa_hor"/>
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        >
 
 
     <LinearLayout
         android:id="@+id/lin_original03"
         android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:paddingLeft="15dp"
         android:paddingBottom="10dp"
-        android:paddingTop="10dp"
-        android:layout_height="wrap_content">
+        android:paddingLeft="15dp"
+        android:paddingTop="10dp">
+
         <TextView
             android:layout_width="0dp"
-            android:layout_weight="1"
             android:layout_height="wrap_content"
-            android:text="登录密码"
             android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            android:text="登录密码"
             android:textColor="@color/black"
             android:textSize="16dp"
             />
+
         <TextView
             android:layout_width="0dp"
-            android:layout_weight="2"
             android:layout_height="wrap_content"
-            android:text="互联网账号存在风险建议您定期修改密码以维护账户安全"
-            android:layout_marginLeft="20dp"
             android:layout_gravity="center_vertical"
+            android:layout_marginLeft="20dp"
+            android:layout_weight="2"
+            android:text="互联网账号存在风险建议您定期修改密码以维护账户安全"
             android:textSize="12dp"
             />
+
         <TextView
-            android:layout_weight="1"
+            android:id="@+id/tv_passModify"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="修改"
-            android:clickable="true"
-            android:id="@+id/tv_passModify"
             android:layout_gravity="center_vertical"
             android:layout_marginRight="10dp"
+            android:layout_weight="1"
+            android:clickable="true"
             android:gravity="center_horizontal"
-            android:textSize="16dp"
+            android:text="修改"
             android:textColor="@color/auther_red"
+            android:textSize="16dp"
             />
-
-
     </LinearLayout>
 
+    <LinearLayout
+        android:id="@+id/ll_recommend_handman"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingBottom="10dp"
+        android:paddingLeft="15dp"
+        android:gravity="center_vertical"
+        android:paddingTop="10dp">
 
-    </RelativeLayout>
-    <View style="@style/aaa_hor"/>
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            android:text="扫码推荐工长"
+            android:drawableLeft="@drawable/scan_code"
+            android:drawablePadding="10dp"
+            android:textColor="@color/black"
+            android:textSize="16dp"
+            />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/right_arrow"
+            />
+    </LinearLayout>
 
     <View
         android:layout_width="match_parent"
@@ -178,13 +178,13 @@
         android:id="@+id/btn_exit"
         android:layout_width="160dp"
         android:layout_height="wrap_content"
-        android:background="@drawable/bk_but"
         android:layout_gravity="center_horizontal"
         android:layout_marginBottom="20dp"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/bk_but"
         android:text="退出"
         android:textColor="#fff"
         android:textSize="20sp"
-        android:layout_marginTop="30dp"
         />
 
 </LinearLayout>
