@@ -2,6 +2,8 @@ package com.ms.ebangw.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.loopj.android.http.JsonHttpResponseHandler;
@@ -11,6 +13,7 @@ import com.ms.ebangw.bean.User;
 import com.ms.ebangw.commons.Constants;
 import com.ms.ebangw.db.UserDao;
 import com.ms.ebangw.exception.ResponseException;
+import com.ms.ebangw.scancode.MipcaActivityCapture;
 import com.ms.ebangw.service.DataAccessUtil;
 import com.ms.ebangw.service.DataParseUtil;
 import com.ms.ebangw.utils.L;
@@ -29,7 +32,7 @@ import butterknife.OnClick;
 public class SettingActivity extends BaseActivity {
     private final int REQUESTCODENAME = 111;
     private final int REQUESTCODEPHONE = 222;
-
+    private final static int SCANNIN_GREQUEST_CODE = 1;
 
     @Bind(R.id.tv_nickName)
     TextView tvNickName;
@@ -45,26 +48,11 @@ public class SettingActivity extends BaseActivity {
     TextView tvPhoneModify;
     @Bind(R.id.tv_passModify)
     TextView tvPassModify;
-
-    @OnClick(R.id.tv_nameModify)
-    public void changeNickName(){
-
-        Intent intent = new Intent(this, ModifyNickNameActivity.class);
-
-        startActivityForResult(intent, REQUESTCODENAME);
-
-    }
-    @OnClick(R.id.tv_phoneModify)
-    public void changePhone(){
-        Intent intent = new Intent(this, ModifyPhoneActivity.class);
-        startActivityForResult(intent, REQUESTCODEPHONE);
-
-    }
-    @OnClick(R.id.tv_passModify)
-    public void changePassword(){
-        startActivity(new Intent(this,ModifyPasswordAvtivity.class));
-
-    }
+    /**
+     * 扫码推荐工长
+     */
+    @Bind(R.id.ll_recommend_handman)
+    LinearLayout recommendHandmanLayout;
 
 
     @Override
@@ -81,6 +69,15 @@ public class SettingActivity extends BaseActivity {
             tPhone.setText(phone);
         }
 
+        if (requestCode == SCANNIN_GREQUEST_CODE && resultCode == RESULT_OK) {
+            Bundle bundle = data.getExtras();
+            String result = bundle.getString("result");
+            L.d("二维码扫描结果: " + result);
+            //显示扫描到的内容
+//            mTextView.setText(bundle.getString("result"));
+//            //显示
+//            mImageView.setImageBitmap((Bitmap) data.getParcelableExtra("bitmap"));
+        }
 
     }
 
@@ -93,7 +90,39 @@ public class SettingActivity extends BaseActivity {
 
     @Override
     public void initData() {
+        tvNameModify.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(SettingActivity.this, ModifyNickNameActivity.class);
+                startActivityForResult(intent, REQUESTCODENAME);
+            }
+        });
 
+        tvPhoneModify.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(SettingActivity.this, ModifyPhoneActivity.class);
+                startActivityForResult(intent, REQUESTCODEPHONE);
+            }
+        });
+
+        tvPassModify.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(SettingActivity.this, ModifyPasswordAvtivity.class));
+            }
+        });
+
+        recommendHandmanLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.setClass(SettingActivity.this, MipcaActivityCapture.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivityForResult(intent, SCANNIN_GREQUEST_CODE);
+
+            }
+        });
     }
 
     @Override
@@ -120,9 +149,6 @@ public class SettingActivity extends BaseActivity {
         }
 
     }
-
-
-
 
     @OnClick(R.id.btn_exit)
     public void exit() {
