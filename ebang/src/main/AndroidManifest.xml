@@ -101,7 +101,7 @@
     <application
         android:name=".MyApplication"
         android:allowBackup="true"
-        android:icon="@drawable/ms_logo"
+        android:icon="@drawable/ms_logo_144"
         android:label="@string/name"
         android:theme="@style/AppTheme">
         <activity android:name=".activity.LoadingActivity">

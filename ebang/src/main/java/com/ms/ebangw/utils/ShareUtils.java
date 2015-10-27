@@ -126,7 +126,7 @@ public class ShareUtils {
 
    
 
-        UMImage localImage = new UMImage(activity, R.drawable.ms_logo);
+        UMImage localImage = new UMImage(activity, R.drawable.ms_logo_144);
         UMImage urlImage = new UMImage(activity,
             "http://www.umeng.com/images/pic/social/integrated_3.png");
         // UMImage resImage = new UMImage(activity, R.drawable.icon);
@@ -185,7 +185,7 @@ public class ShareUtils {
 //        mController.setShareMedia(qzone);
 
         video.setThumb(new UMImage(activity, BitmapFactory.decodeResource(
-            activity.getResources(), R.drawable.ms_logo)));
+            activity.getResources(), R.drawable.ms_logo_144)));
 
         QQShareContent qqShareContent = new QQShareContent();
         qqShareContent.setShareContent("来自友盟社会化组件（SDK）让移动应用快速整合社交分享功能 -- QQ");
@@ -198,7 +198,7 @@ public class ShareUtils {
         SinaShareContent sinaContent = new SinaShareContent();
         sinaContent
             .setShareContent("来自友盟社会化组件（SDK）让移动应用快速整合社交分享功能-新浪微博。http://www.umeng.com/social");
-        sinaContent.setShareImage( new UMImage( activity, R.drawable.ms_logo));
+        sinaContent.setShareImage( new UMImage( activity, R.drawable.ms_logo_144));
         mController.setShareMedia(sinaContent);
 
     }

@@ -86,4 +86,8 @@
         android:visibility="gone"
         layout="@layout/layout_personal_info"/>
 
+    <include
+        android:id="@+id/ll_eweima"
+        android:visibility="visible"
+        layout="@layout/layout_invite_worker_qr_code"/>
 </LinearLayout>

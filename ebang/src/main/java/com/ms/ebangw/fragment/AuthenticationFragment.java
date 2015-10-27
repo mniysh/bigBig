@@ -18,6 +18,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.google.zxing.WriterException;
 import com.ms.ebangw.MyApplication;
 import com.ms.ebangw.R;
 import com.ms.ebangw.activity.SettingActivity;
@@ -28,12 +29,14 @@ import com.ms.ebangw.crop.CropImageActivity;
 import com.ms.ebangw.crop.FroyoAlbumDirFactory;
 import com.ms.ebangw.crop.GetPathFromUri4kitkat;
 import com.ms.ebangw.dialog.SelectPhotoDialog;
+import com.ms.ebangw.scancode.EncodingHandler;
 import com.ms.ebangw.service.DataAccessUtil;
 import com.ms.ebangw.userAuthen.developers.DevelopersAuthenActivity;
 import com.ms.ebangw.userAuthen.headman.HeadmanAuthenActivity;
 import com.ms.ebangw.userAuthen.investor.InvestorAuthenActivity;
 import com.ms.ebangw.userAuthen.worker.WorkerAuthenActivity;
 import com.ms.ebangw.utils.BitmapUtil;
+import com.ms.ebangw.utils.DensityUtils;
 import com.ms.ebangw.utils.L;
 import com.squareup.picasso.Picasso;
 
@@ -87,9 +90,14 @@ public class AuthenticationFragment extends BaseFragment implements OnClickListe
     LinearLayout noAuthLayout;
     @Bind(R.id.ll_workType)
     LinearLayout LWorkType;
-
     @Bind(R.id.iv_head)
     ImageView headIv;
+    @Bind(R.id.tv_invite_code)
+    TextView inviteCodeTv;
+    @Bind(R.id.iv_eweima)
+    ImageView eweimaIv;
+    @Bind(R.id.ll_eweima)
+    LinearLayout eweimaLayout;
 
 
     @Override
@@ -162,7 +170,52 @@ public class AuthenticationFragment extends BaseFragment implements OnClickListe
         }
 
 
+    }
 
+    /**
+     * 初始化二维码图片
+     */
+    private void initInviteQR() {
+        noAuthLayout.setVisibility(View.GONE);
+        detailLayout.setVisibility(View.GONE);
+        LWorkType.setVisibility(View.GONE);
+        eweimaLayout.setVisibility(View.VISIBLE);
+
+        File directory = Environment.getExternalStorageDirectory();
+        final File eweima = new File(directory, "eweima");
+        final String path = eweima.getAbsolutePath();
+        if (!eweima.exists()) {
+            eweima.mkdirs();
+        }
+//        eweimaIv.post(new Runnable() {
+//            @Override
+//            public void run() {
+//                int width = eweimaIv.getWidth();
+//                int height = eweimaIv.getHeight();
+//
+//                Bitmap logoBitmap = BitmapFactory.decodeResource(getResources(), R.drawable
+//                    .ms_logo_144);
+//                boolean b = QRCodeUtil.createQRImage(getUser().getId(), width, height,
+//                    logoBitmap, path);
+//                if (b) {
+//                    BitmapFactory.Options options = new BitmapFactory.Options();
+//                    options.outWidth = width;
+//                    options.outHeight = height;
+//                    Bitmap bitmap = BitmapFactory.decodeFile(path, options);
+//                    eweimaIv.setImageBitmap(bitmap);
+//                }
+//            }
+//        });
+
+//根据字符串生成二维码图片并显示在界面上，第二个参数为图片的大小（350*350）
+        Bitmap qrCodeBitmap = null;
+        try {
+            qrCodeBitmap = EncodingHandler.createQRCode(getUser().getId(), DensityUtils.dp2px
+                (mActivity, 150));
+            eweimaIv.setImageBitmap(qrCodeBitmap);
+        } catch (WriterException e) {
+            e.printStackTrace();
+        }
     }
 
     public void initNoAuthUser() {
@@ -178,15 +231,15 @@ public class AuthenticationFragment extends BaseFragment implements OnClickListe
         initHeadInfo();
         User user = getUser();
         String status = user.getStatus();        //认证状态
-        switch (status) {
-            case "guest":                        //未申请
-                initNoAuthUser();
-                break;
-            case "complete":                //认证审核通过
-                initCompletedUser();
-                break;
-        }
-
+//        switch (status) {
+//            case "guest":                        //未申请
+//                initNoAuthUser();
+//                break;
+//            case "complete":                //认证审核通过
+//                initCompletedUser();
+//                break;
+//        }
+        initInviteQR();
         mAlbumStorageDirFactory = new FroyoAlbumDirFactory();
     }
 
