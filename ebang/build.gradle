@@ -38,8 +38,9 @@ android {
 
     sourceSets {
         main {
-//            jniLibs.srcDirs = ['libs']
-            jniLibs.srcDir 'libs'           //处理.so库
+//            jniLibs.srcDir 'libs'           //处理.so库
+            jniLibs.srcDirs = ['libs']
+
         }
 
     }
@@ -58,4 +59,5 @@ dependencies {
     compile 'com.android.support:appcompat-v7:23.0.1'
     compile 'com.android.support:support-v13:23.0.1'
     compile 'com.squareup.picasso:picasso:2.5.2'
+    compile files('libs/baidumapapi_v3_5_0.jar')
 }

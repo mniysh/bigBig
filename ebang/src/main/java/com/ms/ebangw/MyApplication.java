@@ -7,6 +7,7 @@ import android.graphics.Bitmap;
 import com.baidu.location.BDLocation;
 import com.baidu.location.LocationClient;
 import com.baidu.location.LocationClientOption;
+//import com.baidu.mapapi.SDKInitializer;
 import com.baidu.mapapi.SDKInitializer;
 import com.ms.ebangw.bean.Craft;
 import com.ms.ebangw.bean.User;

@@ -70,8 +70,8 @@ public class IncreaseDetailFragment extends BaseFragment {
     private int a;
 
     //经纬度
-    private double longitude;
-    private double latitude;
+    private float longitude;
+    private float latitude;
 
 //    private String JPEG_FILE_PREFIX =
 
@@ -229,13 +229,13 @@ public class IncreaseDetailFragment extends BaseFragment {
         detailAddress = detailAddressEt.getText().toString().trim();
         title = titleEt.getText().toString().trim();
         link_name = nameEt.getText().toString().trim();
-        latitude = 0.5;
-        longitude = 0.5;
+        latitude = 0.5f;
+        longitude = 0.5f;
         link_phone = phoneEt.getText().toString().trim();
         count = introduceEt.getText().toString().trim();
         provinceId = provinceAndCityView.getProvinceId();
         cityId = provinceAndCityView.getCityId();
-        areaId = provinceAndCityView.getAreaId();
+//        areaId = provinceAndCityView.getAreaId();
         startTime = startTimeTv.getText().toString().trim();
         endTime = endTimeTv.getText().toString().trim();
 
@@ -269,7 +269,7 @@ public class IncreaseDetailFragment extends BaseFragment {
             T.show("简介不可为空");
             return  false;
         }
-        if(latitude == 0 || longitude == 0){
+        if(latitude == 0 && longitude == 0){
             T.show("请地图选点");
             return false;
         }
@@ -501,9 +501,9 @@ public class IncreaseDetailFragment extends BaseFragment {
         getData();
 
         if(isRight()){
-            DataAccessUtil.developerRelease(title,detailAddress,
-                    link_name, link_phone, provinceId, cityId, areaId, count,
-                    longitude, latitude, "月结", image_ary, staff,
+            DataAccessUtil.developerRelease(title,count,link_name,link_phone,
+                     provinceId, cityId,detailAddress,
+                    longitude, latitude, image_ary,startTime, endTime, staff,
                     new JsonHttpResponseHandler(){
                         @Override
                         public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
