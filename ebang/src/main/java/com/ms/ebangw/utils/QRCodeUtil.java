@@ -43,7 +43,7 @@ public class QRCodeUtil {
             //容错级别 
             hints.put(EncodeHintType.ERROR_CORRECTION, ErrorCorrectionLevel.H);
             //设置空白边距的宽度 
-//            hints.put(EncodeHintType.MARGIN, 2); //default is 4 
+            hints.put(EncodeHintType.MARGIN, 1); //default is 4
    
             // 图像数据转换，使用了矩阵转换 
             BitMatrix bitMatrix = new QRCodeWriter().encode(content, BarcodeFormat.QR_CODE, widthPix, heightPix, hints);
@@ -61,7 +61,7 @@ public class QRCodeUtil {
             } 
    
             // 生成二维码图片的格式，使用ARGB_8888 
-            Bitmap bitmap = Bitmap.createBitmap(widthPix, heightPix, Bitmap.Config.ARGB_8888); 
+            Bitmap bitmap = Bitmap.createBitmap(widthPix, heightPix, Bitmap.Config.RGB_565);
             bitmap.setPixels(pixels, 0, widthPix, 0, 0, widthPix, heightPix); 
    
             if (logoBm != null) { 

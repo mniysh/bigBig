@@ -563,6 +563,19 @@ public class DataAccessUtil {
     }
 
     /**
+     * 2-10.工人推荐工长
+     * @param id    工长的Id
+     * @param asyncHttpResponseHandler
+     * @return
+     */
+    public static RequestHandle scanInvite(String id, AsyncHttpResponseHandler
+                                           asyncHttpResponseHandler){
+        RequestParams params = new RequestParams();
+        params.put("id", id);
+        return doGet(RequestUrl.scan_invite, null, asyncHttpResponseHandler);
+    }
+
+    /**
      * 1-12、修改用户头像  get方式
      */
     public static RequestHandle headImage(File imageFile, AsyncHttpResponseHandler

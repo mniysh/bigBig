@@ -3,162 +3,162 @@
 
     <string name="name">亿帮无忧</string>
     <string name="action_settings">设置</string>
-	<!-- 区 -->
-	<string-array name="release_add_qu" >
-	    <item >--选区--</item>
-	    <item >东城区</item>
-	    <item >西城区</item>
-	    <item >朝阳区</item>
-	    <item >海淀区</item>
-	    <item >丰台区</item>
-	    <item >石景山区</item>
-	    <item >门头沟区</item>
-	    <item >房山区</item>
-	    <item >大兴区</item>
-	    <item >通州区</item>
-		<item >昌平区</item>
-		<item >平谷区</item>
-		<item >怀柔区</item>
-		<item >密云区</item>
-		<item >延庆区</item>
-	    
-	</string-array>
-	<!-- 路  -->
-	<string-array name="release_add_lu">
-	    <item >--选路--</item>
-	    <item >路1</item>
-	    <item >路2</item>
-	    <item >路3</item>
-	    <item >路4</item>
-	    <item >路5</item>
-	    <item >路6</item>
-	    <item >路7</item>
-	    <item >路8</item>
-	    <item >路9</item>
-	    <item >路10</item>
-	    <item >路11</item>
-	    <item >路12</item>
-	    
-	</string-array>
-	<!-- 类型  -->
-	<string-array name="release_add_style">
-	    <item >--类别--</item>
-	    <item >木工</item>
-	    <item >木工</item>
-	    <item >木工</item>
-	    <item >木工</item>
-	    <item >木工</item>
-	    <item >木工</item>
-	    <item >木工</item>
-	    <item >木工</item>
-	    <item >木工</item>
-	    <item >木工</item>
-	    
-	</string-array>
-	<!-- 主页发现部分的全部分类 -->
-	<string-array name="home_foundfragment_all_type">
-	    <item >全部分类</item>
-	    <item >分类1</item>
-	    <item >分类2</item>
-	    <item >分类3</item>
-	    <item >分类4</item>
-	    <item >分类5</item>
-	</string-array>
-	<!-- 主页发现部分的距离 -->
-	<string-array name="home_foundfragment_juli">
-	    <item >1KM</item>
-	    <item >分类1</item>
-	    <item >分类2</item>
-	    <item >分类3</item>
-	    <item >分类4</item>
-	    <item >分类5</item>
-	</string-array>
-	<!-- 主页发现部分的区域 -->
-	<string-array name="home_foundfragment_area">
-	    <item >区域</item>
-	    <item >区域1</item>
-	    <item >区域2</item>
-	    <item >区域3</item>
-	    <item >区域4</item>
-	    <item >区域5</item>
-	</string-array>
-	<!-- 籍贯 -->
-	<string-array name="sheng">
-	    <item >省</item>
-	    <item >省1</item>
-	    <item >省1</item>
-	    <item >省1</item>
-	</string-array>
-	<string-array name="shi">
-	    <item >市</item>
-	    <item >省1</item>
-	    <item >省1</item>
-	    <item >省1</item>
-	</string-array>
-	<string-array name="qu">
-	    <item >地区</item>
-	    <item >省1</item>
-	    <item >省1</item>
-	    <item >省1</item>
-	</string-array>
+    <!-- 区 -->
+    <string-array name="release_add_qu">
+        <item>--选区--</item>
+        <item>东城区</item>
+        <item>西城区</item>
+        <item>朝阳区</item>
+        <item>海淀区</item>
+        <item>丰台区</item>
+        <item>石景山区</item>
+        <item>门头沟区</item>
+        <item>房山区</item>
+        <item>大兴区</item>
+        <item>通州区</item>
+        <item>昌平区</item>
+        <item>平谷区</item>
+        <item>怀柔区</item>
+        <item>密云区</item>
+        <item>延庆区</item>
 
-<!-- TODO: Remove or change this placeholder text -->
+    </string-array>
+    <!-- 路  -->
+    <string-array name="release_add_lu">
+        <item>--选路--</item>
+        <item>路1</item>
+        <item>路2</item>
+        <item>路3</item>
+        <item>路4</item>
+        <item>路5</item>
+        <item>路6</item>
+        <item>路7</item>
+        <item>路8</item>
+        <item>路9</item>
+        <item>路10</item>
+        <item>路11</item>
+        <item>路12</item>
+
+    </string-array>
+    <!-- 类型  -->
+    <string-array name="release_add_style">
+        <item>--类别--</item>
+        <item>木工</item>
+        <item>木工</item>
+        <item>木工</item>
+        <item>木工</item>
+        <item>木工</item>
+        <item>木工</item>
+        <item>木工</item>
+        <item>木工</item>
+        <item>木工</item>
+        <item>木工</item>
+
+    </string-array>
+    <!-- 主页发现部分的全部分类 -->
+    <string-array name="home_foundfragment_all_type">
+        <item>全部分类</item>
+        <item>分类1</item>
+        <item>分类2</item>
+        <item>分类3</item>
+        <item>分类4</item>
+        <item>分类5</item>
+    </string-array>
+    <!-- 主页发现部分的距离 -->
+    <string-array name="home_foundfragment_juli">
+        <item>1KM</item>
+        <item>分类1</item>
+        <item>分类2</item>
+        <item>分类3</item>
+        <item>分类4</item>
+        <item>分类5</item>
+    </string-array>
+    <!-- 主页发现部分的区域 -->
+    <string-array name="home_foundfragment_area">
+        <item>区域</item>
+        <item>区域1</item>
+        <item>区域2</item>
+        <item>区域3</item>
+        <item>区域4</item>
+        <item>区域5</item>
+    </string-array>
+    <!-- 籍贯 -->
+    <string-array name="sheng">
+        <item>省</item>
+        <item>省1</item>
+        <item>省1</item>
+        <item>省1</item>
+    </string-array>
+    <string-array name="shi">
+        <item>市</item>
+        <item>省1</item>
+        <item>省1</item>
+        <item>省1</item>
+    </string-array>
+    <string-array name="qu">
+        <item>地区</item>
+        <item>省1</item>
+        <item>省1</item>
+        <item>省1</item>
+    </string-array>
+
+    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_qiang_dan">QiangDanActivity</string>
 
     <string name="hello_world">Hello world!</string>
 
-	 <!--极光推送 ===start-->
+    <!--极光推送 ===start-->
 
-	 <string name="hello">Hello World, JPush!</string>
-	 <string name="app_name">JPush SDK Demo</string>
-	 <string name="tag_hint">Tag为大小写字母，数字，下划线,中文， 多个用以逗号分隔</string>
-	 <string name="alias_hint">Alias为大小写字母，数字，下划线</string>
-	 <string name="style_hint">style为数字</string>
-	 <string name="error_style_empty">style不能为空</string>
-	 <string name="error_alias_empty">alias不能为空</string>
-	 <string name="error_tag_empty">tag不能为空</string>
-	 <string name="error_tag_gs_empty">格式不对</string>
-	 <string name="error_network">网络连接异常,初始化失败 请检查网络！</string>
-	 <string name="logining">程序在后台执行, 请查看日志！</string>
-	 <string name="setting_su">设置成功</string>
+    <string name="hello">Hello World, JPush!</string>
+    <string name="app_name">JPush SDK Demo</string>
+    <string name="tag_hint">Tag为大小写字母，数字，下划线,中文， 多个用以逗号分隔</string>
+    <string name="alias_hint">Alias为大小写字母，数字，下划线</string>
+    <string name="style_hint">style为数字</string>
+    <string name="error_style_empty">style不能为空</string>
+    <string name="error_alias_empty">alias不能为空</string>
+    <string name="error_tag_empty">tag不能为空</string>
+    <string name="error_tag_gs_empty">格式不对</string>
+    <string name="error_network">网络连接异常,初始化失败 请检查网络！</string>
+    <string name="logining">程序在后台执行, 请查看日志！</string>
+    <string name="setting_su">设置成功</string>
     <string name="title_activity_peasant_authen_card">PeasantAuthenCardActivity</string>
-	 <!--极光推送 ===end-->
+    <!--极光推送 ===end-->
 
 
+    <!--Url   ==  start -->
+    <string name="url_download">http://www.ebngw.com/front/app/download</string>
+    <!--下载链接-->
+    <string name="url_logo">http://www.ebngw.com/front/images/logo_last.png</string>
+    <!--logo链接-->
+    <string name="url_lottery">http://www.ebngw.com/phone/lottery/main/index</string>
+    <!--摇奖链接-->
+    <!--分享链接-->
+    <string name="url_share">http://www.ebngw.com/phone/common/app/share?type=android_normal</string>
 
-	 <!--Url   ==  start -->
-	 <string name="url_download">http://www.ebngw.com/front/app/download</string> <!--下载链接-->
-	 <string name="url_logo">http://www.ebngw.com/front/images/logo_last.png</string> <!--logo链接-->
-	 <string name="url_lottery">http://www.ebngw.com/phone/lottery/main/index</string> <!--摇奖链接-->
-	 <!--分享链接-->
-	 <string name="url_share">http://www.ebngw.com/phone/common/app/share?type=android_normal</string>
-
-	 <!--地推  ground_push-->
+    <!--地推  ground_push-->
 	 <string name="url_share_for_ground_push">http://www.ebngw.com/phone/common/app/share?type
 		  =android_push</string>
-	 <!--地推  end-->
+    <!--地推  end-->
 
-	 <string name="scan_text">将二维码放入框内, 即可自动扫描</string>
-
-
+    <string name="scan_text">将二维码放入框内, 即可自动扫描</string>
 
 
-	 <!--Url   ==  end -->
-	 <string name="developer_alert">\u3000\u3000请确保您是具有法人资格的商户，您需提供可证明您依法设立活可依法经营，开展社会活动的执照，证件等（如营业执照副本)有效期3个月内的证件不予受理。</string>
-	 <string name="developer_alert_1">\u3000\u3000请填写与营业执照上一致的名称；如果此处您填写的名称与注册时填写的名称不一致，我们将以此处您填写的名称更新您的信息</string>
+    <!--Url   ==  end -->
+    <string name="developer_alert">\u3000\u3000请确保您是具有法人资格的商户，您需提供可证明您依法设立活可依法经营，开展社会活动的执照，证件等（如营业执照副本)有效期3个月内的证件不予受理。</string>
+    <string name="developer_alert_1">\u3000\u3000请填写与营业执照上一致的名称；如果此处您填写的名称与注册时填写的名称不一致，我们将以此处您填写的名称更新您的信息</string>
 
-	 <string name="developer_long">\u3000\u3000若证件有效期为长期，请勾选长期。例如：有效期2016.11.16--长期，则勾选为长期。</string>
+    <string name="developer_long">\u3000\u3000若证件有效期为长期，请勾选长期。例如：有效期2016.11.16--长期，则勾选为长期。</string>
 
 	 <string name="developer_permit_text">\u3000\u3000必须为清晰、完整的彩色原件扫描件或数码照，仅支持.jpg.bmp.png
 .gift的图片格式，图片大小不超过3M。,必须在有效期内且年检章齐
 全（当年成立的公司可无年检章）必须为中国大陆工商局颁发</string>
 
-	 <!--摇奖-->
-	 <string name="lottery_desc">我正在【亿帮无忧】抢福利，这里有好多免费的福利，见者有份，赶快来领！</string>
+    <!--摇奖-->
+    <string name="lottery_desc">我正在【亿帮无忧】抢福利，这里有好多免费的福利，见者有份，赶快来领！</string>
     <string name="title_activity_lottery_home">LotteryHomeActivity</string>
 
-	 <!--找回密码-->
-	 <string name="reset_alert">密码需由6-16个字母、数字和符号组成，区分大小写，不能使用重复、连续的字母、数字或符号。</string>
+    <!--找回密码-->
+    <string name="reset_alert">密码需由6-16个字母、数字和符号组成，区分大小写，不能使用重复、连续的字母、数字或符号。</string>
     <string name="title_activity_service_contract">ServiceContractActivity</string>
 </resources>

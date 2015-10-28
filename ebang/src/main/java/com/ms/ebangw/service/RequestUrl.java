@@ -139,6 +139,11 @@ public class RequestUrl {
      */
     public static final String lottery = domain + "/phone/lottery/main/index";
 
+    /**
+     * 2-10.工人推荐工长  get
+     */
+    public static final String scan_invite = domain + "/api/worker/project/scanning/";
+
 
 
 }

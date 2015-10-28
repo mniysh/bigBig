@@ -2,6 +2,7 @@ package com.ms.ebangw.fragment;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -18,7 +19,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.google.zxing.WriterException;
 import com.ms.ebangw.MyApplication;
 import com.ms.ebangw.R;
 import com.ms.ebangw.activity.SettingActivity;
@@ -29,15 +29,14 @@ import com.ms.ebangw.crop.CropImageActivity;
 import com.ms.ebangw.crop.FroyoAlbumDirFactory;
 import com.ms.ebangw.crop.GetPathFromUri4kitkat;
 import com.ms.ebangw.dialog.SelectPhotoDialog;
-import com.ms.ebangw.scancode.EncodingHandler;
 import com.ms.ebangw.service.DataAccessUtil;
 import com.ms.ebangw.userAuthen.developers.DevelopersAuthenActivity;
 import com.ms.ebangw.userAuthen.headman.HeadmanAuthenActivity;
 import com.ms.ebangw.userAuthen.investor.InvestorAuthenActivity;
 import com.ms.ebangw.userAuthen.worker.WorkerAuthenActivity;
 import com.ms.ebangw.utils.BitmapUtil;
-import com.ms.ebangw.utils.DensityUtils;
 import com.ms.ebangw.utils.L;
+import com.ms.ebangw.utils.QRCodeUtil;
 import com.squareup.picasso.Picasso;
 
 import java.io.File;
@@ -181,40 +180,28 @@ public class AuthenticationFragment extends BaseFragment implements OnClickListe
         LWorkType.setVisibility(View.GONE);
         eweimaLayout.setVisibility(View.VISIBLE);
 
-        File directory = Environment.getExternalStorageDirectory();
-        final File eweima = new File(directory, "eweima");
-        final String path = eweima.getAbsolutePath();
-        if (!eweima.exists()) {
-            eweima.mkdirs();
-        }
-//        eweimaIv.post(new Runnable() {
-//            @Override
-//            public void run() {
-//                int width = eweimaIv.getWidth();
-//                int height = eweimaIv.getHeight();
-//
-//                Bitmap logoBitmap = BitmapFactory.decodeResource(getResources(), R.drawable
-//                    .ms_logo_144);
-//                boolean b = QRCodeUtil.createQRImage(getUser().getId(), width, height,
-//                    logoBitmap, path);
-//                if (b) {
-//                    BitmapFactory.Options options = new BitmapFactory.Options();
-//                    options.outWidth = width;
-//                    options.outHeight = height;
-//                    Bitmap bitmap = BitmapFactory.decodeFile(path, options);
-//                    eweimaIv.setImageBitmap(bitmap);
-//                }
-//            }
-//        });
+        String state = Environment.getExternalStorageState();
+        if (state.equals(Environment.MEDIA_MOUNTED)) {
+            File directory = Environment.getExternalStorageDirectory();
+            if (!directory.exists()) {
+                directory.mkdirs();
+            }
+            File eweima = new File(directory, "eweima.jpg");
+            final String path = eweima.getAbsolutePath();
+            eweimaIv.post(new Runnable() {
+                @Override
+                public void run() {
+                    int width = eweimaIv.getWidth();
+                    int height = eweimaIv.getHeight();
 
-//根据字符串生成二维码图片并显示在界面上，第二个参数为图片的大小（350*350）
-        Bitmap qrCodeBitmap = null;
-        try {
-            qrCodeBitmap = EncodingHandler.createQRCode(getUser().getId(), DensityUtils.dp2px
-                (mActivity, 150));
-            eweimaIv.setImageBitmap(qrCodeBitmap);
-        } catch (WriterException e) {
-            e.printStackTrace();
+                    Bitmap logoBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.ms_logo_144);
+                    boolean b = QRCodeUtil.createQRImage(getUser().getId(), width, height,logoBitmap, path);
+                    if (b) {
+                        Bitmap bitmap = BitmapFactory.decodeFile(path);
+                        eweimaIv.setImageBitmap(bitmap);
+                    }
+                }
+            });
         }
     }
 
