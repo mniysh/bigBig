@@ -572,7 +572,7 @@ public class DataAccessUtil {
                                            asyncHttpResponseHandler){
         RequestParams params = new RequestParams();
         params.put("id", id);
-        return doGet(RequestUrl.scan_invite, null, asyncHttpResponseHandler);
+        return doGet(RequestUrl.worker_recommend_headman, null, asyncHttpResponseHandler);
     }
 
     /**

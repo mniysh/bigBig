@@ -140,9 +140,14 @@ public class RequestUrl {
     public static final String lottery = domain + "/phone/lottery/main/index";
 
     /**
+     * 2-9.工头邀请工人
+     */
+    public static final String headman_invite_worker = domain + "/api/headman/project/invite/";
+
+    /**
      * 2-10.工人推荐工长  get
      */
-    public static final String scan_invite = domain + "/api/worker/project/scanning/";
+    public static final String worker_recommend_headman = domain + "/api/worker/project/scanning/";
 
 
 

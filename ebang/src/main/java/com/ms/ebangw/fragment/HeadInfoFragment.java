@@ -17,6 +17,7 @@ import android.widget.TextView;
 
 import com.ms.ebangw.MyApplication;
 import com.ms.ebangw.R;
+import com.ms.ebangw.activity.SettingActivity;
 import com.ms.ebangw.bean.UploadImageResult;
 import com.ms.ebangw.bean.User;
 import com.ms.ebangw.commons.Constants;
@@ -130,6 +131,19 @@ public class HeadInfoFragment extends BaseFragment {
         initData();
         return contentLayout;
 
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        initTitle(null, null, "我的信息", "设置", new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //设置跳转
+                Intent intent = new Intent(mActivity, SettingActivity.class);
+                mActivity.startActivityForResult(intent, Constants.REQUEST_EXIT);
+            }
+        });
     }
 
     @Override

@@ -226,4 +226,26 @@
         <item name="android:singleLine">true</item>
         <item name="android:layout_gravity">center_vertical</item>
     </style>
+
+    <style name="user_center_item_text">
+        <item name="android:textColor">@color/user_center_desc</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_marginTop">5dp</item>
+        <item name="android:layout_marginBottom">5dp</item>
+        <item name="android:drawablePadding">5dp</item>
+    </style>
+
+    <style name="user_center_item_ver">
+        <item name="android:textColor">@color/user_center_desc</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:padding">10dp</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:gravity">left|center_vertical</item>
+        <item name="android:drawablePadding">5dp</item>
+        <item name="android:layout_marginTop">5dp</item>
+        <item name="android:layout_marginBottom">5dp</item>
+        <item name="android:background">@android:color/white</item>
+    </style>
 </resources>

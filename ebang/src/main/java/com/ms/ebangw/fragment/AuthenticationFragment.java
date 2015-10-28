@@ -2,7 +2,6 @@ package com.ms.ebangw.fragment;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -36,7 +35,6 @@ import com.ms.ebangw.userAuthen.investor.InvestorAuthenActivity;
 import com.ms.ebangw.userAuthen.worker.WorkerAuthenActivity;
 import com.ms.ebangw.utils.BitmapUtil;
 import com.ms.ebangw.utils.L;
-import com.ms.ebangw.utils.QRCodeUtil;
 import com.squareup.picasso.Picasso;
 
 import java.io.File;
@@ -171,39 +169,7 @@ public class AuthenticationFragment extends BaseFragment implements OnClickListe
 
     }
 
-    /**
-     * 初始化二维码图片
-     */
-    private void initInviteQR() {
-        noAuthLayout.setVisibility(View.GONE);
-        detailLayout.setVisibility(View.GONE);
-        LWorkType.setVisibility(View.GONE);
-        eweimaLayout.setVisibility(View.VISIBLE);
 
-        String state = Environment.getExternalStorageState();
-        if (state.equals(Environment.MEDIA_MOUNTED)) {
-            File directory = Environment.getExternalStorageDirectory();
-            if (!directory.exists()) {
-                directory.mkdirs();
-            }
-            File eweima = new File(directory, "eweima.jpg");
-            final String path = eweima.getAbsolutePath();
-            eweimaIv.post(new Runnable() {
-                @Override
-                public void run() {
-                    int width = eweimaIv.getWidth();
-                    int height = eweimaIv.getHeight();
-
-                    Bitmap logoBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.ms_logo_144);
-                    boolean b = QRCodeUtil.createQRImage(getUser().getId(), width, height,logoBitmap, path);
-                    if (b) {
-                        Bitmap bitmap = BitmapFactory.decodeFile(path);
-                        eweimaIv.setImageBitmap(bitmap);
-                    }
-                }
-            });
-        }
-    }
 
     public void initNoAuthUser() {
 
@@ -226,7 +192,6 @@ public class AuthenticationFragment extends BaseFragment implements OnClickListe
 //                initCompletedUser();
 //                break;
 //        }
-        initInviteQR();
         mAlbumStorageDirFactory = new FroyoAlbumDirFactory();
     }
 

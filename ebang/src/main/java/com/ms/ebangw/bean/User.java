@@ -66,6 +66,14 @@ public class User implements Serializable {
 	private String craft;
 
 	/**
+	 * 0或1 工头特有标示 1表示工头第二步认证过了 0表示没有
+	 */
+	@DatabaseField(columnName = "recommend")
+	private String recommend;
+
+
+
+	/**
 	 * 认证状态
 	 * //状态游客guest/
 	 * 认证中auth_developers(认证开发者中)/
@@ -252,6 +260,14 @@ public class User implements Serializable {
 		this.head_img = head_img;
 	}
 
+	public String getRecommend() {
+		return recommend;
+	}
+
+	public void setRecommend(String recommend) {
+		this.recommend = recommend;
+	}
+
 	@Override
 	public String toString() {
 		return "User{" +
@@ -270,6 +286,7 @@ public class User implements Serializable {
 			", real_name='" + real_name + '\'' +
 			", area='" + area + '\'' +
 			", craft='" + craft + '\'' +
+			", recommend='" + recommend + '\'' +
 			", status='" + status + '\'' +
 			", identity_card='" + identity_card + '\'' +
 			", card_image_front='" + card_image_front + '\'' +

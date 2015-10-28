@@ -6,7 +6,6 @@
 
     <include layout="@layout/head_info_layout"/>
 
-
     <LinearLayout
         android:id="@+id/ll_no_auth"
         android:layout_width="fill_parent"

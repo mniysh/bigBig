@@ -2,30 +2,70 @@ package com.ms.ebangw.fragment;
 
 
 import android.app.FragmentManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.os.Environment;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
+import android.widget.FrameLayout;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.ms.ebangw.R;
+import com.ms.ebangw.bean.User;
+import com.ms.ebangw.utils.QRCodeUtil;
 
+import java.io.File;
+
+import butterknife.Bind;
 import butterknife.ButterKnife;
 
 /**
  * 工长中心
- * @author wangkai
  *
+ * @author wangkai
  */
 public class HeadmanCenterFragment extends BaseFragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+    @Bind(R.id.tv_invite_code)
+    TextView tvInviteCode;
+    @Bind(R.id.iv_eweima)
+    ImageView ivEweima;
+    @Bind(R.id.ll_eweima)
+    LinearLayout eweimaLayout;
+    @Bind(R.id.ll_item_horizontal)
+    LinearLayout horiItemLayout;
+    @Bind(R.id.ll_item_vertical)
+    LinearLayout verItemLayout;
+    @Bind(R.id.fl_head_info)
+    FrameLayout flHeadInfo;
+    @Bind(R.id.tv_grab)
+    TextView tvGrab;
+    @Bind(R.id.tv_trade)
+    TextView tvTrade;
+    @Bind(R.id.tv_evaluate)
+    TextView tvEvaluate;
+    @Bind(R.id.tv_fen)
+    TextView tvFen;
+    @Bind(R.id.tv_member_manage)
+    TextView tvMemberManage;
+    @Bind(R.id.tv_my_steps)
+    TextView tvMySteps;
+    @Bind(R.id.tv_my_favorites)
+    TextView tvMyFavorites;
+
 
     private String mParam1;
     private String mParam2;
     private ViewGroup contentLayout;
     private FragmentManager fm;
-
 
     public static HeadmanCenterFragment newInstance(String param1, String param2) {
         HeadmanCenterFragment fragment = new HeadmanCenterFragment();
@@ -53,25 +93,87 @@ public class HeadmanCenterFragment extends BaseFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-            contentLayout = (ViewGroup) inflater.inflate(R.layout.fragment_headman_center, null);
-            ButterKnife.bind(this, contentLayout);
-            initView();
-            initData();
-            return contentLayout;
+        contentLayout = (ViewGroup) inflater.inflate(R.layout.fragment_headman_center, null);
+        ButterKnife.bind(this, contentLayout);
+        initView();
+        initData();
+        return contentLayout;
     }
 
     @Override
     public void initView() {
         fm.beginTransaction().replace(R.id.fl_head_info, HeadInfoFragment.newInstance("", ""))
             .commit();
-
     }
 
     @Override
     public void initData() {
+        User user = getUser();
+
+        if (user != null) {
+            String recommend = user.getRecommend();
+            recommend = "1";
+            if (TextUtils.equals("0", recommend)) {
+                setUnRecommendView();
+            }else {
+                setRecommendView();
+            }
+        }
 
     }
 
+    /**
+     * 推荐人数足够
+     */
+    private void setRecommendView() {
+        horiItemLayout.setVisibility(View.VISIBLE);
+        verItemLayout.setVisibility(View.VISIBLE);
+        eweimaLayout.setVisibility(View.GONE);
+    }
 
+    /**
+     * 推荐人数不够
+     */
+    private void setUnRecommendView() {
+        horiItemLayout.setVisibility(View.GONE);
+        verItemLayout.setVisibility(View.GONE);
+        initInviteQR();
+    }
 
+    /**
+     * 初始化二维码图片
+     */
+    private void initInviteQR() {
+        eweimaLayout.setVisibility(View.VISIBLE);
+        String state = Environment.getExternalStorageState();
+        if (state.equals(Environment.MEDIA_MOUNTED)) {
+            File directory = Environment.getExternalStorageDirectory();
+            if (!directory.exists()) {
+                directory.mkdirs();
+            }
+            File eweima = new File(directory, "eweima.jpg");
+            final String path = eweima.getAbsolutePath();
+            ViewTreeObserver viewTreeObserver = ivEweima.getViewTreeObserver();
+            viewTreeObserver.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+                @Override
+                public void onGlobalLayout() {
+                    ivEweima.getViewTreeObserver().removeGlobalOnLayoutListener(this);
+                    int width = ivEweima.getWidth();
+                    int height = ivEweima.getHeight();
+                    Bitmap logoBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.ms_logo_144);
+                    boolean b = QRCodeUtil.createQRImage(getUser().getId(), width, height, logoBitmap, path);
+                    if (b) {
+                        Bitmap bitmap = BitmapFactory.decodeFile(path);
+                        ivEweima.setImageBitmap(bitmap);
+                    }
+                }
+            });
+        }
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        ButterKnife.unbind(this);
+    }
 }

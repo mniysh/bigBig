@@ -32,7 +32,7 @@ import java.util.List;
 
 public abstract class BaseFragment extends Fragment {
     private final String TAG = getClass().getSimpleName();
-    protected Activity mActivity;
+    public Activity mActivity;
     private LoadingDialog mLoadingDialog;
 
     @Override
