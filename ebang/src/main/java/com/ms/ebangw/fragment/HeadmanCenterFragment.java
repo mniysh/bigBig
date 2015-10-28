@@ -1,6 +1,7 @@
 package com.ms.ebangw.fragment;
 
 
+import android.app.FragmentManager;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,6 +24,7 @@ public class HeadmanCenterFragment extends BaseFragment {
     private String mParam1;
     private String mParam2;
     private ViewGroup contentLayout;
+    private FragmentManager fm;
 
 
     public static HeadmanCenterFragment newInstance(String param1, String param2) {
@@ -41,6 +43,7 @@ public class HeadmanCenterFragment extends BaseFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        fm = getFragmentManager();
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
@@ -59,6 +62,8 @@ public class HeadmanCenterFragment extends BaseFragment {
 
     @Override
     public void initView() {
+        fm.beginTransaction().replace(R.id.fl_head_info, HeadInfoFragment.newInstance("", ""))
+            .commit();
 
     }
 

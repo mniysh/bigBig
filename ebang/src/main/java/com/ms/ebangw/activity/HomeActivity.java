@@ -1,6 +1,5 @@
 package com.ms.ebangw.activity;
 
-import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Intent;
@@ -10,12 +9,10 @@ import android.view.KeyEvent;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
-
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.ms.ebangw.MyApplication;
 import com.ms.ebangw.R;
 import com.ms.ebangw.bean.Bank;
-import com.ms.ebangw.bean.Staff;
 import com.ms.ebangw.bean.User;
 import com.ms.ebangw.bean.WorkType;
 import com.ms.ebangw.commons.Constants;
@@ -24,15 +21,11 @@ import com.ms.ebangw.event.OnCheckedWorkTypeEvent;
 import com.ms.ebangw.event.RefreshUserEvent;
 import com.ms.ebangw.event.WorkTypeEvent;
 import com.ms.ebangw.exception.ResponseException;
-import com.ms.ebangw.fragment.AuthenticationFragment;
 import com.ms.ebangw.fragment.FoundFragment;
+import com.ms.ebangw.fragment.HeadmanCenterFragment;
 import com.ms.ebangw.fragment.HomeFragment;
 import com.ms.ebangw.fragment.LotteryFragment;
-import com.ms.ebangw.fragment.ServiceBuildFragment;
-import com.ms.ebangw.fragment.ServiceDecorateFragment;
 import com.ms.ebangw.fragment.ServiceFragment;
-import com.ms.ebangw.fragment.ServiceOtherFragment;
-import com.ms.ebangw.fragment.ServiceProjectManageFragment;
 import com.ms.ebangw.fragment.WorkerHomeFragment;
 import com.ms.ebangw.release.IncreaseDetailFragment;
 import com.ms.ebangw.release.MapGetAddFragment;
@@ -42,7 +35,6 @@ import com.ms.ebangw.release.ReleaseWorkTypeFragment;
 import com.ms.ebangw.release.SelectCraftFragment;
 import com.ms.ebangw.service.DataAccessUtil;
 import com.ms.ebangw.service.DataParseUtil;
-import com.ms.ebangw.userAuthen.InfoCommitSuccessFragment;
 import com.ms.ebangw.utils.L;
 import com.ms.ebangw.utils.T;
 import com.umeng.update.UmengUpdateAgent;
@@ -205,22 +197,23 @@ public class HomeActivity extends BaseActivity {
         String category = user.getCategory();        //类型
         L.d("xxx", "状态" + status);
         String title = getTitleByStatus(status);
-        switch (status) {
-
-            case "guest":        //未认证
-            case "complete":        //认证完成
-                AuthenticationFragment authenticationfragment = new AuthenticationFragment();
-                fm.beginTransaction().replace(R.id.fl_content, authenticationfragment).commit();
-                break;
-            case "auth_investor":        //认证中
-            case "auth_worker":
-            case "auth_headman":
-            case "auth_developers":
-                fm.beginTransaction().replace(R.id.fl_content, InfoCommitSuccessFragment
-                    .newInstance(category))
-                    .commit();
-                break;
-        }
+//        switch (status) {
+//
+//            case "guest":        //未认证
+//            case "complete":        //认证完成
+//                AuthenticationFragment authenticationfragment = new AuthenticationFragment();
+//                fm.beginTransaction().replace(R.id.fl_content, authenticationfragment).commit();
+//                break;
+//            case "auth_investor":        //认证中
+//            case "auth_worker":
+//            case "auth_headman":
+//            case "auth_developers":
+//                fm.beginTransaction().replace(R.id.fl_content, InfoCommitSuccessFragment
+//                    .newInstance(category))
+//                    .commit();
+//                break;
+//        }
+        fm.beginTransaction().replace(R.id.fl_content, new HeadmanCenterFragment()).commit();
         return;
 
 //		switch (category) {

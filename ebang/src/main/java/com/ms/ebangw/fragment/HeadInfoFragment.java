@@ -21,6 +21,8 @@ import com.ms.ebangw.bean.UploadImageResult;
 import com.ms.ebangw.bean.User;
 import com.ms.ebangw.commons.Constants;
 import com.ms.ebangw.crop.CropImageActivity;
+import com.ms.ebangw.crop.FroyoAlbumDirFactory;
+import com.ms.ebangw.crop.GetPathFromUri4kitkat;
 import com.ms.ebangw.dialog.SelectPhotoDialog;
 import com.ms.ebangw.service.DataAccessUtil;
 import com.ms.ebangw.utils.BitmapUtil;
@@ -86,6 +88,40 @@ public class HeadInfoFragment extends BaseFragment {
     }
 
     @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (resultCode != mActivity.RESULT_OK) {
+            L.d("AuthenticationFragment + resultCode != mActivity.RESULT_OK");
+            return;
+        }
+        if (requestCode == REQUEST_CAMERA) { //拍照返回
+            L.d("AuthenticationFragment-->" + "REQUEST_CAMERA");
+
+            handleBigCameraPhoto();
+
+        } else if (requestCode == REQUEST_PICK) {
+            L.d("AuthenticationFragment-->" + "REQUEST_PICK");
+            Uri uri = data.getData();
+            Log.d("way", "uri: " + uri);
+
+            try {
+                String path = GetPathFromUri4kitkat.getPath(mActivity, uri);
+                MyApplication myApplication = (MyApplication) mActivity.getApplication();
+                myApplication.imagePath = path;
+                goCropActivity();
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+        } else if (requestCode == REQUEST_CROP) {        //剪切后返回
+            L.d("AuthenticationFragment-->" + "REQUEST_CROP");
+            handleCropBitmap(data);
+        }
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         contentLayout = (ViewGroup) inflater.inflate(R.layout.fragment_head_info, null);
@@ -103,7 +139,8 @@ public class HeadInfoFragment extends BaseFragment {
 
     @Override
     public void initData() {
-
+        initHeadInfo();
+        mAlbumStorageDirFactory = new FroyoAlbumDirFactory();
     }
 
     /**
