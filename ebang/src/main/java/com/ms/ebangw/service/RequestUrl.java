@@ -135,9 +135,19 @@ public class RequestUrl {
     public static final String head_image =domain + "/api/user/upload/head-image";
 
     /**
+     * 1-13、返回上一步重新认证修改认证   get
+     */
+    public static final String reset_auth =domain + "/api/user/index/reset-auth";
+
+    /**
      * 摇奖WebUrl
      */
     public static final String lottery = domain + "/phone/lottery/main/index";
+
+    /**
+     * 2-8.工头邀请工人列表(工长-->人员管理)  get
+     */
+    public static final String invite_worker_list = domain + "/api/headman/project/invite-worker-list";
 
     /**
      * 2-9.工头邀请工人
@@ -148,6 +158,11 @@ public class RequestUrl {
      * 2-10.工人推荐工长  get
      */
     public static final String worker_recommend_headman = domain + "/api/worker/project/scanning/";
+
+    /**
+     *2-15.工长查看推荐过他的工人列表    get
+     */
+    public static final String recommended_workers = domain + "/api/headman/project/recommended";
 
 
 

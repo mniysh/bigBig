@@ -71,14 +71,11 @@ public class SettingActivity extends BaseActivity {
 
         if (requestCode == SCANNIN_GREQUEST_CODE && resultCode == RESULT_OK) {
             Bundle bundle = data.getExtras();
+            //显示扫描到的内容
             String result = bundle.getString("result");
             L.d("二维码扫描结果: " + result);
-            //显示扫描到的内容
-//            mTextView.setText(bundle.getString("result"));
-//            //显示
-//            mImageView.setImageBitmap((Bitmap) data.getParcelableExtra("bitmap"));
+            workerRecommendHeadman(result);
         }
-
     }
 
     @Override
@@ -163,7 +160,32 @@ public class SettingActivity extends BaseActivity {
     }
 
     private void logout() {
-        DataAccessUtil.exit(new JsonHttpResponseHandler(){
+        DataAccessUtil.exit(new JsonHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                try {
+                    boolean b = DataParseUtil.processDataResult(response);
+
+                } catch (ResponseException e) {
+                    e.printStackTrace();
+                    T.show(e.getMessage());
+                }
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                super.onFailure(statusCode, headers, responseString, throwable);
+            }
+        });
+    }
+
+    /**
+     * 工人扫码推荐工长
+     * @param headmanId
+     */
+    private void workerRecommendHeadman(String headmanId) {
+        DataAccessUtil.workerRecommendHeadman(headmanId, new JsonHttpResponseHandler(){
+
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                 try {

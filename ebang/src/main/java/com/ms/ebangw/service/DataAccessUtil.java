@@ -562,18 +562,27 @@ public class DataAccessUtil {
         return doGet(RequestUrl.user_information, null, asyncHttpResponseHandler);
     }
 
+    public static RequestHandle inviteWorkerList(String project_id, String craft_id, String phone,
+                                                 AsyncHttpResponseHandler
+                                                    asyncHttpResponseHandler){
+        return doGet(RequestUrl.invite_worker_list, null, asyncHttpResponseHandler);
+    }
+
+
     /**
-     * 2-10.工人推荐工长
+     * 2-10.工人推荐工长  (扫码推荐)
      * @param id    工长的Id
      * @param asyncHttpResponseHandler
      * @return
      */
-    public static RequestHandle scanInvite(String id, AsyncHttpResponseHandler
+    public static RequestHandle workerRecommendHeadman(String id, AsyncHttpResponseHandler
                                            asyncHttpResponseHandler){
         RequestParams params = new RequestParams();
         params.put("id", id);
         return doGet(RequestUrl.worker_recommend_headman, null, asyncHttpResponseHandler);
     }
+
+
 
     /**
      * 1-12、修改用户头像  get方式
@@ -597,6 +606,27 @@ public class DataAccessUtil {
         }
         return null;
     }
+
+    /**
+     * 1-13、返回上一步重新认证修改认证
+     * @param asyncHttpResponseHandler
+     * @return
+     */
+    public static RequestHandle resetAuth(AsyncHttpResponseHandler
+        asyncHttpResponseHandler){
+        return doGet(RequestUrl.reset_auth, null, asyncHttpResponseHandler);
+    }
+
+    /**
+     * 2-15.工长查看推荐过他的工人列表    get
+     * @param asyncHttpResponseHandler
+     * @return
+     */
+    public static RequestHandle recommendedWorkers(AsyncHttpResponseHandler
+                                              asyncHttpResponseHandler){
+        return doGet(RequestUrl.recommended_workers, null, asyncHttpResponseHandler);
+    }
+
 
     public static RequestHandle doPost(String url, RequestParams params, AsyncHttpResponseHandler asyncHttpResponseHandler) {
 

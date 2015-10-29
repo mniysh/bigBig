@@ -5,6 +5,7 @@ import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -21,11 +22,15 @@ import com.ms.ebangw.event.OnCheckedWorkTypeEvent;
 import com.ms.ebangw.event.RefreshUserEvent;
 import com.ms.ebangw.event.WorkTypeEvent;
 import com.ms.ebangw.exception.ResponseException;
+import com.ms.ebangw.fragment.AuthenticationFragment;
+import com.ms.ebangw.fragment.DevelopersCenterFragment;
 import com.ms.ebangw.fragment.FoundFragment;
 import com.ms.ebangw.fragment.HeadmanCenterFragment;
 import com.ms.ebangw.fragment.HomeFragment;
+import com.ms.ebangw.fragment.InvestorCenterFragment;
 import com.ms.ebangw.fragment.LotteryFragment;
 import com.ms.ebangw.fragment.ServiceFragment;
+import com.ms.ebangw.fragment.WorkerCenterFragment;
 import com.ms.ebangw.fragment.WorkerHomeFragment;
 import com.ms.ebangw.release.IncreaseDetailFragment;
 import com.ms.ebangw.release.MapGetAddFragment;
@@ -35,6 +40,7 @@ import com.ms.ebangw.release.ReleaseWorkTypeFragment;
 import com.ms.ebangw.release.SelectCraftFragment;
 import com.ms.ebangw.service.DataAccessUtil;
 import com.ms.ebangw.service.DataParseUtil;
+import com.ms.ebangw.userAuthen.InfoCommitSuccessFragment;
 import com.ms.ebangw.utils.L;
 import com.ms.ebangw.utils.T;
 import com.umeng.update.UmengUpdateAgent;
@@ -172,8 +178,7 @@ public class HomeActivity extends BaseActivity {
                         if (isLogin()) {
                             User user = getUser();
                             String category = user.getCategory();
-                            L.d("xxx", "user的内容主页部分的" + user.toString());
-                            goCenter();
+                            setAuthStatus();
 
                         } else {
                             Intent intent = new Intent(HomeActivity.this, LoginActivity.class);
@@ -211,51 +216,73 @@ public class HomeActivity extends BaseActivity {
      * auth_worker(认证工人中)/
      * auth_headman(认证工头中)/
      * auth_investor(认证个人中)/
+     *
      * complete（完成认证)
+     *
+     * auth_developers_fail（认证开发商失败）
+     * auth_worker_fail（认证务工失败）
+     * auth_headman_fail（认证工头失败）
+     * auth_investor_fail（认证个人失败）
+     * auth_company_fail（认证劳务公司失败）
      */
-    public void goCenter() {
+    public void setAuthStatus() {
         User user = getUser();
         String status = user.getStatus();        //认证状态
         String category = user.getCategory();        //类型
         L.d("xxx", "状态" + status);
         String title = getTitleByStatus(status);
-//        switch (status) {
-//
-//            case "guest":        //未认证
-//            case "complete":        //认证完成
-//                AuthenticationFragment authenticationfragment = new AuthenticationFragment();
-//                fm.beginTransaction().replace(R.id.fl_content, authenticationfragment).commit();
-//                break;
-//            case "auth_investor":        //认证中
-//            case "auth_worker":
-//            case "auth_headman":
-//            case "auth_developers":
-//                fm.beginTransaction().replace(R.id.fl_content, InfoCommitSuccessFragment
-//                    .newInstance(category))
-//                    .commit();
-//                break;
-//        }
-        fm.beginTransaction().replace(R.id.fl_content, new HeadmanCenterFragment()).commit();
-        return;
+        switch (status) {
 
-//		switch (category) {
-//			case Constants.INVESTOR:        //个人
-//				fm.beginTransaction().replace(R.id.fl_content, new InvestorCenterFragment()).commit();
-//				break;
-//
-//			case Constants.HEADMAN:        //	工头
-//				fm.beginTransaction().replace(R.id.fl_content, new HeadmanCenterFragment()).commit();
-//				break;
-//
-//			case Constants.WORKER:    //工人
-//				fm.beginTransaction().replace(R.id.fl_content, new WorkerCenterFragment()).commit();
-//				break;
-//
-//			case Constants.DEVELOPERS:    //开发商
-//				fm.beginTransaction().replace(R.id.fl_content, new DevelopersCenterFragment()).commit();
-//				break;
-//
-//		}
+            case "guest":        //未认证
+                AuthenticationFragment authenticationfragment = new AuthenticationFragment();
+                fm.beginTransaction().replace(R.id.fl_content, authenticationfragment).commit();
+                break;
+            case "complete":        //认证完成
+                goUserCenter(category);
+                break;
+            case "auth_investor":        //认证中
+            case "auth_worker":
+            case "auth_headman":
+            case "auth_developers":
+                fm.beginTransaction().replace(R.id.fl_content, InfoCommitSuccessFragment
+                    .newInstance(category))
+                    .commit();
+                break;
+            case "auth_investor_fail":
+            case "auth_worker_fail":
+            case "auth_headman_fail":
+            case "auth_developers_fail":
+                fm.beginTransaction().replace(R.id.fl_content, InfoCommitSuccessFragment
+                    .newInstance(category))
+                    .commit();
+                break;
+        }
+    }
+
+    /**
+     * 认证完成后，进入相应的用户中心
+     */
+    private void goUserCenter( String category) {
+        if (TextUtils.isEmpty(category)) {
+            return;
+        }
+        switch (category) {
+            case Constants.INVESTOR:        //个人
+                fm.beginTransaction().replace(R.id.fl_content, new InvestorCenterFragment()).commit();
+                break;
+
+            case Constants.HEADMAN:        //	工头
+                fm.beginTransaction().replace(R.id.fl_content, new HeadmanCenterFragment()).commit();
+                break;
+
+            case Constants.WORKER:    //工人
+                fm.beginTransaction().replace(R.id.fl_content, new WorkerCenterFragment()).commit();
+                break;
+
+            case Constants.DEVELOPERS:    //开发商
+                fm.beginTransaction().replace(R.id.fl_content, new DevelopersCenterFragment()).commit();
+                break;
+        }
     }
 
 

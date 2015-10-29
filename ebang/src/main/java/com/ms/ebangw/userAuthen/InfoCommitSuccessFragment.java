@@ -7,16 +7,28 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.LinearLayout;
 
+import com.loopj.android.http.JsonHttpResponseHandler;
 import com.ms.ebangw.MyApplication;
 import com.ms.ebangw.R;
 import com.ms.ebangw.activity.HomeActivity;
 import com.ms.ebangw.activity.SettingActivity;
+import com.ms.ebangw.bean.User;
 import com.ms.ebangw.commons.Constants;
+import com.ms.ebangw.exception.ResponseException;
 import com.ms.ebangw.fragment.BaseFragment;
+import com.ms.ebangw.service.DataAccessUtil;
+import com.ms.ebangw.service.DataParseUtil;
+import com.ms.ebangw.utils.L;
+import com.ms.ebangw.utils.T;
+
+import org.apache.http.Header;
+import org.json.JSONObject;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class InfoCommitSuccessFragment extends BaseFragment {
     private static final String CATEGORY = "category";
@@ -24,6 +36,10 @@ public class InfoCommitSuccessFragment extends BaseFragment {
     private String category;
     @Bind(R.id.btn_goHome)
     Button goHomeBtn;
+    @Bind(R.id.layout_commit_successful)
+    LinearLayout commitedInfoLayout;
+    @Bind(R.id.layout_auth_failed)
+    LinearLayout authFailedLayout;
 
 
 
@@ -64,10 +80,27 @@ public class InfoCommitSuccessFragment extends BaseFragment {
 
     @Override
     public void initView() {
-        if (TextUtils.isEmpty(category)) {
-            return;
-        }
 
+        User user = getUser();
+        String status = user.getStatus();        //认证状态
+
+        switch (status) {
+
+            case "auth_investor":        //认证中
+            case "auth_worker":
+            case "auth_headman":
+            case "auth_developers":
+                commitedInfoLayout.setVisibility(View.VISIBLE);
+                authFailedLayout.setVisibility(View.GONE);
+                break;
+            case "auth_investor_fail":
+            case "auth_worker_fail":
+            case "auth_headman_fail":
+            case "auth_developers_fail":
+                commitedInfoLayout.setVisibility(View.GONE);
+                authFailedLayout.setVisibility(View.VISIBLE);
+                break;
+        }
     }
 
     @Override
@@ -80,7 +113,6 @@ public class InfoCommitSuccessFragment extends BaseFragment {
                     HomeActivity homeActivity = (HomeActivity) mActivity;
                     homeActivity.lotteryRb.performClick();
                 } else {
-//                    EventBus.getDefault().post(new PerformEvent());
                     MyApplication.getInstance().setFlag_home(true);
                     mActivity.finish();
                 }
@@ -125,6 +157,47 @@ public class InfoCommitSuccessFragment extends BaseFragment {
                 }
             }, "返回", getTitleByCategory(category), null, null);
         }
+
+    }
+
+    /**
+     * 认证失败后重试
+     */
+    @OnClick(R.id.btn_auth_again)
+    public void authAgain() {
+        DataAccessUtil.resetAuth(new JsonHttpResponseHandler(){
+            @Override
+            public void onStart() {
+                showProgressDialog();
+            }
+
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                dismissLoadingDialog();
+                try {
+                    boolean b = DataParseUtil.processDataResult(response);
+                    if (b) {
+                        User user = getUser();
+                        user.setStatus(Constants.AUTH_GUEST);
+                        if (MyApplication.getInstance().saveUser(user) && null != mActivity) {
+                            ((HomeActivity)mActivity).setAuthStatus();
+                        }
+
+                    }
+                } catch (ResponseException e) {
+                    e.printStackTrace();
+                    T.show(e.getMessage());
+                }
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                super.onFailure(statusCode, headers, responseString, throwable);
+                L.d(responseString);
+                dismissLoadingDialog();
+            }
+        });
+
 
     }
 

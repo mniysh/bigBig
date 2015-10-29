@@ -165,11 +165,7 @@ public class AuthenticationFragment extends BaseFragment implements OnClickListe
             LWorkType.setVisibility(View.VISIBLE);
             workTypeTv.setText(craft);
         }
-
-
     }
-
-
 
     public void initNoAuthUser() {
 

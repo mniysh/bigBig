@@ -112,7 +112,6 @@ public class HeadmanCenterFragment extends BaseFragment {
 
         if (user != null) {
             String recommend = user.getRecommend();
-            recommend = "1";
             if (TextUtils.equals("0", recommend)) {
                 setUnRecommendView();
             }else {
@@ -132,7 +131,7 @@ public class HeadmanCenterFragment extends BaseFragment {
     }
 
     /**
-     * 推荐人数不够
+     * 推荐人数不够时， 显示二维码
      */
     private void setUnRecommendView() {
         horiItemLayout.setVisibility(View.GONE);
