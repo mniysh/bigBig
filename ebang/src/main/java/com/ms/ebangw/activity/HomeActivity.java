@@ -44,10 +44,12 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import cn.jpush.android.api.JPushInterface;
+import cn.jpush.android.api.TagAliasCallback;
 import de.greenrobot.event.EventBus;
 
 /**
@@ -70,7 +72,6 @@ public class HomeActivity extends BaseActivity {
     private SelectCraftFragment selectCraftFragment;
     private LotteryFragment lotteryFragment;
     private List<Bank> banks;
-    private Handler mHandler;
     private List<WorkType> selectWorkType;
 
 
@@ -81,6 +82,22 @@ public class HomeActivity extends BaseActivity {
     @Bind(R.id.rb_home)
     public RadioButton lotteryRb;
 
+    private static final int MSG_SET_ALIAS = 1001;
+    private final Handler mHandler = new Handler() {
+        @Override
+        public void handleMessage(android.os.Message msg) {
+            super.handleMessage(msg);
+            switch (msg.what) {
+                case MSG_SET_ALIAS:
+                    L.d("Set alias in handler.");
+                    // 调用 JPush 接口来设置别名。
+                    JPushInterface.setAliasAndTags(getApplicationContext(), (String) msg.obj, null, mAliasCallback);
+                    break;
+                default:
+                    L.i("Unhandled msg - " + msg.what);
+            }
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,12 +106,19 @@ public class HomeActivity extends BaseActivity {
         setContentView(R.layout.activity_home);
         ButterKnife.bind(this);
         EventBus.getDefault().register(this);
-//        double longitude = MyApplication.getInstance().getLocation().getLongitude();
-//        double latitude = MyApplication.getInstance().getLocation().getLatitude();
-//        L.d(latitude + "  " + longitude);
-        initView();
-        initData();
-        initUMengUpdate();
+        fm = getFragmentManager();
+        L.d("HomeActivity onCreate ");
+        if (savedInstanceState != null) {
+            L.d(savedInstanceState.toString());
+            initView();
+            initData();
+        }else {
+            initView();
+            initData();
+            initUMengUpdate();
+            initJpush();
+            radioGroup.getChildAt(0).performClick();
+        }
     }
 
     public void initView() {
@@ -108,7 +132,6 @@ public class HomeActivity extends BaseActivity {
 
     @Override
     public void initData() {
-        mHandler = new Handler();
         loadUserInformation();
         fm = getFragmentManager();
         lotteryFragment = LotteryFragment.newInstance("lotteryFragment", "lotteryFragment");
@@ -161,7 +184,6 @@ public class HomeActivity extends BaseActivity {
             }
         });
 
-        radioGroup.getChildAt(0).performClick();
     }
     public void onEvent(WorkTypeEvent event){
         WorkType workType = event.getWorkType();
@@ -415,6 +437,48 @@ public class HomeActivity extends BaseActivity {
 
 
     }
+
+    /**
+     * 初始化极光推送
+     */
+    private void initJpush() {
+        JPushInterface.setDebugMode(false);
+        User user = getUser();
+        if (null != user) {
+            String id = user.getId();
+            // 调用 Handler 来异步设置别名
+            mHandler.sendMessage(mHandler.obtainMessage(MSG_SET_ALIAS, id));
+        }
+
+        JPushInterface.init(this);
+    }
+
+    private final TagAliasCallback mAliasCallback = new TagAliasCallback() {
+        @Override
+        public void gotResult(int code, String alias, Set<String> tags) {
+            String logs ;
+            switch (code) {
+                case 0:
+                    logs = "Set tag and alias success";
+                    L.d(logs);
+                    // 建议这里往 SharePreference 里写一个成功设置的状态。成功设置一次后，以后不必再次设置了。
+//                    SPUtils.put(Constants.KEY_IS_ALIAS_SETED, true);
+                    break;
+                case 6002:
+                    logs = "Failed to set alias and tags due to timeout. Try again after 60s.";
+                    L.i(logs);
+                    // 延迟 20 秒来调用 Handler 设置别名
+                    mHandler.sendMessageDelayed(mHandler.obtainMessage(MSG_SET_ALIAS, alias),
+                        1000 * 20);
+                    break;
+                default:
+                    logs = "Failed with errorCode = " + code;
+                    L.d(logs);
+            }
+        }
+    };
+
+
 
     @Override
     protected void onDestroy() {
