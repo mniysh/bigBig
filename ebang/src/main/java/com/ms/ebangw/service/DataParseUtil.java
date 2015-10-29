@@ -14,6 +14,7 @@ import com.ms.ebangw.bean.TotalRegion;
 import com.ms.ebangw.bean.UploadImageResult;
 import com.ms.ebangw.bean.User;
 import com.ms.ebangw.bean.WorkType;
+import com.ms.ebangw.bean.Worker;
 import com.ms.ebangw.exception.ResponseException;
 import com.ms.ebangw.utils.L;
 import com.ms.ebangw.utils.T;
@@ -194,7 +195,8 @@ public class DataParseUtil {
         JSONObject cityobj=datas.optJSONObject("city");
         JSONObject areaObj=datas.optJSONObject("area");
         //通过goon工具转换为集合
-        List<Province> provinces=gson.fromJson(dataProvince,new TypeToken<List<Province>>(){}.getType());
+        List<Province> provinces=gson.fromJson(dataProvince, new TypeToken<List<Province>>() {
+        }.getType());
 
         Province province;
         for(int i=0; i<provinces.size(); i++){
@@ -315,6 +317,20 @@ public class DataParseUtil {
         }
 
         return craft;
+    }
+
+    /**
+     * 2-15.工长查看推荐过他的工人列表
+     * @param jsonObject
+     * @return
+     * @throws ResponseException
+     */
+    public static  List<Worker> recommendedWorkers(JSONObject jsonObject)throws  ResponseException{
+        String dataStr = processDataStr(jsonObject);
+        Gson gson = new Gson();
+        List<Worker> workerList = gson.fromJson(dataStr, new TypeToken<List<Worker>>(){}.getType());
+
+        return  workerList;
     }
 
 
