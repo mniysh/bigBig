@@ -197,6 +197,19 @@
 
 #butterknife   ==>end
 
+#ormLite ==>start
+-keep class com.j256.**
+-keepclassmembers class com.j256.** { *; }
+-keep enum com.j256.**
+-keepclassmembers enum com.j256.** { *; }
+-keep interface com.j256.**
+-keepclassmembers interface com.j256.** { *; }
+-keepattributes *Annotation*
+-keepclassmembers class * {
+    @com.j256.ormlite.field.DatabaseField *;
+}
+#ormLite ==>end
+
 #本应用 start
 -keep class com.ms.ebangw.bean.** { *;}
 -keep class com.ms.ebangw.commons.** { *;}

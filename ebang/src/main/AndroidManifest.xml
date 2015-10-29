@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest
-    package="com.ms.ebangw"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:versionCode="1"
-    android:versionName="1.0.0">
+<manifest package="com.ms.ebangw"
+          xmlns:android="http://schemas.android.com/apk/res/android"
+          android:versionCode="1"
+          android:versionName="1.0.0">
 
     <uses-sdk
         android:minSdkVersion="15"
@@ -90,12 +89,12 @@
     <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS"/>
     <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE"/>
 
-    <!--摄像头-->
-    <uses-permission android:name="android.permission.VIBRATE" />
-    <uses-permission android:name="android.permission.CAMERA" />
+    <!-- 摄像头 -->
+    <uses-permission android:name="android.permission.VIBRATE"/>
+    <uses-permission android:name="android.permission.CAMERA"/>
 
-    <uses-feature android:name="android.hardware.camera" />
-    <uses-feature android:name="android.hardware.camera.autofocus" />
+    <uses-feature android:name="android.hardware.camera"/>
+    <uses-feature android:name="android.hardware.camera.autofocus"/>
 
     <!-- 极光推送 权限  end -->
     <application
@@ -113,8 +112,8 @@
             </intent-filter>
         </activity>
         <activity
-            android:configChanges="keyboardHidden|orientation|screenSize"
             android:name=".activity.HomeActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan|stateHidden"/>
         <activity
@@ -128,7 +127,6 @@
         <activity android:name=".activity.NoticeActivity"/>
         <activity android:name=".activity.ChatActivity"/>
         <activity android:name=".activity.ShowActivity"/>
-
         <activity android:name=".activity.PublishCommentActivity"/>
         <activity android:name=".activity.NearActivity"/>
         <activity android:name=".activity.SettlementActivity"/>
@@ -138,10 +136,10 @@
         <activity android:name=".activity.ManagerBackActivity"/>
         <activity android:name=".Photo.PhotosActivity"/>
         <activity android:name=".Photo.SelectPhotosDirActivity"/>
-        <activity android:name=".userAuthen.investor.InvestorAuthenActivity"
-                  android:configChanges="keyboardHidden|orientation|screenSize"
-                  android:screenOrientation="portrait"
-            />
+        <activity
+            android:name=".userAuthen.investor.InvestorAuthenActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="portrait"/>
         <activity android:name=".userAuthen.worker.WorkerAuthenActivity"/>
         <activity android:name=".userAuthen.developers.DevelopersAuthenActivity"/>
         <activity android:name=".userAuthen.headman.HeadmanAuthenActivity"/>
@@ -324,12 +322,14 @@
             android:name=".activity.ServiceContractActivity"
             android:label="@string/title_activity_service_contract">
         </activity>
-
-        <activity android:name=".scancode.MipcaActivityCapture"
-                  android:screenOrientation="portrait"
-            />
-
-
+        <activity
+            android:name=".scancode.MipcaActivityCapture"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".activity.RecommendedWorksActivity"
+            android:label="@string/title_activity_recommened_works"
+            android:theme="@style/AppTheme">
+        </activity>
     </application>
 
 </manifest>

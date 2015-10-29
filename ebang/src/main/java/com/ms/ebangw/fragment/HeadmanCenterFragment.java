@@ -2,6 +2,7 @@ package com.ms.ebangw.fragment;
 
 
 import android.app.FragmentManager;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -17,6 +18,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.ms.ebangw.R;
+import com.ms.ebangw.activity.RecommendedWorksActivity;
 import com.ms.ebangw.bean.User;
 import com.ms.ebangw.utils.QRCodeUtil;
 
@@ -113,27 +115,33 @@ public class HeadmanCenterFragment extends BaseFragment {
         if (user != null) {
             String recommend = user.getRecommend();
             if (TextUtils.equals("0", recommend)) {
-                setUnRecommendView();
+                setNoEnoughWorkerView();
             }else {
-                setRecommendView();
+                setEnoughWorkerView();
             }
         }
-
     }
 
     /**
      * 推荐人数足够
      */
-    private void setRecommendView() {
+    private void setEnoughWorkerView() {
         horiItemLayout.setVisibility(View.VISIBLE);
         verItemLayout.setVisibility(View.VISIBLE);
         eweimaLayout.setVisibility(View.GONE);
+        tvMemberManage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(mActivity, RecommendedWorksActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     /**
      * 推荐人数不够时， 显示二维码
      */
-    private void setUnRecommendView() {
+    private void setNoEnoughWorkerView() {
         horiItemLayout.setVisibility(View.GONE);
         verItemLayout.setVisibility(View.GONE);
         initInviteQR();

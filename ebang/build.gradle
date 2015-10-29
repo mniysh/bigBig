@@ -1,5 +1,18 @@
 apply plugin: 'com.android.application'
 
+dependencies {
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    testCompile 'junit:junit:4.12'
+    compile 'com.android.support:design:23.0.1'
+    compile 'com.jakewharton:butterknife:7.0.1'
+    compile 'com.umeng.analytics:analytics:latest.integration'
+    compile project(':social_sdk_library_project')
+    compile 'com.android.support:appcompat-v7:23.0.1'
+    compile 'com.android.support:support-v13:23.0.1'
+    compile 'com.squareup.picasso:picasso:2.5.2'
+    compile 'com.belerweb:pinyin4j:2.5.0'
+}
+
 android {
     signingConfigs {
         config {
@@ -7,58 +20,65 @@ android {
             keyPassword KEY_PASSWORD
             storeFile file('C:/Users/Administrator/ebang.jks')
             storePassword STORE_PASSWORD
-
         }
-
     }
     compileSdkVersion 23
     buildToolsVersion "23.0.0"
     defaultConfig {
         applicationId "com.ms.ebangw"
-        minSdkVersion 15
+        minSdkVersion 14
         targetSdkVersion 22
-        versionCode 1
-        versionName "1.0.0"
+        versionCode 3
+        versionName "1.0.2"
         signingConfig signingConfigs.config
+        manifestPlaceholders = [UMENG_CHANNEL_VALUE: "umeng"]
     }
     buildTypes {
-        //混淆
         release {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.config
-            shrinkResources true
             debuggable false
+            shrinkResources true
             minifyEnabled true
+            zipAlignEnabled true
+            applicationVariants.all { variant ->
+                variant.outputs.each { output ->
+                    def outputFile = output.outputFile
+                    if (outputFile != null && outputFile.name.endsWith('.apk')) {
+                        // 输出apk名称为vvpinche_2.2.3_wandoujia.apk
+                        def fileName = "ebang_${defaultConfig.versionName}_${variant.productFlavors[0].name}.apk"
+                        // 输出apk名称为vvpinche.wandoujia.apk
+                        //def fileName = "vvpinche_${defaultConfig.versionName}_${variant.productFlavors[0].name}.apk"
+                        output.outputFile = new File(outputFile.parent, fileName)
+                    }
+                }
+            }
         }
         debug {
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            debuggable true
+            minifyEnabled false
             signingConfig signingConfigs.config
         }
-    }
-    productFlavors {
     }
 
     sourceSets {
         main {
-//            jniLibs.srcDir 'libs'           //处理.so库
-            jniLibs.srcDirs = ['libs']
-
+//            jniLibs.srcDirs = ['libs']
+            jniLibs.srcDir 'libs'           //处理.so库
         }
 
     }
 
+    productFlavors {
+        guanwang { manifestPlaceholders = [UMENG_CHANNEL_VALUE: "guanwang"] }
+//        umeng { manifestPlaceholders = [UMENG_CHANNEL_VALUE: "umeng"] }
+//        ground_push { manifestPlaceholders = [UMENG_CHANNEL_VALUE: "ground_push"] }
 
-}
+    }
 
-dependencies {
-    compile fileTree(include: ['*.jar'], dir: 'libs')
-    //    testCompile 'junit:junit:4.12'
-    compile 'com.android.support:design:23.0.1'
-    //    compile group: 'org.apache.httpcomponents' , name: 'httpclient-android' , version: '4.3.5.1'
-    compile 'com.jakewharton:butterknife:7.0.1'
-    compile 'com.umeng.analytics:analytics:latest.integration'
-    compile project(':social_sdk_library_project')
-    compile 'com.android.support:appcompat-v7:23.0.1'
-    compile 'com.android.support:support-v13:23.0.1'
-    compile 'com.squareup.picasso:picasso:2.5.2'
-    compile files('libs/baidumapapi_v3_5_0.jar')
+    productFlavors.all { flavor ->
+        flavor.manifestPlaceholders = [UMENG_CHANNEL_VALUE: name]
+    }
+
 }

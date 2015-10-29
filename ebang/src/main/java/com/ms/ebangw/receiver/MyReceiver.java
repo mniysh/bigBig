@@ -96,10 +96,7 @@ public class MyReceiver extends BroadcastReceiver {
 				JSONObject extraJson = new JSONObject(extras);
 				if (extraJson.has("event_code")) {
 					String  event_code = extraJson.optString("event_code", "-1");
-					if (TextUtils.equals("1", event_code)) {
-						EventBus.getDefault().post(new RefreshUserEvent("1"));
-						L.d("post");
-					}
+					processEventCode(event_code);
 				}
 
 			} catch (JSONException e) {
@@ -125,5 +122,20 @@ public class MyReceiver extends BroadcastReceiver {
 //			}
 //			context.sendBroadcast(msgIntent);
 //		}
+	}
+
+	public void processEventCode(String eventCode) {
+		if (TextUtils.isEmpty(eventCode)) {
+			return;
+		}
+
+		switch (eventCode) {
+			case "1":		//在HomeActivity中刷新用户数据
+				EventBus.getDefault().post(new RefreshUserEvent("1"));
+				break;
+			case "2":		//工长下面的工人推荐数超出
+
+				break;
+		}
 	}
 }
