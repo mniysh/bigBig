@@ -10,13 +10,22 @@ import java.util.List;
  * 2015-10-29 15:10
  */
 public class Worker implements Comparable<Worker>{
+    private String id;
     private String head_image;
     private String real_name;
 
     /**
      * 工种
      */
-    private List<WorkType> workTypes ;
+    private List<WorkType> craft ;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public String getHead_image() {
         return head_image;
@@ -34,12 +43,12 @@ public class Worker implements Comparable<Worker>{
         this.real_name = real_name;
     }
 
-    public List<WorkType> getWorkTypes() {
-        return workTypes;
+    public List<WorkType> getCraft() {
+        return craft;
     }
 
-    public void setWorkTypes(List<WorkType> workTypes) {
-        this.workTypes = workTypes;
+    public void setCraft(List<WorkType> craft) {
+        this.craft = craft;
     }
 
     public String getPinyin() {

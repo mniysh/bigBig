@@ -333,6 +333,17 @@ public class DataParseUtil {
         return  workerList;
     }
 
+    /**
+     * 2-16.工长解除和工人的推荐关系
+     * @param jsonObject
+     * @return
+     * @throws ResponseException
+     */
+    public static String removeRelation(JSONObject jsonObject) throws ResponseException {
+        JSONObject data = processData(jsonObject);
+        String recommend = data.optString("recommend", null);
+        return recommend;
+    }
 
     /**
      * 通用解析方法， 判断请求是否成功

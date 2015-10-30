@@ -21,9 +21,11 @@ import java.util.List;
  */
 public class RecommendedWorkersAdapter extends BaseAdapter {
     private List<Worker> list;
+    private OnRemoveRelationListener onRemoveRelationListener;
 
-    public RecommendedWorkersAdapter(List<Worker> list) {
+    public RecommendedWorkersAdapter(List<Worker> list, OnRemoveRelationListener onRemoveRelationListener) {
         this.list = list;
+        this.onRemoveRelationListener = onRemoveRelationListener;
     }
 
     @Override
@@ -58,7 +60,7 @@ public class RecommendedWorkersAdapter extends BaseAdapter {
         }
 
         String firstChar = null;
-        Worker worker = (Worker) getItem(position);
+        final Worker worker = (Worker) getItem(position);
         if (position == 0) {
             firstChar = worker.getPinyin().substring(0, 1);
         } else {
@@ -75,11 +77,18 @@ public class RecommendedWorkersAdapter extends BaseAdapter {
             holder.tv_py.setText(firstChar);
         }
         holder.tv_name.setText(worker.getReal_name());
-        holder.tv_craft_desc.setText(getWorkTypesDescriptions(worker.getWorkTypes()));
+        holder.tv_craft_desc.setText(getWorkTypesDescriptions(worker.getCraft()));
         Picasso.with(parent.getContext()).load(DataAccessUtil.getImageUrl(worker.getHead_image())
         ).placeholder(R.drawable.worker_avatar).into(holder.iv_avatar);
+        holder.tv_remove_relation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (null != onRemoveRelationListener) {
+                    onRemoveRelationListener.onRemove(worker);
+                }
+            }
+        });
         convertView.setTag(Constants.KEY_WORKER, worker);
-
         return convertView;
     }
 
@@ -108,6 +117,19 @@ public class RecommendedWorkersAdapter extends BaseAdapter {
     static class ViewHolder {
         TextView tv_py, tv_name, tv_craft_desc, tv_remove_relation;
         ImageView iv_avatar;
+    }
 
+    public interface OnRemoveRelationListener{
+        void onRemove(Worker worker);
+    }
+
+
+
+    public List<Worker> getList() {
+        return list;
+    }
+
+    public void setList(List<Worker> list) {
+        this.list = list;
     }
 }

@@ -164,6 +164,11 @@ public class RequestUrl {
      */
     public static final String recommended_workers = domain + "/api/headman/project/recommended";
 
+    /**
+     * 2-16.工长解除和工人的推荐关系
+     */
+    public static final String remove_relation = domain + "/api/headman/project/relieve/";
+
 
 
 }

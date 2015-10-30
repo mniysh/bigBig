@@ -627,6 +627,16 @@ public class DataAccessUtil {
         return doGet(RequestUrl.recommended_workers, null, asyncHttpResponseHandler);
     }
 
+    /**
+     * 2-16.工长解除和工人的推荐关系
+     * @param asyncHttpResponseHandler
+     * @return
+     */
+    public static RequestHandle removeRelation(String workerId, AsyncHttpResponseHandler
+                                                       asyncHttpResponseHandler){
+        return doGet(RequestUrl.remove_relation + workerId, null, asyncHttpResponseHandler);
+    }
+
 
     public static RequestHandle doPost(String url, RequestParams params, AsyncHttpResponseHandler asyncHttpResponseHandler) {
 

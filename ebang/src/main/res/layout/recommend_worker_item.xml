@@ -2,29 +2,34 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
+              android:divider="@drawable/divider_line_gray"
               android:gravity="center_vertical"
               android:orientation="vertical"
-
+              android:showDividers="middle"
     >
 
-    <TextView
-        android:id="@+id/tv_py"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="#888888"
-        android:gravity="center_vertical"
-        android:paddingLeft="20dp"
-        android:text="A"
-        android:textColor="@android:color/black"
-        android:visibility="gone"/>
+
+        <TextView
+            android:id="@+id/tv_py"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#f7f7f7"
+            android:gravity="center_vertical"
+            android:paddingLeft="20dp"
+            android:text="A"
+            android:textColor="@android:color/black"
+            android:visibility="gone"/>
+
+
+
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
         android:gravity="center_vertical"
-        android:paddingLeft="20dp"
+        android:orientation="horizontal"
         android:paddingBottom="10dp"
+        android:paddingLeft="20dp"
         android:paddingTop="10dp"
 
         >
@@ -40,9 +45,9 @@
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
             android:layout_weight="1"
             android:orientation="vertical"
-            android:layout_marginLeft="10dp"
             >
 
 
@@ -61,7 +66,8 @@
                 android:id="@+id/tv_craft_desc"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="5dp"
+                android:paddingBottom="5dp"
+                android:paddingTop="5dp"
                 android:text="室内设计师"
                 android:textColor="@android:color/darker_gray"
                 android:textSize="12sp"
@@ -73,8 +79,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            android:padding="5dp"
             android:background="@drawable/common_btn_selector"
+            android:padding="5dp"
             android:text="解除关系"
             android:textColor="@android:color/white"
             android:textSize="12sp"

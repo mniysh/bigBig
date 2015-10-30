@@ -109,7 +109,12 @@ public class RecommendedWorksActivity extends BaseActivity {
 
     private void initWorksList(final List<Worker> workerList) {
         Collections.sort(workerList);
-        RecommendedWorkersAdapter adapter = new RecommendedWorkersAdapter(workerList);
+        RecommendedWorkersAdapter adapter = new RecommendedWorkersAdapter(workerList, new RecommendedWorkersAdapter.OnRemoveRelationListener() {
+            @Override
+            public void onRemove(Worker worker) {
+                removeRelation(worker.getId());
+            }
+        });
         listView.setAdapter(adapter);
         slideBar.setOnSlideTouchListener(new QuickindexBar.OnSlideTouchListener() {
 
@@ -129,5 +134,37 @@ public class RecommendedWorksActivity extends BaseActivity {
         });
     }
 
+    /**
+     * 解除关系
+     */
+    private void removeRelation(String workerId) {
+
+        DataAccessUtil.removeRelation(workerId, new JsonHttpResponseHandler(){
+            @Override
+            public void onStart() {
+                showProgressDialog();
+            }
+
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                dismissLoadingDialog();
+                try {
+                    String recommend = DataParseUtil.removeRelation(response);  // 0:推荐工长的工人小于约定人数   1:推荐工长的工人大于等于约定人
+
+                } catch (ResponseException e) {
+                    e.printStackTrace();
+                    T.show(e.getMessage());
+                }
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                super.onFailure(statusCode, headers, responseString, throwable);
+                dismissLoadingDialog();
+            }
+        });
+
+
+    }
 
 }
