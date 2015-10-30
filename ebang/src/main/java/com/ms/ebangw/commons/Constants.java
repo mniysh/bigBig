@@ -151,4 +151,5 @@ public class Constants {
 	public final static String CRAFT_DEVORATOR = "craft_devorator";
 	public final static String CRAFT_PROJECTMANAGE = "craft_projectmanage";
 	public final static String CRAFT_OTHER = "craft_other";
+	public static final int KEY_WORKER = R.drawable.back;
 }

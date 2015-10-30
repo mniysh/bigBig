@@ -59,8 +59,8 @@ public class QuickindexBar extends View {
 			// 获取到Y轴的坐标
 			int y = (int) (cellHeigth / 2 + textHeigth / 2 + j * cellHeigth);
 
-			paint.setColor(touchIndex == j ? Color.GRAY : Color.WHITE);
-
+			paint.setColor(touchIndex == j ? Color.GRAY : Color.BLACK);
+			paint.setTextSize(14);
 			canvas.drawText(strs[j], x, y, paint);
 		}
 		super.onDraw(canvas);

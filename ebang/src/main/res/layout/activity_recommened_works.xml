@@ -21,15 +21,31 @@
         <ListView
             android:id="@+id/listView"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent"
+            android:layout_marginRight="20dp"
+            android:scrollbars="none"
+            />
 
         <com.ms.ebangw.view.QuickindexBar
             android:id="@+id/slideBar"
-            android:layout_width="30dp"
+            android:layout_width="20dp"
             android:layout_height="match_parent"
             android:layout_alignParentRight="true"
             android:layout_alignParentTop="true"
             android:background="@android:color/white"/>
+
+        <TextView
+            android:visibility="gone"
+            android:id="@+id/tv_zimu"
+            android:layout_width="100dp"
+            android:layout_height="60dp"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:background="@drawable/ts"
+            android:gravity="center"
+            android:text="A"
+            android:textColor="@android:color/white"
+            android:textSize="30dp" />
 
     </RelativeLayout>
 </LinearLayout>
