@@ -156,4 +156,8 @@ public class Constants {
 	 * 发布的key
 	 */
 	public final static String KEY_RELEASE_INFO = "release_info";
+
+
+	public static final int KEY_POIINFO = R.drawable.back_star;
+	public static final String  KEY_POIINFO_STR = "poiInfo";
 }

@@ -27,7 +27,7 @@ public class CraftAdapter extends BaseAdapter {
 
     public CraftAdapter(WorkType firstWorkType) {
         this.firstWorkType = firstWorkType;
-        //L.d("xxx",firstWorkType.toString());
+        //L.locationpois_item("xxx",firstWorkType.toString());
         if (getType() == 1) {
             list = new ArrayList<>();
             list.add(firstWorkType);

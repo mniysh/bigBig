@@ -500,7 +500,7 @@ public class FileUtil {
    */
    public static final boolean pathValidate(String path)
    {
-     //String path="d:/web/www/sub";
+     //String path="locationpois_item:/web/www/sub";
      //System.out.println(path);
      //path = getUNIXfilePath(path);
 
