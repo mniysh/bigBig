@@ -152,4 +152,8 @@ public class Constants {
 	public final static String CRAFT_PROJECTMANAGE = "craft_projectmanage";
 	public final static String CRAFT_OTHER = "craft_other";
 	public static final int KEY_WORKER = R.drawable.back;
+
+
+	public static final int KEY_POIINFO = R.drawable.back_star;
+	public static final String  KEY_POIINFO_STR = "poiInfo";
 }

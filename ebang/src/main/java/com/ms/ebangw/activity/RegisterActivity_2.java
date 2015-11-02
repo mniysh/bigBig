@@ -89,7 +89,7 @@ public class RegisterActivity_2 extends BaseActivity{
 				public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
 					try {
 						User user = DataParseUtil.register(response);
-//						L.d("xxx", "user的内容注册部分的" + user.toString());
+//						L.locationpois_item("xxx", "user的内容注册部分的" + user.toString());
 						if (null != user) {
 							MyApplication.getInstance().saveUser(user);
 							Intent intent = new Intent(RegisterActivity_2.this, HomeActivity.class);

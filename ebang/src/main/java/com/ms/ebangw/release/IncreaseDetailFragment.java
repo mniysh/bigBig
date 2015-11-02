@@ -9,7 +9,6 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
-import android.provider.ContactsContract;
 import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -22,11 +21,14 @@ import android.widget.ImageView;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
+import com.baidu.mapapi.model.LatLng;
+import com.baidu.mapapi.search.core.PoiInfo;
 import com.google.gson.Gson;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.ms.ebangw.MyApplication;
 import com.ms.ebangw.R;
 import com.ms.ebangw.activity.HomeActivity;
+import com.ms.ebangw.activity.SelectMapLocActivity;
 import com.ms.ebangw.bean.Province;
 import com.ms.ebangw.bean.UploadImageResult;
 import com.ms.ebangw.bean.User;
@@ -66,6 +68,8 @@ public class IncreaseDetailFragment extends BaseFragment {
     private static final int REQUEST_CAMERA = 2;
     private static final int REQUEST_PICK = 4;
     private static final int REAQUEST_CROP = 8;
+    private static final int MAP_LOCATION = 11;
+
     private String whickPhoto ;
     private int a;
 
@@ -147,10 +151,12 @@ public class IncreaseDetailFragment extends BaseFragment {
     //地图获取信息
     @OnClick(R.id.et_address)
     public void getMap(){
-        HomeActivity homeActivity = (HomeActivity)mActivity;
-        homeActivity.goMapAdd();
 
+        Intent intent = new Intent(mActivity, SelectMapLocActivity.class);
+        startActivityForResult(intent, MAP_LOCATION);
     }
+
+
     @OnClick(R.id.tv_start_time)
     public void projectStartTime(){
         DatePickerFragment datePickerFragment = new DatePickerFragment();
@@ -354,28 +360,16 @@ public class IncreaseDetailFragment extends BaseFragment {
         }else if(requestCode == Constants.REQUEST_CROP){
             //剪切后的处理
             settingImage(data);
-
-
+        }else if(requestCode == MAP_LOCATION ) {//地图选点结果
+            if (null != data) {
+                Bundle extras = data.getExtras();
+                PoiInfo poiInfo = extras.getParcelable(Constants.KEY_POIINFO_STR);
+                LatLng location = poiInfo.location;
+                double latitude = location.latitude;
+                double longitude = location.longitude;
+                L.d("latitude: " + latitude + " , longitude: " + longitude);
+            }
         }
-//        L.d("onActivityResult");
-//
-//        if (requestCode == Constants.REQUEST_CAMERA && resultCode == mActivity.RESULT_OK) { //拍照返回
-//            Uri uri;
-//            if (null == data) {
-//                uri = Uri.fromFile(imageFile);
-//            }else {
-//                uri = data.getData();
-//            }
-//
-//
-//            beginCrop(uri);
-//
-//        }else if (requestCode == Crop.REQUEST_PICK&& resultCode == mActivity.RESULT_OK) {
-//            beginCrop(data.getData());
-//
-//        }else if (requestCode == Crop.REQUEST_CROP) {
-//            handleCrop(resultCode, data);			//在Fragment中处理剪切后的图片
-//        }
     }
 
     public void handleCrop(int resultCode, Intent result) {

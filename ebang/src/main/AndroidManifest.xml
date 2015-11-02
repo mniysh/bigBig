@@ -330,6 +330,8 @@
             android:label="@string/title_activity_recommened_works"
             android:theme="@style/AppTheme">
         </activity>
+        <activity android:name=".activity.SelectMapLocActivity">
+        </activity>
     </application>
 
 </manifest>

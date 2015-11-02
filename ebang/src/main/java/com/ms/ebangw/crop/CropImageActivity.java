@@ -158,8 +158,8 @@ public class CropImageActivity extends BaseActivity {
                     String name = imageResult.getName();
 
 //                    User user = getUser();
-//                    L.d(user.toString());
-//                    L.d(imageResult.toString());
+//                    L.locationpois_item(user.toString());
+//                    L.locationpois_item(imageResult.toString());
                     Intent intent = new Intent();
                     intent.putExtra(Constants.KEY_UPLOAD_IMAGE_RESULT, imageResult);
                     setResult(RESULT_OK, intent);
@@ -197,7 +197,7 @@ public class CropImageActivity extends BaseActivity {
                 super.onSuccess(statusCode, headers, response);
                 try {
                     UploadImageResult imageResult = DataParseUtil.upLoadImage(response);
-//                    L.d(imageResult.toString());
+//                    L.locationpois_item(imageResult.toString());
                     Intent intent = new Intent();
                     intent.putExtra(Constants.KEY_UPLOAD_IMAGE_RESULT, imageResult);
                     setResult(RESULT_OK, intent);

@@ -33,7 +33,6 @@ import com.ms.ebangw.fragment.ServiceFragment;
 import com.ms.ebangw.fragment.WorkerCenterFragment;
 import com.ms.ebangw.fragment.WorkerHomeFragment;
 import com.ms.ebangw.release.IncreaseDetailFragment;
-import com.ms.ebangw.release.MapGetAddFragment;
 import com.ms.ebangw.release.ReleaseFragment;
 import com.ms.ebangw.release.ReleaseFrament01;
 import com.ms.ebangw.release.ReleaseWorkTypeFragment;
@@ -167,7 +166,7 @@ public class HomeActivity extends BaseActivity {
 //                        fm.beginTransaction().replace(R.id.fl_content, eMallFragment).commit();
                         break;
                     case R.id.rb_service:
-                       // L.d("xxx","被点击");
+                       // L.locationpois_item("xxx","被点击");
 						fm.beginTransaction().replace(R.id.fl_content, serviceFragment).commit();
 //                        fm.beginTransaction().replace(R.id.fl_content, eMallFragment).commit();
                         break;
@@ -297,17 +296,17 @@ public class HomeActivity extends BaseActivity {
         transaction.addToBackStack(null);
         transaction.commit();
     }
-    /**
-     * 去地图选点页面
-     */
-    public void goMapAdd() {
-
-        MapGetAddFragment mf= MapGetAddFragment.newInstance("", "");
-        FragmentTransaction transaction = fm.beginTransaction();
-        transaction.replace(R.id.fl_content, mf);
-        transaction.addToBackStack(null);
-        transaction.commit();
-    }
+//    /**
+//     * 去地图选点页面
+//     */
+//    public void goMapAdd() {
+//
+//        MapGetAddFragment mf= MapGetAddFragment.newInstance("", "");
+//        FragmentTransaction transaction = fm.beginTransaction();
+//        transaction.replace(R.id.fl_content, mf);
+//        transaction.addToBackStack(null);
+//        transaction.commit();
+//    }
 
     public void onEvent(BottomTitleClickEvent event) {
         switch (event.getIndex()) {

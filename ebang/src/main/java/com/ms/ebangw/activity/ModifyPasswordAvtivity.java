@@ -101,7 +101,7 @@ public class ModifyPasswordAvtivity extends BaseActivity {
     public boolean isRightPass(String oldP,String newP,String confrimP){
         if(VerifyUtils.isPasswordRight(oldP)&&VerifyUtils.isPasswordRight(newP)&&VerifyUtils.isPasswordRight(confrimP)){
             if(getUser()!=null){
-                //L.d("xxx","getuserdezhi"+getUser().toString());
+                //L.locationpois_item("xxx","getuserdezhi"+getUser().toString());
                 if(TextUtils.equals(newP,confrimP)){
                     return true;
                 }else{
