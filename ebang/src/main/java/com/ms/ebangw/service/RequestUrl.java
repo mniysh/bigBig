@@ -160,6 +160,11 @@ public class RequestUrl {
     public static final String worker_recommend_headman = domain + "/api/worker/project/scanning/";
 
     /**
+     * 2-11.首页工程列表  get
+     */
+    public static final String home_project_info = domain + "/api/index/index/index";
+
+    /**
      *2-15.工长查看推荐过他的工人列表    get
      */
     public static final String recommended_workers = domain + "/api/headman/project/recommended";
@@ -168,6 +173,11 @@ public class RequestUrl {
      * 2-16.工长解除和工人的推荐关系
      */
     public static final String remove_relation = domain + "/api/headman/project/relieve/";
+
+    /**
+     *2-17.发现   get
+     */
+    public static final String founds = domain + "/api/index/index/founds";
 
 
 

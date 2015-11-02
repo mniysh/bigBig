@@ -13,7 +13,6 @@ import android.widget.RadioGroup;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.ms.ebangw.MyApplication;
 import com.ms.ebangw.R;
-import com.ms.ebangw.bean.Bank;
 import com.ms.ebangw.bean.User;
 import com.ms.ebangw.bean.WorkType;
 import com.ms.ebangw.commons.Constants;
@@ -28,13 +27,9 @@ import com.ms.ebangw.fragment.FoundFragment;
 import com.ms.ebangw.fragment.HeadmanCenterFragment;
 import com.ms.ebangw.fragment.HomeFragment;
 import com.ms.ebangw.fragment.InvestorCenterFragment;
-import com.ms.ebangw.fragment.LotteryFragment;
 import com.ms.ebangw.fragment.ServiceFragment;
 import com.ms.ebangw.fragment.WorkerCenterFragment;
-import com.ms.ebangw.fragment.WorkerHomeFragment;
 import com.ms.ebangw.release.IncreaseDetailFragment;
-import com.ms.ebangw.release.ReleaseFragment;
-import com.ms.ebangw.release.ReleaseFrament01;
 import com.ms.ebangw.release.ReleaseWorkTypeFragment;
 import com.ms.ebangw.release.SelectCraftFragment;
 import com.ms.ebangw.service.DataAccessUtil;
@@ -67,16 +62,10 @@ public class HomeActivity extends BaseActivity {
     private long exitTime = 0;
     private List<WorkType> data;
     private FoundFragment foundFragment;
-    private ReleaseFragment releasefragment;
     private ServiceFragment serviceFragment;
-    private ReleaseFrament01 releaseFrament01;
     private ReleaseWorkTypeFragment releaseWorkTypeFragment;
 
-    private WorkerHomeFragment workerHomeFragment, eMallFragment;
 
-    private SelectCraftFragment selectCraftFragment;
-    private LotteryFragment lotteryFragment;
-    private List<Bank> banks;
     private List<WorkType> selectWorkType;
 
 
@@ -107,7 +96,6 @@ public class HomeActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        SDKInitializer.initialize(getApplicationContext());
         setContentView(R.layout.activity_home);
         ButterKnife.bind(this);
         EventBus.getDefault().register(this);
@@ -127,7 +115,7 @@ public class HomeActivity extends BaseActivity {
     }
 
     public void initView() {
-        selectWorkType = new ArrayList<WorkType>();
+        selectWorkType = new ArrayList<>();
 
     }
     public List<WorkType> getSelectWorkType(){
@@ -139,10 +127,6 @@ public class HomeActivity extends BaseActivity {
     public void initData() {
         loadUserInformation();
         fm = getFragmentManager();
-        lotteryFragment = LotteryFragment.newInstance("lotteryFragment", "lotteryFragment");
-        workerHomeFragment = WorkerHomeFragment.newInstance(R.drawable.worker_home, 2);
-        eMallFragment = WorkerHomeFragment.newInstance(R.drawable.e_mall, 1);
-        releaseFrament01 = new ReleaseFrament01();
         foundFragment = new FoundFragment();
         serviceFragment = new ServiceFragment();
 

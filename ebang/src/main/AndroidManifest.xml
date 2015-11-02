@@ -123,7 +123,7 @@
         <activity android:name=".activity.RegisterActivity_2"/>
         <activity android:name=".activity.CommentActivity"/>
         <activity android:name=".activity.RecommendActivity"/>
-        <activity android:name=".activity.IntroActivity"/>
+        <activity android:name=".activity.CompanyIntroduceActivity"/>
         <activity android:name=".activity.NoticeActivity"/>
         <activity android:name=".activity.ChatActivity"/>
         <activity android:name=".activity.ShowActivity"/>

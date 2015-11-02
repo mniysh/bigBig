@@ -10,8 +10,6 @@ import android.widget.TextView;
 
 import com.ms.ebangw.R;
 
-import butterknife.OnClick;
-
 /**
  * 亿帮推荐页面
  * @author admin
@@ -73,7 +71,7 @@ public class RecommendActivity extends BaseActivity implements OnClickListener {
 		// TODO Auto-generated method stub
 		switch (v.getId()) {
 			case R.id.act_recomment_Lin_intro:
-				startActivity(new Intent(this,IntroActivity.class));
+				startActivity(new Intent(this,CompanyIntroduceActivity.class));
 				break;
 
 			case R.id.act_recommend_lin_know:

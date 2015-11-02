@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 
 import com.ms.ebangw.R;
 
@@ -12,7 +11,7 @@ import com.ms.ebangw.R;
  * 企业简介页面
  */
 
-public class IntroActivity extends BaseActivity implements OnClickListener {
+public class CompanyIntroduceActivity extends BaseActivity implements OnClickListener {
 
 	private ImageView iv_share;
 
@@ -42,7 +41,7 @@ public class IntroActivity extends BaseActivity implements OnClickListener {
 		initTitle(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				IntroActivity.this.finish();
+				CompanyIntroduceActivity.this.finish();
 			}
 		},"返回","企业简介",null,null);
 	}
