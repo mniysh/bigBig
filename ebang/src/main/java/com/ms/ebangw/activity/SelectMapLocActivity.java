@@ -46,7 +46,7 @@ import butterknife.ButterKnife;
 public class SelectMapLocActivity extends BaseActivity implements BDLocationListener, OnGetGeoCoderResultListener, BaiduMap.OnMapStatusChangeListener, TextWatcher {
 
     @Bind(R.id.main_search_address)
-    EditText mainSearchAddress;
+    EditText searchAddress;
     @Bind(R.id.main_search_pois)
     ListView searchPois;
     private BaiduMap mBaiduMap;
@@ -215,6 +215,7 @@ public class SelectMapLocActivity extends BaseActivity implements BDLocationList
             return;
         }
 
+        mLocClient.stop();
         //定位数据
         MyLocationData data = new MyLocationData.Builder()
             //定位精度bdLocation.getRadius()
@@ -243,6 +244,9 @@ public class SelectMapLocActivity extends BaseActivity implements BDLocationList
         locationLatLng = new LatLng(bdLocation.getLatitude(), bdLocation.getLongitude());
         //获取城市，待会用于POISearch
         city = bdLocation.getCity();
+
+        //文本输入框改变监听，必须在定位完成之后
+        searchAddress.addTextChangedListener(this);
 
         //创建GeoCoder实例对象
         geoCoder = GeoCoder.newInstance();

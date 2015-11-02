@@ -7,8 +7,6 @@ import android.graphics.Bitmap;
 import com.baidu.location.BDLocation;
 import com.baidu.location.LocationClient;
 import com.baidu.location.LocationClientOption;
-//import com.baidu.mapapi.SDKInitializer;
-import com.baidu.mapapi.SDKInitializer;
 import com.ms.ebangw.bean.Craft;
 import com.ms.ebangw.bean.User;
 import com.ms.ebangw.db.UserDao;
@@ -22,6 +20,8 @@ import java.util.Set;
 
 import cn.jpush.android.api.JPushInterface;
 import cn.jpush.android.api.TagAliasCallback;
+
+//import com.baidu.mapapi.SDKInitializer;
 
 public class MyApplication extends Application {
 
@@ -105,10 +105,6 @@ public class MyApplication extends Application {
         mLocationClient.registerLocationListener(new MyLocationListener());    //注册监听函数
         mLocationClient.start();
 
-    }
-
-    public void startLocation() {
-        mLocationClient.start();
     }
 
     public void endLocation() {
