@@ -231,7 +231,7 @@ public class DataAccessUtil {
                                                  String link_phone, String province, String city,
                                                  String area_other, float point_longitude,
                                                  float point_dimension,
-                                                 String image_ary,String start_time,
+                                                 String image_ary,String start_time,String project_money,
                                                  String end_time, String staffs, AsyncHttpResponseHandler asyncHttpResponseHandler){
         RequestParams params = new RequestParams();
         params.put("title",title);
@@ -245,7 +245,7 @@ public class DataAccessUtil {
         params.put("point_dimension",point_dimension);
         params.put("start_time",start_time);
         params.put("end_time", end_time);
-
+        params.put("project_money",project_money);
         params.put("image_ary",image_ary);
         params.put("staffs",staffs);
         return doPost(RequestUrl.developer_release, params, asyncHttpResponseHandler);

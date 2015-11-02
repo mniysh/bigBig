@@ -13,6 +13,7 @@ import android.provider.ContactsContract;
 import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
+import android.view.TextureView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -28,6 +29,8 @@ import com.ms.ebangw.MyApplication;
 import com.ms.ebangw.R;
 import com.ms.ebangw.activity.HomeActivity;
 import com.ms.ebangw.bean.Province;
+import com.ms.ebangw.bean.ReleaseInfo;
+import com.ms.ebangw.bean.ReleaseProject;
 import com.ms.ebangw.bean.UploadImageResult;
 import com.ms.ebangw.bean.User;
 import com.ms.ebangw.commons.Constants;
@@ -102,6 +105,9 @@ public class IncreaseDetailFragment extends BaseFragment {
     //内容
     @Bind(R.id.et_introduce)
     EditText introduceEt;
+    //总金额
+    @Bind(R.id.et_totalMoney)
+    EditText totalMoneyEt;
 
     @Bind(R.id.btn_pick)
     Button pickBtn;
@@ -124,10 +130,11 @@ public class IncreaseDetailFragment extends BaseFragment {
 
 
 
-    private String province, city , area, detailAddress, title, link_name, link_phone, count, startTime, endTime;
+    private String province, city , area, detailAddress, title, link_name, link_phone, count, startTime, totalMoney, endTime;
     private String provinceId, cityId, areaId;
     private String mCurrentPhotoPuth;
     private MyApplication myApplication;
+    private ReleaseProject releaseProject;
 
 
 
@@ -238,6 +245,7 @@ public class IncreaseDetailFragment extends BaseFragment {
 //        areaId = provinceAndCityView.getAreaId();
         startTime = startTimeTv.getText().toString().trim();
         endTime = endTimeTv.getText().toString().trim();
+        totalMoney = totalMoneyEt.getText().toString().trim();
 
     }
     public String disposeImage(List<String> data){
@@ -271,6 +279,10 @@ public class IncreaseDetailFragment extends BaseFragment {
         }
         if(latitude == 0 && longitude == 0){
             T.show("请地图选点");
+            return false;
+        }
+        if(TextUtils.isEmpty(totalMoney)){
+            T.show("工程总额不能为空");
             return false;
         }
 
@@ -503,15 +515,37 @@ public class IncreaseDetailFragment extends BaseFragment {
         if(isRight()){
             DataAccessUtil.developerRelease(title,count,link_name,link_phone,
                      provinceId, cityId,detailAddress,
-                    longitude, latitude, image_ary,startTime, endTime, staff,
+                    longitude, latitude, image_ary,startTime, endTime,totalMoney, staff,
                     new JsonHttpResponseHandler(){
                         @Override
                         public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                             super.onSuccess(statusCode, headers, response);
                             try {
+                                releaseProject = new ReleaseProject();
                                 boolean b = DataParseUtil.processDataResult(response);
                                 if(b){
-                                    T.show("请求成功");
+                                    T.show("发布成功");
+                                    releaseProject = DataParseUtil.getProjectInfo(response);
+                                    ReleaseInfo releaseInfo = new ReleaseInfo();
+                                    releaseInfo.setTitle(title);
+                                    releaseInfo.setDescription(count);
+                                    releaseInfo.setLink_man(link_name);
+                                    releaseInfo.setLink_phone(link_phone);
+                                    releaseInfo.setProvince(provinceId);
+                                    releaseInfo.setCity(cityId);
+                                    releaseInfo.setArea_other(detailAddress);
+                                    releaseInfo.setPoint_longitude(longitude);
+                                    releaseInfo.setPoint_dimention(latitude);
+                                    releaseInfo.setImage_ary(image_ary);
+                                    releaseInfo.setStart_time(startTime);
+                                    releaseInfo.setEnd_time(endTime);
+                                    releaseInfo.setProject_money(totalMoney);
+                                    releaseInfo.setStaff(staff);
+                                    Bundle  bundle = new Bundle();
+                                    bundle.putParcelable(Constants.RELEASE_WORKTYPE_KEY,releaseInfo);
+                                    Intent intent = new Intent((HomeActivity)mActivity,PayingActivity.class );
+                                    intent.putExtras(bundle);
+                                    startActivity(intent);
                                 }
                             } catch (ResponseException e) {
                                 e.printStackTrace();

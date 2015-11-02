@@ -1,46 +1,82 @@
 package com.ms.ebangw.bean;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 /**
  * Created by admin on 2015/10/20.
  */
-public class ReleaseInfo {
+public class ReleaseInfo implements Parcelable{
     private String id;
-    private String no;
+    private String title;
+    private String description;
+    private String link_man;
+    private String link_phone;
     private String province;
     private String city;
-    private String area;
     private String area_other;
-    private String account_staffs;
-    private String total_money;
-    private String privinceId;
+    private float point_longitude;
+    private float point_dimention;
+    private String image_ary;
+    private String start_time;
+    private String end_time;
+    private String project_money;
+    private String staff;
 
-    public String getPrivinceId() {
-        return privinceId;
+    public ReleaseInfo() {
+        
     }
 
-    public void setPrivinceId(String privinceId) {
-        this.privinceId = privinceId;
+    protected ReleaseInfo(Parcel in) {
+        id = in.readString();
+        title = in.readString();
+        description = in.readString();
+        link_man = in.readString();
+        link_phone = in.readString();
+        province = in.readString();
+        city = in.readString();
+        area_other = in.readString();
+        point_longitude = in.readFloat();
+        point_dimention = in.readFloat();
+        image_ary = in.readString();
+        start_time = in.readString();
+        end_time = in.readString();
+        project_money = in.readString();
+        staff = in.readString();
     }
 
-    public String getCityId() {
-        return cityId;
+    public static final Creator<ReleaseInfo> CREATE = new Creator<ReleaseInfo>() {
+        @Override
+        public ReleaseInfo createFromParcel(Parcel in) {
+            return new ReleaseInfo(in);
+        }
+
+        @Override
+        public ReleaseInfo[] newArray(int size) {
+            return new ReleaseInfo[size];
+        }
+    };
+
+    @Override
+    public String toString() {
+        return "ReleaseInfo{" +
+                "id='" + id + '\'' +
+                ", title='" + title + '\'' +
+                ", description='" + description + '\'' +
+                ", link_man='" + link_man + '\'' +
+                ", link_phone='" + link_phone + '\'' +
+                ", province='" + province + '\'' +
+                ", city='" + city + '\'' +
+                ", area_other='" + area_other + '\'' +
+                ", point_longitude=" + point_longitude +
+                ", point_dimention=" + point_dimention +
+                ", image_ary='" + image_ary + '\'' +
+                ", start_time='" + start_time + '\'' +
+                ", end_time='" + end_time + '\'' +
+                ", project_money='" + project_money + '\'' +
+                ", staff=" + staff +
+                '}';
     }
-
-    public void setCityId(String cityId) {
-        this.cityId = cityId;
-    }
-
-    public String getAreaId() {
-        return areaId;
-    }
-
-    public void setAreaId(String areaId) {
-        this.areaId = areaId;
-    }
-
-    private String cityId;
-    private String areaId;
-
 
     public String getId() {
         return id;
@@ -50,12 +86,36 @@ public class ReleaseInfo {
         this.id = id;
     }
 
-    public String getNo() {
-        return no;
+    public String getTitle() {
+        return title;
     }
 
-    public void setNo(String no) {
-        this.no = no;
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getLink_man() {
+        return link_man;
+    }
+
+    public void setLink_man(String link_man) {
+        this.link_man = link_man;
+    }
+
+    public String getLink_phone() {
+        return link_phone;
+    }
+
+    public void setLink_phone(String link_phone) {
+        this.link_phone = link_phone;
     }
 
     public String getProvince() {
@@ -74,14 +134,6 @@ public class ReleaseInfo {
         this.city = city;
     }
 
-    public String getArea() {
-        return area;
-    }
-
-    public void setArea(String area) {
-        this.area = area;
-    }
-
     public String getArea_other() {
         return area_other;
     }
@@ -90,33 +142,99 @@ public class ReleaseInfo {
         this.area_other = area_other;
     }
 
-    public String getAccount_staffs() {
-        return account_staffs;
+    public float getPoint_longitude() {
+        return point_longitude;
     }
 
-    public void setAccount_staffs(String account_staffs) {
-        this.account_staffs = account_staffs;
+    public void setPoint_longitude(float point_longitude) {
+        this.point_longitude = point_longitude;
     }
 
-    public String getTotal_money() {
-        return total_money;
+    public float getPoint_dimention() {
+        return point_dimention;
     }
 
-    public void setTotal_money(String total_money) {
-        this.total_money = total_money;
+    public void setPoint_dimention(float point_dimention) {
+        this.point_dimention = point_dimention;
+    }
+
+    public String getImage_ary() {
+        return image_ary;
+    }
+
+    public void setImage_ary(String image_ary) {
+        this.image_ary = image_ary;
+    }
+
+    public String getStart_time() {
+        return start_time;
+    }
+
+    public void setStart_time(String start_time) {
+        this.start_time = start_time;
+    }
+
+    public String getEnd_time() {
+        return end_time;
+    }
+
+    public void setEnd_time(String end_time) {
+        this.end_time = end_time;
+    }
+
+    public String getProject_money() {
+        return project_money;
+    }
+
+    public void setProject_money(String project_money) {
+        this.project_money = project_money;
+    }
+
+    public String getStaff() {
+        return staff;
+    }
+
+    public void setStaff(String staff) {
+        this.staff = staff;
     }
 
     @Override
-    public String toString() {
-        return "ReleaseInfo{" +
-                "id='" + id + '\'' +
-                ", no='" + no + '\'' +
-                ", province='" + province + '\'' +
-                ", city='" + city + '\'' +
-                ", area='" + area + '\'' +
-                ", area_other='" + area_other + '\'' +
-                ", account_staffs='" + account_staffs + '\'' +
-                ", total_money='" + total_money + '\'' +
-                '}';
+    public int describeContents() {
+        return 0;
     }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+
+        dest.writeString(this.id);
+        dest.writeString(this.title);
+        dest.writeString(this.description);
+        dest.writeString(this.link_man);
+        dest.writeString(this.link_phone);
+        dest.writeString(this.province);
+        dest.writeString(this.city);
+        dest.writeFloat(this.point_dimention);
+        dest.writeFloat(this.point_longitude);
+        dest.writeString(this.image_ary);
+        dest.writeString(this.start_time);
+        dest.writeString(this.end_time);
+        dest.writeString(this.project_money);
+        dest.writeString(this.staff);
+        dest.writeString(this.area_other);
+
+
+    }
+    public static Parcelable.Creator<ReleaseInfo> CREATOR = new Parcelable.Creator<ReleaseInfo>(){
+        @Override
+        public ReleaseInfo createFromParcel(Parcel source) {
+            return new ReleaseInfo(source);
+        }
+
+        @Override
+        public ReleaseInfo[] newArray(int size) {
+            return new ReleaseInfo[size];
+        }
+    };
+
+
 }

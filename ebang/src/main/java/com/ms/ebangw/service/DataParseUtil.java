@@ -10,6 +10,7 @@ import com.ms.ebangw.bean.Bank;
 import com.ms.ebangw.bean.City;
 import com.ms.ebangw.bean.Craft;
 import com.ms.ebangw.bean.Province;
+import com.ms.ebangw.bean.ReleaseProject;
 import com.ms.ebangw.bean.TotalRegion;
 import com.ms.ebangw.bean.UploadImageResult;
 import com.ms.ebangw.bean.User;
@@ -344,6 +345,41 @@ public class DataParseUtil {
         String recommend = data.optString("recommend", null);
         return recommend;
     }
+
+    /**
+     * 发布工程的接口解析
+     * @param jsonObject
+     * @return
+     * @throws ResponseException
+     */
+    public static ReleaseProject getProjectInfo(JSONObject jsonObject)throws ResponseException{
+        ReleaseProject releaseProject = new ReleaseProject();
+        JSONObject data = processData(jsonObject);
+        try {
+            //T.show("能进来");
+            String id = data.getString("id");
+            String no = data.getString("no");
+            String province = data.getString("province");
+            String city = data.getString("city");
+            String area_other = data.getString("area_other");
+            String account_staffs = data.getString("account_staffs");
+            String total_money = data.getString("total_money");
+            String project_money = data.getString("project_money");
+            releaseProject.setProject_money(project_money);
+            releaseProject.setId(id);
+            releaseProject.setNo(no);
+            releaseProject.setProvince(province);
+            releaseProject.setCity(city);
+            releaseProject.setAccount_staff(account_staffs);
+            releaseProject.setArea_other(area_other);
+            releaseProject.setTotal_money(total_money);
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return releaseProject;
+    }
+
 
     /**
      * 通用解析方法， 判断请求是否成功

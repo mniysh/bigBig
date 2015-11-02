@@ -1,6 +1,7 @@
 package com.ms.ebangw.view;
 
 import android.content.Context;
+import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -33,8 +34,10 @@ public class ProvinceAndCityView extends FrameLayout {
     private List<City> citys;
 
 
-    private Province currentProvince;
+    private Province currentProvince ;
     private City currentCity;
+    private String province = "北京";
+    private String city = "北京";
 //
 //    private Spinner areaSp;
 //    private List<Area> areas;
@@ -72,6 +75,7 @@ public class ProvinceAndCityView extends FrameLayout {
             return;
         }
 
+
         adapter01 = new ArrayAdapter<>(mContext,
             R.layout.layout_spinner_item, provinces);
 
@@ -94,6 +98,7 @@ public class ProvinceAndCityView extends FrameLayout {
             public void onItemSelected(AdapterView<?> parent, View view,
                                        int position, long id) {
                 currentProvince = provinces.get(position);
+                province = currentProvince.getName();
 
                 citys = provinces.get(position).getCitys();
 
@@ -121,6 +126,7 @@ public class ProvinceAndCityView extends FrameLayout {
 //
 //                citySp.setAdapter(adapter02);
                 currentCity = citys.get(position);
+                city = currentCity.getName();
 //                areas = currentCity.getAreas();
 //
 //                if(areas == null){
@@ -167,6 +173,9 @@ public class ProvinceAndCityView extends FrameLayout {
     }
 
     public String getCityId() {
+        if(TextUtils.equals(city,"北京")){
+            return provinces.get(0).getCitys().get(0).getId();
+        }
         if (null != currentCity) {
             return currentCity.getId();
         }
@@ -174,6 +183,10 @@ public class ProvinceAndCityView extends FrameLayout {
     }
 
     public String getProvinceId() {
+        if(TextUtils.equals(province,"北京")){
+            return provinces.get(0).getId();
+        }
+
         if (null != currentProvince) {
             return currentProvince.getId();
         }

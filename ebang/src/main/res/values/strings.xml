@@ -162,4 +162,5 @@
     <string name="reset_alert">密码需由6-16个字母、数字和符号组成，区分大小写，不能使用重复、连续的字母、数字或符号。</string>
     <string name="title_activity_service_contract">ServiceContractActivity</string>
     <string name="title_activity_recommened_works">RecommenedWorksActivity</string>
+    <string name="title_activity_paying">PayingActivity</string>
 </resources>
