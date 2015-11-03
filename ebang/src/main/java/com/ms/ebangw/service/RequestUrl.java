@@ -165,6 +165,12 @@ public class RequestUrl {
     public static final String home_project_info = domain + "/api/index/index/index";
 
     /**
+     * 2-12.首页工程详细  get
+     * /api/index/index/project-info/+工程ID
+     */
+    public static final String project_info_detail = domain + "/api/index/index/project-info/";
+
+    /**
      *2-15.工长查看推荐过他的工人列表    get
      */
     public static final String recommended_workers = domain + "/api/headman/project/recommended";
