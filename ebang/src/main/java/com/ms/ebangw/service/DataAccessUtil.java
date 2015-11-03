@@ -4,6 +4,7 @@ import android.text.TextUtils;
 
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestHandle;
 import com.loopj.android.http.RequestParams;
 import com.ms.ebangw.MyApplication;
@@ -231,8 +232,8 @@ public class DataAccessUtil {
                                                  String link_phone, String province, String city,
                                                  String area_other, float point_longitude,
                                                  float point_dimension,
-                                                 String image_ary,String start_time,String project_money,
-                                                 String end_time, String staffs, AsyncHttpResponseHandler asyncHttpResponseHandler){
+                                                 String image_ary,String start_time,
+                                                 String end_time, String project_money,String staffs, AsyncHttpResponseHandler asyncHttpResponseHandler){
         RequestParams params = new RequestParams();
         params.put("title",title);
         params.put("description",description);
@@ -248,6 +249,7 @@ public class DataAccessUtil {
         params.put("project_money",project_money);
         params.put("image_ary",image_ary);
         params.put("staffs",staffs);
+        T.show("能进来1");
         return doPost(RequestUrl.developer_release, params, asyncHttpResponseHandler);
 
     }

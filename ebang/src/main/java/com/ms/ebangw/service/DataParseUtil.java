@@ -356,7 +356,7 @@ public class DataParseUtil {
         ReleaseProject releaseProject = new ReleaseProject();
         JSONObject data = processData(jsonObject);
         try {
-            T.show("能进来");
+//            T.show("能进来");
             String id = data.getString("id");
             String no = data.getString("no");
             String province = data.getString("province");
@@ -365,6 +365,7 @@ public class DataParseUtil {
             String account_staffs = data.getString("account_staffs");
             String total_money = data.getString("total_money");
             String project_money = data.getString("project_money");
+            String image = data.getString("image");
             releaseProject.setProject_money(project_money);
             releaseProject.setId(id);
             releaseProject.setNo(no);
@@ -373,6 +374,8 @@ public class DataParseUtil {
             releaseProject.setAccount_staff(account_staffs);
             releaseProject.setArea_other(area_other);
             releaseProject.setTotal_money(total_money);
+            releaseProject.setProject_money(project_money);
+            releaseProject.setImage_par(image);
 
         } catch (JSONException e) {
             e.printStackTrace();

@@ -1,10 +1,13 @@
 package com.ms.ebangw.bean;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 /**
  *
  * Created by admin on 2015/11/2.
  */
-public class ReleaseProject {
+public class ReleaseProject implements Parcelable{
     private String id;
     private String no;
     private String province;
@@ -16,6 +19,43 @@ public class ReleaseProject {
     //工程总金额
     private String total_money;
     private String project_money;
+    private String image_par;
+
+    public String getImage_par() {
+        return image_par;
+    }
+
+    public void setImage_par(String image_par) {
+        this.image_par = image_par;
+    }
+
+    public ReleaseProject() {
+
+    }
+
+    protected ReleaseProject(Parcel in) {
+        id = in.readString();
+        no = in.readString();
+        province = in.readString();
+        city = in.readString();
+        area_other = in.readString();
+        account_staff = in.readString();
+        total_money = in.readString();
+        project_money = in.readString();
+        image_par = in.readString();
+    }
+
+    public static final Creator<ReleaseProject> CREATOR = new Creator<ReleaseProject>() {
+        @Override
+        public ReleaseProject createFromParcel(Parcel in) {
+            return new ReleaseProject(in);
+        }
+
+        @Override
+        public ReleaseProject[] newArray(int size) {
+            return new ReleaseProject[size];
+        }
+    };
 
     public String getProject_money() {
         return project_money;
@@ -96,4 +136,32 @@ public class ReleaseProject {
     public void setTotal_money(String total_money) {
         this.total_money = total_money;
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(id);
+        dest.writeString(no);
+        dest.writeString(province);
+        dest.writeString(city);
+        dest.writeString(area_other);
+        dest.writeString(account_staff);
+        dest.writeString(total_money);
+        dest.writeString(project_money);
+    }
+//    public static Parcelable.Creator<ReleaseProject> CREATOR = new Parcelable.Creator<ReleaseProject>(){
+//        @Override
+//        public ReleaseProject createFromParcel(Parcel source) {
+//            return new ReleaseProject(source);
+//        }
+//
+//        @Override
+//        public ReleaseProject[] newArray(int size) {
+//            return new ReleaseProject[size];
+//        }
+//    };
 }

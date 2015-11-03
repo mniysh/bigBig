@@ -6,11 +6,16 @@ import android.content.ContentResolver;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.Spanned;
 import android.text.TextUtils;
+import android.text.style.ForegroundColorSpan;
 import android.view.LayoutInflater;
 import android.view.TextureView;
 import android.view.View;
@@ -46,6 +51,7 @@ import com.ms.ebangw.service.DataParseUtil;
 import com.ms.ebangw.utils.BitmapUtil;
 import com.ms.ebangw.utils.L;
 import com.ms.ebangw.utils.T;
+import com.ms.ebangw.utils.VerifyUtils;
 import com.ms.ebangw.view.ProvinceAndCityView;
 
 import org.apache.http.Header;
@@ -144,6 +150,7 @@ public class IncreaseDetailFragment extends BaseFragment {
     private String mCurrentPhotoPuth;
     private MyApplication myApplication;
     private ReleaseProject releaseProject;
+    private int  startYear,  startMonth,  startDay, endYear, endMonth, endDay;
 
 
 
@@ -181,6 +188,9 @@ public class IncreaseDetailFragment extends BaseFragment {
                 calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
                 SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
                 String dateStr = simpleDateFormat.format(calendar.getTime());
+                startYear = year;
+                startMonth = monthOfYear;
+                startDay = dayOfMonth;
                 startTimeTv.setText(dateStr);
             }
 
@@ -199,6 +209,9 @@ public class IncreaseDetailFragment extends BaseFragment {
                 calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
                 SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
                 String dateStr = simpleDateFormat.format(calendar.getTime());
+                endYear = year;
+                endMonth = monthOfYear;
+                endDay = dayOfMonth;
                 endTimeTv.setText(dateStr);
             }
         });
@@ -231,6 +244,26 @@ public class IncreaseDetailFragment extends BaseFragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         initTitle("填写信息");
+    }
+
+    /**
+     * 设置星号
+     */
+    public void setStartRed(){
+        int[] arr = {R.id.tv_a,R.id.tv_b,R.id.tv_c,
+                R.id.tv_d,R.id.tv_e,R.id.tv_f,
+                R.id.tv_g,R.id.tv_h,
+                R.id.tv_i,R.id.tv_j,R.id.tv_k,R.id.tv_l};
+        for (int i = 0; i < arr.length ; i++) {
+            TextView a = (TextView) contentLayout.findViewById(arr[i]);
+            if(a != null){
+                String s = a.getText().toString().trim();
+                SpannableString  spa = new SpannableString(s);
+                spa.setSpan(new ForegroundColorSpan(Color.RED), 0, 1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+                a.setText(spa);
+            }
+
+        }
     }
 
     /**
@@ -295,14 +328,20 @@ public class IncreaseDetailFragment extends BaseFragment {
             T.show("工程总额不能为空");
             return false;
         }
+        if(!VerifyUtils.isRightTime(startYear, startMonth, startDay,endYear, endMonth, endDay)){
+            T.show("结束时间不得小于开始时间");
+            return false;
+        }
 
         return true;
     }
 
 
+
     @Override
     public void initView() {
         imageNames = new ArrayList<String>();
+        setStartRed();
     }
 
     @Override
@@ -528,23 +567,23 @@ public class IncreaseDetailFragment extends BaseFragment {
                                 if(b){
                                     T.show("发布成功");
                                     releaseProject = DataParseUtil.getProjectInfo(response);
-                                    ReleaseInfo releaseInfo = new ReleaseInfo();
-                                    releaseInfo.setTitle(title);
-                                    releaseInfo.setDescription(count);
-                                    releaseInfo.setLink_man(link_name);
-                                    releaseInfo.setLink_phone(link_phone);
-                                    releaseInfo.setProvince(provinceId);
-                                    releaseInfo.setCity(cityId);
-                                    releaseInfo.setArea_other(detailAddress);
-                                    releaseInfo.setPoint_longitude(longitude);
-                                    releaseInfo.setPoint_dimention(latitude);
-                                    releaseInfo.setImage_ary(image_ary);
-                                    releaseInfo.setStart_time(startTime);
-                                    releaseInfo.setEnd_time(endTime);
-                                    releaseInfo.setProject_money(totalMoney);
-                                    releaseInfo.setStaff(staff);
+//                                    ReleaseInfo releaseInfo = new ReleaseInfo();
+//                                    releaseInfo.setTitle(title);
+//                                    releaseInfo.setDescription(count);
+//                                    releaseInfo.setLink_man(link_name);
+//                                    releaseInfo.setLink_phone(link_phone);
+//                                    releaseInfo.setProvince(provinceId);
+//                                    releaseInfo.setCity(cityId);
+//                                    releaseInfo.setArea_other(detailAddress);
+//                                    releaseInfo.setPoint_longitude(longitude);
+//                                    releaseInfo.setPoint_dimention(latitude);
+//                                    releaseInfo.setImage_ary(image_ary);
+//                                    releaseInfo.setStart_time(startTime);
+//                                    releaseInfo.setEnd_time(endTime);
+//                                    releaseInfo.setProject_money(totalMoney);
+//                                    releaseInfo.setStaff(staff);
                                     Bundle  bundle = new Bundle();
-                                    bundle.putParcelable(Constants.RELEASE_WORKTYPE_KEY,releaseInfo);
+                                    bundle.putParcelable(Constants.RELEASE_WORKTYPE_KEY,releaseProject);
                                     Intent intent = new Intent((HomeActivity)mActivity,PayingActivity.class );
                                     intent.putExtras(bundle);
                                     startActivity(intent);
@@ -563,12 +602,6 @@ public class IncreaseDetailFragment extends BaseFragment {
                         }
                     } );
         }
-
-
-
-
-
-
     }
 
     public void settingImage(Intent intent) {

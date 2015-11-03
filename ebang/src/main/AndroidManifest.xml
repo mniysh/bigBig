@@ -144,6 +144,7 @@
         <activity android:name=".userAuthen.developers.DevelopersAuthenActivity"/>
         <activity android:name=".userAuthen.headman.HeadmanAuthenActivity"/>
         <activity android:name=".crop.CropImageActivity"/>
+        <activity android:name=".release.PayingActivity"/>
 
         <!-- 微信 -->
         <activity

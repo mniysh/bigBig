@@ -322,7 +322,10 @@ public class SelectMapLocActivity extends BaseActivity implements BDLocationList
     public void onMapStatusChangeFinish(MapStatus mapStatus) {
         //地图操作的中心点
         LatLng cenpt = mapStatus.target;
-        geoCoder.reverseGeoCode(new ReverseGeoCodeOption().location(cenpt));
+        if(geoCoder != null){
+            geoCoder.reverseGeoCode(new ReverseGeoCodeOption().location(cenpt));
+        }
+
     }
 
     /**

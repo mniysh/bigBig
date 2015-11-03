@@ -219,4 +219,29 @@ public class VerifyUtils {
         }
         return true;
     }
+
+    /**
+     * 判断开始时间和结束时间是否合法
+     * @param startYear
+     * @param startMonth
+     * @param startDay
+     * @param endYear
+     * @param endMonth
+     * @param endDay
+     * @return
+     */
+    public static boolean isRightTime(int startYear, int startMonth, int startDay, int endYear, int endMonth, int endDay){
+        if(startYear <= endYear){
+            if(startMonth <= endMonth){
+                if(startDay > endDay){
+                    return false;
+                }
+            }else{
+                return false;
+            }
+        }else{
+            return false;
+        }
+        return true;
+    }
 }  

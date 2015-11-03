@@ -11,10 +11,11 @@ import android.view.View;
 import com.ms.ebangw.R;
 import com.ms.ebangw.activity.BaseActivity;
 import com.ms.ebangw.bean.ReleaseInfo;
+import com.ms.ebangw.bean.ReleaseProject;
 import com.ms.ebangw.commons.Constants;
 
 public class PayingActivity extends BaseActivity {
-    private ReleaseInfo releaseInfo;
+    private ReleaseProject releaseProject;
 
 
     @Override
@@ -29,8 +30,9 @@ public class PayingActivity extends BaseActivity {
     }
     @Override
     public void initView() {
+        initTitle(null,null, "结算", null, null);
         Intent intent = getIntent();
-        releaseInfo = intent.getExtras().getParcelable(Constants.KEY_RELEASE_INFO);
+        releaseProject = intent.getExtras().getParcelable(Constants.RELEASE_WORKTYPE_KEY);
 
     }
 

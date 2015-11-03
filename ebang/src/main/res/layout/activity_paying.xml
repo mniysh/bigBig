@@ -7,14 +7,18 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
+    android:showDividers="middle"
+    android:divider="@drawable/divider_line_gray"
     tools:context="com.ms.ebangw.release.PayingActivity">
     <include layout="@layout/layout_common_title"/>
     <LinearLayout
         android:layout_width="match_parent"
         android:orientation="horizontal"
         android:padding="10dp"
+        android:layout_gravity="center_vertical"
         android:layout_height="wrap_content">
         <ImageView
+
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:src="@drawable/ic_launcher"
@@ -27,6 +31,7 @@
             android:layout_marginLeft="10dp"
             >
             <TextView
+                android:id="@+id/tv_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="不锈钢玻璃断层"
@@ -34,6 +39,7 @@
 
                 />
             <TextView
+                android:id="@+id/tv_content"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="北京专业玻璃隔断 玻璃门 淋浴房。。。"
@@ -42,6 +48,8 @@
                 android:textColor="@color/gray_text"
                 />
             <TextView
+                android:visibility="gone"
+                android:id="@+id/tv_money"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="200元"
@@ -49,6 +57,70 @@
                 />
         </LinearLayout>
     </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="10dp"
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="总计"
+            android:textSize="16sp"
+            android:textColor="@color/black"
+            />
+        <View
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="1dp"/>
+        <TextView
+            android:id="@+id/tv_paying_money"
+            android:layout_width="wrap_content"
+            android:text="200:00元"
+            android:textSize="16sp"
+            android:textColor="@color/auther_red"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:padding="10dp"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:textColor="@color/black"
+            android:text="支付请联系亿帮无忧"
+            />
+        <View
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="1dp"/>
+        <Button
+            android:layout_width="wrap_content"
+            android:text="点击拨打"
+            android:textSize="14sp"
+            android:textColor="@color/white"
+            android:background="@drawable/paying_but"
+            android:paddingLeft="30dp"
+            android:paddingRight="30dp"
+            android:layout_height="30dp" />
+
+
+
+    </LinearLayout>
+    <Button
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="30dp"
+        android:layout_width="match_parent"
+        android:text="返回个人中心"
+        android:textColor="@color/white"
+        android:background="@drawable/bk_but"
+        android:layout_height="wrap_content" />
 
 
 
