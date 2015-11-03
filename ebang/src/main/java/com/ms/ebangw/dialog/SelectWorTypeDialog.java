@@ -55,6 +55,7 @@ public class SelectWorTypeDialog extends DialogFragment {
     Button okBtn;
     @Bind(R.id.btn_no)
     Button noBtn;
+    private int startYear, startMonth, startDay, endYear, endMonth, endDay;
 
     public static SelectWorTypeDialog newInstance(WorkType workType) {
         SelectWorTypeDialog fragment = new SelectWorTypeDialog();
@@ -114,6 +115,9 @@ public class SelectWorTypeDialog extends DialogFragment {
                         cal.set(Calendar.YEAR, year);
                         cal.set(Calendar. MONTH , monthOfYear);
                         cal.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+                        startYear = year;
+                        startMonth = monthOfYear;
+                        startDay = dayOfMonth;
 
                         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
                         String dateStr = format.format(cal.getTime());
@@ -141,6 +145,9 @@ public class SelectWorTypeDialog extends DialogFragment {
                         cal.set(Calendar.DAY_OF_MONTH, dayOfMonth);
                         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
                         String dateStr = format.format(cal.getTime());
+                        endYear = year;
+                        endMonth = monthOfYear;
+                        endDay = dayOfMonth;
                         endDateTv.setText(dateStr);
                     }
                 });
@@ -203,6 +210,20 @@ public class SelectWorTypeDialog extends DialogFragment {
 
         if (!end.contains("-")) {
             T.show("请输入结束时间");
+            return false;
+        }
+        if(startYear <= endYear){
+            if(startMonth <= endMonth){
+                if(startDay > endDay){
+                    T.show("结束时间不得小于开始时间");
+                    return false;
+                }
+            }else{
+                T.show("结束时间不得小于开始时间");
+                return false;
+            }
+        }else{
+            T.show("结束时间不得小于开始时间");
             return false;
         }
 
