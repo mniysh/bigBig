@@ -356,7 +356,7 @@ public class DataParseUtil {
         ReleaseProject releaseProject = new ReleaseProject();
         JSONObject data = processData(jsonObject);
         try {
-            //T.show("能进来");
+            T.show("能进来");
             String id = data.getString("id");
             String no = data.getString("no");
             String province = data.getString("province");

@@ -130,11 +130,16 @@ public class IncreaseDetailFragment extends BaseFragment {
     TextView startTimeTv;
     @Bind(R.id.tv_end_time)
     TextView endTimeTv;
+    @Bind(R.id.tv_selectMapAdd)
+    TextView selectAdd;
+    @Bind(R.id.et_address)
+    EditText selectAddEt;
 
 
 
 
-    private String province, city , area, detailAddress, title, link_name, link_phone, count, startTime, totalMoney, endTime;
+    private String province, city , area, detailAddress, title, link_name, link_phone,
+            count, startTime, totalMoney, endTime, selectMapAdd;
     private String provinceId, cityId, areaId;
     private String mCurrentPhotoPuth;
     private MyApplication myApplication;
@@ -156,7 +161,7 @@ public class IncreaseDetailFragment extends BaseFragment {
         // Required empty public constructor
     }
     //地图获取信息
-    @OnClick(R.id.et_address)
+    @OnClick({R.id.et_address, R.id.tv_selectMapAdd})
     public void getMap(){
 
         Intent intent = new Intent(mActivity, SelectMapLocActivity.class);
@@ -242,8 +247,7 @@ public class IncreaseDetailFragment extends BaseFragment {
         detailAddress = detailAddressEt.getText().toString().trim();
         title = titleEt.getText().toString().trim();
         link_name = nameEt.getText().toString().trim();
-        latitude = 0.5f;
-        longitude = 0.5f;
+
         link_phone = phoneEt.getText().toString().trim();
         count = introduceEt.getText().toString().trim();
         provinceId = provinceAndCityView.getProvinceId();
@@ -283,11 +287,11 @@ public class IncreaseDetailFragment extends BaseFragment {
             T.show("简介不可为空");
             return  false;
         }
-        if(latitude == 0 && longitude == 0){
+        if(TextUtils.isEmpty(selectMapAdd) || (longitude == 0 && latitude == 0)){
             T.show("请地图选点");
             return false;
         }
-        if(TextUtils.isEmpty(totalMoney)){
+        if(TextUtils.isEmpty(totalMoney) ){
             T.show("工程总额不能为空");
             return false;
         }
@@ -376,9 +380,13 @@ public class IncreaseDetailFragment extends BaseFragment {
             if (null != data) {
                 Bundle extras = data.getExtras();
                 PoiInfo poiInfo = extras.getParcelable(Constants.KEY_POIINFO_STR);
+                selectMapAdd = poiInfo.address;
                 LatLng location = poiInfo.location;
-                double latitude = location.latitude;
-                double longitude = location.longitude;
+                latitude = (float)location.latitude;
+                longitude = (float)location.longitude;
+                selectAddEt.setVisibility(View.GONE);
+                selectAdd.setVisibility(View.VISIBLE);
+                selectAdd.setText(selectMapAdd);
                 L.d("latitude: " + latitude + " , longitude: " + longitude);
             }
         }

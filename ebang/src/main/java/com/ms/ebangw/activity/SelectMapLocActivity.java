@@ -268,7 +268,7 @@ public class SelectMapLocActivity extends BaseActivity implements BDLocationList
      */
     @Override
     public void onGetReverseGeoCodeResult(ReverseGeoCodeResult reverseGeoCodeResult) {
-        List<PoiInfo> poiInfos = reverseGeoCodeResult.getPoiList();
+        final List<PoiInfo> poiInfos = reverseGeoCodeResult.getPoiList();
         if (poiInfos != null && poiInfos.size() > 0) {
             if (null == poiAdapter) {
                 poiAdapter = new PoiAdapter(SelectMapLocActivity.this, poiInfos);
@@ -276,8 +276,10 @@ public class SelectMapLocActivity extends BaseActivity implements BDLocationList
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                         PoiInfo poiInfo = (PoiInfo) view.getTag(Constants.KEY_POIINFO);
+                        //String selectAdd = poiInfos.get(position).address;
                         Bundle bundle = new Bundle();
                         bundle.putParcelable(Constants.KEY_POIINFO_STR, poiInfo);
+
                         Intent intent = new Intent();
                         intent.putExtras(bundle);
                         setResult(RESULT_OK, intent);

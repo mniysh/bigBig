@@ -51,11 +51,13 @@
                 android:layout_height="wrap_content"
                 style="@style/authorization_edit"
                 android:hint="请输入工地详细地址"
+                android:singleLine="true"
                 android:textColorHint="@color/auth_hint"
                 />
         </LinearLayout>
 
         <LinearLayout
+
             android:layout_width="match_parent"
             android:layout_height="@dimen/authen_item_height"
             android:gravity="center_vertical"
@@ -63,7 +65,7 @@
             >
 
             <TextView
-                android:id="@+id/tv_c"
+                android:id="@+id/tv_l"
                 style="@style/authorization_text"
                 android:layout_height="wrap_content"
                 android:text="*工地坐标："
@@ -73,13 +75,20 @@
             <EditText
                 android:id="@+id/et_address"
                 style="@style/authorization_edit"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:drawableLeft="@drawable/marker"
                 android:hint="请选择"
                 android:textColorHint="@color/auther_red"
                 android:drawablePadding="5dp"
                 android:editable="false"
+                />
+            <TextView
+                android:visibility="gone"
+                android:id="@+id/tv_selectMapAdd"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="选择的位置"
                 />
         </LinearLayout>
 
@@ -169,6 +178,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="请输入标题"
+                android:singleLine="true"
                 android:textColorHint="@color/auth_hint"
                 />
         </LinearLayout>
@@ -248,7 +258,11 @@
                 android:background="@drawable/border_gray"
                 android:minHeight="60dp"
                 android:hint="请输入内容"
-                android:textColorHint="@color/auth_hint"
+                android:maxLength="50"
+                android:maxLines="4"
+                android:gravity="top"
+                android:textColor="@color/black"
+                android:textColorHint="@color/gray_text"
                 />
 
         </LinearLayout>
@@ -273,6 +287,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="请输入工程的总金额"
+                android:singleLine="true"
+                android:inputType="number"
                 android:textColorHint="@color/auth_hint"
                 />
         </LinearLayout>
@@ -299,6 +315,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="请输入联系人"
+                android:singleLine="true"
                 android:textColorHint="@color/auth_hint"
                 />
         </LinearLayout>
@@ -330,6 +347,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:hint="请输入联系电话"
+                android:singleLine="true"
                 android:inputType="phone"
                 android:maxLength="11"
                 android:textColorHint="@color/auth_hint"
