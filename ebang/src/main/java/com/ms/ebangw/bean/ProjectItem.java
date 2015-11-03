@@ -5,7 +5,7 @@ package com.ms.ebangw.bean;
  * User: WangKai(123940232@qq.com)
  * 2015-11-03 09:13
  */
-public class ReleasedProject {
+public class ProjectItem {
 
     /**
      * id : 7
