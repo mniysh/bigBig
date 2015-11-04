@@ -366,6 +366,10 @@ public class DataParseUtil {
             String total_money = data.getString("total_money");
             String project_money = data.getString("project_money");
             String image = data.getString("image");
+            String title = data.getString("title");
+            String count = data.getString("description");
+            releaseProject.setCount(count);
+            releaseProject.setTitle(title);
             releaseProject.setProject_money(project_money);
             releaseProject.setId(id);
             releaseProject.setNo(no);

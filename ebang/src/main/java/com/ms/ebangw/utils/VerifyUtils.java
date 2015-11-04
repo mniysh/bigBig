@@ -231,6 +231,7 @@ public class VerifyUtils {
      * @return
      */
     public static boolean isRightTime(int startYear, int startMonth, int startDay, int endYear, int endMonth, int endDay){
+        final long aa = System.currentTimeMillis();
         if(startYear <= endYear){
             if(startMonth <= endMonth){
                 if(startDay > endDay){

@@ -62,9 +62,13 @@ public class RequestUrl {
     public static final  String person_identify = domain + "/api/user/investor/person-identify";
 
     /**
-     * 8.上传图片
+     * 8.上传图片（private）
      */
     public static final  String upload_image = domain + "/api/user/upload/image";
+    /**
+     * 上传图片（public）
+     */
+    public static final String upload_public_image = domain + "/api/user/upload/image-public";
 
     /**
      * 9.下载图片   get方式  最后+图片名字

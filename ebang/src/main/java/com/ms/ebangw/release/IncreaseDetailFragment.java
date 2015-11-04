@@ -379,7 +379,7 @@ public class IncreaseDetailFragment extends BaseFragment {
         Intent intent = new Intent();
         intent.setAction(Intent.ACTION_PICK);
         intent.setType("image/*");
-        startActivityForResult(intent, Constants.REQUEST_PICK);
+        startActivityForResult(intent,Constants.REQUEST_PICK);
 
     }
 
@@ -411,6 +411,10 @@ public class IncreaseDetailFragment extends BaseFragment {
             myApplication = (MyApplication) mActivity.getApplication();
             myApplication.imagePath = path;
             Intent intent = new Intent(mActivity, CropImageActivity.class);
+            Bundle bundle = new Bundle();
+            bundle.putString(Constants.KEY_HEAD_IMAGE_STR,"publicImage");
+            bundle.putBoolean(Constants.KEY_HEAD_IMAGE,true);
+            intent.putExtras(bundle);
             startActivityForResult(intent, Constants.REQUEST_CROP);
         }else if(requestCode == Constants.REQUEST_CROP){
             //剪切后的处理
@@ -441,9 +445,11 @@ public class IncreaseDetailFragment extends BaseFragment {
         myApplication = (MyApplication) mActivity.getApplication();
         myApplication.imagePath = mCurrentPhotoPuth;
         Intent intent = new Intent(mActivity, CropImageActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putString(Constants.KEY_HEAD_IMAGE_STR,"publicImage");
+        bundle.putBoolean(Constants.KEY_HEAD_IMAGE,true);
+        intent.putExtras(bundle);
         startActivityForResult(intent, Constants.REQUEST_CROP);
-
-
     }
 
     public void setDeveloperReleaseInfo() {

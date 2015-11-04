@@ -15,6 +15,7 @@ import com.ms.ebangw.utils.T;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.InputStream;
 
 /**
  * User: WangKai(123940232@qq.com)
@@ -248,8 +249,8 @@ public class DataAccessUtil {
         params.put("end_time", end_time);
         params.put("project_money",project_money);
         params.put("image_ary",image_ary);
-        params.put("staffs",staffs);
-        T.show("能进来1");
+        params.put("staffs", staffs);
+        //T.show("能进来1");
         return doPost(RequestUrl.developer_release, params, asyncHttpResponseHandler);
 
     }
@@ -267,12 +268,26 @@ public class DataAccessUtil {
     }
 
     /**
-     * 9.下载图片       RequestUrl.down_image + 图片名字
-     * @param url
-     * @param params
+     * 上传图片（public）
+     * @param imageFile
      * @param asyncHttpResponseHandler
      * @return
      */
+    public static RequestHandle uploadPublicImage(File imageFile, AsyncHttpResponseHandler asyncHttpResponseHandler){
+
+        return upLoadImage(RequestUrl.upload_public_image, imageFile, asyncHttpResponseHandler);
+    }
+
+    /**
+     * 9.下载图片       RequestUrl.down_image + 图片名字
+     * @param url
+     * @param asyncHttpResponseHandler
+     * @return
+     */
+    public static RequestHandle LoadImage(String url,AsyncHttpResponseHandler asyncHttpResponseHandler ){
+//        String imageUrl = getImageUrl(url);
+        return doGet(url, null, asyncHttpResponseHandler);
+    }
 
     /**
      * 10.省市区接口 /api/common/address/child/+数字（0返回所有省与直辖市）   Get方式
@@ -701,7 +716,7 @@ public class DataAccessUtil {
         try {
             params.put("image", imageFile, "image/png");
             params = addCommonParams(params);
-            mClient.post(RequestUrl.upload_image, params, asyncHttpResponseHandler);
+            mClient.post(url, params, asyncHttpResponseHandler);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
             L.d(TAG, "upLoadImage：文件不存在");

@@ -11,6 +11,7 @@ public class ReleaseProject implements Parcelable{
     private String id;
     private String no;
     private String province;
+    private String title;
     private String city;
     //private String area;
     private String area_other;
@@ -20,6 +21,15 @@ public class ReleaseProject implements Parcelable{
     private String total_money;
     private String project_money;
     private String image_par;
+    private String count;
+
+    public String getCount() {
+        return count;
+    }
+
+    public void setCount(String count) {
+        this.count = count;
+    }
 
     public String getImage_par() {
         return image_par;
@@ -33,13 +43,24 @@ public class ReleaseProject implements Parcelable{
 
     }
 
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+
     protected ReleaseProject(Parcel in) {
         id = in.readString();
         no = in.readString();
         province = in.readString();
+        title = in.readString();
         city = in.readString();
         area_other = in.readString();
         account_staff = in.readString();
+        count = in.readString();
         total_money = in.readString();
         project_money = in.readString();
         image_par = in.readString();
@@ -141,17 +162,19 @@ public class ReleaseProject implements Parcelable{
     public int describeContents() {
         return 0;
     }
-
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(id);
         dest.writeString(no);
         dest.writeString(province);
+        dest.writeString(title);
         dest.writeString(city);
         dest.writeString(area_other);
         dest.writeString(account_staff);
         dest.writeString(total_money);
         dest.writeString(project_money);
+        dest.writeString(count);
+        dest.writeString(image_par);
     }
 //    public static Parcelable.Creator<ReleaseProject> CREATOR = new Parcelable.Creator<ReleaseProject>(){
 //        @Override
