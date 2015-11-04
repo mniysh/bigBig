@@ -635,9 +635,9 @@ public class DataAccessUtil {
      * @param asyncHttpResponseHandler
      * @return
      */
-    public static RequestHandle homeProjectInfo(String projectId, AsyncHttpResponseHandler
+    public static RequestHandle projectInfoDetail(String projectId, AsyncHttpResponseHandler
                                                     asyncHttpResponseHandler){
-        return doGet(RequestUrl.home_project_info + projectId, null, asyncHttpResponseHandler);
+        return doGet(RequestUrl.project_info_detail + projectId, null, asyncHttpResponseHandler);
     }
 
 

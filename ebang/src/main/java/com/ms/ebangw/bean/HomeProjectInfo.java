@@ -9,4 +9,20 @@ import java.util.List;
 public class HomeProjectInfo {
     private List<RecommendedDeveoper> developers;
     private List<ReleaseProject> project;
-}  
+
+    public List<RecommendedDeveoper> getDevelopers() {
+        return developers;
+    }
+
+    public void setDevelopers(List<RecommendedDeveoper> developers) {
+        this.developers = developers;
+    }
+
+    public List<ReleaseProject> getProject() {
+        return project;
+    }
+
+    public void setProject(List<ReleaseProject> project) {
+        this.project = project;
+    }
+}

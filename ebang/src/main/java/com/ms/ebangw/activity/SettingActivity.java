@@ -149,13 +149,13 @@ public class SettingActivity extends BaseActivity {
 
     @OnClick(R.id.btn_exit)
     public void exit() {
+        logout();
         UserDao userDao = new UserDao(this);
         userDao.removeAll();
 
         MyApplication.getInstance().quit();
         startActivity(new Intent(this, LoginActivity.class));
         setResult(Constants.REQUEST_EXIT);
-        logout();
         finish();
     }
 

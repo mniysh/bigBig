@@ -9,8 +9,9 @@ import com.ms.ebangw.bean.Area;
 import com.ms.ebangw.bean.Bank;
 import com.ms.ebangw.bean.City;
 import com.ms.ebangw.bean.Craft;
+import com.ms.ebangw.bean.HomeProjectInfo;
+import com.ms.ebangw.bean.ProjectInfoDetail;
 import com.ms.ebangw.bean.Province;
-import com.ms.ebangw.bean.RecommendedDeveoper;
 import com.ms.ebangw.bean.ReleaseProject;
 import com.ms.ebangw.bean.TotalRegion;
 import com.ms.ebangw.bean.UploadImageResult;
@@ -321,13 +322,30 @@ public class DataParseUtil {
         return craft;
     }
 
-    public static  List<RecommendedDeveoper> homeProjectInfo(JSONObject jsonObject)throws  ResponseException{
+    /**
+     * 2-11.首页工程列表
+     * @param jsonObject
+     * @return
+     * @throws ResponseException
+     */
+    public static  HomeProjectInfo homeProjectInfo(JSONObject jsonObject)throws  ResponseException{
         String dataStr = processDataStr(jsonObject);
         Gson gson = new Gson();
-        List<RecommendedDeveoper> list = gson.fromJson(dataStr, new TypeToken<List<RecommendedDeveoper>>(){}
-            .getType());
+        HomeProjectInfo info = gson.fromJson(dataStr, HomeProjectInfo.class);
+        return  info;
+    }
 
-        return  list;
+    /**
+     * 2-12.首页工程详情
+     * @param jsonObject
+     * @return
+     * @throws ResponseException
+     */
+    public static ProjectInfoDetail projectInfoDetail(JSONObject jsonObject)throws  ResponseException{
+        String dataStr = processDataStr(jsonObject);
+        Gson gson = new Gson();
+        ProjectInfoDetail detail = gson.fromJson(dataStr, ProjectInfoDetail.class);
+        return  detail;
     }
 
 
