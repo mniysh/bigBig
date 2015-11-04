@@ -3,14 +3,16 @@ apply plugin: 'com.android.application'
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     testCompile 'junit:junit:4.12'
-    compile 'com.android.support:design:23.0.1'
     compile 'com.jakewharton:butterknife:7.0.1'
     compile 'com.umeng.analytics:analytics:latest.integration'
     compile project(':social_sdk_library_project')
-    compile 'com.android.support:appcompat-v7:23.0.1'
     compile 'com.android.support:support-v13:23.0.1'
     compile 'com.squareup.picasso:picasso:2.5.2'
     compile 'com.belerweb:pinyin4j:2.5.0'
+    compile 'com.android.support:recyclerview-v7:23.1.0'
+    compile 'com.android.support:appcompat-v7:23.1.0'
+    compile 'com.android.support:design:23.1.0'
+    compile project(':convenientbanner')
 }
 
 android {
@@ -28,8 +30,8 @@ android {
         applicationId "com.ms.ebangw"
         minSdkVersion 14
         targetSdkVersion 22
-        versionCode 3
-        versionName "1.0.2"
+        versionCode 4
+        versionName "1.0.3"
         signingConfig signingConfigs.config
         manifestPlaceholders = [UMENG_CHANNEL_VALUE: "umeng"]
     }

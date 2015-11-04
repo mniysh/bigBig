@@ -9,6 +9,8 @@ import com.ms.ebangw.bean.Area;
 import com.ms.ebangw.bean.Bank;
 import com.ms.ebangw.bean.City;
 import com.ms.ebangw.bean.Craft;
+import com.ms.ebangw.bean.HomeProjectInfo;
+import com.ms.ebangw.bean.ProjectInfoDetail;
 import com.ms.ebangw.bean.Province;
 import com.ms.ebangw.bean.ReleaseProject;
 import com.ms.ebangw.bean.TotalRegion;
@@ -321,6 +323,33 @@ public class DataParseUtil {
     }
 
     /**
+     * 2-11.首页工程列表
+     * @param jsonObject
+     * @return
+     * @throws ResponseException
+     */
+    public static  HomeProjectInfo homeProjectInfo(JSONObject jsonObject)throws  ResponseException{
+        String dataStr = processDataStr(jsonObject);
+        Gson gson = new Gson();
+        HomeProjectInfo info = gson.fromJson(dataStr, HomeProjectInfo.class);
+        return  info;
+    }
+
+    /**
+     * 2-12.首页工程详情
+     * @param jsonObject
+     * @return
+     * @throws ResponseException
+     */
+    public static ProjectInfoDetail projectInfoDetail(JSONObject jsonObject)throws  ResponseException{
+        String dataStr = processDataStr(jsonObject);
+        Gson gson = new Gson();
+        ProjectInfoDetail detail = gson.fromJson(dataStr, ProjectInfoDetail.class);
+        return  detail;
+    }
+
+
+    /**
      * 2-15.工长查看推荐过他的工人列表
      * @param jsonObject
      * @return
@@ -345,6 +374,24 @@ public class DataParseUtil {
         String recommend = data.optString("recommend", null);
         return recommend;
     }
+
+    /**
+     * 2-17.发现
+     * @param jsonObject
+     * @return
+     * @throws ResponseException
+     */
+    public static List<ReleaseProject> founds(JSONObject jsonObject) throws ResponseException {
+        JSONObject data = processData(jsonObject);
+        String arrayStr = data.optString("project");
+
+        Gson gson = new Gson();
+        List<ReleaseProject> list = gson.fromJson(arrayStr, new TypeToken<List<ReleaseProject>>() {
+        }.getType());
+
+        return list;
+    }
+
 
     /**
      * 发布工程的接口解析

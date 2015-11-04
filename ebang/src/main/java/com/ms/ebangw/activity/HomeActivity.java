@@ -5,8 +5,11 @@ import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Message;
+import android.support.design.widget.TabLayout;
 import android.text.TextUtils;
 import android.view.KeyEvent;
+import android.view.View;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
@@ -58,16 +61,15 @@ import de.greenrobot.event.EventBus;
  * @author admin
  */
 public class HomeActivity extends BaseActivity {
+    @Bind(R.id.tl_tab)
+    TabLayout tabLayout;
     private FragmentManager fm;
     private long exitTime = 0;
     private List<WorkType> data;
     private FoundFragment foundFragment;
     private ServiceFragment serviceFragment;
     private ReleaseWorkTypeFragment releaseWorkTypeFragment;
-
-
     private List<WorkType> selectWorkType;
-
 
     @Bind(R.id.radioGroup)
     RadioGroup radioGroup;
@@ -79,7 +81,7 @@ public class HomeActivity extends BaseActivity {
     private static final int MSG_SET_ALIAS = 1001;
     private final Handler mHandler = new Handler() {
         @Override
-        public void handleMessage(android.os.Message msg) {
+        public void handleMessage(Message msg) {
             super.handleMessage(msg);
             switch (msg.what) {
                 case MSG_SET_ALIAS:
@@ -93,6 +95,7 @@ public class HomeActivity extends BaseActivity {
         }
     };
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -105,7 +108,7 @@ public class HomeActivity extends BaseActivity {
             L.d(savedInstanceState.toString());
             initView();
             initData();
-        }else {
+        } else {
             initView();
             initData();
             initUMengUpdate();
@@ -116,9 +119,10 @@ public class HomeActivity extends BaseActivity {
 
     public void initView() {
         selectWorkType = new ArrayList<>();
-
+//        initTabs();
     }
-    public List<WorkType> getSelectWorkType(){
+
+    public List<WorkType> getSelectWorkType() {
         return selectWorkType;
     }
 
@@ -130,7 +134,6 @@ public class HomeActivity extends BaseActivity {
         foundFragment = new FoundFragment();
         serviceFragment = new ServiceFragment();
 
-
         releaseWorkTypeFragment = new ReleaseWorkTypeFragment();
 
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
@@ -138,20 +141,20 @@ public class HomeActivity extends BaseActivity {
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 switch (checkedId) {
                     case R.id.rb_home:
-						fm.beginTransaction().replace(R.id.fl_content, new HomeFragment()).commit();
+                        fm.beginTransaction().replace(R.id.fl_content, new HomeFragment()).commit();
 //                        fm.beginTransaction().replace(R.id.fl_content, lotteryFragment).commit();
                         break;
                     case R.id.rb_discovery:
-						fm.beginTransaction().replace(R.id.fl_content, foundFragment).commit();
+                        fm.beginTransaction().replace(R.id.fl_content, foundFragment).commit();
 //                        fm.beginTransaction().replace(R.id.fl_content, workerHomeFragment).commit();
                         break;
                     case R.id.rb_release:
-						fm.beginTransaction().replace(R.id.fl_content, new SelectCraftFragment()).commit();
+                        fm.beginTransaction().replace(R.id.fl_content, new SelectCraftFragment()).commit();
 //                        fm.beginTransaction().replace(R.id.fl_content, eMallFragment).commit();
                         break;
                     case R.id.rb_service:
-                       // L.locationpois_item("xxx","被点击");
-						fm.beginTransaction().replace(R.id.fl_content, serviceFragment).commit();
+                        // L.locationpois_item("xxx","被点击");
+                        fm.beginTransaction().replace(R.id.fl_content, serviceFragment).commit();
 //                        fm.beginTransaction().replace(R.id.fl_content, eMallFragment).commit();
                         break;
 
@@ -173,12 +176,37 @@ public class HomeActivity extends BaseActivity {
         });
 
     }
-    public void onEvent(WorkTypeEvent event){
+
+    private void initTabs() {
+        View view = getLayoutInflater().inflate(R.layout.home_tab_item, null);
+        TabLayout.Tab tab = tabLayout.newTab().setCustomView(getLayoutInflater().inflate(R.layout.home_tab_item, null));
+        TabLayout.Tab tab1 = tabLayout.newTab().setCustomView(getLayoutInflater().inflate(R.layout.home_tab_item, null));
+        TabLayout.Tab tab2 = tabLayout.newTab().setCustomView(getLayoutInflater().inflate(R.layout.home_tab_item, null));
+        TabLayout.Tab tab3 = tabLayout.newTab().setCustomView(getLayoutInflater().inflate(R.layout.home_tab_item, null));
+        
+        
+        
+        TabLayout.Tab a = tabLayout.newTab().setText("a").setIcon(R.drawable.home_release_selector);
+        TabLayout.Tab b = tabLayout.newTab().setText("a").setIcon(R.drawable.home_release_selector);
+        TabLayout.Tab c = tabLayout.newTab().setText("a").setIcon(R.drawable.home_release_selector);
+        TabLayout.Tab d = tabLayout.newTab().setText("a").setIcon(R.drawable.home_release_selector);
+        tabLayout.addTab(tab);
+        tabLayout.addTab(tab1);
+        tabLayout.addTab(tab2);
+        tabLayout.addTab(tab3);
+//        tabLayout.addTab(a);
+//        tabLayout.addTab(b);
+//        tabLayout.addTab(c);
+//        tabLayout.addTab(d);
+
+    }
+
+    public void onEvent(WorkTypeEvent event) {
         WorkType workType = event.getWorkType();
         boolean isAdd = event.isAdd();
-        if(workType != null && isAdd){
+        if (workType != null && isAdd) {
             selectWorkType.add(workType);
-        }else{
+        } else {
             selectWorkType.remove(workType);
         }
     }
@@ -192,16 +220,16 @@ public class HomeActivity extends BaseActivity {
     /**
      * 根据人员类型跳转到相应的内容
      * category	//用户已认证类型  worker(工人)/headman(工头)/developers(开发商)/investor(个人)  null（未认证）
-     * <p/>
+     * <p>
      * /认证中
      * status: 			   状态游客guest
      * auth_developers(认证开发者中)/
      * auth_worker(认证工人中)/
      * auth_headman(认证工头中)/
      * auth_investor(认证个人中)/
-     *
+     * <p>
      * complete（完成认证)
-     *
+     * <p>
      * auth_developers_fail（认证开发商失败）
      * auth_worker_fail（认证务工失败）
      * auth_headman_fail（认证工头失败）
@@ -245,7 +273,7 @@ public class HomeActivity extends BaseActivity {
     /**
      * 认证完成后，进入相应的用户中心
      */
-    private void goUserCenter( String category) {
+    private void goUserCenter(String category) {
         if (TextUtils.isEmpty(category)) {
             return;
         }
@@ -386,7 +414,6 @@ public class HomeActivity extends BaseActivity {
         }
 
 
-
     }
 
     @Override
@@ -466,7 +493,7 @@ public class HomeActivity extends BaseActivity {
     private final TagAliasCallback mAliasCallback = new TagAliasCallback() {
         @Override
         public void gotResult(int code, String alias, Set<String> tags) {
-            String logs ;
+            String logs;
             switch (code) {
                 case 0:
                     logs = "Set tag and alias success";
@@ -489,7 +516,6 @@ public class HomeActivity extends BaseActivity {
     };
 
 
-
     @Override
     protected void onDestroy() {
         super.onDestroy();
@@ -500,20 +526,20 @@ public class HomeActivity extends BaseActivity {
 
     /**
      * 接收选中的工种，发布界面的工种页面
-     * @param event
      *
+     * @param event
      */
-    public void onEvent(OnCheckedWorkTypeEvent event){
-        if(event == null){
+    public void onEvent(OnCheckedWorkTypeEvent event) {
+        if (event == null) {
             return;
         }
         WorkType workType = event.getWorkType();
         boolean b = event.isSelected();
-        if(event != null && b){
+        if (event != null && b) {
 
             data.add(workType);
             releaseWorkTypeFragment = ReleaseWorkTypeFragment.newInstance(workType);
-        }else if(event != null && !b){
+        } else if (event != null && !b) {
             data.remove(workType);
         }
     }

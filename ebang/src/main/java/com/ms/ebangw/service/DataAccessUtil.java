@@ -635,6 +635,28 @@ public class DataAccessUtil {
     }
 
     /**
+     *2-11.首页工程列表
+     * @param asyncHttpResponseHandler
+     * @return
+     */
+    public static RequestHandle homeProjectInfo(AsyncHttpResponseHandler
+                                              asyncHttpResponseHandler){
+        return doGet(RequestUrl.home_project_info, null, asyncHttpResponseHandler);
+    }
+
+    /**
+     *2-12.首页工程详细
+     * @param projectId 工程Id
+     * @param asyncHttpResponseHandler
+     * @return
+     */
+    public static RequestHandle projectInfoDetail(String projectId, AsyncHttpResponseHandler
+                                                    asyncHttpResponseHandler){
+        return doGet(RequestUrl.project_info_detail + projectId, null, asyncHttpResponseHandler);
+    }
+
+
+    /**
      * 2-15.工长查看推荐过他的工人列表    get
      * @param asyncHttpResponseHandler
      * @return
@@ -652,6 +674,21 @@ public class DataAccessUtil {
     public static RequestHandle removeRelation(String workerId, AsyncHttpResponseHandler
                                                        asyncHttpResponseHandler){
         return doGet(RequestUrl.remove_relation + workerId, null, asyncHttpResponseHandler);
+    }
+
+    /**
+     * 2-17.发现
+     * @param craft_id  工种  （非必填）
+     * @param distance  距离  （非必填）
+     * @param page  第几页
+     * @param lat   纬度
+     * @param lon   经度
+     * @param asyncHttpResponseHandler
+     * @return
+     */
+    public static RequestHandle founds(String craft_id,String distance,String page,String lat,String lon, AsyncHttpResponseHandler
+        asyncHttpResponseHandler){
+        return doGet(RequestUrl.founds, null, asyncHttpResponseHandler);
     }
 
 
