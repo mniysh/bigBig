@@ -69,10 +69,7 @@ public class HomeActivity extends BaseActivity {
     private FoundFragment foundFragment;
     private ServiceFragment serviceFragment;
     private ReleaseWorkTypeFragment releaseWorkTypeFragment;
-
-
     private List<WorkType> selectWorkType;
-
 
     @Bind(R.id.radioGroup)
     RadioGroup radioGroup;
@@ -97,6 +94,7 @@ public class HomeActivity extends BaseActivity {
             }
         }
     };
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
