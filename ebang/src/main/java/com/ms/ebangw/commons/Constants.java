@@ -1,7 +1,5 @@
 package com.ms.ebangw.commons;
 
-import android.webkit.WebView;
-
 import com.ms.ebangw.MyApplication;
 import com.ms.ebangw.R;
 import com.ms.ebangw.utils.PathUtil;
@@ -165,4 +163,7 @@ public class Constants {
 
 	public static final int KEY_POIINFO = R.drawable.back_star;
 	public static final String  KEY_POIINFO_STR = "poiInfo";
+	public static final int KEY_RELEASED_PROJECT = R.drawable.head;
+
+	public static final String  KEY_RELEASED_PROJECT_STR = "ReleaseProject";
 }

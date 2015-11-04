@@ -19,7 +19,6 @@ public class CompanyIntroduceActivity extends BaseActivity implements OnClickLis
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.act_intro);
 		initView();

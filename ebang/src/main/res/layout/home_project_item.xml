@@ -6,7 +6,7 @@
     android:orientation="horizontal" >
 
     <ImageView
-        android:id="@+id/home_item_head"
+        android:id="@+id/head"
         android:layout_width="70dp"
         android:layout_height="70dp"
         android:layout_margin="10dp"
@@ -24,7 +24,7 @@
             android:orientation="horizontal" >
 
             <TextView
-                android:id="@+id/home_item_title"
+                android:id="@+id/tv_title"
                 android:layout_width="wrap_content"
                 android:singleLine="true"
                 android:layout_height="wrap_content"
@@ -35,7 +35,7 @@
 
             <TextView
                 android:singleLine="true"
-                android:id="@+id/home_item_juli"
+                android:id="@+id/tv_distance"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="10dp"
@@ -44,7 +44,7 @@
         </LinearLayout>
 
         <TextView
-            android:id="@+id/home_item_content"
+            android:id="@+id/tv_description"
             android:layout_marginTop="5dp"
             android:layout_width="wrap_content"
             android:textColor="#686767"
@@ -58,14 +58,14 @@
             android:orientation="horizontal" >
 
             <TextView
-                android:id="@+id/home_item_money"
+                android:id="@+id/tv_money"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="200/天"
                 android:textColor="#ff0000" />
             <TextView
                 android:singleLine="true"
-                android:id="@+id/home_item_already"
+                android:id="@+id/tv_grab_num"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
@@ -74,7 +74,7 @@
                 />
 
             <Button
-                android:id="@+id/home_item_qiangdan"
+                android:id="@+id/btn_grab"
                 android:layout_width="60dp"
                 android:layout_height="30dp"
                 android:layout_marginLeft="15dp"

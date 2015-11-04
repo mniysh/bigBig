@@ -40,7 +40,7 @@ public class NearAdapter extends BaseAdapter {
 //		if(convertView == null){
 //			
 //		}
-		convertView = LayoutInflater.from(context).inflate(R.layout.home_listview, null);
+		convertView = LayoutInflater.from(context).inflate(R.layout.home_project_item, null);
 		return convertView;
 	}
 	class Holdview{

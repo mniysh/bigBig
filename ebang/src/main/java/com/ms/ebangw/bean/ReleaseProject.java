@@ -23,6 +23,40 @@ public class ReleaseProject implements Parcelable{
     private String image_par;
     private String count;
 
+    /**
+     *  "developer_id": 577,
+
+     "title": "测试1",
+
+     "description": "描述",
+
+     "images": "http://www.labour.com/uploads/images/1.jpg",
+
+     "province": "北京",
+
+     "city": "北京",
+
+     "project_type": "company",
+
+     "project_type_name": "开发商",
+
+     "grab_num": 0,            //已经有多少人抢单
+
+     "project_money": 0,     //   工程金额
+
+     "distance": 256           //距离 单位（m）
+     * @return
+     */
+
+
+    private String developer_id;
+    private String description;
+    private String images;
+    private String project_type;
+    private String project_type_name;
+    private String grab_num;
+    private String distance;
+
     public String getCount() {
         return count;
     }
@@ -51,53 +85,12 @@ public class ReleaseProject implements Parcelable{
         this.title = title;
     }
 
-
-    protected ReleaseProject(Parcel in) {
-        id = in.readString();
-        no = in.readString();
-        province = in.readString();
-        title = in.readString();
-        city = in.readString();
-        area_other = in.readString();
-        account_staff = in.readString();
-        count = in.readString();
-        total_money = in.readString();
-        project_money = in.readString();
-        image_par = in.readString();
-    }
-
-    public static final Creator<ReleaseProject> CREATOR = new Creator<ReleaseProject>() {
-        @Override
-        public ReleaseProject createFromParcel(Parcel in) {
-            return new ReleaseProject(in);
-        }
-
-        @Override
-        public ReleaseProject[] newArray(int size) {
-            return new ReleaseProject[size];
-        }
-    };
-
     public String getProject_money() {
         return project_money;
     }
 
     public void setProject_money(String project_money) {
         this.project_money = project_money;
-    }
-
-    @Override
-    public String toString() {
-        return "ReleaseProject{" +
-                "id='" + id + '\'' +
-                ", no='" + no + '\'' +
-                ", province='" + province + '\'' +
-                ", city='" + city +
-                 '\'' +
-                ", area_other='" + area_other + '\'' +
-                ", account_staff=" + account_staff +
-                ", total_money='" + total_money + '\'' +
-                '}';
     }
 
     public String getId() {
@@ -158,33 +151,118 @@ public class ReleaseProject implements Parcelable{
         this.total_money = total_money;
     }
 
+    public String getDeveloper_id() {
+        return developer_id;
+    }
+
+    public void setDeveloper_id(String developer_id) {
+        this.developer_id = developer_id;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getImages() {
+        return images;
+    }
+
+    public void setImages(String images) {
+        this.images = images;
+    }
+
+    public String getProject_type() {
+        return project_type;
+    }
+
+    public void setProject_type(String project_type) {
+        this.project_type = project_type;
+    }
+
+    public String getProject_type_name() {
+        return project_type_name;
+    }
+
+    public void setProject_type_name(String project_type_name) {
+        this.project_type_name = project_type_name;
+    }
+
+    public String getGrab_num() {
+        return grab_num;
+    }
+
+    public void setGrab_num(String grab_num) {
+        this.grab_num = grab_num;
+    }
+
+    public String getDistance() {
+        return distance;
+    }
+
+    public void setDistance(String distance) {
+        this.distance = distance;
+    }
+
+
     @Override
     public int describeContents() {
         return 0;
     }
+
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(id);
-        dest.writeString(no);
-        dest.writeString(province);
-        dest.writeString(title);
-        dest.writeString(city);
-        dest.writeString(area_other);
-        dest.writeString(account_staff);
-        dest.writeString(total_money);
-        dest.writeString(project_money);
-        dest.writeString(count);
-        dest.writeString(image_par);
+        dest.writeString(this.id);
+        dest.writeString(this.no);
+        dest.writeString(this.province);
+        dest.writeString(this.title);
+        dest.writeString(this.city);
+        dest.writeString(this.area_other);
+        dest.writeString(this.account_staff);
+        dest.writeString(this.total_money);
+        dest.writeString(this.project_money);
+        dest.writeString(this.image_par);
+        dest.writeString(this.count);
+        dest.writeString(this.developer_id);
+        dest.writeString(this.description);
+        dest.writeString(this.images);
+        dest.writeString(this.project_type);
+        dest.writeString(this.project_type_name);
+        dest.writeString(this.grab_num);
+        dest.writeString(this.distance);
     }
-//    public static Parcelable.Creator<ReleaseProject> CREATOR = new Parcelable.Creator<ReleaseProject>(){
-//        @Override
-//        public ReleaseProject createFromParcel(Parcel source) {
-//            return new ReleaseProject(source);
-//        }
-//
-//        @Override
-//        public ReleaseProject[] newArray(int size) {
-//            return new ReleaseProject[size];
-//        }
-//    };
+
+    protected ReleaseProject(Parcel in) {
+        this.id = in.readString();
+        this.no = in.readString();
+        this.province = in.readString();
+        this.title = in.readString();
+        this.city = in.readString();
+        this.area_other = in.readString();
+        this.account_staff = in.readString();
+        this.total_money = in.readString();
+        this.project_money = in.readString();
+        this.image_par = in.readString();
+        this.count = in.readString();
+        this.developer_id = in.readString();
+        this.description = in.readString();
+        this.images = in.readString();
+        this.project_type = in.readString();
+        this.project_type_name = in.readString();
+        this.grab_num = in.readString();
+        this.distance = in.readString();
+    }
+
+    public static final Creator<ReleaseProject> CREATOR = new Creator<ReleaseProject>() {
+        public ReleaseProject createFromParcel(Parcel source) {
+            return new ReleaseProject(source);
+        }
+
+        public ReleaseProject[] newArray(int size) {
+            return new ReleaseProject[size];
+        }
+    };
 }

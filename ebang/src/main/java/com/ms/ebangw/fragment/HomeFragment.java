@@ -19,17 +19,19 @@ import com.loopj.android.http.JsonHttpResponseHandler;
 import com.ms.ebangw.R;
 import com.ms.ebangw.activity.MessageCenterActivit;
 import com.ms.ebangw.activity.NextPageActivity;
+import com.ms.ebangw.activity.ShowActivity;
 import com.ms.ebangw.adapter.BannerImageHoderView;
+import com.ms.ebangw.adapter.ProjectItemAdapter;
 import com.ms.ebangw.bean.BannerImage;
-import com.ms.ebangw.bean.FoundBean;
 import com.ms.ebangw.bean.HomeProjectInfo;
 import com.ms.ebangw.bean.RecommendedDeveoper;
 import com.ms.ebangw.bean.ReleaseProject;
+import com.ms.ebangw.commons.Constants;
 import com.ms.ebangw.exception.ResponseException;
 import com.ms.ebangw.service.DataAccessUtil;
 import com.ms.ebangw.service.DataParseUtil;
+import com.ms.ebangw.utils.MyListView;
 import com.ms.ebangw.utils.T;
-import com.ms.ebangw.view.MyListView;
 import com.squareup.picasso.Picasso;
 
 import org.apache.http.Header;
@@ -51,7 +53,7 @@ public class HomeFragment extends BaseFragment implements OnClickListener {
     };// 滑动图片数据
     private int[] imgclass = {R.drawable.home_build, R.drawable.home_zxiu, R.drawable.home_life, R.drawable.home_business};
     private String[] txtclass = {"建筑", "装修", "生活", "商业"};
-    private List<FoundBean> datas;
+//    private List<FoundBean> datas;
     private View mContentLayout;
 
     @Bind(R.id.lv_projects)
@@ -68,6 +70,7 @@ public class HomeFragment extends BaseFragment implements OnClickListener {
     ImageView otherIv;
     @Bind(R.id.convenientBanner)
     ConvenientBanner convenientBanner;//顶部广告栏控件
+    private ProjectItemAdapter projectItemAdapter;
 
     /**
      * 消息按钮
@@ -113,16 +116,6 @@ public class HomeFragment extends BaseFragment implements OnClickListener {
 
     @Override
     public void initData() {
-        List<View> pager = new ArrayList<>();
-        datas = new ArrayList<FoundBean>();
-        FoundBean fb = new FoundBean();
-        fb.setTitle("不锈钢玻璃隔断");
-        fb.setArea("1.4公里");
-        fb.setContent("工程简介");
-        fb.setMoney("200元/天");
-        fb.setQiangdan("已有5人抢单");
-        datas.add(fb);
-
 
 
 
@@ -259,8 +252,27 @@ public class HomeFragment extends BaseFragment implements OnClickListener {
     }
 
     private void setRecommendedDevelopersProjects(List<ReleaseProject> projectList) {
+        if (projectList != null && projectList.size() > 0) {
+            if (null == projectItemAdapter) {
+                projectItemAdapter = new ProjectItemAdapter(projectList);
+                projectItemAdapter.setOnGrabClickListener(new ProjectItemAdapter.OnGrabClickListener() {
+                    @Override
+                    public void onGrabClick(View view, ReleaseProject releaseProject) {
+                        Intent intent = new Intent(getActivity(), ShowActivity.class);
+                        Bundle bundle = new Bundle();
+                        bundle.putParcelable(Constants.KEY_RELEASED_PROJECT_STR, releaseProject);
+                        intent.putExtras(bundle);
+                        startActivity(intent);
 
 
+                    }
+                });
+                listView.setAdapter(projectItemAdapter);
+            } else {
+                projectItemAdapter.setList(projectList);
+                projectItemAdapter.notifyDataSetChanged();
+            }
+        }
 
 
     }
