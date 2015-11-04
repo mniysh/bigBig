@@ -3,12 +3,15 @@ package com.ms.ebangw.fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.bigkoo.convenientbanner.CBViewHolderCreator;
 import com.bigkoo.convenientbanner.ConvenientBanner;
@@ -26,6 +29,8 @@ import com.ms.ebangw.exception.ResponseException;
 import com.ms.ebangw.service.DataAccessUtil;
 import com.ms.ebangw.service.DataParseUtil;
 import com.ms.ebangw.utils.T;
+import com.ms.ebangw.view.MyListView;
+import com.squareup.picasso.Picasso;
 
 import org.apache.http.Header;
 import org.json.JSONObject;
@@ -42,14 +47,15 @@ import butterknife.OnClick;
  * 主页的主页页面
  */
 public class HomeFragment extends BaseFragment implements OnClickListener {
-//    private MyListView mylistview;
     private int[] images = {R.drawable.banner_aaa, R.drawable.banner_bb
     };// 滑动图片数据
     private int[] imgclass = {R.drawable.home_build, R.drawable.home_zxiu, R.drawable.home_life, R.drawable.home_business};
     private String[] txtclass = {"建筑", "装修", "生活", "商业"};
     private List<FoundBean> datas;
-    private View mContentView;
+    private View mContentLayout;
 
+    @Bind(R.id.lv_projects)
+    MyListView listView;
     @Bind(R.id.home_search)
     EditText etSearch;
     @Bind(R.id.iv_building)
@@ -82,11 +88,11 @@ public class HomeFragment extends BaseFragment implements OnClickListener {
     @Override
     public View onCreateView(LayoutInflater inflater,
                              @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        mContentView = inflater.inflate(R.layout.fragment_home, container, false);
-        ButterKnife.bind(this, mContentView);
+        mContentLayout = inflater.inflate(R.layout.fragment_home, container, false);
+        ButterKnife.bind(this, mContentLayout);
         initView();
         initData();
-        return mContentView;
+        return mContentLayout;
     }
 
 
@@ -117,12 +123,14 @@ public class HomeFragment extends BaseFragment implements OnClickListener {
         fb.setQiangdan("已有5人抢单");
         datas.add(fb);
 
+
+
+
         initBanner();
     }
 
     public void initBanner() {
-        convenientBanner.setPages(
-            new CBViewHolderCreator<BannerImageHoderView>() {
+        convenientBanner.setPages(new CBViewHolderCreator<BannerImageHoderView>() {
                 @Override
                 public BannerImageHoderView createHolder() {
                     return new BannerImageHoderView();
@@ -233,6 +241,7 @@ public class HomeFragment extends BaseFragment implements OnClickListener {
                         List<RecommendedDeveoper> deveoperList = info.getDevelopers();
                         List<ReleaseProject> projectList = info.getProject();
                         setRecommendedDeveploersInfo(deveoperList);
+                        setRecommendedDevelopersProjects(projectList);
                     }
                 } catch (ResponseException e) {
                     e.printStackTrace();
@@ -249,8 +258,30 @@ public class HomeFragment extends BaseFragment implements OnClickListener {
         });
     }
 
+    private void setRecommendedDevelopersProjects(List<ReleaseProject> projectList) {
+
+
+
+
+    }
+
     private void setRecommendedDeveploersInfo(List<RecommendedDeveoper> deveoperList) {
         if (null != deveoperList && deveoperList.size() > 0 && null != mActivity) {
+            LinearLayout companysLayout = (LinearLayout) mContentLayout.findViewById(R.id.ll_companys);
+            int childCount = companysLayout.getChildCount();
+            RecommendedDeveoper recommendedDeveoper;
+            for (int i = 0; i < childCount; i++) {
+                recommendedDeveoper = deveoperList.get(i);
+                View childView = companysLayout.getChildAt(i);
+                TextView companyNameTv = (TextView) childView.findViewById(R.id.tv_company_name);
+                ImageView comanyLogoIv = (ImageView) childView.findViewById(R.id.iv_company_logo);
+                companyNameTv.setText(recommendedDeveoper.getCompany_name());
+                String logo = recommendedDeveoper.getLogo();
+                if (!TextUtils.isEmpty(logo)) {
+                    Picasso.with(mActivity).load(logo).placeholder(R
+                        .drawable.yuan).into(comanyLogoIv);
+                }
+            }
 
 //            RecommendedDeveloperAdapter developerAdapter = new RecommendedDeveloperAdapter(mActivity,deveoperList);
 //            rvDevelopers.setAdapter(developerAdapter);

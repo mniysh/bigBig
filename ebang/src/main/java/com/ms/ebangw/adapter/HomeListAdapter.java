@@ -1,6 +1,5 @@
 package com.ms.ebangw.adapter;
 
-import android.content.Intent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -10,8 +9,6 @@ import android.widget.TextView;
 
 import com.ms.ebangw.R;
 import com.ms.ebangw.activity.HomeActivity;
-import com.ms.ebangw.activity.QiangDanActivity;
-import com.ms.ebangw.activity.ShowActivity;
 import com.ms.ebangw.bean.FoundBean;
 import com.ms.ebangw.view.ViewHolder;
 
@@ -19,7 +16,7 @@ import java.util.List;
 
 
 
-public class HomeListAdapter extends BaseAdapter implements View.OnClickListener {
+public class HomeListAdapter extends BaseAdapter {
 	private List<FoundBean> datas;
 	private HomeActivity act;
 
@@ -65,22 +62,6 @@ public class HomeListAdapter extends BaseAdapter implements View.OnClickListener
 		tMoney.setText(datas.get(position).getMoney());
 		tAlready.setText(datas.get(position).getQiangdan());
 
-		bQiangdan.setOnClickListener(this);
-
-
 		return convertView;
 	}
-
-	@Override
-	public void onClick(View v) {
-		switch(v.getId()){
-			case R.id.home_item_qiangdan:
-				act.startActivity(new Intent(act, ShowActivity.class));
-
-				break;
-			default:
-				break;
-		}
-	}
-
 }
