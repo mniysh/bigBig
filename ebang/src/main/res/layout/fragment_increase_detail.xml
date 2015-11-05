@@ -131,9 +131,11 @@
                 android:layout_height="wrap_content"
                 android:text="*开始时间："
                 />
-            <TextView
+            <EditText
+                style="@style/authorization_edit"
                 android:id="@+id/tv_start_time"
                 android:layout_width="wrap_content"
+                android:editable="false"
                 android:layout_height="wrap_content"
                 android:text="请选择"
                 />
@@ -150,7 +152,9 @@
                 android:layout_height="wrap_content"
                 android:text="*结束时间："
                 />
-            <TextView
+            <EditText
+                android:editable="false"
+                style="@style/authorization_edit"
                 android:id="@+id/tv_end_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

@@ -1,11 +1,17 @@
 package com.ms.ebangw.utils;
 
+import android.content.Intent;
 import android.text.Editable;
 import android.text.Selection;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.text.format.Time;
 import android.widget.EditText;
 
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -221,6 +227,29 @@ public class VerifyUtils {
     }
 
     /**
+     * 判断单体时间
+     * @param year
+     * @param month
+     * @param day
+     * @return
+     */
+    public static boolean isRight(int year, int month, int day){
+        List<Integer> data = getCurrentTime();
+        int currentYear = data.get(0);
+        int currentMonth = data.get(1);
+        int currentDay = data.get(2);
+        if(year < currentYear){
+            return false;
+        }else if(month < currentMonth){
+            return false;
+        }else if(day < currentDay){
+            return false;
+        }
+        return true;
+
+    }
+
+    /**
      * 判断开始时间和结束时间是否合法
      * @param startYear
      * @param startMonth
@@ -231,18 +260,52 @@ public class VerifyUtils {
      * @return
      */
     public static boolean isRightTime(int startYear, int startMonth, int startDay, int endYear, int endMonth, int endDay){
-        final long aa = System.currentTimeMillis();
-        if(startYear <= endYear){
-            if(startMonth <= endMonth){
+
+
+
+        if(startYear > endYear){
+            return false;
+        }else if(startYear == endYear){
+            if(startMonth > endMonth){
+                return false;
+            }else if(startMonth == endMonth){
                 if(startDay > endDay){
                     return false;
                 }
-            }else{
-                return false;
             }
-        }else{
-            return false;
         }
         return true;
     }
+
+    /**
+     * 获取当前时间
+     * @return
+     */
+    public static List<Integer> getCurrentTime(){
+        List<Integer> data = new ArrayList<Integer>();
+        SimpleDateFormat sim = new SimpleDateFormat("yyyyMMdd");
+        String format = sim.format(new Date());
+        char[] arr = format.toCharArray();
+        StringBuilder sb = new StringBuilder();
+
+        for (int i = 0; i < 4; i++) {
+            sb.append(arr[i]);
+        }
+        int year = Integer.valueOf(sb.toString());
+        sb.delete(0, sb.toString().length());
+        for (int j = 5; j < 7; j++) {
+            sb.append(arr[j]);
+        }
+        int month = Integer.valueOf(sb.toString());
+        sb.delete(0, sb.toString().length());
+        for (int n = 7; n < format.length(); n++) {
+            sb.append(arr[n]);
+        }
+        int day = Integer.valueOf(sb.toString());
+        data.add(year);
+        data.add(month);
+        data.add(day);
+        return data;
+    }
+
 }  

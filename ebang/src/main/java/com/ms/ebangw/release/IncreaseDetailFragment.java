@@ -133,9 +133,9 @@ public class IncreaseDetailFragment extends BaseFragment {
     ImageView picture03Iv;
     //工期开始结束时间
     @Bind(R.id.tv_start_time)
-    TextView startTimeTv;
+    EditText startTimeTv;
     @Bind(R.id.tv_end_time)
-    TextView endTimeTv;
+    EditText endTimeTv;
     @Bind(R.id.tv_selectMapAdd)
     TextView selectAdd;
     @Bind(R.id.et_address)
@@ -329,7 +329,11 @@ public class IncreaseDetailFragment extends BaseFragment {
             return false;
         }
         if(!VerifyUtils.isRightTime(startYear, startMonth, startDay,endYear, endMonth, endDay)){
-            T.show("结束时间不得小于开始时间");
+            T.show("时间不正确");
+            return false;
+        }
+        if(!VerifyUtils.isRight(startYear, startMonth, startDay)){
+            T.show("时间不正确");
             return false;
         }
 
@@ -342,6 +346,32 @@ public class IncreaseDetailFragment extends BaseFragment {
     public void initView() {
         imageNames = new ArrayList<String>();
         setStartRed();
+        startTimeTv.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (!v.hasFocus()) {
+//                    String a = startTimeTv.getText().toString().trim();
+                    if (!VerifyUtils.isRight(startYear, startMonth, startDay)) {
+                        T.show("时间不正确");
+                        startTimeTv.setText("");
+                        startTimeTv.setHint("请重新选择");
+                    }
+
+                }
+            }
+        });
+        endTimeTv.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (!v.hasFocus()) {
+                    if (!VerifyUtils.isRight(endYear, endMonth, endDay)) {
+                        T.show("时间不正确");
+                        endTimeTv.setText("");
+                        endTimeTv.setHint("请重新选择");
+                    }
+                }
+            }
+        });
     }
 
     @Override

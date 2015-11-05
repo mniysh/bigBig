@@ -22,6 +22,7 @@ import com.ms.ebangw.bean.Staff;
 import com.ms.ebangw.bean.WorkType;
 import com.ms.ebangw.event.OnCheckedWorkTypeEvent;
 import com.ms.ebangw.utils.T;
+import com.ms.ebangw.utils.VerifyUtils;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -185,6 +186,33 @@ public class SelectWorTypeDialog extends DialogFragment {
                 dismiss();
             }
         });
+//        startDateTv.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+//            @Override
+//            public void onFocusChange(View v, boolean hasFocus) {
+//                if (!v.hasFocus()) {
+//                    if (!VerifyUtils.isRight(startYear, startMonth, startDay)) {
+//                        T.show("开始时间不正确，请重新选择");
+//                        startDateTv.setText("");
+//                        startDateTv.setHint("重新选择");
+//                    }
+//                }
+//
+//            }
+//        });
+//        endDateTv.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+//            @Override
+//            public void onFocusChange(View v, boolean hasFocus) {
+//                if (!v.hasFocus()) {
+//                    if (!VerifyUtils.isRight(endYear, endMonth, endDay)) {
+//                        T.show("结束时间不正确，请重新输入");
+//                        endDateTv.setText("");
+//                        endDateTv.setHint("重新选择");
+//
+//                    }
+//                }
+//            }
+//        });
+
     }
 
     private boolean isInfoCorrect() {
@@ -212,18 +240,12 @@ public class SelectWorTypeDialog extends DialogFragment {
             T.show("请输入结束时间");
             return false;
         }
-        if(startYear <= endYear){
-            if(startMonth <= endMonth){
-                if(startDay > endDay){
-                    T.show("结束时间不得小于开始时间");
-                    return false;
-                }
-            }else{
-                T.show("结束时间不得小于开始时间");
-                return false;
-            }
-        }else{
-            T.show("结束时间不得小于开始时间");
+        if(!VerifyUtils.isRight(startYear, startMonth , startDay)){
+            T.show("时间不正确");
+            return  false;
+        }
+        if(!VerifyUtils.isRightTime(startYear, startMonth, startDay, endYear, endMonth , endDay)){
+           T.show("时间不正确");
             return false;
         }
 

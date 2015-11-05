@@ -19,11 +19,8 @@
         android:layout_height="wrap_content">
         <ImageView
             android:id="@+id/iv_pic"
-
             android:layout_width="60dp"
             android:layout_height="60dp"
-            android:src="@drawable/ic_launcher"
-
             />
         <LinearLayout
             android:layout_width="match_parent"
@@ -45,6 +42,7 @@
                 android:layout_height="wrap_content"
                 android:text="北京专业玻璃隔断 玻璃门 淋浴房。。。"
                 android:paddingBottom="5dp"
+                android:maxLines="3"
                 android:paddingTop="5dp"
                 android:textColor="@color/gray_text"
                 />
@@ -58,18 +56,23 @@
                 />
         </LinearLayout>
     </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:background="@color/gray_back"
+        android:layout_height="15dp"/>
+
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:padding="10dp"
+        android:padding="15dp"
         >
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="总计"
-            android:textSize="16sp"
+            android:textSize="20sp"
             android:textColor="@color/black"
             />
         <View
@@ -101,6 +104,7 @@
             android:layout_weight="1"
             android:layout_height="1dp"/>
         <Button
+            android:id="@+id/but_phone"
             android:layout_width="wrap_content"
             android:text="点击拨打"
             android:textSize="14sp"
