@@ -8,14 +8,20 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
+import com.baidu.location.LocationClient;
 import com.bigkoo.convenientbanner.CBViewHolderCreator;
 import com.bigkoo.convenientbanner.ConvenientBanner;
+import com.handmark.pulltorefresh.library.PullToRefreshBase;
+import com.handmark.pulltorefresh.library.PullToRefreshScrollView;
 import com.loopj.android.http.JsonHttpResponseHandler;
+import com.ms.ebangw.MyApplication;
 import com.ms.ebangw.R;
 import com.ms.ebangw.activity.MessageCenterActivit;
 import com.ms.ebangw.activity.NextPageActivity;
@@ -55,7 +61,7 @@ public class HomeFragment extends BaseFragment implements OnClickListener {
     private String[] txtclass = {"建筑", "装修", "生活", "商业"};
 //    private List<FoundBean> datas;
     private View mContentLayout;
-
+    public LocationClient mLocationClient = null;
     @Bind(R.id.lv_projects)
     MyListView listView;
     @Bind(R.id.home_search)
@@ -70,6 +76,8 @@ public class HomeFragment extends BaseFragment implements OnClickListener {
     ImageView otherIv;
     @Bind(R.id.convenientBanner)
     ConvenientBanner convenientBanner;//顶部广告栏控件
+    @Bind(R.id.ptr)
+    PullToRefreshScrollView ptr;
     private ProjectItemAdapter projectItemAdapter;
 
     /**
@@ -107,18 +115,49 @@ public class HomeFragment extends BaseFragment implements OnClickListener {
 
     public void initView() {
 
-
         buildingIv.setOnClickListener(this);
         decoratorIv.setOnClickListener(this);
         projectManageIv.setOnClickListener(this);
         otherIv.setOnClickListener(this);
+        ptr.setMode(PullToRefreshBase.Mode.BOTH);
+        ptr.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2<ScrollView>() {
+            @Override
+            public void onPullDownToRefresh(PullToRefreshBase<ScrollView> refreshView) {
+                loadHomeProjectInfo();
+            }
+
+            @Override
+            public void onPullUpToRefresh(PullToRefreshBase<ScrollView> refreshView) {
+                loadMoreHomeProjectInfo();
+            }
+        });
     }
 
     @Override
     public void initData() {
+        this.mLocationClient = MyApplication.getInstance().mLocationClient;
+        projectItemAdapter = new ProjectItemAdapter(new ArrayList<ReleaseProject>());
+        projectItemAdapter.setOnGrabClickListener(new ProjectItemAdapter.OnGrabClickListener() {
+            @Override
+            public void onGrabClick(View view, ReleaseProject releaseProject) {
+                Intent intent = new Intent(getActivity(), ShowActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putParcelable(Constants.KEY_RELEASED_PROJECT_STR, releaseProject);
+                intent.putExtras(bundle);
+                startActivity(intent);
 
 
+            }
+        });
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                ReleaseProject project = (ReleaseProject) view.getTag(Constants.KEY_RELEASED_PROJECT);
 
+            }
+        });
+
+        listView.setAdapter(projectItemAdapter);
         initBanner();
     }
 
@@ -169,8 +208,6 @@ public class HomeFragment extends BaseFragment implements OnClickListener {
         convenientBanner.startTurning(3000);
     }
 
-
-
     // 停止自动翻页
     @Override
     public void onPause() {
@@ -217,8 +254,20 @@ public class HomeFragment extends BaseFragment implements OnClickListener {
         }
     }
 
+    private int currentPage = 0;
     public void loadHomeProjectInfo() {
-        DataAccessUtil.homeProjectInfo(new JsonHttpResponseHandler() {
+        currentPage = 1;
+        double latitude;
+        double longitude;
+        try {
+            latitude = mLocationClient.getLastKnownLocation().getLatitude();
+            longitude = mLocationClient.getLastKnownLocation().getLongitude();
+        } catch (Exception e) {
+            latitude = 0;
+            longitude = 0;
+        }
+        DataAccessUtil.homeProjectInfo(currentPage + "", latitude+"", longitude + "", new
+            JsonHttpResponseHandler() {
             @Override
             public void onStart() {
                 super.onStart();
@@ -226,8 +275,16 @@ public class HomeFragment extends BaseFragment implements OnClickListener {
             }
 
             @Override
-            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+            public void onFinish() {
+                super.onFinish();
                 dismissLoadingDialog();
+                ptr.onRefreshComplete();
+            }
+
+                @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+
+                currentPage ++ ;
                 try {
                     HomeProjectInfo info = DataParseUtil.homeProjectInfo(response);
                     if (null != info) {
@@ -240,41 +297,63 @@ public class HomeFragment extends BaseFragment implements OnClickListener {
                     e.printStackTrace();
                     T.show(e.getMessage());
                 }
+            }
+        });
+    }
 
+    /**
+     * 加载更多
+     */
+    private void loadMoreHomeProjectInfo() {
+        double latitude;
+        double longitude;
+        try {
+            latitude = mLocationClient.getLastKnownLocation().getLatitude();
+            longitude = mLocationClient.getLastKnownLocation().getLongitude();
+        } catch (Exception e) {
+            latitude = 0;
+            longitude = 0;
+        }
+        DataAccessUtil.homeProjectInfo(currentPage + "", latitude+"", longitude + "", new
+            JsonHttpResponseHandler() {
+            @Override
+            public void onStart() {
+                super.onStart();
+                showProgressDialog();
             }
 
             @Override
-            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
-                super.onFailure(statusCode, headers, responseString, throwable);
+            public void onFinish() {
+                super.onFinish();
                 dismissLoadingDialog();
+                ptr.onRefreshComplete();
+            }
+
+                @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                    currentPage ++ ;
+                    try {
+                    HomeProjectInfo info = DataParseUtil.homeProjectInfo(response);
+                    if (null != info) {
+                        List<RecommendedDeveoper> deveoperList = info.getDevelopers();
+                        List<ReleaseProject> projectList = info.getProject();
+//                        setRecommendedDeveploersInfo(deveoperList);
+                        projectItemAdapter.getList().addAll(projectList);
+                        projectItemAdapter.notifyDataSetChanged();
+                    }
+                } catch (ResponseException e) {
+                    e.printStackTrace();
+                    T.show(e.getMessage());
+                }
             }
         });
     }
 
     private void setRecommendedDevelopersProjects(List<ReleaseProject> projectList) {
-        if (projectList != null && projectList.size() > 0) {
-            if (null == projectItemAdapter) {
-                projectItemAdapter = new ProjectItemAdapter(projectList);
-                projectItemAdapter.setOnGrabClickListener(new ProjectItemAdapter.OnGrabClickListener() {
-                    @Override
-                    public void onGrabClick(View view, ReleaseProject releaseProject) {
-                        Intent intent = new Intent(getActivity(), ShowActivity.class);
-                        Bundle bundle = new Bundle();
-                        bundle.putParcelable(Constants.KEY_RELEASED_PROJECT_STR, releaseProject);
-                        intent.putExtras(bundle);
-                        startActivity(intent);
-
-
-                    }
-                });
-                listView.setAdapter(projectItemAdapter);
-            } else {
-                projectItemAdapter.setList(projectList);
-                projectItemAdapter.notifyDataSetChanged();
-            }
+        if (projectItemAdapter != null && projectList != null && projectList.size() > 0) {
+            projectItemAdapter.setList(projectList);
+            projectItemAdapter.notifyDataSetChanged();
         }
-
-
     }
 
     private void setRecommendedDeveploersInfo(List<RecommendedDeveoper> deveoperList) {

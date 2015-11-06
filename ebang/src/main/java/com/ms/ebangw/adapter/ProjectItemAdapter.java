@@ -31,6 +31,10 @@ public class ProjectItemAdapter extends BaseAdapter {
         this.list = list;
     }
 
+    public List<ReleaseProject> getList() {
+        return list;
+    }
+
     @Override
     public int getCount() {
 
@@ -77,7 +81,7 @@ public class ProjectItemAdapter extends BaseAdapter {
         holder.tvDescription.setText(description);
         holder.tvGrabNum.setText("已有" + grab_num + "人抢单");
         holder.tvMoney.setText(project_money);
-        holder.tvDistance.setText(distance + "米");
+        holder.tvDistance.setText(distance);
         holder.btnGrab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
