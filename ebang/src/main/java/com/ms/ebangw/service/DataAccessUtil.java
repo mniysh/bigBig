@@ -687,8 +687,8 @@ public class DataAccessUtil {
      * @param craft_id  工种  （非必填）
      * @param distance  距离  （非必填）
      * @param page  第几页
-     * @param lat   纬度
-     * @param lon   经度
+     * @param latitude   纬度
+     * @param longitude   经度
      * @param asyncHttpResponseHandler
      * @return
      */
@@ -702,7 +702,7 @@ public class DataAccessUtil {
         params.put("latitude", latitude);
         params.put("longitude", longitude);
 
-        return doGet(RequestUrl.founds, null, asyncHttpResponseHandler);
+        return doGet(RequestUrl.founds, params, asyncHttpResponseHandler);
     }
 
 
