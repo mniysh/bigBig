@@ -79,6 +79,8 @@ public class SelectMapLocActivity extends BaseActivity implements BDLocationList
      */
     private GeoCoder geoCoder;
     private PoiAdapter poiAdapter;
+    private List<PoiInfo> poiInfos;
+    private List<PoiInfo> poiInfosSearch;
 
 
     @Override
@@ -101,6 +103,10 @@ public class SelectMapLocActivity extends BaseActivity implements BDLocationList
     @Override
     public void initData() {
         initLoc();
+//        if(poiInfosSearch != null && poiInfosSearch.size() > 0){
+//
+//        }
+
     }
 
     public void initLoc() {
@@ -272,7 +278,7 @@ public class SelectMapLocActivity extends BaseActivity implements BDLocationList
      */
     @Override
     public void onGetReverseGeoCodeResult(ReverseGeoCodeResult reverseGeoCodeResult) {
-        final List<PoiInfo> poiInfos = reverseGeoCodeResult.getPoiList();
+        poiInfos= reverseGeoCodeResult.getPoiList();
         if (poiInfos != null && poiInfos.size() > 0) {
             if (null == poiAdapter) {
                 poiAdapter = new PoiAdapter(SelectMapLocActivity.this, poiInfos);
@@ -289,12 +295,18 @@ public class SelectMapLocActivity extends BaseActivity implements BDLocationList
                         setResult(RESULT_OK, intent);
                         finish();
                     }
+
                 });
                 poisLL.setAdapter(poiAdapter);
+
+
+
+
             } else {
                 poiAdapter.setPois(poiInfos);
                 poiAdapter.notifyDataSetChanged();
             }
+
         }
     }
 
@@ -380,11 +392,36 @@ public class SelectMapLocActivity extends BaseActivity implements BDLocationList
                 //poi 查询结果回调
                 @Override
                 public void onGetPoiResult(PoiResult poiResult) {
-                    List<PoiInfo> poiInfos = poiResult.getAllPoi();
-                    PoiSearchAdapter poiSearchAdapter = new PoiSearchAdapter(SelectMapLocActivity.this, poiInfos,
+                    poiInfosSearch = poiResult.getAllPoi();
+//                    if(poiInfosSearch == null ){
+//                        PoiInfo poiInfo = new PoiInfo();
+//                        poiInfo.address = "该关键词没有搜到信息";
+//                        poiInfosSearch.add(poiInfo);
+//                        searchPois.setEnabled(false);
+//                    }
+                    PoiSearchAdapter poiSearchAdapter = new PoiSearchAdapter(SelectMapLocActivity.this, poiInfosSearch,
                         locationLatLng);
                     searchPois.setVisibility(View.VISIBLE);
+
+
+                    searchPois.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                            PoiInfo poiInfo = (PoiInfo) poiInfosSearch.get(position);
+                            //String selectAdd = poiInfos.get(position).address;
+                            Bundle bundle = new Bundle();
+                            bundle.putParcelable(Constants.KEY_POIINFO_STR, poiInfo);
+
+                            Intent intent = new Intent();
+                            intent.putExtras(bundle);
+                            setResult(RESULT_OK, intent);
+                            finish();
+                        }
+
+                    });
                     searchPois.setAdapter(poiSearchAdapter);
+
                 }
 
                 //poi 详情查询结果回调

@@ -28,6 +28,9 @@ public class PoiSearchAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
+        if(poiInfos == null){
+            return 0;
+        }
         return poiInfos.size();
     }
 
