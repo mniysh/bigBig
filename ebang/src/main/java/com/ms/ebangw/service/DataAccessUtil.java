@@ -4,7 +4,6 @@ import android.text.TextUtils;
 
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
-import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestHandle;
 import com.loopj.android.http.RequestParams;
 import com.ms.ebangw.MyApplication;
@@ -15,7 +14,6 @@ import com.ms.ebangw.utils.T;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.InputStream;
 
 /**
  * User: WangKai(123940232@qq.com)
@@ -636,12 +634,20 @@ public class DataAccessUtil {
 
     /**
      *2-11.首页工程列表
+     * @param latitude 纬度
+     * @param longitude 经度
+     * @param page 页数
      * @param asyncHttpResponseHandler
      * @return
      */
-    public static RequestHandle homeProjectInfo(AsyncHttpResponseHandler
-                                              asyncHttpResponseHandler){
-        return doGet(RequestUrl.home_project_info, null, asyncHttpResponseHandler);
+    public static RequestHandle homeProjectInfo( String page, String latitude, String longitude,
+                                                AsyncHttpResponseHandler asyncHttpResponseHandler){
+        RequestParams params = new RequestParams();
+        params.put("page", page);
+        params.put("latitude", latitude);
+        params.put("longitude", longitude);
+
+        return doGet(RequestUrl.home_project_info, params, asyncHttpResponseHandler);
     }
 
     /**

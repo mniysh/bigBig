@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:orientation="vertical"
               android:layout_width="wrap_content"
+              android:gravity="center_horizontal"
               android:layout_height="wrap_content">
 
 
@@ -9,7 +10,6 @@
             android:id="@+id/iv_company_logo"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:layout_gravity="center_horizontal"
             android:src="@drawable/yuan"/>
 
         <TextView
@@ -17,7 +17,6 @@
             android:layout_marginTop="5dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
             android:text="北京建筑公司"/>
 
 

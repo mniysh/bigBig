@@ -73,7 +73,7 @@ public class MyLocationListener implements BDLocationListener {
         sb.append("\nlocationdescribe : ");// 位置语义化信息
         sb.append(location.getLocationDescribe());
 
-//        L.locationpois_item("LocationApplication", location.getLocationDescribe());
+        L.d("LocationApplication", location.getLocationDescribe());
 
         if (!TextUtils.isEmpty(location.getLocationDescribe())) {
             MyApplication.getInstance().setmLocation(location.getLocationDescribe());
@@ -93,10 +93,9 @@ public class MyLocationListener implements BDLocationListener {
         L.i("BaiduLocationApiDem", sb.toString());
     }
 
-    public void storeLocatedResult(BDLocation location) {
-
-
-
+    public void saveLocation(BDLocation location) {
+        double latitude = location.getLatitude();
+        double longitude = location.getLongitude();
 
     }
 

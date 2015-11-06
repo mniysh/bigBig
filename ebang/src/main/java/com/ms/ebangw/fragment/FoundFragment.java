@@ -43,7 +43,6 @@ public class FoundFragment extends BaseFragment implements XListView.IXListViewL
         return mContentView;
     }
 
-
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);

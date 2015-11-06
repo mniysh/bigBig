@@ -4,7 +4,6 @@ import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -29,6 +28,10 @@ public class ProjectItemAdapter extends BaseAdapter {
 
     public void setList(List<ReleaseProject> list) {
         this.list = list;
+    }
+
+    public List<ReleaseProject> getList() {
+        return list;
     }
 
     @Override
@@ -77,8 +80,8 @@ public class ProjectItemAdapter extends BaseAdapter {
         holder.tvDescription.setText(description);
         holder.tvGrabNum.setText("已有" + grab_num + "人抢单");
         holder.tvMoney.setText(project_money);
-        holder.tvDistance.setText(distance + "米");
-        holder.btnGrab.setOnClickListener(new View.OnClickListener() {
+        holder.tvDistance.setText(distance);
+        holder.tvGrab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (null != onGrabClickListener) {
@@ -109,8 +112,8 @@ public class ProjectItemAdapter extends BaseAdapter {
         TextView tvMoney;
         @Bind(R.id.tv_grab_num)
         TextView tvGrabNum;
-        @Bind(R.id.btn_grab)
-        Button btnGrab;
+        @Bind(R.id.tv_grab)
+        TextView tvGrab;
 
         ViewHolder(View view) {
             ButterKnife.bind(this, view);
