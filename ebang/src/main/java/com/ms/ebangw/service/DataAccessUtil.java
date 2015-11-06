@@ -692,8 +692,16 @@ public class DataAccessUtil {
      * @param asyncHttpResponseHandler
      * @return
      */
-    public static RequestHandle founds(String craft_id,String distance,String page,String lat,String lon, AsyncHttpResponseHandler
+    public static RequestHandle founds(String craft_id,String distance,String page,String latitude,String longitude, AsyncHttpResponseHandler
         asyncHttpResponseHandler){
+
+        RequestParams params = new RequestParams();
+        params.put("craft_id", craft_id);
+        params.put("distance", distance);
+        params.put("page", page);
+        params.put("latitude", latitude);
+        params.put("longitude", longitude);
+
         return doGet(RequestUrl.founds, null, asyncHttpResponseHandler);
     }
 

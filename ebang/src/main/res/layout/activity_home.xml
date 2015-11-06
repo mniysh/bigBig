@@ -26,8 +26,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:paddingBottom="5dp"
-        android:paddingTop="5dp"
         >
 
         <RadioButton
@@ -40,7 +38,7 @@
             android:button="@drawable/empty"
             android:drawableTop="@drawable/home_page_selector"
             android:textColor="@color/home_bottom_selector"
-
+            android:padding="5dp"
             />
 
         <RadioButton
@@ -53,7 +51,7 @@
             android:button="@drawable/empty"
             android:drawableTop="@drawable/home_descovery_selector"
             android:textColor="@color/home_bottom_selector"
-
+            android:padding="5dp"
             />
         <RadioButton
             android:id="@+id/rb_release"
@@ -65,7 +63,7 @@
             android:button="@drawable/empty"
             android:drawableTop="@drawable/home_descovery_selector"
             android:textColor="@color/home_bottom_selector"
-
+            android:padding="5dp"
             />
 
         <RadioButton
@@ -78,6 +76,7 @@
             android:button="@drawable/empty"
             android:drawableTop="@drawable/home_release_selector"
             android:textColor="@color/home_bottom_selector"
+            android:padding="5dp"
             />
 
 

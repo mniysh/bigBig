@@ -22,6 +22,7 @@ import com.handmark.pulltorefresh.library.PullToRefreshScrollView;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.ms.ebangw.MyApplication;
 import com.ms.ebangw.R;
+import com.ms.ebangw.activity.DiscoveryActivity;
 import com.ms.ebangw.activity.MessageCenterActivit;
 import com.ms.ebangw.activity.QiangDanActivity;
 import com.ms.ebangw.activity.ShowActivity;
@@ -94,6 +95,7 @@ public class HomeFragment extends BaseFragment {
     @OnClick(R.id.home_search)
     public void startSearch() {
         T.show("开始搜索");
+        startActivity(new Intent(mActivity, DiscoveryActivity.class));
     }
 
 
@@ -160,8 +162,6 @@ public class HomeFragment extends BaseFragment {
 
             }
         });
-
-
 
         initBanner();
     }
@@ -382,6 +382,12 @@ public class HomeFragment extends BaseFragment {
             layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
             recyclerView.setLayoutManager(layoutManager);
             RecommendedDeveloperAdapter developerAdapter = new RecommendedDeveloperAdapter(mActivity, deveoperList);
+            developerAdapter.setOnRecyclerViewItemClickListener(new RecommendedDeveloperAdapter.OnRecyclerViewItemClickListener() {
+                @Override
+                public void onItemClick(View view, RecommendedDeveoper recommendedDeveoper) {
+
+                }
+            });
             recyclerView.setAdapter(developerAdapter);
 
         }
