@@ -3,6 +3,7 @@ package com.ms.ebangw.adapter;
 import android.content.Context;
 import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -10,6 +11,7 @@ import android.widget.TextView;
 
 import com.ms.ebangw.R;
 import com.ms.ebangw.bean.RecommendedDeveoper;
+import com.ms.ebangw.utils.ScreenUtils;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -31,8 +33,10 @@ public class RecommendedDeveloperAdapter extends RecyclerView.Adapter<Recommende
     @Override
     public RecommendedDeveloperAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = View.inflate(parent.getContext(), R.layout.recommended_developer_item, null);
-//        RecyclerView.LayoutParams params = new RecyclerView.LayoutParams(ScreenUtils.getScreenWidth(parent.getContext()), ViewGroup.LayoutParams.WRAP_CONTENT);
-//        view.setLayoutParams(params);
+        int screenWidth = ScreenUtils.getScreenWidth(parent.getContext());
+        RecyclerView.LayoutParams params = new RecyclerView.LayoutParams(screenWidth / 3, ViewGroup
+            .LayoutParams.WRAP_CONTENT);
+        view.setLayoutParams(params);
         ViewHolder holder = new ViewHolder(view);
         return holder;
     }
@@ -40,7 +44,11 @@ public class RecommendedDeveloperAdapter extends RecyclerView.Adapter<Recommende
     @Override
     public void onBindViewHolder(RecommendedDeveloperAdapter.ViewHolder holder, int position) {
         RecommendedDeveoper recommendedDeveoper = list.get(position);
-        Picasso.with(context).load(Uri.parse(recommendedDeveoper.getLogo())).into(holder.companyLogoIv);
+        String logoUrl = recommendedDeveoper.getLogo();
+        if (!TextUtils.isEmpty(logoUrl)) {
+            Picasso.with(context).load(Uri.parse(logoUrl)).into(holder.companyLogoIv);
+        }
+
         holder.companyName.setText(recommendedDeveoper.getCompany_name());
     }
 

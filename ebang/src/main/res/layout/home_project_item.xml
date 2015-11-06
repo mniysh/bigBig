@@ -73,13 +73,14 @@
                 android:layout_marginLeft="10dp"
                 />
 
-            <Button
-                android:id="@+id/btn_grab"
+            <TextView
+                android:id="@+id/tv_grab"
                 android:layout_width="60dp"
                 android:layout_height="30dp"
                 android:layout_marginLeft="15dp"
                 android:background="@drawable/bk_but_qiangdan"
                 android:text="抢单"
+                android:gravity="center"
                 android:textColor="#ffffff" />
         </LinearLayout>
     </LinearLayout>

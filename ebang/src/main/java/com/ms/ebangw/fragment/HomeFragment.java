@@ -3,17 +3,16 @@ package com.ms.ebangw.fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.text.TextUtils;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
-import android.widget.TextView;
 
 import com.baidu.location.LocationClient;
 import com.bigkoo.convenientbanner.CBViewHolderCreator;
@@ -24,10 +23,11 @@ import com.loopj.android.http.JsonHttpResponseHandler;
 import com.ms.ebangw.MyApplication;
 import com.ms.ebangw.R;
 import com.ms.ebangw.activity.MessageCenterActivit;
-import com.ms.ebangw.activity.NextPageActivity;
+import com.ms.ebangw.activity.QiangDanActivity;
 import com.ms.ebangw.activity.ShowActivity;
 import com.ms.ebangw.adapter.BannerImageHoderView;
 import com.ms.ebangw.adapter.ProjectItemAdapter;
+import com.ms.ebangw.adapter.RecommendedDeveloperAdapter;
 import com.ms.ebangw.bean.BannerImage;
 import com.ms.ebangw.bean.HomeProjectInfo;
 import com.ms.ebangw.bean.RecommendedDeveoper;
@@ -38,7 +38,6 @@ import com.ms.ebangw.service.DataAccessUtil;
 import com.ms.ebangw.service.DataParseUtil;
 import com.ms.ebangw.utils.MyListView;
 import com.ms.ebangw.utils.T;
-import com.squareup.picasso.Picasso;
 
 import org.apache.http.Header;
 import org.json.JSONObject;
@@ -54,7 +53,7 @@ import butterknife.OnClick;
 /*
  * 主页的主页页面
  */
-public class HomeFragment extends BaseFragment implements OnClickListener {
+public class HomeFragment extends BaseFragment {
     private int[] images = {R.drawable.banner_aaa, R.drawable.banner_bb
     };// 滑动图片数据
     private int[] imgclass = {R.drawable.home_build, R.drawable.home_zxiu, R.drawable.home_life, R.drawable.home_business};
@@ -78,6 +77,8 @@ public class HomeFragment extends BaseFragment implements OnClickListener {
     ConvenientBanner convenientBanner;//顶部广告栏控件
     @Bind(R.id.ptr)
     PullToRefreshScrollView ptr;
+    @Bind(R.id.rv)
+    RecyclerView recyclerView;
     private ProjectItemAdapter projectItemAdapter;
 
     /**
@@ -115,10 +116,6 @@ public class HomeFragment extends BaseFragment implements OnClickListener {
 
     public void initView() {
 
-        buildingIv.setOnClickListener(this);
-        decoratorIv.setOnClickListener(this);
-        projectManageIv.setOnClickListener(this);
-        otherIv.setOnClickListener(this);
         ptr.setMode(PullToRefreshBase.Mode.BOTH);
         ptr.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2<ScrollView>() {
             @Override
@@ -140,7 +137,7 @@ public class HomeFragment extends BaseFragment implements OnClickListener {
         projectItemAdapter.setOnGrabClickListener(new ProjectItemAdapter.OnGrabClickListener() {
             @Override
             public void onGrabClick(View view, ReleaseProject releaseProject) {
-                Intent intent = new Intent(getActivity(), ShowActivity.class);
+                Intent intent = new Intent(getActivity(), QiangDanActivity.class);
                 Bundle bundle = new Bundle();
                 bundle.putParcelable(Constants.KEY_RELEASED_PROJECT_STR, releaseProject);
                 intent.putExtras(bundle);
@@ -149,15 +146,23 @@ public class HomeFragment extends BaseFragment implements OnClickListener {
 
             }
         });
+        listView.setAdapter(projectItemAdapter);
+
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 ReleaseProject project = (ReleaseProject) view.getTag(Constants.KEY_RELEASED_PROJECT);
+                Intent intent = new Intent(getActivity(), ShowActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putParcelable(Constants.KEY_RELEASED_PROJECT_STR, project);
+                intent.putExtras(bundle);
+                startActivity(intent);
 
             }
         });
 
-        listView.setAdapter(projectItemAdapter);
+
+
         initBanner();
     }
 
@@ -222,37 +227,37 @@ public class HomeFragment extends BaseFragment implements OnClickListener {
         butterknife.ButterKnife.unbind(this);
     }
 
-    @Override
-    public void onClick(View v) {
-        Intent intent = new Intent(mActivity, NextPageActivity.class);
-        Bundle bundle = new Bundle();
-        switch (v.getId()) {
-//            case R.id.fragment_home_lin_recommend01:
-//            case R.id.fragment_home_lin_recommend02:
-//            case R.id.fragment_home_lin_recommend03:
-//                startActivity(new Intent(mActivity, RecommendActivity.class));
-//                break;
-//            case R.id.iv_building:
-//                intent.putExtras(bundle);
-//                startActivity(intent);
-//                break;
-//            case R.id.iv_decorater:
-//                intent.putExtras(bundle);
-//                startActivity(intent);
-//                break;
-//            case R.id.iv_projectManage:
-//                intent.putExtras(bundle);
-//                startActivity(intent);
-//                break;
-//            case R.id.iv_other:
-//                intent.putExtras(bundle);
-//                startActivity(intent);
-//
-//                break;
-//            default:
-//                break;
-        }
-    }
+//    @Override
+//    public void onClick(View v) {
+//        Intent intent = new Intent(mActivity, NextPageActivity.class);
+//        Bundle bundle = new Bundle();
+//        switch (v.getId()) {
+////            case R.id.fragment_home_lin_recommend01:
+////            case R.id.fragment_home_lin_recommend02:
+////            case R.id.fragment_home_lin_recommend03:
+////                startActivity(new Intent(mActivity, RecommendActivity.class));
+////                break;
+////            case R.id.iv_building:
+////                intent.putExtras(bundle);
+////                startActivity(intent);
+////                break;
+////            case R.id.iv_decorater:
+////                intent.putExtras(bundle);
+////                startActivity(intent);
+////                break;
+////            case R.id.iv_projectManage:
+////                intent.putExtras(bundle);
+////                startActivity(intent);
+////                break;
+////            case R.id.iv_other:
+////                intent.putExtras(bundle);
+////                startActivity(intent);
+////
+////                break;
+////            default:
+////                break;
+//        }
+//    }
 
     private int currentPage = 0;
     public void loadHomeProjectInfo() {
@@ -359,23 +364,25 @@ public class HomeFragment extends BaseFragment implements OnClickListener {
     private void setRecommendedDeveploersInfo(List<RecommendedDeveoper> deveoperList) {
         if (null != deveoperList && deveoperList.size() > 0 && null != mActivity) {
             LinearLayout companysLayout = (LinearLayout) mContentLayout.findViewById(R.id.ll_companys);
-            int childCount = companysLayout.getChildCount();
-            RecommendedDeveoper recommendedDeveoper;
-            for (int i = 0; i < childCount; i++) {
-                recommendedDeveoper = deveoperList.get(i);
-                View childView = companysLayout.getChildAt(i);
-                TextView companyNameTv = (TextView) childView.findViewById(R.id.tv_company_name);
-                ImageView comanyLogoIv = (ImageView) childView.findViewById(R.id.iv_company_logo);
-                companyNameTv.setText(recommendedDeveoper.getCompany_name());
-                String logo = recommendedDeveoper.getLogo();
-                if (!TextUtils.isEmpty(logo)) {
-                    Picasso.with(mActivity).load(logo).placeholder(R
-                        .drawable.yuan).into(comanyLogoIv);
-                }
-            }
-
-//            RecommendedDeveloperAdapter developerAdapter = new RecommendedDeveloperAdapter(mActivity,deveoperList);
-//            rvDevelopers.setAdapter(developerAdapter);
+//            int childCount = companysLayout.getChildCount();
+//            RecommendedDeveoper recommendedDeveoper;
+//            for (int i = 0; i < childCount; i++) {
+//                recommendedDeveoper = deveoperList.get(i);
+//                View childView = companysLayout.getChildAt(i);
+//                TextView companyNameTv = (TextView) childView.findViewById(R.id.tv_company_name);
+//                ImageView comanyLogoIv = (ImageView) childView.findViewById(R.id.iv_company_logo);
+//                companyNameTv.setText(recommendedDeveoper.getCompany_name());
+//                String logo = recommendedDeveoper.getLogo();
+//                if (!TextUtils.isEmpty(logo)) {
+//                    Picasso.with(mActivity).load(logo).placeholder(R
+//                        .drawable.yuan).into(comanyLogoIv);
+//                }
+//            }
+            LinearLayoutManager layoutManager = new LinearLayoutManager(mActivity);
+            layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
+            recyclerView.setLayoutManager(layoutManager);
+            RecommendedDeveloperAdapter developerAdapter = new RecommendedDeveloperAdapter(mActivity, deveoperList);
+            recyclerView.setAdapter(developerAdapter);
 
         }
     }
