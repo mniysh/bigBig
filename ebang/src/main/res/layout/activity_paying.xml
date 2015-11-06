@@ -118,6 +118,7 @@
 
     </LinearLayout>
     <Button
+        android:id="@+id/bt_goCenter"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
         android:layout_marginTop="30dp"

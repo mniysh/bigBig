@@ -211,6 +211,7 @@ public class HomeActivity extends BaseActivity {
         }
     }
 
+
     @Override
     protected void onStart() {
         super.onStart();
@@ -412,6 +413,7 @@ public class HomeActivity extends BaseActivity {
             MyApplication.getInstance().setFlag_home(b);
             radioGroup.getChildAt(0).performClick();
         }
+//        radioGroup.getChildAt(4).performClick();
 
 
     }

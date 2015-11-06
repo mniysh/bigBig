@@ -16,8 +16,10 @@ import android.widget.TextView;
 
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.JsonHttpResponseHandler;
+import com.ms.ebangw.MyApplication;
 import com.ms.ebangw.R;
 import com.ms.ebangw.activity.BaseActivity;
+import com.ms.ebangw.activity.HomeActivity;
 import com.ms.ebangw.bean.ReleaseInfo;
 import com.ms.ebangw.bean.ReleaseProject;
 import com.ms.ebangw.commons.Constants;
@@ -28,6 +30,8 @@ import org.json.JSONObject;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
+import de.greenrobot.event.EventBus;
 
 public class PayingActivity extends BaseActivity {
     private ReleaseProject releaseProject;
@@ -43,6 +47,8 @@ public class PayingActivity extends BaseActivity {
     TextView moneyTv;
     @Bind(R.id.but_phone)
     Button phoneBt;
+    @Bind(R.id.bt_goCenter)
+    Button goCenterBt;
 
 
     @Override
@@ -77,11 +83,20 @@ public class PayingActivity extends BaseActivity {
                 startActivity(intent);
             }
         });
+        goCenterBt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                MyApplication.getInstance().setFlag_home(true);
+                PayingActivity.this.finish();
+
+            }
+        });
 
 
 
 
     }
+
 
     private void setReleaseInfo() {
         titleTv.setText(title);
