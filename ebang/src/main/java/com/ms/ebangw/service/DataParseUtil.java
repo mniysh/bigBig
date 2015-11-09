@@ -20,7 +20,6 @@ import com.ms.ebangw.bean.WorkType;
 import com.ms.ebangw.bean.Worker;
 import com.ms.ebangw.exception.ResponseException;
 import com.ms.ebangw.utils.L;
-import com.ms.ebangw.utils.T;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -465,10 +464,6 @@ public class DataParseUtil {
         return false;
     }
 
-
-
-
-
     public static  String  processDataStr(JSONObject jsonObject) throws ResponseException {
         if (null == jsonObject) {
             L.d(TAG, "processData: json对象为null");
@@ -520,7 +515,6 @@ public class DataParseUtil {
                         }
                     }
                 }
-                T.show("用户未登录");
                 if (TextUtils.isEmpty(errorMessage)) {
                     throw new ResponseException(code, message);
                 }else {
@@ -533,4 +527,27 @@ public class DataParseUtil {
         }
         return null;
     }
+
+//    private static void processResponseException(JSONObject jsonObject) throws JSONException {
+//
+//        String dataStr = jsonObject.optString("data", "");
+//        String errorMessage = "";
+//        if (!TextUtils.isEmpty(dataStr) && !TextUtils.equals("null", dataStr) && !TextUtils.equals("NULL", dataStr)) {
+//            JSONObject data = jsonObject.getJSONObject("data");
+//            if (data != null) {
+//                Iterator<String> keys = data.keys();
+//                while (keys.hasNext()) {
+//                    String next = keys.next();
+//                    errorMessage = data.getString(next);
+//                }
+//            }
+//        }
+//        T.show("用户未登录");
+//        if (TextUtils.isEmpty(errorMessage)) {
+//            throw new ResponseException(code, message);
+//        }else {
+//            throw new ResponseException(code, errorMessage);
+//        }
+//
+//    }
 }
