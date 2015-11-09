@@ -8,9 +8,12 @@
               android:showDividers="middle"
               tools:context="com.ms.ebangw.activity.SettingActivity">
 
-    <include layout="@layout/layout_common_title"/>
+    <include layout="@layout/layout_common_title"
+
+        />
 
     <LinearLayout
+
         android:id="@+id/lin_original01"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

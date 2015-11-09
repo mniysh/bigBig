@@ -32,6 +32,7 @@ import com.ms.ebangw.exception.ResponseException;
 import com.ms.ebangw.service.DataAccessUtil;
 import com.ms.ebangw.service.DataParseUtil;
 import com.ms.ebangw.utils.L;
+import com.ms.ebangw.utils.T;
 import com.ms.ebangw.utils.Utility;
 import com.ms.ebangw.view.XListView;
 
@@ -198,22 +199,31 @@ public class ServiceFragment extends BaseFragment {
     }
 
     public Craft getAllWorkType() {
-        craft = MyApplication.getInstance().getCraft();
+//        craft = MyApplication.getInstance().getCraft();
         if(craft == null){
+
             DataAccessUtil.publishCraft(new JsonHttpResponseHandler(){
+                @Override
+                public void onStart() {
+                    super.onStart();
+                    showProgressDialog();
+                }
+
                 @Override
                 public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                     super.onSuccess(statusCode, headers, response);
                     try {
                         craft = DataParseUtil.publishCraft(response);
-                        MyApplication.getInstance().setCraft(craft);
+//                        MyApplication.getInstance().setCraft(craft);
                         serviceCraftAdapter = new ServiceCraftAdapter(craft.getBuilding(), (HomeActivity)mActivity);
                         listView.setAdapter(serviceCraftAdapter);
                         rBuilding.toggle();
+                        dismissLoadingDialog();
 //                        Utility.setlistview(listView);
 
                     } catch (ResponseException e) {
                         e.printStackTrace();
+                        T.show(e.getMessage());
                     }
                 }
 
@@ -221,6 +231,7 @@ public class ServiceFragment extends BaseFragment {
                 public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
                     super.onFailure(statusCode, headers, responseString, throwable);
                     L.d(responseString);
+                    dismissLoadingDialog();
                 }
             });
         }else{

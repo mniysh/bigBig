@@ -114,6 +114,7 @@ public class SelectCraftFragment extends BaseFragment {
         contentLayout = (ViewGroup) inflater.inflate(R.layout.fragment_select_craft, container,
             false);
         ButterKnife.bind(this, contentLayout);
+
         initView();
         initData();
         return contentLayout;
@@ -122,6 +123,7 @@ public class SelectCraftFragment extends BaseFragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+
         initTitle("发布");
     }
 
@@ -138,9 +140,9 @@ public class SelectCraftFragment extends BaseFragment {
                 }
             }
         });
-
         RadioButton radioButton = (RadioButton) radioGroup.getChildAt(0);
         radioButton.setChecked(true);
+        viewPager.setCurrentItem(0);
         initViewPager(craft);
 
     }
@@ -191,16 +193,22 @@ public class SelectCraftFragment extends BaseFragment {
     }
 
     public Craft getWorkType() {
-        craft = MyApplication.getInstance().getCraft();
-        if(craft == null){
+
             DataAccessUtil.publishCraft(new JsonHttpResponseHandler() {
+                @Override
+                public void onStart() {
+                    super.onStart();
+                    showProgressDialog();
+                }
+
                 @Override
                 public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                     super.onSuccess(statusCode, headers, response);
                     try {
                         craft = DataParseUtil.publishCraft(response);
-                        MyApplication.getInstance().setCraft(craft);
+//                        MyApplication.getInstance().setCraft(craft);
                         initViewPager(craft);
+                        dismissLoadingDialog();
 
 
                     } catch (ResponseException e) {
@@ -211,12 +219,12 @@ public class SelectCraftFragment extends BaseFragment {
                 @Override
                 public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
                     super.onFailure(statusCode, headers, responseString, throwable);
+                    L.d(responseString);
+                    dismissLoadingDialog();
                 }
             });
 
-        }else{
-            initViewPager(craft);
-        }
+
 
 
         return craft;
@@ -241,7 +249,7 @@ public class SelectCraftFragment extends BaseFragment {
 
         SelectTypePagerAdapter pagerAdapter = new SelectTypePagerAdapter(getFragmentManager(),
             list);
-        viewPager.setAdapter(pagerAdapter);
+
 
         viewPager.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
             @Override
@@ -251,7 +259,14 @@ public class SelectCraftFragment extends BaseFragment {
                 radioButton.setChecked(true);
             }
         });
+        viewPager.setAdapter(pagerAdapter);
 
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        viewPager.removeAllViews();
     }
 
     /**
