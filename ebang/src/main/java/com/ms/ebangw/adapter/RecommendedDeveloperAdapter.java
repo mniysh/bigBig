@@ -21,9 +21,10 @@ import java.util.List;
  * 2015-11-03 14:09
  */
 public class RecommendedDeveloperAdapter extends RecyclerView.Adapter<RecommendedDeveloperAdapter
-    .ViewHolder> {
+    .ViewHolder> implements View.OnClickListener{
     private Context context;
     private List<RecommendedDeveoper> list;
+    private OnRecyclerViewItemClickListener onRecyclerViewItemClickListener;
 
     public RecommendedDeveloperAdapter(Context context, List<RecommendedDeveoper> list) {
         this.context = context;
@@ -50,6 +51,8 @@ public class RecommendedDeveloperAdapter extends RecyclerView.Adapter<Recommende
         }
 
         holder.companyName.setText(recommendedDeveoper.getCompany_name());
+        holder.itemView.setOnClickListener(this);
+        holder.itemView.setTag(recommendedDeveoper);
     }
 
     @Override
@@ -57,15 +60,36 @@ public class RecommendedDeveloperAdapter extends RecyclerView.Adapter<Recommende
         return list.size();
     }
 
+    @Override
+    public void onClick(View v) {
+        if (onRecyclerViewItemClickListener != null) {
+            onRecyclerViewItemClickListener.onItemClick(v, (RecommendedDeveoper)v.getTag());
+        }
+    }
+
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         private ImageView companyLogoIv;
         private TextView companyName;
+
 
         public ViewHolder(View itemView) {
             super(itemView);
             companyLogoIv = (ImageView) itemView.findViewById(R.id.iv_company_logo);
             companyName = (TextView) itemView.findViewById(R.id.tv_company_name);
         }
+
+    }
+
+    public interface OnRecyclerViewItemClickListener {
+        void onItemClick(View view , RecommendedDeveoper recommendedDeveoper);
+    }
+
+    public OnRecyclerViewItemClickListener getOnRecyclerViewItemClickListener() {
+        return onRecyclerViewItemClickListener;
+    }
+
+    public void setOnRecyclerViewItemClickListener(OnRecyclerViewItemClickListener onRecyclerViewItemClickListener) {
+        this.onRecyclerViewItemClickListener = onRecyclerViewItemClickListener;
     }
 }

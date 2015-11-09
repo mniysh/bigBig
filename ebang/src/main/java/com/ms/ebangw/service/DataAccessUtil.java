@@ -687,14 +687,22 @@ public class DataAccessUtil {
      * @param craft_id  工种  （非必填）
      * @param distance  距离  （非必填）
      * @param page  第几页
-     * @param lat   纬度
-     * @param lon   经度
+     * @param latitude   纬度
+     * @param longitude   经度
      * @param asyncHttpResponseHandler
      * @return
      */
-    public static RequestHandle founds(String craft_id,String distance,String page,String lat,String lon, AsyncHttpResponseHandler
+    public static RequestHandle founds(String craft_id,String distance,String page,String latitude,String longitude, AsyncHttpResponseHandler
         asyncHttpResponseHandler){
-        return doGet(RequestUrl.founds, null, asyncHttpResponseHandler);
+
+        RequestParams params = new RequestParams();
+        params.put("craft_id", craft_id);
+        params.put("distance", distance);
+        params.put("page", page);
+        params.put("latitude", latitude);
+        params.put("longitude", longitude);
+
+        return doGet(RequestUrl.founds, params, asyncHttpResponseHandler);
     }
 
 
