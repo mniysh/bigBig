@@ -11,14 +11,17 @@ import android.widget.ImageView;
 
 import com.ms.ebangw.R;
 import com.ms.ebangw.activity.BaseActivity;
+import com.ms.ebangw.utils.L;
 
 import java.util.IllegalFormatFlagsException;
+import java.util.Set;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cn.jpush.android.api.BasicPushNotificationBuilder;
 import cn.jpush.android.api.JPushInterface;
+import cn.jpush.android.api.TagAliasCallback;
 
 public class SettingMessageActivity extends BaseActivity {
     @Bind(R.id.iv_messageRemind)
@@ -27,6 +30,8 @@ public class SettingMessageActivity extends BaseActivity {
     ImageView ringIv;
     @Bind(R.id.iv_vibration)
     ImageView vibrationIv;
+    private String alias = "";
+    private Set<String> tags;
 
     private boolean flag_messageRemind = true;
     private boolean flag_ring = true;
@@ -39,6 +44,18 @@ public class SettingMessageActivity extends BaseActivity {
 
     @Override
     public void initData() {
+        JPushInterface.setAliasAndTags(this, alias, tags, new TagAliasCallback() {
+            @Override
+            public void gotResult(int i, String s, Set<String> set) {
+                if( i == 0){
+                    L.d("别名，标签设置成功");
+                    alias = s;
+                    tags = set;
+                }else{
+                    L.d("别名设置失败");
+                }
+            }
+        });
 
     }
 
