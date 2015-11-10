@@ -179,7 +179,7 @@ public class LotteryFragment extends BaseFragment {
          */
         @JavascriptInterface
         public void sharePlatform(final int platform) {
-
+            L.d("sharePlatform: " + platform);
             directShare(platform);
         }
 
@@ -241,7 +241,9 @@ public class LotteryFragment extends BaseFragment {
             } else {
                 share_media = SHARE_MEDIA.SINA;
             }
-
+            /**
+             * 友盟分享只有在每次分享成功后才清理回调，如果不成功，则会回调多次,所以每次回调失败后要清除以前的listener
+             */
             ShareUtils.directShare(mActivity, share_media, new SocializeListeners.SnsPostListener() {
 
                 @Override
@@ -255,6 +257,7 @@ public class LotteryFragment extends BaseFragment {
                     String showText = "分享成功";
                     if (eCode != StatusCode.ST_CODE_SUCCESSED) {
                         showText = "分享失败 [" + eCode + "]";
+                        ShareUtils.mController.unregisterListener(this);
                     }
                     Toast.makeText(mActivity, showText, Toast.LENGTH_SHORT).show();
 
@@ -268,8 +271,8 @@ public class LotteryFragment extends BaseFragment {
                     }
 
                     onSharedResult(p, eCode == StatusCode.ST_CODE_SUCCESSED ? 1 : 0);
-                }
 
+                }
             });
         }
     }
@@ -281,6 +284,7 @@ public class LotteryFragment extends BaseFragment {
      */
     public void onSharedResult(int platform, int resultCode) {
         String s = "javascript:onSharedResult(" + platform + "," + resultCode + ")";
+        L.d(s);
         webview.loadUrl(s);
     }
 

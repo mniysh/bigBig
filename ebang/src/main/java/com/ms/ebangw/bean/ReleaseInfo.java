@@ -4,6 +4,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 /**
+ * 开发商发布工程时的工程信息
  * Created by admin on 2015/10/20.
  */
 public class ReleaseInfo implements Parcelable{
@@ -77,6 +78,7 @@ public class ReleaseInfo implements Parcelable{
                 ", staff=" + staff +
                 '}';
     }
+
 
     public String getId() {
         return id;

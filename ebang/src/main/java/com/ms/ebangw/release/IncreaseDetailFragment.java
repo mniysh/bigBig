@@ -11,13 +11,11 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
-import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.TextUtils;
 import android.text.style.ForegroundColorSpan;
 import android.view.LayoutInflater;
-import android.view.TextureView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -88,6 +86,7 @@ public class IncreaseDetailFragment extends BaseFragment {
 
 //    private String JPEG_FILE_PREFIX =
 
+    private ReleaseInfo releaseInfo;
 
     private List<String> imageNames;
 
@@ -145,9 +144,9 @@ public class IncreaseDetailFragment extends BaseFragment {
 
 
     private String province, city , area, detailAddress, title, link_name, link_phone,
-            count, startTime, totalMoney, endTime, selectMapAdd;
+        description, startTime, totalMoney, endTime, selectMapAdd;
     private String provinceId, cityId, areaId;
-    private String mCurrentPhotoPuth;
+    private String mCurrentPhotoPath;
     private MyApplication myApplication;
     private ReleaseProject releaseProject;
     private int  startYear,  startMonth,  startDay, endYear, endMonth, endDay;
@@ -225,6 +224,11 @@ public class IncreaseDetailFragment extends BaseFragment {
             staff = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+
+        if (null != savedInstanceState) {
+            mCurrentPhotoPath = savedInstanceState.getString(Constants.KEY_CURRENT_IMAGE_PATH);
+            releaseInfo = savedInstanceState.getParcelable(Constants.KEY_RELEASE_INFO);
+        }
     }
 
     @Override
@@ -275,14 +279,13 @@ public class IncreaseDetailFragment extends BaseFragment {
             return;
         }
 
-
         image_ary = disposeImage(imageNames);
         detailAddress = detailAddressEt.getText().toString().trim();
         title = titleEt.getText().toString().trim();
         link_name = nameEt.getText().toString().trim();
 
         link_phone = phoneEt.getText().toString().trim();
-        count = introduceEt.getText().toString().trim();
+        description = introduceEt.getText().toString().trim();
         provinceId = provinceAndCityView.getProvinceId();
         cityId = provinceAndCityView.getCityId();
 //        areaId = provinceAndCityView.getAreaId();
@@ -290,11 +293,48 @@ public class IncreaseDetailFragment extends BaseFragment {
         endTime = endTimeTv.getText().toString().trim();
         totalMoney = totalMoneyEt.getText().toString().trim();
 
+        releaseInfo.setTitle(title);
+        releaseInfo.setDescription(description);
+        releaseInfo.setLink_man(link_name);
+        releaseInfo.setLink_phone(link_phone);
+        releaseInfo.setProvince(provinceId);
+        releaseInfo.setCity(cityId);
+        releaseInfo.setPoint_dimention(latitude);
+        releaseInfo.setPoint_longitude(longitude);
+        releaseInfo.setImage_ary(image_ary);
+        releaseInfo.setStart_time(startTime);
+        releaseInfo.setEnd_time(endTime);
+        releaseInfo.setProject_money(totalMoney);
+        releaseInfo.setStaff(staff);
     }
+
+    /**
+     *
+     *  RequestParams params = new RequestParams();
+     params.put("title",title);
+     params.put("description",description);
+     params.put("link_man",link_man);
+     params.put("link_phone",link_phone);
+     params.put("province",province);
+     params.put("city",city);
+     params.put("area_other",area_other);
+     params.put("point_longitude",point_longitude);
+     params.put("point_dimension",point_dimension);
+     params.put("start_time",start_time);
+     params.put("end_time", end_time);
+     params.put("project_money",project_money);
+     params.put("image_ary",image_ary);
+     params.put("staffs", staffs);
+     *
+     * @param data
+     * @return
+     */
     public String disposeImage(List<String> data){
         Gson gson = new Gson();
         return gson.toJson(data);
     }
+
+
     public boolean isRight(){
         if(imageNames == null){
             T.show("请至少上传一张图片");
@@ -316,7 +356,7 @@ public class IncreaseDetailFragment extends BaseFragment {
             T.show("电话不可为空");
             return  false;
         }
-        if(TextUtils.isEmpty(count)){
+        if(TextUtils.isEmpty(description)){
             T.show("简介不可为空");
             return  false;
         }
@@ -376,11 +416,8 @@ public class IncreaseDetailFragment extends BaseFragment {
 
     @Override
     public void initData() {
-        HomeActivity homeActivity = (HomeActivity) mActivity;
         List<Province> provinces = getAreaFromAssets().getProvince();
         provinceAndCityView.setProvinces(provinces);
-
-
 
     }
 
@@ -395,6 +432,7 @@ public class IncreaseDetailFragment extends BaseFragment {
         imageFile = new File(Environment.getExternalStorageDirectory() + "/Images/",
             "cameraImg" + String.valueOf(System.currentTimeMillis()) + ".png");
 
+        mCurrentPhotoPath = imageFile.getAbsolutePath();
         Uri mUri = Uri.fromFile(imageFile);
         cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, mUri);
         cameraIntent.putExtra("return-data", true);
@@ -413,10 +451,6 @@ public class IncreaseDetailFragment extends BaseFragment {
 
     }
 
-
-
-
-
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -427,12 +461,12 @@ public class IncreaseDetailFragment extends BaseFragment {
             //照相上传
             Uri uri ;
             if(data == null){
-                uri = Uri.fromFile(imageFile);
+//                uri = Uri.fromFile(imageFile);
+                uri = Uri.fromFile(new File(mCurrentPhotoPath));
             }else{
                 uri = data.getData();
             }
             beginCrop(uri);
-
 
         }else if(requestCode == Constants.REQUEST_PICK){
             //手机内部选图处理
@@ -471,9 +505,9 @@ public class IncreaseDetailFragment extends BaseFragment {
 
     private void beginCrop(Uri source) {
         Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        mCurrentPhotoPuth = imageFile.getAbsolutePath();
+//        mCurrentPhotoPath = imageFile.getAbsolutePath();
         myApplication = (MyApplication) mActivity.getApplication();
-        myApplication.imagePath = mCurrentPhotoPuth;
+        myApplication.imagePath = mCurrentPhotoPath;
         Intent intent = new Intent(mActivity, CropImageActivity.class);
         Bundle bundle = new Bundle();
         bundle.putString(Constants.KEY_HEAD_IMAGE_STR,"publicImage");
@@ -582,7 +616,7 @@ public class IncreaseDetailFragment extends BaseFragment {
      */
     @OnClick(R.id.btn_release)
     public void developerRelease() {
-       // private String province, city , area, detailAddress, title, link_name, link_phone, count;
+       // private String province, city , area, detailAddress, title, link_name, link_phone, description;
         User user = getUser();
         if(user == null){
             return;
@@ -590,7 +624,7 @@ public class IncreaseDetailFragment extends BaseFragment {
         getData();
 
         if(isRight()){
-            DataAccessUtil.developerRelease(title,count,link_name,link_phone,
+            DataAccessUtil.developerRelease(title, description,link_name,link_phone,
                      provinceId, cityId,detailAddress,
                     longitude, latitude, image_ary,startTime, endTime,totalMoney, staff,
                     new JsonHttpResponseHandler(){
@@ -605,7 +639,7 @@ public class IncreaseDetailFragment extends BaseFragment {
                                     releaseProject = DataParseUtil.getProjectInfo(response);
 //                                    ReleaseInfo releaseInfo = new ReleaseInfo();
 //                                    releaseInfo.setTitle(title);
-//                                    releaseInfo.setDescription(count);
+//                                    releaseInfo.setDescription(description);
 //                                    releaseInfo.setLink_man(link_name);
 //                                    releaseInfo.setLink_phone(link_phone);
 //                                    releaseInfo.setProvince(provinceId);
@@ -654,6 +688,7 @@ public class IncreaseDetailFragment extends BaseFragment {
         if(bitmap != null){
             a++;
         }
+
         if(a % 3 == 1){
             picture01Iv.setImageBitmap(bitmap);
         }else if(a % 3 == 2){
@@ -661,30 +696,12 @@ public class IncreaseDetailFragment extends BaseFragment {
         }else if(a %3 == 0){
             picture03Iv.setImageBitmap(bitmap);
         }
+    }
 
-
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        outState.putString(Constants.KEY_CURRENT_IMAGE_PATH, mCurrentPhotoPath);
+        outState.putParcelable(Constants.KEY_RELEASE_INFO, releaseInfo);
+        super.onSaveInstanceState(outState);
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

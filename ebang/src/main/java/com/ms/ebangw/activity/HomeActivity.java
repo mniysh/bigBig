@@ -9,7 +9,6 @@ import android.os.Message;
 import android.support.design.widget.TabLayout;
 import android.text.TextUtils;
 import android.view.KeyEvent;
-import android.view.View;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
@@ -103,11 +102,11 @@ public class HomeActivity extends BaseActivity {
         ButterKnife.bind(this);
         EventBus.getDefault().register(this);
         fm = getFragmentManager();
-        L.d("HomeActivity onCreate ");
+        L.d("HomeActivity onCreate, savedInstanceState=  " + savedInstanceState);
         if (savedInstanceState != null) {
             L.d(savedInstanceState.toString());
-            initView();
-            initData();
+//            initView();
+//            initData();
         } else {
             initView();
             initData();
@@ -118,8 +117,8 @@ public class HomeActivity extends BaseActivity {
     }
 
     public void initView() {
-        selectWorkType = new ArrayList<>();
 //        initTabs();
+        selectWorkType = new ArrayList<>();
     }
 
     public List<WorkType> getSelectWorkType() {
@@ -130,7 +129,6 @@ public class HomeActivity extends BaseActivity {
     @Override
     public void initData() {
         loadUserInformation();
-        fm = getFragmentManager();
         foundFragment = new FoundFragment();
         serviceFragment = new ServiceFragment();
 
@@ -177,29 +175,6 @@ public class HomeActivity extends BaseActivity {
 
     }
 
-    private void initTabs() {
-        View view = getLayoutInflater().inflate(R.layout.home_tab_item, null);
-        TabLayout.Tab tab = tabLayout.newTab().setCustomView(getLayoutInflater().inflate(R.layout.home_tab_item, null));
-        TabLayout.Tab tab1 = tabLayout.newTab().setCustomView(getLayoutInflater().inflate(R.layout.home_tab_item, null));
-        TabLayout.Tab tab2 = tabLayout.newTab().setCustomView(getLayoutInflater().inflate(R.layout.home_tab_item, null));
-        TabLayout.Tab tab3 = tabLayout.newTab().setCustomView(getLayoutInflater().inflate(R.layout.home_tab_item, null));
-        
-        
-        
-        TabLayout.Tab a = tabLayout.newTab().setText("a").setIcon(R.drawable.home_release_selector);
-        TabLayout.Tab b = tabLayout.newTab().setText("a").setIcon(R.drawable.home_release_selector);
-        TabLayout.Tab c = tabLayout.newTab().setText("a").setIcon(R.drawable.home_release_selector);
-        TabLayout.Tab d = tabLayout.newTab().setText("a").setIcon(R.drawable.home_release_selector);
-        tabLayout.addTab(tab);
-        tabLayout.addTab(tab1);
-        tabLayout.addTab(tab2);
-        tabLayout.addTab(tab3);
-//        tabLayout.addTab(a);
-//        tabLayout.addTab(b);
-//        tabLayout.addTab(c);
-//        tabLayout.addTab(d);
-
-    }
 
     public void onEvent(WorkTypeEvent event) {
         WorkType workType = event.getWorkType();
@@ -210,13 +185,6 @@ public class HomeActivity extends BaseActivity {
             selectWorkType.remove(workType);
         }
     }
-
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-    }
-
 
     /**
      * 根据人员类型跳转到相应的内容
@@ -451,7 +419,6 @@ public class HomeActivity extends BaseActivity {
 
 
     public void loadUserInformation() {
-        L.d("loadUserInformation");
         DataAccessUtil.userInformation(new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
