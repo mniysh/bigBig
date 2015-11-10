@@ -21,12 +21,12 @@ public class PeasantAuthenBackActivity extends BaseActivity {
     private LinearLayout layout;
     @Bind(R.id.bt_next)
     Button bNext;
-    @OnClick(R.id.bt_next)
-    public void  next(){
-        layout=(LinearLayout) getLayoutInflater().inflate(R.layout.popup_lay, null, false);
-        Button bBack= (Button) layout.findViewById(R.id.popup_lay_iv_back);
-        pWindow(layout,600,LinearLayout.LayoutParams.WRAP_CONTENT,bBack,null,null,null,bNext, Gravity.TOP,0,150);
-    }
+//    @OnClick(R.id.bt_next)
+//    public void  next(){
+//        layout=(LinearLayout) getLayoutInflater().inflate(R.layout.popup_lay, null, false);
+//        Button bBack= (Button) layout.findViewById(R.id.popup_lay_iv_back);
+//        pWindow(layout,600,LinearLayout.LayoutParams.WRAP_CONTENT,bBack,null,null,null,bNext, Gravity.TOP,0,150);
+//    }
 
     @Override
     public void initView() {
