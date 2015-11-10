@@ -46,13 +46,13 @@ public class SettingAllActivity extends BaseActivity {
     public void goSecuritySetting(){
         Intent intent = new Intent(this, SettingActivity.class);
         startActivity(intent);
-        finish();
+
     }
     @OnClick(R.id.ll_message)
     public void goMessageSetting(){
         Intent intent = new Intent(this, SettingMessageActivity.class);
         startActivity(intent);
-        finish();
+
     }
     @OnClick(R.id.ll_update)
     public void goUpdateSetting(){
@@ -60,7 +60,8 @@ public class SettingAllActivity extends BaseActivity {
     }
     @OnClick(R.id.ll_feedback)
     public void goFeelbackSetting(){
-
+        Intent intent = new Intent(this, FeelbackSettingActivity.class);
+        startActivity(intent);
     }
     @OnClick(R.id.ll_about_our)
     public void goAboutOurSetting(){
