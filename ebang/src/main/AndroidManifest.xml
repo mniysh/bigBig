@@ -284,7 +284,7 @@
         </activity>
         <activity android:name=".activity.NextPageActivity" >
         </activity>
-        <activity android:name=".activity.SettingActivity" >
+        <activity android:name=".setting.SettingActivity" >
         </activity>
         <activity android:name=".activity.ModifyNickNameActivity" >
         </activity>
@@ -330,7 +330,7 @@
         </activity>
         <activity android:name=".activity.DiscoveryActivity" >
         </activity>
-        <activity android:name=".activity.SettingAllActivity" >
+        <activity android:name=".setting.SettingAllActivity" >
         </activity>
     </application>
 

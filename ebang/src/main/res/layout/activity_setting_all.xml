@@ -6,7 +6,7 @@
     android:orientation="vertical"
 
     android:background="@color/white"
-    tools:context="com.ms.ebangw.activity.SettingAllActivity">
+    tools:context="com.ms.ebangw.setting.SettingAllActivity">
     <include layout="@layout/layout_common_title"/>
     <LinearLayout
         android:id="@+id/ll_security"

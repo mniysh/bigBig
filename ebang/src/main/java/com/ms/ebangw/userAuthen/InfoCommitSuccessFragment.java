@@ -13,7 +13,7 @@ import com.loopj.android.http.JsonHttpResponseHandler;
 import com.ms.ebangw.MyApplication;
 import com.ms.ebangw.R;
 import com.ms.ebangw.activity.HomeActivity;
-import com.ms.ebangw.activity.SettingActivity;
+import com.ms.ebangw.setting.SettingActivity;
 import com.ms.ebangw.bean.User;
 import com.ms.ebangw.commons.Constants;
 import com.ms.ebangw.exception.ResponseException;

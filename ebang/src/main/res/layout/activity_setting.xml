@@ -6,7 +6,7 @@
               android:divider="@drawable/divider_line_gray"
               android:orientation="vertical"
               android:showDividers="middle"
-              tools:context="com.ms.ebangw.activity.SettingActivity">
+              tools:context="com.ms.ebangw.setting.SettingActivity">
 
     <include layout="@layout/layout_common_title"
 

@@ -1,10 +1,11 @@
-package com.ms.ebangw.activity;
+package com.ms.ebangw.setting;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.LinearLayout;
 
 import com.ms.ebangw.R;
+import com.ms.ebangw.activity.BaseActivity;
 
 import butterknife.Bind;
 

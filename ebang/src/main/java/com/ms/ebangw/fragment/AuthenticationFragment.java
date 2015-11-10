@@ -20,7 +20,7 @@ import android.widget.TextView;
 
 import com.ms.ebangw.MyApplication;
 import com.ms.ebangw.R;
-import com.ms.ebangw.activity.SettingActivity;
+import com.ms.ebangw.setting.SettingActivity;
 import com.ms.ebangw.bean.UploadImageResult;
 import com.ms.ebangw.bean.User;
 import com.ms.ebangw.commons.Constants;

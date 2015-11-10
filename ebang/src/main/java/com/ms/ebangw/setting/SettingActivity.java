@@ -1,4 +1,4 @@
-package com.ms.ebangw.activity;
+package com.ms.ebangw.setting;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,6 +9,11 @@ import android.widget.TextView;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.ms.ebangw.MyApplication;
 import com.ms.ebangw.R;
+import com.ms.ebangw.activity.BaseActivity;
+import com.ms.ebangw.activity.LoginActivity;
+import com.ms.ebangw.activity.ModifyNickNameActivity;
+import com.ms.ebangw.activity.ModifyPasswordAvtivity;
+import com.ms.ebangw.activity.ModifyPhoneActivity;
 import com.ms.ebangw.bean.User;
 import com.ms.ebangw.commons.Constants;
 import com.ms.ebangw.db.UserDao;
