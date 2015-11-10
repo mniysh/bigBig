@@ -286,18 +286,18 @@
         </activity>
         <activity android:name=".setting.SettingActivity" >
         </activity>
-        <activity android:name=".activity.ModifyNickNameActivity" >
+        <activity android:name=".setting.ModifyNickNameActivity" >
         </activity>
         <activity
-            android:name=".activity.ModifyPhoneActivity"
+            android:name=".setting.ModifyPhoneActivity"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name=".activity.ModifyPhone02Activity"
+            android:name=".setting.ModifyPhone02Activity"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name=".activity.ModifyPasswordAvtivity"
+            android:name=".setting.ModifyPasswordAvtivity"
             android:screenOrientation="portrait" >
         </activity>
         <activity

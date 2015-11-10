@@ -3,7 +3,7 @@
     android:layout_height="match_parent"
 
     android:orientation="vertical"
-    tools:context="com.ms.ebangw.activity.ModifyNickNameActivity">
+    tools:context="com.ms.ebangw.setting.ModifyNickNameActivity">
     <include layout="@layout/layout_common_title"/>
     <include layout="@layout/settingone"/>
 

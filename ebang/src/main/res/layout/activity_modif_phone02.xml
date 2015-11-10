@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:background="@color/white"
     android:orientation="vertical"
-    tools:context="com.ms.ebangw.activity.ModifyPhone02Activity">
+    tools:context="com.ms.ebangw.setting.ModifyPhone02Activity">
 
     <include layout="@layout/layout_common_title"/>
     <LinearLayout
