@@ -149,7 +149,7 @@ public abstract class BaseFragment extends Fragment {
      */
     public void dismissLoadingDialog() {
         if (null != mLoadingDialog && null != mLoadingDialog.getActivity()&& mLoadingDialog.isVisible()) {
-            mLoadingDialog.dismiss();
+            mLoadingDialog.dismissAllowingStateLoss();
         }
     }
     @Override

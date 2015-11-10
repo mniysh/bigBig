@@ -20,16 +20,13 @@ import android.widget.TextView;
 import com.ms.ebangw.R;
 import com.ms.ebangw.bean.Staff;
 import com.ms.ebangw.bean.WorkType;
-import com.ms.ebangw.event.OnCheckedWorkTypeEvent;
 import com.ms.ebangw.utils.T;
-import com.ms.ebangw.utils.VerifyUtils;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
-import de.greenrobot.event.EventBus;
 
 /**
  * 发布  选择工种时弹出的对话框
@@ -240,14 +237,14 @@ public class SelectWorTypeDialog extends DialogFragment {
             T.show("请输入结束时间");
             return false;
         }
-        if(!VerifyUtils.isRight(startYear, startMonth , startDay)){
-            T.show("时间不正确");
-            return  false;
-        }
-        if(!VerifyUtils.isRightTime(startYear, startMonth, startDay, endYear, endMonth , endDay)){
-           T.show("时间不正确");
-            return false;
-        }
+//        if(!VerifyUtils.isRight(startYear, startMonth , startDay)){
+//            T.show("时间不正确");
+//            return  false;
+//        }
+//        if(!VerifyUtils.isRightTime(startYear, startMonth, startDay, endYear, endMonth , endDay)){
+//           T.show("时间不正确");
+//            return false;
+//        }
 
         return true;
     }

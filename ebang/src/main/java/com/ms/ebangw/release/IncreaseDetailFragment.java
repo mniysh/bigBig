@@ -51,6 +51,7 @@ import com.ms.ebangw.utils.L;
 import com.ms.ebangw.utils.T;
 import com.ms.ebangw.utils.VerifyUtils;
 import com.ms.ebangw.view.ProvinceAndCityView;
+import com.squareup.picasso.Picasso;
 
 import org.apache.http.Header;
 import org.json.JSONObject;
@@ -88,7 +89,7 @@ public class IncreaseDetailFragment extends BaseFragment {
 
     private ReleaseInfo releaseInfo;
 
-    private List<String> imageNames;
+    private ArrayList<String> imageNames;
 
 
     private String mParam1;
@@ -98,6 +99,7 @@ public class IncreaseDetailFragment extends BaseFragment {
     private String image_ary;
     private ViewGroup contentLayout;
     private File imageFile;
+    private List<ImageView> picList;
     @Bind(R.id.pac)
     ProvinceAndCityView provinceAndCityView;
     //详细地址
@@ -228,6 +230,13 @@ public class IncreaseDetailFragment extends BaseFragment {
         if (null != savedInstanceState) {
             mCurrentPhotoPath = savedInstanceState.getString(Constants.KEY_CURRENT_IMAGE_PATH);
             releaseInfo = savedInstanceState.getParcelable(Constants.KEY_RELEASE_INFO);
+            imageNames = savedInstanceState.getStringArrayList(Constants.KEY_PROJECT_IMAGES);
+            if (null == picList) {
+                picList = new ArrayList<>();
+                picList.add(picture01Iv);
+                picList.add(picture02Iv);
+                picList.add(picture03Iv);
+            }
         }
     }
 
@@ -416,6 +425,11 @@ public class IncreaseDetailFragment extends BaseFragment {
 
     @Override
     public void initData() {
+        picList = new ArrayList<>();
+        picList.add(picture01Iv);
+        picList.add(picture02Iv);
+        picList.add(picture03Iv);
+
         List<Province> provinces = getAreaFromAssets().getProvince();
         provinceAndCityView.setProvinces(provinces);
 
@@ -682,26 +696,36 @@ public class IncreaseDetailFragment extends BaseFragment {
         UploadImageResult upLoadImageResult = intent.getParcelableExtra(Constants.KEY_UPLOAD_IMAGE_RESULT);
         String id = upLoadImageResult.getId();
         String name = upLoadImageResult.getName();
-        imageNames.add(name);
-        String imagePuth = myApplication.imagePath;
-        Bitmap bitmap = BitmapUtil.getImage(imagePuth);
-        if(bitmap != null){
-            a++;
+        String imagePath = myApplication.imagePath;
+        Bitmap bitmap = BitmapUtil.getImage(imagePath);
+
+        int size = imageNames.size();
+        if (size >= 2) {
+            imageNames.remove(2);
+            imageNames.add(0, imageNames.get(1));
+            imageNames.add(1, imageNames.get(2));
+        }
+            imageNames.add(name);
+        Picasso.with(mActivity).load(Uri.parse(imageNames.get(0))).into(picture01Iv);
+        for (int i = 0; i < size; i++) {
+            Picasso.with(mActivity).load(imageNames.get(i)).into(picList.get(i));
         }
 
-        if(a % 3 == 1){
-            picture01Iv.setImageBitmap(bitmap);
-        }else if(a % 3 == 2){
-            picture02Iv.setImageBitmap(bitmap);
-        }else if(a %3 == 0){
-            picture03Iv.setImageBitmap(bitmap);
-        }
+//
+//        if(a % 3 == 1){
+//            picture01Iv.setImageBitmap(bitmap);
+//        }else if(a % 3 == 2){
+//            picture02Iv.setImageBitmap(bitmap);
+//        }else if(a %3 == 0){
+//            picture03Iv.setImageBitmap(bitmap);
+//        }
     }
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
         outState.putString(Constants.KEY_CURRENT_IMAGE_PATH, mCurrentPhotoPath);
         outState.putParcelable(Constants.KEY_RELEASE_INFO, releaseInfo);
+        outState.putStringArrayList(Constants.KEY_PROJECT_IMAGES, imageNames);
         super.onSaveInstanceState(outState);
     }
 }
