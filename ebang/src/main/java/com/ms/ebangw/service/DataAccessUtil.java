@@ -706,6 +706,27 @@ public class DataAccessUtil {
     }
 
 
+    /**
+     *2-18.19， 20抢单 待通过, 进行中, 已结束（工头）  get
+     * @param page
+     * @param latitude
+     * @param longitude
+     * @param asyncHttpResponseHandler
+     * @return
+     */
+    public static RequestHandle projectStatus(String page,String
+        latitude,  String longitude, AsyncHttpResponseHandler
+        asyncHttpResponseHandler){
+
+        RequestParams params = new RequestParams();
+        params.put("page", page);
+        params.put("latitude", latitude);
+        params.put("longitude", longitude);
+
+        return doGet(RequestUrl.founds, params, asyncHttpResponseHandler);
+    }
+
+
     public static RequestHandle doPost(String url, RequestParams params, AsyncHttpResponseHandler asyncHttpResponseHandler) {
 
         if (!NetUtils.isConnected(MyApplication.getInstance())) {

@@ -4,6 +4,7 @@
               android:layout_height="match_parent"
               android:orientation="vertical"
               tools:context="com.ms.ebangw.fragment.InvestorCenterFragment">
+
     <FrameLayout
         android:id="@+id/fl_head_info"
         android:layout_width="match_parent"
@@ -17,18 +18,19 @@
         >
 
         <LinearLayout
+            android:id="@+id/ll_verItems"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
             >
 
             <TextView
-                android:id="@+id/tv_published"
+                android:id="@+id/tv_grab"
                 style="@style/user_center_item_ver"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:drawableLeft="@drawable/published"
-                android:text="@string/published"
+                android:drawableLeft="@drawable/grab"
+                android:text="@string/grab"
                 />
 
             <TextView
@@ -57,9 +59,26 @@
                 android:drawableLeft="@drawable/jifen"
                 android:text="@string/jifen"
                 />
+            <TextView
+                android:id="@+id/tv_people_manage"
+                style="@style/user_center_item_ver"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/people_manage"
+                android:text="@string/people_manage"
+                />
+            <TextView
+                android:id="@+id/tv_invite_friend"
+                style="@style/user_center_item_ver"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/invite_friend"
+                android:text="@string/invite_friend"
+                />
 
         </LinearLayout>
 
     </ScrollView>
+
 
 </LinearLayout>

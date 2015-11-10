@@ -28,6 +28,10 @@
         <item name="android:background">@color/black_overlay</item>
     </style>
 
+    <declare-styleable name="CompoundButton">
+        <attr name="android:button" />
+    </declare-styleable>
+
     <style name="ratingbar">
         <item name="android:progressDrawable">@drawable/ratingbar</item>
         <item name="android:minHeight">15dip</item>
@@ -291,6 +295,7 @@
         <item name="android:drawablePadding">5dp</item>
         <item name="android:layout_marginTop">5dp</item>
         <item name="android:layout_marginBottom">5dp</item>
+        <item name="android:drawableRight">@drawable/right_arrow</item>
         <item name="android:background">@android:color/white</item>
     </style>
 
@@ -306,6 +311,16 @@
         <item name="tabPaddingEnd">12dp</item>
         <item name="tabBackground">@color/white</item>
         <item name="tabSelectedTextColor">?android:textColorPrimary</item>
+    </style>
+
+    <style name="RadioButton">
+        <item name="android:textColor">@drawable/segment_button_text_color</item>
+        <item name="android:minHeight">33dp</item>
+        <item name="android:minWidth">70dp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:button">@null</item>
+        <item name="android:paddingLeft">5dp</item>
+        <item name="android:paddingRight">5dp</item>
     </style>
 
 </resources>

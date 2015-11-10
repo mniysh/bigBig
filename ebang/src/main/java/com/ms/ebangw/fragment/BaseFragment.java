@@ -131,7 +131,7 @@ public abstract class BaseFragment extends Fragment {
      */
     public void showProgressDialog(String message) {
         if (null != mLoadingDialog) {
-            mLoadingDialog.dismiss();
+            mLoadingDialog.dismissAllowingStateLoss();
         }
         if (null == mLoadingDialog) {
             mLoadingDialog = LoadingDialog.newInstance(message) ;

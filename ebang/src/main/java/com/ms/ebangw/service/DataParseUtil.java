@@ -391,6 +391,23 @@ public class DataParseUtil {
         return list;
     }
 
+    /**
+     * 2-18 2-19 2-20 已发布的工程
+     * @param jsonObject
+     * @return
+     * @throws ResponseException
+     */
+    public static List<ReleaseProject> projectStatus(JSONObject jsonObject) throws ResponseException {
+        JSONObject data = processData(jsonObject);
+        String arrayStr = data.optString("project");
+
+        Gson gson = new Gson();
+        List<ReleaseProject> list = gson.fromJson(arrayStr, new TypeToken<List<ReleaseProject>>() {
+        }.getType());
+
+        return list;
+    }
+
 
     /**
      * 发布工程的接口解析
@@ -432,6 +449,8 @@ public class DataParseUtil {
         }
         return releaseProject;
     }
+
+
 
 
     /**

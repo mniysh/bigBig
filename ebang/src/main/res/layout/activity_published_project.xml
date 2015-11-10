@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.ms.ebangw.activity.PublishedProjectActivity">
+    <include
+        layout="@layout/layout_common_title"/>
+
+    <RadioGroup
+        android:id="@+id/radioGroup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="15dp"
+        >
+
+        <RadioButton
+            android:id="@+id/btn_waitting_pass"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="待通过"
+            android:background="@drawable/segment_left_round_selector"
+            style="@style/RadioButton" />
+
+        <RadioButton
+            android:id="@+id/rb_underway"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="进行中"
+            android:background="@drawable/segment_middle_round_selector"
+            style="@style/RadioButton" />
+
+        <RadioButton
+            android:id="@+id/btn_finished"
+            style="@style/RadioButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/segment_right_round_selector"
+            android:text="已结束"/>
+    </RadioGroup>
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/viewPager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"></android.support.v4.view.ViewPager>
+
+</LinearLayout>
