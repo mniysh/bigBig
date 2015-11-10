@@ -163,4 +163,5 @@
     <string name="title_activity_service_contract">ServiceContractActivity</string>
     <string name="title_activity_recommened_works">RecommenedWorksActivity</string>
     <string name="title_activity_paying">PayingActivity</string>
+    <string name="title_activity_setting_message">SettingMessageActivity</string>
 </resources>

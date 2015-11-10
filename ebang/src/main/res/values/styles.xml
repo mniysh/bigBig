@@ -39,7 +39,7 @@
     <!-- 线的风格 -->
     <style name="aaa_hor">
         <item name="android:layout_width">fill_parent</item>
-        <item name="android:layout_height">1.5dp</item>
+        <item name="android:layout_height">1dp</item>
         <item name="android:background">@drawable/bk_line</item>
     </style>
     <!-- 线的风格 -->
@@ -189,6 +189,29 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_marginLeft">10dp</item>
 
+    </style>
+    <style name="settingMessage">
+        <item name="android:background">@color/gray_back</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:padding">10dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">match_parent</item>
+    </style>
+    <style name="settingMessage_title">
+
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:padding">10dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">match_parent</item>
+    </style>
+    <style name="settingMessage_content">
+        <item name="android:textColor">@color/gray</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:padding">10dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
     </style>
 
     <!--发布  start-->

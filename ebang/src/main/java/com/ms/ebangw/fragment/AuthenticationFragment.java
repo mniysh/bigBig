@@ -29,6 +29,7 @@ import com.ms.ebangw.crop.FroyoAlbumDirFactory;
 import com.ms.ebangw.crop.GetPathFromUri4kitkat;
 import com.ms.ebangw.dialog.SelectPhotoDialog;
 import com.ms.ebangw.service.DataAccessUtil;
+import com.ms.ebangw.setting.SettingAllActivity;
 import com.ms.ebangw.userAuthen.developers.DevelopersAuthenActivity;
 import com.ms.ebangw.userAuthen.headman.HeadmanAuthenActivity;
 import com.ms.ebangw.userAuthen.investor.InvestorAuthenActivity;
@@ -237,9 +238,11 @@ public class AuthenticationFragment extends BaseFragment implements OnClickListe
             @Override
             public void onClick(View v) {
                 //设置跳转
-                Intent intent = new Intent(mActivity, SettingActivity.class);
-
-                mActivity.startActivityForResult(intent, Constants.REQUEST_EXIT);
+//                Intent intent = new Intent(mActivity, SettingActivity.class);
+//
+//                mActivity.startActivityForResult(intent, Constants.REQUEST_EXIT);
+                Intent intent = new Intent(mActivity, SettingAllActivity.class);
+                startActivity(intent);
             }
         });
 

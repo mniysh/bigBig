@@ -50,6 +50,8 @@ public class SettingActivity extends BaseActivity {
     TextView tvPhoneModify;
     @Bind(R.id.tv_passModify)
     TextView tvPassModify;
+    @Bind(R.id.tv_realNameModify)
+    TextView tvRealNameModify;
     /**
      * 扫码推荐工长
      */
@@ -122,6 +124,14 @@ public class SettingActivity extends BaseActivity {
 
             }
         });
+        tvRealNameModify.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                
+
+            }
+        });
+
     }
 
     @Override

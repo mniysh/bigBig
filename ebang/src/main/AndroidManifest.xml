@@ -332,6 +332,11 @@
         </activity>
         <activity android:name=".setting.SettingAllActivity" >
         </activity>
+        <activity
+            android:name=".setting.SettingMessageActivity"
+            android:label="@string/title_activity_setting_message"
+            android:theme="@style/AppTheme" >
+        </activity>
     </application>
 
 </manifest>
