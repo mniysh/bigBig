@@ -23,7 +23,6 @@ public class DataAccessUtil {
     private static final String TAG = "DataAccessUtil";
 
     private static AsyncHttpClient mClient;
-
     private static void initAsyncHttpClient() {
         if (mClient == null) {
             mClient = new AsyncHttpClient();
@@ -35,23 +34,22 @@ public class DataAccessUtil {
 
     /**
      * 1. 注册接口
-     *
-     * @param name                     姓名
-     * @param phone                    电话
-     * @param email                    邮箱
-     * @param gender                   性别 MALE、 FEMALE
-     * @param code                     验证码
-     * @param password                 密码
-     * @param come_from                渠道名称
+     * @param name 姓名
+     * @param phone 电话
+     * @param email 邮箱
+     * @param gender       性别 MALE、 FEMALE
+     * @param code 验证码
+     * @param password 密码
+     * @param come_from 渠道名称
      * @param asyncHttpResponseHandler 请求
      * @return
      */
-    public static RequestHandle register(String name, String phone, String email, String gender,
-                                         String code, String password, String come_from,
+    public static RequestHandle register(String name,String phone,String email,String gender,
+                                         String code,  String password, String come_from,
                                          AsyncHttpResponseHandler
-                                                 asyncHttpResponseHandler) {
+        asyncHttpResponseHandler ) {
         RequestParams params = new RequestParams();
-        params.put("name", name);
+        params.put("name",name);
         params.put("phone", phone);
         params.put("password", password);
         params.put("email", email);
@@ -66,14 +64,13 @@ public class DataAccessUtil {
 
     /**
      * 2.登录
-     *
-     * @param phone                    电话
-     * @param password                 密码
+     * @param phone 电话
+     * @param password 密码
      * @param asyncHttpResponseHandler
      * @return
      */
     public static RequestHandle login(String phone, String password, AsyncHttpResponseHandler
-            asyncHttpResponseHandler) {
+        asyncHttpResponseHandler ) {
         RequestParams params = new RequestParams();
         params.put("phone", phone);
         params.put("password", password);
@@ -83,12 +80,11 @@ public class DataAccessUtil {
 
     /**
      * 3.登出接口
-     *
      * @param asyncHttpResponseHandler
      * @return
      */
     public static RequestHandle exit(AsyncHttpResponseHandler
-                                             asyncHttpResponseHandler) {
+                                         asyncHttpResponseHandler ) {
         RequestParams params = new RequestParams();
 //        params.put("phone", phone);
 //        params.put("password", password);
@@ -98,36 +94,34 @@ public class DataAccessUtil {
 
     /**
      * 4.短信接口,普通
-     *
-     * @param phone                    电话
+     * @param phone 电话
      * @param asyncHttpResponseHandler
      * @return
      */
     public static RequestHandle messageCode(String phone, AsyncHttpResponseHandler
-            asyncHttpResponseHandler) {
+        asyncHttpResponseHandler ) {
         RequestParams params = new RequestParams();
         params.put("phone", phone);
         return doPost(RequestUrl.msg, params, asyncHttpResponseHandler);
     }
-
     /**
      * 4.1短信接口,注册
-     *
-     * @param phone                    电话
+     * @param phone 电话
      * @param asyncHttpResponseHandler
      * @return
      */
     public static RequestHandle messageCodeRegiste(String phone, AsyncHttpResponseHandler
-            asyncHttpResponseHandler) {
+        asyncHttpResponseHandler ) {
         RequestParams params = new RequestParams();
         params.put("phone", phone);
         return doPost(RequestUrl.msg_registe, params, asyncHttpResponseHandler);
     }
 
 
+
+
     /**
      * 5.短信修改密码接口
-     *
      * @param phone
      * @param code
      * @param password
@@ -136,9 +130,9 @@ public class DataAccessUtil {
      */
     public static RequestHandle updatePassword(String phone, String code, String password,
                                                AsyncHttpResponseHandler
-                                                       asyncHttpResponseHandler) {
+                                                   asyncHttpResponseHandler) {
         RequestParams params = new RequestParams();
-        params.put("phone", phone);
+        params.put("phone",phone);
         params.put("code", code);
         params.put("password", password);
 
@@ -147,7 +141,6 @@ public class DataAccessUtil {
 
     /**
      * 6.用旧密码修改新密码接口
-     *
      * @param phone
      * @param password
      * @param newPassword
@@ -155,10 +148,10 @@ public class DataAccessUtil {
      * @return
      */
     public static RequestHandle changePwd(String phone, String password, String newPassword,
-                                          AsyncHttpResponseHandler
-                                                  asyncHttpResponseHandler) {
+                                            AsyncHttpResponseHandler
+                                                asyncHttpResponseHandler ) {
         RequestParams params = new RequestParams();
-        params.put("phone", phone);
+        params.put("phone",phone);
         params.put("password", password);
         params.put("newpassword", newPassword);
 
@@ -167,7 +160,6 @@ public class DataAccessUtil {
 
     /**
      * 3-16、修改密码接口(找回密码)
-     *
      * @param phone
      * @param code
      * @param password
@@ -175,10 +167,10 @@ public class DataAccessUtil {
      * @return
      */
     public static RequestHandle recoveredPassword(String phone, String code, String password,
-                                                  AsyncHttpResponseHandler
-                                                          asyncHttpResponseHandler) {
+                                               AsyncHttpResponseHandler
+                                                   asyncHttpResponseHandler) {
         RequestParams params = new RequestParams();
-        params.put("phone", phone);
+        params.put("phone",phone);
         params.put("code", code);
         params.put("password", password);
 
@@ -219,16 +211,15 @@ public class DataAccessUtil {
 //        return doPost(RequestUrl.person_identify, params, asyncHttpResponseHandler);
 //    }
 
-    /**
-     * 2-1.
+    /** 2-1.
      * 开发商发布的接口
-     *
      * @param title
      * @param description
      * @param link_man
      * @param link_phone
      * @param province
      * @param city
+
      * @param area_other
      * @param point_longitude
      * @param image_ary
@@ -240,22 +231,22 @@ public class DataAccessUtil {
                                                  String link_phone, String province, String city,
                                                  String area_other, float point_longitude,
                                                  float point_dimension,
-                                                 String image_ary, String start_time,
-                                                 String end_time, String project_money, String staffs, AsyncHttpResponseHandler asyncHttpResponseHandler) {
+                                                 String image_ary,String start_time,
+                                                 String end_time, String project_money,String staffs, AsyncHttpResponseHandler asyncHttpResponseHandler){
         RequestParams params = new RequestParams();
-        params.put("title", title);
-        params.put("description", description);
-        params.put("link_man", link_man);
-        params.put("link_phone", link_phone);
-        params.put("province", province);
-        params.put("city", city);
-        params.put("area_other", area_other);
-        params.put("point_longitude", point_longitude);
-        params.put("point_dimension", point_dimension);
-        params.put("start_time", start_time);
+        params.put("title",title);
+        params.put("description",description);
+        params.put("link_man",link_man);
+        params.put("link_phone",link_phone);
+        params.put("province",province);
+        params.put("city",city);
+        params.put("area_other",area_other);
+        params.put("point_longitude",point_longitude);
+        params.put("point_dimension",point_dimension);
+        params.put("start_time",start_time);
         params.put("end_time", end_time);
-        params.put("project_money", project_money);
-        params.put("image_ary", image_ary);
+        params.put("project_money",project_money);
+        params.put("image_ary",image_ary);
         params.put("staffs", staffs);
         //T.show("能进来1");
         return doPost(RequestUrl.developer_release, params, asyncHttpResponseHandler);
@@ -264,51 +255,47 @@ public class DataAccessUtil {
 
     /**
      * 8.上传图片
-     *
-     * @param imageFile                图片文件
+     * @param imageFile 图片文件
      * @param asyncHttpResponseHandler
      * @return
      */
     public static RequestHandle uploadImage(File imageFile,
-                                            AsyncHttpResponseHandler asyncHttpResponseHandler) {
+                                          AsyncHttpResponseHandler asyncHttpResponseHandler ) {
 
         return upLoadImage(RequestUrl.upload_image, imageFile, asyncHttpResponseHandler);
     }
 
     /**
      * 上传图片（public）
-     *
      * @param imageFile
      * @param asyncHttpResponseHandler
      * @return
      */
-    public static RequestHandle uploadPublicImage(File imageFile, AsyncHttpResponseHandler asyncHttpResponseHandler) {
+    public static RequestHandle uploadPublicImage(File imageFile, AsyncHttpResponseHandler asyncHttpResponseHandler){
 
         return upLoadImage(RequestUrl.upload_public_image, imageFile, asyncHttpResponseHandler);
     }
 
     /**
      * 9.下载图片       RequestUrl.down_image + 图片名字
-     *
      * @param url
      * @param asyncHttpResponseHandler
      * @return
      */
-    public static RequestHandle LoadImage(String url, AsyncHttpResponseHandler asyncHttpResponseHandler) {
+    public static RequestHandle LoadImage(String url,AsyncHttpResponseHandler asyncHttpResponseHandler ){
 //        String imageUrl = getImageUrl(url);
         return doGet(url, null, asyncHttpResponseHandler);
     }
 
     /**
      * 10.省市区接口 /api/common/address/child/+数字（0返回所有省与直辖市）   Get方式
-     *
-     * @param num                      默认0 (0返回所有省与直辖市)
+     * @param num   默认0 (0返回所有省与直辖市)
      * @param asyncHttpResponseHandler
      * @return
      */
     public static RequestHandle address(String num,
-                                        AsyncHttpResponseHandler
-                                                asyncHttpResponseHandler) {
+                                          AsyncHttpResponseHandler
+                                              asyncHttpResponseHandler ) {
         if (TextUtils.isEmpty(num)) {
             num = "0";
         }
@@ -316,35 +303,35 @@ public class DataAccessUtil {
     }
 
 
+
     /**
      * 1-6.个人信息验证接口
-     *
-     * @param real_name                真实姓名
-     * @param identity_card            身份证
-     * @param province                 省
-     * @param city                     市
-     * @param card_image_front         身份证正面
-     * @param card_image_back          身份证反面
-     * @param card_expiration_time     身份证到期时间 (选填)
+     * @param real_name 真实姓名
+     * @param identity_card 身份证
+     * @param province  省
+     * @param city      市
+     * @param card_image_front  身份证正面
+     * @param card_image_back   身份证反面
+     * @param card_expiration_time  身份证到期时间 (选填)
      * @param asyncHttpResponseHandler
      * @return
      */
-    public static RequestHandle personIdentify(String real_name, String gender, String identity_card,
-                                               String province, String city,
-                                               String card_image_front, String card_image_back,
+    public static RequestHandle personIdentify(String real_name,String gender, String identity_card,
+                                               String province,String city,
+                                               String card_image_front,String card_image_back,
                                                String card_expiration_time,
-                                               AsyncHttpResponseHandler
-                                                       asyncHttpResponseHandler) {
+                                                AsyncHttpResponseHandler
+                                                    asyncHttpResponseHandler ) {
 
         RequestParams params = new RequestParams();
-        params.put("real_name", real_name);
-        params.put("gender", gender);
-        params.put("identity_card", identity_card);
-        params.put("province", province);
-        params.put("city", city);
-        params.put("card_image_front", card_image_front);
-        params.put("card_image_back", card_image_back);
-        params.put("card_expiration_time", card_expiration_time);
+        params.put("real_name",real_name);
+        params.put("gender",gender);
+        params.put("identity_card",identity_card);
+        params.put("province",province);
+        params.put("city",city);
+        params.put("card_image_front",card_image_front);
+        params.put("card_image_back",card_image_back);
+        params.put("card_expiration_time",card_expiration_time);
         L.d("xxx", "请求类");
 
         return doPost(RequestUrl.penson_identify, params, asyncHttpResponseHandler);
@@ -352,47 +339,46 @@ public class DataAccessUtil {
 
 
     /**
-     * 11.工头认证接口
-     *
-     * @param real_name                真实姓名
-     * @param identity_card            身份证
-     * @param province                 省
-     * @param city                     市
-     * @param card_image_front         身份证正面
-     * @param card_image_back          身份证反面
-     * @param gender                   性别
-     * @param invitation_code          邀请码
-     * @param card_number              银行卡号
-     * @param open_account_name        开户名称
-     * @param open_account_province    开户行所在省份
-     * @param open_account_city        开户行所在城市
-     * @param bank_id                  开户行名称
+     *11.工头认证接口
+     * @param real_name 真实姓名
+     * @param identity_card 身份证
+     * @param province  省
+     * @param city      市
+     * @param card_image_front  身份证正面
+     * @param card_image_back   身份证反面
+     * @param gender    性别
+     * @param invitation_code   邀请码
+     * @param card_number   银行卡号
+     * @param open_account_name 开户名称
+     * @param open_account_province 开户行所在省份
+     * @param open_account_city 开户行所在城市
+     * @param bank_id   开户行名称
      * @param asyncHttpResponseHandler
      * @return
      */
-    public static RequestHandle headmanIdentify(String real_name, String identity_card,
-                                                String province, String city,
-                                                String card_image_front, String card_image_back,
-                                                String gender, String invitation_code,
-                                                String card_number, String open_account_name,
-                                                String open_account_province, String open_account_city,
+    public static RequestHandle headmanIdentify(String real_name,String identity_card,
+                                                String province,String city,
+                                                String card_image_front,String card_image_back,
+                                                String gender,String invitation_code,
+                                                String card_number,String open_account_name,
+                                                String open_account_province,String open_account_city,
                                                 String bank_id,
-                                                AsyncHttpResponseHandler
-                                                        asyncHttpResponseHandler) {
+                                        AsyncHttpResponseHandler
+                                            asyncHttpResponseHandler ) {
 
         RequestParams params = new RequestParams();
-        params.put("real_name", real_name);
-        params.put("identity_card", identity_card);
-        params.put("province", province);
-        params.put("city", city);
-        params.put("card_image_front", card_image_front);
-        params.put("card_image_back", card_image_back);
-        params.put("gender", gender);
-        params.put("invitation_code", invitation_code);
-        params.put("card_number", card_number);
-        params.put("open_account_name", open_account_name);
-        params.put("open_account_province", open_account_province);
-        params.put("open_account_city", open_account_city);
+        params.put("real_name",real_name);
+        params.put("identity_card",identity_card);
+        params.put("province",province);
+        params.put("city",city);
+        params.put("card_image_front",card_image_front);
+        params.put("card_image_back",card_image_back);
+        params.put("gender",gender);
+        params.put("invitation_code",invitation_code);
+        params.put("card_number",card_number);
+        params.put("open_account_name",open_account_name);
+        params.put("open_account_province",open_account_province);
+        params.put("open_account_city",open_account_city);
         params.put("bank_id", bank_id);
 
         return doPost(RequestUrl.header_identify, params, asyncHttpResponseHandler);
@@ -400,52 +386,52 @@ public class DataAccessUtil {
 
 
     /**
-     * 1-8.工人认证接口
-     *
-     * @param real_name                真实姓名
-     * @param identity_card            身份证
-     * @param province                 省
-     * @param city                     市
-     * @param card_image_front         身份证正面
-     * @param card_image_back          身份证反面
-     * @param gender                   性别
-     * @param card_number              银行卡号
-     * @param open_account_name        开户名称
-     * @param open_account_province    开户行所在省份
-     * @param open_account_city        开户行所在城市
-     * @param bank_id                  开户行名称
+     *1-8.工人认证接口
+     * @param real_name 真实姓名
+     * @param identity_card 身份证
+     * @param province  省
+     * @param city      市
+     * @param card_image_front  身份证正面
+     * @param card_image_back   身份证反面
+     * @param gender    性别
+     * @param card_number   银行卡号
+     * @param open_account_name 开户名称
+     * @param open_account_province 开户行所在省份
+     * @param open_account_city 开户行所在城市
+     * @param bank_id   开户行名称
      * @param asyncHttpResponseHandler
      * @return
      */
-    public static RequestHandle workerIdentify(String real_name, String identity_card,
-                                               String province, String city,
-                                               String card_image_front, String card_image_back,
-                                               String gender,
-                                               String card_number, String open_account_name,
-                                               String open_account_province, String open_account_city,
-                                               String bank_id, String crafts,
-                                               AsyncHttpResponseHandler
-                                                       asyncHttpResponseHandler) {
+    public static RequestHandle workerIdentify(String real_name,String identity_card,
+                                                String province,String city,
+                                                String card_image_front,String card_image_back,
+                                                String gender,
+                                                String card_number,String open_account_name,
+                                                String open_account_province,String open_account_city,
+                                                String bank_id,  String crafts,
+                                                AsyncHttpResponseHandler
+                                                    asyncHttpResponseHandler ) {
 
         RequestParams params = new RequestParams();
-        params.put("real_name", real_name);
-        params.put("identity_card", identity_card);
-        params.put("province", province);
-        params.put("city", city);
-        params.put("card_image_front", card_image_front);
-        params.put("card_image_back", card_image_back);
-        params.put("gender", gender);
-        params.put("card_number", card_number);
-        params.put("open_account_name", open_account_name);
-        params.put("open_account_province", open_account_province);
-        params.put("open_account_city", open_account_city);
-        params.put("bank_id", bank_id);
-        params.put("crafts", crafts);
+        params.put("real_name",real_name);
+        params.put("identity_card",identity_card);
+        params.put("province",province);
+        params.put("city",city);
+        params.put("card_image_front",card_image_front);
+        params.put("card_image_back",card_image_back);
+        params.put("gender",gender);
+        params.put("card_number",card_number);
+        params.put("open_account_name",open_account_name);
+        params.put("open_account_province",open_account_province);
+        params.put("open_account_city",open_account_city);
+        params.put("bank_id",bank_id);
+        params.put("crafts",crafts);
 
         return doPost(RequestUrl.worker_identify, params, asyncHttpResponseHandler);
     }
 
     /**
+     *
      * @param linkman_name
      * @param identity_card
      * @param card_image_front
@@ -484,146 +470,140 @@ public class DataAccessUtil {
                                                   String public_account, String organization_certificate,
                                                   String business_license_number, String business_scope,
                                                   String bank_id, String gender,
-                                                  AsyncHttpResponseHandler
-                                                          asyncHttpResponseHandler) {
+                                               AsyncHttpResponseHandler
+                                                   asyncHttpResponseHandler ) {
 
         RequestParams params = new RequestParams();
-        params.put("linkman_name", linkman_name);
-        params.put("identity_card", identity_card);
-        params.put("card_image_front", card_image_front);
-        params.put("card_image_back", card_image_back);
-        params.put("linkman_phone", linkman_phone);
-        params.put("linkman_province", linkman_province);
-        params.put("linkman_city", linkman_city);
-        params.put("company_name", company_name);
-        params.put("business_province", business_province);
-        params.put("business_city", business_city);
-        params.put("address", address);
-        params.put("business_years", business_years);
-        params.put("time_state", time_state);
-        params.put("company_number", company_number);
-        params.put("company_phone", company_phone);
-        params.put("introduce", introduce);
-        params.put("account_name", account_name);
-        params.put("account_province", account_province);
-        params.put("public_account", public_account);
-        params.put("organization_certificate", organization_certificate);
-        params.put("business_license_number", business_license_number);
-        params.put("business_scope", business_scope);
-        params.put("bank_id", bank_id);
-        params.put("gender", gender);
+        params.put("linkman_name",linkman_name);
+        params.put("identity_card",identity_card);
+        params.put("card_image_front",card_image_front);
+        params.put("card_image_back",card_image_back);
+        params.put("linkman_phone",linkman_phone);
+        params.put("linkman_province",linkman_province);
+        params.put("linkman_city",linkman_city);
+        params.put("company_name",company_name);
+        params.put("business_province",business_province);
+        params.put("business_city",business_city);
+        params.put("address",address);
+        params.put("business_years",business_years);
+        params.put("time_state",time_state);
+        params.put("company_number",company_number);
+        params.put("company_phone",company_phone);
+        params.put("introduce",introduce);
+        params.put("account_name",account_name);
+        params.put("account_province",account_province);
+        params.put("public_account",public_account);
+        params.put("organization_certificate",organization_certificate);
+        params.put("business_license_number",business_license_number);
+        params.put("business_scope",business_scope);
+        params.put("bank_id",bank_id);
+        params.put("gender",gender);
 
         return doPost(RequestUrl.developer_identify, params, asyncHttpResponseHandler);
     }
 
     /**
      * 13.修改昵称接口
-     *
-     * @param nickname                 修改后的昵称
+     * @param nickname 修改后的昵称
      * @param asyncHttpResponseHandler
      * @return
      */
-    public static RequestHandle modifyNickName(String nickname, AsyncHttpResponseHandler asyncHttpResponseHandler) {
-        RequestParams params = new RequestParams();
+    public static RequestHandle modifyNickName(String nickname,AsyncHttpResponseHandler asyncHttpResponseHandler){
+        RequestParams params=new RequestParams();
         params.put("nick_name", nickname);
         return doPost(RequestUrl.modify_nickName, params, asyncHttpResponseHandler);
     }
 
     /**
      * 14.修改绑定手机接口
-     *
      * @param phone
      * @param code
      * @param asyncHttpResponseHandler
      * @return
      */
-    public static RequestHandle modifyPhone(String phone, String code, AsyncHttpResponseHandler asyncHttpResponseHandler) {
-        RequestParams params = new RequestParams();
-        params.put("code", code);
-        params.put("phone", phone);
-        return doPost(RequestUrl.modify_phone, params, asyncHttpResponseHandler);
+    public static  RequestHandle modifyPhone(String phone,String code,AsyncHttpResponseHandler asyncHttpResponseHandler){
+        RequestParams params=new RequestParams();
+        params.put("code",code);
+        params.put("phone",phone);
+        return  doPost(RequestUrl.modify_phone, params, asyncHttpResponseHandler);
 
     }
 
     /**
      * 3-6. 获取全部省市区数据       get
-     *
      * @param asyncHttpResponseHandler
      * @return
      */
     public static RequestHandle provinceCityArea(AsyncHttpResponseHandler
-                                                         asyncHttpResponseHandler) {
+        asyncHttpResponseHandler){
         return doGet(RequestUrl.province_city_area, null, asyncHttpResponseHandler);
     }
 
 
     /**
      * 3-7 发布选择的接口 (建筑， 装修， 工程管理)  Get方式
-     *
      * @param asyncHttpResponseHandler
      * @return
      */
     public static RequestHandle publishCraft(AsyncHttpResponseHandler
-                                                     asyncHttpResponseHandler) {
+                                                     asyncHttpResponseHandler){
         return doGet(RequestUrl.publish_craft, null, asyncHttpResponseHandler);
     }
 
-    public static RequestHandle checkCode(String phone, String code, AsyncHttpResponseHandler asyncHttpResponseHandler) {
+    public static  RequestHandle checkCode(String phone, String code, AsyncHttpResponseHandler asyncHttpResponseHandler){
         RequestParams params = new RequestParams();
         params.put("phone", phone);
         params.put("code", code);
-        return doPost(RequestUrl.checkCode, params, asyncHttpResponseHandler);
+        return  doPost(RequestUrl.checkCode, params, asyncHttpResponseHandler);
     }
 
     /**
      * 3-14、获取银行列表
-     *
      * @param asyncHttpResponseHandler
      * @return
      */
     public static RequestHandle bankList(AsyncHttpResponseHandler
-                                                 asyncHttpResponseHandler) {
+                                                     asyncHttpResponseHandler){
         return doGet(RequestUrl.bank_list, null, asyncHttpResponseHandler);
     }
 
     /**
      * 1-11、获取用户信息接口 get方式
-     *
      * @param asyncHttpResponseHandler
      * @return
      */
     public static RequestHandle userInformation(AsyncHttpResponseHandler
-                                                        asyncHttpResponseHandler) {
+                                             asyncHttpResponseHandler){
         return doGet(RequestUrl.user_information, null, asyncHttpResponseHandler);
     }
 
     public static RequestHandle inviteWorkerList(String project_id, String craft_id, String phone,
                                                  AsyncHttpResponseHandler
-                                                         asyncHttpResponseHandler) {
+                                                    asyncHttpResponseHandler){
         return doGet(RequestUrl.invite_worker_list, null, asyncHttpResponseHandler);
     }
 
 
     /**
      * 2-10.工人推荐工长  (扫码推荐)
-     *
-     * @param id                       工长的Id
+     * @param id    工长的Id
      * @param asyncHttpResponseHandler
      * @return
      */
     public static RequestHandle workerRecommendHeadman(String id, AsyncHttpResponseHandler
-            asyncHttpResponseHandler) {
+                                           asyncHttpResponseHandler){
         RequestParams params = new RequestParams();
         params.put("id", id);
         return doGet(RequestUrl.worker_recommend_headman, null, asyncHttpResponseHandler);
     }
 
 
+
     /**
      * 1-12、修改用户头像  get方式
      */
     public static RequestHandle headImage(File imageFile, AsyncHttpResponseHandler
-            asyncHttpResponseHandler) {
+        asyncHttpResponseHandler) {
 
         if (!NetUtils.isConnected(MyApplication.getInstance())) {
             T.show("网络异常,请检查网络连接");
@@ -644,26 +624,24 @@ public class DataAccessUtil {
 
     /**
      * 1-13、返回上一步重新认证修改认证
-     *
      * @param asyncHttpResponseHandler
      * @return
      */
     public static RequestHandle resetAuth(AsyncHttpResponseHandler
-                                                  asyncHttpResponseHandler) {
+        asyncHttpResponseHandler){
         return doGet(RequestUrl.reset_auth, null, asyncHttpResponseHandler);
     }
 
     /**
-     * 2-11.首页工程列表
-     *
-     * @param latitude                 纬度
-     * @param longitude                经度
-     * @param page                     页数
+     *2-11.首页工程列表
+     * @param latitude 纬度
+     * @param longitude 经度
+     * @param page 页数
      * @param asyncHttpResponseHandler
      * @return
      */
-    public static RequestHandle homeProjectInfo(String page, String latitude, String longitude,
-                                                AsyncHttpResponseHandler asyncHttpResponseHandler) {
+    public static RequestHandle homeProjectInfo( String page, String latitude, String longitude,
+                                                AsyncHttpResponseHandler asyncHttpResponseHandler){
         RequestParams params = new RequestParams();
         params.put("page", page);
         params.put("latitude", latitude);
@@ -673,53 +651,49 @@ public class DataAccessUtil {
     }
 
     /**
-     * 2-12.首页工程详细
-     *
-     * @param projectId                工程Id
+     *2-12.首页工程详细
+     * @param projectId 工程Id
      * @param asyncHttpResponseHandler
      * @return
      */
     public static RequestHandle projectInfoDetail(String projectId, AsyncHttpResponseHandler
-            asyncHttpResponseHandler) {
+                                                    asyncHttpResponseHandler){
         return doGet(RequestUrl.project_info_detail + projectId, null, asyncHttpResponseHandler);
     }
 
 
     /**
      * 2-15.工长查看推荐过他的工人列表    get
-     *
      * @param asyncHttpResponseHandler
      * @return
      */
     public static RequestHandle recommendedWorkers(AsyncHttpResponseHandler
-                                                           asyncHttpResponseHandler) {
+                                              asyncHttpResponseHandler){
         return doGet(RequestUrl.recommended_workers, null, asyncHttpResponseHandler);
     }
 
     /**
      * 2-16.工长解除和工人的推荐关系
-     *
      * @param asyncHttpResponseHandler
      * @return
      */
     public static RequestHandle removeRelation(String workerId, AsyncHttpResponseHandler
-            asyncHttpResponseHandler) {
+                                                       asyncHttpResponseHandler){
         return doGet(RequestUrl.remove_relation + workerId, null, asyncHttpResponseHandler);
     }
 
     /**
      * 2-17.发现
-     *
-     * @param craft_id                 工种  （非必填）
-     * @param distance                 距离  （非必填）
-     * @param page                     第几页
-     * @param latitude                 纬度
-     * @param longitude                经度
+     * @param craft_id  工种  （非必填）
+     * @param distance  距离  （非必填）
+     * @param page  第几页
+     * @param latitude   纬度
+     * @param longitude   经度
      * @param asyncHttpResponseHandler
      * @return
      */
-    public static RequestHandle founds(String craft_id, String distance, String page, String latitude, String longitude, AsyncHttpResponseHandler
-            asyncHttpResponseHandler) {
+    public static RequestHandle founds(String craft_id,String distance,String page,String latitude,String longitude, AsyncHttpResponseHandler
+        asyncHttpResponseHandler){
 
         RequestParams params = new RequestParams();
         params.put("craft_id", craft_id);
@@ -729,6 +703,48 @@ public class DataAccessUtil {
         params.put("longitude", longitude);
 
         return doGet(RequestUrl.founds, params, asyncHttpResponseHandler);
+    }
+
+
+    /**
+     *2-18.19， 20抢单 待通过, 进行中, 已结束（工头）  get
+     * @param page
+     * @param asyncHttpResponseHandler
+     * @return
+     */
+    public static RequestHandle projectStatusWaiting(String page,  AsyncHttpResponseHandler
+        asyncHttpResponseHandler){
+
+        RequestParams params = new RequestParams();
+        params.put("page", page);
+
+        return doGet(RequestUrl.grab_headman_waiting, params, asyncHttpResponseHandler);
+    }
+
+    /**
+     * 2-19抢单 待通过, 进行中, 已结束（工头）  get
+     * @param asyncHttpResponseHandler
+     * @return
+     */
+    public static RequestHandle projectStatusExecute(AsyncHttpResponseHandler
+        asyncHttpResponseHandler){
+
+        return doGet(RequestUrl.grab_headman_execute, null, asyncHttpResponseHandler);
+    }
+
+    /**
+     * 2-20抢单 待通过, 进行中, 已结束（工头）  get
+     * @param page
+     * @param asyncHttpResponseHandler
+     * @return
+     */
+    public static RequestHandle projectStatusComplete(String page,  AsyncHttpResponseHandler
+        asyncHttpResponseHandler){
+
+        RequestParams params = new RequestParams();
+        params.put("page", page);
+
+        return doGet(RequestUrl.grab_headman_complete, params, asyncHttpResponseHandler);
     }
 
 
@@ -748,8 +764,12 @@ public class DataAccessUtil {
     }
 
 
+
+
+
+
     public static RequestHandle doGet(String url, RequestParams params, AsyncHttpResponseHandler
-            asyncHttpResponseHandler) {
+        asyncHttpResponseHandler) {
 
         if (!NetUtils.isConnected(MyApplication.getInstance())) {
             T.show("网络异常");
@@ -760,7 +780,7 @@ public class DataAccessUtil {
             params = new RequestParams();
         }
         params = addCommonParams(params);
-        L.d(TAG, "doGet Url : " + url + "?" + params.toString());
+        L.d(TAG, "doGet Url : " + url + "?"+ params.toString());
         return mClient.get(url, params, asyncHttpResponseHandler);
 
     }
@@ -778,7 +798,7 @@ public class DataAccessUtil {
      * 上传图片:Post方式
      */
     private static RequestHandle upLoadImage(String url, File imageFile, AsyncHttpResponseHandler
-            asyncHttpResponseHandler) {
+        asyncHttpResponseHandler) {
 
         if (!NetUtils.isConnected(MyApplication.getInstance())) {
             T.show("网络异常,请检查网络连接");
@@ -812,7 +832,6 @@ public class DataAccessUtil {
 
     /**
      * 获取包含有id和app_token的图片Url
-     *
      * @param url
      * @return
      */

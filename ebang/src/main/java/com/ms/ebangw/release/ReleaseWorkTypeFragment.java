@@ -68,6 +68,8 @@ public class ReleaseWorkTypeFragment extends BaseFragment {
         // Required empty public constructor
     }
 
+
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -94,7 +96,7 @@ public class ReleaseWorkTypeFragment extends BaseFragment {
 
     @Override
     public void initView() {
-        craft = getAllWorkType();
+//        craft = getAllWorkType();
 
     }
 
@@ -107,36 +109,36 @@ public class ReleaseWorkTypeFragment extends BaseFragment {
 
 
     }
-    public Craft getAllWorkType(){
-        craft = MyApplication.getInstance().getCraft();
-        if(craft == null){
-            DataAccessUtil.publishCraft(new JsonHttpResponseHandler(){
-                @Override
-                public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                    super.onSuccess(statusCode, headers, response);
-                    try {
-                        craft = DataParseUtil.publishCraft(response);
-                        MyApplication.getInstance().setCraft(craft);
-                        craftAdapter = new ReleaseCraftAdapter(((HomeActivity)mActivity).getFragmentManager(), craft.getBuilding(), (HomeActivity)mActivity);
-                        listView.setAdapter(craftAdapter);
-//                        rBuilding.toggle();
-                    } catch (ResponseException e) {
-                        e.printStackTrace();
-                    }
-
-                }
-
-                @Override
-                public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
-                    super.onFailure(statusCode, headers, responseString, throwable);
-                    L.d(responseString);
-                }
-            });
-
-        }else{
-            craftAdapter = new ReleaseCraftAdapter(((HomeActivity)mActivity).getFragmentManager(), craft.getBuilding(),(HomeActivity)mActivity);
-            listView.setAdapter(craftAdapter);
-        }
-        return craft;
-    }
+//    public Craft getAllWorkType(){
+//        craft = MyApplication.getInstance().getCraft();
+//        if(craft == null){
+//            DataAccessUtil.publishCraft(new JsonHttpResponseHandler(){
+//                @Override
+//                public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+//                    super.onSuccess(statusCode, headers, response);
+//                    try {
+//                        craft = DataParseUtil.publishCraft(response);
+//                        MyApplication.getInstance().setCraft(craft);
+//                        craftAdapter = new ReleaseCraftAdapter(((HomeActivity)mActivity).getFragmentManager(), craft.getBuilding(), (HomeActivity)mActivity);
+//                        listView.setAdapter(craftAdapter);
+////                        rBuilding.toggle();
+//                    } catch (ResponseException e) {
+//                        e.printStackTrace();
+//                    }
+//
+//                }
+//
+//                @Override
+//                public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+//                    super.onFailure(statusCode, headers, responseString, throwable);
+//                    L.d(responseString);
+//                }
+//            });
+//
+//        }else{
+//            craftAdapter = new ReleaseCraftAdapter(((HomeActivity)mActivity).getFragmentManager(), craft.getBuilding(),(HomeActivity)mActivity);
+//            listView.setAdapter(craftAdapter);
+//        }
+//        return craft;
+//    }
 }

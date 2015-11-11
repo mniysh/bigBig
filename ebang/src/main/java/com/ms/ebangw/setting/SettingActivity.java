@@ -1,4 +1,4 @@
-package com.ms.ebangw.activity;
+package com.ms.ebangw.setting;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,6 +9,8 @@ import android.widget.TextView;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.ms.ebangw.MyApplication;
 import com.ms.ebangw.R;
+import com.ms.ebangw.activity.BaseActivity;
+import com.ms.ebangw.activity.LoginActivity;
 import com.ms.ebangw.bean.User;
 import com.ms.ebangw.commons.Constants;
 import com.ms.ebangw.db.UserDao;
@@ -48,6 +50,8 @@ public class SettingActivity extends BaseActivity {
     TextView tvPhoneModify;
     @Bind(R.id.tv_passModify)
     TextView tvPassModify;
+    @Bind(R.id.tv_realNameModify)
+    TextView tvRealNameModify;
     /**
      * 扫码推荐工长
      */
@@ -120,6 +124,14 @@ public class SettingActivity extends BaseActivity {
 
             }
         });
+        tvRealNameModify.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                
+
+            }
+        });
+
     }
 
     @Override

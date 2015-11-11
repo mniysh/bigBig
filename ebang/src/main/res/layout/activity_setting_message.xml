@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical"
+    android:divider="@drawable/divider_line_gray"
+    android:showDividers="middle"
+    android:dividerPadding="10dp"
+    tools:context="com.ms.ebangw.setting.SettingMessageActivity">
+    <include layout="@layout/layout_common_title"/>
+    <TextView
+        style="@style/settingMessage"
+
+        android:text="消息提醒"
+        />
+    <TextView
+        style="@style/settingMessage_title"
+        android:text="新消息提醒"
+        />
+    <!--<View-->
+        <!--style="@style/aaa_hor"-->
+        <!--android:layout_marginLeft="10dp"-->
+        <!--android:layout_marginRight="10dp"-->
+        <!--/>-->
+    <LinearLayout
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:layout_height="wrap_content">
+        <TextView
+            style="@style/settingMessage_content"
+            android:text="开启后可接收新消息提醒"
+             />
+        <View
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="1dp"/>
+        <ImageView
+            android:id="@+id/iv_messageRemind"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/button_selected"
+            android:layout_gravity="center_vertical"
+            android:layout_marginRight="10dp"
+            />
+
+    </LinearLayout>
+    <TextView
+        android:text="提示音效"
+        style="@style/settingMessage" />
+    <TextView
+        style="@style/settingMessage_title"
+        android:text="铃声"
+        />
+
+    <LinearLayout
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:layout_height="wrap_content">
+        <TextView
+            style="@style/settingMessage_content"
+            android:text="通知时铃声提醒"
+            />
+        <View
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="1dp"/>
+        <ImageView
+            android:id="@+id/iv_ring"
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/button_selected"
+            android:layout_gravity="center_vertical"
+            android:layout_marginRight="10dp"
+            />
+
+    </LinearLayout>
+    <!--<TextView-->
+        <!--android:text="提示音效"-->
+        <!--style="@style/settingMessage" />-->
+    <TextView
+        style="@style/settingMessage_title"
+        android:text="振动"
+        />
+    <LinearLayout
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:layout_height="wrap_content">
+        <TextView
+            style="@style/settingMessage_content"
+            android:text="通知时振动提醒"
+            />
+        <View
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="1dp"/>
+        <ImageView
+            android:id="@+id/iv_vibration"
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/button_selected"
+            android:layout_gravity="center_vertical"
+            android:layout_marginRight="10dp"
+            />
+
+    </LinearLayout>
+    <View
+        android:layout_marginRight="10dp"
+        android:layout_marginLeft="10dp"
+        style="@style/aaa_hor"/>
+
+
+
+
+
+
+</LinearLayout>

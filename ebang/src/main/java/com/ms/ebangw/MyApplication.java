@@ -36,6 +36,9 @@ public class MyApplication extends Application {
     public LocationClient mLocationClient = null;
     private boolean flag_home;
 
+    private String alias;
+    private Set<String> tags;
+
     public boolean isFlag_home() {
         return flag_home;
     }
@@ -124,11 +127,22 @@ public class MyApplication extends Application {
                 public void gotResult(int i, String s, Set<String> set) {
                     if (i == 0) {
                         L.d("setAlias: 极光alias设置成功, alias: " + s);
-                    }else {
+                    } else {
                         L.d("setAlias: 极光alias设置失败, 返回的状态码: " + i);
                     }
                 }
             });
+//            JPushInterface.setAliasAndTags(this, alias, tags, new TagAliasCallback() {
+//                @Override
+//                public void gotResult(int i, String s, Set<String> set) {
+//                    if(i == 0){
+//                        alias = s;
+//                        tags = set;
+//                    }
+//
+//                }
+//            });
+
         }
 
         JPushInterface.init(this);

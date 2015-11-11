@@ -18,6 +18,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.ms.ebangw.R;
+import com.ms.ebangw.activity.PublishedProjectActivity;
 import com.ms.ebangw.activity.RecommendedWorksActivity;
 import com.ms.ebangw.bean.User;
 import com.ms.ebangw.utils.QRCodeUtil;
@@ -42,10 +43,6 @@ public class HeadmanCenterFragment extends BaseFragment {
     ImageView ivEweima;
     @Bind(R.id.ll_eweima)
     LinearLayout eweimaLayout;
-    @Bind(R.id.ll_item_horizontal)
-    LinearLayout horiItemLayout;
-    @Bind(R.id.ll_item_vertical)
-    LinearLayout verItemLayout;
     @Bind(R.id.fl_head_info)
     FrameLayout flHeadInfo;
     @Bind(R.id.tv_grab)
@@ -54,14 +51,14 @@ public class HeadmanCenterFragment extends BaseFragment {
     TextView tvTrade;
     @Bind(R.id.tv_evaluate)
     TextView tvEvaluate;
-    @Bind(R.id.tv_fen)
+    @Bind(R.id.tv_jifen)
     TextView tvFen;
-    @Bind(R.id.tv_member_manage)
-    TextView tvMemberManage;
-    @Bind(R.id.tv_my_steps)
-    TextView tvMySteps;
-    @Bind(R.id.tv_my_favorites)
-    TextView tvMyFavorites;
+    @Bind(R.id.tv_people_manage)
+    TextView tvPeopleManage;
+    @Bind(R.id.tv_invite_friend)
+    TextView tvInviteFriend;
+    @Bind(R.id.ll_verItems)
+    LinearLayout llVerItems;
 
 
     private String mParam1;
@@ -116,20 +113,27 @@ public class HeadmanCenterFragment extends BaseFragment {
             String recommend = user.getRecommend();
             if (TextUtils.equals("0", recommend)) {
                 setNoEnoughWorkerView();
-            }else {
+            } else {
                 setEnoughWorkerView();
             }
         }
+
+        tvGrab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(mActivity, PublishedProjectActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     /**
      * 推荐人数足够
      */
     private void setEnoughWorkerView() {
-        horiItemLayout.setVisibility(View.VISIBLE);
-        verItemLayout.setVisibility(View.VISIBLE);
+        llVerItems.setVisibility(View.VISIBLE);
         eweimaLayout.setVisibility(View.GONE);
-        tvMemberManage.setOnClickListener(new View.OnClickListener() {
+        tvPeopleManage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(mActivity, RecommendedWorksActivity.class);
@@ -142,8 +146,8 @@ public class HeadmanCenterFragment extends BaseFragment {
      * 推荐人数不够时， 显示二维码
      */
     private void setNoEnoughWorkerView() {
-        horiItemLayout.setVisibility(View.GONE);
-        verItemLayout.setVisibility(View.GONE);
+        llVerItems.setVisibility(View.GONE);
+        eweimaLayout.setVisibility(View.VISIBLE);
         initInviteQR();
     }
 

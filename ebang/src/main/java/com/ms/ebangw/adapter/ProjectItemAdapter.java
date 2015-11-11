@@ -21,6 +21,17 @@ import butterknife.ButterKnife;
 
 public class ProjectItemAdapter extends BaseAdapter {
     private List<ReleaseProject> list;
+//    public static final String TAB_PUBLISHED_PROJECT_STATUS = "published_project_status";
+//    public static final String TAB_PUBLISHED_PROJECT_ITEM = "published_project_item";
+//
+//    @StringDef({
+//        TAB_PUBLISHED_PROJECT_STATUS,
+//            TAB_PUBLISHED_PROJECT_ITEM
+//    })
+//    @Retention(RetentionPolicy.SOURCE)
+//    public @interface PublishedProjectTab{}
+//
+//    private String tab;
 
     public ProjectItemAdapter(List<ReleaseProject> projectList) {
         this.list = projectList;
@@ -75,6 +86,7 @@ public class ProjectItemAdapter extends BaseAdapter {
         } else {
             holder.head.setImageResource(R.drawable.head);
         }
+
 
         holder.tvTitle.setText(title);
         holder.tvDescription.setText(description);

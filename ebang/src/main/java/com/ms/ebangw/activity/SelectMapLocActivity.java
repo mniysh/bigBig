@@ -427,6 +427,7 @@ public class SelectMapLocActivity extends BaseActivity implements BDLocationList
                 //poi 详情查询结果回调
                 @Override
                 public void onGetPoiDetailResult(PoiDetailResult poiDetailResult) {
+
                 }
             });
         }

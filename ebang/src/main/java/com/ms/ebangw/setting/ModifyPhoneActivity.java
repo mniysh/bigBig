@@ -1,4 +1,4 @@
-package com.ms.ebangw.activity;
+package com.ms.ebangw.setting;
 
 import android.content.Intent;
 import android.graphics.Color;
@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.ms.ebangw.R;
+import com.ms.ebangw.activity.BaseActivity;
 import com.ms.ebangw.commons.Constants;
 import com.ms.ebangw.exception.ResponseException;
 import com.ms.ebangw.service.DataAccessUtil;

@@ -4,57 +4,7 @@
     <string name="name">亿帮无忧</string>
     <string name="action_settings">设置</string>
     <!-- 区 -->
-    <string-array name="release_add_qu">
-        <item>--选区--</item>
-        <item>东城区</item>
-        <item>西城区</item>
-        <item>朝阳区</item>
-        <item>海淀区</item>
-        <item>丰台区</item>
-        <item>石景山区</item>
-        <item>门头沟区</item>
-        <item>房山区</item>
-        <item>大兴区</item>
-        <item>通州区</item>
-        <item>昌平区</item>
-        <item>平谷区</item>
-        <item>怀柔区</item>
-        <item>密云区</item>
-        <item>延庆区</item>
 
-    </string-array>
-    <!-- 路  -->
-    <string-array name="release_add_lu">
-        <item>--选路--</item>
-        <item>路1</item>
-        <item>路2</item>
-        <item>路3</item>
-        <item>路4</item>
-        <item>路5</item>
-        <item>路6</item>
-        <item>路7</item>
-        <item>路8</item>
-        <item>路9</item>
-        <item>路10</item>
-        <item>路11</item>
-        <item>路12</item>
-
-    </string-array>
-    <!-- 类型  -->
-    <string-array name="release_add_style">
-        <item>--类别--</item>
-        <item>木工</item>
-        <item>木工</item>
-        <item>木工</item>
-        <item>木工</item>
-        <item>木工</item>
-        <item>木工</item>
-        <item>木工</item>
-        <item>木工</item>
-        <item>木工</item>
-        <item>木工</item>
-
-    </string-array>
     <!-- 主页发现部分的全部分类 -->
     <string-array name="home_foundfragment_all_type">
         <item>全部分类</item>
@@ -163,4 +113,14 @@
     <string name="title_activity_service_contract">ServiceContractActivity</string>
     <string name="title_activity_recommened_works">RecommenedWorksActivity</string>
     <string name="title_activity_paying">PayingActivity</string>
+    <string name="title_activity_setting_message">SettingMessageActivity</string>
+
+    <!--用户中心-->
+    <string name="jifen">积分</string>
+    <string name="trade">交易</string>
+    <string name="evaluate">评价</string>
+    <string name="grab">抢单</string>
+    <string name="published">已发布</string>
+    <string name="people_manage">人员管理</string>
+    <string name="invite_friend">邀请好友</string>
 </resources>

@@ -68,8 +68,9 @@
                 android:id="@+id/tv_grab_num"
                 android:layout_width="0dp"
                 android:layout_weight="1"
+                android:gravity="right"
                 android:layout_height="wrap_content"
-                android:text="已有几人抢单"
+                android:text="几人抢单"
                 android:layout_marginLeft="10dp"
                 />
 

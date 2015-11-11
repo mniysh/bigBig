@@ -21,13 +21,13 @@ public class ManagerBackActivity extends BaseActivity {
     private LinearLayout layout;
     @Bind(R.id.act_pea_submit)
     Button bSubmit;
-    @OnClick(R.id.act_pea_submit)
-    public void submit(){
-
-        layout=(LinearLayout) getLayoutInflater().inflate(R.layout.popup_lay, null, false);
-        Button bBack= (Button) layout.findViewById(R.id.popup_lay_iv_back);
-        pWindow(layout, 600, LinearLayout.LayoutParams.WRAP_CONTENT, bBack, null, null, null, bSubmit, Gravity.TOP, 0, 150);
-    }
+//    @OnClick(R.id.act_pea_submit)
+//    public void submit(){
+//
+//        layout=(LinearLayout) getLayoutInflater().inflate(R.layout.popup_lay, null, false);
+//        Button bBack= (Button) layout.findViewById(R.id.popup_lay_iv_back);
+//        pWindow(layout, 600, LinearLayout.LayoutParams.WRAP_CONTENT, bBack, null, null, null, bSubmit, Gravity.TOP, 0, 150);
+//    }
     @Override
     public void initView() {
         initTitle(null,"返回","工长认证",null,null);

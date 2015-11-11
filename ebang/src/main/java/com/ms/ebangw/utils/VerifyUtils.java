@@ -1,12 +1,17 @@
 package com.ms.ebangw.utils;
 
 import android.content.Intent;
+import android.graphics.drawable.BitmapDrawable;
 import android.text.Editable;
 import android.text.Selection;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.text.format.Time;
+import android.view.View;
+import android.view.WindowManager;
 import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.PopupWindow;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -307,5 +312,38 @@ public class VerifyUtils {
         data.add(day);
         return data;
     }
+
+//    /**
+//     * 弹出popupwindow
+//     */
+//    public void pWindow(LinearLayout layout,int pwWidth,int pwHeight,View layoutView,View layoutView2,View layoutView3,View layoutView4,View clickView,int location,int localWidth,int localHeight){
+//        final PopupWindow pw=new PopupWindow(layout,pwWidth,pwHeight);
+//        pw.setBackgroundDrawable(new BitmapDrawable());
+//        layoutView.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                pw.dismiss();
+//                finish();
+//                backgroundAlpha(1.0f);
+//
+//            }
+//        });
+//        backgroundAlpha(0.5f);
+//        pw.setOnDismissListener(new PopupWindow.OnDismissListener() {
+//            @Override
+//            public void onDismiss() {
+//                finish();
+//                backgroundAlpha(1.0f);
+//            }
+//        });
+//        pw.setOutsideTouchable(true);
+//        pw.showAtLocation(clickView, location, localWidth, localHeight);
+//    }
+//    public void backgroundAlpha(float bgAlpha)
+//    {
+//        WindowManager.LayoutParams lp = getWindow().getAttributes();
+//        lp.alpha = bgAlpha; //0.0-1.0
+//        getWindow().setAttributes(lp);
+//    }
 
 }  

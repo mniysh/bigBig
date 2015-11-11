@@ -71,7 +71,7 @@
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="wrap_content"
-            android:text="服务"
+            android:text="邀友返现"
             android:gravity="center"
             android:button="@drawable/empty"
             android:drawableTop="@drawable/home_release_selector"

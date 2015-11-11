@@ -28,6 +28,10 @@
         <item name="android:background">@color/black_overlay</item>
     </style>
 
+    <declare-styleable name="CompoundButton">
+        <attr name="android:button" />
+    </declare-styleable>
+
     <style name="ratingbar">
         <item name="android:progressDrawable">@drawable/ratingbar</item>
         <item name="android:minHeight">15dip</item>
@@ -39,7 +43,13 @@
     <!-- 线的风格 -->
     <style name="aaa_hor">
         <item name="android:layout_width">fill_parent</item>
-        <item name="android:layout_height">1.5dp</item>
+        <item name="android:layout_height">1dp</item>
+        <item name="android:background">@drawable/bk_line</item>
+    </style>
+    <!-- 线的风格 -->
+    <style name="big_hor_line">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">10dp</item>
         <item name="android:background">@drawable/bk_line</item>
     </style>
 
@@ -173,6 +183,40 @@
         <item name="android:singleLine">true</item>
 
     </style>
+    <!--设置的style-->
+    <style name="settingStyle">
+        <item name="android:layout_gravity">center_vertical</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginLeft">10dp</item>
+
+    </style>
+    <style name="settingMessage">
+        <item name="android:background">@color/gray_back</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:padding">10dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">match_parent</item>
+    </style>
+    <style name="settingMessage_title">
+
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:padding">10dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">match_parent</item>
+    </style>
+    <style name="settingMessage_content">
+        <item name="android:textColor">@color/gray</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:padding">10dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
+    </style>
 
     <!--发布  start-->
     <style name="release_work_type_button">
@@ -251,6 +295,7 @@
         <item name="android:drawablePadding">5dp</item>
         <item name="android:layout_marginTop">5dp</item>
         <item name="android:layout_marginBottom">5dp</item>
+        <item name="android:drawableRight">@drawable/right_arrow</item>
         <item name="android:background">@android:color/white</item>
     </style>
 
@@ -266,6 +311,16 @@
         <item name="tabPaddingEnd">12dp</item>
         <item name="tabBackground">@color/white</item>
         <item name="tabSelectedTextColor">?android:textColorPrimary</item>
+    </style>
+
+    <style name="RadioButton">
+        <item name="android:textColor">@drawable/segment_button_text_color</item>
+        <item name="android:minHeight">33dp</item>
+        <item name="android:minWidth">70dp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:button">@null</item>
+        <item name="android:paddingLeft">5dp</item>
+        <item name="android:paddingRight">5dp</item>
     </style>
 
 </resources>

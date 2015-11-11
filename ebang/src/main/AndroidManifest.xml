@@ -284,20 +284,20 @@
         </activity>
         <activity android:name=".activity.NextPageActivity">
         </activity>
-        <activity android:name=".activity.SettingActivity">
+        <activity android:name=".setting.SettingActivity">
         </activity>
-        <activity android:name=".activity.ModifyNickNameActivity">
+        <activity android:name=".setting.ModifyNickNameActivity">
         </activity>
         <activity
-            android:name=".activity.ModifyPhoneActivity"
+            android:name=".setting.ModifyPhoneActivity"
             android:screenOrientation="portrait">
         </activity>
         <activity
-            android:name=".activity.ModifyPhone02Activity"
+            android:name=".setting.ModifyPhone02Activity"
             android:screenOrientation="portrait">
         </activity>
         <activity
-            android:name=".activity.ModifyPasswordAvtivity"
+            android:name=".setting.ModifyPasswordAvtivity"
             android:screenOrientation="portrait">
         </activity>
         <activity
@@ -319,21 +319,28 @@
         </activity>
         <activity android:name=".findpassword.FoundPasswordActivity">
         </activity>
-        <activity
-            android:name=".activity.ServiceContractActivity"
-           >
+        <activity android:name=".activity.ServiceContractActivity">
         </activity>
         <activity
             android:name=".scancode.MipcaActivityCapture"
             android:screenOrientation="portrait"/>
-        <activity
-            android:name=".activity.RecommendedWorksActivity"
-            >
+        <activity android:name=".activity.RecommendedWorksActivity">
         </activity>
         <activity android:name=".activity.SelectMapLocActivity">
         </activity>
         <activity android:name=".activity.DiscoveryActivity">
         </activity>
+        <activity android:name=".setting.SettingAllActivity">
+        </activity>
+        <activity
+            android:name=".setting.SettingMessageActivity"
+            android:label="@string/title_activity_setting_message"
+            android:theme="@style/AppTheme">
+        </activity>
+        <activity android:name=".activity.PublishedProjectActivity">
+        </activity>
+
+        <activity android:name=".setting.FeelbackSettingActivity"/>
     </application>
 
 </manifest>
