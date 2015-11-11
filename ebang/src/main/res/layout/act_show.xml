@@ -5,44 +5,44 @@
     android:orientation="vertical">
 
     <!--<RelativeLayout-->
-        <!--android:layout_width="fill_parent"-->
-        <!--android:layout_height="50dp"-->
-        <!--android:background="#0075AA"-->
+    <!--android:layout_width="fill_parent"-->
+    <!--android:layout_height="50dp"-->
+    <!--android:background="#0075AA"-->
 
-        <!-->-->
+    <!-->-->
 
-        <!--<LinearLayout-->
-            <!--android:id="@+id/act_show_Lin_back"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_centerVertical="true"-->
-            <!--android:clickable="true"-->
-            <!--android:orientation="horizontal">-->
+    <!--<LinearLayout-->
+    <!--android:id="@+id/act_show_Lin_back"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_centerVertical="true"-->
+    <!--android:clickable="true"-->
+    <!--android:orientation="horizontal">-->
 
-            <!--<ImageView-->
-                <!--android:layout_width="30dp"-->
-                <!--android:layout_height="28dp"-->
-                <!--android:paddingLeft="15dp"-->
-                <!--android:src="@drawable/jiantou" />-->
+    <!--<ImageView-->
+    <!--android:layout_width="30dp"-->
+    <!--android:layout_height="28dp"-->
+    <!--android:paddingLeft="15dp"-->
+    <!--android:src="@drawable/jiantou" />-->
 
-            <!--<TextView-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_gravity="center_vertical"-->
-                <!--android:text="返回"-->
-                <!--android:textColor="#fff"-->
-                <!--android:textSize="15sp" />-->
-        <!--</LinearLayout>-->
+    <!--<TextView-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_gravity="center_vertical"-->
+    <!--android:text="返回"-->
+    <!--android:textColor="#fff"-->
+    <!--android:textSize="15sp" />-->
+    <!--</LinearLayout>-->
 
-        <!--<TextView-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_centerInParent="true"-->
-            <!--android:text="企业展示"-->
-            <!--android:textColor="#fff"-->
-            <!--android:textSize="20sp"-->
+    <!--<TextView-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_centerInParent="true"-->
+    <!--android:text="企业展示"-->
+    <!--android:textColor="#fff"-->
+    <!--android:textSize="20sp"-->
 
-            <!--/>-->
+    <!--/>-->
     <!--</RelativeLayout>-->
     <!--<RelativeLayout-->
     <!--android:layout_width="fill_parent"-->
@@ -70,7 +70,438 @@
     <!--android:src="@drawable/shoucang" />-->
     <!--</LinearLayout>-->
     <!--</RelativeLayout>-->
-    <include layout="@layout/layout_common_title"/>
+    <!--<include layout="@layout/layout_common_title"/>-->
+    <!--<ScrollView-->
+    <!--android:layout_width="fill_parent"-->
+    <!--android:layout_height="wrap_content">-->
+
+    <!--<LinearLayout-->
+    <!--android:layout_width="fill_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:background="#fff"-->
+    <!--android:orientation="vertical">-->
+
+    <!--<LinearLayout-->
+    <!--android:layout_width="fill_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:orientation="vertical"-->
+    <!--android:paddingBottom="8dp"-->
+    <!--android:paddingLeft="10dp"-->
+    <!--android:paddingTop="10dp">-->
+
+    <!--<TextView-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:text="房屋建设急招。。。。。。" />-->
+
+    <!--<RelativeLayout-->
+    <!--android:layout_width="fill_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_marginTop="5dp">-->
+
+    <!--<TextView-->
+    <!--android:id="@+id/act_show_gengxin1"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:text="更新时间:" />-->
+
+    <!--<TextView-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_marginLeft="5dp"-->
+    <!--android:layout_toRightOf="@id/act_show_gengxin1"-->
+    <!--android:text="今天" />-->
+
+    <!--<LinearLayout-->
+
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_alignParentRight="true"-->
+    <!--android:orientation="horizontal"-->
+    <!--android:paddingRight="10dp">-->
+
+    <!--<TextView-->
+    <!--android:id="@+id/act_show_liulan"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:text="浏览量:" />-->
+
+    <!--<TextView-->
+
+    <!--android:id="@+id/act_show_liulan_num"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:text="100" />-->
+
+
+    <!--</LinearLayout>-->
+    <!--</RelativeLayout>-->
+    <!--</LinearLayout>-->
+
+    <!--<View-->
+    <!--android:layout_width="fill_parent"-->
+    <!--android:layout_height="1dp"-->
+    <!--android:background="@drawable/bk_line"-->
+
+    <!--/>-->
+
+    <!--<LinearLayout-->
+    <!--android:layout_width="fill_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:orientation="horizontal"-->
+    <!--android:paddingBottom="10dp"-->
+    <!--android:paddingLeft="10dp"-->
+    <!--android:paddingRight="10dp"-->
+    <!--android:paddingTop="10dp"-->
+
+    <!-->-->
+
+    <!--<TextView-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_gravity="center_vertical"-->
+    <!--android:text="累计评价:"-->
+
+    <!--/>-->
+
+    <!--<RatingBar-->
+    <!--style="@style/ratingbar"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="10dp"-->
+    <!--android:layout_gravity="center_vertical"-->
+    <!--android:layout_marginLeft="5dp"-->
+    <!--android:isIndicator="true"-->
+    <!--android:numStars="5" />-->
+
+    <!--<View-->
+    <!--android:layout_width="0dp"-->
+    <!--android:layout_height="1dp"-->
+    <!--android:layout_weight="1" />-->
+
+    <!--<LinearLayout-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_gravity="center_vertical"-->
+    <!--android:orientation="horizontal"-->
+    <!--android:padding="1dp">-->
+
+    <!--<LinearLayout-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:orientation="horizontal">-->
+
+    <!--<TextView-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:text="好评" />-->
+
+    <!--<TextView-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:text="0"-->
+    <!--android:textColor="#C40109" />-->
+    <!--</LinearLayout>-->
+
+    <!--<LinearLayout-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_marginLeft="10dp"-->
+    <!--android:orientation="horizontal">-->
+
+    <!--<TextView-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:text="中评" />-->
+
+    <!--<TextView-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:text="0"-->
+    <!--android:textColor="#C40109" />-->
+    <!--</LinearLayout>-->
+
+    <!--<LinearLayout-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_marginLeft="10dp"-->
+    <!--android:orientation="horizontal">-->
+
+    <!--<TextView-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:text="差评" />-->
+
+    <!--<TextView-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:text="0"-->
+    <!--android:textColor="#C40109" />-->
+    <!--</LinearLayout>-->
+    <!--</LinearLayout>-->
+    <!--</LinearLayout>-->
+
+    <!--<View-->
+    <!--android:layout_width="fill_parent"-->
+    <!--android:layout_height="1dp"-->
+    <!--android:background="@drawable/bk_line"-->
+
+    <!--/>-->
+
+    <!--<LinearLayout-->
+    <!--android:layout_width="fill_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:orientation="horizontal"-->
+    <!--android:paddingBottom="10dp"-->
+    <!--android:paddingLeft="10dp"-->
+    <!--android:paddingRight="10dp"-->
+    <!--android:paddingTop="10dp">-->
+
+    <!--<TextView-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:text="电话:" />-->
+
+    <!--<TextView-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:text="010-88888888"-->
+    <!--android:textColor="#C40109" />-->
+    <!--</LinearLayout>-->
+
+    <!--<View-->
+    <!--android:layout_width="fill_parent"-->
+    <!--android:layout_height="1dp"-->
+    <!--android:background="@drawable/bk_line"-->
+
+    <!--/>-->
+
+    <!--<LinearLayout-->
+    <!--android:layout_width="fill_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:orientation="horizontal"-->
+    <!--android:paddingBottom="10dp"-->
+    <!--android:paddingLeft="10dp"-->
+    <!--android:paddingRight="10dp"-->
+    <!--android:paddingTop="10dp">-->
+
+    <!--<TextView-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:text="地址:" />-->
+
+    <!--<TextView-->
+    <!--android:id="@+id/act_show_add"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:text="填写地址信息	" />-->
+    <!--</LinearLayout>-->
+
+    <!--<View-->
+    <!--android:layout_width="fill_parent"-->
+    <!--android:layout_height="1dp"-->
+    <!--android:background="@drawable/bk_line"-->
+
+    <!--/>-->
+
+    <!--<LinearLayout-->
+    <!--android:layout_width="fill_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:orientation="vertical"-->
+    <!--android:paddingBottom="10dp"-->
+    <!--android:paddingLeft="10dp"-->
+    <!--android:paddingRight="10dp"-->
+    <!--android:paddingTop="10dp">-->
+
+    <!--<TextView-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:text="描述:" />-->
+
+    <!--<TextView-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:text="填写内容填写描述的内容填写描述的内容填写描述的内容填写描述的内容填写描述的内容填写描述的内容" />-->
+
+    <!--<LinearLayout-->
+    <!--android:layout_width="fill_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_marginTop="10dp"-->
+    <!--android:orientation="horizontal">-->
+
+    <!--<View-->
+
+    <!--android:layout_width="0dp"-->
+    <!--android:layout_height="1dp"-->
+    <!--android:layout_weight="1"-->
+
+    <!--/>-->
+
+    <!--<TextView-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:text="更多详情" />-->
+    <!--</LinearLayout>-->
+    <!--</LinearLayout>-->
+
+    <!--<View-->
+    <!--android:layout_width="fill_parent"-->
+    <!--android:layout_height="1dp"-->
+    <!--android:background="@drawable/bk_line"-->
+
+    <!--/>-->
+
+    <!--<LinearLayout-->
+    <!--android:layout_width="fill_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:orientation="horizontal"-->
+    <!--android:paddingBottom="10dp"-->
+    <!--android:paddingLeft="10dp"-->
+    <!--android:paddingRight="10dp"-->
+    <!--android:paddingTop="10dp">-->
+
+    <!--<LinearLayout-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:orientation="vertical">-->
+
+    <!--<TextView-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:text="已有5人报名" />-->
+
+    <!--<TextView-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:text="抢单进行中...."-->
+    <!--android:textColor="#C40109"-->
+
+    <!--/>-->
+    <!--</LinearLayout>-->
+
+    <!--<View-->
+    <!--android:layout_width="0dp"-->
+    <!--android:layout_height="1dp"-->
+    <!--android:layout_weight="1"-->
+
+
+    <!--/>-->
+
+    <!--<Button-->
+    <!--android:id="@+id/act_show_qiangdan"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:background="@drawable/bk_but"-->
+    <!--android:paddingLeft="15dp"-->
+    <!--android:paddingRight="15dp"-->
+    <!--android:text="立刻抢单"-->
+    <!--android:textColor="#fff" />-->
+    <!--</LinearLayout>-->
+
+    <!--<TextView-->
+    <!--android:layout_width="fill_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_marginTop="10dp"-->
+    <!--android:padding="10dp"-->
+    <!--android:text="抢单记录" />-->
+
+    <!--<View-->
+    <!--android:layout_width="fill_parent"-->
+    <!--android:layout_height="1dp"-->
+    <!--android:background="@drawable/bk_line" />-->
+
+    <!--<LinearLayout-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_marginLeft="10dp"-->
+    <!--android:layout_marginRight="10dp"-->
+    <!--android:layout_marginTop="20dp"-->
+    <!--android:background="@drawable/bk_biankuang"-->
+    <!--android:orientation="vertical">-->
+    <!--&lt;!&ndash;<View&ndash;&gt;-->
+    <!--&lt;!&ndash; &ndash;&gt;-->
+    <!--&lt;!&ndash;style="@style/aaa_hor"/>&ndash;&gt;-->
+
+    <!--<LinearLayout-->
+    <!--android:layout_width="fill_parent"-->
+    <!--android:layout_height="50dp"-->
+
+    <!--android:layout_gravity="center_horizontal"-->
+
+    <!--android:orientation="horizontal">-->
+
+    <!--<View style="@style/aaa_ver" />-->
+
+    <!--<TextView-->
+    <!--android:id="@+id/listview_name"-->
+    <!--android:layout_width="0dp"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_gravity="center_vertical"-->
+    <!--android:layout_weight="1"-->
+    <!--android:gravity="center_horizontal"-->
+
+    <!--android:text="姓名"-->
+    <!--android:textSize="20sp"-->
+
+    <!--/>-->
+
+    <!--<View style="@style/aaa_ver" />-->
+
+    <!--<TextView-->
+    <!--android:id="@+id/listview_time"-->
+    <!--android:layout_width="0dp"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_gravity="center"-->
+    <!--android:layout_weight="2"-->
+    <!--android:gravity="center_horizontal"-->
+    <!--android:text="申请时间"-->
+    <!--android:textSize="20sp" />-->
+
+    <!--<View style="@style/aaa_ver" />-->
+
+    <!--<TextView-->
+    <!--android:id="@+id/listview_state"-->
+    <!--android:layout_width="0dp"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_gravity="center"-->
+    <!--android:layout_weight="1"-->
+    <!--android:gravity="center_horizontal"-->
+    <!--android:text="状态"-->
+    <!--android:textSize="20sp" />-->
+
+    <!--<View style="@style/aaa_ver" />-->
+    <!--</LinearLayout>-->
+
+    <!--<View style="@style/aaa_hor"-->
+
+    <!--/>-->
+
+
+    <!--</LinearLayout>-->
+
+    <!--<LinearLayout-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_marginLeft="10dp"-->
+    <!--android:layout_marginRight="10dp"-->
+    <!--android:orientation="vertical">-->
+
+    <!--<ListView-->
+    <!--android:id="@+id/act_show_listview"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent">-->
+
+    <!--</ListView>-->
+    <!--</LinearLayout>-->
+    <!--<View android:layout_width="match_parent"-->
+    <!--android:layout_height="30dp"-->
+
+    <!--/>-->
+
+    <!--</LinearLayout>-->
+    <!--</ScrollView>-->
+    <!--</LinearLayout>-->
+    <include layout="@layout/layout_common_title" />
+
     <ScrollView
         android:layout_width="fill_parent"
         android:layout_height="wrap_content">
@@ -84,6 +515,7 @@
             <LinearLayout
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
+                android:background="#f0f0f0"
                 android:orientation="vertical"
                 android:paddingBottom="8dp"
                 android:paddingLeft="10dp"
@@ -92,58 +524,14 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="房屋建设急招。。。。。。" />
+                    android:text="开发商发布时候的标题" />
 
-                <RelativeLayout
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp">
-
-                    <TextView
-                        android:id="@+id/act_show_gengxin1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="更新时间:" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="5dp"
-                        android:layout_toRightOf="@id/act_show_gengxin1"
-                        android:text="今天" />
-
-                    <LinearLayout
-
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:orientation="horizontal"
-                        android:paddingRight="10dp">
-
-                        <TextView
-                            android:id="@+id/act_show_liulan"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="浏览量:" />
-
-                        <TextView
-
-                            android:id="@+id/act_show_liulan_num"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="100" />
-
-
-                    </LinearLayout>
-                </RelativeLayout>
             </LinearLayout>
 
             <View
                 android:layout_width="fill_parent"
                 android:layout_height="1dp"
-                android:background="@drawable/bk_line"
-
-                />
+                android:background="@drawable/bk_line" />
 
             <LinearLayout
                 android:layout_width="fill_parent"
@@ -152,101 +540,63 @@
                 android:paddingBottom="10dp"
                 android:paddingLeft="10dp"
                 android:paddingRight="10dp"
-                android:paddingTop="10dp"
-
-                >
+                android:paddingTop="10dp">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:text="累计评价:"
+                    android:text="工地地址 : " />
 
-                    />
-
-                <RatingBar
-                    style="@style/ratingbar"
+                <TextView
                     android:layout_width="wrap_content"
-                    android:layout_height="10dp"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginLeft="5dp"
-                    android:isIndicator="true"
-                    android:numStars="5" />
+                    android:layout_height="wrap_content"
+                    android:text="北京市海淀区增光路"
+                    android:textColor="#555555" />
 
                 <View
                     android:layout_width="0dp"
                     android:layout_height="1dp"
                     android:layout_weight="1" />
+            </LinearLayout>
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:background="@drawable/bk_line"
 
-                <LinearLayout
+                />
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingBottom="10dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:paddingTop="10dp">
+
+                <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:orientation="horizontal"
-                    android:padding="1dp">
+                    android:text="开始时间 : " />
 
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="2015年8月8日"
+                    android:textColor="#555555" />
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="好评" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="0"
-                            android:textColor="#C40109" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="中评" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="0"
-                            android:textColor="#C40109" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="差评" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="0"
-                            android:textColor="#C40109" />
-                    </LinearLayout>
-                </LinearLayout>
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_weight="1" />
             </LinearLayout>
-
             <View
                 android:layout_width="fill_parent"
                 android:layout_height="1dp"
                 android:background="@drawable/bk_line"
 
                 />
-
             <LinearLayout
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
@@ -259,22 +609,24 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="电话:" />
+                    android:layout_gravity="center_vertical"
+                    android:text="结束时间 : " />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="010-88888888"
-                    android:textColor="#C40109" />
-            </LinearLayout>
+                    android:text="2016年8月8日"
+                    android:textColor="#555555" />
 
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_weight="1" />
+            </LinearLayout>
             <View
                 android:layout_width="fill_parent"
                 android:layout_height="1dp"
-                android:background="@drawable/bk_line"
-
-                />
-
+                android:background="@drawable/bk_line" />
             <LinearLayout
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
@@ -287,20 +639,49 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="地址:" />
+                    android:layout_gravity="center_vertical"
+                    android:text="联系人 : " />
 
                 <TextView
-                    android:id="@+id/act_show_add"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="填写地址信息	" />
+                    android:text="赵某某"
+                    android:textColor="#555555" />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_weight="1" />
+            </LinearLayout>
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:background="@drawable/bk_line" />
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingBottom="10dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:paddingTop="10dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="联系电话 : " />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="15555555555"
+                    android:textColor="#555555" />
             </LinearLayout>
 
             <View
                 android:layout_width="fill_parent"
                 android:layout_height="1dp"
                 android:background="@drawable/bk_line"
-
                 />
 
             <LinearLayout
@@ -320,36 +701,69 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="填写内容填写描述的内容填写描述的内容填写描述的内容填写描述的内容填写描述的内容填写描述的内容" />
-
-                <LinearLayout
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:orientation="horizontal">
-
-                    <View
-
-                        android:layout_width="0dp"
-                        android:layout_height="1dp"
-                        android:layout_weight="1"
-
-                        />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="更多详情" />
-                </LinearLayout>
+                    android:text="填写内容填写描述的内容填写描述的内容填写描述的内容填写描述的内容填写描述的内容填写描述的内容"
+                    android:paddingTop="5dp"
+                    android:textColor="#555555"
+                    />
             </LinearLayout>
-
             <View
                 android:layout_width="fill_parent"
                 android:layout_height="1dp"
                 android:background="@drawable/bk_line"
-
                 />
 
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingBottom="10dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:paddingTop="10dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="照片:" />
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal" >
+                        <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:src="@drawable/home_build"
+                        />
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:src="@drawable/home_build"
+                            />
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:src="@drawable/home_build"
+                            />
+                    </LinearLayout>
+            </LinearLayout>
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:background="@drawable/bk_line"
+                />
+            <com.ms.ebangw.utils.MyListView
+                android:id="@+id/show_list"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#ffffff"/>
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:background="@drawable/bk_line"
+                />
             <LinearLayout
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
@@ -373,18 +787,13 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="抢单进行中...."
-                        android:textColor="#C40109"
-
-                        />
+                        android:textColor="#C40109" />
                 </LinearLayout>
 
                 <View
                     android:layout_width="0dp"
                     android:layout_height="1dp"
-                    android:layout_weight="1"
-
-
-                    />
+                    android:layout_weight="1" />
 
                 <Button
                     android:id="@+id/act_show_qiangdan"
@@ -397,106 +806,37 @@
                     android:textColor="#fff" />
             </LinearLayout>
 
-            <TextView
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:padding="10dp"
-                android:text="抢单记录" />
+            <!--<TextView-->
+                <!--android:layout_width="fill_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_marginTop="10dp"-->
+                <!--android:padding="10dp"-->
+                <!--android:text="抢单记录" />-->
+
+            <!--<View-->
+                <!--android:layout_width="fill_parent"-->
+                <!--android:layout_height="1dp"-->
+                <!--android:background="@drawable/bk_line" />-->
+
+            <!--<LinearLayout-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_marginLeft="10dp"-->
+                <!--android:layout_marginRight="10dp"-->
+                <!--android:layout_marginTop="20dp"-->
+                <!--android:background="@drawable/bk_biankuang"-->
+                <!--android:orientation="vertical">-->
+                <!--&lt;!&ndash;<View&ndash;&gt;-->
+                <!--&lt;!&ndash; &ndash;&gt;-->
+                <!--&lt;!&ndash;style="@style/aaa_hor"/>&ndash;&gt;-->
+                <!--<View style="@style/aaa_hor"-->
+                    <!--/>-->
+            <!--</LinearLayout>-->
 
             <View
-                android:layout_width="fill_parent"
-                android:layout_height="1dp"
-                android:background="@drawable/bk_line" />
-
-            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:layout_marginTop="20dp"
-                android:background="@drawable/bk_biankuang"
-                android:orientation="vertical">
-                <!--<View-->
-                <!-- -->
-                <!--style="@style/aaa_hor"/>-->
-
-                <LinearLayout
-                    android:layout_width="fill_parent"
-                    android:layout_height="50dp"
-
-                    android:layout_gravity="center_horizontal"
-
-                    android:orientation="horizontal">
-
-                    <View style="@style/aaa_ver" />
-
-                    <TextView
-                        android:id="@+id/listview_name"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:layout_weight="1"
-                        android:gravity="center_horizontal"
-
-                        android:text="姓名"
-                        android:textSize="20sp"
-
-                        />
-
-                    <View style="@style/aaa_ver" />
-
-                    <TextView
-                        android:id="@+id/listview_time"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_weight="2"
-                        android:gravity="center_horizontal"
-                        android:text="申请时间"
-                        android:textSize="20sp" />
-
-                    <View style="@style/aaa_ver" />
-
-                    <TextView
-                        android:id="@+id/listview_state"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_weight="1"
-                        android:gravity="center_horizontal"
-                        android:text="状态"
-                        android:textSize="20sp" />
-
-                    <View style="@style/aaa_ver" />
-                </LinearLayout>
-
-                <View style="@style/aaa_hor"
-
-                    />
-
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:orientation="vertical">
-
-                <ListView
-                    android:id="@+id/act_show_listview"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                </ListView>
-            </LinearLayout>
-            <View android:layout_width="match_parent"
                 android:layout_height="30dp"
-
                 />
-
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

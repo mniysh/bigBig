@@ -21,7 +21,7 @@ import java.util.List;
  * 2015-11-03 14:09
  */
 public class RecommendedDeveloperAdapter extends RecyclerView.Adapter<RecommendedDeveloperAdapter
-    .ViewHolder> implements View.OnClickListener{
+        .ViewHolder> implements View.OnClickListener {
     private Context context;
     private List<RecommendedDeveoper> list;
     private OnRecyclerViewItemClickListener onRecyclerViewItemClickListener;
@@ -36,7 +36,7 @@ public class RecommendedDeveloperAdapter extends RecyclerView.Adapter<Recommende
         View view = View.inflate(parent.getContext(), R.layout.recommended_developer_item, null);
         int screenWidth = ScreenUtils.getScreenWidth(parent.getContext());
         RecyclerView.LayoutParams params = new RecyclerView.LayoutParams(screenWidth / 3, ViewGroup
-            .LayoutParams.WRAP_CONTENT);
+                .LayoutParams.WRAP_CONTENT);
         view.setLayoutParams(params);
         ViewHolder holder = new ViewHolder(view);
         return holder;
@@ -63,7 +63,7 @@ public class RecommendedDeveloperAdapter extends RecyclerView.Adapter<Recommende
     @Override
     public void onClick(View v) {
         if (onRecyclerViewItemClickListener != null) {
-            onRecyclerViewItemClickListener.onItemClick(v, (RecommendedDeveoper)v.getTag());
+            onRecyclerViewItemClickListener.onItemClick(v, (RecommendedDeveoper) v.getTag());
         }
     }
 
@@ -82,7 +82,7 @@ public class RecommendedDeveloperAdapter extends RecyclerView.Adapter<Recommende
     }
 
     public interface OnRecyclerViewItemClickListener {
-        void onItemClick(View view , RecommendedDeveoper recommendedDeveoper);
+        void onItemClick(View view, RecommendedDeveoper recommendedDeveoper);
     }
 
     public OnRecyclerViewItemClickListener getOnRecyclerViewItemClickListener() {
