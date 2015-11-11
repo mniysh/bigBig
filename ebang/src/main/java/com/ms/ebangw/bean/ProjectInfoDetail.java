@@ -47,6 +47,11 @@ public class ProjectInfoDetail {
      * craft_name : 工程管理
      */
 
+    private String money;
+    private String staff_account;
+    private String account_days;
+    private String craft_name;
+
     private List<Staff> staffs;
 
     public void setId(int id) {
@@ -129,6 +134,38 @@ public class ProjectInfoDetail {
 
     public List<String> getImages() {
         return images;
+    }
+
+    public String getMoney() {
+        return money;
+    }
+
+    public void setMoney(String money) {
+        this.money = money;
+    }
+
+    public String getStaff_account() {
+        return staff_account;
+    }
+
+    public void setStaff_account(String staff_account) {
+        this.staff_account = staff_account;
+    }
+
+    public String getAccount_days() {
+        return account_days;
+    }
+
+    public void setAccount_days(String account_days) {
+        this.account_days = account_days;
+    }
+
+    public String getCraft_name() {
+        return craft_name;
+    }
+
+    public void setCraft_name(String craft_name) {
+        this.craft_name = craft_name;
     }
 
     public List<Staff> getStaffs() {

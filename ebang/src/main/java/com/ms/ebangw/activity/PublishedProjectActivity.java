@@ -36,6 +36,7 @@ public class PublishedProjectActivity extends BaseActivity {
         ButterKnife.bind(this);
         initView();
         initData();
+        setDefaultKeyMode(DEFAULT_KEYS_DIALER);
     }
 
     @Override

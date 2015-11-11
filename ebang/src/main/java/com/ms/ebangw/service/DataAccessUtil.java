@@ -510,7 +510,7 @@ public class DataAccessUtil {
      */
     public static RequestHandle modifyNickName(String nickname,AsyncHttpResponseHandler asyncHttpResponseHandler){
         RequestParams params=new RequestParams();
-        params.put("nick_name",nickname);
+        params.put("nick_name", nickname);
         return doPost(RequestUrl.modify_nickName, params, asyncHttpResponseHandler);
     }
 
@@ -709,21 +709,42 @@ public class DataAccessUtil {
     /**
      *2-18.19， 20抢单 待通过, 进行中, 已结束（工头）  get
      * @param page
-     * @param latitude
-     * @param longitude
      * @param asyncHttpResponseHandler
      * @return
      */
-    public static RequestHandle projectStatus(String page,String
-        latitude,  String longitude, AsyncHttpResponseHandler
+    public static RequestHandle projectStatusWaiting(String page,  AsyncHttpResponseHandler
         asyncHttpResponseHandler){
 
         RequestParams params = new RequestParams();
         params.put("page", page);
-        params.put("latitude", latitude);
-        params.put("longitude", longitude);
 
-        return doGet(RequestUrl.founds, params, asyncHttpResponseHandler);
+        return doGet(RequestUrl.grab_headman_waiting, params, asyncHttpResponseHandler);
+    }
+
+    /**
+     * 2-19抢单 待通过, 进行中, 已结束（工头）  get
+     * @param asyncHttpResponseHandler
+     * @return
+     */
+    public static RequestHandle projectStatusExecute(AsyncHttpResponseHandler
+        asyncHttpResponseHandler){
+
+        return doGet(RequestUrl.grab_headman_execute, null, asyncHttpResponseHandler);
+    }
+
+    /**
+     * 2-20抢单 待通过, 进行中, 已结束（工头）  get
+     * @param page
+     * @param asyncHttpResponseHandler
+     * @return
+     */
+    public static RequestHandle projectStatusComplete(String page,  AsyncHttpResponseHandler
+        asyncHttpResponseHandler){
+
+        RequestParams params = new RequestParams();
+        params.put("page", page);
+
+        return doGet(RequestUrl.grab_headman_complete, params, asyncHttpResponseHandler);
     }
 
 

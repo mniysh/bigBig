@@ -19,8 +19,9 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 
 
-public class ProjectItemAdapter extends BaseAdapter {
+public class PublishedProjectStatusAdapter extends BaseAdapter {
     private List<ReleaseProject> list;
+    private String status;
 //    public static final String TAB_PUBLISHED_PROJECT_STATUS = "published_project_status";
 //    public static final String TAB_PUBLISHED_PROJECT_ITEM = "published_project_item";
 //
@@ -33,8 +34,9 @@ public class ProjectItemAdapter extends BaseAdapter {
 //
 //    private String tab;
 
-    public ProjectItemAdapter(List<ReleaseProject> projectList) {
+    public PublishedProjectStatusAdapter(List<ReleaseProject> projectList, String projectStatus) {
         this.list = projectList;
+
     }
 
     public void setList(List<ReleaseProject> list) {
@@ -66,7 +68,7 @@ public class ProjectItemAdapter extends BaseAdapter {
         ViewHolder holder;
         final ReleaseProject project = list.get(position);
         if (convertView == null) {
-            convertView = View.inflate(parent.getContext(), R.layout.home_project_item, null);
+            convertView = View.inflate(parent.getContext(), R.layout.published_project_status_item, null);
             holder = new ViewHolder(convertView);
             convertView.setTag(holder);
         }else {
