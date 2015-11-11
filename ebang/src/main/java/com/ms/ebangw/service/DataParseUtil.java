@@ -5,6 +5,7 @@ import android.text.TextUtils;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.ms.ebangw.MyApplication;
+import com.ms.ebangw.adapter.Evaluate;
 import com.ms.ebangw.bean.Area;
 import com.ms.ebangw.bean.Bank;
 import com.ms.ebangw.bean.City;
@@ -407,6 +408,24 @@ public class DataParseUtil {
 
         return list;
     }
+
+    /**
+     * 2-22.评价列表
+     * @param jsonObject
+     * @return
+     * @throws ResponseException
+     */
+    public static List<Evaluate> evaluateList(JSONObject jsonObject) throws ResponseException {
+        JSONObject data = processData(jsonObject);
+        String arrayStr = data.optString("evaluate");
+
+        Gson gson = new Gson();
+        List<Evaluate> list = gson.fromJson(arrayStr, new TypeToken<List<Evaluate>>() {
+        }.getType());
+
+        return list;
+    }
+
 
 
     /**

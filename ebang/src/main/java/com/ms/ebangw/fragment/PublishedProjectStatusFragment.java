@@ -129,9 +129,13 @@ public class PublishedProjectStatusFragment extends BaseFragment {
         });
         ptr.setAdapter(adapter);
 
-        loadProjects();
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        loadProjects();
+    }
 
     @Override
     public void onDestroyView() {

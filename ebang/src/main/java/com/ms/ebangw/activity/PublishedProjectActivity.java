@@ -90,7 +90,6 @@ public class PublishedProjectActivity extends BaseActivity {
                 radioButton.toggle();
             }
         });
-
         btnWaiting.toggle();
     }
 

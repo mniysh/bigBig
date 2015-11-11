@@ -10,6 +10,7 @@ import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import com.ms.ebangw.R;
+import com.ms.ebangw.activity.EvaluateListActivity;
 import com.ms.ebangw.activity.PublishedProjectActivity;
 
 import butterknife.Bind;
@@ -80,6 +81,14 @@ public class InvestorCenterFragment extends BaseFragment {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(mActivity, PublishedProjectActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        tvEvaluate.setOnClickListener(new View.OnClickListener() {      //收到的评价列表
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(mActivity, EvaluateListActivity.class);
                 startActivity(intent);
             }
         });

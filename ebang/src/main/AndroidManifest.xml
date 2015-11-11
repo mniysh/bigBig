@@ -342,6 +342,12 @@
         <activity android:name=".setting.FeelbackSettingActivity"/>
         <activity android:name=".activity.EvaluateActivity">
         </activity>
+        <activity android:name=".activity.EvaluateListActivity">
+        </activity>
+        <activity android:name=".activity.AccountActivity">
+        </activity>
+        <activity android:name=".activity.AccountDetailActivity">
+        </activity>
     </application>
 
 </manifest>

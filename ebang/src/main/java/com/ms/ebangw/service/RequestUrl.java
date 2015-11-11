@@ -204,6 +204,17 @@ public class RequestUrl {
      */
     public static final String grab_headman_complete = domain + "/api/headman/project/complete";
 
+    /**
+     * 2-21.评价  post
+     */
+    public static final String evaluate = domain + "/api/user/evaluate/evaluate";
+
+    /**
+     * 2-22.评价列表    get
+     *
+     */
+    public static final String evaluate_list = domain + "/api/user/evaluate/evaluate-list";
+
 
 
 

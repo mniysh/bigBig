@@ -1,13 +1,111 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
+    android:orientation="vertical"
+    android:background="@android:color/white"
     tools:context="com.ms.ebangw.activity.EvaluateActivity">
 
-</RelativeLayout>
+    <include
+        layout="@layout/layout_common_title"/>
+
+    <include layout="@layout/published_project_status_item"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@drawable/divider_line_gray"
+        />
+
+    <RadioGroup
+        android:id="@+id/radioGroup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/rb_good"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:button="@drawable/work_type_button_selector"
+            android:paddingBottom="5dp"
+            android:paddingLeft="5dp"
+            android:paddingTop="5dp"
+            android:singleLine="true"
+            android:text="好评"
+            android:textSize="14sp"
+            />
+
+        <RadioButton
+            android:id="@+id/rb_middle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:button="@drawable/work_type_button_selector"
+            android:paddingBottom="5dp"
+            android:paddingLeft="5dp"
+            android:paddingTop="5dp"
+            android:singleLine="true"
+            android:text="中评"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:textSize="14sp"
+            />
+
+        <RadioButton
+            android:id="@+id/rb_bad"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:button="@drawable/work_type_button_selector"
+            android:paddingBottom="5dp"
+            android:paddingLeft="5dp"
+            android:paddingTop="5dp"
+            android:singleLine="true"
+            android:text="差评"
+            android:textSize="14sp"
+            />
+
+    </RadioGroup>
+
+    <EditText
+        android:id="@+id/et_content"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:layout_margin="20dp"
+        android:gravity="left"
+        android:hint="请输入您的评价"
+        android:padding="5dp"
+        android:background="@drawable/border_gray"
+        />
+
+    <CheckBox
+        android:id="@+id/cb_is_anonymity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:button="@drawable/work_type_button_selector"
+        android:paddingBottom="5dp"
+        android:paddingLeft="5dp"
+        android:paddingTop="5dp"
+        android:singleLine="true"
+        android:text="匿名评论"
+        android:layout_marginLeft="20dp"
+        android:textColor="@android:color/darker_gray"
+        android:textSize="14sp"
+        />
+
+    <Button
+        android:id="@+id/btn_publish"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bk_but"
+        android:text="发表评论"
+        android:textColor="#fff"
+        android:textSize="20sp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="20dp"
+        />
+</LinearLayout>

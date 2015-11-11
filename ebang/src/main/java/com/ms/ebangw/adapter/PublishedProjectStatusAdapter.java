@@ -110,7 +110,7 @@ public class PublishedProjectStatusAdapter extends BaseAdapter {
         holder.tvTitle.setText(title);
         holder.tvDescription.setText(description);
         holder.tvGrabNum.setText(grab_num + "人抢单");
-        holder.tvMoney.setText("总工资" + project_money + " 元");
+        holder.tvMoney.setText("总工资:" + project_money + " 元");
 //        holder.tvDistance.setText(distance);
 
         convertView.setTag(Constants.KEY_RELEASED_PROJECT, project);

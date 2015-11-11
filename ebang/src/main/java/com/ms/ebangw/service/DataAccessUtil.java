@@ -230,7 +230,7 @@ public class DataAccessUtil {
     public static RequestHandle developerRelease(String title, String description, String link_man,
                                                  String link_phone, String province, String city,
                                                  String area_other, float point_longitude,
-                                                 float point_dimension,
+                                                 float point_latitude,
                                                  String image_ary,String start_time,
                                                  String end_time, String project_money,String staffs, AsyncHttpResponseHandler asyncHttpResponseHandler){
         RequestParams params = new RequestParams();
@@ -242,7 +242,7 @@ public class DataAccessUtil {
         params.put("city",city);
         params.put("area_other",area_other);
         params.put("point_longitude",point_longitude);
-        params.put("point_dimension",point_dimension);
+        params.put("point_latitude",point_latitude);
         params.put("start_time",start_time);
         params.put("end_time", end_time);
         params.put("project_money",project_money);
@@ -748,6 +748,43 @@ public class DataAccessUtil {
     }
 
 
+    /**
+     * 2-21.评价  post
+     * @param project_id
+     * @param content
+     * @param anonymity
+     * @param type
+     * @param asyncHttpResponseHandler
+     * @return
+     */
+    public static RequestHandle evaluate(String project_id,
+                                         String content, String anonymity, String type,  AsyncHttpResponseHandler
+        asyncHttpResponseHandler){
+
+        RequestParams params = new RequestParams();
+        params.put("project_id", project_id);
+        params.put("content", content);
+        params.put("anonymity", anonymity);
+        params.put("type", type);
+
+        return doPost(RequestUrl.evaluate, params, asyncHttpResponseHandler);
+    }
+
+    /**
+     * 2-22.评价列表
+     * @param page
+     * @param asyncHttpResponseHandler
+     * @return
+     */
+    public static RequestHandle evaluateList(String page,  AsyncHttpResponseHandler
+                                             asyncHttpResponseHandler){
+
+        RequestParams params = new RequestParams();
+        params.put("page", page);
+
+        return doGet(RequestUrl.evaluate_list, params, asyncHttpResponseHandler);
+    }
+
     public static RequestHandle doPost(String url, RequestParams params, AsyncHttpResponseHandler asyncHttpResponseHandler) {
 
         if (!NetUtils.isConnected(MyApplication.getInstance())) {
@@ -780,7 +817,7 @@ public class DataAccessUtil {
             params = new RequestParams();
         }
         params = addCommonParams(params);
-        L.d(TAG, "doGet Url : " + url + "?"+ params.toString());
+        L.d(TAG, "doGet Url : " + url + "?" + params.toString());
         return mClient.get(url, params, asyncHttpResponseHandler);
 
     }
