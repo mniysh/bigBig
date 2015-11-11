@@ -337,8 +337,9 @@
             android:label="@string/title_activity_setting_message"
             android:theme="@style/AppTheme" >
         </activity>
-
-        <activity android:name=".setting.FeelbackSettingActivity"/>
+        <activity android:name=".setting.FeelbackSettingActivity" />
+        <activity android:name=".setting.AboutActivity" >
+        </activity>
     </application>
 
 </manifest>
