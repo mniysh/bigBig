@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@android:color/white"
     tools:context="com.ms.ebangw.activity.PublishedProjectActivity">
     <include
         layout="@layout/layout_common_title"/>
@@ -16,10 +17,12 @@
         android:orientation="horizontal"
         android:layout_marginTop="15dp"
         android:layout_marginBottom="15dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
         >
 
         <RadioButton
-            android:id="@+id/btn_waitting_pass"
+            android:id="@+id/btn_waiting"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="wrap_content"
@@ -28,7 +31,7 @@
             style="@style/RadioButton" />
 
         <RadioButton
-            android:id="@+id/rb_underway"
+            android:id="@+id/rb_execute"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="wrap_content"
@@ -37,7 +40,7 @@
             style="@style/RadioButton" />
 
         <RadioButton
-            android:id="@+id/btn_finished"
+            android:id="@+id/btn_complete"
             style="@style/RadioButton"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
