@@ -3,10 +3,25 @@ package com.ms.ebangw.setting;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.LinearLayout;
 
+import com.loopj.android.http.JsonHttpResponseHandler;
+import com.ms.ebangw.MyApplication;
 import com.ms.ebangw.R;
 import com.ms.ebangw.activity.BaseActivity;
+import com.ms.ebangw.activity.LoginActivity;
+import com.ms.ebangw.commons.Constants;
+import com.ms.ebangw.db.UserDao;
+import com.ms.ebangw.exception.ResponseException;
+import com.ms.ebangw.service.DataAccessUtil;
+import com.ms.ebangw.service.DataParseUtil;
+import com.ms.ebangw.utils.L;
+import com.ms.ebangw.utils.T;
+
+import org.apache.http.Header;
+import org.json.JSONObject;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -24,6 +39,8 @@ public class SettingAllActivity extends BaseActivity {
     LinearLayout lFeedback;
     @Bind(R.id.ll_about_our)
     LinearLayout lAboutOut;
+    @Bind(R.id.bt_exit)
+    Button bt_exit;
     @Override
     public void initView() {
         initTitle(null, "返回", "设置", null, null);
@@ -31,6 +48,38 @@ public class SettingAllActivity extends BaseActivity {
 
     @Override
     public void initData() {
+
+    }
+    @OnClick(R.id.bt_exit)
+    public void exitSystem(){
+        logout();
+        UserDao userDao = new UserDao(this);
+        userDao.removeAll();
+        MyApplication.getInstance().quit();
+        startActivity(new Intent(this, LoginActivity.class));
+        setResult(Constants.REQUEST_EXIT);
+        finish();
+
+    }
+    private void logout(){
+        DataAccessUtil.exit(new JsonHttpResponseHandler(){
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                super.onSuccess(statusCode, headers, response);
+                try {
+                    boolean b = DataParseUtil.exit(response);
+                } catch (ResponseException e) {
+                    e.printStackTrace();
+                    T.show(e.getMessage());
+                }
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                super.onFailure(statusCode, headers, responseString, throwable);
+                L.d(responseString);
+            }
+        });
 
     }
 

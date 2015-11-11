@@ -12,6 +12,7 @@ import com.ms.ebangw.bean.User;
 import com.ms.ebangw.db.UserDao;
 import com.ms.ebangw.listener.MyLocationListener;
 import com.ms.ebangw.utils.L;
+import com.ms.ebangw.utils.T;
 import com.umeng.analytics.MobclickAgent;
 
 import java.util.ArrayList;
@@ -127,6 +128,7 @@ public class MyApplication extends Application {
                 public void gotResult(int i, String s, Set<String> set) {
                     if (i == 0) {
                         L.d("setAlias: 极光alias设置成功, alias: " + s);
+                        T.show("setAlias: 极光alias设置成功, alias: " + s);
                     } else {
                         L.d("setAlias: 极光alias设置失败, 返回的状态码: " + i);
                     }
