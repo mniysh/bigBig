@@ -10,7 +10,11 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 
 import com.ms.ebangw.R;
+import com.ms.ebangw.adapter.ProjectItemdetailAdapter;
+import com.ms.ebangw.bean.ProjectInfoDetail;
 import com.ms.ebangw.utils.L;
+
+import java.util.ArrayList;
 
 import butterknife.ButterKnife;
 
@@ -30,6 +34,8 @@ public class ShowActivity extends BaseActivity implements OnClickListener {
 
 	private Button bQiangdan;
 	private ListView showListView;
+	private ProjectItemdetailAdapter detailAdapter;
+
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -51,8 +57,11 @@ public class ShowActivity extends BaseActivity implements OnClickListener {
 //		adapter=new ShowTableAdapter(this,datas);
 //		lTable.setAdapter(adapter);
 //		setListView(lTable);
-
+		detailAdapter = new ProjectItemdetailAdapter(new ArrayList<ProjectInfoDetail>());
+		showListView.setAdapter(detailAdapter);
+		setListView(showListView);
 		bQiangdan.setOnClickListener(this);
+
 		initTitle(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -65,6 +74,7 @@ public class ShowActivity extends BaseActivity implements OnClickListener {
 
 	public void initView() {
 //		 lTable= (ListView) findViewById(R.id.act_show_listview);
+		showListView = (ListView)findViewById(R.id.show_list);
 		bQiangdan= (Button) findViewById(R.id.act_show_qiangdan);
 	}
 
