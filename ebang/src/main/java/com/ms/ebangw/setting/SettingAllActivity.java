@@ -114,6 +114,7 @@ public class SettingAllActivity extends BaseActivity {
     }
     @OnClick(R.id.ll_about_our)
     public void goAboutOurSetting(){
-
+        Intent intent = new Intent(this, AboutActivity.class);
+        startActivity(intent);
     }
 }
