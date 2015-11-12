@@ -101,14 +101,13 @@ public class InvestorCenterFragment extends BaseFragment {
                 startActivity(intent);
             }
         });
-
-
     }
 
     @Override
     public void initData() {
 
     }
+
     @Override
     public void onDestroyView() {
         super.onDestroyView();

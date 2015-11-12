@@ -61,7 +61,10 @@
             android:visibility="gone"
             android:textColor="@android:color/white"
             android:background="@color/common_yellow"
-            android:padding="5dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
             />
     </LinearLayout>
 </RelativeLayout>

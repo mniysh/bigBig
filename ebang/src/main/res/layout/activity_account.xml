@@ -10,6 +10,35 @@
     <include
         layout="@layout/layout_common_title"/>
 
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    >
 
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        >
+
+        <TextView
+            android:id="@+id/tv_year"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="2015年"
+            style="@style/account_tab_title"
+            />
+
+        <TextView
+            android:id="@+id/tv_month"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="06月"
+            android:textSize="24sp"
+            />
+
+    </RelativeLayout>
+
+</LinearLayout>
 
 </LinearLayout>
