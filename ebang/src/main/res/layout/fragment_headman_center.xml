@@ -18,19 +18,63 @@
         >
 
         <LinearLayout
+            android:id="@+id/ll_verItems"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
             >
 
-            <include
-                android:id="@+id/ll_item_horizontal"
-                layout="@layout/user_center_item_horizontal"
+            <TextView
+                android:id="@+id/tv_grab"
+                style="@style/user_center_item_ver"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/grab"
+                android:text="@string/grab"
                 />
 
-            <include
-                android:id="@+id/ll_item_vertical"
-                layout="@layout/user_center_item_vertical"/>
+             <TextView
+                android:id="@+id/tv_trade"
+                style="@style/user_center_item_ver"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/trade"
+                android:text="@string/trade"
+                />
+
+             <TextView
+                android:id="@+id/tv_evaluate"
+                style="@style/user_center_item_ver"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/evaluate"
+                android:text="@string/evaluate"
+                />
+
+             <TextView
+                android:id="@+id/tv_jifen"
+                style="@style/user_center_item_ver"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/jifen"
+                android:text="@string/jifen"
+                />
+            <TextView
+                android:id="@+id/tv_people_manage"
+                style="@style/user_center_item_ver"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/people_manage"
+                android:text="@string/people_manage"
+                />
+            <TextView
+                android:id="@+id/tv_invite_friend"
+                style="@style/user_center_item_ver"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/invite_friend"
+                android:text="@string/invite_friend"
+                />
 
             <include
                 android:id="@+id/ll_eweima"

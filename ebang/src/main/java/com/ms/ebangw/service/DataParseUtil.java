@@ -7,6 +7,7 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.ms.ebangw.MyApplication;
+import com.ms.ebangw.adapter.Evaluate;
 import com.ms.ebangw.activity.LoginActivity;
 import com.ms.ebangw.bean.Area;
 import com.ms.ebangw.bean.Bank;
@@ -406,6 +407,41 @@ public class DataParseUtil {
         return list;
     }
 
+    /**
+     * 2-18 2-19 2-20 已发布的工程
+     * @param jsonObject
+     * @return
+     * @throws ResponseException
+     */
+    public static List<ReleaseProject> projectStatus(JSONObject jsonObject) throws ResponseException {
+        JSONObject data = processData(jsonObject);
+        String arrayStr = data.optString("project");
+
+        Gson gson = new Gson();
+        List<ReleaseProject> list = gson.fromJson(arrayStr, new TypeToken<List<ReleaseProject>>() {
+        }.getType());
+
+        return list;
+    }
+
+    /**
+     * 2-22.评价列表
+     * @param jsonObject
+     * @return
+     * @throws ResponseException
+     */
+    public static List<Evaluate> evaluateList(JSONObject jsonObject) throws ResponseException {
+        JSONObject data = processData(jsonObject);
+        String arrayStr = data.optString("evaluate");
+
+        Gson gson = new Gson();
+        List<Evaluate> list = gson.fromJson(arrayStr, new TypeToken<List<Evaluate>>() {
+        }.getType());
+
+        return list;
+    }
+
+
 
     /**
      * 发布工程的接口解析
@@ -447,6 +483,8 @@ public class DataParseUtil {
         }
         return releaseProject;
     }
+
+
 
 
     /**

@@ -10,6 +10,7 @@ import android.widget.TextView;
 import com.ms.ebangw.R;
 import com.ms.ebangw.bean.ReleaseProject;
 import com.ms.ebangw.commons.Constants;
+import com.ms.ebangw.fragment.PublishedProjectStatusFragment;
 import com.ms.ebangw.service.DataAccessUtil;
 import com.squareup.picasso.Picasso;
 
@@ -19,22 +20,16 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 
 
-public class ProjectItemAdapter extends BaseAdapter {
+public class PublishedProjectStatusAdapter extends BaseAdapter {
     private List<ReleaseProject> list;
-//    public static final String TAB_PUBLISHED_PROJECT_STATUS = "published_project_status";
-//    public static final String TAB_PUBLISHED_PROJECT_ITEM = "published_project_item";
-//
-//    @StringDef({
-//        TAB_PUBLISHED_PROJECT_STATUS,
-//            TAB_PUBLISHED_PROJECT_ITEM
-//    })
-//    @Retention(RetentionPolicy.SOURCE)
-//    public @interface PublishedProjectTab{}
-//
-//    private String tab;
+    private String status;
 
-    public ProjectItemAdapter(List<ReleaseProject> projectList) {
+    public PublishedProjectStatusAdapter(List<ReleaseProject> projectList,
+                                         @PublishedProjectStatusFragment.ProjectStatus String
+                                         projectStatus) {
         this.list = projectList;
+        this.status = projectStatus;
+
     }
 
     public void setList(List<ReleaseProject> list) {
@@ -66,7 +61,7 @@ public class ProjectItemAdapter extends BaseAdapter {
         ViewHolder holder;
         final ReleaseProject project = list.get(position);
         if (convertView == null) {
-            convertView = View.inflate(parent.getContext(), R.layout.home_project_item, null);
+            convertView = View.inflate(parent.getContext(), R.layout.published_project_status_item, null);
             holder = new ViewHolder(convertView);
             convertView.setTag(holder);
         }else {
@@ -87,20 +82,37 @@ public class ProjectItemAdapter extends BaseAdapter {
             holder.head.setImageResource(R.drawable.head);
         }
 
+        switch (status) {
+            case PublishedProjectStatusFragment.WAITTING:
+                holder.tvEvaluate.setVisibility(View.GONE);
+                holder.tvGrabNum.setVisibility(View.VISIBLE);
+
+                break;
+            case PublishedProjectStatusFragment.EXECUTE:
+                holder.tvEvaluate.setVisibility(View.GONE);
+                holder.tvGrabNum.setVisibility(View.GONE);
+                break;
+            case PublishedProjectStatusFragment.COMPLETE:
+                holder.tvEvaluate.setVisibility(View.VISIBLE);
+                holder.tvGrabNum.setVisibility(View.GONE);
+                holder.tvEvaluate.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (null != onEvaluateClickListener) {
+                            onEvaluateClickListener.onGrabClick(v, project);
+                        }
+                    }
+                });
+                break;
+
+        }
 
         holder.tvTitle.setText(title);
         holder.tvDescription.setText(description);
-        holder.tvGrabNum.setText("已有" + grab_num + "人抢单");
-        holder.tvMoney.setText(project_money);
-        holder.tvDistance.setText(distance);
-        holder.tvGrab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (null != onGrabClickListener) {
-                    onGrabClickListener.onGrabClick(v, project);
-                }
-            }
-        });
+        holder.tvGrabNum.setText(grab_num + "人抢单");
+        holder.tvMoney.setText("总工资:" + project_money + " 元");
+//        holder.tvDistance.setText(distance);
+
         convertView.setTag(Constants.KEY_RELEASED_PROJECT, project);
         return convertView;
     }
@@ -124,21 +136,21 @@ public class ProjectItemAdapter extends BaseAdapter {
         TextView tvMoney;
         @Bind(R.id.tv_grab_num)
         TextView tvGrabNum;
-        @Bind(R.id.tv_grab)
-        TextView tvGrab;
+        @Bind(R.id.tv_evaluate)
+        TextView tvEvaluate;
 
         ViewHolder(View view) {
             ButterKnife.bind(this, view);
         }
     }
 
-    public interface OnGrabClickListener{
+    public interface OnEvaluateClickListener {
         void onGrabClick(View view, ReleaseProject releaseProject);
     }
 
-    private OnGrabClickListener onGrabClickListener;
+    private OnEvaluateClickListener onEvaluateClickListener;
 
-    public void setOnGrabClickListener(OnGrabClickListener onGrabClickListener) {
-        this.onGrabClickListener = onGrabClickListener;
+    public void setOnEvaluateClickListener(OnEvaluateClickListener onEvaluateClickListener) {
+        this.onEvaluateClickListener = onEvaluateClickListener;
     }
 }

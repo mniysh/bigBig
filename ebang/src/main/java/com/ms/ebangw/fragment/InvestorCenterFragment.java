@@ -1,27 +1,43 @@
 package com.ms.ebangw.fragment;
 
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
+import android.widget.TextView;
 
 import com.ms.ebangw.R;
+import com.ms.ebangw.activity.EvaluateListActivity;
+import com.ms.ebangw.activity.PublishedProjectActivity;
+
+import butterknife.Bind;
+import butterknife.ButterKnife;
 
 /**
  * 个人中心
- * @author wangkai
  *
+ * @author wangkai
  */
-public class InvestorCenterFragment extends Fragment {
+public class InvestorCenterFragment extends BaseFragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+    @Bind(R.id.fl_head_info)
+    FrameLayout flHeadInfo;
+    @Bind(R.id.tv_published)
+    TextView tvPublished;
+    @Bind(R.id.tv_trade)
+    TextView tvTrade;
+    @Bind(R.id.tv_evaluate)
+    TextView tvEvaluate;
+    @Bind(R.id.tv_jifen)
+    TextView tvJifen;
 
     private String mParam1;
     private String mParam2;
-
 
 
     public static InvestorCenterFragment newInstance(String param1, String param2) {
@@ -46,12 +62,45 @@ public class InvestorCenterFragment extends Fragment {
         }
     }
 
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_investor_center, container, false);
+        View view = inflater.inflate(R.layout.fragment_investor_center, container, false);
+        ButterKnife.bind(this, view);
+        initView();
+        initData();
+        return view;
     }
 
 
+    @Override
+    public void initView() {
+        tvPublished.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(mActivity, PublishedProjectActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        tvEvaluate.setOnClickListener(new View.OnClickListener() {      //收到的评价列表
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(mActivity, EvaluateListActivity.class);
+                startActivity(intent);
+            }
+        });
+    }
+
+    @Override
+    public void initData() {
+
+    }
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        ButterKnife.unbind(this);
+    }
 }

@@ -189,6 +189,34 @@ public class RequestUrl {
      */
     public static final String founds = domain + "/api/index/index/founds";
 
+     /**
+     *2-18.抢单 待通过（工头）  get
+     */
+    public static final String grab_headman_waiting = domain + "/api/headman/project/single-waiting";
+
+     /**
+     *2-19.抢单 执行中（工头）   get
+     */
+    public static final String grab_headman_execute = domain + "/api/headman/project/execute";
+
+     /**
+     *2-20.抢单 已结束（工头）
+     */
+    public static final String grab_headman_complete = domain + "/api/headman/project/complete";
+
+    /**
+     * 2-21.评价  post
+     */
+    public static final String evaluate = domain + "/api/user/evaluate/evaluate";
+
+    /**
+     * 2-22.评价列表    get
+     *
+     */
+    public static final String evaluate_list = domain + "/api/user/evaluate/evaluate-list";
+
+
+
 
 
 }

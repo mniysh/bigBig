@@ -18,7 +18,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.ms.ebangw.R;
-import com.ms.ebangw.activity.PublishedProjectActivity;
 import com.ms.ebangw.activity.RecommendedWorksActivity;
 import com.ms.ebangw.bean.User;
 import com.ms.ebangw.utils.QRCodeUtil;
@@ -29,11 +28,11 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 
 /**
- * 工长中心
+ * 劳务中心
  *
  * @author wangkai
  */
-public class HeadmanCenterFragment extends BaseFragment {
+public class LabourCenterFragment extends BaseFragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
@@ -66,8 +65,8 @@ public class HeadmanCenterFragment extends BaseFragment {
     private ViewGroup contentLayout;
     private FragmentManager fm;
 
-    public static HeadmanCenterFragment newInstance(String param1, String param2) {
-        HeadmanCenterFragment fragment = new HeadmanCenterFragment();
+    public static LabourCenterFragment newInstance(String param1, String param2) {
+        LabourCenterFragment fragment = new LabourCenterFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -75,7 +74,7 @@ public class HeadmanCenterFragment extends BaseFragment {
         return fragment;
     }
 
-    public HeadmanCenterFragment() {
+    public LabourCenterFragment() {
         // Required empty public constructor
     }
 
@@ -92,7 +91,7 @@ public class HeadmanCenterFragment extends BaseFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        contentLayout = (ViewGroup) inflater.inflate(R.layout.fragment_headman_center, null);
+        contentLayout = (ViewGroup) inflater.inflate(R.layout.fragment_labour_center, null);
         ButterKnife.bind(this, contentLayout);
         initView();
         initData();
@@ -117,14 +116,6 @@ public class HeadmanCenterFragment extends BaseFragment {
                 setEnoughWorkerView();
             }
         }
-
-        tvGrab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(mActivity, PublishedProjectActivity.class);
-                startActivity(intent);
-            }
-        });
     }
 
     /**

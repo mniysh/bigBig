@@ -83,6 +83,8 @@ public class HomeFragment extends BaseFragment {
     @Bind(R.id.rv)
     RecyclerView recyclerView;
     private ProjectItemAdapter projectItemAdapter;
+    private double latitude;
+    private double longitude;
 
     /**
      * 消息按钮
@@ -164,8 +166,18 @@ public class HomeFragment extends BaseFragment {
 
             }
         });
-
+        getLocation();
         initBanner();
+    }
+
+    public void getLocation() {
+        try {
+            latitude = mLocationClient.getLastKnownLocation().getLatitude();
+            longitude = mLocationClient.getLastKnownLocation().getLongitude();
+        } catch (Exception e) {
+            latitude = 0;
+            longitude = 0;
+        }
     }
 
     public void initBanner() {
@@ -264,15 +276,6 @@ public class HomeFragment extends BaseFragment {
     private int currentPage = 0;
     public void loadHomeProjectInfo() {
         currentPage = 1;
-        double latitude;
-        double longitude;
-        try {
-            latitude = mLocationClient.getLastKnownLocation().getLatitude();
-            longitude = mLocationClient.getLastKnownLocation().getLongitude();
-        } catch (Exception e) {
-            latitude = 0;
-            longitude = 0;
-        }
         DataAccessUtil.homeProjectInfo(currentPage + "", latitude+"", longitude + "", new
             JsonHttpResponseHandler() {
             @Override
@@ -324,15 +327,7 @@ public class HomeFragment extends BaseFragment {
      * 加载更多
      */
     private void loadMoreHomeProjectInfo() {
-        double latitude;
-        double longitude;
-        try {
-            latitude = mLocationClient.getLastKnownLocation().getLatitude();
-            longitude = mLocationClient.getLastKnownLocation().getLongitude();
-        } catch (Exception e) {
-            latitude = 0;
-            longitude = 0;
-        }
+
         DataAccessUtil.homeProjectInfo(currentPage + "", latitude+"", longitude + "", new
             JsonHttpResponseHandler() {
             @Override

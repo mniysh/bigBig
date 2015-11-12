@@ -22,4 +22,7 @@
     <dimen name="release_select_dialog_item_width">40dp</dimen>
     <dimen name="release_select_dialog_item_height">40dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
+
+    <!--已发布-->
+    <dimen name="left_radius">20dp</dimen>
 </resources>
