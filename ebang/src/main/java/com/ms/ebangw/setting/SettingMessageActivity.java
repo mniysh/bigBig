@@ -85,7 +85,7 @@ public class SettingMessageActivity extends BaseActivity {
             flag_ring = !flag_ring;
             ringIv.setImageResource(R.drawable.button_unselected);
             BasicPushNotificationBuilder build = new BasicPushNotificationBuilder(this);
-            build.notificationDefaults = 0;
+            build.developerArg0 = "";
             JPushInterface.setPushNotificationBuilder(1, build);
         }else{
             flag_ring = !flag_ring;
