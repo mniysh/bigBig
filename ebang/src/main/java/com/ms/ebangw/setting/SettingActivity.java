@@ -10,6 +10,7 @@ import com.loopj.android.http.JsonHttpResponseHandler;
 import com.ms.ebangw.MyApplication;
 import com.ms.ebangw.R;
 import com.ms.ebangw.activity.BaseActivity;
+import com.ms.ebangw.activity.HomeActivity;
 import com.ms.ebangw.activity.LoginActivity;
 import com.ms.ebangw.bean.User;
 import com.ms.ebangw.commons.Constants;
@@ -22,6 +23,7 @@ import com.ms.ebangw.utils.L;
 import com.ms.ebangw.utils.T;
 
 import org.apache.http.Header;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import butterknife.Bind;
@@ -161,35 +163,35 @@ public class SettingActivity extends BaseActivity {
 
     @OnClick(R.id.btn_exit)
     public void exit() {
-        logout();
-        UserDao userDao = new UserDao(this);
-        userDao.removeAll();
-
-        MyApplication.getInstance().quit();
-        startActivity(new Intent(this, LoginActivity.class));
-        setResult(Constants.REQUEST_EXIT);
-        finish();
+//        logout();
+//        UserDao userDao = new UserDao(this);
+//        userDao.removeAll();
+//
+//        MyApplication.getInstance().quit();
+//        startActivity(new Intent(this, LoginActivity.class));
+//        setResult(Constants.REQUEST_EXIT);
+//        finish();
     }
 
-    private void logout() {
-        DataAccessUtil.exit(new JsonHttpResponseHandler() {
-            @Override
-            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                try {
-                    boolean b = DataParseUtil.processDataResult(response);
-
-                } catch (ResponseException e) {
-                    e.printStackTrace();
-                    T.show(e.getMessage());
-                }
-            }
-
-            @Override
-            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
-                super.onFailure(statusCode, headers, responseString, throwable);
-            }
-        });
-    }
+//    private void logout() {
+//        DataAccessUtil.exit(new JsonHttpResponseHandler() {
+//            @Override
+//            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+//                try {
+//                    boolean b = DataParseUtil.processDataResult(response);
+//
+//                } catch (ResponseException e) {
+//                    e.printStackTrace();
+//                    T.show(e.getMessage());
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+//                super.onFailure(statusCode, headers, responseString, throwable);
+//            }
+//        });
+//    }
 
     /**
      * 工人扫码推荐工长
@@ -200,6 +202,15 @@ public class SettingActivity extends BaseActivity {
 
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                try {
+                    if(response.getString("code").equals("501")){
+                        T.show("当前账号已在其他设备上登录,如非本人操作，请修改密码。");
+                        logout(SettingActivity.this);
+                        return;
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
                 try {
                     boolean b = DataParseUtil.processDataResult(response);
 

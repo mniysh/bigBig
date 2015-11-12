@@ -9,6 +9,7 @@ import com.loopj.android.http.JsonHttpResponseHandler;
 import com.ms.ebangw.MyApplication;
 import com.ms.ebangw.R;
 import com.ms.ebangw.activity.BaseActivity;
+import com.ms.ebangw.activity.HomeActivity;
 import com.ms.ebangw.bean.User;
 import com.ms.ebangw.exception.ResponseException;
 import com.ms.ebangw.service.DataAccessUtil;
@@ -66,6 +67,15 @@ public class ModifyPasswordAvtivity extends BaseActivity {
                 DataAccessUtil.changePwd(user.getPhone(),sOldpass,sNewPsaa,new JsonHttpResponseHandler(){
                     @Override
                     public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                        try {
+                            if(response.getString("code").equals("501")){
+                                T.show("当前账号已在其他设备上登录,如非本人操作，请修改密码。");
+                                logout(ModifyPasswordAvtivity.this);
+                                return;
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
                         super.onSuccess(statusCode, headers, response);
                         L.d("xxx","nengbuneng");
                         try {

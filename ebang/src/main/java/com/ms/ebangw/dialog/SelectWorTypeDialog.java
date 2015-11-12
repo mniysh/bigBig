@@ -21,6 +21,7 @@ import com.ms.ebangw.R;
 import com.ms.ebangw.bean.Staff;
 import com.ms.ebangw.bean.WorkType;
 import com.ms.ebangw.utils.T;
+import com.ms.ebangw.utils.VerifyUtils;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -237,14 +238,12 @@ public class SelectWorTypeDialog extends DialogFragment {
             T.show("请输入结束时间");
             return false;
         }
-//        if(!VerifyUtils.isRight(startYear, startMonth , startDay)){
-//            T.show("时间不正确");
-//            return  false;
-//        }
-//        if(!VerifyUtils.isRightTime(startYear, startMonth, startDay, endYear, endMonth , endDay)){
-//           T.show("时间不正确");
-//            return false;
-//        }
+        if(!VerifyUtils.isRight(startYear, startMonth , startDay) || !VerifyUtils.
+                isRightTime(startYear, startMonth, startDay, endYear, endMonth, endDay)){
+            T.show("时间不正确");
+            return  false;
+        }
+
 
         return true;
     }

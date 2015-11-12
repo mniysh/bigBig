@@ -1,10 +1,13 @@
 package com.ms.ebangw.service;
 
+import android.content.Intent;
 import android.text.TextUtils;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.loopj.android.http.JsonHttpResponseHandler;
 import com.ms.ebangw.MyApplication;
+import com.ms.ebangw.activity.LoginActivity;
 import com.ms.ebangw.bean.Area;
 import com.ms.ebangw.bean.Bank;
 import com.ms.ebangw.bean.City;
@@ -18,11 +21,17 @@ import com.ms.ebangw.bean.UploadImageResult;
 import com.ms.ebangw.bean.User;
 import com.ms.ebangw.bean.WorkType;
 import com.ms.ebangw.bean.Worker;
+import com.ms.ebangw.commons.Constants;
+import com.ms.ebangw.db.UserDao;
 import com.ms.ebangw.exception.ResponseException;
+import com.ms.ebangw.setting.SettingAllActivity;
 import com.ms.ebangw.utils.L;
+import com.ms.ebangw.utils.T;
 
+import org.apache.http.Header;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.w3c.dom.CDATASection;
 
 import java.util.Iterator;
 import java.util.List;
@@ -71,6 +80,9 @@ public class DataParseUtil {
     public static User userInformation(JSONObject jsonObject) throws ResponseException {
         User user = MyApplication.getInstance().getUser();
         JSONObject data = processData(jsonObject);
+        if (data == null){
+            return null;
+        }
         try {
             User baseUser = null;
             if (data.has("base_message")) {
@@ -247,6 +259,9 @@ public class DataParseUtil {
 
         Craft craft = new Craft();
         JSONObject data = processData(jsonObject);
+        if (data == null){
+            return null;
+        }
         Gson gson = new Gson();
         try {
             String first = data.getString("first");
@@ -502,7 +517,9 @@ public class DataParseUtil {
             String message = jsonObject.getString("message");
             if (TextUtils.equals("200", code)) {        //数据正确
                 return jsonObject.getJSONObject("data");
-            } else {
+            }else if(TextUtils.equals("501", code)){
+                return null;
+            }else{
                 String dataStr = jsonObject.optString("data", "");
                 String errorMessage = "";
                 if (!TextUtils.isEmpty(dataStr) && !TextUtils.equals("null", dataStr) && !TextUtils.equals("NULL", dataStr)) {

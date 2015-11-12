@@ -24,6 +24,7 @@ import com.ms.ebangw.bean.ReleaseInfo;
 import com.ms.ebangw.bean.ReleaseProject;
 import com.ms.ebangw.commons.Constants;
 import com.ms.ebangw.service.DataAccessUtil;
+import com.ms.ebangw.utils.T;
 
 import org.apache.http.Header;
 import org.json.JSONObject;
@@ -118,6 +119,7 @@ public class PayingActivity extends BaseActivity {
 
                 @Override
                 public void onSuccess(int i, Header[] headers, byte[] bytes) {
+
                     if(i == 200){
                         BitmapFactory bitmapFactory = new BitmapFactory();
                         Bitmap bitmap = bitmapFactory.decodeByteArray(bytes, 0 , bytes.length);

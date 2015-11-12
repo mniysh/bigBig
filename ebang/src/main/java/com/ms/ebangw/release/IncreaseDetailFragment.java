@@ -54,6 +54,7 @@ import com.ms.ebangw.view.ProvinceAndCityView;
 import com.squareup.picasso.Picasso;
 
 import org.apache.http.Header;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.File;
@@ -642,9 +643,19 @@ public class IncreaseDetailFragment extends BaseFragment {
                      provinceId, cityId,detailAddress,
                     longitude, latitude, image_ary,startTime, endTime,totalMoney, staff,
                     new JsonHttpResponseHandler(){
+
                         @Override
                         public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                             super.onSuccess(statusCode, headers, response);
+                            try {
+                                if(response.getString("code").equals("501")){
+                                    T.show("当前账号已在其他设备上登录,如非本人操作，请修改密码。");
+                                    ((HomeActivity)mActivity).logout(mActivity);
+                                    return;
+                                }
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
                             try {
                                 releaseProject = new ReleaseProject();
                                 boolean b = DataParseUtil.processDataResult(response);

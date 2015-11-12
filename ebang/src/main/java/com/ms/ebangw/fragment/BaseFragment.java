@@ -4,24 +4,32 @@ import android.app.Activity;
 import android.app.DialogFragment;
 import android.app.Fragment;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.loopj.android.http.JsonHttpResponseHandler;
 import com.ms.ebangw.MyApplication;
 import com.ms.ebangw.R;
+import com.ms.ebangw.activity.LoginActivity;
 import com.ms.ebangw.bean.Bank;
 import com.ms.ebangw.bean.Province;
 import com.ms.ebangw.bean.TotalRegion;
 import com.ms.ebangw.bean.User;
+import com.ms.ebangw.commons.Constants;
+import com.ms.ebangw.db.UserDao;
 import com.ms.ebangw.dialog.LoadingDialog;
 import com.ms.ebangw.exception.ResponseException;
+import com.ms.ebangw.service.DataAccessUtil;
 import com.ms.ebangw.service.DataParseUtil;
 import com.ms.ebangw.utils.L;
+import com.ms.ebangw.utils.T;
 import com.umeng.analytics.MobclickAgent;
 
+import org.apache.http.Header;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -287,5 +295,32 @@ public abstract class BaseFragment extends Fragment {
         return  null;
 
     }
+//    public void logout(Activity activity){
+//        DataAccessUtil.exit(new JsonHttpResponseHandler() {
+//            @Override
+//            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+//                super.onSuccess(statusCode, headers, response);
+//                try {
+//                    boolean b = DataParseUtil.exit(response);
+//
+//                } catch (ResponseException e) {
+//                    e.printStackTrace();
+//                    T.show(e.getMessage());
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+//                super.onFailure(statusCode, headers, responseString, throwable);
+//                L.d(responseString);
+//            }
+//        });
+//        UserDao userDao = new UserDao(activity);
+//        userDao.removeAll();
+//        MyApplication.getInstance().quit();
+//        startActivity(new Intent(activity, LoginActivity.class));
+//        activity.setResult(Constants.REQUEST_EXIT);
+//        activity.finish();
+//    }
 
 }

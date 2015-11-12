@@ -31,6 +31,7 @@ import com.ms.ebangw.utils.L;
 import com.ms.ebangw.utils.T;
 
 import org.apache.http.Header;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -206,12 +207,18 @@ public class SelectCraftFragment extends BaseFragment {
                     super.onSuccess(statusCode, headers, response);
                     try {
                         craft = DataParseUtil.publishCraft(response);
+                        if(response.getString("code").equals("501")){
+                            T.show("当前账号已在其他设备上登录,如非本人操作，请修改密码。");
+                            ((HomeActivity)mActivity).logout(mActivity);
+                            return;
+                        }
 //                        MyApplication.getInstance().setCraft(craft);
                         initViewPager(craft);
                         dismissLoadingDialog();
-
-
                     } catch (ResponseException e) {
+                        e.printStackTrace();
+                        T.show(e.getMessage());
+                    } catch (JSONException e) {
                         e.printStackTrace();
                     }
                 }

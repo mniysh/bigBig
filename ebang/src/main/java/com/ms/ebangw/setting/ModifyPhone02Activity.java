@@ -16,6 +16,7 @@ import android.widget.TextView;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.ms.ebangw.R;
 import com.ms.ebangw.activity.BaseActivity;
+import com.ms.ebangw.activity.HomeActivity;
 import com.ms.ebangw.bean.User;
 import com.ms.ebangw.commons.Constants;
 import com.ms.ebangw.db.UserDao;
@@ -194,6 +195,15 @@ public class ModifyPhone02Activity extends BaseActivity {
                     @Override
                     public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                         super.onSuccess(statusCode, headers, response);
+                        try {
+                            if(response.getString("code").equals("501")){
+                                T.show("当前账号已在其他设备上登录,如非本人操作，请修改密码。");
+                                logout(ModifyPhone02Activity.this);
+                                return;
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
 
                         try {
                             boolean b = DataParseUtil.modifyPhone(response);

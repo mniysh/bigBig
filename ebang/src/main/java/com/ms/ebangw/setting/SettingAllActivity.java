@@ -19,6 +19,9 @@ import com.ms.ebangw.service.DataAccessUtil;
 import com.ms.ebangw.service.DataParseUtil;
 import com.ms.ebangw.utils.L;
 import com.ms.ebangw.utils.T;
+import com.umeng.update.UmengUpdateAgent;
+import com.umeng.update.UmengUpdateListener;
+import com.umeng.update.UpdateResponse;
 
 import org.apache.http.Header;
 import org.json.JSONObject;
@@ -61,25 +64,27 @@ public class SettingAllActivity extends BaseActivity {
         finish();
 
     }
-    private void logout(){
-        DataAccessUtil.exit(new JsonHttpResponseHandler(){
+    public  void logout(){
+        DataAccessUtil.exit(new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                 super.onSuccess(statusCode, headers, response);
                 try {
                     boolean b = DataParseUtil.exit(response);
+
                 } catch (ResponseException e) {
                     e.printStackTrace();
                     T.show(e.getMessage());
                 }
             }
-
             @Override
             public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
                 super.onFailure(statusCode, headers, responseString, throwable);
                 L.d(responseString);
             }
         });
+
+
 
     }
 
@@ -105,16 +110,33 @@ public class SettingAllActivity extends BaseActivity {
     }
     @OnClick(R.id.ll_update)
     public void goUpdateSetting(){
-
+        initUmengUpdata();
     }
+
     @OnClick(R.id.ll_feedback)
     public void goFeelbackSetting(){
         Intent intent = new Intent(this, FeelbackSettingActivity.class);
         startActivity(intent);
     }
+
     @OnClick(R.id.ll_about_our)
     public void goAboutOurSetting(){
         Intent intent = new Intent(this, AboutActivity.class);
         startActivity(intent);
+    }
+    private void initUmengUpdata() {
+        UmengUpdateAgent.setUpdateListener(new UmengUpdateListener() {
+            @Override
+            public void onUpdateReturned(int i, UpdateResponse updateResponse) {
+                boolean hasUpdata = false;
+                if (updateResponse != null) {
+                    hasUpdata = updateResponse.hasUpdate;
+                }
+                if(!hasUpdata){
+                    T.show("已经是最新版本");
+                }
+            }
+        });
+        UmengUpdateAgent.update(this);
     }
 }

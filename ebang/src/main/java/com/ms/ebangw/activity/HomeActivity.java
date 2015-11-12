@@ -42,6 +42,7 @@ import com.ms.ebangw.utils.T;
 import com.umeng.update.UmengUpdateAgent;
 
 import org.apache.http.Header;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -128,6 +129,7 @@ public class HomeActivity extends BaseActivity {
 
     @Override
     public void initData() {
+
         loadUserInformation();
         foundFragment = new FoundFragment();
         serviceFragment = new ServiceFragment();
@@ -422,6 +424,15 @@ public class HomeActivity extends BaseActivity {
         DataAccessUtil.userInformation(new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                try {
+                    if(response.getString("code").equals("501")){
+                        T.show("当前账号已在其他设备上登录,如非本人操作，请修改密码。");
+                        logout(HomeActivity.this);
+                        return;
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
                 try {
                     User user = DataParseUtil.userInformation(response);
                     if (null != user) {

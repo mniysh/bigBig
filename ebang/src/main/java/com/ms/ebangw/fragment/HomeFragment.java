@@ -23,6 +23,7 @@ import com.loopj.android.http.JsonHttpResponseHandler;
 import com.ms.ebangw.MyApplication;
 import com.ms.ebangw.R;
 import com.ms.ebangw.activity.DiscoveryActivity;
+import com.ms.ebangw.activity.HomeActivity;
 import com.ms.ebangw.activity.MessageCenterActivit;
 import com.ms.ebangw.activity.QiangDanActivity;
 import com.ms.ebangw.activity.ShowActivity;
@@ -41,6 +42,7 @@ import com.ms.ebangw.utils.MyListView;
 import com.ms.ebangw.utils.T;
 
 import org.apache.http.Header;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.lang.reflect.Field;
@@ -283,13 +285,25 @@ public class HomeFragment extends BaseFragment {
             public void onFinish() {
                 super.onFinish();
                 dismissLoadingDialog();
-                ptr.onRefreshComplete();
+                if(ptr != null){
+                    ptr.onRefreshComplete();
+                }
             }
 
                 @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                    try {
+                        if(response.getString("code").equals("501")){
+                            T.show("当前账号已在其他设备上登录,如非本人操作，请修改密码。");
+                            ((HomeActivity)mActivity).logout(mActivity);
+                            return;
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
 
-                currentPage ++ ;
+
+                    currentPage ++ ;
                 try {
                     HomeProjectInfo info = DataParseUtil.homeProjectInfo(response);
                     if (null != info) {
@@ -336,6 +350,15 @@ public class HomeFragment extends BaseFragment {
 
                 @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                    try {
+                        if(response.getString("code").equals("501")){
+                            T.show("当前账号已在其他设备上登录,如非本人操作，请修改密码。");
+                            ((HomeActivity)mActivity).logout(mActivity);
+                            return;
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
                     currentPage ++ ;
                     try {
                     HomeProjectInfo info = DataParseUtil.homeProjectInfo(response);

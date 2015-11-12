@@ -1,5 +1,6 @@
 package com.ms.ebangw.utils;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.BitmapDrawable;
 import android.text.Editable;
@@ -243,6 +244,7 @@ public class VerifyUtils {
         int currentYear = data.get(0);
         int currentMonth = data.get(1);
         int currentDay = data.get(2);
+        month += 1;
         if(year < currentYear){
             return false;
         }else if(month < currentMonth){
@@ -303,7 +305,7 @@ public class VerifyUtils {
         }
         int month = Integer.valueOf(sb.toString());
         sb.delete(0, sb.toString().length());
-        for (int n = 7; n < format.length(); n++) {
+        for (int n = 6; n <format.length(); n++) {
             sb.append(arr[n]);
         }
         int day = Integer.valueOf(sb.toString());
@@ -316,14 +318,14 @@ public class VerifyUtils {
 //    /**
 //     * 弹出popupwindow
 //     */
-//    public void pWindow(LinearLayout layout,int pwWidth,int pwHeight,View layoutView,View layoutView2,View layoutView3,View layoutView4,View clickView,int location,int localWidth,int localHeight){
+//    public void pWindow(Context context,LinearLayout layout,int pwWidth,int pwHeight,View layoutView,View layoutView2,View layoutView3,View layoutView4,View clickView,int location,int localWidth,int localHeight){
 //        final PopupWindow pw=new PopupWindow(layout,pwWidth,pwHeight);
 //        pw.setBackgroundDrawable(new BitmapDrawable());
 //        layoutView.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {
 //                pw.dismiss();
-//                finish();
+//                context.finish();
 //                backgroundAlpha(1.0f);
 //
 //            }

@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.ms.ebangw.R;
 import com.ms.ebangw.activity.BaseActivity;
+import com.ms.ebangw.activity.HomeActivity;
 import com.ms.ebangw.bean.AuthInfo;
 import com.ms.ebangw.bean.TotalRegion;
 import com.ms.ebangw.bean.User;
@@ -164,6 +165,15 @@ public class DevelopersAuthenActivity extends BaseActivity {
 			businessLicenseNumber, businessScope, bankId, gender, new JsonHttpResponseHandler(){
 				@Override
 				public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+					try {
+						if(response.getString("code").equals("501")){
+                            T.show("当前账号已在其他设备上登录,如非本人操作，请修改密码。");
+                            logout(DevelopersAuthenActivity.this);
+                            return;
+                        }
+					} catch (JSONException e) {
+						e.printStackTrace();
+					}
 					try {
 						boolean b = DataParseUtil.processDataResult(response);
 						if(b){

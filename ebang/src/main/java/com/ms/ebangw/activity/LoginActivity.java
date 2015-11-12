@@ -41,8 +41,8 @@ public class LoginActivity extends BaseActivity{
     EditText passwordEt;        //密码
     @Bind(R.id.act_login_but_login)
     Button loginBtn;            //登录
-    @Bind(R.id.tv_register)
-    TextView registerTv;        //注册
+//    @Bind(R.id.tv_register)
+//    TextView registerTv;        //注册
     @Bind(R.id.tv_find_password)       //找回密码
     TextView findPwdTv;
 
@@ -53,22 +53,29 @@ public class LoginActivity extends BaseActivity{
         ButterKnife.bind(this);
         initView();
         initData();
+
     }
 
     public void initView() {
-        initTitle("登录", null, null);
+        initTitle("登录", "注册", new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(LoginActivity.this,RegisterActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     @Override
     public void initData() {
 
-        registerTv.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(LoginActivity.this, RegisterActivity.class));
-
-            }
-        });
+//        registerTv.setOnClickListener(new OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                startActivity(new Intent(LoginActivity.this, RegisterActivity.class));
+//
+//            }
+//        });
 
         findPwdTv.setOnClickListener(new OnClickListener() {
             @Override
