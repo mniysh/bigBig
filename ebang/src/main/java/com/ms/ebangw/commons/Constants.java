@@ -145,7 +145,7 @@ public class Constants {
 	public final static String AUTH_INVESTOR = "auth_investor";
 	public final static String AUTH_COMPLETE = "complete";
 
-	public final static String RELEASE_WORKTYPE_KEY = "release_workType_key";
+	public final static String KEY_RELEASE_PROJECT = "release_project";
 
 	/**
 	 * 四大工种

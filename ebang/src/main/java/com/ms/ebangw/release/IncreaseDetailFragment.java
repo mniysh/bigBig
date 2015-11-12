@@ -678,7 +678,7 @@ public class IncreaseDetailFragment extends BaseFragment {
 //                                    releaseInfo.setProject_money(totalMoney);
 //                                    releaseInfo.setStaff(staff);
                                     Bundle  bundle = new Bundle();
-                                    bundle.putParcelable(Constants.RELEASE_WORKTYPE_KEY,releaseProject);
+                                    bundle.putParcelable(Constants.KEY_RELEASE_PROJECT,releaseProject);
                                     Intent intent = new Intent((HomeActivity)mActivity,PayingActivity.class );
                                     intent.putExtras(bundle);
                                     startActivity(intent);

@@ -10,6 +10,7 @@ import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import com.ms.ebangw.R;
+import com.ms.ebangw.activity.AccountActivity;
 import com.ms.ebangw.activity.EvaluateListActivity;
 import com.ms.ebangw.activity.PublishedProjectActivity;
 
@@ -85,6 +86,14 @@ public class InvestorCenterFragment extends BaseFragment {
             }
         });
 
+        tvTrade.setOnClickListener(new View.OnClickListener() {      //交易
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(mActivity, AccountActivity.class);
+                startActivity(intent);
+            }
+        });
+
         tvEvaluate.setOnClickListener(new View.OnClickListener() {      //收到的评价列表
             @Override
             public void onClick(View v) {
@@ -92,6 +101,8 @@ public class InvestorCenterFragment extends BaseFragment {
                 startActivity(intent);
             }
         });
+
+
     }
 
     @Override
