@@ -62,6 +62,7 @@ public class JiFenActivity extends BaseActivity {
 
     @Override
     public void initData() {
+        tvJifenNum.setText(getUser().getTotal_score());
         adapter = new JiFenAdapter(this, new ArrayList<JiFen>());
         ptr.setAdapter(adapter);
         load();
