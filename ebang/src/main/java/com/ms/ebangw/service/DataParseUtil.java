@@ -19,6 +19,7 @@ import com.ms.ebangw.bean.ProjectInfoDetail;
 import com.ms.ebangw.bean.Province;
 import com.ms.ebangw.bean.ReleaseProject;
 import com.ms.ebangw.bean.TotalRegion;
+import com.ms.ebangw.bean.Trade;
 import com.ms.ebangw.bean.UploadImageResult;
 import com.ms.ebangw.bean.User;
 import com.ms.ebangw.bean.WorkType;
@@ -444,9 +445,25 @@ public class DataParseUtil {
     }
 
 
+    /**
+     *  2-23.交易明细
+     * @param jsonObject
+     * @return
+     * @throws ResponseException
+     */
+    public static List<Trade> tradeDetail(JSONObject jsonObject) throws ResponseException {
+        JSONObject data = processData(jsonObject);
+        String arrayStr = data.optString("trade");
+
+        Gson gson = new Gson();
+        List<Trade> list = gson.fromJson(arrayStr, new TypeToken<List<Trade>>() {
+        }.getType());
+
+        return list;
+    }
 
     /**
-     * 发布工程的接口解析
+     * 2-1.发布接口（开发商）
      * @param jsonObject
      * @return
      * @throws ResponseException

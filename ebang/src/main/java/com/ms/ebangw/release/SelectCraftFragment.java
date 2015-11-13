@@ -180,7 +180,7 @@ public class SelectCraftFragment extends BaseFragment {
     public void goNext() {
         if(releaseGoNext() ){
 //            Bundle bundle = new Bundle();
-//            bundle.putString(Constants.RELEASE_WORKTYPE_KEY,getStaff(workTypeSet));
+//            bundle.putString(Constants.KEY_RELEASE_PROJECT,getStaff(workTypeSet));
 
             HomeActivity homeActivity = (HomeActivity) mActivity;
             homeActivity.goDeveloperRelease(getStaff(workTypeSet), categroy);

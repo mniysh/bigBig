@@ -18,6 +18,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.ms.ebangw.R;
+import com.ms.ebangw.activity.AccountActivity;
+import com.ms.ebangw.activity.EvaluateListActivity;
 import com.ms.ebangw.activity.PublishedProjectActivity;
 import com.ms.ebangw.activity.RecommendedWorksActivity;
 import com.ms.ebangw.bean.User;
@@ -103,6 +105,22 @@ public class HeadmanCenterFragment extends BaseFragment {
     public void initView() {
         fm.beginTransaction().replace(R.id.fl_head_info, HeadInfoFragment.newInstance("", ""))
             .commit();
+
+        tvTrade.setOnClickListener(new View.OnClickListener() {      //交易
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(mActivity, AccountActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        tvEvaluate.setOnClickListener(new View.OnClickListener() {      //收到的评价列表
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(mActivity, EvaluateListActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     @Override

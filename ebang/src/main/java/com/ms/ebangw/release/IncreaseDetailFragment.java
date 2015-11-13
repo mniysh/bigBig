@@ -661,7 +661,7 @@ public class IncreaseDetailFragment extends BaseFragment {
                                     T.show("开发商发布成功");
                                     releaseProject = DataParseUtil.getProjectInfo(response);
                                     Bundle  bundle = new Bundle();
-                                    bundle.putParcelable(Constants.RELEASE_WORKTYPE_KEY,releaseProject);
+                                    bundle.putParcelable(Constants.KEY_RELEASE_PROJECT,releaseProject);
                                     Intent intent = new Intent((HomeActivity)mActivity,PayingActivity.class );
                                     intent.putExtras(bundle);
                                     startActivity(intent);

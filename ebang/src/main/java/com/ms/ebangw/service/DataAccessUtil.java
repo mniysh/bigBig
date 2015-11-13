@@ -211,8 +211,8 @@ public class DataAccessUtil {
 //        return doPost(RequestUrl.person_identify, params, asyncHttpResponseHandler);
 //    }
 
-    /** 2-1.
-     * 开发商发布的接口
+    /**
+     * 2-1.开发商发布的接口
      * @param title
      * @param description
      * @param link_man
@@ -833,6 +833,22 @@ public class DataAccessUtil {
 
         return doGet(RequestUrl.evaluate_list, params, asyncHttpResponseHandler);
     }
+
+    /**
+     * 2-23.交易明细 get
+     * @param page
+     * @param asyncHttpResponseHandler
+     * @return
+     */
+    public static RequestHandle tradeDetail(String page,  AsyncHttpResponseHandler
+        asyncHttpResponseHandler){
+
+        RequestParams params = new RequestParams();
+        params.put("page", page);
+
+        return doGet(RequestUrl.trade_detail, params, asyncHttpResponseHandler);
+    }
+
 
     public static RequestHandle doPost(String url, RequestParams params, AsyncHttpResponseHandler asyncHttpResponseHandler) {
 

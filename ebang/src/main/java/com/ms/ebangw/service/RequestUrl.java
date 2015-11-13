@@ -219,6 +219,11 @@ public class RequestUrl {
      */
     public static final String evaluate_list = domain + "/api/user/evaluate/evaluate-list";
 
+    /**
+     *2-23.交易明细 get
+     */
+    public static final String trade_detail = domain + "/api/user/trade/detailed";
+
 
 
 

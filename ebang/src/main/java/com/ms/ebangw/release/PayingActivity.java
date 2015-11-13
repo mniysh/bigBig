@@ -5,34 +5,24 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.loopj.android.http.AsyncHttpResponseHandler;
-import com.loopj.android.http.JsonHttpResponseHandler;
 import com.ms.ebangw.MyApplication;
 import com.ms.ebangw.R;
 import com.ms.ebangw.activity.BaseActivity;
-import com.ms.ebangw.activity.HomeActivity;
-import com.ms.ebangw.bean.ReleaseInfo;
 import com.ms.ebangw.bean.ReleaseProject;
 import com.ms.ebangw.commons.Constants;
 import com.ms.ebangw.service.DataAccessUtil;
 import com.ms.ebangw.utils.T;
 
 import org.apache.http.Header;
-import org.json.JSONObject;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
-import de.greenrobot.event.EventBus;
 
 public class PayingActivity extends BaseActivity {
     private ReleaseProject releaseProject;
@@ -67,7 +57,7 @@ public class PayingActivity extends BaseActivity {
     public void initView() {
         initTitle(null, null, "结算", null, null);
         Intent intent = getIntent();
-        releaseProject = intent.getExtras().getParcelable(Constants.RELEASE_WORKTYPE_KEY);
+        releaseProject = intent.getExtras().getParcelable(Constants.KEY_RELEASE_PROJECT);
         if(releaseProject != null){
             title = releaseProject.getTitle();
             imageUrl = releaseProject.getImage_par();
@@ -92,17 +82,13 @@ public class PayingActivity extends BaseActivity {
 
             }
         });
-
-
-
-
     }
 
 
     private void setReleaseInfo() {
         titleTv.setText(title);
         contentTv.setText(content);
-        moneyTv.setText(projectMoney+":00"+"元");
+        moneyTv.setText(projectMoney+ "元");
         getImage();
     }
 
