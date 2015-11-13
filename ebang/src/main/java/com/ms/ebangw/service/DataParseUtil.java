@@ -1,15 +1,13 @@
 package com.ms.ebangw.service;
 
-import android.content.Intent;
 import android.text.TextUtils;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.loopj.android.http.JsonHttpResponseHandler;
 import com.ms.ebangw.MyApplication;
 import com.ms.ebangw.activity.BaseActivity;
 import com.ms.ebangw.adapter.Evaluate;
-import com.ms.ebangw.activity.LoginActivity;
+import com.ms.ebangw.bean.Account;
 import com.ms.ebangw.bean.Area;
 import com.ms.ebangw.bean.Bank;
 import com.ms.ebangw.bean.City;
@@ -24,18 +22,13 @@ import com.ms.ebangw.bean.UploadImageResult;
 import com.ms.ebangw.bean.User;
 import com.ms.ebangw.bean.WorkType;
 import com.ms.ebangw.bean.Worker;
-import com.ms.ebangw.commons.Constants;
-import com.ms.ebangw.db.UserDao;
 import com.ms.ebangw.exception.ResponseException;
 import com.ms.ebangw.release.PayingActivity;
 import com.ms.ebangw.setting.SettingAllActivity;
 import com.ms.ebangw.utils.L;
-import com.ms.ebangw.utils.T;
 
-import org.apache.http.Header;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.w3c.dom.CDATASection;
 
 import java.util.Iterator;
 import java.util.List;
@@ -463,6 +456,20 @@ public class DataParseUtil {
     }
 
     /**
+     * 2-24.交易账单
+     * @param jsonObject
+     * @return
+     * @throws ResponseException
+     */
+    public static Account account(JSONObject jsonObject) throws ResponseException {
+        String dataStr = processDataStr(jsonObject);
+        Gson gson = new Gson();
+        Account account = gson.fromJson(dataStr, Account.class);
+        return account;
+    }
+
+
+    /**
      * 2-1.发布接口（开发商）
      * @param jsonObject
      * @return
@@ -575,10 +582,6 @@ public class DataParseUtil {
             if (TextUtils.equals("200", code)) {        //数据正确
                 return jsonObject.getJSONObject("data");
             }else if(TextUtils.equals("501", code)){
-////                Intent intent = new Intent();
-////                intent.setAction(Constants.LOGOUT);
-////                intent.putExtra("key", "logout");
-//                MyApplication.getInstance().quit();
                 return null;
             }else{
                 String dataStr = jsonObject.optString("data", "");

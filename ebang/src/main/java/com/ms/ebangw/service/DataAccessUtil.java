@@ -849,6 +849,23 @@ public class DataAccessUtil {
         return doGet(RequestUrl.trade_detail, params, asyncHttpResponseHandler);
     }
 
+    /**
+     * 2-24.交易账单
+     * @param page
+     * @param search_time
+     * @param asyncHttpResponseHandler
+     * @return
+     */
+    public static RequestHandle account(String page, String search_time,  AsyncHttpResponseHandler
+        asyncHttpResponseHandler){
+
+        RequestParams params = new RequestParams();
+        params.put("page", page);
+        params.put("search_time", search_time);
+
+        return doGet(RequestUrl.account, params, asyncHttpResponseHandler);
+    }
+
 
     public static RequestHandle doPost(String url, RequestParams params, AsyncHttpResponseHandler asyncHttpResponseHandler) {
 

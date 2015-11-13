@@ -15,8 +15,7 @@ public class RequestUrl {
      * 正式上线域名
      */
 //    private final static String domain = "http://www.ebngw.com";
-
-    /**
+/**
      * 1.注册
      */
     public static final String register = domain + "/api/user/index/register";
@@ -223,6 +222,12 @@ public class RequestUrl {
      *2-23.交易明细 get
      */
     public static final String trade_detail = domain + "/api/user/trade/detailed";
+
+    /**
+     * 2-24.交易账单    get
+     *
+     */
+    public static final String account = domain + "/api/user/trade/dill";
 
 
 
