@@ -87,15 +87,7 @@ public class RecommendedWorksActivity extends BaseActivity {
 
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                try {
-                    if(response.getString("code").equals("501")){
-                        T.show("当前账号已在其他设备上登录,如非本人操作，请修改密码。");
-                        logout(RecommendedWorksActivity.this);
-                        return;
-                    }
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
+
                 dismissLoadingDialog();
                 try {
                     List<Worker> workerList = DataParseUtil.recommendedWorkers(response);
@@ -157,15 +149,7 @@ public class RecommendedWorksActivity extends BaseActivity {
 
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                try {
-                    if(response.getString("code").equals("501")){
-                        T.show("当前账号已在其他设备上登录,如非本人操作，请修改密码。");
-                        logout(RecommendedWorksActivity.this);
-                        return;
-                    }
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
+
                 dismissLoadingDialog();
                 try {
                     String recommend = DataParseUtil.removeRelation(response);  // 0:推荐工长的工人小于约定人数   1:推荐工长的工人大于等于约定人

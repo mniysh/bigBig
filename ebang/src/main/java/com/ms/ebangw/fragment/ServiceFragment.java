@@ -215,12 +215,7 @@ public class ServiceFragment extends BaseFragment {
                 public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                     super.onSuccess(statusCode, headers, response);
                     try {
-                        if(response.getString("code").equals("501")){
-                            T.show("当前账号已在其他设备上登录,如非本人操作，请修改密码。");
-                            ((HomeActivity)mActivity).logout(mActivity);
-                            return;
 
-                        }
                         craft = DataParseUtil.publishCraft(response);
                         if(craft == null){
 
@@ -236,8 +231,6 @@ public class ServiceFragment extends BaseFragment {
                     } catch (ResponseException e) {
                         e.printStackTrace();
                         T.show(e.getMessage());
-                    } catch (JSONException e) {
-                        e.printStackTrace();
                     }
                 }
 

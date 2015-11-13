@@ -20,6 +20,7 @@ import com.ms.ebangw.exception.ResponseException;
 import com.ms.ebangw.fragment.BaseFragment;
 import com.ms.ebangw.service.DataAccessUtil;
 import com.ms.ebangw.service.DataParseUtil;
+import com.ms.ebangw.setting.SettingAllActivity;
 import com.ms.ebangw.utils.L;
 import com.ms.ebangw.utils.T;
 
@@ -145,7 +146,7 @@ public class InfoCommitSuccessFragment extends BaseFragment {
                 @Override
                 public void onClick(View v) {
                     //设置跳转
-                    Intent intent=new Intent(mActivity, SettingActivity.class);
+                    Intent intent=new Intent(mActivity, SettingAllActivity.class);
 
                     mActivity.startActivityForResult(intent, Constants.REQUEST_EXIT);
                 }
@@ -174,15 +175,7 @@ public class InfoCommitSuccessFragment extends BaseFragment {
 
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                try {
-                    if(response.getString("code").equals("501")){
-                        T.show("当前账号已在其他设备上登录,如非本人操作，请修改密码。");
-                        ((HomeActivity)mActivity).logout(mActivity);
-                        return;
-                    }
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
+
                 dismissLoadingDialog();
                 try {
                     boolean b = DataParseUtil.processDataResult(response);

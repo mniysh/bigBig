@@ -256,7 +256,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         }
         MobclickAgent.onPause(this);
     }
-    public void logout(Activity activity){
+    public  void logout(){
         DataAccessUtil.exit(new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
@@ -276,12 +276,13 @@ public abstract class BaseActivity extends AppCompatActivity {
                 L.d(responseString);
             }
         });
-        UserDao userDao = new UserDao(activity);
+
+        UserDao userDao = new UserDao(this);
         userDao.removeAll();
         MyApplication.getInstance().quit();
-        startActivity(new Intent(activity, LoginActivity.class));
-        activity.setResult(Constants.REQUEST_EXIT);
-        activity.finish();
+        startActivity(new Intent(this, LoginActivity.class));
+//        activity.setResult(Constants.REQUEST_EXIT);
+//        activity.finish();
     }
 
 

@@ -67,15 +67,7 @@ public class ModifyPasswordAvtivity extends BaseActivity {
                 DataAccessUtil.changePwd(user.getPhone(),sOldpass,sNewPsaa,new JsonHttpResponseHandler(){
                     @Override
                     public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                        try {
-                            if(response.getString("code").equals("501")){
-                                T.show("当前账号已在其他设备上登录,如非本人操作，请修改密码。");
-                                logout(ModifyPasswordAvtivity.this);
-                                return;
-                            }
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
+
                         super.onSuccess(statusCode, headers, response);
                         L.d("xxx","nengbuneng");
                         try {

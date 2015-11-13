@@ -145,6 +145,8 @@ public class Constants {
 	public final static String AUTH_INVESTOR = "auth_investor";
 	public final static String AUTH_COMPLETE = "complete";
 
+	public final  static String LOGOUT = "logout";
+
 	public final static String RELEASE_WORKTYPE_KEY = "release_workType_key";
 
 	/**

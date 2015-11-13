@@ -7,17 +7,78 @@ The following files were *not* copied into the new Gradle project; you
 should evaluate whether these are still needed in your project and if
 so manually move them:
 
-* LICENSE
-* pom.xml
+* ic_launcher-web.png
+* proguard-project.txt
+
+Replaced Jars with Dependencies:
+--------------------------------
+The importer recognized the following .jar files as third party
+libraries and replaced them with Gradle dependencies instead. This has
+the advantage that more explicit version information is known, and the
+libraries can be updated automatically. However, it is possible that
+the .jar file in your project was of an older version than the
+dependency we picked, which could render the project not compileable.
+You can disable the jar replacement in the import wizard and try again:
+
+android-support-v4.jar => com.android.support:support-v4:19.+
+android-support-v7-appcompat.jar => com.android.support:appcompat-v7:19.+
+
+Replaced Libraries with Dependencies:
+-------------------------------------
+The importer recognized the following library projects as third party
+libraries and replaced them with Gradle dependencies instead. This has
+the advantage that more explicit version information is known, and the
+libraries can be updated automatically. However, it is possible that
+the source files in your project were of an older version than the
+dependency we picked, which could render the project not compileable.
+You can disable the library replacement in the import wizard and try
+again:
+
+actionbarsherlock =>
+    com.actionbarsherlock:actionbarsherlock:4.4.0@aar
+    com.android.support:support-v4:19.+
 
 Moved Files:
 ------------
 Android Gradle projects use a different directory structure than ADT
 Eclipse projects. Here's how the projects were restructured:
 
-* AndroidManifest.xml => pullToRefreshLibrary\src\main\AndroidManifest.xml
-* res\ => pullToRefreshLibrary\src\main\res\
-* src\ => pullToRefreshLibrary\src\main\java\
+* AndroidManifest.xml => appcompat0\src\main\AndroidManifest.xml
+* assets\ => appcompat0\src\main\assets\
+* libs\ => appcompat0\src\main\java\
+* libs\android-async-http-1.4.5.jar => appcompat0\libs\android-async-http-1.4.5.jar
+* libs\androidquery.jar => appcompat0\libs\androidquery.jar
+* libs\Baidu-Frontia-Android-2.0.7.jar => appcompat0\libs\Baidu-Frontia-Android-2.0.7.jar
+* libs\com.umeng.message.lib.jar => appcompat0\libs\com.umeng.message.lib.jar
+* libs\mframework.jar => appcompat0\libs\mframework.jar
+* libs\mta-sdk-1.6.2.jar => appcompat0\libs\mta-sdk-1.6.2.jar
+* libs\open_sdk_r4889.jar => appcompat0\libs\open_sdk_r4889.jar
+* libs\ShareSDK-Core-2.4.1.jar => appcompat0\libs\ShareSDK-Core-2.4.1.jar
+* libs\ShareSDK-QQ-2.4.1.jar => appcompat0\libs\ShareSDK-QQ-2.4.1.jar
+* libs\ShareSDK-QZone-2.4.1.jar => appcompat0\libs\ShareSDK-QZone-2.4.1.jar
+* libs\ShareSDK-ShortMessage-2.4.1.jar => appcompat0\libs\ShareSDK-ShortMessage-2.4.1.jar
+* libs\ShareSDK-SinaWeibo-2.4.1.jar => appcompat0\libs\ShareSDK-SinaWeibo-2.4.1.jar
+* libs\ShareSDK-Wechat-2.4.1.jar => appcompat0\libs\ShareSDK-Wechat-2.4.1.jar
+* libs\ShareSDK-Wechat-Core-2.4.1.jar => appcompat0\libs\ShareSDK-Wechat-Core-2.4.1.jar
+* libs\umeng-analytics-v5.4.2.jar => appcompat0\libs\umeng-analytics-v5.4.2.jar
+* libs\universal-image-loader-1.9.4-SNAPSHOT.jar => appcompat0\libs\universal-image-loader-1.9.4-SNAPSHOT.jar
+* lint.xml => appcompat0\lint.xml
+* res\ => appcompat0\src\main\res\
+* src\ => appcompat0\src\main\java\
+
+Missing Android Support Repository:
+-----------------------------------
+Some useful libraries, such as the Android Support Library, are
+installed from a special Maven repository, which should be installed
+via the SDK manager.
+
+It looks like this library is missing from your SDK installation at:
+null
+
+To install it, open the SDK manager, and in the Extras category,
+select "Android Support Repository". You may also want to install the
+"Google Repository" if you want to use libraries like Google Play
+Services.
 
 Next Steps:
 -----------

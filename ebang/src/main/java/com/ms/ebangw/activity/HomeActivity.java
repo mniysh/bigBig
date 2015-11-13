@@ -133,6 +133,8 @@ public class HomeActivity extends BaseActivity {
         loadUserInformation();
         foundFragment = new FoundFragment();
         serviceFragment = new ServiceFragment();
+        User user = getUser();
+        final String categroy = user.getCategory();
 
         releaseWorkTypeFragment = new ReleaseWorkTypeFragment();
 
@@ -149,7 +151,8 @@ public class HomeActivity extends BaseActivity {
 //                        fm.beginTransaction().replace(R.id.fl_content, workerHomeFragment).commit();
                         break;
                     case R.id.rb_release:
-                        fm.beginTransaction().replace(R.id.fl_content, new SelectCraftFragment()).commit();
+                        fm.beginTransaction().replace(R.id.fl_content, new SelectCraftFragment().newInstance(categroy, "")).commit();
+//                        fm.beginTransaction().replace(R.id.fl_content, new SelectCraftFragment()).commit();
 //                        fm.beginTransaction().replace(R.id.fl_content, eMallFragment).commit();
                         break;
                     case R.id.rb_service:
@@ -271,9 +274,9 @@ public class HomeActivity extends BaseActivity {
     /**
      * 去开发商发布页面
      */
-    public void goDeveloperRelease(String staff) {
+    public void goDeveloperRelease(String staff, String cate) {
 
-        IncreaseDetailFragment increaseDetailFragment = IncreaseDetailFragment.newInstance(staff, "");
+        IncreaseDetailFragment increaseDetailFragment = IncreaseDetailFragment.newInstance(staff, cate);
         FragmentTransaction transaction = fm.beginTransaction();
         transaction.replace(R.id.fl_content, increaseDetailFragment);
         transaction.addToBackStack(null);
@@ -424,15 +427,8 @@ public class HomeActivity extends BaseActivity {
         DataAccessUtil.userInformation(new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                try {
-                    if(response.getString("code").equals("501")){
-                        T.show("当前账号已在其他设备上登录,如非本人操作，请修改密码。");
-                        logout(HomeActivity.this);
-                        return;
-                    }
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
+
+
                 try {
                     User user = DataParseUtil.userInformation(response);
                     if (null != user) {

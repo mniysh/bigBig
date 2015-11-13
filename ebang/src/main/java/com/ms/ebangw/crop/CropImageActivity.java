@@ -161,15 +161,8 @@ public class CropImageActivity extends BaseActivity {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                 super.onSuccess(statusCode, headers, response);
-                try {
-                    if(response.getString("code").equals("501")){
-                        T.show("当前账号已在其他设备上登录,如非本人操作，请修改密码。");
-                        logout(CropImageActivity.this);
-                        return;
-                    }
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
+
+
                 try {
                     UploadImageResult imageResult = DataParseUtil.upLoadImage(response);
                     String name = imageResult.getName();
@@ -208,15 +201,7 @@ public class CropImageActivity extends BaseActivity {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                 super.onSuccess(statusCode, headers, response);
-                try {
-                    if(response.getString("code").equals("501")){
-                        T.show("当前账号已在其他设备上登录,如非本人操作，请修改密码。");
-                        logout(CropImageActivity.this);
-                        return;
-                    }
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
+
                 try {
                     UploadImageResult imageResult = DataParseUtil.upLoadImage(response);
                     String name = imageResult.getName();
@@ -259,15 +244,7 @@ public class CropImageActivity extends BaseActivity {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                 super.onSuccess(statusCode, headers, response);
-                try {
-                    if(response.getString("code").equals("501")){
-                        T.show("当前账号已在其他设备上登录,如非本人操作，请修改密码。");
-                        logout(CropImageActivity.this);
-                        return;
-                    }
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
+
                 try {
                     UploadImageResult imageResult = DataParseUtil.upLoadImage(response);
 //                    L.locationpois_item(imageResult.toString());

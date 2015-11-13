@@ -58,6 +58,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.File;
+import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -91,6 +92,7 @@ public class IncreaseDetailFragment extends BaseFragment {
     private ReleaseInfo releaseInfo;
 
     private ArrayList<String> imageNames;
+    private File file;
 
 
     private String mParam1;
@@ -153,15 +155,17 @@ public class IncreaseDetailFragment extends BaseFragment {
     private MyApplication myApplication;
     private ReleaseProject releaseProject;
     private int  startYear,  startMonth,  startDay, endYear, endMonth, endDay;
+    private String categroy;
+    private static  final String KEY_CATEGROY = "key_categroy";
 
 
 
 
-    public static IncreaseDetailFragment newInstance(String param1, String param2) {
+    public static IncreaseDetailFragment newInstance(String param1, String categroy) {
         IncreaseDetailFragment fragment = new IncreaseDetailFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
+        args.putString(KEY_CATEGROY, categroy);
         fragment.setArguments(args);
         return fragment;
     }
@@ -225,7 +229,7 @@ public class IncreaseDetailFragment extends BaseFragment {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             staff = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+            categroy = getArguments().getString(KEY_CATEGROY);
         }
 
         if (null != savedInstanceState) {
@@ -302,7 +306,9 @@ public class IncreaseDetailFragment extends BaseFragment {
         startTime = startTimeTv.getText().toString().trim();
         endTime = endTimeTv.getText().toString().trim();
         totalMoney = totalMoneyEt.getText().toString().trim();
-
+        if(releaseInfo == null){
+            releaseInfo = new ReleaseInfo();
+        }
         releaseInfo.setTitle(title);
         releaseInfo.setDescription(description);
         releaseInfo.setLink_man(link_name);
@@ -346,7 +352,7 @@ public class IncreaseDetailFragment extends BaseFragment {
 
 
     public boolean isRight(){
-        if(imageNames == null){
+        if(imageNames == null || imageNames.size() == 0){
             T.show("请至少上传一张图片");
             return false;
         }
@@ -544,7 +550,7 @@ public class IncreaseDetailFragment extends BaseFragment {
     }
 
     private void uploadImage(Uri uri, final int type ) {
-        File file = uriToFile(uri);
+         file = uriToFile(uri);
 
         DataAccessUtil.uploadImage(file, new JsonHttpResponseHandler() {
             @Override
@@ -638,7 +644,7 @@ public class IncreaseDetailFragment extends BaseFragment {
         }
         getData();
 
-        if(isRight()){
+        if(isRight() && TextUtils.equals(categroy, "developer")){
             DataAccessUtil.developerRelease(title, description,link_name,link_phone,
                      provinceId, cityId,detailAddress,
                     longitude, latitude, image_ary,startTime, endTime,totalMoney, staff,
@@ -647,36 +653,13 @@ public class IncreaseDetailFragment extends BaseFragment {
                         @Override
                         public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                             super.onSuccess(statusCode, headers, response);
-                            try {
-                                if(response.getString("code").equals("501")){
-                                    T.show("当前账号已在其他设备上登录,如非本人操作，请修改密码。");
-                                    ((HomeActivity)mActivity).logout(mActivity);
-                                    return;
-                                }
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }
+
                             try {
                                 releaseProject = new ReleaseProject();
                                 boolean b = DataParseUtil.processDataResult(response);
                                 if(b){
-                                    T.show("发布成功");
+                                    T.show("开发商发布成功");
                                     releaseProject = DataParseUtil.getProjectInfo(response);
-//                                    ReleaseInfo releaseInfo = new ReleaseInfo();
-//                                    releaseInfo.setTitle(title);
-//                                    releaseInfo.setDescription(description);
-//                                    releaseInfo.setLink_man(link_name);
-//                                    releaseInfo.setLink_phone(link_phone);
-//                                    releaseInfo.setProvince(provinceId);
-//                                    releaseInfo.setCity(cityId);
-//                                    releaseInfo.setArea_other(detailAddress);
-//                                    releaseInfo.setPoint_longitude(longitude);
-//                                    releaseInfo.setPoint_dimention(latitude);
-//                                    releaseInfo.setImage_ary(image_ary);
-//                                    releaseInfo.setStart_time(startTime);
-//                                    releaseInfo.setEnd_time(endTime);
-//                                    releaseInfo.setProject_money(totalMoney);
-//                                    releaseInfo.setStaff(staff);
                                     Bundle  bundle = new Bundle();
                                     bundle.putParcelable(Constants.RELEASE_WORKTYPE_KEY,releaseProject);
                                     Intent intent = new Intent((HomeActivity)mActivity,PayingActivity.class );
@@ -696,6 +679,39 @@ public class IncreaseDetailFragment extends BaseFragment {
                             L.d(responseString);
                         }
                     } );
+        }
+        if(isRight() && TextUtils.equals(categroy, "investor")){
+            DataAccessUtil.investorRelease(title, description,link_name,link_phone,
+                    provinceId, cityId,detailAddress,
+                    longitude, latitude, image_ary,startTime, endTime,totalMoney, staff,
+                    new JsonHttpResponseHandler(){
+                        @Override
+                        public void onStart() {
+                            super.onStart();
+                            showProgressDialog("请稍后");
+                        }
+
+                        @Override
+                        public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                            super.onSuccess(statusCode, headers, response);
+                            try {
+                                boolean b = DataParseUtil.processDataResult(response);
+                                if (b){
+                                    T.show("个人发布成功");
+                                    dismissLoadingDialog();
+                                }
+                            } catch (ResponseException e) {
+                                e.printStackTrace();
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                            super.onFailure(statusCode, headers, responseString, throwable);
+                            L.d(responseString);
+                            dismissLoadingDialog();
+                        }
+                    });
         }
     }
 
@@ -717,7 +733,9 @@ public class IncreaseDetailFragment extends BaseFragment {
             imageNames.add(1, imageNames.get(2));
         }
             imageNames.add(name);
-        Picasso.with(mActivity).load(Uri.parse(imageNames.get(0))).into(picture01Iv);
+        //现在还没弄好
+        Uri uri = Uri.parse(imagePath);
+        Picasso.with(mActivity).load(uri).placeholder(R.drawable.ms_logo).error(R.drawable.a).into(picture01Iv);
         for (int i = 0; i < size; i++) {
             Picasso.with(mActivity).load(imageNames.get(i)).into(picList.get(i));
         }
