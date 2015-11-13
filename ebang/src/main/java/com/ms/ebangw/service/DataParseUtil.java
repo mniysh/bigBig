@@ -13,6 +13,7 @@ import com.ms.ebangw.bean.Bank;
 import com.ms.ebangw.bean.City;
 import com.ms.ebangw.bean.Craft;
 import com.ms.ebangw.bean.HomeProjectInfo;
+import com.ms.ebangw.bean.JiFen;
 import com.ms.ebangw.bean.ProjectInfoDetail;
 import com.ms.ebangw.bean.Province;
 import com.ms.ebangw.bean.ReleaseProject;
@@ -466,6 +467,21 @@ public class DataParseUtil {
         Gson gson = new Gson();
         Account account = gson.fromJson(dataStr, Account.class);
         return account;
+    }
+
+    /**
+     * 1-14、积分列表
+     * @param jsonObject
+     * @return
+     * @throws ResponseException
+     */
+    public static List<JiFen> score(JSONObject jsonObject) throws ResponseException {
+        String dataStr = processDataStr(jsonObject);
+        Gson gson = new Gson();
+        List<JiFen> list = gson.fromJson(dataStr, new TypeToken<List<JiFen>>() {
+        }.getType());
+
+        return list;
     }
 
 

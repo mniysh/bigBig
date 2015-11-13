@@ -229,6 +229,11 @@ public class RequestUrl {
      */
     public static final String account = domain + "/api/user/trade/dill";
 
+    /**
+     * 1-14、积分列表
+     */
+    public static final String score = domain + "/api/user/score/index";
+
 
 
 

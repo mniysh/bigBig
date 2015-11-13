@@ -104,6 +104,13 @@ public class User implements Serializable {
 	@DatabaseField(columnName = "card_image_back")
 	private String card_image_back;
 
+	/**
+	 * 总积分
+	 */
+	private String total_score;
+
+
+
 	public User() {
 	}
 
@@ -266,6 +273,14 @@ public class User implements Serializable {
 
 	public void setRecommend(String recommend) {
 		this.recommend = recommend;
+	}
+
+	public String getTotal_score() {
+		return total_score;
+	}
+
+	public void setTotal_score(String total_score) {
+		this.total_score = total_score;
 	}
 
 	@Override

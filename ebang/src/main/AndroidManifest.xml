@@ -348,8 +348,10 @@
         </activity>
         <activity android:name=".activity.AccountDetailActivity">
         </activity>
-        <activity android:name=".setting.FeelbackSettingActivity" />
-        <activity android:name=".setting.AboutActivity" >
+        <activity android:name=".setting.FeelbackSettingActivity"/>
+        <activity android:name=".setting.AboutActivity">
+        </activity>
+        <activity android:name=".activity.JiFenActivity">
         </activity>
     </application>
 

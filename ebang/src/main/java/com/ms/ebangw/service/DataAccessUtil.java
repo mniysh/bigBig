@@ -866,6 +866,20 @@ public class DataAccessUtil {
         return doGet(RequestUrl.account, params, asyncHttpResponseHandler);
     }
 
+    /**
+     * 1-14、积分列表
+     * @param page
+     * @param asyncHttpResponseHandler
+     * @return
+     */
+    public static RequestHandle score(String page, AsyncHttpResponseHandler
+        asyncHttpResponseHandler){
+
+        RequestParams params = new RequestParams();
+        params.put("page", page);
+
+        return doGet(RequestUrl.score, params, asyncHttpResponseHandler);
+    }
 
     public static RequestHandle doPost(String url, RequestParams params, AsyncHttpResponseHandler asyncHttpResponseHandler) {
 
