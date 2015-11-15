@@ -9,11 +9,9 @@ import com.baidu.location.BDLocation;
 import com.baidu.location.LocationClient;
 import com.baidu.location.LocationClientOption;
 import com.loopj.android.http.JsonHttpResponseHandler;
-import com.ms.ebangw.activity.BaseActivity;
 import com.ms.ebangw.activity.LoginActivity;
 import com.ms.ebangw.bean.Craft;
 import com.ms.ebangw.bean.User;
-import com.ms.ebangw.commons.Constants;
 import com.ms.ebangw.db.UserDao;
 import com.ms.ebangw.exception.ResponseException;
 import com.ms.ebangw.listener.MyLocationListener;
@@ -23,7 +21,6 @@ import com.ms.ebangw.utils.L;
 import com.ms.ebangw.utils.T;
 import com.umeng.analytics.MobclickAgent;
 
-import org.apache.http.Header;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -32,6 +29,7 @@ import java.util.Set;
 
 import cn.jpush.android.api.JPushInterface;
 import cn.jpush.android.api.TagAliasCallback;
+import cz.msebera.android.httpclient.Header;
 
 //import com.baidu.mapapi.SDKInitializer;
 

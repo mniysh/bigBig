@@ -16,8 +16,6 @@ import com.ms.ebangw.service.DataParseUtil;
 import com.ms.ebangw.utils.T;
 import com.ms.ebangw.view.QuickindexBar;
 
-import org.apache.http.Header;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.Collections;
@@ -25,6 +23,7 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import cz.msebera.android.httpclient.Header;
 
 /**
  * 工长中心的工人管理列表

@@ -11,10 +11,9 @@ dependencies {
     compile 'com.android.support:support-v13:23.1.0'
     compile 'com.squareup.picasso:picasso:2.5.2'
     compile 'com.belerweb:pinyin4j:2.5.0'
-    compile 'com.android.support:recyclerview-v7:23.1.0'
-    compile 'com.android.support:appcompat-v7:23.1.0'
+//    compile 'com.android.support:recyclerview-v7:23.1.0'
     compile 'com.android.support:design:23.1.0'
-    compile 'com.android.support:support-v4:23.1.0'
+    compile 'com.loopj.android:android-async-http:1.4.9'
 }
 
 android {
@@ -64,6 +63,10 @@ android {
             minifyEnabled false
             signingConfig signingConfigs.config
         }
+    }
+
+    dexOptions {
+        jumboMode = true
     }
 
     sourceSets {

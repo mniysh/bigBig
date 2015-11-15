@@ -17,12 +17,10 @@ import com.ms.ebangw.activity.BaseActivity;
 import com.ms.ebangw.bean.ReleaseProject;
 import com.ms.ebangw.commons.Constants;
 import com.ms.ebangw.service.DataAccessUtil;
-import com.ms.ebangw.utils.T;
-
-import org.apache.http.Header;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import cz.msebera.android.httpclient.Header;
 
 public class PayingActivity extends BaseActivity {
     private ReleaseProject releaseProject;
@@ -103,6 +101,8 @@ public class PayingActivity extends BaseActivity {
                     showProgressDialog();
                 }
 
+
+
                 @Override
                 public void onSuccess(int i, Header[] headers, byte[] bytes) {
 
@@ -116,7 +116,7 @@ public class PayingActivity extends BaseActivity {
                 }
 
                 @Override
-                public void onFailure(int i, Header[] headers, byte[] bytes, Throwable throwable) {
+                public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
                     dismissLoadingDialog();
 
                 }

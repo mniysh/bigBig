@@ -23,7 +23,6 @@ import com.loopj.android.http.JsonHttpResponseHandler;
 import com.ms.ebangw.MyApplication;
 import com.ms.ebangw.R;
 import com.ms.ebangw.activity.DiscoveryActivity;
-import com.ms.ebangw.activity.HomeActivity;
 import com.ms.ebangw.activity.MessageCenterActivit;
 import com.ms.ebangw.activity.QiangDanActivity;
 import com.ms.ebangw.activity.ShowActivity;
@@ -41,8 +40,6 @@ import com.ms.ebangw.service.DataParseUtil;
 import com.ms.ebangw.utils.MyListView;
 import com.ms.ebangw.utils.T;
 
-import org.apache.http.Header;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.lang.reflect.Field;
@@ -52,6 +49,7 @@ import java.util.List;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import cz.msebera.android.httpclient.Header;
 
 /*
  * 主页的主页页面

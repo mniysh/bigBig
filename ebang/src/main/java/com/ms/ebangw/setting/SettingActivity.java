@@ -10,11 +10,7 @@ import com.loopj.android.http.JsonHttpResponseHandler;
 import com.ms.ebangw.MyApplication;
 import com.ms.ebangw.R;
 import com.ms.ebangw.activity.BaseActivity;
-import com.ms.ebangw.activity.HomeActivity;
-import com.ms.ebangw.activity.LoginActivity;
 import com.ms.ebangw.bean.User;
-import com.ms.ebangw.commons.Constants;
-import com.ms.ebangw.db.UserDao;
 import com.ms.ebangw.exception.ResponseException;
 import com.ms.ebangw.scancode.MipcaActivityCapture;
 import com.ms.ebangw.service.DataAccessUtil;
@@ -22,13 +18,12 @@ import com.ms.ebangw.service.DataParseUtil;
 import com.ms.ebangw.utils.L;
 import com.ms.ebangw.utils.T;
 
-import org.apache.http.Header;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import cz.msebera.android.httpclient.Header;
 
 /**
  * 设置页面

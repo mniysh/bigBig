@@ -11,7 +11,6 @@ import android.widget.TextView;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.ms.ebangw.R;
 import com.ms.ebangw.activity.BaseActivity;
-import com.ms.ebangw.activity.HomeActivity;
 import com.ms.ebangw.bean.AuthInfo;
 import com.ms.ebangw.bean.User;
 import com.ms.ebangw.commons.Constants;
@@ -24,7 +23,6 @@ import com.ms.ebangw.userAuthen.InfoCommitSuccessFragment;
 import com.ms.ebangw.utils.L;
 import com.ms.ebangw.utils.T;
 
-import org.apache.http.Header;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -33,6 +31,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.ButterKnife;
+import cz.msebera.android.httpclient.Header;
 import de.greenrobot.event.EventBus;
 
 /**

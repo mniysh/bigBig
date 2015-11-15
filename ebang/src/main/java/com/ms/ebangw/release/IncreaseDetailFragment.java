@@ -53,12 +53,9 @@ import com.ms.ebangw.utils.VerifyUtils;
 import com.ms.ebangw.view.ProvinceAndCityView;
 import com.squareup.picasso.Picasso;
 
-import org.apache.http.Header;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.File;
-import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -67,6 +64,7 @@ import java.util.List;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import cz.msebera.android.httpclient.Header;
 
 /**
  * 发布  ---- >填写信息

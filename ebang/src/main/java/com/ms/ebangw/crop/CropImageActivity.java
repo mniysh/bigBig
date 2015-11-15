@@ -12,7 +12,6 @@ import com.loopj.android.http.RequestHandle;
 import com.ms.ebangw.MyApplication;
 import com.ms.ebangw.R;
 import com.ms.ebangw.activity.BaseActivity;
-import com.ms.ebangw.activity.HomeActivity;
 import com.ms.ebangw.bean.UploadImageResult;
 import com.ms.ebangw.commons.Constants;
 import com.ms.ebangw.exception.ResponseException;
@@ -23,20 +22,17 @@ import com.ms.ebangw.utils.L;
 import com.ms.ebangw.utils.T;
 import com.ms.ebangw.view.CropImageView;
 
-import org.apache.http.Header;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import cz.msebera.android.httpclient.Header;
 
 /**
  * User: WangKai(123940232@qq.com)

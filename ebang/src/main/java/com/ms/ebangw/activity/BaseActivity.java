@@ -1,16 +1,12 @@
 package com.ms.ebangw.activity;
 
-import android.app.Activity;
 import android.app.DialogFragment;
 import android.content.Intent;
-import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.WindowManager;
-import android.widget.LinearLayout;
-import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import com.loopj.android.http.JsonHttpResponseHandler;
@@ -19,7 +15,6 @@ import com.ms.ebangw.R;
 import com.ms.ebangw.bean.Bank;
 import com.ms.ebangw.bean.TotalRegion;
 import com.ms.ebangw.bean.User;
-import com.ms.ebangw.commons.Constants;
 import com.ms.ebangw.db.UserDao;
 import com.ms.ebangw.dialog.LoadingDialog;
 import com.ms.ebangw.exception.ResponseException;
@@ -29,7 +24,6 @@ import com.ms.ebangw.utils.L;
 import com.ms.ebangw.utils.T;
 import com.umeng.analytics.MobclickAgent;
 
-import org.apache.http.Header;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -37,6 +31,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.List;
+
+import cz.msebera.android.httpclient.Header;
 
 public abstract class BaseActivity extends AppCompatActivity {
     private final String TAG = getClass().getSimpleName();

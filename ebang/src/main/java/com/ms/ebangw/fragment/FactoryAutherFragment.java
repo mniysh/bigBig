@@ -10,8 +10,9 @@ import com.loopj.android.http.JsonHttpResponseHandler;
 import com.ms.ebangw.R;
 import com.ms.ebangw.service.DataAccessUtil;
 
-import org.apache.http.Header;
 import org.json.JSONObject;
+
+import cz.msebera.android.httpclient.Header;
 
 
 public class FactoryAutherFragment extends BaseFragment {
