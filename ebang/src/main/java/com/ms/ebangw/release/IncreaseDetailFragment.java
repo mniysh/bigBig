@@ -725,10 +725,8 @@ public class IncreaseDetailFragment extends BaseFragment {
         Bitmap bitmap = BitmapUtil.getImage(imagePath);
 
         int size = imageNames.size();
-        if (size >= 2) {
-            imageNames.remove(2);
-            imageNames.add(0, imageNames.get(1));
-            imageNames.add(1, imageNames.get(2));
+        if (size >= 2) {        //只有三张图片，如果大于三张，删除第一张
+            imageNames.remove(0);
         }
             imageNames.add(name);
         //现在还没弄好
