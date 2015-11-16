@@ -195,7 +195,9 @@ public class PublishedProjectStatusFragment extends BaseFragment {
         @Override
         public void onFinish() {
             super.onFinish();
-            ptr.onRefreshComplete();
+            if (null != ptr) {
+                ptr.onRefreshComplete();
+            }
         }
     };
 
@@ -218,7 +220,9 @@ public class PublishedProjectStatusFragment extends BaseFragment {
         @Override
         public void onFinish() {
             super.onFinish();
-            ptr.onRefreshComplete();
+            if (null != ptr) {
+                ptr.onRefreshComplete();
+            }
         }
     };
 }
