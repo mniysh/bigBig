@@ -1,6 +1,7 @@
 package com.ms.ebangw.fragment;
 
 
+import android.app.FragmentManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -39,6 +40,7 @@ public class InvestorCenterFragment extends BaseFragment {
 
     private String mParam1;
     private String mParam2;
+    private FragmentManager fm;
 
 
     public static InvestorCenterFragment newInstance(String param1, String param2) {
@@ -61,6 +63,7 @@ public class InvestorCenterFragment extends BaseFragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+        fm = getFragmentManager();
     }
 
 
@@ -78,6 +81,7 @@ public class InvestorCenterFragment extends BaseFragment {
 
     @Override
     public void initView() {
+        fm.beginTransaction().replace(R.id.fl_head_info, HeadInfoFragment.newInstance("", "")).commit();
         tvPublished.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
