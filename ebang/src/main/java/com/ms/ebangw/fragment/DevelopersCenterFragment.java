@@ -2,6 +2,7 @@ package com.ms.ebangw.fragment;
 
 
 import android.app.Fragment;
+import android.app.FragmentManager;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,13 +15,14 @@ import com.ms.ebangw.R;
  * @author wangkai
  *
  */
-public class DevelopersCenterFragment extends Fragment {
+public class DevelopersCenterFragment extends BaseFragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
     private String mParam1;
     private String mParam2;
+    private FragmentManager fm;
 
 
 
@@ -44,6 +46,18 @@ public class DevelopersCenterFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+        fm = getFragmentManager();
+    }
+
+    @Override
+    public void initView() {
+        fm.beginTransaction().replace(R.id.fl_head_info, HeadInfoFragment.newInstance("","")).commit();
+
+    }
+
+    @Override
+    public void initData() {
+
     }
 
     @Override

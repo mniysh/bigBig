@@ -170,4 +170,6 @@ public class Constants {
 
 	public static final String  KEY_RELEASED_PROJECT_STR = "ReleaseProject";
 	public static final String KEY_PROJECT_IMAGES = "project_images";
+
+	public static final String KEY_PROJECT_IMAGE_URL = "project_image_url";
 }
