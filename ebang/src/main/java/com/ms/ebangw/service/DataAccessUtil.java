@@ -680,7 +680,16 @@ public class DataAccessUtil {
         asyncHttpResponseHandler){
         return doGet(RequestUrl.reset_auth, null, asyncHttpResponseHandler);
     }
-
+    /**
+     *2-5.工头竞争工程接口
+     * @param projectId 工程Id
+     * @param asyncHttpResponseHandler
+     * @return
+     */
+    public static RequestHandle headmanContendProject(String projectId, AsyncHttpResponseHandler
+            asyncHttpResponseHandler){
+        return doGet(RequestUrl.headman_contend_project + projectId, null, asyncHttpResponseHandler);
+    }
     /**
      *2-11.首页工程列表
      * @param latitude 纬度

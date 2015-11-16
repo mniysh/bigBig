@@ -1,6 +1,8 @@
 package com.ms.ebangw.activity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -26,6 +28,7 @@ import com.ms.ebangw.utils.L;
 import com.ms.ebangw.utils.T;
 import com.squareup.picasso.Picasso;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.List;
@@ -112,11 +115,21 @@ public class ShowActivity extends BaseActivity implements OnClickListener {
 
     private void load() {
         DataAccessUtil.projectInfoDetail(projectId, new JsonHttpResponseHandler() {
+
+
+
+
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                 try {
                     ProjectInfoDetail detail = DataParseUtil.projectInfoDetail(response);
                     if (null != detail) {
+
+                        String IsContend = detail.getIsContend();
+                        SharedPreferences sharedPreferences = getSharedPreferences("test", Context.MODE_PRIVATE);
+                        SharedPreferences.Editor editor = sharedPreferences.edit();
+                        editor.putString("IsContend",IsContend);
+                        editor.commit();
 
                         tTitle.setText(detail.getTitle());
                         tAddress.setText(detail.getAddress());
