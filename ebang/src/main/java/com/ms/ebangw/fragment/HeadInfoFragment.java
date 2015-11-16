@@ -26,6 +26,7 @@ import com.ms.ebangw.crop.FroyoAlbumDirFactory;
 import com.ms.ebangw.crop.GetPathFromUri4kitkat;
 import com.ms.ebangw.dialog.SelectPhotoDialog;
 import com.ms.ebangw.service.DataAccessUtil;
+import com.ms.ebangw.setting.SettingAllActivity;
 import com.ms.ebangw.utils.BitmapUtil;
 import com.ms.ebangw.utils.L;
 import com.squareup.picasso.Picasso;
@@ -140,7 +141,7 @@ public class HeadInfoFragment extends BaseFragment {
             @Override
             public void onClick(View v) {
                 //设置跳转
-                Intent intent = new Intent(mActivity, SettingActivity.class);
+                Intent intent = new Intent(mActivity, SettingAllActivity.class);
                 mActivity.startActivityForResult(intent, Constants.REQUEST_EXIT);
             }
         });
