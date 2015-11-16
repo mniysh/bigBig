@@ -32,6 +32,16 @@ public class ProjectInfoDetail {
     private String end_time;
     private String link_man;
     private String link_phone;
+
+    public String getIsContend() {
+        return isContend;
+    }
+
+    public void setIsContend(String isContend) {
+        this.isContend = isContend;
+    }
+
+    private String isContend;
     private List<String> images;
     /**
      * id : 49

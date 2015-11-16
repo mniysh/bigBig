@@ -69,7 +69,7 @@ public class ProjectItemAdapter extends BaseAdapter {
             convertView = View.inflate(parent.getContext(), R.layout.home_project_item, null);
             holder = new ViewHolder(convertView);
             convertView.setTag(holder);
-        }else {
+        } else {
             holder = (ViewHolder) convertView.getTag();
         }
 
@@ -81,9 +81,9 @@ public class ProjectItemAdapter extends BaseAdapter {
         String distance = project.getDistance();
         if (!TextUtils.isEmpty(imageUrl)) {
             Picasso.with(parent.getContext()).load(DataAccessUtil.getImageUrl(imageUrl))
-                .placeholder(R.drawable.head).
-                into(holder.head);
-        }else {
+                    .placeholder(R.drawable.head).
+                    into(holder.head);
+        } else {
             holder.head.setImageResource(R.drawable.head);
         }
 
@@ -132,7 +132,7 @@ public class ProjectItemAdapter extends BaseAdapter {
         }
     }
 
-    public interface OnGrabClickListener{
+    public interface OnGrabClickListener {
         void onGrabClick(View view, ReleaseProject releaseProject);
     }
 

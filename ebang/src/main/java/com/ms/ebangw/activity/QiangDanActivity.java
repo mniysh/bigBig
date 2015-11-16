@@ -1,6 +1,7 @@
 package com.ms.ebangw.activity;
 
 
+import android.content.Intent;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.view.Gravity;
@@ -39,6 +40,10 @@ public class QiangDanActivity extends BaseActivity {
             public void onClick(View v) {
                 backgroundAlpha(1.0f);
                 pw.dismiss();
+
+//                Intent intent=new Intent();
+//                intent.setClass(QiangDanActivity.this, ShowActivity.class);
+//                startActivity(intent); //ActivityA.this.finish();
                 QiangDanActivity.this.finish();
             }
         });
