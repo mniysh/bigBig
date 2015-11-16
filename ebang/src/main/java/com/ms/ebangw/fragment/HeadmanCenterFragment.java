@@ -54,14 +54,14 @@ public class HeadmanCenterFragment extends BaseFragment {
     TextView tvTrade;
     @Bind(R.id.tv_evaluate)
     TextView tvEvaluate;
-    @Bind(R.id.tv_jifen)
-    TextView tvFen;
     @Bind(R.id.tv_people_manage)
     TextView tvPeopleManage;
     @Bind(R.id.tv_invite_friend)
     TextView tvInviteFriend;
     @Bind(R.id.ll_verItems)
     LinearLayout llVerItems;
+    @Bind(R.id.tv_jifen)
+    TextView tvJifen;
 
 
     private String mParam1;
@@ -107,6 +107,14 @@ public class HeadmanCenterFragment extends BaseFragment {
         fm.beginTransaction().replace(R.id.fl_head_info, HeadInfoFragment.newInstance("", ""))
             .commit();
 
+        tvGrab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(mActivity, PublishedProjectActivity.class);
+                startActivity(intent);
+            }
+        });
+
         tvTrade.setOnClickListener(new View.OnClickListener() {      //交易
             @Override
             public void onClick(View v) {
@@ -123,10 +131,18 @@ public class HeadmanCenterFragment extends BaseFragment {
             }
         });
 
-        tvFen.setOnClickListener(new View.OnClickListener() {      //收到的评价列表
+        tvJifen.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(mActivity, JiFenActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        tvPeopleManage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(mActivity, RecommendedWorksActivity.class);
                 startActivity(intent);
             }
         });
@@ -145,13 +161,7 @@ public class HeadmanCenterFragment extends BaseFragment {
             }
         }
 
-        tvGrab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(mActivity, PublishedProjectActivity.class);
-                startActivity(intent);
-            }
-        });
+
     }
 
     /**
@@ -160,13 +170,7 @@ public class HeadmanCenterFragment extends BaseFragment {
     private void setEnoughWorkerView() {
         llVerItems.setVisibility(View.VISIBLE);
         eweimaLayout.setVisibility(View.GONE);
-        tvPeopleManage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(mActivity, RecommendedWorksActivity.class);
-                startActivity(intent);
-            }
-        });
+
     }
 
     /**
