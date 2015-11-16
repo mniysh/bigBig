@@ -91,6 +91,7 @@ public class QiangDanActivity extends BaseActivity {
         SimpleDateFormat formatter = new SimpleDateFormat("HH时mm分ss秒");
         Date curDate = new Date(System.currentTimeMillis());//获取当前时间
         String str = formatter.format(curDate);
+        tPhoneNum.setText(getUser().getPhone());
         tTime.setText(str);
         initView();
         initData();
