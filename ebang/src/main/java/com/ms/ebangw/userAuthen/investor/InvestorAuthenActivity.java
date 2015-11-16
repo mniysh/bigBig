@@ -25,7 +25,6 @@ import com.ms.ebangw.userAuthen.InfoCommitSuccessFragment;
 import com.ms.ebangw.utils.L;
 import com.ms.ebangw.utils.T;
 
-import org.apache.http.Header;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -35,6 +34,7 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import cz.msebera.android.httpclient.Header;
 import de.greenrobot.event.EventBus;
 
 /**
@@ -163,12 +163,18 @@ public class InvestorAuthenActivity extends BaseActivity {
 		String cityId = authInfo.getCityId();
 		String frontImageId = authInfo.getFrontImageId();
 		String backImageId = authInfo.getBackImageId();
+		String bankId = authInfo.getBankId();
+		String backCard = authInfo.getBankCard();
+		String openAccountName = authInfo.getAccountName();
+		String openAccountProvince = authInfo.getBankProvinceId();
+		String openAccountCity = authInfo.getBankCityId();
 		L.d("xxx","进来了吗");
 		DataAccessUtil.personIdentify(realName, gender, identityCard, provinceId, cityId,
 			frontImageId,
-			backImageId, null, new JsonHttpResponseHandler(){
+			backImageId, backCard, openAccountName, openAccountProvince, openAccountCity,bankId, new JsonHttpResponseHandler(){
 				@Override
 				public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+
 					try {
 						boolean b = DataParseUtil.processDataResult(response);
 						L.d("xxx","boolean值"+b);

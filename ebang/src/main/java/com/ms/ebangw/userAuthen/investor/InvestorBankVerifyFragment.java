@@ -214,17 +214,24 @@ public class InvestorBankVerifyFragment extends BaseFragment {
                 break;
             }
         }
-
+        List<Bank> banks = getBanks();
         String bankNameId = null;
         TextView bankTv = (TextView) bankSp.getSelectedView();
         if (null != bankTv) {
-            bankNameId = bankTv.getText().toString().trim();
+            String backName = bankTv.getText().toString().trim();
+            for (int i = 0; i < banks.size(); i++) {
+                if(TextUtils.equals(backName, banks.get(i).getBank_name())){
+                    bankNameId = banks.get(i).getId();
+                }
+            }
+
         }
         authInfo.setBankProvinceId(provinceId);
         authInfo.setBankCityId(cityId);
         authInfo.setBankId(bankNameId);
-        authInfo.setRealName(realName);
+        authInfo.setAccountName(realName);
         authInfo.setBankCard(cardId);
+
         L.d(cardId);
     }
 

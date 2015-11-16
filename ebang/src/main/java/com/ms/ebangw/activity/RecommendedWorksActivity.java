@@ -16,7 +16,6 @@ import com.ms.ebangw.service.DataParseUtil;
 import com.ms.ebangw.utils.T;
 import com.ms.ebangw.view.QuickindexBar;
 
-import org.apache.http.Header;
 import org.json.JSONObject;
 
 import java.util.Collections;
@@ -24,6 +23,7 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import cz.msebera.android.httpclient.Header;
 
 /**
  * 工长中心的工人管理列表
@@ -86,6 +86,7 @@ public class RecommendedWorksActivity extends BaseActivity {
 
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+
                 dismissLoadingDialog();
                 try {
                     List<Worker> workerList = DataParseUtil.recommendedWorkers(response);
@@ -147,6 +148,7 @@ public class RecommendedWorksActivity extends BaseActivity {
 
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+
                 dismissLoadingDialog();
                 try {
                     String recommend = DataParseUtil.removeRelation(response);  // 0:推荐工长的工人小于约定人数   1:推荐工长的工人大于等于约定人

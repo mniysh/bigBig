@@ -21,7 +21,6 @@ import com.ms.ebangw.service.DataParseUtil;
 import com.ms.ebangw.utils.L;
 import com.ms.ebangw.utils.T;
 
-import org.apache.http.Header;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -29,6 +28,7 @@ import java.util.ArrayList;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import cz.msebera.android.httpclient.Header;
 import de.greenrobot.event.EventBus;
 
 /**

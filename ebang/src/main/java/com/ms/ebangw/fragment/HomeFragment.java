@@ -40,7 +40,6 @@ import com.ms.ebangw.service.DataParseUtil;
 import com.ms.ebangw.utils.MyListView;
 import com.ms.ebangw.utils.T;
 
-import org.apache.http.Header;
 import org.json.JSONObject;
 
 import java.lang.reflect.Field;
@@ -50,6 +49,7 @@ import java.util.List;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import cz.msebera.android.httpclient.Header;
 
 /*
  * 主页的主页页面
@@ -81,6 +81,8 @@ public class HomeFragment extends BaseFragment {
     @Bind(R.id.rv)
     RecyclerView recyclerView;
     private ProjectItemAdapter projectItemAdapter;
+    private double latitude;
+    private double longitude;
 
     /**
      * 消息按钮
@@ -162,8 +164,18 @@ public class HomeFragment extends BaseFragment {
 
             }
         });
-
+        getLocation();
         initBanner();
+    }
+
+    public void getLocation() {
+        try {
+            latitude = mLocationClient.getLastKnownLocation().getLatitude();
+            longitude = mLocationClient.getLastKnownLocation().getLongitude();
+        } catch (Exception e) {
+            latitude = 0;
+            longitude = 0;
+        }
     }
 
     public void initBanner() {
@@ -262,15 +274,6 @@ public class HomeFragment extends BaseFragment {
     private int currentPage = 0;
     public void loadHomeProjectInfo() {
         currentPage = 1;
-        double latitude;
-        double longitude;
-        try {
-            latitude = mLocationClient.getLastKnownLocation().getLatitude();
-            longitude = mLocationClient.getLastKnownLocation().getLongitude();
-        } catch (Exception e) {
-            latitude = 0;
-            longitude = 0;
-        }
         DataAccessUtil.homeProjectInfo(currentPage + "", latitude+"", longitude + "", new
             JsonHttpResponseHandler() {
             @Override
@@ -283,13 +286,17 @@ public class HomeFragment extends BaseFragment {
             public void onFinish() {
                 super.onFinish();
                 dismissLoadingDialog();
-                ptr.onRefreshComplete();
+                if(ptr != null){
+                    ptr.onRefreshComplete();
+                }
             }
 
                 @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
 
-                currentPage ++ ;
+
+
+                    currentPage ++ ;
                 try {
                     HomeProjectInfo info = DataParseUtil.homeProjectInfo(response);
                     if (null != info) {
@@ -310,15 +317,7 @@ public class HomeFragment extends BaseFragment {
      * 加载更多
      */
     private void loadMoreHomeProjectInfo() {
-        double latitude;
-        double longitude;
-        try {
-            latitude = mLocationClient.getLastKnownLocation().getLatitude();
-            longitude = mLocationClient.getLastKnownLocation().getLongitude();
-        } catch (Exception e) {
-            latitude = 0;
-            longitude = 0;
-        }
+
         DataAccessUtil.homeProjectInfo(currentPage + "", latitude+"", longitude + "", new
             JsonHttpResponseHandler() {
             @Override
@@ -336,6 +335,7 @@ public class HomeFragment extends BaseFragment {
 
                 @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+
                     currentPage ++ ;
                     try {
                     HomeProjectInfo info = DataParseUtil.homeProjectInfo(response);

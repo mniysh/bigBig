@@ -44,18 +44,18 @@ public class SettingMessageActivity extends BaseActivity {
 
     @Override
     public void initData() {
-        JPushInterface.setAliasAndTags(this, alias, tags, new TagAliasCallback() {
-            @Override
-            public void gotResult(int i, String s, Set<String> set) {
-                if( i == 0){
-                    L.d("别名，标签设置成功");
-                    alias = s;
-                    tags = set;
-                }else{
-                    L.d("别名设置失败");
-                }
-            }
-        });
+//        JPushInterface.setAliasAndTags(this, alias, tags, new TagAliasCallback() {
+//            @Override
+//            public void gotResult(int i, String s, Set<String> set) {
+//                if( i == 0){
+//                    L.d("别名，标签设置成功");
+//                    alias = s;
+//                    tags = set;
+//                }else{
+//                    L.d("别名设置失败");
+//                }
+//            }
+//        });
 
     }
 
@@ -85,11 +85,15 @@ public class SettingMessageActivity extends BaseActivity {
             flag_ring = !flag_ring;
             ringIv.setImageResource(R.drawable.button_unselected);
             BasicPushNotificationBuilder build = new BasicPushNotificationBuilder(this);
-            build.notificationDefaults = 0;
+            build.developerArg0 = "";
             JPushInterface.setPushNotificationBuilder(1, build);
         }else{
             flag_ring = !flag_ring;
             ringIv.setImageResource(R.drawable.button_selected);
+            BasicPushNotificationBuilder builder = new BasicPushNotificationBuilder(this);
+            builder.notificationFlags = Notification.FLAG_AUTO_CANCEL;
+            builder.notificationDefaults = Notification.DEFAULT_ALL;
+            JPushInterface.setPushNotificationBuilder(2, builder);
         }
 
     }

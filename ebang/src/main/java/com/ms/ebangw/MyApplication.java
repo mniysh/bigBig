@@ -2,17 +2,26 @@ package com.ms.ebangw;
 
 import android.app.Activity;
 import android.app.Application;
+import android.content.Intent;
 import android.graphics.Bitmap;
 
 import com.baidu.location.BDLocation;
 import com.baidu.location.LocationClient;
 import com.baidu.location.LocationClientOption;
+import com.loopj.android.http.JsonHttpResponseHandler;
+import com.ms.ebangw.activity.LoginActivity;
 import com.ms.ebangw.bean.Craft;
 import com.ms.ebangw.bean.User;
 import com.ms.ebangw.db.UserDao;
+import com.ms.ebangw.exception.ResponseException;
 import com.ms.ebangw.listener.MyLocationListener;
+import com.ms.ebangw.service.DataAccessUtil;
+import com.ms.ebangw.service.DataParseUtil;
 import com.ms.ebangw.utils.L;
+import com.ms.ebangw.utils.T;
 import com.umeng.analytics.MobclickAgent;
+
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,6 +29,7 @@ import java.util.Set;
 
 import cn.jpush.android.api.JPushInterface;
 import cn.jpush.android.api.TagAliasCallback;
+import cz.msebera.android.httpclient.Header;
 
 //import com.baidu.mapapi.SDKInitializer;
 
@@ -35,6 +45,7 @@ public class MyApplication extends Application {
     private BDLocation location;
     public LocationClient mLocationClient = null;
     private boolean flag_home;
+
 
     private String alias;
     private Set<String> tags;
@@ -74,7 +85,9 @@ public class MyApplication extends Application {
 //        SDKInitializer.initialize(getApplicationContext());
         initUMeng();
         initLocation();
+
         initJpush();
+
     }
 
     /**
@@ -127,6 +140,7 @@ public class MyApplication extends Application {
                 public void gotResult(int i, String s, Set<String> set) {
                     if (i == 0) {
                         L.d("setAlias: 极光alias设置成功, alias: " + s);
+                        T.show("setAlias: 极光alias设置成功, alias: " + s);
                     } else {
                         L.d("setAlias: 极光alias设置失败, 返回的状态码: " + i);
                     }
@@ -214,5 +228,36 @@ public class MyApplication extends Application {
 
     public void setLocation(BDLocation location) {
         this.location = location;
+    }
+
+    public void logout(){
+        DataAccessUtil.exit(new JsonHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                super.onSuccess(statusCode, headers, response);
+                try {
+                    boolean b = DataParseUtil.exit(response);
+                } catch (ResponseException e) {
+                    e.printStackTrace();
+                    T.show(e.getMessage());
+                }
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                super.onFailure(statusCode, headers, responseString, throwable);
+                L.d(responseString);
+            }
+        });
+        UserDao userDao = new UserDao(getBaseContext());
+        userDao.removeAll();
+        quit();
+        Intent intent = new Intent(this, LoginActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
+//        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
+
+//        setResult(Constants.REQUEST_EXIT);
+//        finish();
     }
 }

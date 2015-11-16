@@ -13,22 +13,22 @@ import com.loopj.android.http.JsonHttpResponseHandler;
 import com.ms.ebangw.MyApplication;
 import com.ms.ebangw.R;
 import com.ms.ebangw.activity.HomeActivity;
-import com.ms.ebangw.setting.SettingActivity;
 import com.ms.ebangw.bean.User;
 import com.ms.ebangw.commons.Constants;
 import com.ms.ebangw.exception.ResponseException;
 import com.ms.ebangw.fragment.BaseFragment;
 import com.ms.ebangw.service.DataAccessUtil;
 import com.ms.ebangw.service.DataParseUtil;
+import com.ms.ebangw.setting.SettingAllActivity;
 import com.ms.ebangw.utils.L;
 import com.ms.ebangw.utils.T;
 
-import org.apache.http.Header;
 import org.json.JSONObject;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import cz.msebera.android.httpclient.Header;
 
 public class InfoCommitSuccessFragment extends BaseFragment {
     private static final String CATEGORY = "category";
@@ -144,7 +144,7 @@ public class InfoCommitSuccessFragment extends BaseFragment {
                 @Override
                 public void onClick(View v) {
                     //设置跳转
-                    Intent intent=new Intent(mActivity, SettingActivity.class);
+                    Intent intent=new Intent(mActivity, SettingAllActivity.class);
 
                     mActivity.startActivityForResult(intent, Constants.REQUEST_EXIT);
                 }
@@ -173,6 +173,7 @@ public class InfoCommitSuccessFragment extends BaseFragment {
 
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+
                 dismissLoadingDialog();
                 try {
                     boolean b = DataParseUtil.processDataResult(response);

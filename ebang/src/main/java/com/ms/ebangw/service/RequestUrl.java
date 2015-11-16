@@ -15,8 +15,7 @@ public class RequestUrl {
      * 正式上线域名
      */
 //    private final static String domain = "http://www.ebngw.com";
-
-    /**
+/**
      * 1.注册
      */
     public static final String register = domain + "/api/user/index/register";
@@ -106,6 +105,10 @@ public class RequestUrl {
      * 2-1.开发商发布页面
      */
     public static  final  String developer_release = domain + "/api/developers/project/add-total";
+    /**
+     * 2-3.个人发布页面
+     */
+    public static final String investor_release = domain +"/api/investor/project/add-total" ;
 
     /**
      * 3-6. 获取全部省市区数据   get方式
@@ -203,6 +206,33 @@ public class RequestUrl {
      *2-20.抢单 已结束（工头）
      */
     public static final String grab_headman_complete = domain + "/api/headman/project/complete";
+
+    /**
+     * 2-21.评价  post
+     */
+    public static final String evaluate = domain + "/api/user/evaluate/evaluate";
+
+    /**
+     * 2-22.评价列表    get
+     *
+     */
+    public static final String evaluate_list = domain + "/api/user/evaluate/evaluate-list";
+
+    /**
+     *2-23.交易明细 get
+     */
+    public static final String trade_detail = domain + "/api/user/trade/detailed";
+
+    /**
+     * 2-24.交易账单    get
+     *
+     */
+    public static final String account = domain + "/api/user/trade/dill";
+
+    /**
+     * 1-14、积分列表
+     */
+    public static final String score = domain + "/api/user/score/index";
 
 
 

@@ -5,20 +5,27 @@ import android.text.TextUtils;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.ms.ebangw.MyApplication;
+import com.ms.ebangw.activity.BaseActivity;
+import com.ms.ebangw.adapter.Evaluate;
+import com.ms.ebangw.bean.Account;
 import com.ms.ebangw.bean.Area;
 import com.ms.ebangw.bean.Bank;
 import com.ms.ebangw.bean.City;
 import com.ms.ebangw.bean.Craft;
 import com.ms.ebangw.bean.HomeProjectInfo;
+import com.ms.ebangw.bean.JiFen;
 import com.ms.ebangw.bean.ProjectInfoDetail;
 import com.ms.ebangw.bean.Province;
 import com.ms.ebangw.bean.ReleaseProject;
 import com.ms.ebangw.bean.TotalRegion;
+import com.ms.ebangw.bean.Trade;
 import com.ms.ebangw.bean.UploadImageResult;
 import com.ms.ebangw.bean.User;
 import com.ms.ebangw.bean.WorkType;
 import com.ms.ebangw.bean.Worker;
 import com.ms.ebangw.exception.ResponseException;
+import com.ms.ebangw.release.PayingActivity;
+import com.ms.ebangw.setting.SettingAllActivity;
 import com.ms.ebangw.utils.L;
 
 import org.json.JSONException;
@@ -71,6 +78,9 @@ public class DataParseUtil {
     public static User userInformation(JSONObject jsonObject) throws ResponseException {
         User user = MyApplication.getInstance().getUser();
         JSONObject data = processData(jsonObject);
+        if (data == null){
+            return null;
+        }
         try {
             User baseUser = null;
             if (data.has("base_message")) {
@@ -247,6 +257,9 @@ public class DataParseUtil {
 
         Craft craft = new Craft();
         JSONObject data = processData(jsonObject);
+        if (data == null){
+            return null;
+        }
         Gson gson = new Gson();
         try {
             String first = data.getString("first");
@@ -408,9 +421,72 @@ public class DataParseUtil {
         return list;
     }
 
+    /**
+     * 2-22.评价列表
+     * @param jsonObject
+     * @return
+     * @throws ResponseException
+     */
+    public static List<Evaluate> evaluateList(JSONObject jsonObject) throws ResponseException {
+        JSONObject data = processData(jsonObject);
+        String arrayStr = data.optString("evaluate");
+
+        Gson gson = new Gson();
+        List<Evaluate> list = gson.fromJson(arrayStr, new TypeToken<List<Evaluate>>() {
+        }.getType());
+
+        return list;
+    }
+
 
     /**
-     * 发布工程的接口解析
+     *  2-23.交易明细
+     * @param jsonObject
+     * @return
+     * @throws ResponseException
+     */
+    public static List<Trade> tradeDetail(JSONObject jsonObject) throws ResponseException {
+        JSONObject data = processData(jsonObject);
+        String arrayStr = data.optString("trade");
+
+        Gson gson = new Gson();
+        List<Trade> list = gson.fromJson(arrayStr, new TypeToken<List<Trade>>() {
+        }.getType());
+
+        return list;
+    }
+
+    /**
+     * 2-24.交易账单
+     * @param jsonObject
+     * @return
+     * @throws ResponseException
+     */
+    public static Account account(JSONObject jsonObject) throws ResponseException {
+        String dataStr = processDataStr(jsonObject);
+        Gson gson = new Gson();
+        Account account = gson.fromJson(dataStr, Account.class);
+        return account;
+    }
+
+    /**
+     * 1-14、积分列表
+     * @param jsonObject
+     * @return
+     * @throws ResponseException
+     */
+    public static List<JiFen> score(JSONObject jsonObject) throws ResponseException {
+        String dataStr = processDataStr(jsonObject);
+        Gson gson = new Gson();
+        List<JiFen> list = gson.fromJson(dataStr, new TypeToken<List<JiFen>>() {
+        }.getType());
+
+        return list;
+    }
+
+
+    /**
+     * 2-1.发布接口（开发商）
      * @param jsonObject
      * @return
      * @throws ResponseException
@@ -521,7 +597,9 @@ public class DataParseUtil {
             String message = jsonObject.getString("message");
             if (TextUtils.equals("200", code)) {        //数据正确
                 return jsonObject.getJSONObject("data");
-            } else {
+            }else if(TextUtils.equals("501", code)){
+                return null;
+            }else{
                 String dataStr = jsonObject.optString("data", "");
                 String errorMessage = "";
                 if (!TextUtils.isEmpty(dataStr) && !TextUtils.equals("null", dataStr) && !TextUtils.equals("NULL", dataStr)) {

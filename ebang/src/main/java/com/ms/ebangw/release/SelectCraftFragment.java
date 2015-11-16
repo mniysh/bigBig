@@ -4,16 +4,17 @@ package com.ms.ebangw.release;
 import android.app.Fragment;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.loopj.android.http.JsonHttpResponseHandler;
-import com.ms.ebangw.MyApplication;
 import com.ms.ebangw.R;
 import com.ms.ebangw.activity.HomeActivity;
 import com.ms.ebangw.adapter.SelectTypePagerAdapter;
@@ -21,7 +22,6 @@ import com.ms.ebangw.bean.Craft;
 import com.ms.ebangw.bean.DeveloperReleaseInfo;
 import com.ms.ebangw.bean.Staff;
 import com.ms.ebangw.bean.WorkType;
-import com.ms.ebangw.commons.Constants;
 import com.ms.ebangw.event.OnCheckedWorkTypeEvent;
 import com.ms.ebangw.exception.ResponseException;
 import com.ms.ebangw.fragment.BaseFragment;
@@ -30,7 +30,6 @@ import com.ms.ebangw.service.DataParseUtil;
 import com.ms.ebangw.utils.L;
 import com.ms.ebangw.utils.T;
 
-import org.apache.http.Header;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -42,13 +41,14 @@ import java.util.Set;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import cz.msebera.android.httpclient.Header;
 import de.greenrobot.event.EventBus;
 
 /**
  * 发布页面
  */
 public class SelectCraftFragment extends BaseFragment {
-    private static final String ARG_PARAM1 = "param1";
+    private static final String CATEGROY = "categroy";
     private static final String ARG_PARAM2 = "param2";
 
     private String mParam1;
@@ -71,12 +71,16 @@ public class SelectCraftFragment extends BaseFragment {
     TextView totalMoneyTv;
     @Bind(R.id.rg_select_type)
     RadioGroup radioGroup;
+    private String categroy;
+    @Bind(R.id.btn_next)
+    Button nextBt;
 
 
-    public static SelectCraftFragment newInstance(String param1, String param2) {
+
+    public static SelectCraftFragment newInstance(String categroy, String param2) {
         SelectCraftFragment fragment = new SelectCraftFragment();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
+        args.putString(CATEGROY, categroy);
         args.putString(ARG_PARAM2, param2);
         fragment.setArguments(args);
         return fragment;
@@ -97,9 +101,10 @@ public class SelectCraftFragment extends BaseFragment {
         super.onCreate(savedInstanceState);
         EventBus.getDefault().register(this);
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
+            categroy = getArguments().getString(CATEGROY);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+
     }
 
     @Override
@@ -114,10 +119,24 @@ public class SelectCraftFragment extends BaseFragment {
         contentLayout = (ViewGroup) inflater.inflate(R.layout.fragment_select_craft, container,
             false);
         ButterKnife.bind(this, contentLayout);
+        if(TextUtils.equals(categroy, "developers") || TextUtils.equals(categroy, "investor")){
 
-        initView();
-        initData();
+            totalMoneyTv.setVisibility(View.VISIBLE);
+            nextBt.setVisibility(View.VISIBLE);
+            radioGroup.setVisibility(View.VISIBLE);
+            initView();
+            initData();
+        }else{
+            T.show("您的身份不正确，个人和开发商用户可发布信息。");
+
+            totalMoneyTv.setVisibility(View.GONE);
+            nextBt.setVisibility(View.GONE);
+            radioGroup.setVisibility(View.GONE);
+        }
         return contentLayout;
+
+
+
     }
 
     @Override
@@ -158,10 +177,10 @@ public class SelectCraftFragment extends BaseFragment {
     public void goNext() {
         if(releaseGoNext() ){
 //            Bundle bundle = new Bundle();
-//            bundle.putString(Constants.RELEASE_WORKTYPE_KEY,getStaff(workTypeSet));
+//            bundle.putString(Constants.KEY_RELEASE_PROJECT,getStaff(workTypeSet));
 
             HomeActivity homeActivity = (HomeActivity) mActivity;
-            homeActivity.goDeveloperRelease(getStaff(workTypeSet));
+            homeActivity.goDeveloperRelease(getStaff(workTypeSet), categroy);
         }
 
 
@@ -206,13 +225,13 @@ public class SelectCraftFragment extends BaseFragment {
                     super.onSuccess(statusCode, headers, response);
                     try {
                         craft = DataParseUtil.publishCraft(response);
+
 //                        MyApplication.getInstance().setCraft(craft);
                         initViewPager(craft);
                         dismissLoadingDialog();
-
-
                     } catch (ResponseException e) {
                         e.printStackTrace();
+                        T.show(e.getMessage());
                     }
                 }
 

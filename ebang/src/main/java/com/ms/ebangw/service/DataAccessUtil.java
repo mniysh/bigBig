@@ -89,7 +89,7 @@ public class DataAccessUtil {
 //        params.put("phone", phone);
 //        params.put("password", password);
 
-        return doGet(RequestUrl.logout, params, asyncHttpResponseHandler);
+        return doPost(RequestUrl.logout, params, asyncHttpResponseHandler);
     }
 
     /**
@@ -211,8 +211,8 @@ public class DataAccessUtil {
 //        return doPost(RequestUrl.person_identify, params, asyncHttpResponseHandler);
 //    }
 
-    /** 2-1.
-     * 开发商发布的接口
+    /**
+     * 2-1.开发商发布的接口
      * @param title
      * @param description
      * @param link_man
@@ -230,7 +230,7 @@ public class DataAccessUtil {
     public static RequestHandle developerRelease(String title, String description, String link_man,
                                                  String link_phone, String province, String city,
                                                  String area_other, float point_longitude,
-                                                 float point_dimension,
+                                                 float point_latitude,
                                                  String image_ary,String start_time,
                                                  String end_time, String project_money,String staffs, AsyncHttpResponseHandler asyncHttpResponseHandler){
         RequestParams params = new RequestParams();
@@ -242,7 +242,7 @@ public class DataAccessUtil {
         params.put("city",city);
         params.put("area_other",area_other);
         params.put("point_longitude",point_longitude);
-        params.put("point_dimension",point_dimension);
+        params.put("point_latitude",point_latitude);
         params.put("start_time",start_time);
         params.put("end_time", end_time);
         params.put("project_money",project_money);
@@ -252,6 +252,51 @@ public class DataAccessUtil {
         return doPost(RequestUrl.developer_release, params, asyncHttpResponseHandler);
 
     }
+
+    /**
+     * 2-3.发布个人
+     * @param title
+     * @param description
+     * @param link_man
+     * @param link_phone
+     * @param province
+     * @param city
+     * @param area_other
+     * @param point_longitude
+     * @param point_latitude
+     * @param image_ary
+     * @param start_time
+     * @param end_time
+     * @param project_money
+     * @param staffs
+     * @param asyncHttpResponseHandler
+     * @return
+     */
+    public static  RequestHandle investorRelease(String title, String description, String link_man,
+                                                 String link_phone, String province, String city,
+                                                 String area_other, float point_longitude,
+                                                 float point_latitude,
+                                                 String image_ary,String start_time,
+                                                 String end_time, String project_money,String staffs, AsyncHttpResponseHandler asyncHttpResponseHandler){
+        RequestParams params = new RequestParams();
+        params.put("title",title);
+        params.put("description",description);
+        params.put("link_man",link_man);
+        params.put("link_phone",link_phone);
+        params.put("province",province);
+        params.put("city",city);
+        params.put("area_other",area_other);
+        params.put("point_longitude",point_longitude);
+        params.put("point_latitude",point_latitude);
+        params.put("start_time",start_time);
+        params.put("end_time", end_time);
+        params.put("project_money",project_money);
+        params.put("image_ary",image_ary);
+        params.put("staffs", staffs);
+
+        return doPost(RequestUrl.investor_release, params, asyncHttpResponseHandler);
+    }
+
 
     /**
      * 8.上传图片
@@ -319,7 +364,9 @@ public class DataAccessUtil {
     public static RequestHandle personIdentify(String real_name,String gender, String identity_card,
                                                String province,String city,
                                                String card_image_front,String card_image_back,
-                                               String card_expiration_time,
+                                               String card_number,String open_account_name,
+                                               String open_account_province,String open_account_city,
+                                               String bank_id,
                                                 AsyncHttpResponseHandler
                                                     asyncHttpResponseHandler ) {
 
@@ -330,10 +377,12 @@ public class DataAccessUtil {
         params.put("province",province);
         params.put("city",city);
         params.put("card_image_front",card_image_front);
-        params.put("card_image_back",card_image_back);
-        params.put("card_expiration_time",card_expiration_time);
-        L.d("xxx", "请求类");
-
+        params.put("card_image_back", card_image_back);
+        params.put("card_number",card_number);
+        params.put("open_account_name",open_account_name);
+        params.put("open_account_province",open_account_province);
+        params.put("open_account_city",open_account_city);
+        params.put("bank_id", bank_id);
         return doPost(RequestUrl.penson_identify, params, asyncHttpResponseHandler);
     }
 
@@ -748,6 +797,90 @@ public class DataAccessUtil {
     }
 
 
+    /**
+     * 2-21.评价  post
+     * @param project_id
+     * @param content
+     * @param anonymity
+     * @param type
+     * @param asyncHttpResponseHandler
+     * @return
+     */
+    public static RequestHandle evaluate(String project_id,
+                                         String content, String anonymity, String type,  AsyncHttpResponseHandler
+        asyncHttpResponseHandler){
+
+        RequestParams params = new RequestParams();
+        params.put("project_id", project_id);
+        params.put("content", content);
+        params.put("anonymity", anonymity);
+        params.put("type", type);
+
+        return doPost(RequestUrl.evaluate, params, asyncHttpResponseHandler);
+    }
+
+    /**
+     * 2-22.评价列表
+     * @param page
+     * @param asyncHttpResponseHandler
+     * @return
+     */
+    public static RequestHandle evaluateList(String page,  AsyncHttpResponseHandler
+                                             asyncHttpResponseHandler){
+
+        RequestParams params = new RequestParams();
+        params.put("page", page);
+
+        return doGet(RequestUrl.evaluate_list, params, asyncHttpResponseHandler);
+    }
+
+    /**
+     * 2-23.交易明细 get
+     * @param page
+     * @param asyncHttpResponseHandler
+     * @return
+     */
+    public static RequestHandle tradeDetail(String page,  AsyncHttpResponseHandler
+        asyncHttpResponseHandler){
+
+        RequestParams params = new RequestParams();
+        params.put("page", page);
+
+        return doGet(RequestUrl.trade_detail, params, asyncHttpResponseHandler);
+    }
+
+    /**
+     * 2-24.交易账单
+     * @param page
+     * @param search_time
+     * @param asyncHttpResponseHandler
+     * @return
+     */
+    public static RequestHandle account(String page, String search_time,  AsyncHttpResponseHandler
+        asyncHttpResponseHandler){
+
+        RequestParams params = new RequestParams();
+        params.put("page", page);
+        params.put("search_time", search_time);
+
+        return doGet(RequestUrl.account, params, asyncHttpResponseHandler);
+    }
+
+    /**
+     * 1-14、积分列表
+     * @param page
+     * @param asyncHttpResponseHandler
+     * @return
+     */
+    public static RequestHandle score(String page, AsyncHttpResponseHandler
+        asyncHttpResponseHandler){
+
+        RequestParams params = new RequestParams();
+        params.put("page", page);
+
+        return doGet(RequestUrl.score, params, asyncHttpResponseHandler);
+    }
+
     public static RequestHandle doPost(String url, RequestParams params, AsyncHttpResponseHandler asyncHttpResponseHandler) {
 
         if (!NetUtils.isConnected(MyApplication.getInstance())) {
@@ -780,7 +913,7 @@ public class DataAccessUtil {
             params = new RequestParams();
         }
         params = addCommonParams(params);
-        L.d(TAG, "doGet Url : " + url + "?"+ params.toString());
+        L.d(TAG, "doGet Url : " + url + "?" + params.toString());
         return mClient.get(url, params, asyncHttpResponseHandler);
 
     }

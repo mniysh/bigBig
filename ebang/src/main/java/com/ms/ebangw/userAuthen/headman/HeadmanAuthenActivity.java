@@ -23,7 +23,6 @@ import com.ms.ebangw.userAuthen.InfoCommitSuccessFragment;
 import com.ms.ebangw.utils.L;
 import com.ms.ebangw.utils.T;
 
-import org.apache.http.Header;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -32,6 +31,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.ButterKnife;
+import cz.msebera.android.httpclient.Header;
 import de.greenrobot.event.EventBus;
 
 /**
@@ -143,6 +143,7 @@ public class HeadmanAuthenActivity extends BaseActivity {
 			new JsonHttpResponseHandler(){
 				@Override
 				public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+
 					try {
 						boolean b = DataParseUtil.processDataResult(response);
 						if (b) {

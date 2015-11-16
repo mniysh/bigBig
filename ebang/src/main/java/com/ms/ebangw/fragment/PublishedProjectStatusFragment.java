@@ -1,8 +1,10 @@
 package com.ms.ebangw.fragment;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.StringDef;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,14 +15,15 @@ import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.ms.ebangw.R;
+import com.ms.ebangw.activity.EvaluateActivity;
 import com.ms.ebangw.adapter.PublishedProjectStatusAdapter;
 import com.ms.ebangw.bean.ReleaseProject;
+import com.ms.ebangw.commons.Constants;
 import com.ms.ebangw.exception.ResponseException;
 import com.ms.ebangw.service.DataAccessUtil;
 import com.ms.ebangw.service.DataParseUtil;
 import com.ms.ebangw.utils.T;
 
-import org.apache.http.Header;
 import org.json.JSONObject;
 
 import java.lang.annotation.Retention;
@@ -30,6 +33,7 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import cz.msebera.android.httpclient.Header;
 
 /**
  * 已发布的工程状态 待通过 进行中 已结束
@@ -46,13 +50,13 @@ public class PublishedProjectStatusFragment extends BaseFragment {
 
     private static final String PROJECT_STATUS = "project_status";
 
-    private static final String ARG_PARAM2 = "param2";
     @Bind(R.id.ptr)
     PullToRefreshListView ptr;
 
     private String status = WAITTING;
     private View contentLayout;
     private int currentPage = 1;
+    private PublishedProjectStatusAdapter adapter;
 
 
     public PublishedProjectStatusFragment() {
@@ -64,7 +68,7 @@ public class PublishedProjectStatusFragment extends BaseFragment {
     public @interface ProjectStatus {
     }
 
-    public static PublishedProjectStatusFragment newInstance(String projectStatus) {
+    public static PublishedProjectStatusFragment newInstance(@ProjectStatus String projectStatus) {
         PublishedProjectStatusFragment fragment = new PublishedProjectStatusFragment();
         Bundle args = new Bundle();
         args.putString(PROJECT_STATUS, projectStatus);
@@ -92,7 +96,11 @@ public class PublishedProjectStatusFragment extends BaseFragment {
 
     @Override
     public void initView() {
-        ptr.setMode(PullToRefreshBase.Mode.BOTH);
+        if (TextUtils.equals(status, EXECUTE)) {        //进行中只有一项
+            ptr.setMode(PullToRefreshBase.Mode.DISABLED);
+        }else {
+            ptr.setMode(PullToRefreshBase.Mode.BOTH);
+        }
         ptr.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2<ListView>() {
             @Override
             public void onPullDownToRefresh(PullToRefreshBase<ListView> refreshView) {
@@ -108,12 +116,26 @@ public class PublishedProjectStatusFragment extends BaseFragment {
 
     @Override
     public void initData() {
-        new PublishedProjectStatusAdapter(new ArrayList<ReleaseProject>(), status);
+        adapter = new PublishedProjectStatusAdapter(new ArrayList<ReleaseProject>(), status);
+        adapter.setOnEvaluateClickListener(new PublishedProjectStatusAdapter.OnEvaluateClickListener() {
+            @Override
+            public void onGrabClick(View view, ReleaseProject releaseProject) { //评论
+                Intent intent = new Intent(getActivity(), EvaluateActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putParcelable(Constants.KEY_RELEASED_PROJECT_STR, releaseProject);
+                intent.putExtras(bundle);
+                startActivity(intent);
+            }
+        });
+        ptr.setAdapter(adapter);
 
-
-        loadProjects();
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        loadProjects();
+    }
 
     @Override
     public void onDestroyView() {
@@ -122,6 +144,7 @@ public class PublishedProjectStatusFragment extends BaseFragment {
     }
 
     public void loadProjects() {
+        currentPage = 1;
         switch (status) {
             case WAITTING:
                 DataAccessUtil.projectStatusWaiting(currentPage + "", handler);
@@ -159,7 +182,10 @@ public class PublishedProjectStatusFragment extends BaseFragment {
             currentPage++;
             try {
                 List<ReleaseProject> list = DataParseUtil.projectStatus(response);
-
+                if (adapter != null && list != null && list.size() > 0) {
+                    adapter.setList(list);
+                    adapter.notifyDataSetChanged();
+                }
             } catch (ResponseException e) {
                 e.printStackTrace();
                 T.show(e.getMessage());
@@ -169,6 +195,7 @@ public class PublishedProjectStatusFragment extends BaseFragment {
         @Override
         public void onFinish() {
             super.onFinish();
+            ptr.onRefreshComplete();
         }
     };
 
@@ -178,7 +205,10 @@ public class PublishedProjectStatusFragment extends BaseFragment {
             currentPage++;
             try {
                 List<ReleaseProject> list = DataParseUtil.projectStatus(response);
-
+                if (adapter != null && list != null && list.size() > 0) {
+                    adapter.getList().addAll(list);
+                    adapter.notifyDataSetChanged();
+                }
             } catch (ResponseException e) {
                 e.printStackTrace();
                 T.show(e.getMessage());
@@ -188,6 +218,7 @@ public class PublishedProjectStatusFragment extends BaseFragment {
         @Override
         public void onFinish() {
             super.onFinish();
+            ptr.onRefreshComplete();
         }
     };
 }

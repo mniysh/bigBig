@@ -41,7 +41,6 @@ import com.ms.ebangw.utils.L;
 import com.ms.ebangw.utils.T;
 import com.umeng.update.UmengUpdateAgent;
 
-import org.apache.http.Header;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -52,6 +51,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import cn.jpush.android.api.JPushInterface;
 import cn.jpush.android.api.TagAliasCallback;
+import cz.msebera.android.httpclient.Header;
 import de.greenrobot.event.EventBus;
 
 /**
@@ -128,9 +128,12 @@ public class HomeActivity extends BaseActivity {
 
     @Override
     public void initData() {
+
         loadUserInformation();
         foundFragment = new FoundFragment();
         serviceFragment = new ServiceFragment();
+        User user = getUser();
+        final String categroy = user.getCategory();
 
         releaseWorkTypeFragment = new ReleaseWorkTypeFragment();
 
@@ -147,7 +150,8 @@ public class HomeActivity extends BaseActivity {
 //                        fm.beginTransaction().replace(R.id.fl_content, workerHomeFragment).commit();
                         break;
                     case R.id.rb_release:
-                        fm.beginTransaction().replace(R.id.fl_content, new SelectCraftFragment()).commit();
+                        fm.beginTransaction().replace(R.id.fl_content, new SelectCraftFragment().newInstance(categroy, "")).commit();
+//                        fm.beginTransaction().replace(R.id.fl_content, new SelectCraftFragment()).commit();
 //                        fm.beginTransaction().replace(R.id.fl_content, eMallFragment).commit();
                         break;
                     case R.id.rb_service:
@@ -269,9 +273,9 @@ public class HomeActivity extends BaseActivity {
     /**
      * 去开发商发布页面
      */
-    public void goDeveloperRelease(String staff) {
+    public void goDeveloperRelease(String staff, String cate) {
 
-        IncreaseDetailFragment increaseDetailFragment = IncreaseDetailFragment.newInstance(staff, "");
+        IncreaseDetailFragment increaseDetailFragment = IncreaseDetailFragment.newInstance(staff, cate);
         FragmentTransaction transaction = fm.beginTransaction();
         transaction.replace(R.id.fl_content, increaseDetailFragment);
         transaction.addToBackStack(null);
@@ -422,6 +426,8 @@ public class HomeActivity extends BaseActivity {
         DataAccessUtil.userInformation(new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+
+
                 try {
                     User user = DataParseUtil.userInformation(response);
                     if (null != user) {

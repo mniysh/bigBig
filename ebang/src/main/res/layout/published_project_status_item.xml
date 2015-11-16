@@ -3,6 +3,7 @@
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
               android:background="@color/white"
+              android:gravity="center_vertical"
               android:orientation="horizontal">
 
     <ImageView
@@ -40,6 +41,7 @@
                 android:layout_marginRight="10dp"
                 android:singleLine="true"
                 android:text="1.4公里"
+                android:visibility="gone"
                 android:textColor="#FFC069"/>
         </LinearLayout>
 
@@ -79,7 +81,7 @@
                 />
 
             <TextView
-                android:id="@+id/tv_grab"
+                android:id="@+id/tv_evaluate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
@@ -87,7 +89,7 @@
                 android:background="@drawable/bk_but_qiangdan"
                 android:layout_centerVertical="true"
                 android:gravity="center"
-                android:text="抢单"
+                android:text="评论"
                 android:textSize="14sp"
                 android:paddingTop="5dp"
                 android:paddingBottom="5dp"

@@ -73,7 +73,10 @@ public class MyLocationListener implements BDLocationListener {
         sb.append("\nlocationdescribe : ");// 位置语义化信息
         sb.append(location.getLocationDescribe());
 
-        L.d("LocationApplication", location.getLocationDescribe());
+        String locationDescribe = location.getLocationDescribe();
+        if (!TextUtils.isEmpty(locationDescribe)) {
+            L.d("LocationApplication", locationDescribe);
+        }
 
         if (!TextUtils.isEmpty(location.getLocationDescribe())) {
             MyApplication.getInstance().setmLocation(location.getLocationDescribe());

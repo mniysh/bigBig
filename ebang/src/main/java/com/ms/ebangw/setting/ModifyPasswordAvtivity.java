@@ -17,13 +17,13 @@ import com.ms.ebangw.utils.L;
 import com.ms.ebangw.utils.T;
 import com.ms.ebangw.utils.VerifyUtils;
 
-import org.apache.http.Header;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import cz.msebera.android.httpclient.Header;
 
 public class ModifyPasswordAvtivity extends BaseActivity {
     private String sOldpass,sNewPsaa,sAgainPass;
@@ -66,6 +66,7 @@ public class ModifyPasswordAvtivity extends BaseActivity {
                 DataAccessUtil.changePwd(user.getPhone(),sOldpass,sNewPsaa,new JsonHttpResponseHandler(){
                     @Override
                     public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+
                         super.onSuccess(statusCode, headers, response);
                         L.d("xxx","nengbuneng");
                         try {

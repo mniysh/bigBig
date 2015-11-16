@@ -7,22 +7,15 @@ import android.app.Fragment;
 import android.app.FragmentManager;
 import android.os.Build;
 import android.os.Bundle;
-
-
-
-
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
-
 import com.loopj.android.http.JsonHttpResponseHandler;
-import com.ms.ebangw.MyApplication;
 import com.ms.ebangw.R;
 import com.ms.ebangw.activity.HomeActivity;
 import com.ms.ebangw.adapter.ServiceCraftAdapter;
@@ -33,21 +26,15 @@ import com.ms.ebangw.service.DataAccessUtil;
 import com.ms.ebangw.service.DataParseUtil;
 import com.ms.ebangw.utils.L;
 import com.ms.ebangw.utils.T;
-import com.ms.ebangw.utils.Utility;
-import com.ms.ebangw.view.XListView;
 
-import org.apache.http.Header;
 import org.json.JSONObject;
 
 import java.lang.reflect.Field;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.zip.CheckedInputStream;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
-import butterknife.OnCheckedChanged;
-import butterknife.OnClick;
+import cz.msebera.android.httpclient.Header;
 
 /**
  * 主页的服务页面的一级页面
@@ -137,6 +124,7 @@ public class ServiceFragment extends BaseFragment {
 
     @Override
     public void initView() {
+
         initTitle(null, null, "服务", null, null);
         getAllWorkType();
 //        serviceBuildFragment=new ServiceBuildFragment();
@@ -213,7 +201,12 @@ public class ServiceFragment extends BaseFragment {
                 public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                     super.onSuccess(statusCode, headers, response);
                     try {
+
                         craft = DataParseUtil.publishCraft(response);
+                        if(craft == null){
+
+                        }
+
 //                        MyApplication.getInstance().setCraft(craft);
                         serviceCraftAdapter = new ServiceCraftAdapter(craft.getBuilding(), (HomeActivity)mActivity);
                         listView.setAdapter(serviceCraftAdapter);

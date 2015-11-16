@@ -22,19 +22,17 @@ import com.ms.ebangw.utils.L;
 import com.ms.ebangw.utils.T;
 import com.ms.ebangw.view.CropImageView;
 
-import org.apache.http.Header;
 import org.json.JSONObject;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import cz.msebera.android.httpclient.Header;
 
 /**
  * User: WangKai(123940232@qq.com)
@@ -159,6 +157,8 @@ public class CropImageActivity extends BaseActivity {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                 super.onSuccess(statusCode, headers, response);
+
+
                 try {
                     UploadImageResult imageResult = DataParseUtil.upLoadImage(response);
                     String name = imageResult.getName();
@@ -197,6 +197,7 @@ public class CropImageActivity extends BaseActivity {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                 super.onSuccess(statusCode, headers, response);
+
                 try {
                     UploadImageResult imageResult = DataParseUtil.upLoadImage(response);
                     String name = imageResult.getName();
@@ -239,6 +240,7 @@ public class CropImageActivity extends BaseActivity {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                 super.onSuccess(statusCode, headers, response);
+
                 try {
                     UploadImageResult imageResult = DataParseUtil.upLoadImage(response);
 //                    L.locationpois_item(imageResult.toString());

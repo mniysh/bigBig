@@ -15,13 +15,13 @@ import com.ms.ebangw.service.DataParseUtil;
 import com.ms.ebangw.utils.L;
 import com.ms.ebangw.utils.T;
 
-import org.apache.http.Header;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import cz.msebera.android.httpclient.Header;
 
 /**
  * 修改昵称页面
@@ -47,6 +47,7 @@ public class ModifyNickNameActivity extends BaseActivity {
                 @Override
                 public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                     super.onSuccess(statusCode, headers, response);
+
                     try {
                         if(DataParseUtil.modifyName(response)){
                             try {

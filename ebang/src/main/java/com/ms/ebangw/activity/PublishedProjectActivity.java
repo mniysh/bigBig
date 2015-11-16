@@ -1,11 +1,17 @@
 package com.ms.ebangw.activity;
 
+import android.app.Fragment;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
 import com.ms.ebangw.R;
+import com.ms.ebangw.adapter.ProjectStatusPagerAdapter;
+import com.ms.ebangw.fragment.PublishedProjectStatusFragment;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -18,16 +24,16 @@ import butterknife.ButterKnife;
 public class PublishedProjectActivity extends BaseActivity {
 
 
-    @Bind(R.id.btn_waitting_pass)
-    RadioButton btnWaittingPass;
-    @Bind(R.id.rb_underway)
-    RadioButton rbUnderway;
-    @Bind(R.id.btn_finished)
-    RadioButton btnFinished;
-    @Bind(R.id.radioGroup)
-    RadioGroup radioGroup;
     @Bind(R.id.viewPager)
     ViewPager viewPager;
+    @Bind(R.id.btn_waiting)
+    RadioButton btnWaiting;
+    @Bind(R.id.rb_execute)
+    RadioButton rbExecute;
+    @Bind(R.id.btn_complete)
+    RadioButton btnComplete;
+    @Bind(R.id.radioGroup)
+    RadioGroup radioGroup;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,17 +42,55 @@ public class PublishedProjectActivity extends BaseActivity {
         ButterKnife.bind(this);
         initView();
         initData();
-        setDefaultKeyMode(DEFAULT_KEYS_DIALER);
     }
 
     @Override
     public void initView() {
         initTitle(null, "返回", "已发布", null, null);
+
+        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                switch (checkedId) {
+                    case R.id.btn_waiting:
+                        viewPager.setCurrentItem(0);
+                        break;
+
+                    case R.id.rb_execute:
+                        viewPager.setCurrentItem(1);
+                        break;
+
+                    case R.id.btn_complete:
+                        viewPager.setCurrentItem(2);
+                        break;
+
+
+                }
+            }
+        });
     }
 
     @Override
     public void initData() {
+        PublishedProjectStatusFragment waitingFragment = PublishedProjectStatusFragment.newInstance(PublishedProjectStatusFragment.WAITTING);
+        PublishedProjectStatusFragment executeFragment = PublishedProjectStatusFragment.newInstance(PublishedProjectStatusFragment.EXECUTE);
+        PublishedProjectStatusFragment completeFragment = PublishedProjectStatusFragment.newInstance(PublishedProjectStatusFragment.COMPLETE);
 
+        List<Fragment> list = new ArrayList<>();
+        list.add(waitingFragment);
+        list.add(executeFragment);
+        list.add(completeFragment);
+
+        ProjectStatusPagerAdapter adapter = new ProjectStatusPagerAdapter(getFragmentManager(), list);
+        viewPager.setAdapter(adapter);
+        viewPager.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener(){
+            @Override
+            public void onPageSelected(int position) {
+                RadioButton radioButton = (RadioButton) radioGroup.getChildAt(position);
+                radioButton.toggle();
+            }
+        });
+        btnWaiting.toggle();
     }
 
 }
