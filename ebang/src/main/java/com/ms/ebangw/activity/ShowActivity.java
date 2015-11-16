@@ -2,123 +2,208 @@ package com.ms.ebangw.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 
+import com.loopj.android.http.JsonHttpResponseHandler;
 import com.ms.ebangw.R;
 import com.ms.ebangw.adapter.ProjectItemdetailAdapter;
 import com.ms.ebangw.bean.ProjectInfoDetail;
+import com.ms.ebangw.bean.ReleaseProject;
+import com.ms.ebangw.bean.Staff;
+import com.ms.ebangw.commons.Constants;
+import com.ms.ebangw.exception.ResponseException;
+import com.ms.ebangw.service.DataAccessUtil;
+import com.ms.ebangw.service.DataParseUtil;
 import com.ms.ebangw.utils.L;
+import com.ms.ebangw.utils.T;
+import com.squareup.picasso.Picasso;
 
-import java.util.ArrayList;
+import org.apache.http.Header;
+import org.json.JSONObject;
 
+import java.util.List;
+
+import butterknife.Bind;
 import butterknife.ButterKnife;
 
 /**
  * 企业的展示页面
  * 现在布局还有最底面的列表，打算用listview来实现
- * @author admin xupeng
  *
+ * @author admin xupeng
  */
 public class ShowActivity extends BaseActivity implements OnClickListener {
-//	private ListView lTable;
-//	private ShowTableAdapter adapter;
-//	private List<String[]> datas;
-//	private String[] str1={"张三","时间","状态"};
-//	private String[] str2={"李四","时间","状态"};
-//	private String[] str3={"王五","时间","状态"};
 
-	private Button bQiangdan;
-	private ListView showListView;
-	private ProjectItemdetailAdapter detailAdapter;
+    Button bQiangdan;
+    @Bind(R.id.show_list)
+    ListView showListView;
+    ProjectItemdetailAdapter detailAdapter;
+    @Bind(R.id.tv_title)
+    TextView tTitle;
+    @Bind(R.id.tv_address)
+    TextView tAddress;
+    @Bind(R.id.tv_start_time)
+    TextView tStartTime;
+    @Bind(R.id.tv_end_time)
+    TextView tEndTime;
+    @Bind(R.id.tv_description)
+    TextView tDescription;
+    @Bind(R.id.tv_link_phone)
+    TextView tLinkPhone;
+    @Bind(R.id.tv_link_man)
+    TextView tLinkman;
+    @Bind(R.id.iv_one)
+    ImageView iOneImg;
+    @Bind(R.id.iv_two)
+    ImageView iTwoImg;
+//    @Bind(R.id.ll_below_show)
+//    LinearLayout lBelowShow;
+    String imageUrl;
 
-
-	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		// TODO Auto-generated method stub
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.act_show);
-		ButterKnife.bind(this);
-		initView();
-		initViewOper();
-
-
-	}
-
-	private void initViewOper() {
-//		datas=new ArrayList<String[]>();
-//		datas.add(str1);
-//		datas.add(str2);
-//		datas.add(str3);
-//		adapter=new ShowTableAdapter(this,datas);
-//		lTable.setAdapter(adapter);
-//		setListView(lTable);
-		detailAdapter = new ProjectItemdetailAdapter(new ArrayList<ProjectInfoDetail>());
-		showListView.setAdapter(detailAdapter);
-		setListView(showListView);
-		bQiangdan.setOnClickListener(this);
-
-		initTitle(new OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				ShowActivity.this.finish();
-			}
-		},"返回","企业信息",null,null);
-
-	}
+    private ReleaseProject releaseProject;
+    String projectId;
 
 
-	public void initView() {
-//		 lTable= (ListView) findViewById(R.id.act_show_listview);
-		showListView = (ListView)findViewById(R.id.show_list);
-		bQiangdan= (Button) findViewById(R.id.act_show_qiangdan);
-	}
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        // TODO Auto-generated method stub
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.act_show);
+        ButterKnife.bind(this);
+        Intent intent = getIntent();
+        releaseProject = intent.getExtras().getParcelable(Constants.KEY_RELEASED_PROJECT_STR);
+        if (releaseProject != null) {
+            projectId = releaseProject.getId();
+        }
+        initView();
+        initViewOper();
+        initData();
+    }
 
-	@Override
-	public void initData() {
+    private void initViewOper() {
+        bQiangdan.setOnClickListener(this);
 
+        initTitle(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ShowActivity.this.finish();
+            }
+        }, "返回", "企业信息", null, null);
 
-	}
-
-	//重写listview的高度
-	private void setListView(ListView listview2) {
-		// TODO Auto-generated method stub
-		ListAdapter listadapter=listview2.getAdapter();
-		if(listadapter==null){
-			return;
-
-		}
-
-		int aHeight=0;
-		for (int i = 0; i < listadapter.getCount(); i++) {
-			View listItem = listadapter.getView(i, null, listview2);
-			listItem.measure(0, 0);
-			aHeight += listItem.getMeasuredHeight();
-		}
-
-		ViewGroup.LayoutParams params=listview2.getLayoutParams();
-		params.height=aHeight+listview2.getDividerHeight()*(listadapter.getCount()-1);
-		listview2.setLayoutParams(params);
-	}
-
-	@Override
-	public void onClick(View v) {
-		switch(v.getId()){
-
-			//点击立刻抢单跳转
-			case R.id.act_show_qiangdan:
-				L.d("xxx", "跳转能不能进来");
-				startActivity(new Intent(this,QiangDanActivity.class));
-
-				break;
+    }
 
 
-			default:
-				break;
-		}
-	}
+    public void initView() {
+        bQiangdan = (Button) findViewById(R.id.act_show_qiangdan);
+    }
+
+    @Override
+    public void initData() {
+        load();
+    }
+
+    private void load() {
+        DataAccessUtil.projectInfoDetail(projectId, new JsonHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                try {
+                    ProjectInfoDetail detail = DataParseUtil.projectInfoDetail(response);
+                    if (null != detail) {
+
+                        tTitle.setText(detail.getTitle());
+                        tAddress.setText(detail.getAddress());
+                        tDescription.setText(detail.getDescription());
+                        tEndTime.setText(detail.getEnd_time());
+                        tStartTime.setText(detail.getStart_time());
+                        tLinkman.setText(detail.getLink_man());
+                        tLinkPhone.setText(detail.getLink_phone());
+                        imageUrl = detail.getImages().get(0);
+//                        iOneImg.setImageURI(detail.getImages());
+                        if (!TextUtils.isEmpty(imageUrl)) {
+                            Picasso.with(ShowActivity.this).load(DataAccessUtil.getImageUrl(imageUrl)).placeholder(R.drawable.head).into(iOneImg);
+//                            Picasso.with(ShowActivity.this).load(DataAccessUtil.getImageUrl(imageUrl)).placeholder(R.drawable.head).into(iTwoImg);
+                        } else {
+                            iOneImg.setImageResource(R.drawable.head);
+//                            iTwoImg.setImageResource(R.drawable.head);
+                        }
+                        List<Staff> staffs = detail.getStaffs();
+                        if (null != staffs && staffs.size() > 0) {
+                            detailAdapter = new ProjectItemdetailAdapter(staffs);
+                            showListView.setAdapter(detailAdapter);
+                            setListView(showListView);
+                            detailAdapter.setOnGrabClickListener(new ProjectItemdetailAdapter.OnGrabClickListener() {
+                                @Override
+                                public void onGrabClick(View view, Staff staff) {
+                                    Intent intent = new Intent(ShowActivity.this, RecommendedWorksActivity.class);
+                                    Bundle bundle = new Bundle();
+                                    bundle.putParcelable(Constants.KEY_RELEASED_PROJECT_STR, releaseProject);
+                                    intent.putExtras(bundle);
+                                    startActivity(intent);
+                                }
+                            });
+                        }
+                    }
+                } catch (ResponseException e) {
+                    e.printStackTrace();
+                    T.show(e.getMessage());
+                }
+            }
+
+            @Override
+            public void onFinish() {
+                super.onFinish();
+                dismissLoadingDialog();
+            }
+        });
+
+    }
+
+
+    //重写listview的高度
+    private void setListView(ListView listview2) {
+        // TODO Auto-generated method stub
+        ListAdapter listadapter = listview2.getAdapter();
+        if (listadapter == null) {
+            return;
+
+        }
+
+        int aHeight = 0;
+        for (int i = 0; i < listadapter.getCount(); i++) {
+            View listItem = listadapter.getView(i, null, listview2);
+            listItem.measure(0, 0);
+            aHeight += listItem.getMeasuredHeight();
+        }
+
+        ViewGroup.LayoutParams params = listview2.getLayoutParams();
+        params.height = aHeight + listview2.getDividerHeight() * (listadapter.getCount() - 1);
+        listview2.setLayoutParams(params);
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+
+            //点击立刻抢单跳转
+            case R.id.act_show_qiangdan:
+                L.d("xxx", "跳转能不能进来");
+                startActivity(new Intent(this, QiangDanActivity.class));
+
+                break;
+//            case R.id.ll_below_show:
+//                startActivity(new Intent(this,RecommendedWorksActivity.class));
+            default:
+                break;
+        }
+    }
 }

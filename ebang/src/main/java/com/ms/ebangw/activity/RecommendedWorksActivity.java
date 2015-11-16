@@ -166,7 +166,6 @@ public class RecommendedWorksActivity extends BaseActivity {
             }
         });
 
-
     }
 
 }
