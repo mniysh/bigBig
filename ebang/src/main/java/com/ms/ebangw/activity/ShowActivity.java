@@ -139,6 +139,9 @@ public class ShowActivity extends BaseActivity implements OnClickListener {
                             detailAdapter = new ProjectItemdetailAdapter(staffs);
                             showListView.setAdapter(detailAdapter);
                             setListView(showListView);
+//                            showListView.getAdapter().getItem(showListView.getAdapter().getCount()-1).toString();
+//                            String str = showListView.getSelectedItem();
+
                             detailAdapter.setOnGrabClickListener(new ProjectItemdetailAdapter.OnGrabClickListener() {
                                 @Override
                                 public void onGrabClick(View view, Staff staff) {
@@ -149,6 +152,7 @@ public class ShowActivity extends BaseActivity implements OnClickListener {
                                     startActivity(intent);
                                 }
                             });
+
                         }
                     }
                 } catch (ResponseException e) {
