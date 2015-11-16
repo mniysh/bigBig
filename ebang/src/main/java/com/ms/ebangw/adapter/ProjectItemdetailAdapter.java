@@ -83,7 +83,7 @@ public class ProjectItemdetailAdapter extends BaseAdapter {
         holder.tvCraftName.setText(craft_name);
         holder.tvStartTime.setText(start_time);
         holder.tvEndTime.setText(end_time);
-//        holder.tHead.setText(list.get(position).toString()+1);
+        holder.tHead.setText((position+1)+"");
         holder.tHead.setTag(position);
 
         holder.tvXuanRen.setOnClickListener(new View.OnClickListener() {

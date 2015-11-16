@@ -11,6 +11,11 @@
         android:layout_width="20dp"
         android:layout_height="20dp"
         android:layout_gravity="center"
+        android:text="1"
+        android:gravity="center"
+        android:textColor="#fff"
+        android:background="@drawable/itemline"
+        android:layout_marginLeft="10dp"
         />
 
 
@@ -136,7 +141,6 @@
         android:text="选工友"
         android:textColor="#fff"
         android:layout_marginLeft="5dp"
-
         android:background="@drawable/bk_but"
         />
     <!--android:visibility="visible"-->

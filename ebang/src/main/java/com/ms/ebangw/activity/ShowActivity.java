@@ -125,7 +125,9 @@ public class ShowActivity extends BaseActivity implements OnClickListener {
                         tStartTime.setText(detail.getStart_time());
                         tLinkman.setText(detail.getLink_man());
                         tLinkPhone.setText(detail.getLink_phone());
+                        if (detail.getImages()!=null){
                         imageUrl = detail.getImages().get(0);
+                        }
 //                        iOneImg.setImageURI(detail.getImages());
                         if (!TextUtils.isEmpty(imageUrl)) {
                             Picasso.with(ShowActivity.this).load(DataAccessUtil.getImageUrl(imageUrl)).placeholder(R.drawable.head).into(iOneImg);
@@ -140,7 +142,7 @@ public class ShowActivity extends BaseActivity implements OnClickListener {
                             showListView.setAdapter(detailAdapter);
                             setListView(showListView);
 //                            showListView.getAdapter().getItem(showListView.getAdapter().getCount()-1).toString();
-//                            String str = showListView.getSelectedItem();
+
 
                             detailAdapter.setOnGrabClickListener(new ProjectItemdetailAdapter.OnGrabClickListener() {
                                 @Override
@@ -202,8 +204,6 @@ public class ShowActivity extends BaseActivity implements OnClickListener {
                 startActivity(new Intent(this, QiangDanActivity.class));
 
                 break;
-//            case R.id.ll_below_show:
-//                startActivity(new Intent(this,RecommendedWorksActivity.class));
             default:
                 break;
         }
