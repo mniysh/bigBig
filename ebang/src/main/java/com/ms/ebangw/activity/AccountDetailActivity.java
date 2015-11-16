@@ -91,7 +91,9 @@ public class AccountDetailActivity extends BaseActivity {
             @Override
             public void onFinish() {
                 super.onFinish();
-                ptr.onRefreshComplete();
+                if (null != ptr) {
+                    ptr.onRefreshComplete();
+                }
             }
         });
     }

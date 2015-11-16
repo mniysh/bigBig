@@ -290,32 +290,5 @@ public abstract class BaseFragment extends Fragment {
         return  null;
 
     }
-//    public void logout(Activity activity){
-//        DataAccessUtil.exit(new JsonHttpResponseHandler() {
-//            @Override
-//            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-//                super.onSuccess(statusCode, headers, response);
-//                try {
-//                    boolean b = DataParseUtil.exit(response);
-//
-//                } catch (ResponseException e) {
-//                    e.printStackTrace();
-//                    T.show(e.getMessage());
-//                }
-//            }
-//
-//            @Override
-//            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
-//                super.onFailure(statusCode, headers, responseString, throwable);
-//                L.d(responseString);
-//            }
-//        });
-//        UserDao userDao = new UserDao(activity);
-//        userDao.removeAll();
-//        MyApplication.getInstance().quit();
-//        startActivity(new Intent(activity, LoginActivity.class));
-//        activity.setResult(Constants.REQUEST_EXIT);
-//        activity.finish();
-//    }
 
 }
