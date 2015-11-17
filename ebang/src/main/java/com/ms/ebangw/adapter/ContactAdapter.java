@@ -53,7 +53,7 @@ public class ContactAdapter extends BaseAdapter {
         ViewHolder holder;
         if (convertView == null) {
             holder = new ViewHolder();
-            convertView = View.inflate(parent.getContext(), R.layout.recommend_worker_item, null);
+            convertView = View.inflate(parent.getContext(), R.layout.invite_friend_item, null);
             holder.tv_py = (TextView) convertView.findViewById(R.id.tv_py);
             holder.tv_name = (TextView) convertView.findViewById(R.id.tv_name);
             holder.tv_phone = (TextView) convertView.findViewById(R.id.tv_craft_desc);
@@ -91,30 +91,6 @@ public class ContactAdapter extends BaseAdapter {
 
         return convertView;
 
-//        ContactInfo cb = list.get(position);
-//		String name = cb.getDisplayName();
-//		String number = cb.getPhoneNum();
-//		holder.name.setText(name);
-//		holder.number.setText(number);
-//		holder.qcb.assignContactUri(Contacts.getLookupUri(cb.getContactId(), cb.getLookUpKey()));
-//		if(0 == cb.getPhotoId()){
-//			holder.qcb.setImageResource(R.drawable.touxiang);
-//		}else{
-//			Uri uri = ContentUris.withAppendedId(ContactsContract.Contacts.CONTENT_URI, cb.getContactId());
-//			InputStream input = ContactsContract.Contacts.openContactPhotoInputStream(ctx.getContentResolver(), uri);
-//			Bitmap contactPhoto = BitmapFactory.decodeStream(input);
-//			holder.qcb.setImageBitmap(contactPhoto);
-//		}
-//		String currentStr = getAlpha(cb.getSortKey());
-//		String previewStr = (position - 1) >= 0 ? getAlpha(list.get(position - 1).getSortKey()) : " ";
-//
-//		if (!previewStr.equals(currentStr)) {
-//			holder.alpha.setVisibility(View.VISIBLE);
-//			holder.alpha.setText(currentStr);
-//		} else {
-//			holder.alpha.setVisibility(View.GONE);
-//		}
-//		return convertView;
     }
 
     private Bitmap getHeadBmp(Context context, long contactId) {

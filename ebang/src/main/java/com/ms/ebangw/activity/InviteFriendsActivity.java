@@ -5,7 +5,9 @@ import android.content.ContentResolver;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.provider.ContactsContract;
+import android.view.View;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -20,9 +22,10 @@ import java.util.List;
 import java.util.Map;
 
 import butterknife.Bind;
+import butterknife.ButterKnife;
 
 public class InviteFriendsActivity extends BaseActivity {
-
+    private Handler handler;
     @Bind(R.id.listView)
     ListView listView;
     @Bind(R.id.slideBar)
@@ -38,6 +41,7 @@ public class InviteFriendsActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_invite_friends);
+        ButterKnife.bind(this);
         initView();
         initData();
     }
@@ -45,11 +49,42 @@ public class InviteFriendsActivity extends BaseActivity {
     @Override
     public void initView() {
         initTitle(null, "返回", "邀请好友", null, null);
+        slideBar.setOnSlideTouchListener(new QuickindexBar.OnSlideTouchListener() {
+
+            @Override
+            public void onBack(String str) {
+                showZimu(str);
+                if (list != null && list.size() > 0) {
+                    int size = list.size();
+                    for (int i = 0; i < size; i++) {
+                        if (list.get(i).getPinyin().substring(0, 1).equals(str)) {
+                            listView.setSelection(i);
+                            break;
+                        }
+                    }
+                }
+            }
+        });
+    }
+
+    // 显示在屏幕中间的字母
+    private void showZimu(String string) {
+
+        tvZimu.setVisibility(View.VISIBLE);
+        tvZimu.setText(string);
+        handler.removeCallbacksAndMessages(null);
+        handler.postDelayed(new Runnable() {
+
+            @Override
+            public void run() {
+                tvZimu.setVisibility(View.GONE);
+            }
+        }, 1500);
     }
 
     @Override
     public void initData() {
-
+        handler = new Handler();
         Uri uri = ContactsContract.CommonDataKinds.Phone.CONTENT_URI; // 联系人的Uri
         String[] projection = {
             ContactsContract.CommonDataKinds.Phone._ID,
@@ -67,31 +102,6 @@ public class InviteFriendsActivity extends BaseActivity {
             "sort_key COLLATE LOCALIZED asc"); // 按照sort_key升序查询
 
     }
-
-    private List<ContactInfo> getContactInfos() {
-
-        List<ContactInfo> list = new ArrayList<>();
-        Cursor cursor = getContentResolver().query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI, null,
-            null, null, null);
-
-        String phoneNumber;
-        String phoneName;
-        ContactInfo info;
-        while (cursor.moveToNext()) {
-            info = new ContactInfo();
-            String name = cursor.getString(cursor.getColumnIndex(ContactsContract.CommonDataKinds
-                .Phone.DISPLAY_NAME));
-
-            String number = cursor.getString(cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
-
-
-        }
-
-        return null;
-    }
-
-
-
 
         /**
          * 数据库异步查询类AsyncQueryHandler

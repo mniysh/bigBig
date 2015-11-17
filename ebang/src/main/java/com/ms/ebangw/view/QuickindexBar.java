@@ -94,7 +94,7 @@ public class QuickindexBar extends View {
 				float f = event.getY();
 				int index = (int) (f / cellHeigth);
 				if (index >= 0 && index < strs.length) {
-					if (touchIndex != index) {
+					if (touchIndex != index && null != listener) {
 						System.out.println(strs[index]);
 						listener.onBack(strs[index]);
 						touchIndex = index;

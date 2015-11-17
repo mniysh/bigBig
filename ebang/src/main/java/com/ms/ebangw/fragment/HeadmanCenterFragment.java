@@ -20,6 +20,7 @@ import android.widget.TextView;
 import com.ms.ebangw.R;
 import com.ms.ebangw.activity.AccountActivity;
 import com.ms.ebangw.activity.EvaluateListActivity;
+import com.ms.ebangw.activity.InviteFriendsActivity;
 import com.ms.ebangw.activity.JiFenActivity;
 import com.ms.ebangw.activity.PublishedProjectActivity;
 import com.ms.ebangw.activity.RecommendedWorksActivity;
@@ -147,6 +148,14 @@ public class HeadmanCenterFragment extends BaseFragment {
                 startActivity(intent);
             }
         });
+
+        tvInviteFriend.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(mActivity, InviteFriendsActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     @Override
@@ -184,7 +193,7 @@ public class HeadmanCenterFragment extends BaseFragment {
         tvEvaluate.setVisibility(View.GONE);
         tvJifen.setVisibility(View.GONE);
         tvPeopleManage.setVisibility(View.GONE);
-        tvInviteFriend.setVisibility(View.GONE);
+//        tvInviteFriend.setVisibility(View.GONE);
         eweimaLayout.setVisibility(View.VISIBLE);
 
         initInviteQR();
