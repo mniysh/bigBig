@@ -162,6 +162,7 @@ public class IncreaseDetailFragment extends BaseFragment {
     private String categroy;
     private static  final String KEY_CATEGROY = "key_categroy";
     private ArrayList<Bitmap> dataBit ;
+    private ArrayList<String> dataFilePath;
 
 
 
@@ -242,9 +243,8 @@ public class IncreaseDetailFragment extends BaseFragment {
         if (null != savedInstanceState) {
             mCurrentPhotoPath = savedInstanceState.getString(Constants.KEY_CURRENT_IMAGE_PATH);
             releaseInfo = savedInstanceState.getParcelable(Constants.KEY_RELEASE_INFO);
-            imageNames = savedInstanceState.getStringArrayList(Constants.KEY_PROJECT_IMAGES);
-            dataUrl = savedInstanceState.getStringArrayList(Constants.KEY_PROJECT_IMAGE_URL);
-            dataBit = savedInstanceState.getParcelableArrayList("ceshi");
+            dataFilePath = savedInstanceState.getStringArrayList("duang");
+
             if(dataUrl != null){
                 T.show("长度是"+dataUrl.size());
             }
@@ -414,9 +414,16 @@ public class IncreaseDetailFragment extends BaseFragment {
 
     @Override
     public void initView() {
-        imageNames = new ArrayList<String>();
-//        dataUrl = new ArrayList<String>();
-        dataBit = new ArrayList<Bitmap>();
+//        imageNames = new ArrayList<String>();
+////        dataUrl = new ArrayList<String>();
+//        if(dataBit == null){
+//
+//            dataBit = new ArrayList<Bitmap>();
+//        }
+        if(dataFilePath == null){
+
+            dataFilePath = new ArrayList<String>();
+        }
         setStartRed();
         startTimeTv.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
@@ -498,7 +505,6 @@ public class IncreaseDetailFragment extends BaseFragment {
             //照相上传
             Uri uri ;
             if(data == null){
-//                uri = Uri.fromFile(imageFile);
                 uri = Uri.fromFile(new File(mCurrentPhotoPath));
             }else{
                 uri = data.getData();
@@ -752,14 +758,14 @@ public class IncreaseDetailFragment extends BaseFragment {
         Bitmap bitmap = BitmapUtil.getImage(imagePath);
 
 
-        int size = dataBit.size();
+        int size = dataFilePath.size();
         if (size == 3) {        //只有三张图片，如果大于三张，删除第一张
-            dataBit.remove(0);
+            dataFilePath.remove(0);
         }
-            dataBit.add(bitmap);
-        if(dataBit != null){
-            for (int i = 0; i <dataBit.size() ; i++) {
-                picList.get(i).setImageBitmap(dataBit.get(i));
+        dataFilePath.add(imagePath);
+        if(dataFilePath != null){
+            for (int i = 0; i <dataFilePath.size() ; i++) {
+                picList.get(i).setImageBitmap(BitmapUtil.getImage(dataFilePath.get(i)));
             }
         }
 
@@ -769,10 +775,15 @@ public class IncreaseDetailFragment extends BaseFragment {
     public void onSaveInstanceState(Bundle outState) {
         outState.putString(Constants.KEY_CURRENT_IMAGE_PATH, mCurrentPhotoPath);
         outState.putParcelable(Constants.KEY_RELEASE_INFO, releaseInfo);
-        outState.putStringArrayList(Constants.KEY_PROJECT_IMAGES, imageNames);
-        outState.putStringArrayList(Constants.KEY_PROJECT_IMAGE_URL, dataUrl);
-        T.show("保存长度"+dataBit.size());
-        outState.putParcelableArrayList("ceshi", dataBit);
+        outState.putStringArrayList("duang",dataFilePath);
         super.onSaveInstanceState(outState);
+    }
+    /**
+     * 获得照片路径
+     *
+     * @return
+     */
+    private String getPhotoPath() {
+        return Environment.getExternalStorageDirectory() + "/DCIM/";
     }
 }
