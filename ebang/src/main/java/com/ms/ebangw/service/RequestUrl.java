@@ -192,7 +192,12 @@ public class RequestUrl {
      */
     public static final String founds = domain + "/api/index/index/founds";
 
-     /**
+    /**
+     * 2-25.抢单 待审核（开发商）
+     */
+    public static final String grab_headman_audit = domain + "/api/developers/project/waiting-audit";
+
+    /**
      *2-18.抢单 待通过（工头）  get
      */
     public static final String grab_headman_waiting = domain + "/api/headman/project/single-waiting";
@@ -228,6 +233,8 @@ public class RequestUrl {
      *
      */
     public static final String account = domain + "/api/user/trade/dill";
+
+
 
     /**
      * 1-14、积分列表
