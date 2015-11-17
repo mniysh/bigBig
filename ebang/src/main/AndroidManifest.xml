@@ -339,7 +339,7 @@
         </activity>
         <activity android:name=".activity.PublishedProjectActivity">
         </activity>
-        <activity android:name=".setting.FeelbackSettingActivity"/>
+        <activity android:name=".setting.FeedbackSettingActivity"/>
         <activity android:name=".activity.EvaluateActivity">
         </activity>
         <activity android:name=".activity.EvaluateListActivity">
@@ -348,7 +348,6 @@
         </activity>
         <activity android:name=".activity.AccountDetailActivity">
         </activity>
-        <activity android:name=".setting.FeelbackSettingActivity"/>
         <activity android:name=".setting.AboutActivity">
         </activity>
         <activity android:name=".activity.JiFenActivity">

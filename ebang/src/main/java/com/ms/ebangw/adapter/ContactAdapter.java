@@ -66,7 +66,7 @@ public class ContactAdapter extends BaseAdapter {
 
         ContactInfo info = list.get(position);
         String name = info.getDisplayName();
-        String phoneNum = info.getPhoneNum();
+        final String phoneNum = info.getPhoneNum();
         Uri lookupUri = Contacts.getLookupUri(info.getContactId(), info.getLookUpKey());
 
         String firstChar = null;
@@ -88,7 +88,14 @@ public class ContactAdapter extends BaseAdapter {
         holder.tv_name.setText(name);
         holder.tv_phone.setText(phoneNum);
         Picasso.with(parent.getContext()).load(lookupUri).placeholder(R.drawable.worker_avatar).into(holder.iv_avatar);
-
+        holder.tv_invite.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (onInviteListener != null) {
+                    onInviteListener.onInvite(phoneNum);
+                }
+            }
+        });
         return convertView;
 
     }
@@ -106,4 +113,17 @@ public class ContactAdapter extends BaseAdapter {
         ImageView iv_avatar;
     }
 
+    public interface OnInviteListener{
+        void onInvite(String phone);
+    }
+
+    private OnInviteListener onInviteListener;
+
+    public OnInviteListener getOnInviteListener() {
+        return onInviteListener;
+    }
+
+    public void setOnInviteListener(OnInviteListener onInviteListener) {
+        this.onInviteListener = onInviteListener;
+    }
 }

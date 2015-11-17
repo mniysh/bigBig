@@ -2,11 +2,13 @@ package com.ms.ebangw.activity;
 
 import android.content.AsyncQueryHandler;
 import android.content.ContentResolver;
+import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.provider.ContactsContract;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -80,6 +82,19 @@ public class InviteFriendsActivity extends BaseActivity {
                 tvZimu.setVisibility(View.GONE);
             }
         }, 1500);
+    }
+
+    public  void  invite(String smsBody, String phone){
+        Uri smsToUri = Uri.parse( "smsto:" );
+        Intent sendIntent =  new  Intent(Intent.ACTION_VIEW, smsToUri);
+        //sendIntent.putExtra("address", "123456"); // 电话号码，这行去掉的话，默认就没有电话
+        if (!TextUtils.isEmpty(phone)) {
+            sendIntent.putExtra("address", phone);
+        }
+        //短信内容
+        sendIntent.putExtra("sms_body", smsBody);
+        sendIntent.setType("vnd.android-dir/mms-sms");
+        startActivityForResult(sendIntent, 1002);
     }
 
     @Override
@@ -165,6 +180,12 @@ public class InviteFriendsActivity extends BaseActivity {
     private void setAdapter(List<ContactInfo> list) {
         if (null != list && list.size() > 0) {
             adapter = new ContactAdapter(list);
+            adapter.setOnInviteListener(new ContactAdapter.OnInviteListener() {
+                @Override
+                public void onInvite(String phone) {
+                    invite("", phone);
+                }
+            });
             listView.setAdapter(adapter);
         }
     }
