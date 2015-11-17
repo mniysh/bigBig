@@ -22,12 +22,21 @@
         >
 
         <RadioButton
+            android:id="@+id/btn_waiting_audit"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="待审核"
+            android:background="@drawable/segment_left_round_selector"
+            style="@style/RadioButton" />
+
+        <RadioButton
             android:id="@+id/btn_waiting"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="wrap_content"
             android:text="待通过"
-            android:background="@drawable/segment_left_round_selector"
+            android:background="@drawable/segment_middle_round_selector"
             style="@style/RadioButton" />
 
         <RadioButton

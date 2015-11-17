@@ -25,6 +25,15 @@
             >
 
             <TextView
+                android:id="@+id/tv_blish"
+                style="@style/user_center_item_ver"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/publish"
+                android:text="@string/publish"
+                />
+
+            <TextView
                 android:id="@+id/tv_grab"
                 style="@style/user_center_item_ver"
                 android:layout_width="match_parent"
