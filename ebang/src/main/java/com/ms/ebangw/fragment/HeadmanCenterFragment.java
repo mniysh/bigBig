@@ -24,6 +24,7 @@ import com.ms.ebangw.activity.JiFenActivity;
 import com.ms.ebangw.activity.PublishedProjectActivity;
 import com.ms.ebangw.activity.RecommendedWorksActivity;
 import com.ms.ebangw.bean.User;
+import com.ms.ebangw.utils.DensityUtils;
 import com.ms.ebangw.utils.QRCodeUtil;
 
 import java.io.File;
@@ -177,8 +178,15 @@ public class HeadmanCenterFragment extends BaseFragment {
      * 推荐人数不够时， 显示二维码
      */
     private void setNoEnoughWorkerView() {
-        llVerItems.setVisibility(View.GONE);
+        llVerItems.setVisibility(View.VISIBLE);
+        tvGrab.setVisibility(View.GONE);
+        tvTrade.setVisibility(View.GONE);
+        tvEvaluate.setVisibility(View.GONE);
+        tvJifen.setVisibility(View.GONE);
+        tvPeopleManage.setVisibility(View.GONE);
+        tvInviteFriend.setVisibility(View.GONE);
         eweimaLayout.setVisibility(View.VISIBLE);
+
         initInviteQR();
     }
 
@@ -186,7 +194,7 @@ public class HeadmanCenterFragment extends BaseFragment {
      * 初始化二维码图片
      */
     private void initInviteQR() {
-        eweimaLayout.setVisibility(View.VISIBLE);
+//        eweimaLayout.setVisibility(View.VISIBLE);
         String state = Environment.getExternalStorageState();
         if (state.equals(Environment.MEDIA_MOUNTED)) {
             File directory = Environment.getExternalStorageDirectory();
@@ -203,7 +211,10 @@ public class HeadmanCenterFragment extends BaseFragment {
                     int width = ivEweima.getWidth();
                     int height = ivEweima.getHeight();
                     Bitmap logoBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.ms_logo_144);
-                    boolean b = QRCodeUtil.createQRImage(getUser().getId(), width, height, logoBitmap, path);
+                    if (width <= 0) {
+                        width = DensityUtils.dp2px(mActivity, 200);
+                    }
+                    boolean b = QRCodeUtil.createQRImage(getUser().getId(), width, width, logoBitmap, path);
                     if (b) {
                         Bitmap bitmap = BitmapFactory.decodeFile(path);
                         ivEweima.setImageBitmap(bitmap);
