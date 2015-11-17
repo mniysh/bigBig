@@ -3,6 +3,7 @@ package com.ms.ebangw.activity;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -388,6 +389,11 @@ public class HomeActivity extends BaseActivity {
 //        radioGroup.getChildAt(4).performClick();
 
 
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
     }
 
     @Override

@@ -40,7 +40,15 @@ public class MyApplication extends Application {
     private BDLocation location;
     public LocationClient mLocationClient = null;
     private boolean flag_home;
+    private ArrayList<String> dataUrl;
 
+    public List<String> getDataUrl() {
+        return dataUrl;
+    }
+
+    public void setDataUrl(ArrayList<String> dataUrl) {
+        this.dataUrl = dataUrl;
+    }
 
     private String alias;
     private Set<String> tags;
@@ -80,6 +88,9 @@ public class MyApplication extends Application {
 //        SDKInitializer.initialize(getApplicationContext());
         initUMeng();
         initLocation();
+        if(dataUrl == null){
+            dataUrl = new ArrayList<String>();
+        }
 
         initJpush();
 

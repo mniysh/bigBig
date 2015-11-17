@@ -161,6 +161,7 @@ public class IncreaseDetailFragment extends BaseFragment {
     private int  startYear,  startMonth,  startDay, endYear, endMonth, endDay;
     private String categroy;
     private static  final String KEY_CATEGROY = "key_categroy";
+    private ArrayList<Bitmap> dataBit ;
 
 
 
@@ -243,6 +244,11 @@ public class IncreaseDetailFragment extends BaseFragment {
             releaseInfo = savedInstanceState.getParcelable(Constants.KEY_RELEASE_INFO);
             imageNames = savedInstanceState.getStringArrayList(Constants.KEY_PROJECT_IMAGES);
             dataUrl = savedInstanceState.getStringArrayList(Constants.KEY_PROJECT_IMAGE_URL);
+            dataBit = savedInstanceState.getParcelableArrayList("ceshi");
+            if(dataUrl != null){
+                T.show("长度是"+dataUrl.size());
+            }
+
             if (null == picList) {
                 picList = new ArrayList<>();
                 picList.add(picture01Iv);
@@ -360,7 +366,7 @@ public class IncreaseDetailFragment extends BaseFragment {
 
 
     public boolean isRight(){
-        if(imageNames == null || imageNames.size() == 0){
+        if(dataBit == null || dataBit.size() == 0){
             T.show("请至少上传一张图片");
             return false;
         }
@@ -409,7 +415,8 @@ public class IncreaseDetailFragment extends BaseFragment {
     @Override
     public void initView() {
         imageNames = new ArrayList<String>();
-        dataUrl = new ArrayList<String>();
+//        dataUrl = new ArrayList<String>();
+        dataBit = new ArrayList<Bitmap>();
         setStartRed();
         startTimeTv.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
@@ -537,9 +544,8 @@ public class IncreaseDetailFragment extends BaseFragment {
     @Override
     public void onResume() {
         super.onResume();
-        for (int i = 0; i < imageNames.size(); i++) {
-            loader.displayImage(dataUrl.get(i), picList.get(i), options);
-        }
+
+
     }
 
     private void beginCrop(Uri source) {
@@ -745,31 +751,18 @@ public class IncreaseDetailFragment extends BaseFragment {
         String url = upLoadImageResult.getUrl();
         Bitmap bitmap = BitmapUtil.getImage(imagePath);
 
-        int size = imageNames.size();
+
+        int size = dataBit.size();
         if (size == 3) {        //只有三张图片，如果大于三张，删除第一张
-            imageNames.remove(0);
-            dataUrl.remove(0);
+            dataBit.remove(0);
         }
-            imageNames.add(name);
-            dataUrl.add(url);
+            dataBit.add(bitmap);
+        if(dataBit != null){
+            for (int i = 0; i <dataBit.size() ; i++) {
+                picList.get(i).setImageBitmap(dataBit.get(i));
+            }
+        }
 
-        //现在还没弄好
-//        Uri uri = Uri.parse(imagePath);
-//        loader.displayImage(url,picture01Iv, options);
-//        Picasso.with(mActivity).load(uri).placeholder(R.drawable.ms_logo).error(R.drawable.a).into(picture01Iv);
-//        for (int i = 0; i < imageNames.size(); i++) {
-////            Picasso.with(mActivity).load(imageNames.get(i)).into(picList.get(i));
-//            loader.displayImage(dataUrl.get(i), picList.get(i), options);
-//        }
-
-//
-//        if(a % 3 == 1){
-//            picture01Iv.setImageBitmap(bitmap);
-//        }else if(a % 3 == 2){
-//            picture02Iv.setImageBitmap(bitmap);
-//        }else if(a %3 == 0){
-//            picture03Iv.setImageBitmap(bitmap);
-//        }
     }
 
     @Override
@@ -778,6 +771,8 @@ public class IncreaseDetailFragment extends BaseFragment {
         outState.putParcelable(Constants.KEY_RELEASE_INFO, releaseInfo);
         outState.putStringArrayList(Constants.KEY_PROJECT_IMAGES, imageNames);
         outState.putStringArrayList(Constants.KEY_PROJECT_IMAGE_URL, dataUrl);
+        T.show("保存长度"+dataBit.size());
+        outState.putParcelableArrayList("ceshi", dataBit);
         super.onSaveInstanceState(outState);
     }
 }

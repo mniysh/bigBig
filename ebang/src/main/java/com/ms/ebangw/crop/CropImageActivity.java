@@ -28,6 +28,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -52,10 +53,12 @@ public class CropImageActivity extends BaseActivity {
     private boolean isHeadImage = false;
     private RequestHandle handle;
     private String headImageStr;
+    private ArrayList<String> dataUrl;
 //    private List<String> imagenNames;
 
     @Override
     public void initView() {
+
         cancelBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -200,7 +203,11 @@ public class CropImageActivity extends BaseActivity {
 
                 try {
                     UploadImageResult imageResult = DataParseUtil.upLoadImage(response);
+
                     String name = imageResult.getName();
+                    String url = imageResult.getUrl();
+
+
 
 //                    User user = getUser();
 //                    L.locationpois_item(user.toString());
@@ -209,7 +216,7 @@ public class CropImageActivity extends BaseActivity {
                     intent.putExtra(Constants.KEY_UPLOAD_IMAGE_RESULT, imageResult);
                     setResult(RESULT_OK, intent);
                     finish();
-                    T.show("图片上传成功");
+//                    T.show("发布图片上传成功");
                 } catch (ResponseException e) {
                     e.printStackTrace();
                 }
