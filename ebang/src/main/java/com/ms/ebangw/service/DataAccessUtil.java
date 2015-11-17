@@ -796,6 +796,21 @@ public class DataAccessUtil {
         return doGet(RequestUrl.grab_headman_complete, params, asyncHttpResponseHandler);
     }
 
+    /**
+     * 2-25.抢单 待审核（开发商）
+     * @param page
+     * @param asyncHttpResponseHandler
+     * @return
+     */
+    public static RequestHandle projectStatusAudit(String page,  AsyncHttpResponseHandler
+        asyncHttpResponseHandler){
+
+        RequestParams params = new RequestParams();
+        params.put("page", page);
+
+        return doGet(RequestUrl.grab_headman_audit, params, asyncHttpResponseHandler);
+    }
+
 
     /**
      * 2-21.评价  post

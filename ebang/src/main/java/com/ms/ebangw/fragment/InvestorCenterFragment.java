@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.ms.ebangw.R;
 import com.ms.ebangw.activity.AccountActivity;
 import com.ms.ebangw.activity.EvaluateListActivity;
+import com.ms.ebangw.activity.JiFenActivity;
 import com.ms.ebangw.activity.PublishedProjectActivity;
 
 import butterknife.Bind;
@@ -29,7 +30,7 @@ public class InvestorCenterFragment extends BaseFragment {
     private static final String ARG_PARAM2 = "param2";
     @Bind(R.id.fl_head_info)
     FrameLayout flHeadInfo;
-    @Bind(R.id.tv_published)
+    @Bind(R.id.tv_grab)
     TextView tvPublished;
     @Bind(R.id.tv_trade)
     TextView tvTrade;
@@ -102,6 +103,14 @@ public class InvestorCenterFragment extends BaseFragment {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(mActivity, EvaluateListActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        tvJifen.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(mActivity, JiFenActivity.class);
                 startActivity(intent);
             }
         });

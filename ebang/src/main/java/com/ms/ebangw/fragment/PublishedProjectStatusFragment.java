@@ -42,8 +42,9 @@ import cz.msebera.android.httpclient.Header;
  */
 public class PublishedProjectStatusFragment extends BaseFragment {
     /**
-     * 已发布工程的状态 待通过， 进行中  已结束
+     * 已发布工程的状态 待审核， 待通过， 进行中  已结束
      */
+    public static final String AUDIT = "audit";
     public static final String WAITTING = "waiting";
     public static final String EXECUTE = "execute";
     public static final String COMPLETE = "complete";
@@ -63,7 +64,7 @@ public class PublishedProjectStatusFragment extends BaseFragment {
         // Required empty public constructor
     }
 
-    @StringDef({WAITTING, EXECUTE, COMPLETE})
+    @StringDef({AUDIT, WAITTING, EXECUTE, COMPLETE})
     @Retention(RetentionPolicy.SOURCE)
     public @interface ProjectStatus {
     }
@@ -146,6 +147,10 @@ public class PublishedProjectStatusFragment extends BaseFragment {
     public void loadProjects() {
         currentPage = 1;
         switch (status) {
+            case AUDIT:
+                DataAccessUtil.projectStatusAudit(currentPage + "", handler);
+                break;
+
             case WAITTING:
                 DataAccessUtil.projectStatusWaiting(currentPage + "", handler);
                 break;
@@ -162,7 +167,11 @@ public class PublishedProjectStatusFragment extends BaseFragment {
 
     public void loadMoreProjects() {
         switch (status) {
-            case WAITTING:
+            case AUDIT:
+                DataAccessUtil.projectStatusAudit(currentPage + "", loadMoreHandler);
+                break;
+
+             case WAITTING:
                 DataAccessUtil.projectStatusWaiting(currentPage + "", loadMoreHandler);
                 break;
 

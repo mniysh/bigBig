@@ -11,6 +11,8 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 
+import com.ms.ebangw.utils.DensityUtils;
+
 public class QuickindexBar extends View {
 
 	private Paint paint;
@@ -60,7 +62,7 @@ public class QuickindexBar extends View {
 			int y = (int) (cellHeigth / 2 + textHeigth / 2 + j * cellHeigth);
 
 			paint.setColor(touchIndex == j ? Color.GRAY : Color.BLACK);
-			paint.setTextSize(14);
+			paint.setTextSize(DensityUtils.sp2px(getContext(), 14));
 			canvas.drawText(strs[j], x, y, paint);
 		}
 		super.onDraw(canvas);
@@ -92,7 +94,7 @@ public class QuickindexBar extends View {
 				float f = event.getY();
 				int index = (int) (f / cellHeigth);
 				if (index >= 0 && index < strs.length) {
-					if (touchIndex != index) {
+					if (touchIndex != index && null != listener) {
 						System.out.println(strs[index]);
 						listener.onBack(strs[index]);
 						touchIndex = index;

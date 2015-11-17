@@ -20,10 +20,12 @@ import android.widget.TextView;
 import com.ms.ebangw.R;
 import com.ms.ebangw.activity.AccountActivity;
 import com.ms.ebangw.activity.EvaluateListActivity;
+import com.ms.ebangw.activity.InviteFriendsActivity;
 import com.ms.ebangw.activity.JiFenActivity;
 import com.ms.ebangw.activity.PublishedProjectActivity;
 import com.ms.ebangw.activity.RecommendedWorksActivity;
 import com.ms.ebangw.bean.User;
+import com.ms.ebangw.utils.DensityUtils;
 import com.ms.ebangw.utils.QRCodeUtil;
 
 import java.io.File;
@@ -54,20 +56,21 @@ public class HeadmanCenterFragment extends BaseFragment {
     TextView tvTrade;
     @Bind(R.id.tv_evaluate)
     TextView tvEvaluate;
-    @Bind(R.id.tv_jifen)
-    TextView tvFen;
     @Bind(R.id.tv_people_manage)
     TextView tvPeopleManage;
     @Bind(R.id.tv_invite_friend)
     TextView tvInviteFriend;
     @Bind(R.id.ll_verItems)
     LinearLayout llVerItems;
+    @Bind(R.id.tv_jifen)
+    TextView tvJifen;
 
 
     private String mParam1;
     private String mParam2;
     private ViewGroup contentLayout;
     private FragmentManager fm;
+    private User user;
 
     public static HeadmanCenterFragment newInstance(String param1, String param2) {
         HeadmanCenterFragment fragment = new HeadmanCenterFragment();
@@ -107,6 +110,14 @@ public class HeadmanCenterFragment extends BaseFragment {
         fm.beginTransaction().replace(R.id.fl_head_info, HeadInfoFragment.newInstance("", ""))
             .commit();
 
+        tvGrab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(mActivity, PublishedProjectActivity.class);
+                startActivity(intent);
+            }
+        });
+
         tvTrade.setOnClickListener(new View.OnClickListener() {      //交易
             @Override
             public void onClick(View v) {
@@ -123,10 +134,26 @@ public class HeadmanCenterFragment extends BaseFragment {
             }
         });
 
-        tvFen.setOnClickListener(new View.OnClickListener() {      //收到的评价列表
+        tvJifen.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(mActivity, JiFenActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        tvPeopleManage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(mActivity, RecommendedWorksActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        tvInviteFriend.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(mActivity, InviteFriendsActivity.class);
                 startActivity(intent);
             }
         });
@@ -134,7 +161,7 @@ public class HeadmanCenterFragment extends BaseFragment {
 
     @Override
     public void initData() {
-        User user = getUser();
+        user = getUser();
 
         if (user != null) {
             String recommend = user.getRecommend();
@@ -145,13 +172,7 @@ public class HeadmanCenterFragment extends BaseFragment {
             }
         }
 
-        tvGrab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(mActivity, PublishedProjectActivity.class);
-                startActivity(intent);
-            }
-        });
+
     }
 
     /**
@@ -160,21 +181,23 @@ public class HeadmanCenterFragment extends BaseFragment {
     private void setEnoughWorkerView() {
         llVerItems.setVisibility(View.VISIBLE);
         eweimaLayout.setVisibility(View.GONE);
-        tvPeopleManage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(mActivity, RecommendedWorksActivity.class);
-                startActivity(intent);
-            }
-        });
+
     }
 
     /**
      * 推荐人数不够时， 显示二维码
      */
     private void setNoEnoughWorkerView() {
-        llVerItems.setVisibility(View.GONE);
+        llVerItems.setVisibility(View.VISIBLE);
+        tvGrab.setVisibility(View.GONE);
+        tvTrade.setVisibility(View.GONE);
+        tvEvaluate.setVisibility(View.GONE);
+        tvJifen.setVisibility(View.GONE);
+        tvPeopleManage.setVisibility(View.GONE);
+        tvInviteFriend.setVisibility(View.GONE);
         eweimaLayout.setVisibility(View.VISIBLE);
+        tvInviteCode.setText("邀请码：" + user.getInvite_code());
+
         initInviteQR();
     }
 
@@ -182,7 +205,7 @@ public class HeadmanCenterFragment extends BaseFragment {
      * 初始化二维码图片
      */
     private void initInviteQR() {
-        eweimaLayout.setVisibility(View.VISIBLE);
+//        eweimaLayout.setVisibility(View.VISIBLE);
         String state = Environment.getExternalStorageState();
         if (state.equals(Environment.MEDIA_MOUNTED)) {
             File directory = Environment.getExternalStorageDirectory();
@@ -199,7 +222,10 @@ public class HeadmanCenterFragment extends BaseFragment {
                     int width = ivEweima.getWidth();
                     int height = ivEweima.getHeight();
                     Bitmap logoBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.ms_logo_144);
-                    boolean b = QRCodeUtil.createQRImage(getUser().getId(), width, height, logoBitmap, path);
+                    if (width <= 0) {
+                        width = DensityUtils.dp2px(mActivity, 200);
+                    }
+                    boolean b = QRCodeUtil.createQRImage(getUser().getId(), width, width, logoBitmap, path);
                     if (b) {
                         Bitmap bitmap = BitmapFactory.decodeFile(path);
                         ivEweima.setImageBitmap(bitmap);
