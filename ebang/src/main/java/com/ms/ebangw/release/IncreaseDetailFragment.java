@@ -778,12 +778,5 @@ public class IncreaseDetailFragment extends BaseFragment {
         outState.putStringArrayList("duang",dataFilePath);
         super.onSaveInstanceState(outState);
     }
-    /**
-     * 获得照片路径
-     *
-     * @return
-     */
-    private String getPhotoPath() {
-        return Environment.getExternalStorageDirectory() + "/DCIM/";
-    }
+
 }
