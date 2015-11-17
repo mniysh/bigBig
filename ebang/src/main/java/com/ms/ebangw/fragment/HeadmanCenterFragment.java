@@ -70,6 +70,7 @@ public class HeadmanCenterFragment extends BaseFragment {
     private String mParam2;
     private ViewGroup contentLayout;
     private FragmentManager fm;
+    private User user;
 
     public static HeadmanCenterFragment newInstance(String param1, String param2) {
         HeadmanCenterFragment fragment = new HeadmanCenterFragment();
@@ -160,7 +161,7 @@ public class HeadmanCenterFragment extends BaseFragment {
 
     @Override
     public void initData() {
-        User user = getUser();
+        user = getUser();
 
         if (user != null) {
             String recommend = user.getRecommend();
@@ -195,6 +196,7 @@ public class HeadmanCenterFragment extends BaseFragment {
         tvPeopleManage.setVisibility(View.GONE);
         tvInviteFriend.setVisibility(View.GONE);
         eweimaLayout.setVisibility(View.VISIBLE);
+        tvInviteCode.setText("邀请码：" + user.getInvite_code());
 
         initInviteQR();
     }

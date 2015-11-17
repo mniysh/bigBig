@@ -109,6 +109,11 @@ public class User implements Serializable {
 	 */
 	private String total_score;
 
+	/**
+	 * 邀请码
+	 */
+	private String invite_code;
+
 
 
 	public User() {
@@ -283,6 +288,14 @@ public class User implements Serializable {
 		this.total_score = total_score;
 	}
 
+	public String getInvite_code() {
+		return invite_code;
+	}
+
+	public void setInvite_code(String invite_code) {
+		this.invite_code = invite_code;
+	}
+
 	@Override
 	public String toString() {
 		return "User{" +
@@ -306,6 +319,8 @@ public class User implements Serializable {
 			", identity_card='" + identity_card + '\'' +
 			", card_image_front='" + card_image_front + '\'' +
 			", card_image_back='" + card_image_back + '\'' +
+			", total_score='" + total_score + '\'' +
+			", invite_code='" + invite_code + '\'' +
 			'}';
 	}
 }

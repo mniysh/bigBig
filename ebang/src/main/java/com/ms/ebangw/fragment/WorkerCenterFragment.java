@@ -14,6 +14,7 @@ import com.ms.ebangw.activity.AccountActivity;
 import com.ms.ebangw.activity.EvaluateListActivity;
 import com.ms.ebangw.activity.JiFenActivity;
 import com.ms.ebangw.activity.PublishedProjectActivity;
+import com.ms.ebangw.bean.User;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
