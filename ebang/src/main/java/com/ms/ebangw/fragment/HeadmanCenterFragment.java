@@ -193,7 +193,7 @@ public class HeadmanCenterFragment extends BaseFragment {
         tvEvaluate.setVisibility(View.GONE);
         tvJifen.setVisibility(View.GONE);
         tvPeopleManage.setVisibility(View.GONE);
-//        tvInviteFriend.setVisibility(View.GONE);
+        tvInviteFriend.setVisibility(View.GONE);
         eweimaLayout.setVisibility(View.VISIBLE);
 
         initInviteQR();
