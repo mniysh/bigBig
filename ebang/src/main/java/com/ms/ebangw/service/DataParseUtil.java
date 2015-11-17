@@ -544,7 +544,6 @@ public class DataParseUtil {
             return false;
         }
 
-
         try {
             String code = jsonObject.getString("code");
             L.d("xxx",jsonObject.getString("code"));

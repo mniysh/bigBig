@@ -67,7 +67,7 @@ public class ShowActivity extends BaseActivity implements OnClickListener {
     ImageView iOneImg;
     @Bind(R.id.iv_two)
     ImageView iTwoImg;
-//    @Bind(R.id.ll_below_show)
+    //    @Bind(R.id.ll_below_show)
 //    LinearLayout lBelowShow;
     String imageUrl;
 
@@ -117,8 +117,6 @@ public class ShowActivity extends BaseActivity implements OnClickListener {
         DataAccessUtil.projectInfoDetail(projectId, new JsonHttpResponseHandler() {
 
 
-
-
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                 try {
@@ -128,7 +126,7 @@ public class ShowActivity extends BaseActivity implements OnClickListener {
                         String IsContend = detail.getIsContend();
                         SharedPreferences sharedPreferences = getSharedPreferences("test", Context.MODE_PRIVATE);
                         SharedPreferences.Editor editor = sharedPreferences.edit();
-                        editor.putString("IsContend",IsContend);
+                        editor.putString("IsContend", IsContend);
                         editor.commit();
 
                         tTitle.setText(detail.getTitle());
@@ -138,8 +136,8 @@ public class ShowActivity extends BaseActivity implements OnClickListener {
                         tStartTime.setText(detail.getStart_time());
                         tLinkman.setText(detail.getLink_man());
                         tLinkPhone.setText(detail.getLink_phone());
-                        if (detail.getImages()!=null){
-                        imageUrl = detail.getImages().get(0);
+                        if (detail.getImages() != null) {
+                            imageUrl = detail.getImages().get(0);
                         }
 //                        iOneImg.setImageURI(detail.getImages());
                         if (!TextUtils.isEmpty(imageUrl)) {
@@ -154,8 +152,6 @@ public class ShowActivity extends BaseActivity implements OnClickListener {
                             detailAdapter = new ProjectItemdetailAdapter(staffs);
                             showListView.setAdapter(detailAdapter);
                             setListView(showListView);
-//                            showListView.getAdapter().getItem(showListView.getAdapter().getCount()-1).toString();
-
 
                             detailAdapter.setOnGrabClickListener(new ProjectItemdetailAdapter.OnGrabClickListener() {
                                 @Override
@@ -173,6 +169,7 @@ public class ShowActivity extends BaseActivity implements OnClickListener {
                 } catch (ResponseException e) {
                     e.printStackTrace();
                     T.show(e.getMessage());
+
                 }
             }
 
@@ -214,8 +211,11 @@ public class ShowActivity extends BaseActivity implements OnClickListener {
             //点击立刻抢单跳转
             case R.id.act_show_qiangdan:
                 L.d("xxx", "跳转能不能进来");
-                startActivity(new Intent(this, QiangDanActivity.class));
-
+                Intent intent = new Intent(ShowActivity.this, QiangDanActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putParcelable(Constants.KEY_RELEASED_PROJECT_STR, releaseProject);
+                intent.putExtras(bundle);
+                startActivity(intent);
                 break;
             default:
                 break;

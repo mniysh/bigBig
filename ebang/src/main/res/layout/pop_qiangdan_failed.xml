@@ -3,6 +3,7 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:background="@color/white"
     android:layout_height="match_parent">
+
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -11,23 +12,20 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/smile"
-            android:paddingTop="10dp"
+            android:background="@drawable/sad"
+            android:layout_marginTop="10dp"
             />
-
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="抢单成功"
+            android:text="抢单失败"
             android:textColor="#000"
             android:textSize="35sp"
             android:paddingTop="20dp"
             android:paddingLeft="15dp"
             android:paddingRight="15dp"
             android:background="@color/white"
-            android:gravity="center_horizontal"
             />
-
     </LinearLayout>
 
 
@@ -41,24 +39,23 @@
         >
 
         <TextView
-
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="20sp"
             android:layout_marginTop="20dp"
-
-            android:textColor="#000"
-            android:text="请尽快选择工友"
+            android:textColor="#CCCCCC"
+            android:text="此单已被其他人抢去"
             />
     </LinearLayout>
     <Button
         android:id="@+id/popup_lay_iv_back"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/black_true"
+        android:background="@drawable/bk_jixuqiangdan"
         android:layout_marginTop="20dp"
+        android:text="继续抢单"
+        android:textColor="#FFFFFF"
         android:layout_gravity="center_horizontal"
-
         />
     <LinearLayout
         android:layout_width="fill_parent"
