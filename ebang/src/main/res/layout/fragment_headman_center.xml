@@ -25,7 +25,7 @@
             >
 
             <TextView
-                android:id="@+id/tv_blish"
+                android:id="@+id/tv_publish"
                 style="@style/user_center_item_ver"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

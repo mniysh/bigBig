@@ -3,9 +3,7 @@ package com.ms.ebangw.release;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.webkit.WebChromeClient;
 
 import com.ms.ebangw.R;
 import com.ms.ebangw.activity.BaseActivity;
@@ -17,7 +15,6 @@ import com.ms.ebangw.event.WorkTypeEvent;
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.Bind;
 import butterknife.ButterKnife;
 import de.greenrobot.event.EventBus;
 
@@ -85,6 +82,7 @@ public class ReleaseActivity extends BaseActivity {
         super.onDestroy();
         EventBus.getDefault().unregister(this);
     }
+
     public void onEvent(OnCheckedWorkTypeEvent event) {
         if (event == null) {
             return;

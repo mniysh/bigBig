@@ -35,7 +35,6 @@ import com.ms.ebangw.fragment.WorkerCenterFragment;
 import com.ms.ebangw.release.IncreaseDetailFragment;
 import com.ms.ebangw.release.ReleaseActivity;
 import com.ms.ebangw.release.ReleaseWorkTypeFragment;
-import com.ms.ebangw.release.SelectCraftFragment;
 import com.ms.ebangw.service.DataAccessUtil;
 import com.ms.ebangw.service.DataParseUtil;
 import com.ms.ebangw.userAuthen.InfoCommitSuccessFragment;
@@ -157,6 +156,7 @@ public class HomeActivity extends BaseActivity {
                         Intent intentRelease = new Intent(HomeActivity.this, ReleaseActivity.class);
                         intentRelease.putExtras(bundle);
                         startActivity(intentRelease);
+
 //                        startActivity(new Intent());
 //                        fm.beginTransaction().replace(R.id.fl_content, new SelectCraftFragment().newInstance(categroy, "")).commit();
 //                        fm.beginTransaction().replace(R.id.fl_content, new SelectCraftFragment()).commit();

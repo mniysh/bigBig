@@ -101,6 +101,7 @@ public class MyApplication extends Application {
      */
     private void initUMeng() {
         MobclickAgent.setDebugMode(true);
+        com.umeng.socialize.utils.Log.LOG = true;
     }
 
     /**

@@ -25,6 +25,7 @@ import com.ms.ebangw.activity.JiFenActivity;
 import com.ms.ebangw.activity.PublishedProjectActivity;
 import com.ms.ebangw.activity.RecommendedWorksActivity;
 import com.ms.ebangw.bean.User;
+import com.ms.ebangw.release.ReleaseActivity;
 import com.ms.ebangw.utils.DensityUtils;
 import com.ms.ebangw.utils.QRCodeUtil;
 
@@ -64,6 +65,8 @@ public class HeadmanCenterFragment extends BaseFragment {
     LinearLayout llVerItems;
     @Bind(R.id.tv_jifen)
     TextView tvJifen;
+    @Bind(R.id.tv_publish)
+    TextView tvPublish;
 
 
     private String mParam1;
@@ -109,6 +112,15 @@ public class HeadmanCenterFragment extends BaseFragment {
     public void initView() {
         fm.beginTransaction().replace(R.id.fl_head_info, HeadInfoFragment.newInstance("", ""))
             .commit();
+
+
+        tvPublish.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(mActivity, ReleaseActivity.class);
+                startActivity(intent);
+            }
+        });
 
         tvGrab.setOnClickListener(new View.OnClickListener() {
             @Override
