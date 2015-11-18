@@ -8,6 +8,7 @@ import android.widget.RadioGroup;
 
 import com.ms.ebangw.R;
 import com.ms.ebangw.adapter.ProjectStatusPagerAdapter;
+import com.ms.ebangw.bean.User;
 import com.ms.ebangw.fragment.PublishedProjectStatusFragment;
 
 import java.util.ArrayList;
@@ -78,6 +79,8 @@ public class PublishedProjectActivity extends BaseActivity {
 
     @Override
     public void initData() {
+        User user = getUser();
+        String category = user.getCategory();
         PublishedProjectStatusFragment auditFragment = PublishedProjectStatusFragment.newInstance(PublishedProjectStatusFragment.AUDIT);
         PublishedProjectStatusFragment waitingFragment = PublishedProjectStatusFragment.newInstance(PublishedProjectStatusFragment.WAITING);
         PublishedProjectStatusFragment executeFragment = PublishedProjectStatusFragment.newInstance(PublishedProjectStatusFragment.EXECUTE);

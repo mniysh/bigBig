@@ -874,7 +874,7 @@ public class DataAccessUtil {
             params = new RequestParams();
         }
         addCommonParams(params);
-        L.d(TAG, "doPost: " + url + " : " + params.toString());
+        L.d(TAG, "doPost: " + url + "?" + params.toString());
         return mClient.post(url, params, asyncHttpResponseHandler);
     }
 

@@ -39,6 +39,19 @@ public class Staff implements Parcelable {
     private String account_days;
     private String craft_name;
 
+    /**
+     * 总共邀请了多少人（只有工长能看到）
+     */
+    private String total_invitation;
+    /**
+     * 成功人数（只有工长能看到）
+     */
+    private String total_agree;
+    /**
+     * 还差多少人（只有工长能看到）
+     */
+    private String total_surplus;
+
     private List<Staff> staffs;
 
     public String getId() {
@@ -137,6 +150,30 @@ public class Staff implements Parcelable {
         this.staffs = staffs;
     }
 
+    public String getTotal_invitation() {
+        return total_invitation;
+    }
+
+    public void setTotal_invitation(String total_invitation) {
+        this.total_invitation = total_invitation;
+    }
+
+    public String getTotal_agree() {
+        return total_agree;
+    }
+
+    public void setTotal_agree(String total_agree) {
+        this.total_agree = total_agree;
+    }
+
+    public String getTotal_surplus() {
+        return total_surplus;
+    }
+
+    public void setTotal_surplus(String total_surplus) {
+        this.total_surplus = total_surplus;
+    }
+
 
     @Override
     public int describeContents() {
@@ -156,6 +193,9 @@ public class Staff implements Parcelable {
         dest.writeString(this.staff_description);
         dest.writeString(this.account_days);
         dest.writeString(this.craft_name);
+        dest.writeString(this.total_invitation);
+        dest.writeString(this.total_agree);
+        dest.writeString(this.total_surplus);
         dest.writeTypedList(staffs);
     }
 
@@ -174,6 +214,9 @@ public class Staff implements Parcelable {
         this.staff_description = in.readString();
         this.account_days = in.readString();
         this.craft_name = in.readString();
+        this.total_invitation = in.readString();
+        this.total_agree = in.readString();
+        this.total_surplus = in.readString();
         this.staffs = in.createTypedArrayList(Staff.CREATOR);
     }
 
