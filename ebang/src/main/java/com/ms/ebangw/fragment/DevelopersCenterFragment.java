@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.ms.ebangw.R;
 import com.ms.ebangw.activity.AccountActivity;
 import com.ms.ebangw.activity.PublishedProjectActivity;
+import com.ms.ebangw.release.ReleaseActivity;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -29,6 +30,8 @@ public class DevelopersCenterFragment extends BaseFragment {
     TextView tvPublished;
     @Bind(R.id.tv_trade)
     TextView tvTrade;
+    @Bind(R.id.tv_publish)
+    TextView tvPublish;
 
     private String mParam1;
     private String mParam2;
@@ -74,6 +77,15 @@ public class DevelopersCenterFragment extends BaseFragment {
     public void initView() {
         fm.beginTransaction().replace(R.id.fl_head_info, HeadInfoFragment.newInstance("", ""))
             .commit();
+
+
+        tvPublish.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(mActivity, ReleaseActivity.class);
+                startActivity(intent);
+            }
+        });
 
         tvPublished.setOnClickListener(new View.OnClickListener() {
             @Override
