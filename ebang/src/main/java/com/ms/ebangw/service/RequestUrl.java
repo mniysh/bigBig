@@ -198,20 +198,36 @@ public class RequestUrl {
      */
     public static final String founds = domain + "/api/index/index/founds";
 
-     /**
-     *2-18.抢单 待通过（工头）  get
-     */
-    public static final String grab_headman_waiting = domain + "/api/headman/project/single-waiting";
+//    /**
+//     * 2-25.抢单 待审核（开发商）
+//     */
+//    public static final String grab_headman_audit = domain + "/api/developers/project/waiting-audit";
+//
+//    /**
+//     *2-18.抢单 待通过（工头）  get
+//     */
+//    public static final String grab_headman_waiting = domain + "/api/headman/project/single-waiting";
+//
+//     /**
+//     *2-19.抢单 执行中（工头）   get
+//     */
+//    public static final String grab_headman_execute = domain + "/api/headman/project/execute";
+//
+//     /**
+//     *2-20.抢单 已结束（工头）
+//     */
+//    public static final String grab_headman_complete = domain + "/api/headman/project/complete";
 
-     /**
-     *2-19.抢单 执行中（工头）   get
+    /**
+     * 2-18.抢单 4种状态
+     * wating_audit//待审核
+     * sign_wating//待通过
+     *complete//完成
+     *execute//执行中
      */
-    public static final String grab_headman_execute = domain + "/api/headman/project/execute";
+    public static final String grab_status = domain + "/api/index/index/grab-status";
 
-     /**
-     *2-20.抢单 已结束（工头）
-     */
-    public static final String grab_headman_complete = domain + "/api/headman/project/complete";
+
 
     /**
      * 2-21.评价  post
@@ -234,6 +250,8 @@ public class RequestUrl {
      *
      */
     public static final String account = domain + "/api/user/trade/dill";
+
+
 
     /**
      * 1-14、积分列表

@@ -5,7 +5,6 @@ import android.text.TextUtils;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.ms.ebangw.MyApplication;
-import com.ms.ebangw.activity.BaseActivity;
 import com.ms.ebangw.adapter.Evaluate;
 import com.ms.ebangw.bean.Account;
 import com.ms.ebangw.bean.Area;
@@ -24,8 +23,6 @@ import com.ms.ebangw.bean.User;
 import com.ms.ebangw.bean.WorkType;
 import com.ms.ebangw.bean.Worker;
 import com.ms.ebangw.exception.ResponseException;
-import com.ms.ebangw.release.PayingActivity;
-import com.ms.ebangw.setting.SettingAllActivity;
 import com.ms.ebangw.utils.L;
 
 import org.json.JSONException;
@@ -408,12 +405,12 @@ public class DataParseUtil {
     }
 
     /**
-     * 2-18 2-19 2-20 已发布的工程
+     * 2-18 已发布的工程
      * @param jsonObject
      * @return
      * @throws ResponseException
      */
-    public static List<ReleaseProject> projectStatus(JSONObject jsonObject) throws ResponseException {
+    public static List<ReleaseProject> grabStatus(JSONObject jsonObject) throws ResponseException {
         JSONObject data = processData(jsonObject);
         String arrayStr = data.optString("project");
 
@@ -589,18 +586,13 @@ public class DataParseUtil {
      * @throws ResponseException    抛出异常：code message
      */
     public static  JSONObject processData(JSONObject jsonObject) throws ResponseException {
-        if (null == jsonObject) {
-            L.d(TAG, "processData: json对象为null");
-            return null;
-        }
 
         try {
+
             String code = jsonObject.getString("code");
             String message = jsonObject.getString("message");
             if (TextUtils.equals("200", code)) {        //数据正确
                 return jsonObject.getJSONObject("data");
-            }else if(TextUtils.equals("501", code)){
-                return null;
             }else{
                 String dataStr = jsonObject.optString("data", "");
                 String errorMessage = "";
@@ -614,6 +606,12 @@ public class DataParseUtil {
                         }
                     }
                 }
+
+                if (TextUtils.equals("501", code)) {
+                    MyApplication.getInstance().logout();
+                    L.d("用户未登录：" + jsonObject.toString());
+                }
+
                 if (TextUtils.isEmpty(errorMessage)) {
                     throw new ResponseException(code, message);
                 }else {
@@ -623,30 +621,7 @@ public class DataParseUtil {
 
         } catch (JSONException e) {
             e.printStackTrace();
+            return null;
         }
-        return null;
     }
-
-//    private static void processResponseException(JSONObject jsonObject) throws JSONException {
-//
-//        String dataStr = jsonObject.optString("data", "");
-//        String errorMessage = "";
-//        if (!TextUtils.isEmpty(dataStr) && !TextUtils.equals("null", dataStr) && !TextUtils.equals("NULL", dataStr)) {
-//            JSONObject data = jsonObject.getJSONObject("data");
-//            if (data != null) {
-//                Iterator<String> keys = data.keys();
-//                while (keys.hasNext()) {
-//                    String next = keys.next();
-//                    errorMessage = data.getString(next);
-//                }
-//            }
-//        }
-//        T.show("用户未登录");
-//        if (TextUtils.isEmpty(errorMessage)) {
-//            throw new ResponseException(code, message);
-//        }else {
-//            throw new ResponseException(code, errorMessage);
-//        }
-//
-//    }
 }

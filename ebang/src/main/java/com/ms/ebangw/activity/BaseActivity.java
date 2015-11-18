@@ -1,7 +1,6 @@
 package com.ms.ebangw.activity;
 
 import android.app.DialogFragment;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
@@ -9,19 +8,14 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.TextView;
 
-import com.loopj.android.http.JsonHttpResponseHandler;
 import com.ms.ebangw.MyApplication;
 import com.ms.ebangw.R;
 import com.ms.ebangw.bean.Bank;
 import com.ms.ebangw.bean.TotalRegion;
 import com.ms.ebangw.bean.User;
-import com.ms.ebangw.db.UserDao;
 import com.ms.ebangw.dialog.LoadingDialog;
 import com.ms.ebangw.exception.ResponseException;
-import com.ms.ebangw.service.DataAccessUtil;
 import com.ms.ebangw.service.DataParseUtil;
-import com.ms.ebangw.utils.L;
-import com.ms.ebangw.utils.T;
 import com.umeng.analytics.MobclickAgent;
 
 import org.json.JSONException;
@@ -31,8 +25,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.List;
-
-import cz.msebera.android.httpclient.Header;
 
 public abstract class BaseActivity extends AppCompatActivity {
     private final String TAG = getClass().getSimpleName();
@@ -252,34 +244,5 @@ public abstract class BaseActivity extends AppCompatActivity {
         }
         MobclickAgent.onPause(this);
     }
-    public  void logout(){
-        DataAccessUtil.exit(new JsonHttpResponseHandler() {
-            @Override
-            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                super.onSuccess(statusCode, headers, response);
-                try {
-                    boolean b = DataParseUtil.exit(response);
-
-                } catch (ResponseException e) {
-                    e.printStackTrace();
-                    T.show(e.getMessage());
-                }
-            }
-
-            @Override
-            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
-                super.onFailure(statusCode, headers, responseString, throwable);
-                L.d(responseString);
-            }
-        });
-
-        UserDao userDao = new UserDao(this);
-        userDao.removeAll();
-        MyApplication.getInstance().quit();
-        startActivity(new Intent(this, LoginActivity.class));
-//        activity.setResult(Constants.REQUEST_EXIT);
-//        activity.finish();
-    }
-
 
 }

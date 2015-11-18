@@ -113,7 +113,7 @@ public class SettingAllActivity extends BaseActivity {
 
     @OnClick(R.id.ll_feedback)
     public void goFeelbackSetting(){
-        Intent intent = new Intent(this, FeelbackSettingActivity.class);
+        Intent intent = new Intent(this, FeedbackSettingActivity.class);
         startActivity(intent);
     }
 

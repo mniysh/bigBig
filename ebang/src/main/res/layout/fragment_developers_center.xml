@@ -4,10 +4,16 @@
              android:layout_height="match_parent"
               android:orientation="vertical"
              tools:context="com.ms.ebangw.fragment.InvestorCenterFragment">
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:id="@+id/fl_head_info"
+        android:layout_height="wrap_content">
+
+    </FrameLayout>
 
 
     <TextView
-        android:id="@+id/tv_published"
+        android:id="@+id/tv_grab"
         style="@style/user_center_item_ver"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

@@ -120,6 +120,7 @@
     <string name="trade">交易</string>
     <string name="evaluate">评价</string>
     <string name="grab">抢单</string>
+    <string name="publish">发布</string>
     <string name="published">已发布</string>
     <string name="people_manage">人员管理</string>
     <string name="invite_friend">邀请好友</string>

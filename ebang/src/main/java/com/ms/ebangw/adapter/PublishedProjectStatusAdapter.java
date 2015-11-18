@@ -83,7 +83,7 @@ public class PublishedProjectStatusAdapter extends BaseAdapter {
         }
 
         switch (status) {
-            case PublishedProjectStatusFragment.WAITTING:
+            case PublishedProjectStatusFragment.WAITING:
                 holder.tvEvaluate.setVisibility(View.GONE);
                 holder.tvGrabNum.setVisibility(View.VISIBLE);
 

@@ -42,9 +42,14 @@ import cz.msebera.android.httpclient.Header;
  */
 public class PublishedProjectStatusFragment extends BaseFragment {
     /**
-     * 已发布工程的状态 待通过， 进行中  已结束
+     * 已发布工程的状态 待审核 wating_audit， 待通过， 进行中  已结束
+     * wating_audit//待审核
+     * sign_wating//待通过
+     *   execute//执行中
+     *   complete//完成
      */
-    public static final String WAITTING = "waiting";
+    public static final String AUDIT = "waiting_audit";
+    public static final String WAITING = "sign_waiting";
     public static final String EXECUTE = "execute";
     public static final String COMPLETE = "complete";
 
@@ -53,7 +58,7 @@ public class PublishedProjectStatusFragment extends BaseFragment {
     @Bind(R.id.ptr)
     PullToRefreshListView ptr;
 
-    private String status = WAITTING;
+    private String status = WAITING;
     private View contentLayout;
     private int currentPage = 1;
     private PublishedProjectStatusAdapter adapter;
@@ -63,7 +68,7 @@ public class PublishedProjectStatusFragment extends BaseFragment {
         // Required empty public constructor
     }
 
-    @StringDef({WAITTING, EXECUTE, COMPLETE})
+    @StringDef({AUDIT, WAITING, EXECUTE, COMPLETE})
     @Retention(RetentionPolicy.SOURCE)
     public @interface ProjectStatus {
     }
@@ -144,36 +149,11 @@ public class PublishedProjectStatusFragment extends BaseFragment {
     }
 
     public void loadProjects() {
-        currentPage = 1;
-        switch (status) {
-            case WAITTING:
-                DataAccessUtil.projectStatusWaiting(currentPage + "", handler);
-                break;
-            
-            case EXECUTE:
-                DataAccessUtil.projectStatusExecute(handler);
-                break;
-            
-            case COMPLETE:
-                DataAccessUtil.projectStatusComplete(currentPage + "", handler);
-                break;
-        }
+        DataAccessUtil.grabStatus(currentPage + "", status, handler);
     }
 
     public void loadMoreProjects() {
-        switch (status) {
-            case WAITTING:
-                DataAccessUtil.projectStatusWaiting(currentPage + "", loadMoreHandler);
-                break;
-
-            case EXECUTE:
-                DataAccessUtil.projectStatusExecute(loadMoreHandler);
-                break;
-
-            case COMPLETE:
-                DataAccessUtil.projectStatusComplete(currentPage + "", loadMoreHandler);
-                break;
-        }
+        DataAccessUtil.grabStatus(currentPage + "", status, loadMoreHandler);
     }
 
     private AsyncHttpResponseHandler handler = new JsonHttpResponseHandler() {
@@ -181,7 +161,7 @@ public class PublishedProjectStatusFragment extends BaseFragment {
         public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
             currentPage++;
             try {
-                List<ReleaseProject> list = DataParseUtil.projectStatus(response);
+                List<ReleaseProject> list = DataParseUtil.grabStatus(response);
                 if (adapter != null && list != null && list.size() > 0) {
                     adapter.setList(list);
                     adapter.notifyDataSetChanged();
@@ -195,7 +175,9 @@ public class PublishedProjectStatusFragment extends BaseFragment {
         @Override
         public void onFinish() {
             super.onFinish();
-            ptr.onRefreshComplete();
+            if (null != ptr) {
+                ptr.onRefreshComplete();
+            }
         }
     };
 
@@ -204,7 +186,7 @@ public class PublishedProjectStatusFragment extends BaseFragment {
         public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
             currentPage++;
             try {
-                List<ReleaseProject> list = DataParseUtil.projectStatus(response);
+                List<ReleaseProject> list = DataParseUtil.grabStatus(response);
                 if (adapter != null && list != null && list.size() > 0) {
                     adapter.getList().addAll(list);
                     adapter.notifyDataSetChanged();
@@ -218,7 +200,9 @@ public class PublishedProjectStatusFragment extends BaseFragment {
         @Override
         public void onFinish() {
             super.onFinish();
-            ptr.onRefreshComplete();
+            if (null != ptr) {
+                ptr.onRefreshComplete();
+            }
         }
     };
 }

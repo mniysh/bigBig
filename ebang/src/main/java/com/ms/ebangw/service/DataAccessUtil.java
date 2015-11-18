@@ -357,7 +357,6 @@ public class DataAccessUtil {
      * @param city      市
      * @param card_image_front  身份证正面
      * @param card_image_back   身份证反面
-     * @param card_expiration_time  身份证到期时间 (选填)
      * @param asyncHttpResponseHandler
      * @return
      */
@@ -765,44 +764,18 @@ public class DataAccessUtil {
 
 
     /**
-     *2-18.19， 20抢单 待通过, 进行中, 已结束（工头）  get
-     * @param page
+     * 2-18 抢单 4种状态 抢单 待通过, 进行中, 已结束（工头）  get
+     * @param page 分页
+     * @param status wating_audit//待审核   sign_wating//待通过   execute//执行中 complete//完成
      * @param asyncHttpResponseHandler
      * @return
      */
-    public static RequestHandle projectStatusWaiting(String page,  AsyncHttpResponseHandler
+    public static RequestHandle grabStatus(String page, String status, AsyncHttpResponseHandler
         asyncHttpResponseHandler){
-
         RequestParams params = new RequestParams();
         params.put("page", page);
-
-        return doGet(RequestUrl.grab_headman_waiting, params, asyncHttpResponseHandler);
-    }
-
-    /**
-     * 2-19抢单 待通过, 进行中, 已结束（工头）  get
-     * @param asyncHttpResponseHandler
-     * @return
-     */
-    public static RequestHandle projectStatusExecute(AsyncHttpResponseHandler
-        asyncHttpResponseHandler){
-
-        return doGet(RequestUrl.grab_headman_execute, null, asyncHttpResponseHandler);
-    }
-
-    /**
-     * 2-20抢单 待通过, 进行中, 已结束（工头）  get
-     * @param page
-     * @param asyncHttpResponseHandler
-     * @return
-     */
-    public static RequestHandle projectStatusComplete(String page,  AsyncHttpResponseHandler
-        asyncHttpResponseHandler){
-
-        RequestParams params = new RequestParams();
-        params.put("page", page);
-
-        return doGet(RequestUrl.grab_headman_complete, params, asyncHttpResponseHandler);
+        params.put("status", status);
+        return doGet(RequestUrl.grab_status, null, asyncHttpResponseHandler);
     }
 
 

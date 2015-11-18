@@ -321,17 +321,13 @@ public class HomeFragment extends BaseFragment {
 
         DataAccessUtil.homeProjectInfo(currentPage + "", latitude+"", longitude + "", new
             JsonHttpResponseHandler() {
-            @Override
-            public void onStart() {
-                super.onStart();
-                showProgressDialog();
-            }
 
             @Override
             public void onFinish() {
                 super.onFinish();
-                dismissLoadingDialog();
-                ptr.onRefreshComplete();
+                if (null != ptr) {
+                    ptr.onRefreshComplete();
+                }
             }
 
                 @Override

@@ -1,26 +1,39 @@
 package com.ms.ebangw.fragment;
 
 
-import android.app.Fragment;
+import android.app.FragmentManager;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.ms.ebangw.R;
+import com.ms.ebangw.activity.AccountActivity;
+import com.ms.ebangw.activity.PublishedProjectActivity;
+
+import butterknife.Bind;
+import butterknife.ButterKnife;
 
 /**
  * 开发商中心
- * @author wangkai
  *
+ * @author wangkai
  */
-public class DevelopersCenterFragment extends Fragment {
+public class DevelopersCenterFragment extends BaseFragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+    @Bind(R.id.tv_grab)
+    TextView tvPublished;
+    @Bind(R.id.tv_trade)
+    TextView tvTrade;
 
     private String mParam1;
     private String mParam2;
+    private ViewGroup contentLayout;
+    private FragmentManager fm;
 
 
 
@@ -49,9 +62,44 @@ public class DevelopersCenterFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_developers_center, container, false);
+        contentLayout = (ViewGroup) inflater.inflate(R.layout.fragment_developers_center, null);
+        ButterKnife.bind(this, contentLayout);
+        initView();
+        initData();
+        return contentLayout;
     }
 
 
+    @Override
+    public void initView() {
+        fm.beginTransaction().replace(R.id.fl_head_info, HeadInfoFragment.newInstance("", ""))
+            .commit();
+
+        tvPublished.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(mActivity, PublishedProjectActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        tvTrade.setOnClickListener(new View.OnClickListener() {      //交易
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(mActivity, AccountActivity.class);
+                startActivity(intent);
+            }
+        });
+    }
+
+    @Override
+    public void initData() {
+
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        ButterKnife.unbind(this);
+    }
 }

@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest package="com.ms.ebangw"
-          xmlns:android="http://schemas.android.com/apk/res/android"
-          android:versionCode="4"
-          android:versionName="1.0.3">
+<manifest
+    package="com.ms.ebangw"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:versionCode="4"
+    android:versionName="1.0.3">
 
     <uses-sdk
         android:minSdkVersion="14"
@@ -115,36 +116,105 @@
             android:name=".activity.HomeActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:screenOrientation="portrait"
+            android:launchMode="singleTask"
             android:windowSoftInputMode="adjustPan|stateHidden"/>
         <activity
             android:name=".activity.LoginActivity"
-            android:launchMode="singleTask"/>
-        <activity android:name=".activity.RegisterActivity"/>
-        <activity android:name=".activity.RegisterActivity_2"/>
-        <activity android:name=".activity.CommentActivity"/>
-        <activity android:name=".activity.RecommendActivity"/>
-        <activity android:name=".activity.CompanyIntroduceActivity"/>
-        <activity android:name=".activity.NoticeActivity"/>
-        <activity android:name=".activity.ChatActivity"/>
-        <activity android:name=".activity.ShowActivity"/>
-        <activity android:name=".activity.PublishCommentActivity"/>
-        <activity android:name=".activity.NearActivity"/>
-        <activity android:name=".activity.SettlementActivity"/>
-        <activity android:name=".activity.QiangDanActivity"/>
-        <activity android:name=".activity.SubmitSuccessActivity"/>
-        <activity android:name=".activity.CertificationManagerActivity"/>
-        <activity android:name=".activity.ManagerBackActivity"/>
-        <activity android:name=".Photo.PhotosActivity"/>
-        <activity android:name=".Photo.SelectPhotosDirActivity"/>
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".activity.RegisterActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".activity.RegisterActivity_2"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".activity.CommentActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".activity.RecommendActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".activity.CompanyIntroduceActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".activity.NoticeActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".activity.ChatActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".activity.ShowActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".activity.PublishCommentActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".activity.NearActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".activity.SettlementActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".activity.QiangDanActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".activity.SubmitSuccessActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".activity.CertificationManagerActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".activity.ManagerBackActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".Photo.PhotosActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".Photo.SelectPhotosDirActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".userAuthen.investor.InvestorAuthenActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:screenOrientation="portrait"/>
-        <activity android:name=".userAuthen.worker.WorkerAuthenActivity"/>
-        <activity android:name=".userAuthen.developers.DevelopersAuthenActivity"/>
-        <activity android:name=".userAuthen.headman.HeadmanAuthenActivity"/>
-        <activity android:name=".crop.CropImageActivity"/>
-        <activity android:name=".release.PayingActivity"/>
+        <activity
+            android:name=".userAuthen.worker.WorkerAuthenActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".userAuthen.developers.DevelopersAuthenActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".userAuthen.headman.HeadmanAuthenActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".crop.CropImageActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".release.PayingActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="portrait"/>
 
         <!-- 微信 -->
         <activity
@@ -278,34 +348,42 @@
 
         <!-- 极光推送  start -->
 
-        <activity android:name=".activity.PeasantAuthenCardActivity">
-        </activity>
-        <activity android:name=".activity.PeasantAuthenBackActivity">
-        </activity>
-        <activity android:name=".activity.NextPageActivity">
-        </activity>
-        <activity android:name=".setting.SettingActivity">
-        </activity>
-        <activity android:name=".setting.ModifyNickNameActivity">
-        </activity>
+        <activity
+            android:name=".activity.PeasantAuthenCardActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".activity.PeasantAuthenBackActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".activity.NextPageActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".setting.SettingActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".setting.ModifyNickNameActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".setting.ModifyPhoneActivity"
-            android:screenOrientation="portrait">
-        </activity>
+            android:screenOrientation="portrait"/>
+
         <activity
             android:name=".setting.ModifyPhone02Activity"
-            android:screenOrientation="portrait">
-        </activity>
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".setting.ModifyPasswordAvtivity"
-            android:screenOrientation="portrait">
-        </activity>
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".activity.MessageCenterActivit"
-            android:screenOrientation="portrait">
-        </activity>
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".web.WebActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
             android:screenOrientation="portrait"/>
         <activity
             android:name=".userAuthen.worker.WorkTypeActivity"
@@ -313,45 +391,95 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize|stateAlwaysHidden">
         </activity>
-        <activity android:name=".findpassword.SetPhoneActivity">
+        <activity
+            android:name=".findpassword.SetPhoneActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="portrait">
         </activity>
-        <activity android:name=".findpassword.ResetPasswordActivity">
+        <activity
+            android:name=".findpassword.ResetPasswordActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="portrait">
         </activity>
-        <activity android:name=".findpassword.FoundPasswordActivity">
+        <activity
+            android:name=".findpassword.FoundPasswordActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="portrait">
         </activity>
-        <activity android:name=".activity.ServiceContractActivity">
+        <activity
+            android:name=".activity.ServiceContractActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="portrait">
         </activity>
         <activity
             android:name=".scancode.MipcaActivityCapture"
             android:screenOrientation="portrait"/>
-        <activity android:name=".activity.RecommendedWorksActivity">
+        <activity
+            android:name=".activity.RecommendedWorksActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="portrait">
         </activity>
-        <activity android:name=".activity.SelectMapLocActivity">
+        <activity
+            android:name=".activity.SelectMapLocActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="portrait">
         </activity>
-        <activity android:name=".activity.DiscoveryActivity">
+        <activity
+            android:name=".activity.DiscoveryActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="portrait">
         </activity>
-        <activity android:name=".setting.SettingAllActivity">
+        <activity
+            android:name=".setting.SettingAllActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="portrait">
         </activity>
         <activity
             android:name=".setting.SettingMessageActivity"
-            android:label="@string/title_activity_setting_message"
-            android:theme="@style/AppTheme">
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="portrait"
+            >
         </activity>
-        <activity android:name=".activity.PublishedProjectActivity">
+        <activity
+            android:name=".activity.PublishedProjectActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="portrait">
         </activity>
-        <activity android:name=".setting.FeelbackSettingActivity"/>
-        <activity android:name=".activity.EvaluateActivity">
+        <activity android:name=".setting.FeedbackSettingActivity"/>
+        <activity
+            android:name=".activity.EvaluateActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="portrait">
         </activity>
-        <activity android:name=".activity.EvaluateListActivity">
+        <activity
+            android:name=".activity.EvaluateListActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="portrait">
         </activity>
-        <activity android:name=".activity.AccountActivity">
+        <activity
+            android:name=".activity.AccountActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="portrait">
         </activity>
-        <activity android:name=".activity.AccountDetailActivity">
+        <activity
+            android:name=".activity.AccountDetailActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="portrait">
         </activity>
-        <activity android:name=".setting.FeelbackSettingActivity"/>
-        <activity android:name=".setting.AboutActivity">
+        <activity
+            android:name=".setting.AboutActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="portrait">
         </activity>
-        <activity android:name=".activity.JiFenActivity">
+        <activity
+            android:name=".activity.JiFenActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity
+            android:name=".activity.InviteFriendsActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="portrait">
         </activity>
     </application>
 

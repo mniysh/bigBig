@@ -47,10 +47,13 @@ import com.ms.ebangw.fragment.BaseFragment;
 import com.ms.ebangw.service.DataAccessUtil;
 import com.ms.ebangw.service.DataParseUtil;
 import com.ms.ebangw.utils.BitmapUtil;
+import com.ms.ebangw.utils.ImageLoaderutils;
 import com.ms.ebangw.utils.L;
 import com.ms.ebangw.utils.T;
 import com.ms.ebangw.utils.VerifyUtils;
 import com.ms.ebangw.view.ProvinceAndCityView;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONObject;
@@ -77,9 +80,12 @@ public class IncreaseDetailFragment extends BaseFragment {
     private static final int REQUEST_PICK = 4;
     private static final int REAQUEST_CROP = 8;
     private static final int MAP_LOCATION = 11;
+    private ImageLoader loader;
+    private DisplayImageOptions options;
 
     private String whickPhoto ;
     private int a;
+    private ArrayList<String> dataUrl;
 
     //经纬度
     private float longitude;
@@ -155,6 +161,8 @@ public class IncreaseDetailFragment extends BaseFragment {
     private int  startYear,  startMonth,  startDay, endYear, endMonth, endDay;
     private String categroy;
     private static  final String KEY_CATEGROY = "key_categroy";
+    private ArrayList<Bitmap> dataBit ;
+    private ArrayList<String> dataFilePath;
 
 
 
@@ -229,17 +237,25 @@ public class IncreaseDetailFragment extends BaseFragment {
             staff = getArguments().getString(ARG_PARAM1);
             categroy = getArguments().getString(KEY_CATEGROY);
         }
+        options = ImageLoaderutils.getOpt();
+        loader = ImageLoaderutils.getInstance(mActivity);
 
         if (null != savedInstanceState) {
             mCurrentPhotoPath = savedInstanceState.getString(Constants.KEY_CURRENT_IMAGE_PATH);
             releaseInfo = savedInstanceState.getParcelable(Constants.KEY_RELEASE_INFO);
-            imageNames = savedInstanceState.getStringArrayList(Constants.KEY_PROJECT_IMAGES);
+            dataFilePath = savedInstanceState.getStringArrayList("duang");
+
+            if(dataUrl != null){
+                T.show("长度是"+dataUrl.size());
+            }
+
             if (null == picList) {
                 picList = new ArrayList<>();
                 picList.add(picture01Iv);
                 picList.add(picture02Iv);
                 picList.add(picture03Iv);
             }
+
         }
     }
 
@@ -350,7 +366,7 @@ public class IncreaseDetailFragment extends BaseFragment {
 
 
     public boolean isRight(){
-        if(imageNames == null || imageNames.size() == 0){
+        if(dataBit == null || dataBit.size() == 0){
             T.show("请至少上传一张图片");
             return false;
         }
@@ -398,7 +414,16 @@ public class IncreaseDetailFragment extends BaseFragment {
 
     @Override
     public void initView() {
-        imageNames = new ArrayList<String>();
+//        imageNames = new ArrayList<String>();
+////        dataUrl = new ArrayList<String>();
+//        if(dataBit == null){
+//
+//            dataBit = new ArrayList<Bitmap>();
+//        }
+        if(dataFilePath == null){
+
+            dataFilePath = new ArrayList<String>();
+        }
         setStartRed();
         startTimeTv.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
@@ -480,7 +505,6 @@ public class IncreaseDetailFragment extends BaseFragment {
             //照相上传
             Uri uri ;
             if(data == null){
-//                uri = Uri.fromFile(imageFile);
                 uri = Uri.fromFile(new File(mCurrentPhotoPath));
             }else{
                 uri = data.getData();
@@ -489,6 +513,7 @@ public class IncreaseDetailFragment extends BaseFragment {
 
         }else if(requestCode == Constants.REQUEST_PICK){
             //手机内部选图处理
+
             Uri uri = data.getData();
             String path = GetPathFromUri4kitkat.getPath(mActivity,uri);
             myApplication = (MyApplication) mActivity.getApplication();
@@ -519,6 +544,13 @@ public class IncreaseDetailFragment extends BaseFragment {
     }
 
     public void handleCrop(int resultCode, Intent result) {
+
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
 
     }
 
@@ -722,35 +754,29 @@ public class IncreaseDetailFragment extends BaseFragment {
         String id = upLoadImageResult.getId();
         String name = upLoadImageResult.getName();
         String imagePath = myApplication.imagePath;
+        String url = upLoadImageResult.getUrl();
         Bitmap bitmap = BitmapUtil.getImage(imagePath);
 
-        int size = imageNames.size();
-        if (size >= 2) {        //只有三张图片，如果大于三张，删除第一张
-            imageNames.remove(0);
+
+        int size = dataFilePath.size();
+        if (size == 3) {        //只有三张图片，如果大于三张，删除第一张
+            dataFilePath.remove(0);
         }
-            imageNames.add(name);
-        //现在还没弄好
-        Uri uri = Uri.parse(imagePath);
-        Picasso.with(mActivity).load(uri).placeholder(R.drawable.ms_logo).error(R.drawable.a).into(picture01Iv);
-        for (int i = 0; i < size; i++) {
-            Picasso.with(mActivity).load(imageNames.get(i)).into(picList.get(i));
+        dataFilePath.add(imagePath);
+        if(dataFilePath != null){
+            for (int i = 0; i <dataFilePath.size() ; i++) {
+                picList.get(i).setImageBitmap(BitmapUtil.getImage(dataFilePath.get(i)));
+            }
         }
 
-//
-//        if(a % 3 == 1){
-//            picture01Iv.setImageBitmap(bitmap);
-//        }else if(a % 3 == 2){
-//            picture02Iv.setImageBitmap(bitmap);
-//        }else if(a %3 == 0){
-//            picture03Iv.setImageBitmap(bitmap);
-//        }
     }
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
         outState.putString(Constants.KEY_CURRENT_IMAGE_PATH, mCurrentPhotoPath);
         outState.putParcelable(Constants.KEY_RELEASE_INFO, releaseInfo);
-        outState.putStringArrayList(Constants.KEY_PROJECT_IMAGES, imageNames);
+        outState.putStringArrayList("duang",dataFilePath);
         super.onSaveInstanceState(outState);
     }
+
 }

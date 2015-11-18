@@ -14,7 +14,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 
 
-public class FeelbackSettingActivity extends BaseActivity {
+public class FeedbackSettingActivity extends BaseActivity {
     @Bind(R.id.et_content)
     EditText contentEt;
     @Bind(R.id.bt_commit)
