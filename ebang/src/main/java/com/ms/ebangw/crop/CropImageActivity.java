@@ -216,7 +216,7 @@ public class CropImageActivity extends BaseActivity {
                     intent.putExtra(Constants.KEY_UPLOAD_IMAGE_RESULT, imageResult);
                     setResult(RESULT_OK, intent);
                     finish();
-//                    T.show("发布图片上传成功");
+                    T.show("发布图片上传成功");
                 } catch (ResponseException e) {
                     e.printStackTrace();
                 }

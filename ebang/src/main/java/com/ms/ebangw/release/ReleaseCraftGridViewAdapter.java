@@ -29,12 +29,12 @@ public class ReleaseCraftGridViewAdapter extends BaseAdapter{
 
     private List<WorkType> list;
     private FragmentManager fm;
-    private HomeActivity activity;
+    private ReleaseActivity activity;
 
 
     private List<WorkType> selectedWorkTypes;
 
-    public ReleaseCraftGridViewAdapter(FragmentManager fm, List<WorkType> list, HomeActivity activity) {
+    public ReleaseCraftGridViewAdapter(FragmentManager fm, List<WorkType> list, ReleaseActivity activity) {
         this.fm = fm;
         this.list = list;
         this.activity = activity;
@@ -61,7 +61,7 @@ public class ReleaseCraftGridViewAdapter extends BaseAdapter{
         final CheckBox cb = (CheckBox) View.inflate(parent.getContext(), R.layout
             .layout_craft_gridview_item, null);
         cb.setText(workType.getName());
-        if(activity != null && activity instanceof HomeActivity){
+        if(activity != null && activity instanceof ReleaseActivity){
             selectedWorkTypes = getSelectedWorkTypes();
             if(selectedWorkTypes.contains(workType)){
                 cb.setChecked(true);
@@ -108,7 +108,7 @@ public class ReleaseCraftGridViewAdapter extends BaseAdapter{
      * @return
      */
     public List<WorkType> getSelectedWorkTypes() {
-        if(activity != null && activity instanceof HomeActivity){
+        if(activity != null && activity instanceof ReleaseActivity){
             return activity.getSelectWorkType();
         }
         return null;

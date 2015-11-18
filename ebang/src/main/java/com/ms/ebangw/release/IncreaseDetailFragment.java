@@ -244,6 +244,7 @@ public class IncreaseDetailFragment extends BaseFragment {
             mCurrentPhotoPath = savedInstanceState.getString(Constants.KEY_CURRENT_IMAGE_PATH);
             releaseInfo = savedInstanceState.getParcelable(Constants.KEY_RELEASE_INFO);
             dataFilePath = savedInstanceState.getStringArrayList("duang");
+            imageNames = savedInstanceState.getStringArrayList(Constants.KEY_PROJECT_IMAGES);
 
             if(dataUrl != null){
                 T.show("长度是"+dataUrl.size());
@@ -366,7 +367,7 @@ public class IncreaseDetailFragment extends BaseFragment {
 
 
     public boolean isRight(){
-        if(dataBit == null || dataBit.size() == 0){
+        if(dataFilePath == null || dataFilePath.size() == 0){
             T.show("请至少上传一张图片");
             return false;
         }
@@ -414,7 +415,9 @@ public class IncreaseDetailFragment extends BaseFragment {
 
     @Override
     public void initView() {
-//        imageNames = new ArrayList<String>();
+        if(imageNames == null){
+            imageNames = new ArrayList<String>();
+        }
 ////        dataUrl = new ArrayList<String>();
 //        if(dataBit == null){
 //
@@ -692,7 +695,7 @@ public class IncreaseDetailFragment extends BaseFragment {
                                     releaseProject = DataParseUtil.getProjectInfo(response);
                                     Bundle  bundle = new Bundle();
                                     bundle.putParcelable(Constants.KEY_RELEASE_PROJECT,releaseProject);
-                                    Intent intent = new Intent((HomeActivity)mActivity,PayingActivity.class );
+                                    Intent intent = new Intent((ReleaseActivity)mActivity,PayingActivity.class );
                                     intent.putExtras(bundle);
                                     startActivity(intent);
                                 }
@@ -719,6 +722,7 @@ public class IncreaseDetailFragment extends BaseFragment {
                         public void onStart() {
                             super.onStart();
                             showProgressDialog("请稍后");
+                            T.show("开始");
                         }
 
                         @Override
@@ -732,6 +736,8 @@ public class IncreaseDetailFragment extends BaseFragment {
                                 }
                             } catch (ResponseException e) {
                                 e.printStackTrace();
+                                T.show(e.getMessage());
+                                dismissLoadingDialog();
                             }
                         }
 
@@ -761,8 +767,10 @@ public class IncreaseDetailFragment extends BaseFragment {
         int size = dataFilePath.size();
         if (size == 3) {        //只有三张图片，如果大于三张，删除第一张
             dataFilePath.remove(0);
+            imageNames.remove(0);
         }
         dataFilePath.add(imagePath);
+        imageNames.add(name);
         if(dataFilePath != null){
             for (int i = 0; i <dataFilePath.size() ; i++) {
                 picList.get(i).setImageBitmap(BitmapUtil.getImage(dataFilePath.get(i)));
@@ -775,6 +783,7 @@ public class IncreaseDetailFragment extends BaseFragment {
     public void onSaveInstanceState(Bundle outState) {
         outState.putString(Constants.KEY_CURRENT_IMAGE_PATH, mCurrentPhotoPath);
         outState.putParcelable(Constants.KEY_RELEASE_INFO, releaseInfo);
+        outState.putStringArrayList(Constants.KEY_PROJECT_IMAGES, imageNames);
         outState.putStringArrayList("duang",dataFilePath);
         super.onSaveInstanceState(outState);
     }

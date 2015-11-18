@@ -24,12 +24,12 @@ public class ReleaseCraftAdapter extends BaseAdapter {
     private WorkType firstWorkType;
     private List<WorkType> list;
     private FragmentManager fm;
-    private HomeActivity activity;
+    private ReleaseActivity activity;
 
 
     private List<WorkType> selectedWorkTypes;
 
-    public ReleaseCraftAdapter(FragmentManager fm, WorkType firstWorkType, HomeActivity activity) {
+    public ReleaseCraftAdapter(FragmentManager fm, WorkType firstWorkType, ReleaseActivity activity) {
         this.fm = fm;
         this.activity = activity;
         this.firstWorkType = firstWorkType;

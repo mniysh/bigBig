@@ -13,6 +13,7 @@ import com.ms.ebangw.activity.HomeActivity;
 import com.ms.ebangw.bean.WorkType;
 import com.ms.ebangw.commons.Constants;
 import com.ms.ebangw.event.WorkTypeEvent;
+import com.ms.ebangw.release.ReleaseActivity;
 import com.ms.ebangw.userAuthen.worker.WorkTypeActivity;
 import com.ms.ebangw.utils.T;
 
@@ -141,7 +142,7 @@ public class CraftGridViewAdapter extends BaseAdapter{
             return selectedWorkTypes;
         }
         if(activity != null && activity instanceof  HomeActivity){
-            HomeActivity homeActivity = (HomeActivity) activity;
+            ReleaseActivity homeActivity = (ReleaseActivity) activity;
             ArrayList<WorkType> selecteWorkTypes = (ArrayList<WorkType>) homeActivity.getSelectWorkType();
             return selecteWorkTypes;
         }

@@ -88,7 +88,7 @@ public class ReleaseWorkTypeFragment extends BaseFragment {
     @Override
     public void initData() {
         if(workType != null){
-            craftAdapter = new ReleaseCraftAdapter(((HomeActivity)mActivity).getFragmentManager(), workType, (HomeActivity)mActivity);
+            craftAdapter = new ReleaseCraftAdapter(((ReleaseActivity)mActivity).getFragmentManager(), workType, (ReleaseActivity)mActivity);
             listView.setAdapter(craftAdapter);
         }
 

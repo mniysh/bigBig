@@ -33,6 +33,7 @@ import com.ms.ebangw.fragment.InvestorCenterFragment;
 import com.ms.ebangw.fragment.ServiceFragment;
 import com.ms.ebangw.fragment.WorkerCenterFragment;
 import com.ms.ebangw.release.IncreaseDetailFragment;
+import com.ms.ebangw.release.ReleaseActivity;
 import com.ms.ebangw.release.ReleaseWorkTypeFragment;
 import com.ms.ebangw.release.SelectCraftFragment;
 import com.ms.ebangw.service.DataAccessUtil;
@@ -151,7 +152,13 @@ public class HomeActivity extends BaseActivity {
 //                        fm.beginTransaction().replace(R.id.fl_content, workerHomeFragment).commit();
                         break;
                     case R.id.rb_release:
-                        fm.beginTransaction().replace(R.id.fl_content, new SelectCraftFragment().newInstance(categroy, "")).commit();
+                        Bundle bundle = new Bundle();
+                        bundle.putString(Constants.RELEASE_WORKTYPE_KEY, categroy);
+                        Intent intentRelease = new Intent(HomeActivity.this, ReleaseActivity.class);
+                        intentRelease.putExtras(bundle);
+                        startActivity(intentRelease);
+//                        startActivity(new Intent());
+//                        fm.beginTransaction().replace(R.id.fl_content, new SelectCraftFragment().newInstance(categroy, "")).commit();
 //                        fm.beginTransaction().replace(R.id.fl_content, new SelectCraftFragment()).commit();
 //                        fm.beginTransaction().replace(R.id.fl_content, eMallFragment).commit();
                         break;
