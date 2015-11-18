@@ -13,6 +13,7 @@ import com.ms.ebangw.adapter.RecommendedWorkersAdapter;
 import com.ms.ebangw.bean.ReleaseProject;
 import com.ms.ebangw.bean.Staff;
 import com.ms.ebangw.bean.Worker;
+import com.ms.ebangw.bean.WorkerFriend;
 import com.ms.ebangw.commons.Constants;
 import com.ms.ebangw.exception.ResponseException;
 import com.ms.ebangw.service.DataAccessUtil;
@@ -102,7 +103,8 @@ public class RecommendedWorksActivity extends BaseActivity {
 
                 dismissLoadingDialog();
                 try {
-                    List<Worker> workerList = DataParseUtil.recommendedWorkers(response);
+                    WorkerFriend workerFriend = DataParseUtil.recommendedWorkersa(response);
+                    List<Worker> workerList = workerFriend.getWorkers();
                     if (null != workerList && workerList.size() > 0) {
                         initWorksList(workerList);
                     }

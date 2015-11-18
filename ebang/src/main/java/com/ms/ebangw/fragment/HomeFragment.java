@@ -371,7 +371,7 @@ public class HomeFragment extends BaseFragment {
 //                companyNameTv.setText(recommendedDeveoper.getCompany_name());
 //                String logo = recommendedDeveoper.getLogo();
 //                if (!TextUtils.isEmpty(logo)) {
-//                    Picasso.with(mActivity).load(logo).placeholder(R
+//               rt     Picasso.with(mActivity).load(logo).placeholder(R
 //                        .drawable.yuan).into(comanyLogoIv);
 //                }
 //            }

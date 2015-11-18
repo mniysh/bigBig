@@ -22,6 +22,7 @@ import com.ms.ebangw.bean.UploadImageResult;
 import com.ms.ebangw.bean.User;
 import com.ms.ebangw.bean.WorkType;
 import com.ms.ebangw.bean.Worker;
+import com.ms.ebangw.bean.WorkerFriend;
 import com.ms.ebangw.exception.ResponseException;
 import com.ms.ebangw.utils.L;
 
@@ -374,6 +375,21 @@ public class DataParseUtil {
 
         return  workerList;
     }
+
+    /**
+     * 2-7.工头获取符合工种工人列表（邀请）
+     * @param jsonObject
+     * @return
+     * @throws ResponseException
+     */
+    public static WorkerFriend recommendedWorkersa(JSONObject jsonObject)throws ResponseException{
+
+        String dataStr = processDataStr(jsonObject);
+        Gson gson = new Gson();
+        WorkerFriend workerFriend = gson.fromJson(dataStr, WorkerFriend.class);
+        return workerFriend;
+    }
+
 
     /**
      * 2-16.工长解除和工人的推荐关系
