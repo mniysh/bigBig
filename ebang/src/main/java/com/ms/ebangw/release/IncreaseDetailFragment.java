@@ -177,7 +177,7 @@ public class IncreaseDetailFragment extends BaseFragment {
     }
 
     public IncreaseDetailFragment() {
-        // Required empty public constructor
+
     }
     //地图获取信息
     @OnClick({R.id.et_address, R.id.tv_selectMapAdd})
@@ -324,6 +324,8 @@ public class IncreaseDetailFragment extends BaseFragment {
         if(releaseInfo == null){
             releaseInfo = new ReleaseInfo();
         }
+
+
         releaseInfo.setTitle(title);
         releaseInfo.setDescription(description);
         releaseInfo.setLink_man(link_name);
