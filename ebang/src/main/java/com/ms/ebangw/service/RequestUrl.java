@@ -106,6 +106,11 @@ public class RequestUrl {
      */
     public static  final  String developer_release = domain + "/api/developers/project/add-total";
     /**
+     * 工头发布接口
+     */
+    public static  final  String headman_release = domain + "/api/headman/project/add-total";
+
+    /**
      * 2-3.个人发布页面
      */
     public static final String investor_release = domain +"/api/investor/project/add-total" ;

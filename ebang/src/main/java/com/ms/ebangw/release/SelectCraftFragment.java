@@ -119,7 +119,7 @@ public class SelectCraftFragment extends BaseFragment {
         contentLayout = (ViewGroup) inflater.inflate(R.layout.fragment_select_craft, container,
             false);
         ButterKnife.bind(this, contentLayout);
-        if(TextUtils.equals(categroy, "developers") || TextUtils.equals(categroy, "investor")){
+        if(TextUtils.equals(categroy, "developers") || TextUtils.equals(categroy, "investor") || TextUtils.equals(categroy,"headman")){
 
             totalMoneyTv.setVisibility(View.VISIBLE);
             nextBt.setVisibility(View.VISIBLE);
@@ -127,7 +127,7 @@ public class SelectCraftFragment extends BaseFragment {
             initView();
             initData();
         }else{
-            T.show("您的身份不正确，个人和开发商用户可发布信息。");
+            T.show("您的身份不正确,务工用户用不可发布信息。");
 
             totalMoneyTv.setVisibility(View.GONE);
             nextBt.setVisibility(View.GONE);

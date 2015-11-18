@@ -476,9 +476,14 @@
         <activity
             android:name=".activity.InviteFriendsActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait"
+            >
         </activity>
-        <activity android:name=".release.ReleaseActivity" >
+        <!--设置屏幕旋转之后不重构和屏幕竖直-->
+        <activity android:name=".release.ReleaseActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="portrait"
+            >
         </activity>
     </application>
 

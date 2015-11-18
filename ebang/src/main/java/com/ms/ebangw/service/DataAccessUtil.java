@@ -254,6 +254,51 @@ public class DataAccessUtil {
     }
 
     /**
+     * 工头发布
+     * @param title
+     * @param description
+     * @param link_man
+     * @param link_phone
+     * @param province
+     * @param city
+     * @param area_other
+     * @param point_longitude
+     * @param point_latitude
+     * @param image_ary
+     * @param start_time
+     * @param end_time
+     * @param project_money
+     * @param staffs
+     * @param asyncHttpResponseHandler
+     * @return
+     */
+    public static RequestHandle headmanRelease(String title, String description, String link_man,
+                                                 String link_phone, String province, String city,
+                                                 String area_other, float point_longitude,
+                                                 float point_latitude,
+                                                 String image_ary,String start_time,
+                                                 String end_time, String project_money,String staffs, AsyncHttpResponseHandler asyncHttpResponseHandler){
+        RequestParams params = new RequestParams();
+        params.put("title",title);
+        params.put("description",description);
+        params.put("link_man",link_man);
+        params.put("link_phone",link_phone);
+        params.put("province",province);
+        params.put("city",city);
+        params.put("area_other",area_other);
+        params.put("point_longitude",point_longitude);
+        params.put("point_latitude",point_latitude);
+        params.put("start_time",start_time);
+        params.put("end_time", end_time);
+        params.put("project_money",project_money);
+        params.put("image_ary",image_ary);
+        params.put("staffs", staffs);
+        //T.show("能进来1");
+        return doPost(RequestUrl.developer_release, params, asyncHttpResponseHandler);
+
+    }
+
+    /**
      * 2-3.发布个人
      * @param title
      * @param description
@@ -296,6 +341,7 @@ public class DataAccessUtil {
 
         return doPost(RequestUrl.investor_release, params, asyncHttpResponseHandler);
     }
+
 
 
     /**

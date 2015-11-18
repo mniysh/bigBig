@@ -715,6 +715,42 @@ public class IncreaseDetailFragment extends BaseFragment {
                         }
                     } );
         }
+        if(isRight() && TextUtils.equals(categroy, "headman")){
+            DataAccessUtil.developerRelease(title, description,link_name,link_phone,
+                     provinceId, cityId,detailAddress,
+                    longitude, latitude, image_ary,startTime, endTime,totalMoney, staff,
+                    new JsonHttpResponseHandler(){
+
+                        @Override
+                        public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                            super.onSuccess(statusCode, headers, response);
+
+                            try {
+                                releaseProject = new ReleaseProject();
+                                boolean b = DataParseUtil.processDataResult(response);
+                                if(b){
+                                    T.show("工长发布成功");
+//                                    releaseProject = DataParseUtil.getProjectInfo(response);
+//                                    Bundle  bundle = new Bundle();
+//                                    bundle.putParcelable(Constants.KEY_RELEASE_PROJECT,releaseProject);
+//                                    Intent intent = new Intent((ReleaseActivity)mActivity,PayingActivity.class );
+//                                    intent.putExtras(bundle);
+//                                    startActivity(intent);
+                                }
+                            } catch (ResponseException e) {
+                                e.printStackTrace();
+                                T.show(e.getMessage());
+                            }
+
+                        }
+
+                        @Override
+                        public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                            super.onFailure(statusCode, headers, responseString, throwable);
+                            L.d(responseString);
+                        }
+                    } );
+        }
         if(isRight() && TextUtils.equals(categroy, "investor")){
             DataAccessUtil.investorRelease(title, description,link_name,link_phone,
                     provinceId, cityId,detailAddress,
