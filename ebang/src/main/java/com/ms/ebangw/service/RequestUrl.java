@@ -191,7 +191,8 @@ public class RequestUrl {
     /**
      *2-15.工长查看推荐过他的工人列表    get
      */
-    public static final String recommended_workers = domain + "/api/headman/project/recommended";
+//    public static final String recommended_workers = domain + "/api/headman/project/recommended";
+    public static final String recommended_workers = domain + "/api/headman/project/invite-worker-list";
 
     /**
      * 2-16.工长解除和工人的推荐关系

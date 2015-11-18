@@ -770,9 +770,12 @@ public class DataAccessUtil {
      * @param asyncHttpResponseHandler
      * @return
      */
-    public static RequestHandle recommendedWorkers(AsyncHttpResponseHandler
+    public static RequestHandle recommendedWorkers(String project_id, String craft_id,AsyncHttpResponseHandler
                                               asyncHttpResponseHandler){
-        return doGet(RequestUrl.recommended_workers, null, asyncHttpResponseHandler);
+        RequestParams params = new RequestParams();
+        params.put("project_id", project_id);
+        params.put("craft_id", craft_id);
+        return doGet(RequestUrl.recommended_workers, params, asyncHttpResponseHandler);
     }
 
     /**

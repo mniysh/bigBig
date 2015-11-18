@@ -3,145 +3,179 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/white"
-    android:orientation="horizontal"
+    android:orientation="vertical"
     android:weightSum="1">
 
-    <TextView
-        android:id="@+id/tv_head"
-        android:layout_width="20dp"
-        android:layout_height="20dp"
-        android:layout_gravity="center"
-        android:text="1"
-        android:gravity="center"
-        android:textColor="#fff"
-        android:background="@drawable/itemline"
-        android:layout_marginLeft="10dp"
-        />
-
-
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:orientation="vertical">
+        android:orientation="horizontal"
+        android:weightSum="1">
+
+
+        <TextView
+            android:id="@+id/tv_head"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_gravity="center"
+            android:layout_marginLeft="10dp"
+
+            android:background="@drawable/itemline"
+            android:gravity="center"
+            android:text="1"
+            android:textColor="@color/white" />
+
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:layout_margin="10dp"
+            android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/tv_craft_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:text="水泥工 "
-                android:textColor="#4F4F4F"
-                android:textSize="15dp" />
-
-            <TextView
-                android:id="@+id/tv_money"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
-                android:layout_marginTop="5dp"
-                android:text="5"
-                android:textColor="#FF3030"
-                android:textSize="15dp" />
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:text="元/天 "
-                android:textColor="#FF3030"
-                android:textSize="15dp" />
-
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:text="需要"
-                android:textColor="#FF3030"
-                android:textSize="15dp" />
-            <TextView
-                android:id="@+id/tv_staff_account"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:text="5"
-                android:textColor="#FF3030"
-                android:textSize="15dp" />
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:text="人"
-                android:textColor="#FF3030"
-                android:textSize="15dp" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/tv_start_time_one"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:text="开始时间: "
-                android:textColor="#4F4F4F"
-                android:textSize="15dp" />
-
-            <TextView
-                android:id="@+id/tv_start_time"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
-                android:layout_marginTop="5dp"
-                android:text="2015-08-08"
-                android:textColor="#4F4F4F"
-                android:textSize="15dp"
-                android:layout_marginRight="3dp"
-                />
-        </LinearLayout>
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
-            <TextView
-                android:id="@+id/tv_end_time_one"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:text="结束时间: "
-                android:textColor="#4F4F4F"
-                android:textSize="15dp" />
 
-            <TextView
-                android:id="@+id/tv_end_time"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
-                android:layout_marginTop="5dp"
-                android:text="2015-08-08"
-                android:textColor="#4F4F4F"
-                android:textSize="15dp" />
+                <TextView
+                    android:id="@+id/tv_craft_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:text="水泥工 "
+                    android:textColor="#4F4F4F"
+                    android:textSize="15dp" />
+
+                <TextView
+                    android:id="@+id/tv_money"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="5dp"
+                    android:text="5"
+                    android:textColor="#FF3030"
+                    android:textSize="15dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:text="元/天 "
+                    android:textColor="#FF3030"
+                    android:textSize="15dp" />
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:text="需要"
+                    android:textColor="#FF3030"
+                    android:textSize="15dp" />
+
+                <TextView
+                    android:id="@+id/tv_staff_account"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:text="5"
+                    android:textColor="#FF3030"
+                    android:textSize="15dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:text="人"
+                    android:textColor="#FF3030"
+                    android:textSize="15dp" />
             </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tv_start_time_one"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:text="开始时间: "
+                    android:textColor="#4F4F4F"
+                    android:textSize="15dp" />
+
+                <TextView
+                    android:id="@+id/tv_start_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="3dp"
+                    android:layout_marginTop="5dp"
+                    android:text="2015-08-08"
+                    android:textColor="#4F4F4F"
+                    android:textSize="15dp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tv_end_time_one"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:text="结束时间: "
+                    android:textColor="#4F4F4F"
+                    android:textSize="15dp" />
+
+                <TextView
+                    android:id="@+id/tv_end_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="5dp"
+                    android:text="2015-08-08"
+                    android:textColor="#4F4F4F"
+                    android:textSize="15dp" />
+
+            </LinearLayout>
+            <!--<TextView-->
+            <!--android:layout_marginTop="3dp"-->
+            <!--android:id="@+id/tv_now_status"-->
+            <!--android:text="已经选择100人，成功选择3人，还差2人"-->
+            <!--android:textColor="@color/orange"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content" />-->
+
         </LinearLayout>
+        <!--<TextView-->
+        <!--android:layout_marginTop="3dp"-->
+        <!--android:id="@+id/tv_now_status"-->
+        <!--android:text="已经选择100人，成功选择3人，还差2人"-->
+        <!--android:textColor="@color/orange"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content" />-->
 
 
-    <Button
-        android:id="@+id/bt_xuan_ren"
-        android:layout_width="60dp"
-        android:layout_height="30dp"
-        android:layout_gravity="center"
-        android:text="选工友"
-        android:textColor="#fff"
-        android:layout_marginLeft="10dp"
-        android:background="@drawable/bk_but"
-        android:visibility="visible"
-        />
+        <Button
+            android:id="@+id/bt_xuan_ren"
+            android:layout_width="60dp"
+            android:layout_height="30dp"
+            android:layout_gravity="center"
+            android:layout_marginLeft="10dp"
+            android:background="@drawable/bk_but"
+            android:text="选工友"
+            android:textColor="#fff"
+            android:visibility="visible" />
+    </LinearLayout>
+    <TextView
+    android:id="@+id/tv_now_status"
+    android:layout_marginLeft="40dp"
+    android:text="已经选择100人，成功选择3人，还差2人"
+    android:textColor="@color/orange"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content" />
 </LinearLayout>

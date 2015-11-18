@@ -1,5 +1,6 @@
 package com.ms.ebangw.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
@@ -9,7 +10,10 @@ import android.widget.TextView;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.ms.ebangw.R;
 import com.ms.ebangw.adapter.RecommendedWorkersAdapter;
+import com.ms.ebangw.bean.ReleaseProject;
+import com.ms.ebangw.bean.Staff;
 import com.ms.ebangw.bean.Worker;
+import com.ms.ebangw.commons.Constants;
 import com.ms.ebangw.exception.ResponseException;
 import com.ms.ebangw.service.DataAccessUtil;
 import com.ms.ebangw.service.DataParseUtil;
@@ -39,6 +43,10 @@ public class RecommendedWorksActivity extends BaseActivity {
     QuickindexBar slideBar;
     @Bind(R.id.tv_zimu)
     TextView tvZimu;
+    private String project_id;
+    private String craft_id;
+    private Staff staff;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +61,11 @@ public class RecommendedWorksActivity extends BaseActivity {
     public void initView() {
         initTitle(null, "返回", "人员管理", null, null);
         handler = new Handler();
+        Intent intent = getIntent();
+        staff = intent.getExtras().getParcelable(Constants.KEY_RELEASED_PROJECT_STAFF);
+        project_id = staff.getProject_id();
+        craft_id = staff.getCraft_id();
+
 
     }
 
@@ -78,7 +91,7 @@ public class RecommendedWorksActivity extends BaseActivity {
 
     private void loadWorkers() {
 
-        DataAccessUtil.recommendedWorkers(new JsonHttpResponseHandler() {
+        DataAccessUtil.recommendedWorkers(project_id, craft_id,new JsonHttpResponseHandler() {
             @Override
             public void onStart() {
                 showProgressDialog();

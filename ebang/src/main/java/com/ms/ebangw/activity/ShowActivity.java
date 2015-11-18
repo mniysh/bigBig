@@ -20,6 +20,7 @@ import com.ms.ebangw.adapter.ProjectItemdetailAdapter;
 import com.ms.ebangw.bean.ProjectInfoDetail;
 import com.ms.ebangw.bean.ReleaseProject;
 import com.ms.ebangw.bean.Staff;
+import com.ms.ebangw.bean.User;
 import com.ms.ebangw.commons.Constants;
 import com.ms.ebangw.exception.ResponseException;
 import com.ms.ebangw.service.DataAccessUtil;
@@ -73,6 +74,9 @@ public class ShowActivity extends BaseActivity implements OnClickListener {
 
     private ReleaseProject releaseProject;
     String projectId;
+    private User user;
+    private String category;
+    private Staff staff;
 
 
     @Override
@@ -106,6 +110,10 @@ public class ShowActivity extends BaseActivity implements OnClickListener {
 
     public void initView() {
         bQiangdan = (Button) findViewById(R.id.act_show_qiangdan);
+        user = getUser();
+        if(user != null){
+            category = user.getCategory();
+        }
     }
 
     @Override
@@ -120,9 +128,8 @@ public class ShowActivity extends BaseActivity implements OnClickListener {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                 try {
-                    ProjectInfoDetail detail = DataParseUtil.projectInfoDetail(response);
+                     ProjectInfoDetail detail = DataParseUtil.projectInfoDetail(response);
                     if (null != detail) {
-
                         String IsContend = detail.getIsContend();
                         SharedPreferences sharedPreferences = getSharedPreferences("test", Context.MODE_PRIVATE);
                         SharedPreferences.Editor editor = sharedPreferences.edit();
@@ -159,6 +166,7 @@ public class ShowActivity extends BaseActivity implements OnClickListener {
                                     Intent intent = new Intent(ShowActivity.this, RecommendedWorksActivity.class);
                                     Bundle bundle = new Bundle();
                                     bundle.putParcelable(Constants.KEY_RELEASED_PROJECT_STR, releaseProject);
+                                    bundle.putParcelable(Constants.KEY_RELEASED_PROJECT_STAFF,staff);
                                     intent.putExtras(bundle);
                                     startActivity(intent);
                                 }

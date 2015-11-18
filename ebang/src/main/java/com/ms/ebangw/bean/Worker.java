@@ -13,6 +13,15 @@ public class Worker implements Comparable<Worker>{
     private String id;
     private String head_image;
     private String real_name;
+    private String isInvitation;
+
+    public String getIsInvitation() {
+        return isInvitation;
+    }
+
+    public void setIsInvitation(String isInvitation) {
+        this.isInvitation = isInvitation;
+    }
 
     /**
      * 工种
