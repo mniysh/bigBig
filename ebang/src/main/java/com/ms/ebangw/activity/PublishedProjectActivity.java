@@ -8,6 +8,7 @@ import android.widget.RadioGroup;
 
 import com.ms.ebangw.R;
 import com.ms.ebangw.adapter.ProjectStatusPagerAdapter;
+import com.ms.ebangw.bean.User;
 import com.ms.ebangw.fragment.PublishedProjectStatusFragment;
 
 import java.util.ArrayList;
@@ -17,7 +18,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 
 /**
- * 已发布的不同状态的 工程 ：待通过  进行中  已结束
+ * 已发布的不同状态的 工程 ：待审核，待通过  进行中  已结束
  *
  * @author wangkai
  */
@@ -34,6 +35,8 @@ public class PublishedProjectActivity extends BaseActivity {
     RadioButton btnComplete;
     @Bind(R.id.radioGroup)
     RadioGroup radioGroup;
+    @Bind(R.id.btn_waiting_audit)
+    RadioButton btnWaitingAudit;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,16 +55,20 @@ public class PublishedProjectActivity extends BaseActivity {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 switch (checkedId) {
-                    case R.id.btn_waiting:
+                    case R.id.btn_waiting_audit:
                         viewPager.setCurrentItem(0);
                         break;
 
-                    case R.id.rb_execute:
+                    case R.id.btn_waiting:
                         viewPager.setCurrentItem(1);
                         break;
 
-                    case R.id.btn_complete:
+                    case R.id.rb_execute:
                         viewPager.setCurrentItem(2);
+                        break;
+
+                    case R.id.btn_complete:
+                        viewPager.setCurrentItem(3);
                         break;
 
 
@@ -72,18 +79,22 @@ public class PublishedProjectActivity extends BaseActivity {
 
     @Override
     public void initData() {
-        PublishedProjectStatusFragment waitingFragment = PublishedProjectStatusFragment.newInstance(PublishedProjectStatusFragment.WAITTING);
+        User user = getUser();
+        String category = user.getCategory();
+        PublishedProjectStatusFragment auditFragment = PublishedProjectStatusFragment.newInstance(PublishedProjectStatusFragment.AUDIT);
+        PublishedProjectStatusFragment waitingFragment = PublishedProjectStatusFragment.newInstance(PublishedProjectStatusFragment.WAITING);
         PublishedProjectStatusFragment executeFragment = PublishedProjectStatusFragment.newInstance(PublishedProjectStatusFragment.EXECUTE);
         PublishedProjectStatusFragment completeFragment = PublishedProjectStatusFragment.newInstance(PublishedProjectStatusFragment.COMPLETE);
 
         List<Fragment> list = new ArrayList<>();
+        list.add(auditFragment);
         list.add(waitingFragment);
         list.add(executeFragment);
         list.add(completeFragment);
 
         ProjectStatusPagerAdapter adapter = new ProjectStatusPagerAdapter(getFragmentManager(), list);
         viewPager.setAdapter(adapter);
-        viewPager.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener(){
+        viewPager.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
             @Override
             public void onPageSelected(int position) {
                 RadioButton radioButton = (RadioButton) radioGroup.getChildAt(position);

@@ -1,6 +1,8 @@
 package com.ms.ebangw.activity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -26,6 +28,7 @@ import com.ms.ebangw.utils.L;
 import com.ms.ebangw.utils.T;
 import com.squareup.picasso.Picasso;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.List;
@@ -64,7 +67,7 @@ public class ShowActivity extends BaseActivity implements OnClickListener {
     ImageView iOneImg;
     @Bind(R.id.iv_two)
     ImageView iTwoImg;
-//    @Bind(R.id.ll_below_show)
+    //    @Bind(R.id.ll_below_show)
 //    LinearLayout lBelowShow;
     String imageUrl;
 
@@ -112,11 +115,19 @@ public class ShowActivity extends BaseActivity implements OnClickListener {
 
     private void load() {
         DataAccessUtil.projectInfoDetail(projectId, new JsonHttpResponseHandler() {
+
+
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                 try {
                     ProjectInfoDetail detail = DataParseUtil.projectInfoDetail(response);
                     if (null != detail) {
+
+                        String IsContend = detail.getIsContend();
+                        SharedPreferences sharedPreferences = getSharedPreferences("test", Context.MODE_PRIVATE);
+                        SharedPreferences.Editor editor = sharedPreferences.edit();
+                        editor.putString("IsContend", IsContend);
+                        editor.commit();
 
                         tTitle.setText(detail.getTitle());
                         tAddress.setText(detail.getAddress());
@@ -125,7 +136,9 @@ public class ShowActivity extends BaseActivity implements OnClickListener {
                         tStartTime.setText(detail.getStart_time());
                         tLinkman.setText(detail.getLink_man());
                         tLinkPhone.setText(detail.getLink_phone());
-                        imageUrl = detail.getImages().get(0);
+                        if (detail.getImages() != null) {
+                            imageUrl = detail.getImages().get(0);
+                        }
 //                        iOneImg.setImageURI(detail.getImages());
                         if (!TextUtils.isEmpty(imageUrl)) {
                             Picasso.with(ShowActivity.this).load(DataAccessUtil.getImageUrl(imageUrl)).placeholder(R.drawable.head).into(iOneImg);
@@ -139,8 +152,6 @@ public class ShowActivity extends BaseActivity implements OnClickListener {
                             detailAdapter = new ProjectItemdetailAdapter(staffs);
                             showListView.setAdapter(detailAdapter);
                             setListView(showListView);
-//                            showListView.getAdapter().getItem(showListView.getAdapter().getCount()-1).toString();
-//                            String str = showListView.getSelectedItem();
 
                             detailAdapter.setOnGrabClickListener(new ProjectItemdetailAdapter.OnGrabClickListener() {
                                 @Override
@@ -158,6 +169,7 @@ public class ShowActivity extends BaseActivity implements OnClickListener {
                 } catch (ResponseException e) {
                     e.printStackTrace();
                     T.show(e.getMessage());
+
                 }
             }
 
@@ -199,11 +211,12 @@ public class ShowActivity extends BaseActivity implements OnClickListener {
             //点击立刻抢单跳转
             case R.id.act_show_qiangdan:
                 L.d("xxx", "跳转能不能进来");
-                startActivity(new Intent(this, QiangDanActivity.class));
-
+                Intent intent = new Intent(ShowActivity.this, QiangDanActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putParcelable(Constants.KEY_RELEASED_PROJECT_STR, releaseProject);
+                intent.putExtras(bundle);
+                startActivity(intent);
                 break;
-//            case R.id.ll_below_show:
-//                startActivity(new Intent(this,RecommendedWorksActivity.class));
             default:
                 break;
         }

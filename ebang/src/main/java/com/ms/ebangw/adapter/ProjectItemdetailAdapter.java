@@ -1,5 +1,7 @@
 package com.ms.ebangw.adapter;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -9,6 +11,7 @@ import android.widget.TextView;
 import com.ms.ebangw.R;
 import com.ms.ebangw.bean.Staff;
 import com.ms.ebangw.commons.Constants;
+import com.tencent.open.utils.Global;
 
 import java.util.List;
 
@@ -83,17 +86,24 @@ public class ProjectItemdetailAdapter extends BaseAdapter {
         holder.tvCraftName.setText(craft_name);
         holder.tvStartTime.setText(start_time);
         holder.tvEndTime.setText(end_time);
-//        holder.tHead.setText(list.get(position).toString()+1);
+        holder.tHead.setText((position+1)+"");
         holder.tHead.setTag(position);
-
-        holder.tvXuanRen.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (null != onGrabClickListener) {
-                    onGrabClickListener.onGrabClick(v, project);
+//        SharedPreferences sharedPreferences = Global.getSharedPreferences("test",Context.MODE_PRIVATE);
+//        String IsContend = sharedPreferences.getString("IsContend","");
+//        if (IsContend!="complete"){
+//            holder.tvXuanRen.setVisibility(View.GONE);
+//        }else{
+            holder.tvXuanRen.setVisibility(View.VISIBLE);
+            holder.tvXuanRen.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (null != onGrabClickListener) {
+                        onGrabClickListener.onGrabClick(v, project);
+                    }
                 }
-            }
-        });
+            });
+//        }
+
         convertView.setTag(Constants.KEY_RELEASED_PROJECT, project);
         return convertView;
     }

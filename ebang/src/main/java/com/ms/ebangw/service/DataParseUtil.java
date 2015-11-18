@@ -331,6 +331,9 @@ public class DataParseUtil {
         return craft;
     }
 
+
+
+
     /**
      * 2-11.首页工程列表
      * @param jsonObject
@@ -402,12 +405,12 @@ public class DataParseUtil {
     }
 
     /**
-     * 2-18 2-19 2-20 已发布的工程
+     * 2-18 已发布的工程
      * @param jsonObject
      * @return
      * @throws ResponseException
      */
-    public static List<ReleaseProject> projectStatus(JSONObject jsonObject) throws ResponseException {
+    public static List<ReleaseProject> grabStatus(JSONObject jsonObject) throws ResponseException {
         JSONObject data = processData(jsonObject);
         String arrayStr = data.optString("project");
 
@@ -537,7 +540,6 @@ public class DataParseUtil {
             L.d(TAG, "processDataResult: json对象为null");
             return false;
         }
-
 
         try {
             String code = jsonObject.getString("code");
