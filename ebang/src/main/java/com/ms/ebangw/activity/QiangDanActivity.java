@@ -21,8 +21,6 @@ import com.ms.ebangw.commons.Constants;
 import com.ms.ebangw.exception.ResponseException;
 import com.ms.ebangw.service.DataAccessUtil;
 import com.ms.ebangw.service.DataParseUtil;
-import com.ms.ebangw.utils.T;
-
 
 import org.json.JSONObject;
 
@@ -31,7 +29,6 @@ import java.util.Date;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 import cz.msebera.android.httpclient.Header;
 
 /**
@@ -151,10 +148,10 @@ public class QiangDanActivity extends BaseActivity {
                                     public void onClick(View v) {
                                         backgroundAlpha(1.0f);
                                         pw.dismiss();
-                                        //                                        Intent intent = new Intent();
-                                        //                                        intent.setClass(QiangDanActivity.this, ShowActivity.class);
-                                        //                                        startActivity(intent); //ActivityA.this.finish();
-                                        QiangDanActivity.this.finish();
+//                                          Intent intent = new Intent();
+//                                          intent.setClass(QiangDanActivity.this, ShowActivity.class);
+                                          startActivity(new Intent(QiangDanActivity.this, ShowActivity.class)); //ActivityA.this.finish();
+//                                        QiangDanActivity.this.finish();
                                     }
                                 });
                                 backgroundAlpha(0.5f);
@@ -174,8 +171,8 @@ public class QiangDanActivity extends BaseActivity {
                                         pw.dismiss();
 //                                        Intent intent = new Intent();
 //                                        intent.setClass(QiangDanActivity.this, ShowActivity.class);
-//                                        startActivity(intent); //ActivityA.this.finish();
-                                        QiangDanActivity.this.finish();
+                                        startActivity(new Intent(QiangDanActivity.this, ShowActivity.class)); //ActivityA.this.finish();
+//                                        QiangDanActivity.this.finish();
                                     }
                                 });
                                 backgroundAlpha(0.5f);
