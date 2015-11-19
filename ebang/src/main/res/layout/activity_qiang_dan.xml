@@ -73,19 +73,20 @@
                         android:paddingTop="15dp">
 
                         <TextView
+                            android:id="@+id/tv_title"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="房屋建设急招工人十名,"
+                            android:text="标题"
                             android:textColor="@color/black"
                             android:textSize="20sp" />
 
-                        <TextView
-                            android:id="@+id/activity_qiang_dan_money"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="这里填写金额"
-                            android:textColor="@color/black"
-                            android:textSize="20sp" />
+                        <!--<TextView-->
+                            <!--android:id="@+id/activity_qiang_dan_money"-->
+                            <!--android:layout_width="wrap_content"-->
+                            <!--android:layout_height="wrap_content"-->
+                            <!--android:text="这里填写金额"-->
+                            <!--android:textColor="@color/black"-->
+                            <!--android:textSize="20sp" />-->
                     </LinearLayout>
 
                     <View
@@ -133,12 +134,13 @@
                 </LinearLayout>
 
                 <CheckBox
+                    android:id="@+id/cb_procotol"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:checked="true"
+                    android:checked="false"
                     android:layout_marginTop="30dp"
-                    android:text="亿帮无忧" />
+                    android:text="我同意亿帮无忧抢单协议" />
 
                 <Button
                     android:id="@+id/activity_qiang_dan_but_qianddan"

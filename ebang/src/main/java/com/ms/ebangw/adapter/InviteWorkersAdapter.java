@@ -1,5 +1,8 @@
 package com.ms.ebangw.adapter;
 
+import android.graphics.Color;
+import android.provider.CalendarContract;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -16,14 +19,15 @@ import com.squareup.picasso.Picasso;
 import java.util.List;
 
 /**
- * User: WangKai(123940232@qq.com)
+ * 发布的邀请工友
+ * User: yangshaohua(2589704913@qq.com)
  * 2015-10-30 13:44
  */
-public class RecommendedWorkersAdapter extends BaseAdapter {
+public class InviteWorkersAdapter extends BaseAdapter {
     private List<Worker> list;
     private OnRemoveRelationListener onRemoveRelationListener;
 
-    public RecommendedWorkersAdapter(List<Worker> list, OnRemoveRelationListener onRemoveRelationListener) {
+    public InviteWorkersAdapter(List<Worker> list, OnRemoveRelationListener onRemoveRelationListener) {
         this.list = list;
         this.onRemoveRelationListener = onRemoveRelationListener;
     }
@@ -48,7 +52,7 @@ public class RecommendedWorkersAdapter extends BaseAdapter {
         ViewHolder holder;
         if (convertView == null) {
             holder = new ViewHolder();
-            convertView = View.inflate(parent.getContext(), R.layout.recommend_worker_item, null);
+            convertView = View.inflate(parent.getContext(), R.layout.invite_worker_item, null);
             holder.tv_py = (TextView) convertView.findViewById(R.id.tv_py);
             holder.tv_name = (TextView) convertView.findViewById(R.id.tv_name);
             holder.tv_craft_desc = (TextView) convertView.findViewById(R.id.tv_craft_desc);
@@ -61,6 +65,8 @@ public class RecommendedWorkersAdapter extends BaseAdapter {
 
         String firstChar = null;
         final Worker worker = (Worker) getItem(position);
+        String isInvitetion = worker.getIsInvitation();
+
         if (position == 0) {
             firstChar = worker.getPinyin().substring(0, 1);
         } else {
@@ -80,12 +86,25 @@ public class RecommendedWorkersAdapter extends BaseAdapter {
         holder.tv_craft_desc.setText(getWorkTypesDescriptions(worker.getCraft()));
         Picasso.with(parent.getContext()).load(DataAccessUtil.getImageUrl(worker.getHead_image())).
                 placeholder(R.drawable.worker_avatar).into(holder.iv_avatar);
+        if(TextUtils.equals(isInvitetion, "invite")){
+            holder.tv_remove_relation.setText("邀请中");
+            holder.tv_remove_relation.setBackgroundColor(Color.parseColor("#ADACAA"));
+        }else if(TextUtils.equals(isInvitetion, "no")){
+            holder.tv_remove_relation.setText("发送邀请");
+            holder.tv_remove_relation.setBackgroundColor(Color.parseColor("#0076a9"));
+        }else if(TextUtils.equals(isInvitetion,"agree")){
+            holder.tv_remove_relation.setText("邀请成功");
+            holder.tv_remove_relation.setBackgroundColor(Color.parseColor("#ADACAA"));
+        }else if(TextUtils.equals(isInvitetion, "refuse")){
+            holder.tv_remove_relation.setText("拒绝邀请");
+            holder.tv_remove_relation.setBackgroundColor(Color.parseColor("#ADACAA"));
+        }
         holder.tv_remove_relation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (null != onRemoveRelationListener) {
-                    onRemoveRelationListener.onRemove(worker);
-
+//                    onRemoveRelationListener.onRemove(worker);
+                    onRemoveRelationListener.onAdd(worker);
                 }
             }
         });
@@ -121,8 +140,8 @@ public class RecommendedWorkersAdapter extends BaseAdapter {
     }
 
     public interface OnRemoveRelationListener{
-        void onRemove(Worker worker);
-
+//        void onRemove(Worker worker);
+        void onAdd(Worker worker);
     }
 
 

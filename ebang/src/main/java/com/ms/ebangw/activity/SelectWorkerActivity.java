@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.ms.ebangw.R;
+import com.ms.ebangw.adapter.InviteWorkersAdapter;
 import com.ms.ebangw.adapter.RecommendedWorkersAdapter;
 import com.ms.ebangw.bean.Staff;
 import com.ms.ebangw.bean.Worker;
@@ -17,6 +18,7 @@ import com.ms.ebangw.commons.Constants;
 import com.ms.ebangw.exception.ResponseException;
 import com.ms.ebangw.service.DataAccessUtil;
 import com.ms.ebangw.service.DataParseUtil;
+import com.ms.ebangw.utils.L;
 import com.ms.ebangw.utils.T;
 import com.ms.ebangw.view.QuickindexBar;
 
@@ -32,7 +34,7 @@ import cz.msebera.android.httpclient.Header;
 /**
  * 工长抢单选择工友页面
  *
- * @author wangkai
+ * @author yangshaohua
  */
 public class SelectWorkerActivity extends BaseActivity {
     private Handler handler;
@@ -53,6 +55,7 @@ public class SelectWorkerActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_select_worker);
         ButterKnife.bind(this);
+
         initView();
         initData();
     }
@@ -125,11 +128,19 @@ public class SelectWorkerActivity extends BaseActivity {
 
     private void initWorksList(final List<Worker> workerList) {
         Collections.sort(workerList);
-        RecommendedWorkersAdapter adapter = new RecommendedWorkersAdapter(workerList, new RecommendedWorkersAdapter.OnRemoveRelationListener() {
+        InviteWorkersAdapter adapter = new InviteWorkersAdapter(workerList, new InviteWorkersAdapter.OnRemoveRelationListener() {
+//            @Override
+//            public void onRemove(Worker worker) {
+//                removeRelation(worker.getId());
+//            }
+
             @Override
-            public void onRemove(Worker worker) {
-                removeRelation(worker.getId());
+            public void onAdd(Worker worker) {
+                inviteWorker(worker.getId());
+
             }
+
+
         });
         listView.setAdapter(adapter);
         slideBar.setOnSlideTouchListener(new QuickindexBar.OnSlideTouchListener() {
@@ -146,6 +157,30 @@ public class SelectWorkerActivity extends BaseActivity {
                         }
                     }
                 }
+            }
+        });
+    }
+    private void inviteWorker(String workId){
+        DataAccessUtil.inviteWorker(workId,project_id, craft_id ,new JsonHttpResponseHandler(){
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                super.onSuccess(statusCode, headers, response);
+                try {
+                    boolean b = DataParseUtil.processDataResult(response);
+                    if(b){
+                        T.show("消息已发送");
+
+                    }
+                } catch (ResponseException e) {
+                    e.printStackTrace();
+                    T.show(e.getMessage());
+                }
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                super.onFailure(statusCode, headers, responseString, throwable);
+                L.d(responseString);
             }
         });
     }

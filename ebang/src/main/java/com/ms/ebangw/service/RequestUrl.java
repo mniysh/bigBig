@@ -160,7 +160,7 @@ public class RequestUrl {
      * 2-5.工头竞争工程接口
      * /api/headman/project/contend/+工程id
      * */
-    public static final String headman_contend_project = domain + "/api/headman/project/contend";
+    public static final String headman_contend_project = domain + "/api/headman/project/contend/";
 
     /**
      * 2-8.工头邀请工人列表(工长-->人员管理)  get
@@ -168,7 +168,7 @@ public class RequestUrl {
     public static final String invite_worker_list = domain + "/api/headman/project/invite-worker-list";
 
     /**
-     * 2-9.工头邀请工人
+     * 2-9.工头邀请工人 加被邀请者的id
      */
     public static final String headman_invite_worker = domain + "/api/headman/project/invite/";
 

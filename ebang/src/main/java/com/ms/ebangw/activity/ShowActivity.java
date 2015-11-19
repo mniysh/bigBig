@@ -1,7 +1,9 @@
 package com.ms.ebangw.activity;
 
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -76,6 +78,18 @@ public class ShowActivity extends BaseActivity implements OnClickListener {
     private User user;
     private String category;
     private Staff staff;
+    private BroadcastReceiver br=new BroadcastReceiver() {
+
+        @Override
+        public void onReceive(Context arg0, Intent in) {
+            // TODO Auto-generated method stub
+            showListView.setVisibility(View.VISIBLE);
+            load();
+        }
+    };
+    private IntentFilter filter;
+
+
 
 
     @Override
@@ -84,10 +98,24 @@ public class ShowActivity extends BaseActivity implements OnClickListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.act_show);
         ButterKnife.bind(this);
+        filter=new IntentFilter();
+        filter.addAction("gxx");
+        registerReceiver(br, filter);
+
         Intent intent = getIntent();
-        releaseProject = intent.getExtras().getParcelable(Constants.KEY_RELEASED_PROJECT_STR);
+        if(intent != null){
+
+            releaseProject = intent.getExtras().getParcelable(Constants.KEY_RELEASED_PROJECT_STR);
+        }
         if (releaseProject != null) {
             projectId = releaseProject.getId();
+        }
+        SharedPreferences sharedPreferences = getSharedPreferences("test", Context.MODE_PRIVATE);
+        String isContend = sharedPreferences.getString("IsContend","process");
+        if(TextUtils.equals(isContend,"contend")){
+            showListView.setVisibility(View.VISIBLE);
+        }else{
+            showListView.setVisibility(View.GONE);
         }
         initView();
         initViewOper();
@@ -113,6 +141,13 @@ public class ShowActivity extends BaseActivity implements OnClickListener {
         if(user != null){
             category = user.getCategory();
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        unregisterReceiver(br);
+        ButterKnife.unbind(this);
     }
 
     @Override

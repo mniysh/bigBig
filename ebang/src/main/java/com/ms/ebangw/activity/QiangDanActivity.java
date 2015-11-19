@@ -4,11 +4,14 @@ package com.ms.ebangw.activity;
 import android.content.Intent;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
+import android.text.Layout;
 import android.view.Gravity;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.LinearLayout;
 import android.widget.LinearLayout.LayoutParams;
 import android.widget.PopupWindow;
@@ -21,6 +24,8 @@ import com.ms.ebangw.commons.Constants;
 import com.ms.ebangw.exception.ResponseException;
 import com.ms.ebangw.service.DataAccessUtil;
 import com.ms.ebangw.service.DataParseUtil;
+import com.ms.ebangw.utils.L;
+import com.ms.ebangw.utils.T;
 
 import org.json.JSONObject;
 
@@ -29,6 +34,7 @@ import java.util.Date;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import cz.msebera.android.httpclient.Header;
 
 /**
@@ -36,7 +42,7 @@ import cz.msebera.android.httpclient.Header;
  *
  * @author admin xupeng
  */
-public class QiangDanActivity extends BaseActivity {
+public class QiangDanActivity extends BaseNextAvtivity {
 
     private Button bSmillBack;
     private Button bSadBack;
@@ -44,6 +50,7 @@ public class QiangDanActivity extends BaseActivity {
     private LinearLayout lSadlayout;
     //    private Button iQiangDan;
     private ReleaseProject releaseProject;
+    private boolean flag_protocol;
     String projectId;
     @Bind(R.id.tv_time)
     TextView tTime;
@@ -51,40 +58,25 @@ public class QiangDanActivity extends BaseActivity {
     TextView tPhoneNum;
     @Bind(R.id.activity_qiang_dan_but_qianddan)
     Button bQiangDan;
-
-//    @OnClick(R.id.activity_qiang_dan_but_qianddan)
-//    public void qiangdan(View v) {
-////        抢单后弹窗，目前只谈的是成功的窗口
-//        final PopupWindow pw = new PopupWindow(lSmilllayout, 600, LayoutParams.WRAP_CONTENT);
-//        pw.setBackgroundDrawable(new BitmapDrawable());
-//        pw.showAtLocation(iQiangDan, Gravity.CENTER_VERTICAL, 0, 0);
-//        bSmillBack.setOnClickListener(new OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                backgroundAlpha(1.0f);
-//                pw.dismiss();
-//
-////                Intent intent=new Intent();
-////                intent.setClass(QiangDanActivity.this, ShowActivity.class);
-////                startActivity(intent); //ActivityA.this.finish();
-//                QiangDanActivity.this.finish();
-//            }
-//        });
-//
-//        backgroundAlpha(0.5f);
-//    }
+    private LinearLayout layout;
+    @Bind(R.id.cb_procotol)
+    CheckBox procotolCb;
+    private String tilte;
+    @Bind(R.id.tv_title)
+    TextView titleTv;
 
 
-    /**
-     * 设置添加屏幕的背景透明度
-     *
-     * @param bgAlpha
-     */
-    public void backgroundAlpha(float bgAlpha) {
-        WindowManager.LayoutParams lp = getWindow().getAttributes();
-        lp.alpha = bgAlpha; //0.0-1.0
-        getWindow().setAttributes(lp);
+    @OnClick(R.id.activity_qiang_dan_but_qianddan)
+    public void qiandDan(){
+        if(flag_protocol){
+            load();
+        }else{
+            T.show("请同意亿帮无忧抢单协议，否则不能抢单");
+        }
     }
+
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -95,17 +87,20 @@ public class QiangDanActivity extends BaseActivity {
         releaseProject = intent.getExtras().getParcelable(Constants.KEY_RELEASED_PROJECT_STR);
         if (releaseProject != null) {
             projectId = releaseProject.getId();
+            tilte = releaseProject.getTitle();
         }
 
-        SimpleDateFormat formatter = new SimpleDateFormat("HH时mm分ss秒");
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm");
         Date curDate = new Date(System.currentTimeMillis());//获取当前时间
         String str = formatter.format(curDate);
         tPhoneNum.setText(getUser().getPhone());
         tTime.setText(str);
+        titleTv.setText(tilte);
+
 
         initView();
         initData();
-        load();
+//        load();
     }
 
 
@@ -126,64 +121,84 @@ public class QiangDanActivity extends BaseActivity {
 
     @Override
     public void initData() {
-        load();
+//        load();
+        procotolCb.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked){
+                    flag_protocol = true;
+                }else{
+                    flag_protocol = false;
+                }
+            }
+        });
     }
 
     private void load() {
 
         DataAccessUtil.headmanContendProject(projectId, new JsonHttpResponseHandler() {
+//            @Override
+//            public void onStart() {
+//                super.onStart();
+//                showProgressDialog();
+//            }
+
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                 super.onSuccess(statusCode, headers, response);
+//                dismissLoadingDialog();
                 try {
-                    if (DataParseUtil.processDataResult(response)) {
-                        bQiangDan.setOnClickListener(new OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                final PopupWindow pw = new PopupWindow(lSmilllayout, 600, LayoutParams.WRAP_CONTENT);
-                                pw.setBackgroundDrawable(new BitmapDrawable());
-                                pw.showAtLocation(bQiangDan, Gravity.CENTER_VERTICAL, 0, 0);
-                                bSmillBack.setOnClickListener(new OnClickListener() {
-                                    @Override
-                                    public void onClick(View v) {
-                                        backgroundAlpha(1.0f);
-                                        pw.dismiss();
-//                                          Intent intent = new Intent();
-//                                          intent.setClass(QiangDanActivity.this, ShowActivity.class);
-                                          startActivity(new Intent(QiangDanActivity.this, ShowActivity.class)); //ActivityA.this.finish();
-//                                        QiangDanActivity.this.finish();
-                                    }
-                                });
-                                backgroundAlpha(0.5f);
-                            }
-                        });
-                    } else {
-                        bQiangDan.setOnClickListener(new OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                final PopupWindow pw = new PopupWindow(lSadlayout, 600, LayoutParams.WRAP_CONTENT);
-                                pw.setBackgroundDrawable(new BitmapDrawable());
-                                pw.showAtLocation(bQiangDan, Gravity.CENTER_VERTICAL, 0, 0);
-                                bSadBack.setOnClickListener(new OnClickListener() {
-                                    @Override
-                                    public void onClick(View v) {
-                                        backgroundAlpha(1.0f);
-                                        pw.dismiss();
-//                                        Intent intent = new Intent();
-//                                        intent.setClass(QiangDanActivity.this, ShowActivity.class);
-                                        startActivity(new Intent(QiangDanActivity.this, ShowActivity.class)); //ActivityA.this.finish();
-//                                        QiangDanActivity.this.finish();
-                                    }
-                                });
-                                backgroundAlpha(0.5f);
-                            }
-                        });
+                    boolean b = DataParseUtil.processDataResult(response);
+                    if (b) {
 
+                        final PopupWindow pw = new PopupWindow(lSmilllayout, 600, LayoutParams.WRAP_CONTENT);
+                        pw.setBackgroundDrawable(new BitmapDrawable());
+                        pw.showAtLocation(bQiangDan, Gravity.CENTER_VERTICAL, 0, 0);
+                        bSmillBack.setOnClickListener(new OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                backgroundAlpha(1.0f);
+                                pw.dismiss();
+                                QiangDanActivity.this.finish();
+                                Intent intent1 = new Intent();
+
+                                intent1.setAction("gxx");
+                                intent1.putExtra("key", "nihao");
+                                sendBroadcast(intent1);
+//                                        startActivity(new Intent(QiangDanActivity.this, ShowActivity.class)); //ActivityA.this.finish();
+                            }
+                        });
+                        backgroundAlpha(0.5f);
                     }
                 } catch (ResponseException e) {
                     e.printStackTrace();
+                    //T.show(e.getMessage());
+                    final PopupWindow pw = new PopupWindow(lSadlayout, 600, LayoutParams.WRAP_CONTENT);
+                    TextView messageTv = (TextView) lSadlayout.findViewById(R.id.tv_message);
+                    messageTv.setText(e.getMessage());
+                    pw.setBackgroundDrawable(new BitmapDrawable());
+                    pw.showAtLocation(bQiangDan, Gravity.CENTER_VERTICAL, 0, 0);
+                    bSadBack.setOnClickListener(new OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            backgroundAlpha(1.0f);
+                            pw.dismiss();
+                            QiangDanActivity.this.finish();
+//                                        startActivity(new Intent(QiangDanActivity.this, ShowActivity.class)); //ActivityA.this.finish();
+
+
+                        }
+                    });
+                    backgroundAlpha(0.5f);
                 }
 
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                super.onFailure(statusCode, headers, responseString, throwable);
+                L.d(responseString);
+                //dismissLoadingDialog();
             }
         });
 

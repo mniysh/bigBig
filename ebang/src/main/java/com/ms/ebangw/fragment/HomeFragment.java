@@ -142,13 +142,11 @@ public class HomeFragment extends BaseFragment {
         projectItemAdapter.setOnGrabClickListener(new ProjectItemAdapter.OnGrabClickListener() {
             @Override
             public void onGrabClick(View view, ReleaseProject releaseProject) {
-                Intent intent = new Intent(getActivity(), QiangDanActivity.class);
+                Intent intent = new Intent(getActivity(), ShowActivity.class);
                 Bundle bundle = new Bundle();
                 bundle.putParcelable(Constants.KEY_RELEASED_PROJECT_STR, releaseProject);
                 intent.putExtras(bundle);
                 startActivity(intent);
-
-
             }
         });
         listView.setAdapter(projectItemAdapter);

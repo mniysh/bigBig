@@ -130,6 +130,8 @@ public class PeopleManageActivity extends BaseActivity {
             public void onRemove(Worker worker) {
                 removeRelation(worker.getId());
             }
+
+
         });
         listView.setAdapter(adapter);
         slideBar.setOnSlideTouchListener(new QuickindexBar.OnSlideTouchListener() {

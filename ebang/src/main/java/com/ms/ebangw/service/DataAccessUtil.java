@@ -788,6 +788,13 @@ public class DataAccessUtil {
         return doGet(RequestUrl.friend_workers, params, asyncHttpResponseHandler);
     }
 
+    public static RequestHandle inviteWorker(String workerId , String project_id, String craft_id,AsyncHttpResponseHandler asyncHttpResponseHandler){
+        RequestParams params = new RequestParams();
+        params.put("project_id",project_id);
+        params.put("craft_id", craft_id);
+        return doGet(RequestUrl.headman_invite_worker+workerId, params, asyncHttpResponseHandler);
+    }
+
     /**
      * 2-16.工长解除和工人的推荐关系
      * @param asyncHttpResponseHandler
