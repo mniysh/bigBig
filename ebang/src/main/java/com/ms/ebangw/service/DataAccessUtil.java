@@ -770,12 +770,22 @@ public class DataAccessUtil {
      * @param asyncHttpResponseHandler
      * @return
      */
-    public static RequestHandle recommendedWorkers(String project_id, String craft_id,AsyncHttpResponseHandler
+    public static RequestHandle recommendWorkers(AsyncHttpResponseHandler asyncHttpResponseHandler){
+        return doGet(RequestUrl.recommended_workers, null, asyncHttpResponseHandler);
+    }
+    /**
+     * 2-8.工头获取符合工种工人列表（邀请）
+     * @param project_id
+     * @param craft_id
+     * @param asyncHttpResponseHandler
+     * @return
+     */
+    public static RequestHandle friendWorkers(String project_id, String craft_id,AsyncHttpResponseHandler
                                               asyncHttpResponseHandler){
         RequestParams params = new RequestParams();
         params.put("project_id", project_id);
         params.put("craft_id", craft_id);
-        return doGet(RequestUrl.recommended_workers, params, asyncHttpResponseHandler);
+        return doGet(RequestUrl.friend_workers, params, asyncHttpResponseHandler);
     }
 
     /**

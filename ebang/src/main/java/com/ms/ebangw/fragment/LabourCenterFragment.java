@@ -18,7 +18,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.ms.ebangw.R;
-import com.ms.ebangw.activity.RecommendedWorksActivity;
+import com.ms.ebangw.activity.PeopleManageActivity;
 import com.ms.ebangw.bean.User;
 import com.ms.ebangw.utils.QRCodeUtil;
 
@@ -127,7 +127,7 @@ public class LabourCenterFragment extends BaseFragment {
         tvPeopleManage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(mActivity, RecommendedWorksActivity.class);
+                Intent intent = new Intent(mActivity, PeopleManageActivity.class);
                 startActivity(intent);
             }
         });

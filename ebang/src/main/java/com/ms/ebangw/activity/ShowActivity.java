@@ -29,7 +29,6 @@ import com.ms.ebangw.utils.L;
 import com.ms.ebangw.utils.T;
 import com.squareup.picasso.Picasso;
 
-import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.List;
@@ -163,7 +162,7 @@ public class ShowActivity extends BaseActivity implements OnClickListener {
                             detailAdapter.setOnGrabClickListener(new ProjectItemdetailAdapter.OnGrabClickListener() {
                                 @Override
                                 public void onGrabClick(View view, Staff staff) {
-                                    Intent intent = new Intent(ShowActivity.this, RecommendedWorksActivity.class);
+                                    Intent intent = new Intent(ShowActivity.this, SelectWorkerActivity.class);
                                     Bundle bundle = new Bundle();
                                     bundle.putParcelable(Constants.KEY_RELEASED_PROJECT_STR, releaseProject);
                                     bundle.putParcelable(Constants.KEY_RELEASED_PROJECT_STAFF,staff);

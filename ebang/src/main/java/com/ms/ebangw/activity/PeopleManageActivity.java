@@ -35,7 +35,7 @@ import cz.msebera.android.httpclient.Header;
  *
  * @author wangkai
  */
-public class RecommendedWorksActivity extends BaseActivity {
+public class PeopleManageActivity extends BaseActivity {
     private Handler handler;
 
     @Bind(R.id.listView)
@@ -62,10 +62,10 @@ public class RecommendedWorksActivity extends BaseActivity {
     public void initView() {
         initTitle(null, "返回", "人员管理", null, null);
         handler = new Handler();
-        Intent intent = getIntent();
-        staff = intent.getExtras().getParcelable(Constants.KEY_RELEASED_PROJECT_STAFF);
-        project_id = staff.getProject_id();
-        craft_id = staff.getCraft_id();
+//        Intent intent = getIntent();
+//        staff = intent.getExtras().getParcelable(Constants.KEY_RELEASED_PROJECT_STAFF);
+//        project_id = staff.getProject_id();
+//        craft_id = staff.getCraft_id();
 
 
     }
@@ -92,7 +92,7 @@ public class RecommendedWorksActivity extends BaseActivity {
 
     private void loadWorkers() {
 
-        DataAccessUtil.recommendedWorkers(project_id, craft_id,new JsonHttpResponseHandler() {
+        DataAccessUtil.recommendWorkers(new JsonHttpResponseHandler() {
             @Override
             public void onStart() {
                 showProgressDialog();
@@ -103,8 +103,8 @@ public class RecommendedWorksActivity extends BaseActivity {
 
                 dismissLoadingDialog();
                 try {
-                    WorkerFriend workerFriend = DataParseUtil.recommendedWorkersa(response);
-                    List<Worker> workerList = workerFriend.getWorkers();
+                    List<Worker> workerList = DataParseUtil.recommendedWorkers(response);
+
                     if (null != workerList && workerList.size() > 0) {
                         initWorksList(workerList);
                     }

@@ -191,6 +191,10 @@
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:screenOrientation="portrait" />
         <activity
+            android:name=".activity.SelectWorkerActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="portrait" />
+        <activity
             android:name=".Photo.PhotosActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:screenOrientation="portrait" />
@@ -451,7 +455,7 @@
             android:name=".scancode.MipcaActivityCapture"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activity.RecommendedWorksActivity"
+            android:name=".activity.PeopleManageActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:screenOrientation="portrait" >
         </activity>

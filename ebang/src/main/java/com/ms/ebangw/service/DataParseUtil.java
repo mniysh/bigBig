@@ -382,7 +382,7 @@ public class DataParseUtil {
      * @return
      * @throws ResponseException
      */
-    public static WorkerFriend recommendedWorkersa(JSONObject jsonObject)throws ResponseException{
+    public static WorkerFriend friendWorker(JSONObject jsonObject)throws ResponseException{
 
         String dataStr = processDataStr(jsonObject);
         Gson gson = new Gson();

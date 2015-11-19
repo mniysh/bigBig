@@ -23,7 +23,7 @@ import com.ms.ebangw.activity.EvaluateListActivity;
 import com.ms.ebangw.activity.InviteFriendsActivity;
 import com.ms.ebangw.activity.JiFenActivity;
 import com.ms.ebangw.activity.PublishedProjectActivity;
-import com.ms.ebangw.activity.RecommendedWorksActivity;
+import com.ms.ebangw.activity.PeopleManageActivity;
 import com.ms.ebangw.bean.User;
 import com.ms.ebangw.release.ReleaseActivity;
 import com.ms.ebangw.utils.DensityUtils;
@@ -157,7 +157,7 @@ public class HeadmanCenterFragment extends BaseFragment {
         tvPeopleManage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(mActivity, RecommendedWorksActivity.class);
+                Intent intent = new Intent(mActivity, PeopleManageActivity.class);
                 startActivity(intent);
             }
         });

@@ -144,7 +144,8 @@ public class HomeActivity extends BaseActivity {
                 switch (checkedId) {
                     case R.id.rb_home:
                         fm.beginTransaction().replace(R.id.fl_content, new HomeFragment()).commit();
-//                        fm.beginTransaction().replace(R.id.fl_content, lotteryFragment).commit();
+//                        fm.beginTransaction().replace(R.id.fl_content, lotteryFra
+// gment).commit();
                         break;
                     case R.id.rb_discovery:
                         fm.beginTransaction().replace(R.id.fl_content, foundFragment).commit();
