@@ -594,6 +594,7 @@ public class DataAccessUtil {
         params.put("business_scope",business_scope);
         params.put("bank_id",bank_id);
         params.put("gender",gender);
+        params.put("open_account_city",open_account_city);
 
         return doPost(RequestUrl.developer_identify, params, asyncHttpResponseHandler);
     }
