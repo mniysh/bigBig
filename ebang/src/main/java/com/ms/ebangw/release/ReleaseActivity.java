@@ -2,13 +2,11 @@ package com.ms.ebangw.release;
 
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
-import android.content.Intent;
 import android.os.Bundle;
 
 import com.ms.ebangw.R;
 import com.ms.ebangw.activity.BaseActivity;
 import com.ms.ebangw.bean.WorkType;
-import com.ms.ebangw.commons.Constants;
 import com.ms.ebangw.event.OnCheckedWorkTypeEvent;
 import com.ms.ebangw.event.WorkTypeEvent;
 
@@ -29,15 +27,14 @@ public class ReleaseActivity extends BaseActivity {
     public void initView() {
         fm = getFragmentManager();
         if(selectWorkType == null){
-            selectWorkType = new ArrayList<WorkType>();
+            selectWorkType = new ArrayList<>();
 
         }
     }
 
     @Override
     public void initData() {
-        Intent intent = getIntent();
-        categroy = intent.getExtras().getString(Constants.RELEASE_WORKTYPE_KEY);
+        categroy = getUser().getCategory();
         fm.beginTransaction().replace(R.id.fl_release, SelectCraftFragment.newInstance(categroy, "")).commit();
     }
 

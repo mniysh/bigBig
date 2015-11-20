@@ -21,7 +21,6 @@ import com.ms.ebangw.R;
 import com.ms.ebangw.bean.Staff;
 import com.ms.ebangw.bean.WorkType;
 import com.ms.ebangw.utils.T;
-import com.ms.ebangw.utils.VerifyUtils;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -54,7 +53,6 @@ public class SelectWorTypeDialog extends DialogFragment {
     Button okBtn;
     @Bind(R.id.btn_no)
     Button noBtn;
-    private int startYear, startMonth, startDay, endYear, endMonth, endDay;
 
     public static SelectWorTypeDialog newInstance(WorkType workType) {
         SelectWorTypeDialog fragment = new SelectWorTypeDialog();
@@ -114,17 +112,10 @@ public class SelectWorTypeDialog extends DialogFragment {
                         cal.set(Calendar.YEAR, year);
                         cal.set(Calendar. MONTH , monthOfYear);
                         cal.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-                        startYear = year;
-                        startMonth = monthOfYear;
-                        startDay = dayOfMonth;
-
                         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
                         String dateStr = format.format(cal.getTime());
-//                        if(dateStr == null){
-//                            T.show("数据是"+dateStr);
-//                        }
-
                         startDateTv.setText(dateStr);
+                        startDateTv.setTag(cal.getTimeInMillis());
                     }
                 });
                 datePickerFragment.show(getFragmentManager(), "date");
@@ -144,10 +135,8 @@ public class SelectWorTypeDialog extends DialogFragment {
                         cal.set(Calendar.DAY_OF_MONTH, dayOfMonth);
                         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
                         String dateStr = format.format(cal.getTime());
-                        endYear = year;
-                        endMonth = monthOfYear;
-                        endDay = dayOfMonth;
                         endDateTv.setText(dateStr);
+                        endDateTv.setTag(cal.getTimeInMillis());
                     }
                 });
                 datePickerFragment.show(getFragmentManager(), "date");
@@ -184,32 +173,7 @@ public class SelectWorTypeDialog extends DialogFragment {
                 dismiss();
             }
         });
-//        startDateTv.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-//            @Override
-//            public void onFocusChange(View v, boolean hasFocus) {
-//                if (!v.hasFocus()) {
-//                    if (!VerifyUtils.isRight(startYear, startMonth, startDay)) {
-//                        T.show("开始时间不正确，请重新选择");
-//                        startDateTv.setText("");
-//                        startDateTv.setHint("重新选择");
-//                    }
-//                }
-//
-//            }
-//        });
-//        endDateTv.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-//            @Override
-//            public void onFocusChange(View v, boolean hasFocus) {
-//                if (!v.hasFocus()) {
-//                    if (!VerifyUtils.isRight(endYear, endMonth, endDay)) {
-//                        T.show("结束时间不正确，请重新输入");
-//                        endDateTv.setText("");
-//                        endDateTv.setHint("重新选择");
-//
-//                    }
-//                }
-//            }
-//        });
+
 
     }
 
@@ -238,12 +202,13 @@ public class SelectWorTypeDialog extends DialogFragment {
             T.show("请输入结束时间");
             return false;
         }
-        if(!VerifyUtils.isRight(startYear, startMonth , startDay) || !VerifyUtils.
-                isRightTime(startYear, startMonth, startDay, endYear, endMonth, endDay)){
-            T.show("时间不正确");
-            return  false;
-        }
 
+        long startTime = (long) startDateTv.getTag();
+        long endTime = (long) endDateTv.getTag();
+        if (startTime >= endTime) {
+            T.show("结束时间应该在开始时间之后");
+            return false;
+        }
 
         return true;
     }

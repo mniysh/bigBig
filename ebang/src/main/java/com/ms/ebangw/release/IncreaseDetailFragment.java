@@ -31,7 +31,6 @@ import com.google.gson.Gson;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.ms.ebangw.MyApplication;
 import com.ms.ebangw.R;
-import com.ms.ebangw.activity.HomeActivity;
 import com.ms.ebangw.activity.SelectMapLocActivity;
 import com.ms.ebangw.bean.Province;
 import com.ms.ebangw.bean.ReleaseInfo;
@@ -50,11 +49,9 @@ import com.ms.ebangw.utils.BitmapUtil;
 import com.ms.ebangw.utils.ImageLoaderutils;
 import com.ms.ebangw.utils.L;
 import com.ms.ebangw.utils.T;
-import com.ms.ebangw.utils.VerifyUtils;
 import com.ms.ebangw.view.ProvinceAndCityView;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
-import com.squareup.picasso.Picasso;
 
 import org.json.JSONObject;
 
@@ -158,7 +155,6 @@ public class IncreaseDetailFragment extends BaseFragment {
     private String mCurrentPhotoPath;
     private MyApplication myApplication;
     private ReleaseProject releaseProject;
-    private int  startYear,  startMonth,  startDay, endYear, endMonth, endDay;
     private String categroy;
     private static  final String KEY_CATEGROY = "key_categroy";
     private ArrayList<Bitmap> dataBit ;
@@ -200,10 +196,8 @@ public class IncreaseDetailFragment extends BaseFragment {
                 calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
                 SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
                 String dateStr = simpleDateFormat.format(calendar.getTime());
-                startYear = year;
-                startMonth = monthOfYear;
-                startDay = dayOfMonth;
                 startTimeTv.setText(dateStr);
+                endTimeTv.setTag(calendar.getTimeInMillis());
             }
 
         });
@@ -221,10 +215,8 @@ public class IncreaseDetailFragment extends BaseFragment {
                 calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
                 SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
                 String dateStr = simpleDateFormat.format(calendar.getTime());
-                endYear = year;
-                endMonth = monthOfYear;
-                endDay = dayOfMonth;
                 endTimeTv.setText(dateStr);
+                endTimeTv.setTag(calendar.getTimeInMillis());
             }
         });
         datePickerFragment.show(getFragmentManager(), "date");
@@ -401,15 +393,24 @@ public class IncreaseDetailFragment extends BaseFragment {
             T.show("工程总额不能为空");
             return false;
         }
-        if(!VerifyUtils.isRightTime(startYear, startMonth, startDay,endYear, endMonth, endDay)){
-            T.show("时间不正确");
-            return false;
-        }
-        if(!VerifyUtils.isRight(startYear, startMonth, startDay)){
-            T.show("时间不正确");
+
+
+        if (TextUtils.isEmpty(startTimeTv.getText().toString())) {
+            T.show("请输入上门时间");
             return false;
         }
 
+        if (TextUtils.isEmpty(endTimeTv.getText().toString())) {
+            T.show("请输入结束时间");
+            return false;
+        }
+
+        long startTime = (long) startTimeTv.getTag();
+        long endTime = (long) endTimeTv.getTag();
+        if (startTime >= endTime) {
+            T.show("结束时间应该在开始时间之后");
+            return false;
+        }
         return true;
     }
 
@@ -420,42 +421,12 @@ public class IncreaseDetailFragment extends BaseFragment {
         if(imageNames == null){
             imageNames = new ArrayList<String>();
         }
-////        dataUrl = new ArrayList<String>();
-//        if(dataBit == null){
-//
-//            dataBit = new ArrayList<Bitmap>();
-//        }
+
         if(dataFilePath == null){
 
             dataFilePath = new ArrayList<String>();
         }
         setStartRed();
-        startTimeTv.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (!v.hasFocus()) {
-//                    String a = startTimeTv.getText().toString().trim();
-                    if (!VerifyUtils.isRight(startYear, startMonth, startDay)) {
-                        T.show("时间不正确");
-                        startTimeTv.setText("");
-                        startTimeTv.setHint("请重新选择");
-                    }
-
-                }
-            }
-        });
-        endTimeTv.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (!v.hasFocus()) {
-                    if (!VerifyUtils.isRight(endYear, endMonth, endDay)) {
-                        T.show("时间不正确");
-                        endTimeTv.setText("");
-                        endTimeTv.setHint("请重新选择");
-                    }
-                }
-            }
-        });
     }
 
     @Override
