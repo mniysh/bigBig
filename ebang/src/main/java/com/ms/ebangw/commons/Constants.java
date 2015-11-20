@@ -62,9 +62,14 @@ public class Constants {
 	public static final String HEADMAN = "headman";
 	/**
 	 * 用户类型：开发商
-	 * 个人 investor，农民工 worker，工长 headman，开发商 developers
+	 * 个人 investor，农民工 worker，工长 headman，开发商 developers ,劳务公司 company
 	 */
 	public static final String DEVELOPERS = "developers";
+	/**
+	 * 用户类型：开发商
+	 * 个人 investor，农民工 worker，工长 headman，开发商 developers ,劳务公司 company
+	 */
+	public static final String COMPANY = "company";
 
 
 	/**
@@ -174,5 +179,9 @@ public class Constants {
 	public static final String KEY_PROJECT_IMAGES = "project_images";
 
 	public static final String KEY_PROJECT_IMAGE_URL = "project_image_url";
+
+	public static final String KEY_MESSAGE_SETTING_ALERT = "message_setting_alert";
+	public static final String KEY_MESSAGE_SETTING_RING = "ring";
+	public static final String KEY_MESSAGE_SETTING_VIBRATE = "vibrate";
 	public static final String KEY_QIANGDAN_SUCCEED = "succeed";
 }

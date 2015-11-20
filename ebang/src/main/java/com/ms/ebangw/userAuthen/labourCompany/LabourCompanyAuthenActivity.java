@@ -1,6 +1,5 @@
-package com.ms.ebangw.userAuthen.developers;
+package com.ms.ebangw.userAuthen.labourCompany;
 
-import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.graphics.Color;
@@ -12,7 +11,6 @@ import com.loopj.android.http.JsonHttpResponseHandler;
 import com.ms.ebangw.R;
 import com.ms.ebangw.activity.BaseActivity;
 import com.ms.ebangw.bean.AuthInfo;
-import com.ms.ebangw.bean.TotalRegion;
 import com.ms.ebangw.bean.User;
 import com.ms.ebangw.commons.Constants;
 import com.ms.ebangw.db.UserDao;
@@ -27,7 +25,6 @@ import com.ms.ebangw.utils.T;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,13 +36,11 @@ import de.greenrobot.event.EventBus;
 /**
  * 开发商认证
  */
-public class DevelopersAuthenActivity extends BaseActivity {
+public class LabourCompanyAuthenActivity extends BaseActivity {
 	/**
 	 * 要认证的用户类型
 	 */
-	private static final String category = Constants.DEVELOPERS;
-	private File imageFile;
-	private TotalRegion totalRegion;
+	private static final String category = Constants.COMPANY;
 	@Bind(R.id.tv_cardBind)
 	TextView cardBindTv;
 	private int currentStep;
@@ -54,11 +49,10 @@ public class DevelopersAuthenActivity extends BaseActivity {
 	 */
 	private AuthInfo authInfo;
 
-	private List<Fragment> list;
 	private FragmentManager fm;
-	private DevelopersIdentityCardFragment  identifyFragment;
-	private DevelopersBaseInfoFragment personBaseInfoFragment;
-	private DevelopersBankVerifyFragment developersBankVerifyFragment;
+	private LabourCompanyIdentityCardFragment identifyFragment;
+	private LabourCompanyBaseInfoFragment baseInfoFragment;
+	private LabourCompanyBankVerifyFragment bankVerifyFragment;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -66,7 +60,7 @@ public class DevelopersAuthenActivity extends BaseActivity {
 		setContentView(R.layout.activity_developers_authen);
 		ButterKnife.bind(this);
 		fm = getFragmentManager();
-		L.d("DevelopersAuthenActivity onCreate");
+		L.d("LabourCompanyAuthenActivity onCreate");
 		if (savedInstanceState != null) {
 			authInfo = savedInstanceState.getParcelable(Constants.KEY_AUTHINFO);
 			currentStep = savedInstanceState.getInt(Constants.KEY_CURRENT_STEP, 0);
@@ -80,23 +74,23 @@ public class DevelopersAuthenActivity extends BaseActivity {
 	}
 
 	public void initView() {
-		initTitle(null, "返回", "开发商认证", null, null);
+		initTitle(null, "返回", "劳务公司认证", null, null);
 		cardBindTv.setText("企业完善");
 	}
 
 	@Override
 	public void initData() {
 		fm = getFragmentManager();
-		personBaseInfoFragment = DevelopersBaseInfoFragment.newInstance(category);
+		baseInfoFragment = LabourCompanyBaseInfoFragment.newInstance(category);
 
-		getFragmentManager().beginTransaction().replace(R.id.fl_content,personBaseInfoFragment
+		getFragmentManager().beginTransaction().replace(R.id.fl_content, baseInfoFragment
 		).commit();
 		setStep(0);
 	}
 
 	public void goNext() {
 
-		identifyFragment = DevelopersIdentityCardFragment.newInstance(category);
+		identifyFragment = LabourCompanyIdentityCardFragment.newInstance(category);
 		getFragmentManager().beginTransaction().replace(R.id.fl_content, identifyFragment)
 			.addToBackStack("IdentityCardPhotoVerifyFragment").commit();
 		setStep(1);
@@ -107,8 +101,8 @@ public class DevelopersAuthenActivity extends BaseActivity {
 	 * 身份证照片验证
 	 */
 	public void goVerifyBank() {
-		developersBankVerifyFragment = DevelopersBankVerifyFragment.newInstance(category);
-		getFragmentManager().beginTransaction().replace(R.id.fl_content,developersBankVerifyFragment).addToBackStack
+		bankVerifyFragment = LabourCompanyBankVerifyFragment.newInstance(category);
+		getFragmentManager().beginTransaction().replace(R.id.fl_content, bankVerifyFragment).addToBackStack
 			("BankVerifyFragment").commit();
 		setStep(2);
 		currentStep = 2;
@@ -122,9 +116,6 @@ public class DevelopersAuthenActivity extends BaseActivity {
 		this.authInfo = authInfo;
 	}
 
-	public TotalRegion getTotalRegion() {
-		return totalRegion;
-	}
 
 	/**
 	 * 提交认证信息
@@ -156,40 +147,40 @@ public class DevelopersAuthenActivity extends BaseActivity {
 		String gender = authInfo.getGender();
 		String accountCityId = authInfo.getPublicAccountCityId();
 
-		DataAccessUtil.developerIdentify(realName, identityCard, frontImageId,
-		backImageId, linkmanPhone, linkman_province,
+		DataAccessUtil.companyIdentify(realName, identityCard, frontImageId,
+			backImageId, linkmanPhone, linkman_province,
 			linkman_city, company_name, business_province, business_city,
 			oftenAddress, businessAge, timeState, companyNumber,
 			companyPhone, introduce, publicAccountName,
 			account_province, publicAccount, organizationCertificate,
 			businessLicenseNumber, businessScope, bankId, gender, accountCityId, new
-				JsonHttpResponseHandler(){
-				@Override
-				public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+				JsonHttpResponseHandler() {
+					@Override
+					public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
 
-					try {
-						boolean b = DataParseUtil.processDataResult(response);
-						if(b){
-							T.show(response.getString("message"));
-							saveAuthStatusInLocal();
-							EventBus.getDefault().post(new RefreshUserEvent(Constants.DEVELOPERS));
-							goResultFragment(Constants.DEVELOPERS);
+						try {
+							boolean b = DataParseUtil.processDataResult(response);
+							if (b) {
+								T.show(response.getString("message"));
+								saveAuthStatusInLocal();
+								EventBus.getDefault().post(new RefreshUserEvent(Constants.DEVELOPERS));
+								goResultFragment(Constants.DEVELOPERS);
+							}
+						} catch (ResponseException e) {
+							e.printStackTrace();
+							T.show(e.getMessage());
+						} catch (JSONException e) {
+							e.printStackTrace();
+							T.show(e.getMessage());
 						}
-					} catch (ResponseException e) {
-						e.printStackTrace();
-						T.show(e.getMessage());
-					} catch (JSONException e) {
-						e.printStackTrace();
-						T.show(e.getMessage());
+
 					}
 
+					@Override
+					public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+						L.d(responseString);
+					}
 				}
-
-				@Override
-				public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
-					L.d(responseString);
-				}
-			}
 		);
 	}
 
@@ -239,7 +230,7 @@ public class DevelopersAuthenActivity extends BaseActivity {
 	protected void onSaveInstanceState(Bundle outState) {
 		outState.putParcelable(Constants.KEY_AUTHINFO, authInfo);
 		outState.putInt(Constants.KEY_CURRENT_STEP, currentStep);
-		L.d("DevelopersAuthenActivity onSaveInstanceState");
+		L.d("LabourCompanyAuthenActivity onSaveInstanceState");
 		super.onSaveInstanceState(outState);
 	}
 }

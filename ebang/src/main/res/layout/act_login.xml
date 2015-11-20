@@ -29,6 +29,7 @@
             android:background="#fff"
             android:padding="15dp"
             android:maxLength="11"
+            android:inputType="number|phone"
             android:drawablePadding="10dp"
             
             />

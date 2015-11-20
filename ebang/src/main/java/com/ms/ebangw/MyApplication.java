@@ -15,16 +15,11 @@ import com.ms.ebangw.bean.User;
 import com.ms.ebangw.db.UserDao;
 import com.ms.ebangw.listener.MyLocationListener;
 import com.ms.ebangw.service.DataAccessUtil;
-import com.ms.ebangw.utils.L;
-import com.ms.ebangw.utils.T;
 import com.umeng.analytics.MobclickAgent;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
-
-import cn.jpush.android.api.JPushInterface;
-import cn.jpush.android.api.TagAliasCallback;
 
 //import com.baidu.mapapi.SDKInitializer;
 
@@ -92,7 +87,6 @@ public class MyApplication extends Application {
             dataUrl = new ArrayList<String>();
         }
 
-        initJpush();
 
     }
 
@@ -134,40 +128,7 @@ public class MyApplication extends Application {
         mLocationClient.stop();
     }
 
-    /**
-     * 初始化极光推送
-     */
-    private void initJpush() {
-        JPushInterface.setDebugMode(false);
-        User user = getUser();
-        if (null != user) {
-            String id = user.getId();
-            JPushInterface.setAlias(this, id, new TagAliasCallback() {
-                @Override
-                public void gotResult(int i, String s, Set<String> set) {
-                    if (i == 0) {
-                        L.d("setAlias: 极光alias设置成功, alias: " + s);
-                        T.show("setAlias: 极光alias设置成功, alias: " + s);
-                    } else {
-                        L.d("setAlias: 极光alias设置失败, 返回的状态码: " + i);
-                    }
-                }
-            });
-//            JPushInterface.setAliasAndTags(this, alias, tags, new TagAliasCallback() {
-//                @Override
-//                public void gotResult(int i, String s, Set<String> set) {
-//                    if(i == 0){
-//                        alias = s;
-//                        tags = set;
-//                    }
-//
-//                }
-//            });
 
-        }
-
-        JPushInterface.init(this);
-    }
 
     public String getPassword() {
         return password;

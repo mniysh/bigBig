@@ -2,34 +2,30 @@ package com.ms.ebangw.setting;
 
 import android.app.Notification;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-import android.view.View;
-import android.widget.ImageView;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 
+import com.ms.ebangw.MyApplication;
 import com.ms.ebangw.R;
 import com.ms.ebangw.activity.BaseActivity;
-import com.ms.ebangw.utils.L;
+import com.ms.ebangw.commons.Constants;
+import com.ms.ebangw.utils.SPUtils;
 
-import java.util.IllegalFormatFlagsException;
 import java.util.Set;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
-import cn.jpush.android.api.BasicPushNotificationBuilder;
+import cn.jpush.android.api.CustomPushNotificationBuilder;
 import cn.jpush.android.api.JPushInterface;
-import cn.jpush.android.api.TagAliasCallback;
 
 public class SettingMessageActivity extends BaseActivity {
-    @Bind(R.id.iv_messageRemind)
-    ImageView messageRemindIv;
-    @Bind(R.id.iv_ring)
-    ImageView ringIv;
-    @Bind(R.id.iv_vibration)
-    ImageView vibrationIv;
+
+    @Bind(R.id.cb_messageRemind)
+    CheckBox cbMessageRemind;
+    @Bind(R.id.cb_ring)
+    CheckBox cbRing;
+    @Bind(R.id.cb_vibration)
+    CheckBox cbVibration;
     private String alias = "";
     private Set<String> tags;
 
@@ -37,27 +33,6 @@ public class SettingMessageActivity extends BaseActivity {
     private boolean flag_ring = true;
     private boolean flag_vibration = true;
 
-    @Override
-    public void initView() {
-        initTitle(null,"返回", "消息设置", null, null);
-    }
-
-    @Override
-    public void initData() {
-//        JPushInterface.setAliasAndTags(this, alias, tags, new TagAliasCallback() {
-//            @Override
-//            public void gotResult(int i, String s, Set<String> set) {
-//                if( i == 0){
-//                    L.d("别名，标签设置成功");
-//                    alias = s;
-//                    tags = set;
-//                }else{
-//                    L.d("别名设置失败");
-//                }
-//            }
-//        });
-
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,46 +42,80 @@ public class SettingMessageActivity extends BaseActivity {
         initView();
         initData();
     }
-    @OnClick(R.id.iv_messageRemind)
-    public void setMessageRemind(){
-        if(flag_messageRemind){
-            flag_messageRemind = !flag_messageRemind;
-            JPushInterface.stopPush(this);
-            messageRemindIv.setImageResource(R.drawable.button_unselected);
-        }else{
-            flag_messageRemind = !flag_messageRemind;
-            JPushInterface.resumePush(this);
-            messageRemindIv.setImageResource(R.drawable.button_selected);
-        }
+
+    @Override
+    public void initView() {
+        initTitle(null, "返回", "消息设置", null, null);
+        flag_messageRemind = (boolean) SPUtils.get(Constants.KEY_MESSAGE_SETTING_ALERT, true);
+        flag_ring = (boolean) SPUtils.get(Constants.KEY_MESSAGE_SETTING_RING, true);
+        flag_vibration = (boolean) SPUtils.get(Constants.KEY_MESSAGE_SETTING_VIBRATE, true);
+
+        cbMessageRemind.setChecked(flag_messageRemind);
+        cbRing.setChecked(flag_ring);
+        cbVibration.setChecked(flag_vibration);
     }
-    @OnClick(R.id.iv_ring)
-    public void setRing(){
-        if(flag_ring){
-            flag_ring = !flag_ring;
-            ringIv.setImageResource(R.drawable.button_unselected);
-            BasicPushNotificationBuilder build = new BasicPushNotificationBuilder(this);
-            build.developerArg0 = "";
-            JPushInterface.setPushNotificationBuilder(1, build);
-        }else{
-            flag_ring = !flag_ring;
-            ringIv.setImageResource(R.drawable.button_selected);
-            BasicPushNotificationBuilder builder = new BasicPushNotificationBuilder(this);
-            builder.notificationFlags = Notification.FLAG_AUTO_CANCEL;
-            builder.notificationDefaults = Notification.DEFAULT_ALL;
-            JPushInterface.setPushNotificationBuilder(2, builder);
+
+    @Override
+    public void initData() {
+
+        cbMessageRemind.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    JPushInterface.resumePush(MyApplication.getInstance());
+                } else {
+                    JPushInterface.stopPush(MyApplication.getInstance());
+                }
+                SPUtils.put(Constants.KEY_MESSAGE_SETTING_ALERT, isChecked);
+            }
+        });
+
+        cbRing.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                SPUtils.put(Constants.KEY_MESSAGE_SETTING_RING, isChecked);
+                updateRingAndVibrate();
+            }
+        });
+
+        cbVibration.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                SPUtils.put(Constants.KEY_MESSAGE_SETTING_VIBRATE, isChecked);
+                updateRingAndVibrate();
+            }
+        });
+    }
+
+    private void updateRingAndVibrate() {
+        CustomPushNotificationBuilder builder = new
+            CustomPushNotificationBuilder(this,
+            R.layout.customer_notitfication_layout,
+            R.id.icon,
+            R.id.title,
+            R.id.text);
+        // 指定定制的 Notification Layout
+        builder.statusBarDrawable = R.drawable.logo_36;
+        // 指定最顶层状态栏小图标
+        builder.layoutIconDrawable = R.drawable.logo_48;
+        // 指定下拉状态栏时显示的通知图标
+        builder.notificationFlags = Notification.FLAG_AUTO_CANCEL;  //设置为自动消失
+
+        if (cbRing.isChecked() && cbVibration.isChecked()) {
+            builder.notificationDefaults = Notification.DEFAULT_SOUND|Notification
+                .DEFAULT_VIBRATE|Notification
+                .DEFAULT_LIGHTS;  // 设置为铃声与震动都要
+        }else if (cbRing.isChecked() && !cbVibration.isChecked()) {
+            builder.notificationDefaults = Notification.DEFAULT_SOUND|Notification
+                .DEFAULT_LIGHTS;  //  不要震动
+        }else if (!cbRing.isChecked() && cbVibration.isChecked()) {
+            builder.notificationDefaults = Notification.DEFAULT_VIBRATE|Notification
+                .DEFAULT_LIGHTS;  //不要铃声
+        }else {
+            builder.notificationDefaults = Notification.DEFAULT_LIGHTS; //无铃声和震动
         }
 
-    }
-    @OnClick(R.id.iv_vibration)
-    public void setVibration(){
-        if(flag_vibration){
-            flag_vibration = !flag_vibration;
-            vibrationIv.setImageResource(R.drawable.button_unselected);
-        }else{
-            flag_vibration = !flag_vibration;
-            vibrationIv.setImageResource(R.drawable.button_selected);
-        }
-
+        JPushInterface.setPushNotificationBuilder(2, builder);
     }
 
 }

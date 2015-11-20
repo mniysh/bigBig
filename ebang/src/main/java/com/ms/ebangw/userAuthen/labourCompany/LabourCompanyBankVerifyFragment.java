@@ -1,4 +1,4 @@
-package com.ms.ebangw.userAuthen.developers;
+package com.ms.ebangw.userAuthen.labourCompany;
 
 
 import android.content.Intent;
@@ -56,7 +56,7 @@ import butterknife.OnClick;
  * 开发商银行信息验证
  * @author wangkai
  */
-public class DevelopersBankVerifyFragment extends BaseFragment {
+public class LabourCompanyBankVerifyFragment extends BaseFragment {
     private static final String CATEGORY = "category";
     private final int REQUEST_PICK = 4;
     private final int REQUEST_CAMERA = 6;
@@ -132,15 +132,15 @@ public class DevelopersBankVerifyFragment extends BaseFragment {
 
 
 //
-    public static DevelopersBankVerifyFragment newInstance(String category) {
-        DevelopersBankVerifyFragment fragment = new DevelopersBankVerifyFragment();
+    public static LabourCompanyBankVerifyFragment newInstance(String category) {
+        LabourCompanyBankVerifyFragment fragment = new LabourCompanyBankVerifyFragment();
         Bundle args = new Bundle();
         args.putString(CATEGORY, category);
         fragment.setArguments(args);
         return fragment;
     }
 
-    public DevelopersBankVerifyFragment() {
+    public LabourCompanyBankVerifyFragment() {
         // Required empty public constructor
     }
 
@@ -317,7 +317,7 @@ public class DevelopersBankVerifyFragment extends BaseFragment {
 
 
     private void setAuthInfo() {
-        AuthInfo authInfo = ((DevelopersAuthenActivity) mActivity).getAuthInfo();
+        AuthInfo authInfo = ((LabourCompanyAuthenActivity) mActivity).getAuthInfo();
 
 
         String businessYears = businessAgeEt.getText().toString().trim();
@@ -403,7 +403,7 @@ public class DevelopersBankVerifyFragment extends BaseFragment {
     public void completeAuthentication() {
         if (isInfoCorrect()) {
             setAuthInfo();
-            ((DevelopersAuthenActivity) mActivity).commit();
+            ((LabourCompanyAuthenActivity) mActivity).commit();
         }
     }
 
@@ -428,7 +428,7 @@ public class DevelopersBankVerifyFragment extends BaseFragment {
         MyApplication myApplication = (MyApplication) mActivity.getApplication();
 
         String id = imageResult.getId();
-        AuthInfo authInfo = ((DevelopersAuthenActivity) mActivity).getAuthInfo();
+        AuthInfo authInfo = ((LabourCompanyAuthenActivity) mActivity).getAuthInfo();
         String imagePath = myApplication.imagePath;
         Bitmap bitmap = BitmapUtil.getImage(imagePath);
         frontIv.setImageBitmap(bitmap);

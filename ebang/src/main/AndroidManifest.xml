@@ -108,8 +108,8 @@
     <application
         android:name=".MyApplication"
         android:allowBackup="true"
-        android:icon="@drawable/ms_logo_144"
-        android:label="@string/name"
+        android:icon="@drawable/logo_144"
+        android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity android:name=".activity.LoadingActivity" >
             android:label="@string/app_name" >
@@ -218,6 +218,12 @@
             android:name=".userAuthen.headman.HeadmanAuthenActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".userAuthen.labourCompany.LabourCompanyAuthenActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="portrait" />
+
         <activity
             android:name=".crop.CropImageActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"

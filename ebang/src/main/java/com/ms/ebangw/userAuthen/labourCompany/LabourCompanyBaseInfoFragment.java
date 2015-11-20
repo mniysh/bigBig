@@ -1,4 +1,4 @@
-package com.ms.ebangw.userAuthen.developers;
+package com.ms.ebangw.userAuthen.labourCompany;
 
 import android.graphics.Color;
 import android.os.Bundle;
@@ -35,7 +35,7 @@ import butterknife.OnClick;
 /**
  * 个人基本信息
  */
-public class DevelopersBaseInfoFragment extends BaseFragment {
+public class LabourCompanyBaseInfoFragment extends BaseFragment {
 
 	private static final String CATEGORY = "category";
 
@@ -63,8 +63,8 @@ public class DevelopersBaseInfoFragment extends BaseFragment {
 	ArrayAdapter<City> adapter02;
 
 
-	public static DevelopersBaseInfoFragment newInstance(String category) {
-		DevelopersBaseInfoFragment fragment = new DevelopersBaseInfoFragment();
+	public static LabourCompanyBaseInfoFragment newInstance(String category) {
+		LabourCompanyBaseInfoFragment fragment = new LabourCompanyBaseInfoFragment();
 		Bundle args = new Bundle();
 		args.putString(CATEGORY, category);
 		fragment.setArguments(args);
@@ -112,7 +112,7 @@ public class DevelopersBaseInfoFragment extends BaseFragment {
 			return;
 		}
 		AuthInfo authInfo = getAuthInfo();
-		DevelopersAuthenActivity activity = (DevelopersAuthenActivity) mActivity;
+		LabourCompanyAuthenActivity activity = (LabourCompanyAuthenActivity) mActivity;
 		activity.setAuthInfo(authInfo);
 		activity.goNext();
 	}

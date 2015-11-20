@@ -40,13 +40,14 @@
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="1dp"/>
-        <ImageView
-            android:id="@+id/iv_messageRemind"
+        <CheckBox
+            android:id="@+id/cb_messageRemind"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/button_selected"
+            android:button="@drawable/msg_enable_selector"
             android:layout_gravity="center_vertical"
             android:layout_marginRight="10dp"
+            android:checked="true"
             />
 
     </LinearLayout>
@@ -72,12 +73,12 @@
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="1dp"/>
-        <ImageView
-            android:id="@+id/iv_ring"
-
+        <CheckBox
+            android:id="@+id/cb_ring"
+            android:checked="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/button_selected"
+            android:button="@drawable/msg_enable_selector"
             android:layout_gravity="center_vertical"
             android:layout_marginRight="10dp"
             />
@@ -104,14 +105,14 @@
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="1dp"/>
-        <ImageView
-            android:id="@+id/iv_vibration"
-
+        <CheckBox
+            android:id="@+id/cb_vibration"
+            android:button="@drawable/msg_enable_selector"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/button_selected"
             android:layout_gravity="center_vertical"
             android:layout_marginRight="10dp"
+            android:checked="true"
             />
 
     </LinearLayout>

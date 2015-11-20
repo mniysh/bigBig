@@ -233,7 +233,7 @@ public class HeadmanCenterFragment extends BaseFragment {
                     ivEweima.getViewTreeObserver().removeGlobalOnLayoutListener(this);
                     int width = ivEweima.getWidth();
                     int height = ivEweima.getHeight();
-                    Bitmap logoBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.ms_logo_144);
+                    Bitmap logoBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.logo_144);
                     if (width <= 0) {
                         width = DensityUtils.dp2px(mActivity, 200);
                     }

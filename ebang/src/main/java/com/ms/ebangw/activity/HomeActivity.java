@@ -516,7 +516,7 @@ public class HomeActivity extends BaseActivity {
     /**
      * 接收选中的工种，发布界面的工种页面
      *
-     * @param event
+     * @param event 点击事件
      */
     public void onEvent(OnCheckedWorkTypeEvent event) {
         if (event == null) {

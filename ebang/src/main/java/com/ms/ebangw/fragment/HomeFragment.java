@@ -12,7 +12,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 
@@ -69,14 +68,7 @@ public class HomeFragment extends BaseFragment {
     MyListView listView;
     @Bind(R.id.home_search)
     EditText etSearch;
-    @Bind(R.id.iv_building)
-    ImageView buildingIv;
-    @Bind(R.id.iv_decorater)
-    ImageView decoratorIv;
-    @Bind(R.id.iv_projectManage)
-    ImageView projectManageIv;
-    @Bind(R.id.iv_other)
-    ImageView otherIv;
+
     @Bind(R.id.convenientBanner)
     ConvenientBanner convenientBanner;//顶部广告栏控件
     @Bind(R.id.ptr)
@@ -97,12 +89,6 @@ public class HomeFragment extends BaseFragment {
         Intent intent = new Intent(mActivity, MessageCenterActivit.class);
 
         startActivity(intent);
-    }
-
-    @OnClick(R.id.home_search)
-    public void startSearch() {
-        T.show("开始搜索");
-        startActivity(new Intent(mActivity, DiscoveryActivity.class));
     }
 
 
@@ -136,6 +122,15 @@ public class HomeFragment extends BaseFragment {
             @Override
             public void onPullUpToRefresh(PullToRefreshBase<ScrollView> refreshView) {
                 loadMoreHomeProjectInfo();
+            }
+        });
+
+        etSearch.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus) {
+                    startActivity(new Intent(mActivity, DiscoveryActivity.class));
+                }
             }
         });
     }
