@@ -1,0 +1,97 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical"
+              tools:context="com.ms.ebangw.fragment.InvestorCenterFragment">
+
+    <FrameLayout
+        android:id="@+id/fl_head_info"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"/>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        >
+
+        <LinearLayout
+            android:id="@+id/ll_verItems"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            >
+
+            <TextView
+                android:id="@+id/tv_publish"
+                style="@style/user_center_item_ver"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/publish"
+                android:text="@string/publish"
+                />
+
+            <TextView
+                android:id="@+id/tv_grab"
+                style="@style/user_center_item_ver"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/grab"
+                android:text="@string/grab"
+                />
+
+             <TextView
+                android:id="@+id/tv_trade"
+                style="@style/user_center_item_ver"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/trade"
+                android:text="@string/trade"
+                />
+
+             <TextView
+                android:id="@+id/tv_evaluate"
+                style="@style/user_center_item_ver"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/evaluate"
+                android:text="@string/evaluate"
+                />
+
+             <TextView
+                android:id="@+id/tv_jifen"
+                style="@style/user_center_item_ver"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/jifen"
+                android:text="@string/jifen"
+                />
+            <TextView
+                android:id="@+id/tv_people_manage"
+                style="@style/user_center_item_ver"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/people_manage"
+                android:text="@string/people_manage"
+                />
+            <TextView
+                android:id="@+id/tv_invite_friend"
+                style="@style/user_center_item_ver"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/invite_friend"
+                android:text="@string/invite_friend"
+                />
+
+            <include
+                android:id="@+id/ll_eweima"
+                layout="@layout/layout_invite_worker_qr_code"
+                android:visibility="gone"/>
+        </LinearLayout>
+
+    </ScrollView>
+
+
+</LinearLayout>

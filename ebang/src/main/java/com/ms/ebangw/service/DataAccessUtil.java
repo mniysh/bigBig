@@ -1097,6 +1097,7 @@ public class DataAccessUtil {
             String app_token = user.getApp_token();
             params.put("id", id);
             params.put("app_token", app_token);
+            params.put("os", "android");
         }
 
         return params;

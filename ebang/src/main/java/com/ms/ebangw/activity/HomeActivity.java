@@ -30,6 +30,7 @@ import com.ms.ebangw.fragment.FoundFragment;
 import com.ms.ebangw.fragment.HeadmanCenterFragment;
 import com.ms.ebangw.fragment.HomeFragment;
 import com.ms.ebangw.fragment.InvestorCenterFragment;
+import com.ms.ebangw.fragment.LabourCompanyCenterFragment;
 import com.ms.ebangw.fragment.ServiceFragment;
 import com.ms.ebangw.fragment.WorkerCenterFragment;
 import com.ms.ebangw.release.IncreaseDetailFragment;
@@ -277,6 +278,10 @@ public class HomeActivity extends BaseActivity {
 
             case Constants.DEVELOPERS:    //开发商
                 fm.beginTransaction().replace(R.id.fl_content, new DevelopersCenterFragment()).commit();
+                break;
+
+            case Constants.COMPANY:    //劳务公司
+                fm.beginTransaction().replace(R.id.fl_content, new LabourCompanyCenterFragment()).commit();
                 break;
         }
     }
