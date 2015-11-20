@@ -171,7 +171,7 @@ public class ShowActivity extends BaseActivity implements OnClickListener {
             loadInvistor();
         }
     }
-    //个人
+    //个人，，，还没写完
     private void loadInvistor(){
         DataAccessUtil.projectInfoDetailInvistor(projectId, new JsonHttpResponseHandler(){
             @Override
