@@ -144,22 +144,22 @@ public class SelectWorkerActivity extends BaseActivity {
 
         });
         listView.setAdapter(adapter);
-        slideBar.setOnSlideTouchListener(new QuickindexBar.OnSlideTouchListener() {
-
-            @Override
-            public void onBack(String str) {
-                showZimu(str);
-                if (workerList != null && workerList.size() > 0) {
-                    int size = workerList.size();
-                    for (int i = 0; i < size; i++) {
-                        if (workerList.get(i).getPinyin().substring(0, 1).equals(str)) {
-                            listView.setSelection(i);
-                            break;
-                        }
-                    }
-                }
-            }
-        });
+//        slideBar.setOnSlideTouchListener(new QuickindexBar.OnSlideTouchListener() {
+//
+//            @Override
+//            public void onBack(String str) {
+//                showZimu(str);
+//                if (workerList != null && workerList.size() > 0) {
+//                    int size = workerList.size();
+//                    for (int i = 0; i < size; i++) {
+//                        if (workerList.get(i).getPinyin().substring(0, 1).equals(str)) {
+//                            listView.setSelection(i);
+//                            break;
+//                        }
+//                    }
+//                }
+//            }
+//        });
     }
     private void inviteWorker(String workId){
         DataAccessUtil.inviteWorker(workId,project_id, craft_id ,new JsonHttpResponseHandler(){

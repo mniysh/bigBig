@@ -30,6 +30,7 @@
             />
 
         <com.ms.ebangw.view.QuickindexBar
+            android:visibility="gone"
             android:id="@+id/slideBar"
             android:layout_width="20dp"
             android:layout_height="match_parent"

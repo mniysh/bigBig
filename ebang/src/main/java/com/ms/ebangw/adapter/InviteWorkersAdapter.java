@@ -63,25 +63,25 @@ public class InviteWorkersAdapter extends BaseAdapter {
             holder = (ViewHolder) convertView.getTag();
         }
 
-        String firstChar = null;
+//        String firstChar = null;
         final Worker worker = (Worker) getItem(position);
         String isInvitetion = worker.getIsInvitation();
 
-        if (position == 0) {
-            firstChar = worker.getPinyin().substring(0, 1);
-        } else {
-            String py = worker.getPinyin().substring(0, 1);
-            String spy = list.get(position - 1).getPinyin().substring(0, 1);
-            if (!py.equals(spy)) {
-                firstChar = worker.getPinyin().substring(0, 1);
-            }
-        }
-        if (firstChar == null) {
-            holder.tv_py.setVisibility(View.GONE);
-        } else {
-            holder.tv_py.setVisibility(View.VISIBLE);
-            holder.tv_py.setText(firstChar);
-        }
+//        if (position == 0) {
+//            firstChar = worker.getPinyin().substring(0, 1);
+//        } else {
+//            String py = worker.getPinyin().substring(0, 1);
+//            String spy = list.get(position - 1).getPinyin().substring(0, 1);
+//            if (!py.equals(spy)) {
+//                firstChar = worker.getPinyin().substring(0, 1);
+//            }
+//        }
+//        if (firstChar == null) {
+//            holder.tv_py.setVisibility(View.GONE);
+//        } else {
+//            holder.tv_py.setVisibility(View.GONE);
+//            holder.tv_py.setText(firstChar);
+//        }
         holder.tv_name.setText(worker.getReal_name());
         holder.tv_craft_desc.setText(getWorkTypesDescriptions(worker.getCraft()));
         Picasso.with(parent.getContext()).load(DataAccessUtil.getImageUrl(worker.getHead_image())).

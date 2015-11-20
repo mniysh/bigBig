@@ -87,8 +87,9 @@ public class ShowActivity extends BaseActivity implements OnClickListener {
         public void onReceive(Context arg0, Intent in) {
             // TODO Auto-generated method stub
             showListView.setVisibility(View.VISIBLE);
+            lBelowShow.setVisibility(View.GONE);
             bQiangdan.setText("已抢单");
-            load();
+            loadDevelopers();
         }
     };
     private IntentFilter filter;
@@ -103,7 +104,7 @@ public class ShowActivity extends BaseActivity implements OnClickListener {
         setContentView(R.layout.act_show);
         ButterKnife.bind(this);
         filter=new IntentFilter();
-        filter.addAction("gxx");
+        filter.addAction(Constants.KEY_QIANGDAN_SUCCEED);
         registerReceiver(br, filter);
         user = getUser();
         category = user.getCategory();
@@ -163,10 +164,33 @@ public class ShowActivity extends BaseActivity implements OnClickListener {
 
     @Override
     public void initData() {
-        load();
-    }
+        if(TextUtils.equals(category, Constants.HEADMAN)){
 
-    private void load() {
+            loadDevelopers();
+        }else if(TextUtils.equals(category, Constants.WORKER)){
+            loadInvistor();
+        }
+    }
+    //个人
+    private void loadInvistor(){
+        DataAccessUtil.projectInfoDetailInvistor(projectId, new JsonHttpResponseHandler(){
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                super.onSuccess(statusCode, headers, response);
+
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                super.onFailure(statusCode, headers, responseString, throwable);
+
+            }
+        });
+
+    }
+    //开发商
+
+    private void loadDevelopers() {
         DataAccessUtil.projectInfoDetail(projectId, new JsonHttpResponseHandler() {
 
 

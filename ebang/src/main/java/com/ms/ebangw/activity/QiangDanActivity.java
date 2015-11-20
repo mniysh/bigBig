@@ -160,11 +160,11 @@ public class QiangDanActivity extends BaseNextAvtivity {
                                 backgroundAlpha(1.0f);
                                 pw.dismiss();
                                 QiangDanActivity.this.finish();
-                                Intent intent1 = new Intent();
+                                Intent intentSucceed = new Intent();
 
-                                intent1.setAction("gxx");
-                                intent1.putExtra("key", "nihao");
-                                sendBroadcast(intent1);
+                                intentSucceed.setAction(Constants.KEY_QIANGDAN_SUCCEED);
+                                intentSucceed.putExtra("key", "test");
+                                sendBroadcast(intentSucceed);
 //                                        startActivity(new Intent(QiangDanActivity.this, ShowActivity.class)); //ActivityA.this.finish();
                             }
                         });

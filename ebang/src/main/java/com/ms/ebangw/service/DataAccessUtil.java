@@ -754,7 +754,7 @@ public class DataAccessUtil {
     }
 
     /**
-     *2-12.首页工程详细
+     *2-12.首页工程详细（开发商）
      * @param projectId 工程Id
      * @param asyncHttpResponseHandler
      * @return
@@ -762,6 +762,18 @@ public class DataAccessUtil {
     public static RequestHandle projectInfoDetail(String projectId, AsyncHttpResponseHandler
                                                     asyncHttpResponseHandler){
         return doGet(RequestUrl.project_info_detail + projectId, null, asyncHttpResponseHandler);
+    }
+
+    /**
+     * 2-23.首页工程详情（个人）
+     * @param projectId
+     * @param asyncHttpResponseHandler
+     * @return
+     */
+
+    public static RequestHandle projectInfoDetailInvistor(String projectId, AsyncHttpResponseHandler asyncHttpResponseHandler){
+
+        return doGet(RequestUrl.project_info_detail_invistor + projectId, null, asyncHttpResponseHandler);
     }
 
 

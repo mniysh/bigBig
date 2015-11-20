@@ -10,6 +10,7 @@
 
 
         <TextView
+
             android:id="@+id/tv_py"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -63,6 +64,7 @@
                 />
 
             <TextView
+                android:visibility="gone"
                 android:id="@+id/tv_craft_desc"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

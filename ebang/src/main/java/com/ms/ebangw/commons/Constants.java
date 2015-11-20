@@ -174,4 +174,5 @@ public class Constants {
 	public static final String KEY_PROJECT_IMAGES = "project_images";
 
 	public static final String KEY_PROJECT_IMAGE_URL = "project_image_url";
+	public static final String KEY_QIANGDAN_SUCCEED = "succeed";
 }
