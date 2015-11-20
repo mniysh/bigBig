@@ -48,6 +48,7 @@ public class SelectWorkerActivity extends BaseActivity {
     private String project_id;
     private String craft_id;
     private Staff staff;
+    private InviteWorkersAdapter adapter;
 
 
     @Override
@@ -127,8 +128,8 @@ public class SelectWorkerActivity extends BaseActivity {
     }
 
     private void initWorksList(final List<Worker> workerList) {
-        Collections.sort(workerList);
-        InviteWorkersAdapter adapter = new InviteWorkersAdapter(workerList, new InviteWorkersAdapter.OnRemoveRelationListener() {
+//        Collections.sort(workerList);
+        adapter = new InviteWorkersAdapter(workerList, new InviteWorkersAdapter.OnRemoveRelationListener() {
 //            @Override
 //            public void onRemove(Worker worker) {
 //                removeRelation(worker.getId());
@@ -169,6 +170,8 @@ public class SelectWorkerActivity extends BaseActivity {
                     boolean b = DataParseUtil.processDataResult(response);
                     if(b){
                         T.show("消息已发送");
+                        adapter.notifyDataSetChanged();
+                        loadWorkers();
 
                     }
                 } catch (ResponseException e) {

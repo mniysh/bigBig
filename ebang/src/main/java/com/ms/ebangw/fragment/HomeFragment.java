@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,6 +35,7 @@ import com.ms.ebangw.bean.BannerImage;
 import com.ms.ebangw.bean.HomeProjectInfo;
 import com.ms.ebangw.bean.RecommendedDeveoper;
 import com.ms.ebangw.bean.ReleaseProject;
+import com.ms.ebangw.bean.User;
 import com.ms.ebangw.commons.Constants;
 import com.ms.ebangw.exception.ResponseException;
 import com.ms.ebangw.service.DataAccessUtil;
@@ -84,6 +86,8 @@ public class HomeFragment extends BaseFragment {
     private ProjectItemAdapter projectItemAdapter;
     private double latitude;
     private double longitude;
+    private User user;
+    private String categroy;
 
     /**
      * 消息按钮
@@ -120,6 +124,7 @@ public class HomeFragment extends BaseFragment {
     }
 
     public void initView() {
+        user = getUser();
 
         ptr.setMode(PullToRefreshBase.Mode.BOTH);
         ptr.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2<ScrollView>() {
@@ -142,11 +147,20 @@ public class HomeFragment extends BaseFragment {
         projectItemAdapter.setOnGrabClickListener(new ProjectItemAdapter.OnGrabClickListener() {
             @Override
             public void onGrabClick(View view, ReleaseProject releaseProject) {
-                Intent intent = new Intent(getActivity(), ShowActivity.class);
-                Bundle bundle = new Bundle();
-                bundle.putParcelable(Constants.KEY_RELEASED_PROJECT_STR, releaseProject);
-                intent.putExtras(bundle);
-                startActivity(intent);
+                if(user != null){
+                    categroy = user.getCategory();
+
+                        String projectType = releaseProject.getProject_type();
+
+                        Intent intent = new Intent(getActivity(), ShowActivity.class);
+                        Bundle bundle = new Bundle();
+                        bundle.putParcelable(Constants.KEY_RELEASED_PROJECT_STR, releaseProject);
+                        intent.putExtras(bundle);
+                        startActivity(intent);
+                }
+
+
+
             }
         });
         listView.setAdapter(projectItemAdapter);

@@ -12,6 +12,7 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -46,7 +47,7 @@ import cz.msebera.android.httpclient.Header;
  * @author admin xupeng
  */
 public class ShowActivity extends BaseActivity implements OnClickListener {
-
+    @Bind(R.id.act_show_qiangdan)
     Button bQiangdan;
     @Bind(R.id.show_list)
     ListView showListView;
@@ -69,8 +70,8 @@ public class ShowActivity extends BaseActivity implements OnClickListener {
     ImageView iOneImg;
     @Bind(R.id.iv_two)
     ImageView iTwoImg;
-    //    @Bind(R.id.ll_below_show)
-//    LinearLayout lBelowShow;
+    @Bind(R.id.ll_below_show)
+    LinearLayout lBelowShow;
     String imageUrl;
 
     private ReleaseProject releaseProject;
@@ -78,12 +79,15 @@ public class ShowActivity extends BaseActivity implements OnClickListener {
     private User user;
     private String category;
     private Staff staff;
+    private String projectType;
+
     private BroadcastReceiver br=new BroadcastReceiver() {
 
         @Override
         public void onReceive(Context arg0, Intent in) {
             // TODO Auto-generated method stub
             showListView.setVisibility(View.VISIBLE);
+            bQiangdan.setText("已抢单");
             load();
         }
     };
@@ -101,6 +105,8 @@ public class ShowActivity extends BaseActivity implements OnClickListener {
         filter=new IntentFilter();
         filter.addAction("gxx");
         registerReceiver(br, filter);
+        user = getUser();
+        category = user.getCategory();
 
         Intent intent = getIntent();
         if(intent != null){
@@ -109,13 +115,18 @@ public class ShowActivity extends BaseActivity implements OnClickListener {
         }
         if (releaseProject != null) {
             projectId = releaseProject.getId();
+            projectType = releaseProject.getProject_type();
         }
         SharedPreferences sharedPreferences = getSharedPreferences("test", Context.MODE_PRIVATE);
         String isContend = sharedPreferences.getString("IsContend","process");
         if(TextUtils.equals(isContend,"contend")){
             showListView.setVisibility(View.VISIBLE);
+            lBelowShow.setVisibility(View.GONE);
+
         }else{
             showListView.setVisibility(View.GONE);
+            lBelowShow.setVisibility(View.VISIBLE);
+            bQiangdan.setText("立刻抢单");
         }
         initView();
         initViewOper();
@@ -136,8 +147,8 @@ public class ShowActivity extends BaseActivity implements OnClickListener {
 
 
     public void initView() {
-        bQiangdan = (Button) findViewById(R.id.act_show_qiangdan);
-        user = getUser();
+//        bQiangdan = (Button) findViewById(R.id.act_show_qiangdan);
+
         if(user != null){
             category = user.getCategory();
         }

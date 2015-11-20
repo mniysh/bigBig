@@ -13,6 +13,8 @@ import com.ms.ebangw.bean.Staff;
 import com.ms.ebangw.commons.Constants;
 import com.tencent.open.utils.Global;
 
+import org.w3c.dom.Text;
+
 import java.util.List;
 
 import butterknife.Bind;
@@ -87,7 +89,10 @@ public class ProjectItemdetailAdapter extends BaseAdapter {
         holder.tvStartTime.setText(start_time);
         holder.tvEndTime.setText(end_time);
         holder.tHead.setText((position+1)+"");
+        holder.totalNowTv.setText("已经选择"+project.getTotal_invitation() + "人,成功选择" +project.getTotal_agree()
+                + "人,还差" +project.getTotal_surplus() + "人");
         holder.tHead.setTag(position);
+
 //        SharedPreferences sharedPreferences = Global.getSharedPreferences("test",Context.MODE_PRIVATE);
 //        String IsContend = sharedPreferences.getString("IsContend","");
 //        if (IsContend!="complete"){
@@ -123,6 +128,8 @@ public class ProjectItemdetailAdapter extends BaseAdapter {
         Button tvXuanRen;
         @Bind(R.id.tv_head)
         TextView tHead;
+        @Bind(R.id.tv_now_status)
+        TextView totalNowTv;
         ViewHolder(View view) {
             ButterKnife.bind(this, view);
         }
