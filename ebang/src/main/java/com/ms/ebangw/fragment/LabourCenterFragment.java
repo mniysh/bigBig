@@ -162,7 +162,7 @@ public class LabourCenterFragment extends BaseFragment {
                     ivEweima.getViewTreeObserver().removeGlobalOnLayoutListener(this);
                     int width = ivEweima.getWidth();
                     int height = ivEweima.getHeight();
-                    Bitmap logoBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.ms_logo_144);
+                    Bitmap logoBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.logo_144);
                     boolean b = QRCodeUtil.createQRImage(getUser().getId(), width, height, logoBitmap, path);
                     if (b) {
                         Bitmap bitmap = BitmapFactory.decodeFile(path);

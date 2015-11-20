@@ -95,9 +95,9 @@ public class SettingMessageActivity extends BaseActivity {
             R.id.title,
             R.id.text);
         // 指定定制的 Notification Layout
-        builder.statusBarDrawable = R.drawable.ms_logo_144;
+        builder.statusBarDrawable = R.drawable.logo_36;
         // 指定最顶层状态栏小图标
-        builder.layoutIconDrawable = R.drawable.ms_logo_144;
+        builder.layoutIconDrawable = R.drawable.logo_48;
         // 指定下拉状态栏时显示的通知图标
         builder.notificationFlags = Notification.FLAG_AUTO_CANCEL;  //设置为自动消失
 

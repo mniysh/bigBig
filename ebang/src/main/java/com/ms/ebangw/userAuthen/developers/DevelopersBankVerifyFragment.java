@@ -16,7 +16,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -41,6 +40,7 @@ import com.ms.ebangw.utils.BitmapUtil;
 import com.ms.ebangw.utils.L;
 import com.ms.ebangw.utils.T;
 import com.ms.ebangw.utils.VerifyUtils;
+import com.ms.ebangw.view.ProvinceAndCityView;
 
 import java.io.File;
 import java.io.IOException;
@@ -124,10 +124,11 @@ public class DevelopersBankVerifyFragment extends BaseFragment {
     EditText publicAccountTwoEt;
     @Bind(R.id.sp_bank)
     Spinner bankSp;
-    @Bind(R.id.sp_bank_province)
-    Spinner bankProvinceSp;
-//    @Bind(R.id.sp_bank_city)
-//    Spinner bankCitySp;
+    @Bind(R.id.pac_bank)
+    ProvinceAndCityView pacBankPlace;
+    @Bind(R.id.pac_permit)
+    ProvinceAndCityView pacPermitPlace;
+
 
 
 //
@@ -231,12 +232,6 @@ public class DevelopersBankVerifyFragment extends BaseFragment {
 
     private boolean isInfoCorrect() {
         String businessYears = businessAgeEt.getText().toString().trim();
-        boolean checked = isLongCb.isChecked();
-        String isLong = "2";
-        if (checked) {
-            isLong = "1";
-        }
-
         String companyName = companyNameEt.getText().toString().trim();
         String oftenAddress = oftenAddressEt.getText().toString().trim();
         String businessScope = businessScopeEt.getText().toString().trim();
@@ -246,7 +241,6 @@ public class DevelopersBankVerifyFragment extends BaseFragment {
         String publicName = publicAccountNameEt.getText().toString().trim();
         String aa = publicAccountEt.getText().toString().trim();
         String cc = publicAccountTwoEt.getText().toString().trim();
-
 
         String publicAccount = VerifyUtils.bankCard(aa);
         String publicAccount2 = VerifyUtils.bankCard(cc);
@@ -307,8 +301,6 @@ public class DevelopersBankVerifyFragment extends BaseFragment {
             return false;
         }
 
-
-
         return true;
     }
 
@@ -317,81 +309,11 @@ public class DevelopersBankVerifyFragment extends BaseFragment {
         if (null == provinces) {
             return;
         }
-
-        adapter01 = new ArrayAdapter<>(mActivity,
-            R.layout.layout_spinner_item, provinces);
-
-
-        permitProvinceSp.setAdapter(adapter01);
-
-        adapter02 = new ArrayAdapter<>(mActivity, R.layout.layout_spinner_item, provinces
-            .get(0).getCitys());
-        permitCitySp.setAdapter(adapter02);
-
-        permitProvinceSp.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view,
-                                       int position, long id) {
-                province = provinces.get(position);
-
-                adapter02 = new ArrayAdapter<>(mActivity,
-                    R.layout.layout_spinner_item, provinces.get(
-                    position).getCitys());
-
-                permitCitySp.setAdapter(adapter02);
-
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
-
-        permitProvinceSp.setSelection(0, true);
-        permitCitySp.setSelection(0, true);
+        pacPermitPlace.setProvinces(provinces);
+        pacBankPlace.setProvinces(provinces);
+        initBankSpinner();
     }
 
-    public void initPublicAccountAddressSpinner() {
-        bankProvinces = getProvinces();
-        if (null == bankProvinces) {
-            return;
-        }
-
-        bankProvinceAdapter = new ArrayAdapter<>(mActivity,
-            R.layout.layout_spinner_item, bankProvinces);
-
-
-        bankProvinceSp.setAdapter(bankProvinceAdapter);
-
-        bankCityAdapter = new ArrayAdapter<>(mActivity, R.layout.layout_spinner_item, provinces
-            .get(0).getCitys());
-//        bankCitySp.setAdapter(bankCityAdapter);
-
-        bankProvinceSp.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view,
-                                       int position, long id) {
-                bankProvince = provinces.get(position);
-
-                bankCityAdapter = new ArrayAdapter<>(mActivity,
-                    R.layout.layout_spinner_item, bankProvinces.get(
-                    position).getCitys());
-
-                permitCitySp.setAdapter(adapter02);
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
-
-        bankProvinceSp.setSelection(0, true);
-//        bankCitySp.setSelection(0, true);
-    }
 
 
     private void setAuthInfo() {
@@ -410,14 +332,11 @@ public class DevelopersBankVerifyFragment extends BaseFragment {
         String companyNumber = companyNumberEt.getText().toString().trim();
         String companyPhone = stablePhoneEt.getText().toString().trim();
         String businessLiceseNumber = businessLiceseNumberEt.getText().toString().trim();
-//        String linkman = linkmanEt.getText().toString().trim();
-//        String linkmanPhone = linkmanPhoneEt.getText().toString().trim();
         String publicAccountName = publicAccountNameEt.getText().toString().trim();
 
-        String aa = publicAccountEt.getText().toString().trim();
+        String publicAccountNoVerifyed = publicAccountEt.getText().toString().trim();
 
-        String publicAccount = VerifyUtils.bankCard(aa);
-//        String publicAccount2 = publicAccountTwoEt.getText().toString().trim();
+        String publicAccount = VerifyUtils.bankCard(publicAccountNoVerifyed);
         authInfo.setCompanyName(companyName);
         authInfo.setOftenAddress(oftenAddress);
         authInfo.setBusinessAge(businessYears);
@@ -425,66 +344,30 @@ public class DevelopersBankVerifyFragment extends BaseFragment {
         authInfo.setCompanyNumber(companyNumber);
         authInfo.setCompanyPhone(companyPhone);
         authInfo.setBusinessLicenseNumber(businessLiceseNumber);
-//        authInfo.setLinkman(linkman);
-//        authInfo.setLinkmanPhone(linkmanPhone);
         authInfo.setPublicAccountName(publicAccountName);
         authInfo.setPublicAccount(publicAccount);
         authInfo.setTimeState(isLong);
 
         //营业执照所在地
-        TextView provinceTv = (TextView) permitProvinceSp.getSelectedView();
-        TextView cityTv = (TextView) permitCitySp.getSelectedView();
+        String provinceId = pacPermitPlace.getProvinceId();
+        String cityId = pacPermitPlace.getCityId();
+        String  bankProvinceId = pacBankPlace.getProvinceId();
+        String bankCityId = pacBankPlace.getCityId();
+        String bankId = getBankId();
 
-        String province = null;
-        String city = null;
-        if (provinceTv != null && cityTv != null) {
+        authInfo.setPermitProvinceId(provinceId);
+        authInfo.setPermitCityId(cityId);
+        authInfo.setBankId(bankId);
+        authInfo.setPublicAccountProvinceId(bankProvinceId);
+        authInfo.setPublicAccountCityId(bankCityId);
 
-            province = provinceTv.getText().toString().trim();
-            city = cityTv.getText().toString().trim();
-        }
-        String  provinceId = null;
-        String cityId = null;
+    }
 
-        List<Province> provinces = getProvinces();
-        for (int i = 0; i < provinces.size(); i++) {
-            Province p = provinces.get(i);
-            if(TextUtils.equals(p.getName(), province)){
-                provinceId = p.getId();
-                List<City> citys = p.getCitys();
-                for (int j = 0; j < citys.size(); j++) {
-                    City c = citys.get(j);
-                    if(TextUtils.equals(c.getName(), city)){
-                        cityId = c.getId();
-                        break;
-                    }
-                }
-                break;
-            }
-        }
-
-        //开户银行地点
-        TextView bankProvinceTv = (TextView) bankProvinceSp.getSelectedView();
-//        TextView banCityTv = (TextView) bankCitySp.getSelectedView();
-
-        String bankProvince = null;
-        String banCity = null;
-        if (bankProvinceTv != null ) {
-
-            bankProvince = provinceTv.getText().toString().trim();
-        }
-        String  bankProvinceId = null;
-        String bankCityId = null;
-
-//        List<Province> provinces = getProvinces();
-        for (int i = 0; i < provinces.size(); i++) {
-            Province p = provinces.get(i);
-            if(TextUtils.equals(p.getName(), bankProvince)){
-                bankProvinceId = p.getId();
-
-                break;
-            }
-        }
-
+    /**
+     * 获取选中银行的id
+     * @return
+     */
+    private String getBankId() {
         String bankId = null;
         String bankName = null;
         TextView bankTv = (TextView) bankSp.getSelectedView();
@@ -498,15 +381,7 @@ public class DevelopersBankVerifyFragment extends BaseFragment {
                 break;
             }
         }
-
-        authInfo.setPermitProvinceId(provinceId);
-        authInfo.setPermitCityId(cityId);
-        authInfo.setBankId(bankId);
-
-        authInfo.setPublicAccountProvinceId(bankProvinceId);
-        authInfo.setPublicAccountCityId(bankCityId);
-
-
+        return bankId;
     }
 
     @Override
@@ -520,8 +395,8 @@ public class DevelopersBankVerifyFragment extends BaseFragment {
     public void initData() {
         mAlbumStorageDirFactory = new FroyoAlbumDirFactory();
         initSpinner();
-        initPublicAccountAddressSpinner();
-        initBankSpinner();
+//        initPublicAccountAddressSpinner();
+//        initBankSpinner();
     }
 
     @OnClick(R.id.btn_commit)

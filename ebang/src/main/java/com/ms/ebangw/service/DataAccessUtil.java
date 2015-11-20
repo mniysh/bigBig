@@ -525,56 +525,58 @@ public class DataAccessUtil {
     }
 
     /**
-     *
-     * @param linkman_name
-     * @param identity_card
-     * @param card_image_front
-     * @param card_image_back
-     * @param linkman_phone
-     * @param linkman_province
-     * @param linkman_city
-     * @param company_name
-     * @param business_province
-     * @param business_city
-     * @param address
-     * @param business_years
-     * @param time_state
-     * @param company_number
-     * @param company_phone
-     * @param introduce
-     * @param account_name
-     * @param account_province
-     * @param public_account
-     * @param organization_certificate
-     * @param business_license_number
-     * @param business_scope
-     * @param bank_id
+     *1-9.开发商认证接口
+     * @param real_name 联系人
+     * @param identity_card 身份证号(18位字符)
+     * @param card_image_front  身份证正面(id)
+     * @param card_image_back   身份证反面(id)
+     * @param linkman_phone 手机号码(11位数字)
+     * @param province  省分(id)
+     * @param city  市(id)
+     * @param company_name     企业名称
+     * @param business_province 营业执照所在省(id)
+     * @param business_city 营业执照所在市(id)
+     * @param address   常住地址
+     * @param business_years    营业年限(数字)
+     * @param time_state    长期(值为1是长期 2为非长期）
+     * @param company_number    组织结构代码证号
+     * @param company_phone 公司座机
+     * @param introduce 企业介绍
+     * @param open_account_name 户名
+     * @param open_account_province 开户地点(id
+     * @param card_number   对公账户
+     * @param organization_certificate  图片关联id组织机构代码证扫描件
+     * @param business_license_number   营业执照注册号
+     * @param business_scope    经营范围
+     * @param bank_id   开户银行(id)
+     * @param open_account_city 开户城市(id)
      * @param asyncHttpResponseHandler
      * @return
      */
-    public static RequestHandle developerIdentify(String linkman_name, String identity_card,
+    public static RequestHandle developerIdentify(String real_name, String identity_card,
                                                   String card_image_front, String card_image_back,
-                                                  String linkman_phone, String linkman_province,
-                                                  String linkman_city, String company_name,
+                                                  String linkman_phone, String province,
+                                                  String city, String company_name,
                                                   String business_province, String business_city,
                                                   String address, String business_years,
                                                   String time_state, String company_number,
                                                   String company_phone, String introduce,
-                                                  String account_name, String account_province,
-                                                  String public_account, String organization_certificate,
+                                                  String open_account_name, String open_account_province,
+                                                  String card_number, String organization_certificate,
                                                   String business_license_number, String business_scope,
-                                                  String bank_id, String gender,
+                                                  String bank_id, String gender, String
+                                                      open_account_city,
                                                AsyncHttpResponseHandler
                                                    asyncHttpResponseHandler ) {
 
         RequestParams params = new RequestParams();
-        params.put("linkman_name",linkman_name);
+        params.put("real_name",real_name);
         params.put("identity_card",identity_card);
         params.put("card_image_front",card_image_front);
         params.put("card_image_back",card_image_back);
         params.put("linkman_phone",linkman_phone);
-        params.put("linkman_province",linkman_province);
-        params.put("linkman_city",linkman_city);
+        params.put("province",province);
+        params.put("city",city);
         params.put("company_name",company_name);
         params.put("business_province",business_province);
         params.put("business_city",business_city);
@@ -584,9 +586,9 @@ public class DataAccessUtil {
         params.put("company_number",company_number);
         params.put("company_phone",company_phone);
         params.put("introduce",introduce);
-        params.put("account_name",account_name);
-        params.put("account_province",account_province);
-        params.put("public_account",public_account);
+        params.put("open_account_name",open_account_name);
+        params.put("open_account_province",open_account_province);
+        params.put("card_number",card_number);
         params.put("organization_certificate",organization_certificate);
         params.put("business_license_number",business_license_number);
         params.put("business_scope",business_scope);

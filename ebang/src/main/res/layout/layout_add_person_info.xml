@@ -160,7 +160,7 @@
                 android:text="*籍贯: "
                 />
 
-            <Spinner
+           <!-- <Spinner
                 android:id="@+id/sp_a"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -172,8 +172,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"
-                />
+                />-->
 
+            <com.ms.ebangw.view.ProvinceAndCityView
+                android:id="@+id/pac"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
         </LinearLayout>
 
         <LinearLayout

@@ -10,12 +10,10 @@ import android.text.style.ForegroundColorSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioGroup;
-import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.ms.ebangw.R;
@@ -26,6 +24,7 @@ import com.ms.ebangw.commons.Constants;
 import com.ms.ebangw.fragment.BaseFragment;
 import com.ms.ebangw.utils.T;
 import com.ms.ebangw.utils.VerifyUtils;
+import com.ms.ebangw.view.ProvinceAndCityView;
 
 import java.util.List;
 
@@ -51,10 +50,8 @@ public class DevelopersBaseInfoFragment extends BaseFragment {
 	EditText cardEt;
 	@Bind(R.id.rg_gender)
 	RadioGroup genderRg;
-	@Bind(R.id.sp_a)
-	Spinner provinceSp;
-	@Bind(R.id.sp_b)
-	Spinner citySp;
+	@Bind(R.id.pac)
+	ProvinceAndCityView pac;
 	@Bind(R.id.btn_next)
 	Button nextBtn;
 	@Bind(R.id.et_introduce)
@@ -101,49 +98,13 @@ public class DevelopersBaseInfoFragment extends BaseFragment {
 
 	@Override
 	public void initData() {
-
-		initSpinner();
-	}
-
-	public void initSpinner() {
 		provinces = getProvinces();
 		if (null == provinces) {
 			return;
 		}
-
-		adapter01 = new ArrayAdapter<>(mActivity,
-			R.layout.layout_spinner_item, provinces);
-
-
-		provinceSp.setAdapter(adapter01);
-		provinceSp.setSelection(0, true);
-
-		adapter02 = new ArrayAdapter<>(mActivity, R.layout.layout_spinner_item, provinces
-			.get(0).getCitys());
-		citySp.setAdapter(adapter02);
-		citySp.setSelection(0, true);
-
-		provinceSp.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-
-			@Override
-			public void onItemSelected(AdapterView<?> parent, View view,
-									   int position, long id) {
-				province = provinces.get(position);
-
-				adapter02 = new ArrayAdapter<>(mActivity,
-					R.layout.layout_spinner_item, provinces.get(
-					position).getCitys());
-
-				citySp.setAdapter(adapter02);
-
-			}
-
-			@Override
-			public void onNothingSelected(AdapterView<?> parent) {
-
-			}
-		});
+		pac.setProvinces(provinces);	//设置籍贯
 	}
+
 
 	@OnClick(R.id.btn_next)
 	public void goNext() {
@@ -196,12 +157,11 @@ public class DevelopersBaseInfoFragment extends BaseFragment {
 		String phone = phoneEt.getText().toString().trim();
 		String introduce = introduceEt.getText().toString().trim();
 
-
 		AuthInfo authInfo = new AuthInfo();
 
 		//性别
 		int checkId = genderRg.getCheckedRadioButtonId();
-		String gender = Constants.MALE;
+		String gender;
 		if (checkId == R.id.rb_male) {
 			gender =  Constants.MALE;
 		}else {
@@ -209,41 +169,13 @@ public class DevelopersBaseInfoFragment extends BaseFragment {
 		}
 
 		//获取籍贯
-		TextView provinceTv = (TextView) provinceSp.getSelectedView();
-		TextView cityTv = (TextView) citySp.getSelectedView();
-
-		String province = null;
-		String city = null;
-		if (provinceTv != null && cityTv != null) {
-
-			province = provinceTv.getText().toString().trim();
-			city = cityTv.getText().toString().trim();
-		}
-		String  provinceId = null;
-		String cityId = null;
-
-		List<Province> provinces = getProvinces();
-		for (int i = 0; i < provinces.size(); i++) {
-			Province p = provinces.get(i);
-			if(TextUtils.equals(p.getName(), province)){
-				provinceId = p.getId();
-				List<City> citys = p.getCitys();
-				for (int j = 0; j < citys.size(); j++) {
-					City c = citys.get(j);
-					if(TextUtils.equals(c.getName(), city)){
-						cityId = c.getId();
-						break;
-					}
-				}
-				break;
-			}
-		}
+		String provinceId = pac.getProvinceId();
+		String cityId = pac.getCityId();
 
 		authInfo.setRealName(realName);
 		authInfo.setGender(gender);
 		authInfo.setIdentityCard(cardId);
 		authInfo.setPhone(phone);
-		authInfo.setIdentityCard(cardId);
 		authInfo.setProvinceId(provinceId);
 		authInfo.setCityId(cityId);
 		authInfo.setIntroduce(introduce);

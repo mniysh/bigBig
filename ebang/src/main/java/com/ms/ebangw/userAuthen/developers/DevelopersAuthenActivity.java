@@ -37,7 +37,7 @@ import cz.msebera.android.httpclient.Header;
 import de.greenrobot.event.EventBus;
 
 /**
- * 个人用户认证
+ * 开发商认证
  */
 public class DevelopersAuthenActivity extends BaseActivity {
 	/**
@@ -130,7 +130,7 @@ public class DevelopersAuthenActivity extends BaseActivity {
 	 * 提交认证信息
 	 */
 	public void commit() {
-		String linkman = authInfo.getRealName();
+		String realName = authInfo.getRealName();
 		String identityCard = authInfo.getIdentityCard();
 		String frontImageId = authInfo.getFrontImageId();
 		String backImageId = authInfo.getBackImageId();
@@ -154,14 +154,16 @@ public class DevelopersAuthenActivity extends BaseActivity {
 		String businessScope = authInfo.getBusinessScope();
 		String bankId = authInfo.getBankId();
 		String gender = authInfo.getGender();
+		String accountCityId = authInfo.getPublicAccountCityId();
 
-		DataAccessUtil.developerIdentify(linkman, identityCard, frontImageId,
+		DataAccessUtil.developerIdentify(realName, identityCard, frontImageId,
 		backImageId, linkmanPhone, linkman_province,
 			linkman_city, company_name, business_province, business_city,
 			oftenAddress, businessAge, timeState, companyNumber,
 			companyPhone, introduce, publicAccountName,
 			account_province, publicAccount, organizationCertificate,
-			businessLicenseNumber, businessScope, bankId, gender, new JsonHttpResponseHandler(){
+			businessLicenseNumber, businessScope, bankId, gender, accountCityId, new
+				JsonHttpResponseHandler(){
 				@Override
 				public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
 
