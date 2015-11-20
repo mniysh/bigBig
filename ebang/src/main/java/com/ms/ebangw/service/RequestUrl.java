@@ -236,6 +236,11 @@ public class RequestUrl {
      */
     public static final String grab_status = domain + "/api/index/index/grab-status";
 
+    /**
+     * 1-15、劳务公司认证接口
+     */
+    public static final String company_identify = domain + "/api/user/company/identify";
+
 
 
     /**

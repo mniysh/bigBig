@@ -62,9 +62,14 @@ public class Constants {
 	public static final String HEADMAN = "headman";
 	/**
 	 * 用户类型：开发商
-	 * 个人 investor，农民工 worker，工长 headman，开发商 developers
+	 * 个人 investor，农民工 worker，工长 headman，开发商 developers ,劳务公司 company
 	 */
 	public static final String DEVELOPERS = "developers";
+	/**
+	 * 用户类型：开发商
+	 * 个人 investor，农民工 worker，工长 headman，开发商 developers ,劳务公司 company
+	 */
+	public static final String COMPANY = "company";
 
 
 	/**

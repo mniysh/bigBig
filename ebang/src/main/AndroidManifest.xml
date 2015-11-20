@@ -218,6 +218,12 @@
             android:name=".userAuthen.headman.HeadmanAuthenActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".userAuthen.labourCompany.LabourCompanyAuthenActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="portrait" />
+
         <activity
             android:name=".crop.CropImageActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"

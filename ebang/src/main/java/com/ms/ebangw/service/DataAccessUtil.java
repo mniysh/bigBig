@@ -599,6 +599,82 @@ public class DataAccessUtil {
         return doPost(RequestUrl.developer_identify, params, asyncHttpResponseHandler);
     }
 
+
+    /**
+     *1-15、劳务公司认证接口
+     * @param real_name 联系人
+     * @param identity_card 身份证号(18位字符)
+     * @param card_image_front  身份证正面(id)
+     * @param card_image_back   身份证反面(id)
+     * @param linkman_phone 手机号码(11位数字)
+     * @param province  省分(id)
+     * @param city  市(id)
+     * @param company_name     企业名称
+     * @param business_province 营业执照所在省(id)
+     * @param business_city 营业执照所在市(id)
+     * @param address   常住地址
+     * @param business_years    营业年限(数字)
+     * @param time_state    长期(值为1是长期 2为非长期）
+     * @param company_number    组织结构代码证号
+     * @param company_phone 公司座机
+     * @param introduce 企业介绍
+     * @param open_account_name 户名
+     * @param open_account_province 开户地点(id
+     * @param card_number   对公账户
+     * @param organization_certificate  图片关联id组织机构代码证扫描件
+     * @param business_license_number   营业执照注册号
+     * @param business_scope    经营范围
+     * @param bank_id   开户银行(id)
+     * @param open_account_city 开户城市(id)
+     * @param asyncHttpResponseHandler
+     * @return
+     */
+    public static RequestHandle companyIdentify(String real_name, String identity_card,
+                                                  String card_image_front, String card_image_back,
+                                                  String linkman_phone, String province,
+                                                  String city, String company_name,
+                                                  String business_province, String business_city,
+                                                  String address, String business_years,
+                                                  String time_state, String company_number,
+                                                  String company_phone, String introduce,
+                                                  String open_account_name, String open_account_province,
+                                                  String card_number, String organization_certificate,
+                                                  String business_license_number, String business_scope,
+                                                  String bank_id, String gender, String
+                                                      open_account_city,
+                                                  AsyncHttpResponseHandler
+                                                      asyncHttpResponseHandler ) {
+
+        RequestParams params = new RequestParams();
+        params.put("real_name",real_name);
+        params.put("identity_card",identity_card);
+        params.put("card_image_front",card_image_front);
+        params.put("card_image_back",card_image_back);
+        params.put("linkman_phone",linkman_phone);
+        params.put("province",province);
+        params.put("city",city);
+        params.put("company_name",company_name);
+        params.put("business_province",business_province);
+        params.put("business_city",business_city);
+        params.put("address",address);
+        params.put("business_years",business_years);
+        params.put("time_state",time_state);
+        params.put("company_number",company_number);
+        params.put("company_phone",company_phone);
+        params.put("introduce",introduce);
+        params.put("open_account_name",open_account_name);
+        params.put("open_account_province",open_account_province);
+        params.put("card_number",card_number);
+        params.put("organization_certificate",organization_certificate);
+        params.put("business_license_number",business_license_number);
+        params.put("business_scope",business_scope);
+        params.put("bank_id",bank_id);
+        params.put("gender",gender);
+        params.put("open_account_city",open_account_city);
+
+        return doPost(RequestUrl.company_identify, params, asyncHttpResponseHandler);
+    }
+
     /**
      * 13.修改昵称接口
      * @param nickname 修改后的昵称

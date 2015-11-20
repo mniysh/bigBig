@@ -20,10 +20,10 @@ import android.widget.TextView;
 
 import com.ms.ebangw.MyApplication;
 import com.ms.ebangw.R;
-import com.ms.ebangw.setting.SettingActivity;
 import com.ms.ebangw.bean.UploadImageResult;
 import com.ms.ebangw.bean.User;
 import com.ms.ebangw.commons.Constants;
+import com.ms.ebangw.crop.AlbumStorageDirFactory;
 import com.ms.ebangw.crop.CropImageActivity;
 import com.ms.ebangw.crop.FroyoAlbumDirFactory;
 import com.ms.ebangw.crop.GetPathFromUri4kitkat;
@@ -33,6 +33,7 @@ import com.ms.ebangw.setting.SettingAllActivity;
 import com.ms.ebangw.userAuthen.developers.DevelopersAuthenActivity;
 import com.ms.ebangw.userAuthen.headman.HeadmanAuthenActivity;
 import com.ms.ebangw.userAuthen.investor.InvestorAuthenActivity;
+import com.ms.ebangw.userAuthen.labourCompany.LabourCompanyAuthenActivity;
 import com.ms.ebangw.userAuthen.worker.WorkerAuthenActivity;
 import com.ms.ebangw.utils.BitmapUtil;
 import com.ms.ebangw.utils.L;
@@ -57,11 +58,19 @@ public class AuthenticationFragment extends BaseFragment implements OnClickListe
     private final int REQUEST_CROP = 8;
     private static final String JPEG_FILE_PREFIX = "IMG_";
     private static final String JPEG_FILE_SUFFIX = ".jpg";
-    private com.ms.ebangw.crop.AlbumStorageDirFactory mAlbumStorageDirFactory = null;
+    @Bind(R.id.btn_investor)
+    Button btnInvestor;
+    @Bind(R.id.btn_worker)
+    Button btnWorker;
+    @Bind(R.id.btn_headman)
+    Button btnHeadman;
+    @Bind(R.id.btn_developers)
+    Button btnDevelopers;
+    @Bind(R.id.btn_labour_company)
+    Button btnLabourCompany;
+    private AlbumStorageDirFactory mAlbumStorageDirFactory = null;
     private String mCurrentPhotoPath;
 
-
-    private Button but_self, but_worker, but_foreman, but_factory;
     private View mContentView;
     private User user;
 
@@ -101,11 +110,10 @@ public class AuthenticationFragment extends BaseFragment implements OnClickListe
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-		if (savedInstanceState != null) {
-			mCurrentPhotoPath = savedInstanceState.getString(Constants.KEY_CURRENT_IMAGE_PATH);
-		}
+        if (savedInstanceState != null) {
+            mCurrentPhotoPath = savedInstanceState.getString(Constants.KEY_CURRENT_IMAGE_PATH);
+        }
     }
-
 
 
     @Override
@@ -129,17 +137,11 @@ public class AuthenticationFragment extends BaseFragment implements OnClickListe
     }
 
     public void initView() {
-        //initTitle("我的信息");
-
-        but_self = (Button) mContentView.findViewById(R.id.btn_investor);
-        but_worker = (Button) mContentView.findViewById(R.id.btn_worker);
-        but_foreman = (Button) mContentView.findViewById(R.id.btn_headman);
-        but_factory = (Button) mContentView.findViewById(R.id.btn_developers);
-
-        but_self.setOnClickListener(this);
-        but_worker.setOnClickListener(this);
-        but_foreman.setOnClickListener(this);
-        but_factory.setOnClickListener(this);
+          btnInvestor.setOnClickListener(this);
+        btnWorker.setOnClickListener(this);
+        btnHeadman.setOnClickListener(this);
+        btnDevelopers.setOnClickListener(this);
+        btnLabourCompany.setOnClickListener(this);
 
     }
 
@@ -158,11 +160,11 @@ public class AuthenticationFragment extends BaseFragment implements OnClickListe
         phone2Tv.setText(phone);
         nativePlaceTv.setText(area);
 
-        if(TextUtils.equals(craft,"null") || TextUtils.isEmpty(craft) || TextUtils.equals(craft,
-            "Null")){
+        if (TextUtils.equals(craft, "null") || TextUtils.isEmpty(craft) || TextUtils.equals(craft,
+            "Null")) {
             LWorkType.setVisibility(View.GONE);
 
-        }else {
+        } else {
             LWorkType.setVisibility(View.VISIBLE);
             workTypeTv.setText(craft);
         }
@@ -181,14 +183,14 @@ public class AuthenticationFragment extends BaseFragment implements OnClickListe
         initHeadInfo();
         User user = getUser();
         String status = user.getStatus();        //认证状态
-//        switch (status) {
-//            case "guest":                        //未申请
-//                initNoAuthUser();
-//                break;
-//            case "complete":                //认证审核通过
-//                initCompletedUser();
-//                break;
-//        }
+        switch (status) {
+            case "guest":                        //未申请
+                initNoAuthUser();
+                break;
+            case "complete":                //认证审核通过
+                initCompletedUser();
+                break;
+        }
         mAlbumStorageDirFactory = new FroyoAlbumDirFactory();
     }
 
@@ -213,20 +215,20 @@ public class AuthenticationFragment extends BaseFragment implements OnClickListe
     }
 
     public void showSelectPhotoDialog() {
-		SelectPhotoDialog selectPhotoDialog = SelectPhotoDialog.newInstance("", "");
-		selectPhotoDialog.setSelectListener(new SelectPhotoDialog.OnSelectListener() {
-			@Override
-			public void onCameraSelected() {
-				captureImageByCamera();
-			}
+        SelectPhotoDialog selectPhotoDialog = SelectPhotoDialog.newInstance("", "");
+        selectPhotoDialog.setSelectListener(new SelectPhotoDialog.OnSelectListener() {
+            @Override
+            public void onCameraSelected() {
+                captureImageByCamera();
+            }
 
-			@Override
-			public void onPhotoSelected() {
-				selectPhoto();
-			}
-		});
+            @Override
+            public void onPhotoSelected() {
+                selectPhoto();
+            }
+        });
 
-		selectPhotoDialog.show(getFragmentManager(), "SelectPhotoDialog");
+        selectPhotoDialog.show(getFragmentManager(), "SelectPhotoDialog");
 //        captureImageByCamera();
 
     }
@@ -267,6 +269,9 @@ public class AuthenticationFragment extends BaseFragment implements OnClickListe
                 break;
             case R.id.btn_developers:    //开发商
                 intent = new Intent(mActivity, DevelopersAuthenActivity.class);
+                break;
+            case R.id.btn_labour_company:    //劳务公司
+                intent = new Intent(mActivity, LabourCompanyAuthenActivity.class);
                 break;
 
             default:
@@ -417,7 +422,7 @@ public class AuthenticationFragment extends BaseFragment implements OnClickListe
 
         Bundle bundle = new Bundle();
         bundle.putBoolean(Constants.KEY_HEAD_IMAGE, true);
-        bundle.putString(Constants.KEY_HEAD_IMAGE_STR,"headImage");
+        bundle.putString(Constants.KEY_HEAD_IMAGE_STR, "headImage");
         Intent intent = new Intent(mActivity, CropImageActivity.class);
         intent.putExtras(bundle);
         startActivityForResult(intent, REQUEST_CROP);
@@ -437,11 +442,11 @@ public class AuthenticationFragment extends BaseFragment implements OnClickListe
     }
 
 
-	@Override
-	public void onSaveInstanceState(Bundle outState) {
-		outState.putString(Constants.KEY_CURRENT_IMAGE_PATH, mCurrentPhotoPath);
-		super.onSaveInstanceState(outState);
-	}
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        outState.putString(Constants.KEY_CURRENT_IMAGE_PATH, mCurrentPhotoPath);
+        super.onSaveInstanceState(outState);
+    }
 
     public void loadAvatar() {
         User user = getUser();
@@ -452,5 +457,10 @@ public class AuthenticationFragment extends BaseFragment implements OnClickListe
         }
     }
 
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        ButterKnife.unbind(this);
+    }
 }
 
