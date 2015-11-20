@@ -209,6 +209,7 @@ public class HomeActivity extends BaseActivity {
      * auth_worker(认证工人中)/
      * auth_headman(认证工头中)/
      * auth_investor(认证个人中)/
+     * auth_company(认证劳务公司中)/
      * <p>
      * complete（完成认证)
      * <p>
@@ -237,6 +238,8 @@ public class HomeActivity extends BaseActivity {
             case "auth_worker":
             case "auth_headman":
             case "auth_developers":
+            case "auth_company":
+
                 fm.beginTransaction().replace(R.id.fl_content, InfoCommitSuccessFragment
                     .newInstance(category))
                     .commit();
