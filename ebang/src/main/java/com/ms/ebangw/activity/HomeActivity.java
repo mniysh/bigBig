@@ -43,6 +43,7 @@ import com.ms.ebangw.utils.L;
 import com.ms.ebangw.utils.T;
 import com.umeng.update.UmengUpdateAgent;
 
+import org.apache.http.Header;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -53,7 +54,6 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import cn.jpush.android.api.JPushInterface;
 import cn.jpush.android.api.TagAliasCallback;
-import cz.msebera.android.httpclient.Header;
 import de.greenrobot.event.EventBus;
 
 /**

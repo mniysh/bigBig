@@ -1,6 +1,5 @@
 package com.ms.ebangw.activity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
@@ -10,17 +9,15 @@ import android.widget.TextView;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.ms.ebangw.R;
 import com.ms.ebangw.adapter.RecommendedWorkersAdapter;
-import com.ms.ebangw.bean.ReleaseProject;
 import com.ms.ebangw.bean.Staff;
 import com.ms.ebangw.bean.Worker;
-import com.ms.ebangw.bean.WorkerFriend;
-import com.ms.ebangw.commons.Constants;
 import com.ms.ebangw.exception.ResponseException;
 import com.ms.ebangw.service.DataAccessUtil;
 import com.ms.ebangw.service.DataParseUtil;
 import com.ms.ebangw.utils.T;
 import com.ms.ebangw.view.QuickindexBar;
 
+import org.apache.http.Header;
 import org.json.JSONObject;
 
 import java.util.Collections;
@@ -28,8 +25,6 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
-import cz.msebera.android.httpclient.Header;
-
 /**
  * 工长中心的工人管理列表
  *

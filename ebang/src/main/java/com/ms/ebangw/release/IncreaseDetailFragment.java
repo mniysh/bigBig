@@ -53,6 +53,7 @@ import com.ms.ebangw.view.ProvinceAndCityView;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
+import org.apache.http.Header;
 import org.json.JSONObject;
 
 import java.io.File;
@@ -64,8 +65,6 @@ import java.util.List;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import cz.msebera.android.httpclient.Header;
-
 /**
  * 发布  ---- >填写信息
  *@author wangkai

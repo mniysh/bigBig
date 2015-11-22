@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
+import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.ms.ebangw.R;
 import com.ms.ebangw.adapter.AccountDetailAdapter;
@@ -25,6 +26,7 @@ import com.ms.ebangw.service.DataAccessUtil;
 import com.ms.ebangw.service.DataParseUtil;
 import com.ms.ebangw.utils.T;
 
+import org.apache.http.Header;
 import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
@@ -36,7 +38,6 @@ import java.util.Locale;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
-import cz.msebera.android.httpclient.Header;
 import kan.wheel.widget.StringWheelAdapter;
 import kan.wheel.widget.WheelView;
 
@@ -141,32 +142,48 @@ public class AccountActivity extends BaseActivity {
 
     private void load() {
         currentPage = 1;
-        DataAccessUtil.account(currentPage + "", getDateStr(), new JsonHttpResponseHandler() {
+
+        DataAccessUtil.account(currentPage + "", getDateStr(), new AsyncHttpResponseHandler() {
             @Override
-            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                currentPage++;
-                try {
-                    Account account = DataParseUtil.account(response);
-                    setPayAndIncome(account);
-                    List<Trade> list = DataParseUtil.tradeDetail(response);
-                    if (adapter != null && list != null && list.size() > 0) {
-                        adapter.setList(list);
-                        adapter.notifyDataSetChanged();
-                    }
-                } catch (ResponseException e) {
-                    e.printStackTrace();
-                    T.show(e.getMessage());
-                }
+             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+
             }
 
             @Override
-            public void onFinish() {
-                super.onFinish();
-                if (null != ptr) {
-                    ptr.onRefreshComplete();
-                }
+            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+
             }
+
+
         });
+
+
+//        DataAccessUtil.account(currentPage + "", getDateStr(), new JsonHttpResponseHandler() {
+//            @Override
+//            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+//                currentPage++;
+//                try {
+//                    Account account = DataParseUtil.account(response);
+//                    setPayAndIncome(account);
+//                    List<Trade> list = DataParseUtil.tradeDetail(response);
+//                    if (adapter != null && list != null && list.size() > 0) {
+//                        adapter.setList(list);
+//                        adapter.notifyDataSetChanged();
+//                    }
+//                } catch (ResponseException e) {
+//                    e.printStackTrace();
+//                    T.show(e.getMessage());
+//                }
+//            }
+//
+//            @Override
+//            public void onFinish() {
+//                super.onFinish();
+//                if (null != ptr) {
+//                    ptr.onRefreshComplete();
+//                }
+//            }
+//        });
 
     }
 

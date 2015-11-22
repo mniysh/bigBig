@@ -19,13 +19,12 @@ import com.ms.ebangw.service.DataParseUtil;
 import com.ms.ebangw.utils.T;
 import com.ms.ebangw.utils.VerifyUtils;
 
+import org.apache.http.Header;
 import org.json.JSONObject;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import cz.msebera.android.httpclient.Header;
-
 /**
  * 重置密码
  */

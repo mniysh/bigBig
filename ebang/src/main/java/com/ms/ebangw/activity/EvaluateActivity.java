@@ -20,12 +20,11 @@ import com.ms.ebangw.service.DataParseUtil;
 import com.ms.ebangw.utils.T;
 import com.squareup.picasso.Picasso;
 
+import org.apache.http.Header;
 import org.json.JSONObject;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
-import cz.msebera.android.httpclient.Header;
-
 /**
  * 评论
  *

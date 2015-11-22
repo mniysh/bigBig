@@ -21,13 +21,12 @@ import com.umeng.update.UmengUpdateAgent;
 import com.umeng.update.UmengUpdateListener;
 import com.umeng.update.UpdateResponse;
 
+import org.apache.http.Header;
 import org.json.JSONObject;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import cz.msebera.android.httpclient.Header;
-
 
 public class SettingAllActivity extends BaseActivity {
     @Bind(R.id.ll_security)

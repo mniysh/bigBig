@@ -24,6 +24,7 @@ import com.ms.ebangw.userAuthen.InfoCommitSuccessFragment;
 import com.ms.ebangw.utils.L;
 import com.ms.ebangw.utils.T;
 
+import org.apache.http.Header;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -33,7 +34,6 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
-import cz.msebera.android.httpclient.Header;
 import de.greenrobot.event.EventBus;
 
 /**

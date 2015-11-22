@@ -15,6 +15,7 @@ import com.ms.ebangw.service.DataAccessUtil;
 import com.ms.ebangw.service.DataParseUtil;
 import com.ms.ebangw.utils.T;
 
+import org.apache.http.Header;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -22,8 +23,6 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
-import cz.msebera.android.httpclient.Header;
-
 public class JiFenActivity extends BaseActivity {
     private int currentPage = 1;
 

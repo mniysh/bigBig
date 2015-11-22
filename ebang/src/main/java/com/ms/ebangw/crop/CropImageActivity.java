@@ -22,6 +22,7 @@ import com.ms.ebangw.utils.L;
 import com.ms.ebangw.utils.T;
 import com.ms.ebangw.view.CropImageView;
 
+import org.apache.http.Header;
 import org.json.JSONObject;
 
 import java.io.File;
@@ -33,7 +34,6 @@ import java.util.ArrayList;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import cz.msebera.android.httpclient.Header;
 
 /**
  * User: WangKai(123940232@qq.com)
@@ -230,14 +230,12 @@ public class CropImageActivity extends BaseActivity {
             }
         });
 
-
     }
 
     /**
      * 上传头像
      */
     public void uploadAvatarImage(File file) {
-
         handle = DataAccessUtil.headImage(file, new JsonHttpResponseHandler() {
             @Override
             public void onStart() {

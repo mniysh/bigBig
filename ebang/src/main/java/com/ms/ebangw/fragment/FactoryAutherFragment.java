@@ -12,8 +12,7 @@ import com.ms.ebangw.service.DataAccessUtil;
 
 import org.json.JSONObject;
 
-import cz.msebera.android.httpclient.Header;
-
+import org.apache.http.Header;
 
 public class FactoryAutherFragment extends BaseFragment {
 

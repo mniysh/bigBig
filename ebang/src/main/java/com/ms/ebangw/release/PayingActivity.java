@@ -18,10 +18,10 @@ import com.ms.ebangw.bean.ReleaseProject;
 import com.ms.ebangw.commons.Constants;
 import com.ms.ebangw.service.DataAccessUtil;
 
+import org.apache.http.Header;
+
 import butterknife.Bind;
 import butterknife.ButterKnife;
-import cz.msebera.android.httpclient.Header;
-
 public class PayingActivity extends BaseActivity {
     private ReleaseProject releaseProject;
     private String title, imageUrl, content, projectMoney;

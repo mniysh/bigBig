@@ -10,7 +10,6 @@ import android.widget.TextView;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.ms.ebangw.R;
 import com.ms.ebangw.adapter.InviteWorkersAdapter;
-import com.ms.ebangw.adapter.RecommendedWorkersAdapter;
 import com.ms.ebangw.bean.Staff;
 import com.ms.ebangw.bean.Worker;
 import com.ms.ebangw.bean.WorkerFriend;
@@ -22,15 +21,13 @@ import com.ms.ebangw.utils.L;
 import com.ms.ebangw.utils.T;
 import com.ms.ebangw.view.QuickindexBar;
 
+import org.apache.http.Header;
 import org.json.JSONObject;
 
-import java.util.Collections;
 import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
-import cz.msebera.android.httpclient.Header;
-
 /**
  * 工长抢单选择工友页面
  *

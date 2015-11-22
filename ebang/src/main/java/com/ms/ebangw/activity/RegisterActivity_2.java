@@ -20,6 +20,7 @@ import com.ms.ebangw.utils.AppUtils;
 import com.ms.ebangw.utils.T;
 import com.ms.ebangw.utils.VerifyUtils;
 
+import org.apache.http.Header;
 import org.json.JSONObject;
 
 import java.util.regex.Matcher;
@@ -28,8 +29,6 @@ import java.util.regex.Pattern;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import cz.msebera.android.httpclient.Header;
-
 /**
  * 注册页面----密码确认
  * @author admin

@@ -27,6 +27,7 @@ import com.ms.ebangw.service.DataParseUtil;
 import com.ms.ebangw.utils.L;
 import com.ms.ebangw.utils.T;
 
+import org.apache.http.Header;
 import org.json.JSONObject;
 
 import java.lang.reflect.Field;
@@ -34,8 +35,6 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
-import cz.msebera.android.httpclient.Header;
-
 /**
  * 主页的服务页面的一级页面
  */

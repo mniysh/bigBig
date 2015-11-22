@@ -32,14 +32,13 @@ import com.ms.ebangw.utils.L;
 import com.ms.ebangw.utils.T;
 import com.squareup.picasso.Picasso;
 
+import org.apache.http.Header;
 import org.json.JSONObject;
 
 import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
-import cz.msebera.android.httpclient.Header;
-
 /**
  * 企业的展示页面
  * 现在布局还有最底面的列表，打算用listview来实现
