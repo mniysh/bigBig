@@ -161,6 +161,11 @@ public class RequestUrl {
      * /api/headman/project/contend/+工程id
      * */
     public static final String headman_contend_project = domain + "/api/headman/project/contend/";
+    /**
+     * 2-6.工人抢单动作 + projectId +craftId;
+     */
+
+    public static final String worker_contend_project = domain +"/api/worker/project/contend/+工程id/+工种id";
 
     /**
      * 2-8.工头邀请工人列表(工长-->人员管理)  get

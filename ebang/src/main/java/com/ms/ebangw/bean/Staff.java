@@ -38,6 +38,15 @@ public class Staff implements Parcelable {
     private String staff_description;
     private String account_days;
     private String craft_name;
+    private String isContend;
+
+    public String getIsContend() {
+        return isContend;
+    }
+
+    public void setIsContend(String isContend) {
+        this.isContend = isContend;
+    }
 
     /**
      * 总共邀请了多少人（只有工长能看到）

@@ -77,6 +77,7 @@ public class WorkerCenterFragment extends BaseFragment {
 
     @Override
     public void initView() {
+        fm = getFragmentManager();
         fm.beginTransaction().replace(R.id.fl_head_info, HeadInfoFragment.newInstance("", ""))
             .commit();
 

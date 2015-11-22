@@ -159,6 +159,7 @@ public class SelectWorkerActivity extends BaseActivity {
 //        });
     }
     private void inviteWorker(String workId){
+
         DataAccessUtil.inviteWorker(workId,project_id, craft_id ,new JsonHttpResponseHandler(){
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {

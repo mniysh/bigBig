@@ -814,6 +814,17 @@ public class DataAccessUtil {
             asyncHttpResponseHandler){
         return doGet(RequestUrl.headman_contend_project + projectId, null, asyncHttpResponseHandler);
     }
+
+    /**
+     * 2-6.工人抢单动作 + projectId +craftId;
+     * @param projectId
+     * @param craftId
+     * @param asyncHttpResponseHandler
+     * @return
+     */
+    public static RequestHandle workerContendProject(String projectId, String craftId, AsyncHttpResponseHandler asyncHttpResponseHandler){
+        return doGet(RequestUrl.worker_contend_project + projectId +craftId, null, asyncHttpResponseHandler);
+    }
     /**
      *2-11.首页工程列表
      * @param latitude 纬度

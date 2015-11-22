@@ -184,4 +184,12 @@ public class Constants {
 	public static final String KEY_MESSAGE_SETTING_RING = "ring";
 	public static final String KEY_MESSAGE_SETTING_VIBRATE = "vibrate";
 	public static final String KEY_QIANGDAN_SUCCEED = "succeed";
+	/**
+	 * 首页工程展示工人抢单的状态
+	 */
+	public static final String KEY_WORKER_SHOW_FILL = "fill";
+	public static final String KEY_WORKER_SHOW_NO = "no";
+	public static final String KEY_WORKER_SHOW_CONTEND = "contend";
+	public static final String KEY_WORKER_SHOW_FAILED = "failed";
+	public static final String KEY_WORKER_SHOW_SUCCEED = "succeed";
 }

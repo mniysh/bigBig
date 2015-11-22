@@ -39,6 +39,8 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import u.upd.l;
+
 /**
  * 企业的展示页面
  * 现在布局还有最底面的列表，打算用listview来实现
@@ -83,12 +85,20 @@ public class ShowActivity extends BaseActivity implements OnClickListener {
     private BroadcastReceiver br=new BroadcastReceiver() {
 
         @Override
-        public void onReceive(Context arg0, Intent in) {
+        public void onReceive(Context context, Intent in) {
             // TODO Auto-generated method stub
-            showListView.setVisibility(View.VISIBLE);
-            lBelowShow.setVisibility(View.GONE);
-            bQiangdan.setText("已抢单");
-            loadDevelopers();
+            String categroy = in.getStringExtra("key");
+            if(TextUtils.equals(categroy, Constants.HEADMAN)){
+                showListView.setVisibility(View.VISIBLE);
+                lBelowShow.setVisibility(View.GONE);
+                bQiangdan.setText("已抢单");
+                loadDevelopers();
+            }
+            if(TextUtils.equals(categroy, Constants.WORKER)){
+                detailAdapter.notifyDataSetChanged();
+                loadInvistor();
+            }
+
         }
     };
     private IntentFilter filter;
@@ -117,41 +127,66 @@ public class ShowActivity extends BaseActivity implements OnClickListener {
             projectId = releaseProject.getId();
             projectType = releaseProject.getProject_type();
         }
-        SharedPreferences sharedPreferences = getSharedPreferences("test", Context.MODE_PRIVATE);
-        String isContend = sharedPreferences.getString("IsContend","process");
-        if(TextUtils.equals(isContend,"contend")){
+        if(TextUtils.equals(category, Constants.HEADMAN)){
+            SharedPreferences sharedPreferences = getSharedPreferences("isContend", Context.MODE_PRIVATE);
+            String isContend = sharedPreferences.getString("isContend","process");
+            if(TextUtils.equals(isContend,"contend")){
+                showListView.setVisibility(View.VISIBLE);
+                lBelowShow.setVisibility(View.GONE);
+
+            }else{
+                showListView.setVisibility(View.GONE);
+                lBelowShow.setVisibility(View.VISIBLE);
+                bQiangdan.setText("立刻抢单");
+            }
+            loadDevelopers();
+        }
+        if(TextUtils.equals(category, Constants.WORKER) || TextUtils.equals(category, Constants.INVESTOR)){
+            if(TextUtils.equals(category, Constants.WORKER)){
+                SharedPreferences sharedPreferences = getSharedPreferences("isContend", Context.MODE_PRIVATE);
+                String isContend = sharedPreferences.getString("isContend","process");
+            }
+            if(TextUtils.equals(category, Constants.INVESTOR)){
+                SharedPreferences sharedPreferences = getSharedPreferences("isHave", Context.MODE_PRIVATE);
+                String isHave = sharedPreferences.getString("isHave","process");
+            }
+
             showListView.setVisibility(View.VISIBLE);
             lBelowShow.setVisibility(View.GONE);
-
-        }else{
-            showListView.setVisibility(View.GONE);
-            lBelowShow.setVisibility(View.VISIBLE);
-            bQiangdan.setText("立刻抢单");
+            loadInvistor();
         }
+
         initView();
         initViewOper();
         initData();
     }
 
     private void initViewOper() {
-        bQiangdan.setOnClickListener(this);
-
         initTitle(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 ShowActivity.this.finish();
             }
         }, "返回", "企业信息", null, null);
+        bQiangdan.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ShowActivity.this, QiangDanActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putParcelable(Constants.KEY_RELEASED_PROJECT_STR, releaseProject);
+
+                bundle.putString(Constants.KEY_CATEGORY, category);
+                intent.putExtras(bundle);
+                startActivity(intent);
+            }
+        });
+
 
     }
 
 
     public void initView() {
-//        bQiangdan = (Button) findViewById(R.id.act_show_qiangdan);
 
-        if(user != null){
-            category = user.getCategory();
-        }
     }
 
     @Override
@@ -165,23 +200,100 @@ public class ShowActivity extends BaseActivity implements OnClickListener {
     public void initData() {
         if(TextUtils.equals(category, Constants.HEADMAN)){
 
-            loadDevelopers();
+
         }else if(TextUtils.equals(category, Constants.WORKER)){
-            loadInvistor();
+
         }
     }
     //个人，，，还没写完
     private void loadInvistor(){
-        DataAccessUtil.projectInfoDetailInvistor(projectId, new JsonHttpResponseHandler(){
+        showListView.setVisibility(View.VISIBLE);
+        lBelowShow.setVisibility(View.GONE);
+        DataAccessUtil.projectInfoDetailInvistor(projectId, new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                 super.onSuccess(statusCode, headers, response);
+
+                try {
+                    ProjectInfoDetail projectInfoDetail = DataParseUtil.projectInfoDetail(response);
+                    if(projectInfoDetail !=null){
+                        if(TextUtils.equals(category, Constants.INVESTOR)){
+                            String isHave = projectInfoDetail.getIsHave();
+                            SharedPreferences sp = getSharedPreferences("isHave", Context.MODE_PRIVATE);
+                            SharedPreferences.Editor editor = sp.edit();
+                            editor.putString("isHave", isHave);
+                            editor.commit();
+                        }
+                        if(TextUtils.equals(category, Constants.WORKER)){
+                            String IsContend = projectInfoDetail.getIsContend();
+                            SharedPreferences sharedPreferences = getSharedPreferences("isContend", Context.MODE_PRIVATE);
+                            SharedPreferences.Editor editor = sharedPreferences.edit();
+                            editor.putString("isContend", IsContend);
+                            editor.commit();
+                        }
+
+
+                        tTitle.setText(projectInfoDetail.getTitle());
+                        tAddress.setText(projectInfoDetail.getAddress());
+                        tDescription.setText(projectInfoDetail.getDescription());
+                        tEndTime.setText(projectInfoDetail.getEnd_time());
+                        tStartTime.setText(projectInfoDetail.getStart_time());
+                        tLinkman.setText(projectInfoDetail.getLink_man());
+                        tLinkPhone.setText(projectInfoDetail.getLink_phone());
+                        if (projectInfoDetail.getImages() != null) {
+                            imageUrl = projectInfoDetail.getImages().get(0);
+                        }
+//                        iOneImg.setImageURI(detail.getImages());
+                        if (!TextUtils.isEmpty(imageUrl)) {
+                            Picasso.with(ShowActivity.this).load(DataAccessUtil.getImageUrl(imageUrl)).placeholder(R.drawable.head).into(iOneImg);
+//                            Picasso.with(ShowActivity.this).load(DataAccessUtil.getImageUrl(imageUrl)).placeholder(R.drawable.head).into(iTwoImg);
+                        } else {
+                            iOneImg.setImageResource(R.drawable.head);
+//                            iTwoImg.setImageResource(R.drawable.head);
+                        }
+                        List<Staff> staffs = projectInfoDetail.getStaffs();
+                        if (null != staffs && staffs.size() > 0) {
+                            detailAdapter = new ProjectItemdetailAdapter(staffs, category, new ProjectItemdetailAdapter.OnGrabClickListener() {
+                                @Override
+                                public void onGrabClick(View view, Staff staff) {
+//                                    T.show("自定义2");
+                                    Intent intent = new Intent(ShowActivity.this, QiangDanActivity.class);
+                                    Bundle bundle = new Bundle();
+                                    bundle.putParcelable(Constants.KEY_RELEASED_PROJECT_STR, releaseProject);
+                                    bundle.putParcelable(Constants.KEY_RELEASED_PROJECT_STAFF, staff);
+                                    intent.putExtras(bundle);
+                                    startActivity(intent);
+                                }
+                            });
+                            showListView.setAdapter(detailAdapter);
+                            setListView(showListView);
+
+//                            detailAdapter.setOnGrabClickListener(new ProjectItemdetailAdapter.OnGrabClickListener() {
+//                                @Override
+//                                public void onGrabClick(View view, Staff staff) {
+//                                    Intent intent = new Intent(ShowActivity.this, QiangDanActivity.class);
+//                                    Bundle bundle = new Bundle();
+//                                    bundle.putParcelable(Constants.KEY_RELEASED_PROJECT_STR, releaseProject);
+//                                    bundle.putParcelable(Constants.KEY_RELEASED_PROJECT_STAFF, staff);
+//                                    intent.putExtras(bundle);
+//                                    startActivity(intent);
+//                                }
+//                            });
+
+                        }
+
+                    }
+                } catch (ResponseException e) {
+                    e.printStackTrace();
+                    T.show(e.getMessage());
+                }
 
             }
 
             @Override
             public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
                 super.onFailure(statusCode, headers, responseString, throwable);
+                L.d(responseString);
 
             }
         });
@@ -190,6 +302,7 @@ public class ShowActivity extends BaseActivity implements OnClickListener {
     //开发商
 
     private void loadDevelopers() {
+
         DataAccessUtil.projectInfoDetail(projectId, new JsonHttpResponseHandler() {
 
 
@@ -224,21 +337,33 @@ public class ShowActivity extends BaseActivity implements OnClickListener {
                         }
                         List<Staff> staffs = detail.getStaffs();
                         if (null != staffs && staffs.size() > 0) {
-                            detailAdapter = new ProjectItemdetailAdapter(staffs);
-                            showListView.setAdapter(detailAdapter);
-                            setListView(showListView);
-
-                            detailAdapter.setOnGrabClickListener(new ProjectItemdetailAdapter.OnGrabClickListener() {
+                            detailAdapter = new ProjectItemdetailAdapter(staffs, category, new ProjectItemdetailAdapter.OnGrabClickListener() {
                                 @Override
                                 public void onGrabClick(View view, Staff staff) {
                                     Intent intent = new Intent(ShowActivity.this, SelectWorkerActivity.class);
                                     Bundle bundle = new Bundle();
                                     bundle.putParcelable(Constants.KEY_RELEASED_PROJECT_STR, releaseProject);
                                     bundle.putParcelable(Constants.KEY_RELEASED_PROJECT_STAFF,staff);
+                                    bundle.putString(Constants.KEY_CATEGORY,category);
                                     intent.putExtras(bundle);
                                     startActivity(intent);
                                 }
                             });
+                            showListView.setAdapter(detailAdapter);
+                            setListView(showListView);
+
+//                            detailAdapter.setOnGrabClickListener(new ProjectItemdetailAdapter.OnGrabClickListener() {
+//                                @Override
+//                                public void onGrabClick(View view, Staff staff) {
+//                                    Intent intent = new Intent(ShowActivity.this, SelectWorkerActivity.class);
+//                                    Bundle bundle = new Bundle();
+//                                    bundle.putParcelable(Constants.KEY_RELEASED_PROJECT_STR, releaseProject);
+//                                    bundle.putParcelable(Constants.KEY_RELEASED_PROJECT_STAFF,staff);
+//                                    bundle.putString(Constants.KEY_CATEGORY,category);
+//                                    intent.putExtras(bundle);
+//                                    startActivity(intent);
+//                                }
+//                            });
 
                         }
                     }
@@ -287,11 +412,7 @@ public class ShowActivity extends BaseActivity implements OnClickListener {
             //点击立刻抢单跳转
             case R.id.act_show_qiangdan:
                 L.d("xxx", "跳转能不能进来");
-                Intent intent = new Intent(ShowActivity.this, QiangDanActivity.class);
-                Bundle bundle = new Bundle();
-                bundle.putParcelable(Constants.KEY_RELEASED_PROJECT_STR, releaseProject);
-                intent.putExtras(bundle);
-                startActivity(intent);
+
                 break;
             default:
                 break;
