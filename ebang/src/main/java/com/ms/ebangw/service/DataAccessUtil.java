@@ -943,7 +943,7 @@ public class DataAccessUtil {
         RequestParams params = new RequestParams();
         params.put("page", page);
         params.put("status", status);
-        return doGet(RequestUrl.grab_status, null, asyncHttpResponseHandler);
+        return doGet(RequestUrl.grab_status, params, asyncHttpResponseHandler);
     }
 
 
