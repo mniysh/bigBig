@@ -42,6 +42,16 @@ public class ProjectInfoDetail {
     }
 
     private String isContend;
+    //个人查看
+    public String getIsHave() {
+        return isHave;
+    }
+
+    public void setIsHave(String isHave) {
+        this.isHave = isHave;
+    }
+
+    private String isHave;
     private List<String> images;
     /**
      * id : 49

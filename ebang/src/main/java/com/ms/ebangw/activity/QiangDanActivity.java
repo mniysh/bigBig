@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.text.Layout;
+import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -20,6 +21,7 @@ import android.widget.TextView;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.ms.ebangw.R;
 import com.ms.ebangw.bean.ReleaseProject;
+import com.ms.ebangw.bean.Staff;
 import com.ms.ebangw.commons.Constants;
 import com.ms.ebangw.exception.ResponseException;
 import com.ms.ebangw.service.DataAccessUtil;
@@ -64,12 +66,20 @@ public class QiangDanActivity extends BaseNextAvtivity {
     private String tilte;
     @Bind(R.id.tv_title)
     TextView titleTv;
+    private String categroy;
+    private Staff staff;
+    private String craftId;
 
 
     @OnClick(R.id.activity_qiang_dan_but_qianddan)
     public void qiandDan(){
         if(flag_protocol){
-            load();
+            if(TextUtils.equals(categroy, Constants.HEADMAN)){
+                loadHeadman();
+            }else if (TextUtils.equals(categroy,Constants.WORKER)){
+                loadWorker();
+            }
+
         }else{
             T.show("请同意亿帮无忧抢单协议，否则不能抢单");
         }
@@ -85,10 +95,13 @@ public class QiangDanActivity extends BaseNextAvtivity {
         ButterKnife.bind(this);
         Intent intent = getIntent();
         releaseProject = intent.getExtras().getParcelable(Constants.KEY_RELEASED_PROJECT_STR);
-        if (releaseProject != null) {
-            projectId = releaseProject.getId();
-            tilte = releaseProject.getTitle();
-        }
+        staff = intent.getExtras().getParcelable(Constants.KEY_RELEASED_PROJECT_STAFF);
+        categroy = intent.getExtras().getString(Constants.KEY_CATEGORY);
+
+        projectId = releaseProject.getId();
+        tilte = releaseProject.getTitle();
+        craftId = staff.getCraft_id();
+
 
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm");
         Date curDate = new Date(System.currentTimeMillis());//获取当前时间
@@ -133,8 +146,32 @@ public class QiangDanActivity extends BaseNextAvtivity {
             }
         });
     }
+    private void loadWorker(){
+        DataAccessUtil.workerContendProject(projectId, craftId, new JsonHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                super.onSuccess(statusCode, headers, response);
+                try {
+                    boolean b = DataParseUtil.processDataResult(response);
+                    if (b) {
+                        showWindowSucceed(lSmilllayout, categroy);
 
-    private void load() {
+                    }
+                } catch (ResponseException e) {
+                    e.printStackTrace();
+                    showWindowFailed(lSadlayout,e.getMessage());
+                }
+
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                super.onFailure(statusCode, headers, responseString, throwable);
+            }
+        });
+    }
+
+    private void loadHeadman() {
 
         DataAccessUtil.headmanContendProject(projectId, new JsonHttpResponseHandler() {
 //            @Override
@@ -150,46 +187,14 @@ public class QiangDanActivity extends BaseNextAvtivity {
                 try {
                     boolean b = DataParseUtil.processDataResult(response);
                     if (b) {
+                        showWindowSucceed(lSmilllayout, categroy);
 
-                        final PopupWindow pw = new PopupWindow(lSmilllayout, 600, LayoutParams.WRAP_CONTENT);
-                        pw.setBackgroundDrawable(new BitmapDrawable());
-                        pw.showAtLocation(bQiangDan, Gravity.CENTER_VERTICAL, 0, 0);
-                        bSmillBack.setOnClickListener(new OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                backgroundAlpha(1.0f);
-                                pw.dismiss();
-                                QiangDanActivity.this.finish();
-                                Intent intentSucceed = new Intent();
-
-                                intentSucceed.setAction(Constants.KEY_QIANGDAN_SUCCEED);
-                                intentSucceed.putExtra("key", "test");
-                                sendBroadcast(intentSucceed);
-//                                        startActivity(new Intent(QiangDanActivity.this, ShowActivity.class)); //ActivityA.this.finish();
-                            }
-                        });
-                        backgroundAlpha(0.5f);
                     }
                 } catch (ResponseException e) {
                     e.printStackTrace();
                     //T.show(e.getMessage());
-                    final PopupWindow pw = new PopupWindow(lSadlayout, 600, LayoutParams.WRAP_CONTENT);
-                    TextView messageTv = (TextView) lSadlayout.findViewById(R.id.tv_message);
-                    messageTv.setText(e.getMessage());
-                    pw.setBackgroundDrawable(new BitmapDrawable());
-                    pw.showAtLocation(bQiangDan, Gravity.CENTER_VERTICAL, 0, 0);
-                    bSadBack.setOnClickListener(new OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            backgroundAlpha(1.0f);
-                            pw.dismiss();
-                            QiangDanActivity.this.finish();
-//                                        startActivity(new Intent(QiangDanActivity.this, ShowActivity.class)); //ActivityA.this.finish();
+                    showWindowFailed(lSadlayout, e.getMessage());
 
-
-                        }
-                    });
-                    backgroundAlpha(0.5f);
                 }
 
             }
@@ -204,4 +209,48 @@ public class QiangDanActivity extends BaseNextAvtivity {
 
 
     }
+    private void showWindowSucceed(View view, final String categroy){
+
+
+            final PopupWindow pw = new PopupWindow(view, 600, LayoutParams.WRAP_CONTENT);
+            pw.setBackgroundDrawable(new BitmapDrawable());
+            pw.showAtLocation(bQiangDan, Gravity.CENTER_VERTICAL, 0, 0);
+            bSmillBack.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    backgroundAlpha(1.0f);
+                    pw.dismiss();
+                    QiangDanActivity.this.finish();
+                    Intent intentSucceed = new Intent();
+
+                    intentSucceed.setAction(Constants.KEY_QIANGDAN_SUCCEED);
+                    intentSucceed.putExtra("key", categroy);
+                    sendBroadcast(intentSucceed);
+//                                        startActivity(new Intent(QiangDanActivity.this, ShowActivity.class)); //ActivityA.this.finish();
+                }
+            });
+            backgroundAlpha(0.5f);
+
+    }
+    private void showWindowFailed(View view , String message){
+                     final PopupWindow pw = new PopupWindow(view, 600, LayoutParams.WRAP_CONTENT);
+                    TextView messageTv = (TextView) lSadlayout.findViewById(R.id.tv_message);
+                    messageTv.setText(message);
+                    pw.setBackgroundDrawable(new BitmapDrawable());
+                    pw.showAtLocation(bQiangDan, Gravity.CENTER_VERTICAL, 0, 0);
+                    bSadBack.setOnClickListener(new OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            backgroundAlpha(1.0f);
+                            pw.dismiss();
+                            QiangDanActivity.this.finish();
+//                                        startActivity(new Intent(QiangDanActivity.this, ShowActivity.class)); //ActivityA.this.finish();
+
+
+                        }
+                    });
+                    backgroundAlpha(0.5f);
+    }
+
+
 }
