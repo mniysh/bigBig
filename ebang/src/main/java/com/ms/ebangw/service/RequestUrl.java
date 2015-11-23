@@ -165,7 +165,7 @@ public class RequestUrl {
      * 2-6.工人抢单动作 + projectId +craftId;
      */
 
-    public static final String worker_contend_project = domain +"/api/worker/project/contend/+工程id/+工种id";
+    public static final String worker_contend_project = domain +"/api/worker/project/contend/";
 
     /**
      * 2-8.工头邀请工人列表(工长-->人员管理)  get
@@ -195,7 +195,7 @@ public class RequestUrl {
     /**
      * 2-23.首页工程详情 +工程ID(个人)
      */
-    public static final String project_info_detail_invistor = domain + "/api/index/index/investor-project-info/";
+    public static final String project_info_detail_invistor = domain + "/api/index/index/headman-project-info/";
 
     /**
      *2-15.工长查看推荐过他的工人列表    get

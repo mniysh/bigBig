@@ -76,6 +76,8 @@ public class QiangDanActivity extends BaseNextAvtivity {
                 loadHeadman();
             }else if (TextUtils.equals(categroy,Constants.WORKER)){
                 loadWorker();
+            }else{
+                T.show("请完善您的注册信息");
             }
 
         }else{
@@ -93,12 +95,16 @@ public class QiangDanActivity extends BaseNextAvtivity {
         ButterKnife.bind(this);
         Intent intent = getIntent();
         releaseProject = intent.getExtras().getParcelable(Constants.KEY_RELEASED_PROJECT_STR);
-        staff = intent.getExtras().getParcelable(Constants.KEY_RELEASED_PROJECT_STAFF);
         categroy = intent.getExtras().getString(Constants.KEY_CATEGORY);
+        if(TextUtils.equals(categroy,Constants.WORKER)){
+
+            staff = intent.getExtras().getParcelable(Constants.KEY_RELEASED_PROJECT_STAFF);
+            craftId = staff.getCraft_id();
+        }
 
         projectId = releaseProject.getId();
         tilte = releaseProject.getTitle();
-        craftId = staff.getCraft_id();
+
 
 
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm");

@@ -823,7 +823,7 @@ public class DataAccessUtil {
      * @return
      */
     public static RequestHandle workerContendProject(String projectId, String craftId, AsyncHttpResponseHandler asyncHttpResponseHandler){
-        return doGet(RequestUrl.worker_contend_project + projectId +craftId, null, asyncHttpResponseHandler);
+        return doGet(RequestUrl.worker_contend_project + projectId +"/+"+craftId, null, asyncHttpResponseHandler);
     }
     /**
      *2-11.首页工程列表

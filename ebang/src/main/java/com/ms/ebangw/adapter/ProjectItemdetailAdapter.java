@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.ms.ebangw.R;
 import com.ms.ebangw.bean.Staff;
+import com.ms.ebangw.bean.User;
 import com.ms.ebangw.commons.Constants;
 import com.ms.ebangw.utils.T;
 import com.tencent.open.utils.Global;
@@ -30,12 +31,17 @@ public class ProjectItemdetailAdapter extends BaseAdapter {
 
     private List<Staff> list;
     private String categroy;
+    private User user;
+    private int developersId;
+
     private OnGrabClickListener onGrabClickListener;
 
-    public ProjectItemdetailAdapter(List<Staff> projectList, String categroy, OnGrabClickListener onGrabClickListener) {
+    public ProjectItemdetailAdapter(List<Staff> projectList, User user,int developersId,OnGrabClickListener onGrabClickListener) {
         this.list = projectList;
-        this.categroy = categroy;
+        this.user = user;
         this.onGrabClickListener = onGrabClickListener;
+        this.developersId = developersId;
+
     }
 
     public void setList(List<Staff> list) {
@@ -63,6 +69,7 @@ public class ProjectItemdetailAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
+        categroy = user.getCategory();
         if(TextUtils.equals(categroy,Constants.WORKER) ||TextUtils.equals(categroy, Constants.INVESTOR)){
             ViewHolder holder;
             final Staff project = list.get(position);
@@ -99,6 +106,8 @@ public class ProjectItemdetailAdapter extends BaseAdapter {
             holder.tvEndTime.setText(end_time);
             holder.tHead.setText((position+1)+"");
             holder.totalNowTv.setVisibility(View.GONE);
+            String id = user.getId();
+
             holder.totalNowTv.setText("已经选择"+project.getTotal_invitation() + "人,成功选择" +project.getTotal_agree()
                     + "人,还差" +project.getTotal_surplus() + "人");
             holder.tHead.setTag(position);
@@ -108,6 +117,7 @@ public class ProjectItemdetailAdapter extends BaseAdapter {
 //        if (IsContend!="complete"){
 //            holder.tvXuanRen.setVisibility(View.GONE);
 //        }else{
+            categroy = user.getCategory();
             if(TextUtils.equals(categroy, Constants.INVESTOR)){
                 holder.tvXuanRen.setVisibility(View.GONE);
             }
@@ -128,14 +138,11 @@ public class ProjectItemdetailAdapter extends BaseAdapter {
                 }else if(TextUtils.equals(isContend, Constants.KEY_WORKER_SHOW_SUCCEED)){
                     holder.tvXuanRen.setText("抢单成功");
                     holder.tvXuanRen.setEnabled(false);
-                }else {
-                    holder.tvXuanRen.setText("抢单");
-                    holder.tvXuanRen.setEnabled(true);
                 }
             }
 
 
-            T.show(isContend+"zhi");
+//            T.show(isContend+"zhi");
             holder.tvXuanRen.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -182,14 +189,27 @@ public class ProjectItemdetailAdapter extends BaseAdapter {
             String craft_name = project.getCraft_name();
             String start_time = project.getStart_time();
             String end_time = project.getEnd_time();
+            String userId = user.getId();
+            int id = Integer.valueOf(userId);
+            if(id == developersId){
+                holder.totalNowTv.setVisibility(View.GONE);
+                holder.tvXuanRen.setVisibility(View.GONE);
+            }else{
+                holder.totalNowTv.setVisibility(View.VISIBLE);
+                holder.tvXuanRen.setVisibility(View.VISIBLE);
 
+            }
+//            if(project.getTotal_invitation().equals("")){
+//                holder.totalNowTv.setVisibility(View.GONE);
+//                holder.tvXuanRen.setVisibility(View.GONE);
+//            }
             holder.tvMoney.setText(money);
             holder.tvStaffAccount.setText(staff_account);
             holder.tvCraftName.setText(craft_name);
             holder.tvStartTime.setText(start_time);
             holder.tvEndTime.setText(end_time);
             holder.tHead.setText((position+1)+"");
-            holder.totalNowTv.setVisibility(View.VISIBLE);
+//            holder.totalNowTv.setVisibility(View.VISIBLE);
             holder.totalNowTv.setText("已经选择"+project.getTotal_invitation() + "人,成功选择" +project.getTotal_agree()
                     + "人,还差" +project.getTotal_surplus() + "人");
             holder.tHead.setTag(position);
@@ -199,7 +219,7 @@ public class ProjectItemdetailAdapter extends BaseAdapter {
 //        if (IsContend!="complete"){
 //            holder.tvXuanRen.setVisibility(View.GONE);
 //        }else{
-            holder.tvXuanRen.setVisibility(View.VISIBLE);
+//            holder.tvXuanRen.setVisibility(View.VISIBLE);
             holder.tvXuanRen.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
