@@ -53,6 +53,16 @@ public class ProjectInfoDetail {
 
     private String isHave;
     private List<String> images;
+    private List<SelectHeadman> headman_list;
+
+    public List<SelectHeadman> getHeadmans() {
+        return headman_list;
+    }
+
+    public void setHeadmans(List<SelectHeadman> headmans) {
+        this.headman_list = headmans;
+    }
+
     /**
      * id : 49
      * craft_id : 1

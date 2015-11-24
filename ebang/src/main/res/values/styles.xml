@@ -328,5 +328,14 @@
         <item name="android:gravity">center</item>
         <item name="android:layout_marginBottom">5dp</item>
     </style>
+    <style name="select_headman">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:background">@drawable/bk_but</item>
+        <item name="android:textSize">10sp</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+
+
+    </style>
 
 </resources>

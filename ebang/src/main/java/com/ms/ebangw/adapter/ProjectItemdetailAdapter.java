@@ -172,18 +172,7 @@ public class ProjectItemdetailAdapter extends BaseAdapter {
             } else {
                 holder = (ViewHolder) convertView.getTag();
             }
-//                "id": 49,
-//                "craft_id": 1,
-//                "money": 100,
-//                "status": "prepare",
-//                "project_id": 7,
-//                "staff_account": 2,
-//                "staff_description": null,
-//                "start_time": "2015-10-28 00:00:00",
-//                "end_time": "2015-10-29 00:00:00",
-//                "account_days": 2,
-//                "craft_name": "工程管理"
-//        String imageUrl = project.getImages();
+
             String money = project.getMoney();
             String staff_account = project.getStaff_account();
             String craft_name = project.getCraft_name();

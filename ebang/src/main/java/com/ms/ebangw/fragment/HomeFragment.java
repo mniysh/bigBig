@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,6 +26,7 @@ import com.ms.ebangw.R;
 import com.ms.ebangw.activity.DiscoveryActivity;
 import com.ms.ebangw.activity.MessageCenterActivit;
 import com.ms.ebangw.activity.ShowActivity;
+import com.ms.ebangw.activity.ShowDeveloperActivity;
 import com.ms.ebangw.adapter.BannerImageHoderView;
 import com.ms.ebangw.adapter.ProjectItemAdapter;
 import com.ms.ebangw.adapter.RecommendedDeveloperAdapter;
@@ -141,14 +143,17 @@ public class HomeFragment extends BaseFragment {
             public void onGrabClick(View view, ReleaseProject releaseProject) {
                 if(user != null){
                     categroy = user.getCategory();
-
-                        String projectType = releaseProject.getProject_type();
-
-                        Intent intent = new Intent(getActivity(), ShowActivity.class);
-                        Bundle bundle = new Bundle();
-                        bundle.putParcelable(Constants.KEY_RELEASED_PROJECT_STR, releaseProject);
-                        intent.putExtras(bundle);
-                        startActivity(intent);
+                    String projectType = releaseProject.getProject_type();
+                    Intent intent;
+                    if(TextUtils.equals(categroy,Constants.DEVELOPERS)){
+                            intent = new Intent(getActivity(), ShowDeveloperActivity.class);
+                        }else{
+                            intent = new Intent(getActivity(), ShowActivity.class);
+                    }
+                    Bundle bundle = new Bundle();
+                    bundle.putParcelable(Constants.KEY_RELEASED_PROJECT_STR, releaseProject);
+                    intent.putExtras(bundle);
+                    startActivity(intent);
                 }
 
 
@@ -161,7 +166,13 @@ public class HomeFragment extends BaseFragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 ReleaseProject project = (ReleaseProject) view.getTag(Constants.KEY_RELEASED_PROJECT);
-                Intent intent = new Intent(getActivity(), ShowActivity.class);
+                categroy = user.getCategory();
+                Intent intent;
+                if(TextUtils.equals(categroy,Constants.DEVELOPERS)){
+                    intent = new Intent(getActivity(), ShowDeveloperActivity.class);
+                }else{
+                    intent = new Intent(getActivity(), ShowActivity.class);
+                }
                 Bundle bundle = new Bundle();
                 bundle.putParcelable(Constants.KEY_RELEASED_PROJECT_STR, project);
                 intent.putExtras(bundle);

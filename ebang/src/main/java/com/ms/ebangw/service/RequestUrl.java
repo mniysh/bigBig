@@ -157,6 +157,11 @@ public class RequestUrl {
     public static final String lottery = domain + "/phone/lottery/main/index";
 
     /**
+     * 2-4 选择工头接口（开发商）
+     */
+    public static final String selectHeadman = domain + "/api/developers/project/choose";
+
+    /**
      * 2-5.工头竞争工程接口
      * /api/headman/project/contend/+工程id
      * */

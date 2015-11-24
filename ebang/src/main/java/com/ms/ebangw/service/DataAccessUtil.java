@@ -804,6 +804,21 @@ public class DataAccessUtil {
         asyncHttpResponseHandler){
         return doGet(RequestUrl.reset_auth, null, asyncHttpResponseHandler);
     }
+
+    /**
+     * 2-4 选择工头接口（开发商）
+     * @param project_id
+     * @param contend_id
+     * @param asyncHttpResponseHandler
+     * @return
+     */
+
+    public static RequestHandle selectHeadman(String project_id, String contend_id, AsyncHttpResponseHandler asyncHttpResponseHandler){
+        RequestParams params = new RequestParams();
+        params.put("project_id",project_id);
+        params.put("contend_id", contend_id);
+        return doGet(RequestUrl.selectHeadman, params, asyncHttpResponseHandler);
+    }
     /**
      *2-5.工头竞争工程接口
      * @param projectId 工程Id

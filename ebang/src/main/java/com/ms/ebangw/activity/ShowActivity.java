@@ -47,7 +47,7 @@ import u.upd.l;
  *
  * @author admin xupeng
  */
-public class ShowActivity extends BaseActivity implements OnClickListener {
+public class ShowActivity extends BaseActivity {
     @Bind(R.id.act_show_qiangdan)
     Button bQiangdan;
     @Bind(R.id.show_list)
@@ -83,19 +83,19 @@ public class ShowActivity extends BaseActivity implements OnClickListener {
     private String projectType;
     private String userId;
 
-    private BroadcastReceiver br=new BroadcastReceiver() {
+    private BroadcastReceiver br = new BroadcastReceiver() {
 
         @Override
         public void onReceive(Context context, Intent in) {
             // TODO Auto-generated method stub
             String categroy = in.getStringExtra("key");
-            if(TextUtils.equals(categroy, Constants.HEADMAN)){
+            if (TextUtils.equals(categroy, Constants.HEADMAN)) {
                 showListView.setVisibility(View.VISIBLE);
                 lBelowShow.setVisibility(View.GONE);
                 bQiangdan.setText("已抢单");
                 loadHeadwork();
             }
-            if(TextUtils.equals(categroy, Constants.WORKER)){
+            if (TextUtils.equals(categroy, Constants.WORKER)) {
                 detailAdapter.notifyDataSetChanged();
                 loadInvistor();
             }
@@ -104,59 +104,13 @@ public class ShowActivity extends BaseActivity implements OnClickListener {
     };
     private IntentFilter filter;
 
-
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         // TODO Auto-generated method stub
         super.onCreate(savedInstanceState);
         setContentView(R.layout.act_show);
         ButterKnife.bind(this);
-        filter=new IntentFilter();
-        filter.addAction(Constants.KEY_QIANGDAN_SUCCEED);
-        registerReceiver(br, filter);
-        user = getUser();
-        category = user.getCategory();
-        userId = user.getId();
 
-        Intent intent = getIntent();
-        if(intent != null){
-
-            releaseProject = intent.getExtras().getParcelable(Constants.KEY_RELEASED_PROJECT_STR);
-        }
-        if (releaseProject != null) {
-            projectId = releaseProject.getId();
-            projectType = releaseProject.getProject_type();
-        }
-        //判断是工长还是开发商
-        if(TextUtils.equals(category, Constants.HEADMAN ) || TextUtils.equals(category,Constants.DEVELOPERS)){
-            if(TextUtils.equals(category,Constants.DEVELOPERS)){
-                showListView.setVisibility(View.GONE);
-//                lBelowShow.setVisibility(View.VISIBLE);
-//                bQiangdan.setVisibility(View.VISIBLE);
-                bQiangdan.setText("选择工长");
-                loadDevelopers();
-            }else{
-                lBelowShow.setVisibility(View.VISIBLE);
-                bQiangdan.setText("立刻抢单");
-                loadHeadwork();
-            }
-        }
-        if(TextUtils.equals(category, Constants.WORKER) || TextUtils.equals(category, Constants.INVESTOR) ){
-            if(TextUtils.equals(category, Constants.WORKER)){
-//                SharedPreferences sharedPreferences = getSharedPreferences("isContend", Context.MODE_PRIVATE);
-//                String isContend = sharedPreferences.getString("isContend","process");
-            }
-            if(TextUtils.equals(category, Constants.INVESTOR)){
-                SharedPreferences sharedPreferences = getSharedPreferences("isHave", Context.MODE_PRIVATE);
-                String isHave = sharedPreferences.getString("isHave","process");
-            }
-
-            showListView.setVisibility(View.VISIBLE);
-            lBelowShow.setVisibility(View.GONE);
-            loadInvistor();
-        }
 
         initView();
         initViewOper();
@@ -189,7 +143,46 @@ public class ShowActivity extends BaseActivity implements OnClickListener {
 
 
     public void initView() {
+        filter = new IntentFilter();
+        filter.addAction(Constants.KEY_QIANGDAN_SUCCEED);
+        registerReceiver(br, filter);
+        user = getUser();
+        category = user.getCategory();
+        userId = user.getId();
 
+        Intent intent = getIntent();
+        if (intent != null) {
+
+            releaseProject = intent.getExtras().getParcelable(Constants.KEY_RELEASED_PROJECT_STR);
+        }
+        if (releaseProject != null) {
+            projectId = releaseProject.getId();
+            projectType = releaseProject.getProject_type();
+        }
+
+//
+//        if (TextUtils.equals(category, Constants.DEVELOPERS)) {
+//
+//            lBelowShow.setVisibility(View.VISIBLE);
+//            showListView.setVisibility(View.GONE);
+//            bQiangdan.setText("立刻抢单");
+//            loadHeadwork();
+//        }
+
+        if (TextUtils.equals(category, Constants.WORKER) || TextUtils.equals(category, Constants.INVESTOR)) {
+            if (TextUtils.equals(category, Constants.WORKER)) {
+//                SharedPreferences sharedPreferences = getSharedPreferences("isContend", Context.MODE_PRIVATE);
+//                String isContend = sharedPreferences.getString("isContend","process");
+            }
+            if (TextUtils.equals(category, Constants.INVESTOR)) {
+                SharedPreferences sharedPreferences = getSharedPreferences("isHave", Context.MODE_PRIVATE);
+                String isHave = sharedPreferences.getString("isHave", "process");
+            }
+
+            showListView.setVisibility(View.VISIBLE);
+            lBelowShow.setVisibility(View.GONE);
+            loadInvistor();
+        }
     }
 
     @Override
@@ -201,113 +194,69 @@ public class ShowActivity extends BaseActivity implements OnClickListener {
 
     @Override
     public void initData() {
-        if(TextUtils.equals(category, Constants.HEADMAN)){
+        if (TextUtils.equals(category, Constants.HEADMAN)) {
 
 
-        }else if(TextUtils.equals(category, Constants.WORKER)){
+        } else if (TextUtils.equals(category, Constants.WORKER)) {
 
         }
     }
-    private void  loadDevelopers(){
-        DataAccessUtil.projectInfoDetail(projectId, new JsonHttpResponseHandler() {
 
-
-            @Override
-            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                try {
-                    ProjectInfoDetail detail = DataParseUtil.projectInfoDetail(response);
-                    if (null != detail) {
-                        int developersId = detail.getDevelopers_id();
-                        int id= Integer.valueOf(userId);
-                        if(developersId == id){
-                            lBelowShow.setVisibility(View.VISIBLE);
-
-                        }else{
-                            lBelowShow.setVisibility(View.GONE);
-                        }
-
-
-
-//                        if( TextUtils.equals(IsContend,"contend") || TextUtils.equals(IsContend, "process")){
-//                            showListView.setVisibility(View.VISIBLE);
+//    private void loadDevelopers() {
+//        DataAccessUtil.projectInfoDetail(projectId, new JsonHttpResponseHandler() {
+//
+//
+//            @Override
+//            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+//                try {
+//                    ProjectInfoDetail detail = DataParseUtil.projectInfoDetail(response);
+//                    if (null != detail) {
+//                        int developersId = detail.getDevelopers_id();
+//                        int id = Integer.valueOf(userId);
+//                        if (developersId == id) {
+//                            lBelowShow.setVisibility(View.VISIBLE);
+//
+//                        } else {
 //                            lBelowShow.setVisibility(View.GONE);
-//
-//                        }else{
-//                            showListView.setVisibility(View.GONE);
-//                            lBelowShow.setVisibility(View.VISIBLE);
-//                            bQiangdan.setText("立刻抢单");
 //                        }
 //
-//                        if(TextUtils.equals(category,Constants.DEVELOPERS)){
-//                            showListView.setVisibility(View.VISIBLE);
-//                            lBelowShow.setVisibility(View.VISIBLE);
-//                            bQiangdan.setText("选择工长");
+//
+//                        tTitle.setText(detail.getTitle());
+//                        tAddress.setText(detail.getAddress());
+//                        tDescription.setText(detail.getDescription());
+//                        tEndTime.setText(detail.getEnd_time());
+//                        tStartTime.setText(detail.getStart_time());
+//                        tLinkman.setText(detail.getLink_man());
+//                        tLinkPhone.setText(detail.getLink_phone());
+//                        if (detail.getImages() != null) {
+//                            imageUrl = detail.getImages().get(0);
 //                        }
+////                        iOneImg.setImageURI(detail.getImages());
+//                        if (!TextUtils.isEmpty(imageUrl)) {
+//                            Picasso.with(ShowActivity.this).load(DataAccessUtil.getImageUrl(imageUrl)).placeholder(R.drawable.head).into(iOneImg);
+////                            Picasso.with(ShowActivity.this).load(DataAccessUtil.getImageUrl(imageUrl)).placeholder(R.drawable.head).into(iTwoImg);
+//                        } else {
+//                            iOneImg.setImageResource(R.drawable.head);
+////                            iTwoImg.setImageResource(R.drawable.head);
+//                        }
+//
+//                    }
+//                } catch (ResponseException e) {
+//                    e.printStackTrace();
+//                }
+//
+//            }
+//
+//            @Override
+//            public void onFinish() {
+//                super.onFinish();
+//                dismissLoadingDialog();
+//            }
+//        });
+//    }
 
-                        tTitle.setText(detail.getTitle());
-                        tAddress.setText(detail.getAddress());
-                        tDescription.setText(detail.getDescription());
-                        tEndTime.setText(detail.getEnd_time());
-                        tStartTime.setText(detail.getStart_time());
-                        tLinkman.setText(detail.getLink_man());
-                        tLinkPhone.setText(detail.getLink_phone());
-                        if (detail.getImages() != null) {
-                            imageUrl = detail.getImages().get(0);
-                        }
-//                        iOneImg.setImageURI(detail.getImages());
-                        if (!TextUtils.isEmpty(imageUrl)) {
-                            Picasso.with(ShowActivity.this).load(DataAccessUtil.getImageUrl(imageUrl)).placeholder(R.drawable.head).into(iOneImg);
-//                            Picasso.with(ShowActivity.this).load(DataAccessUtil.getImageUrl(imageUrl)).placeholder(R.drawable.head).into(iTwoImg);
-                        } else {
-                            iOneImg.setImageResource(R.drawable.head);
-//                            iTwoImg.setImageResource(R.drawable.head);
-                        }
-//                        List<Staff> staffs = detail.getStaffs();
-//                        if (null != staffs && staffs.size() > 0) {
-//                            detailAdapter = new ProjectItemdetailAdapter(staffs, category, new ProjectItemdetailAdapter.OnGrabClickListener() {
-//                                @Override
-//                                public void onGrabClick(View view, Staff staff) {
-//                                    Intent intent = new Intent(ShowActivity.this, SelectWorkerActivity.class);
-//                                    Bundle bundle = new Bundle();
-//                                    bundle.putParcelable(Constants.KEY_RELEASED_PROJECT_STR, releaseProject);
-//                                    bundle.putParcelable(Constants.KEY_RELEASED_PROJECT_STAFF,staff);
-//                                    bundle.putString(Constants.KEY_CATEGORY,category);
-//                                    intent.putExtras(bundle);
-//                                    startActivity(intent);
-//                                }
-//                            });
-//                            showListView.setAdapter(detailAdapter);
-//                            setListView(showListView);
-
-//                            detailAdapter.setOnGrabClickListener(new ProjectItemdetailAdapter.OnGrabClickListener() {
-//                                @Override
-//                                public void onGrabClick(View view, Staff staff) {
-//                                    Intent intent = new Intent(ShowActivity.this, SelectWorkerActivity.class);
-//                                    Bundle bundle = new Bundle();
-//                                    bundle.putParcelable(Constants.KEY_RELEASED_PROJECT_STR, releaseProject);
-//                                    bundle.putParcelable(Constants.KEY_RELEASED_PROJECT_STAFF,staff);
-//                                    bundle.putString(Constants.KEY_CATEGORY,category);
-//                                    intent.putExtras(bundle);
-//                                    startActivity(intent);
-//                                }
-//                            });
-
-                        }
-                    } catch (ResponseException e) {
-                    e.printStackTrace();
-                }
-
-            }
-
-            @Override
-            public void onFinish() {
-                super.onFinish();
-                dismissLoadingDialog();
-            }
-        });
-    }
     //个人，，，还没写完
-    private void loadInvistor(){
+    private void loadInvistor() {
         showListView.setVisibility(View.VISIBLE);
         lBelowShow.setVisibility(View.GONE);
         DataAccessUtil.projectInfoDetailInvistor(projectId, new JsonHttpResponseHandler() {
@@ -319,26 +268,6 @@ public class ShowActivity extends BaseActivity implements OnClickListener {
 
                     if (projectInfoDetail != null) {
                         int developersId = projectInfoDetail.getDevelopers_id();
-
-
-
-//                        if(TextUtils.equals(category, Constants.INVESTOR)){
-//                            String isHave = projectInfoDetail.getIsHave();
-//                            SharedPreferences sp = getSharedPreferences("isHave", Context.MODE_PRIVATE);
-//                            SharedPreferences.Editor editor = sp.edit();
-//                            editor.putString("isHave", isHave);
-//                            editor.commit();
-////                            if(TextUtils.equals(isHave,)){
-////
-////                            }
-//                        }
-//                        if(TextUtils.equals(category, Constants.WORKER)){
-//                            String IsContend = projectInfoDetail.getIsContend();
-//                            SharedPreferences sharedPreferences = getSharedPreferences("isContend", Context.MODE_PRIVATE);
-//                            SharedPreferences.Editor editor = sharedPreferences.edit();
-//                            editor.putString("isContend", IsContend);
-//                            editor.commit();
-//                        }
 
 
                         tTitle.setText(projectInfoDetail.getTitle());
@@ -361,7 +290,7 @@ public class ShowActivity extends BaseActivity implements OnClickListener {
                         }
                         List<Staff> staffs = projectInfoDetail.getStaffs();
                         if (null != staffs && staffs.size() > 0) {
-                            detailAdapter = new ProjectItemdetailAdapter(staffs, user,developersId,new ProjectItemdetailAdapter.OnGrabClickListener() {
+                            detailAdapter = new ProjectItemdetailAdapter(staffs, user, developersId, new ProjectItemdetailAdapter.OnGrabClickListener() {
                                 @Override
                                 public void onGrabClick(View view, Staff staff) {
 //                                    T.show("自定义2");
@@ -407,19 +336,19 @@ public class ShowActivity extends BaseActivity implements OnClickListener {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                 try {
-                     ProjectInfoDetail detail = DataParseUtil.projectInfoDetail(response);
+                    ProjectInfoDetail detail = DataParseUtil.projectInfoDetail(response);
                     if (null != detail) {
                         int id = Integer.valueOf(userId);
                         int developersId = detail.getDevelopers_id();
-                        if(developersId == id){
+                        if (developersId == id) {
                             lBelowShow.setVisibility(View.GONE);
                             showListView.setVisibility(View.VISIBLE);
-                        }else{
+                        } else {
                             String IsContend = detail.getIsContend();
-                            if( TextUtils.equals(IsContend,"contend") || TextUtils.equals(IsContend, "process")){
+                            if (TextUtils.equals(IsContend, "contend") || TextUtils.equals(IsContend, "process")) {
                                 showListView.setVisibility(View.VISIBLE);
                                 lBelowShow.setVisibility(View.GONE);
-                            }else{
+                            } else {
                                 showListView.setVisibility(View.GONE);
                                 lBelowShow.setVisibility(View.VISIBLE);
                                 bQiangdan.setText("立刻抢单");
@@ -435,24 +364,23 @@ public class ShowActivity extends BaseActivity implements OnClickListener {
                         if (detail.getImages() != null) {
                             imageUrl = detail.getImages().get(0);
                         }
-//                        iOneImg.setImageURI(detail.getImages());
+
                         if (!TextUtils.isEmpty(imageUrl)) {
                             Picasso.with(ShowActivity.this).load(DataAccessUtil.getImageUrl(imageUrl)).placeholder(R.drawable.head).into(iOneImg);
-//                            Picasso.with(ShowActivity.this).load(DataAccessUtil.getImageUrl(imageUrl)).placeholder(R.drawable.head).into(iTwoImg);
                         } else {
                             iOneImg.setImageResource(R.drawable.head);
-//                            iTwoImg.setImageResource(R.drawable.head);
+
                         }
                         List<Staff> staffs = detail.getStaffs();
                         if (null != staffs && staffs.size() > 0) {
-                            detailAdapter = new ProjectItemdetailAdapter(staffs, user,developersId,new ProjectItemdetailAdapter.OnGrabClickListener() {
+                            detailAdapter = new ProjectItemdetailAdapter(staffs, user, developersId, new ProjectItemdetailAdapter.OnGrabClickListener() {
                                 @Override
                                 public void onGrabClick(View view, Staff staff) {
                                     Intent intent = new Intent(ShowActivity.this, SelectWorkerActivity.class);
                                     Bundle bundle = new Bundle();
                                     bundle.putParcelable(Constants.KEY_RELEASED_PROJECT_STR, releaseProject);
-                                    bundle.putParcelable(Constants.KEY_RELEASED_PROJECT_STAFF,staff);
-                                    bundle.putString(Constants.KEY_CATEGORY,category);
+                                    bundle.putParcelable(Constants.KEY_RELEASED_PROJECT_STAFF, staff);
+                                    bundle.putString(Constants.KEY_CATEGORY, category);
                                     intent.putExtras(bundle);
                                     startActivity(intent);
                                 }
@@ -460,18 +388,6 @@ public class ShowActivity extends BaseActivity implements OnClickListener {
                             showListView.setAdapter(detailAdapter);
                             setListView(showListView);
 
-//                            detailAdapter.setOnGrabClickListener(new ProjectItemdetailAdapter.OnGrabClickListener() {
-//                                @Override
-//                                public void onGrabClick(View view, Staff staff) {
-//                                    Intent intent = new Intent(ShowActivity.this, SelectWorkerActivity.class);
-//                                    Bundle bundle = new Bundle();
-//                                    bundle.putParcelable(Constants.KEY_RELEASED_PROJECT_STR, releaseProject);
-//                                    bundle.putParcelable(Constants.KEY_RELEASED_PROJECT_STAFF,staff);
-//                                    bundle.putString(Constants.KEY_CATEGORY,category);
-//                                    intent.putExtras(bundle);
-//                                    startActivity(intent);
-//                                }
-//                            });
 
                         }
                     }
@@ -513,17 +429,5 @@ public class ShowActivity extends BaseActivity implements OnClickListener {
         listview2.setLayoutParams(params);
     }
 
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
 
-            //点击立刻抢单跳转
-            case R.id.act_show_qiangdan:
-                L.d("xxx", "跳转能不能进来");
-
-                break;
-            default:
-                break;
-        }
-    }
 }

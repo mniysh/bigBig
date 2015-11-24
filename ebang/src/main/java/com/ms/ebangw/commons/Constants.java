@@ -192,4 +192,8 @@ public class Constants {
 	public static final String KEY_WORKER_SHOW_CONTEND = "contend";
 	public static final String KEY_WORKER_SHOW_FAILED = "failed";
 	public static final String KEY_WORKER_SHOW_SUCCEED = "succeed";
+
+	public static final String CONTEND_STATUS_CONTEND = "contend";
+	public static final String CONTEND_STATUS_SUCCEED = "succeed";
+	public static final String CONTEND_STATUS_FAILED = "failed";
 }
