@@ -89,13 +89,13 @@ public class ShowActivity extends BaseActivity {
         public void onReceive(Context context, Intent in) {
             // TODO Auto-generated method stub
             String categroy = in.getStringExtra("key");
-            if (TextUtils.equals(categroy, Constants.HEADMAN)) {
+            if (TextUtils.equals(categroy, Constants.HEADMAN) || TextUtils.equals(categroy, Constants.COMPANY)) {
                 showListView.setVisibility(View.VISIBLE);
                 lBelowShow.setVisibility(View.GONE);
                 bQiangdan.setText("已抢单");
                 loadHeadwork();
             }
-            if (TextUtils.equals(categroy, Constants.WORKER)) {
+            if (TextUtils.equals(categroy, Constants.WORKER) ) {
                 detailAdapter.notifyDataSetChanged();
                 loadInvistor();
             }

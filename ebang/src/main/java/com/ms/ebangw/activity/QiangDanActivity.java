@@ -72,7 +72,7 @@ public class QiangDanActivity extends BaseNextAvtivity {
     @OnClick(R.id.activity_qiang_dan_but_qianddan)
     public void qiandDan(){
         if(flag_protocol){
-            if(TextUtils.equals(categroy, Constants.HEADMAN)){
+            if(TextUtils.equals(categroy, Constants.HEADMAN) || TextUtils.equals(categroy, Constants.COMPANY)){
                 loadHeadman();
             }else if (TextUtils.equals(categroy,Constants.WORKER)){
                 loadWorker();
