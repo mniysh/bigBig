@@ -274,7 +274,7 @@ public class RequestUrl {
     public static final String trade_detail = domain + "/api/user/trade/detailed";
 
     /**
-     * 2-24.交易账单    get
+     * 2-22.交易账单    get
      *
      */
     public static final String account = domain + "/api/user/trade/dill";
@@ -285,6 +285,12 @@ public class RequestUrl {
      * 1-14、积分列表
      */
     public static final String score = domain + "/api/user/score/index";
+
+    /**
+     * 2-24.根据角色显示人员列表（个人中心）（开发商、个人、工人） get
+     * /api/user/grab/show-people-by-category/工程ID
+     */
+    public static final String people_category = domain + "/api/user/grab/show-people-by-category/";
 
 
 

@@ -13,6 +13,7 @@ import com.ms.ebangw.bean.City;
 import com.ms.ebangw.bean.Craft;
 import com.ms.ebangw.bean.HomeProjectInfo;
 import com.ms.ebangw.bean.JiFen;
+import com.ms.ebangw.bean.People;
 import com.ms.ebangw.bean.ProjectInfoDetail;
 import com.ms.ebangw.bean.Province;
 import com.ms.ebangw.bean.ReleaseProject;
@@ -42,33 +43,40 @@ public class DataParseUtil {
 
     /**
      * 注册接口
+     *
      * @param jsonObject
      * @return
      * @throws ResponseException
      */
     public static User register(JSONObject jsonObject) throws ResponseException {
-        String  data = processDataStr(jsonObject);
+        String data = processDataStr(jsonObject);
         Gson gson = new Gson();
         User user = gson.fromJson(data, User.class);
         return user;
-    };
+    }
+
+    ;
 
 
     /**
      * 登录
+     *
      * @param jsonObject
      * @return
      * @throws ResponseException
      */
     public static User login(JSONObject jsonObject) throws ResponseException {
-                String  data = processDataStr(jsonObject);
-                Gson gson = new Gson();
-                User user = gson.fromJson(data, User.class);
-                return user;
-    };
+        String data = processDataStr(jsonObject);
+        Gson gson = new Gson();
+        User user = gson.fromJson(data, User.class);
+        return user;
+    }
+
+    ;
 
     /**
      * 获取用户的基本信息
+     *
      * @param jsonObject
      * @return
      * @throws ResponseException
@@ -76,7 +84,7 @@ public class DataParseUtil {
     public static User userInformation(JSONObject jsonObject) throws ResponseException {
         User user = MyApplication.getInstance().getUser();
         JSONObject data = processData(jsonObject);
-        if (data == null){
+        if (data == null) {
             return null;
         }
         try {
@@ -118,43 +126,51 @@ public class DataParseUtil {
 
     /**
      * 登出接口
+     *
      * @param jsonObject
      * @return
      * @throws ResponseException
      */
     public static boolean exit(JSONObject jsonObject) throws ResponseException {
         return processDataResult(jsonObject);
-    };
+    }
+
+    ;
 
     /**
      * 短信接口
+     *
      * @param jsonObject
      * @return
      * @throws ResponseException
      */
     public static boolean messageCode(JSONObject jsonObject) throws ResponseException {
         return processDataResult(jsonObject);
-    };
+    }
+
+    ;
 
 
     /**
      * 修改昵称接口
+     *
      * @param jsonObject
      * @return
      * @throws ResponseException
      */
-    public static boolean modifyName(JSONObject jsonObject)throws  ResponseException{
+    public static boolean modifyName(JSONObject jsonObject) throws ResponseException {
         return processDataResult(jsonObject);
 
     }
 
     /**
      * 上传图片的返回结果
+     *
      * @param jsonObject
      * @return
      * @throws ResponseException
      */
-    public static UploadImageResult upLoadImage(JSONObject jsonObject)throws  ResponseException{
+    public static UploadImageResult upLoadImage(JSONObject jsonObject) throws ResponseException {
         String result = processDataStr(jsonObject);
         Gson gson = new Gson();
         UploadImageResult uploadImageResult = gson.fromJson(result, UploadImageResult.class);
@@ -162,71 +178,73 @@ public class DataParseUtil {
 
     }
 
-    public static boolean modifyPassword(JSONObject jsonObject)throws  ResponseException{
+    public static boolean modifyPassword(JSONObject jsonObject) throws ResponseException {
 
         return processDataResult(jsonObject);
     }
-    public static  boolean modifyPhone(JSONObject jsonObject)throws  ResponseException{
 
-        return  processDataResult(jsonObject);
+    public static boolean modifyPhone(JSONObject jsonObject) throws ResponseException {
+
+        return processDataResult(jsonObject);
     }
 
     /**
      * 3-14、获取银行列表
+     *
      * @param jsonObject
      * @return
      * @throws ResponseException
      */
-    public static  List<Bank> bankList(JSONObject jsonObject)throws  ResponseException{
+    public static List<Bank> bankList(JSONObject jsonObject) throws ResponseException {
         String dataStr = processDataStr(jsonObject);
         Gson gson = new Gson();
-        List<Bank> banks = gson.fromJson(dataStr, new TypeToken<List<Bank>>(){}.getType());
+        List<Bank> banks = gson.fromJson(dataStr, new TypeToken<List<Bank>>() {
+        }.getType());
 
-        return  banks;
+        return banks;
     }
-
-
-
-
 
 
     /**
      * 3-6. 获取全部省市区数据
+     *
      * @param jsonObject
      * @return
      * @throws ResponseException
      */
-    public static TotalRegion provinceCityArea(JSONObject jsonObject)throws  ResponseException{
+    public static TotalRegion provinceCityArea(JSONObject jsonObject) throws ResponseException {
         String s = jsonObject.toString();
         System.out.print(s);
-        JSONObject datas=processData(jsonObject);
-        Gson gson=new Gson();
-        String dataProvince=datas.optString("province");
-        JSONObject cityobj=datas.optJSONObject("city");
-        JSONObject areaObj=datas.optJSONObject("area");
+        JSONObject datas = processData(jsonObject);
+        Gson gson = new Gson();
+        String dataProvince = datas.optString("province");
+        JSONObject cityobj = datas.optJSONObject("city");
+        JSONObject areaObj = datas.optJSONObject("area");
         //通过goon工具转换为集合
-        List<Province> provinces=gson.fromJson(dataProvince, new TypeToken<List<Province>>() {
+        List<Province> provinces = gson.fromJson(dataProvince, new TypeToken<List<Province>>() {
         }.getType());
 
         Province province;
-        for(int i=0; i<provinces.size(); i++){
-            province=provinces.get(i);
-            String id=province.getId();
-            if(!cityobj.has(id)){
+        for (int i = 0; i < provinces.size(); i++) {
+            province = provinces.get(i);
+            String id = province.getId();
+            if (!cityobj.has(id)) {
                 continue;
             }
             try {
                 String datacity = cityobj.getString(id);
-                List<City> citys = gson.fromJson(datacity,new TypeToken<List<City>>(){}.getType());
+                List<City> citys = gson.fromJson(datacity, new TypeToken<List<City>>() {
+                }.getType());
                 City city;
-                for (int j=0; j < citys.size() ;j++){
-                    city=citys.get(j);
+                for (int j = 0; j < citys.size(); j++) {
+                    city = citys.get(j);
                     String idCity = city.getId();
-                    if(!areaObj.has(idCity)){
+                    if (!areaObj.has(idCity)) {
                         continue;
                     }
                     String dataArea = areaObj.getString(idCity);
-                    List<Area> areas = gson.fromJson(dataArea, new TypeToken<List<Area>>(){}.getType());
+                    List<Area> areas = gson.fromJson(dataArea, new TypeToken<List<Area>>() {
+                    }.getType());
                     city.setAreas(areas);
 
                 }
@@ -247,15 +265,16 @@ public class DataParseUtil {
 
     /**
      * 3-7 发布选择的接口 (建筑， 装修， 工程管理)
+     *
      * @param jsonObject
      * @return
      * @throws ResponseException
      */
-    public static Craft publishCraft(JSONObject jsonObject) throws  ResponseException{
+    public static Craft publishCraft(JSONObject jsonObject) throws ResponseException {
 
         Craft craft = new Craft();
         JSONObject data = processData(jsonObject);
-        if (data == null){
+        if (data == null) {
             return null;
         }
         Gson gson = new Gson();
@@ -269,7 +288,7 @@ public class DataParseUtil {
 
             for (int i = 0; i < mainWorkTypes.size(); i++) {
                 WorkType type = mainWorkTypes.get(i);
-                String  mainTypeId = type.getId();
+                String mainTypeId = type.getId();
                 if (TextUtils.equals("1", mainTypeId)) {            //工程管理
                     craft.setProjectManage(type);
                     if (secondObj.has(mainTypeId)) {
@@ -279,7 +298,7 @@ public class DataParseUtil {
                         type.setWorkTypes(secondWorkTypes);
                     }
 
-                }else if (TextUtils.equals("14", mainTypeId)) {     //建筑类
+                } else if (TextUtils.equals("14", mainTypeId)) {     //建筑类
                     craft.setBuilding(type);
                     if (secondObj.has(mainTypeId)) {
                         String arrayStr = secondObj.getString(mainTypeId);
@@ -297,7 +316,7 @@ public class DataParseUtil {
                         }
                         type.setWorkTypes(secondWorkTypes);
                     }
-                }else if (TextUtils.equals("68", mainTypeId)) {     //装修类
+                } else if (TextUtils.equals("68", mainTypeId)) {     //装修类
                     craft.setFitment(type);
                     if (secondObj.has(mainTypeId)) {
                         String arrayStr = secondObj.getString(mainTypeId);
@@ -315,7 +334,7 @@ public class DataParseUtil {
                         }
                         type.setWorkTypes(secondWorkTypes);
                     }
-                }else if (TextUtils.equals("88", mainTypeId)) {     //其他
+                } else if (TextUtils.equals("88", mainTypeId)) {     //其他
                     craft.setOther(type);
                     if (secondObj.has(mainTypeId)) {
                         String arrayStr = secondObj.getString(mainTypeId);
@@ -333,56 +352,75 @@ public class DataParseUtil {
     }
 
 
-
-
     /**
      * 2-11.首页工程列表
+     *
      * @param jsonObject
      * @return
      * @throws ResponseException
      */
-    public static  HomeProjectInfo homeProjectInfo(JSONObject jsonObject)throws  ResponseException{
+    public static HomeProjectInfo homeProjectInfo(JSONObject jsonObject) throws ResponseException {
         String dataStr = processDataStr(jsonObject);
         Gson gson = new Gson();
         HomeProjectInfo info = gson.fromJson(dataStr, HomeProjectInfo.class);
-        return  info;
+        return info;
     }
 
     /**
      * 2-12.首页工程详情
+     *
      * @param jsonObject
      * @return
      * @throws ResponseException
      */
-    public static ProjectInfoDetail projectInfoDetail(JSONObject jsonObject)throws  ResponseException{
+    public static ProjectInfoDetail projectInfoDetail(JSONObject jsonObject) throws ResponseException {
         String dataStr = processDataStr(jsonObject);
         Gson gson = new Gson();
         ProjectInfoDetail detail = gson.fromJson(dataStr, ProjectInfoDetail.class);
-        return  detail;
+        return detail;
     }
 
 
     /**
      * 2-15.工长查看推荐过他的工人列表
+     *
      * @param jsonObject
      * @return
      * @throws ResponseException
      */
-    public static  List<Worker> recommendedWorkers(JSONObject jsonObject)throws  ResponseException{
+    public static List<Worker> recommendedWorkers(JSONObject jsonObject) throws ResponseException {
         String dataStr = processDataStr(jsonObject);
         Gson gson = new Gson();
-        List<Worker> workerList = gson.fromJson(dataStr, new TypeToken<List<Worker>>(){}.getType());
+        List<Worker> workerList = gson.fromJson(dataStr, new TypeToken<List<Worker>>() {
+        }.getType());
 
-        return  workerList;
+        return workerList;
+    }
+
+    /**
+     * 2-24.根据角色显示人员列表（个人中心）（开发商、个人、工人）
+     * @param jsonObject
+     * @return
+     * @throws ResponseException
+     */
+    public static List<People> peopleCategory(JSONObject jsonObject) throws ResponseException {
+        JSONObject data = processData(jsonObject);
+        String dataList = data.optString("dataList");
+        Gson gson = new Gson();
+        List<People> list = gson.fromJson(dataList, new TypeToken<List<People>>() {
+        }.getType());
+
+        return list;
     }
 
     /**
      * 2-7.工头获取符合工种工人列表（邀请）
+     *
      * @param jsonObject
      * @return
      * @throws ResponseException
      */
-    public static WorkerFriend friendWorker(JSONObject jsonObject)throws ResponseException{
+    public static WorkerFriend friendWorker(JSONObject jsonObject) throws ResponseException {
 
         String dataStr = processDataStr(jsonObject);
         Gson gson = new Gson();
@@ -393,6 +431,7 @@ public class DataParseUtil {
 
     /**
      * 2-16.工长解除和工人的推荐关系
+     *
      * @param jsonObject
      * @return
      * @throws ResponseException
@@ -405,6 +444,7 @@ public class DataParseUtil {
 
     /**
      * 2-17.发现
+     *
      * @param jsonObject
      * @return
      * @throws ResponseException
@@ -422,6 +462,7 @@ public class DataParseUtil {
 
     /**
      * 2-18 已发布的工程
+     *
      * @param jsonObject
      * @return
      * @throws ResponseException
@@ -439,6 +480,7 @@ public class DataParseUtil {
 
     /**
      * 2-22.评价列表
+     *
      * @param jsonObject
      * @return
      * @throws ResponseException
@@ -456,7 +498,8 @@ public class DataParseUtil {
 
 
     /**
-     *  2-23.交易明细
+     * 2-23.交易明细
+     *
      * @param jsonObject
      * @return
      * @throws ResponseException
@@ -473,7 +516,8 @@ public class DataParseUtil {
     }
 
     /**
-     * 2-24.交易账单
+     * 2-22.交易账单
+     *
      * @param jsonObject
      * @return
      * @throws ResponseException
@@ -487,6 +531,7 @@ public class DataParseUtil {
 
     /**
      * 1-14、积分列表
+     *
      * @param jsonObject
      * @return
      * @throws ResponseException
@@ -503,11 +548,12 @@ public class DataParseUtil {
 
     /**
      * 2-1.发布接口（开发商）
+     *
      * @param jsonObject
      * @return
      * @throws ResponseException
      */
-    public static ReleaseProject getProjectInfo(JSONObject jsonObject)throws ResponseException{
+    public static ReleaseProject getProjectInfo(JSONObject jsonObject) throws ResponseException {
         ReleaseProject releaseProject = new ReleaseProject();
         JSONObject data = processData(jsonObject);
         try {
@@ -543,15 +589,14 @@ public class DataParseUtil {
     }
 
 
-
-
     /**
      * 通用解析方法， 判断请求是否成功
+     *
      * @param jsonObject
      * @return
      * @throws ResponseException
      */
-    public static  boolean  processDataResult(JSONObject jsonObject) throws ResponseException {
+    public static boolean processDataResult(JSONObject jsonObject) throws ResponseException {
         if (null == jsonObject) {
             L.d(TAG, "processDataResult: json对象为null");
             return false;
@@ -559,7 +604,7 @@ public class DataParseUtil {
 
         try {
             String code = jsonObject.getString("code");
-            L.d("xxx",jsonObject.getString("code"));
+            L.d("xxx", jsonObject.getString("code"));
             String message = jsonObject.getString("message");
             if (TextUtils.equals("200", code)) {        //数据正确
                 return true;
@@ -574,7 +619,7 @@ public class DataParseUtil {
         return false;
     }
 
-    public static  String  processDataStr(JSONObject jsonObject) throws ResponseException {
+    public static String processDataStr(JSONObject jsonObject) throws ResponseException {
         if (null == jsonObject) {
             L.d(TAG, "processData: json对象为null");
             return null;
@@ -597,11 +642,12 @@ public class DataParseUtil {
 
     /**
      * Json数据解析  返回正确的JSONObject
+     *
      * @param jsonObject
      * @return
-     * @throws ResponseException    抛出异常：code message
+     * @throws ResponseException 抛出异常：code message
      */
-    public static  JSONObject processData(JSONObject jsonObject) throws ResponseException {
+    public static JSONObject processData(JSONObject jsonObject) throws ResponseException {
 
         try {
 
@@ -609,7 +655,7 @@ public class DataParseUtil {
             String message = jsonObject.getString("message");
             if (TextUtils.equals("200", code)) {        //数据正确
                 return jsonObject.getJSONObject("data");
-            }else{
+            } else {
                 String dataStr = jsonObject.optString("data", "");
                 String errorMessage = "";
                 if (!TextUtils.isEmpty(dataStr) && !TextUtils.equals("null", dataStr) && !TextUtils.equals("NULL", dataStr)) {
@@ -630,7 +676,7 @@ public class DataParseUtil {
 
                 if (TextUtils.isEmpty(errorMessage)) {
                     throw new ResponseException(code, message);
-                }else {
+                } else {
                     throw new ResponseException(code, errorMessage);
                 }
             }

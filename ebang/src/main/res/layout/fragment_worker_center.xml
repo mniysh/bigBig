@@ -25,6 +25,15 @@
             >
 
             <TextView
+                android:id="@+id/tv_invite_me"
+                style="@style/user_center_item_ver"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/published"
+                android:text="@string/inviteMe"
+                />
+
+            <TextView
                 android:id="@+id/tv_grab"
                 style="@style/user_center_item_ver"
                 android:layout_width="match_parent"
@@ -43,7 +52,7 @@
                 />
 
             <TextView
-                android:id="@+id/tv_evaluate"
+                android:id="@+id/tv_show"
                 style="@style/user_center_item_ver"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

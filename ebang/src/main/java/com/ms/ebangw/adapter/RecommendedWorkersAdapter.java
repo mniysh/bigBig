@@ -53,7 +53,7 @@ public class RecommendedWorkersAdapter extends BaseAdapter {
             holder.tv_name = (TextView) convertView.findViewById(R.id.tv_name);
             holder.tv_craft_desc = (TextView) convertView.findViewById(R.id.tv_craft_desc);
             holder.iv_avatar = (ImageView) convertView.findViewById(R.id.iv_avatar);
-            holder.tv_remove_relation = (TextView) convertView.findViewById(R.id.tv_remove_relation);
+            holder.tv_remove_relation = (TextView) convertView.findViewById(R.id.tv_agree);
             convertView.setTag(holder);
         } else {
             holder = (ViewHolder) convertView.getTag();

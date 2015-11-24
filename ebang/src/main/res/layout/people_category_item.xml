@@ -42,37 +42,20 @@
             android:src="@drawable/worker_avatar"
             />
 
-        <LinearLayout
+
+        <TextView
+
+            android:id="@+id/tv_name"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
             android:layout_weight="1"
-            android:orientation="vertical"
-            >
+            android:layout_marginLeft="10dp"
+            android:text="李媛媛"
+            android:textColor="@color/black_overlay"
+            android:textSize="16sp"
 
+            />
 
-            <TextView
-
-                android:id="@+id/tv_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="李媛媛"
-                android:textColor="@color/black_overlay"
-                android:textSize="16sp"
-
-                />
-
-            <TextView
-                android:id="@+id/tv_craft_desc"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingBottom="5dp"
-                android:paddingTop="5dp"
-                android:text="室内设计师"
-                android:textColor="@android:color/darker_gray"
-                android:textSize="12sp"
-                />
-        </LinearLayout>
 
         <TextView
             android:id="@+id/tv_agree"
@@ -81,7 +64,7 @@
             android:layout_margin="10dp"
             android:background="@drawable/common_btn_selector"
             android:padding="5dp"
-            android:text="邀请好友"
+            android:text="同意"
             android:textColor="@android:color/white"
             android:textSize="12sp"
             />

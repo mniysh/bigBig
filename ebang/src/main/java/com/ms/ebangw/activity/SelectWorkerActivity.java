@@ -128,7 +128,7 @@ public class SelectWorkerActivity extends BaseActivity {
 //        Collections.sort(workerList);
         adapter = new InviteWorkersAdapter(workerList, new InviteWorkersAdapter.OnRemoveRelationListener() {
 //            @Override
-//            public void onRemove(Worker worker) {
+//            public void onAgree(Worker worker) {
 //                removeRelation(worker.getId());
 //            }
 

@@ -58,7 +58,7 @@ public class HeadmanCenterFragment extends BaseFragment {
     TextView tvGrab;
     @Bind(R.id.tv_trade)
     TextView tvTrade;
-    @Bind(R.id.tv_evaluate)
+    @Bind(R.id.tv_show)
     TextView tvEvaluate;
     @Bind(R.id.tv_people_manage)
     TextView tvPeopleManage;

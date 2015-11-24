@@ -1,7 +1,6 @@
 package com.ms.ebangw.adapter;
 
 import android.graphics.Color;
-import android.provider.CalendarContract;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
@@ -57,7 +56,7 @@ public class InviteWorkersAdapter extends BaseAdapter {
             holder.tv_name = (TextView) convertView.findViewById(R.id.tv_name);
             holder.tv_craft_desc = (TextView) convertView.findViewById(R.id.tv_craft_desc);
             holder.iv_avatar = (ImageView) convertView.findViewById(R.id.iv_avatar);
-            holder.tv_remove_relation = (TextView) convertView.findViewById(R.id.tv_remove_relation);
+            holder.tv_remove_relation = (TextView) convertView.findViewById(R.id.tv_agree);
             convertView.setTag(holder);
         } else {
             holder = (ViewHolder) convertView.getTag();
@@ -103,7 +102,7 @@ public class InviteWorkersAdapter extends BaseAdapter {
             @Override
             public void onClick(View v) {
                 if (null != onRemoveRelationListener) {
-//                    onRemoveRelationListener.onRemove(worker);
+//                    onRemoveRelationListener.onAgree(worker);
                     onRemoveRelationListener.onAdd(worker);
                 }
             }
@@ -140,7 +139,7 @@ public class InviteWorkersAdapter extends BaseAdapter {
     }
 
     public interface OnRemoveRelationListener{
-//        void onRemove(Worker worker);
+//        void onAgree(Worker worker);
         void onAdd(Worker worker);
     }
 

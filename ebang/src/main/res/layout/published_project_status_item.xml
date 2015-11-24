@@ -53,40 +53,42 @@
             android:text="北京专业玻璃隔断 专业玻璃隔断 专业玻璃隔断 "
             android:textColor="#686767"/>
 
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:gravity="center_vertical"
+            android:orientation="horizontal"
             >
 
             <TextView
                 android:id="@+id/tv_money"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
+                android:layout_weight="1"
                 android:text="总工资：200 元"
                 android:layout_centerVertical="true"
                 android:textColor="#ff0000"/>
 
             <TextView
-                android:id="@+id/tv_grab_num"
+                android:id="@+id/tv_grab_description"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_marginLeft="10dp"
-                android:gravity="right"
                 android:singleLine="true"
                 android:layout_centerVertical="true"
+                android:layout_toLeftOf="@+id/tv_show"
                 android:text="1人抢单"
                 />
 
             <TextView
-                android:id="@+id/tv_evaluate"
+                android:id="@+id/tv_show"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_marginLeft="15dp"
-                android:background="@drawable/bk_but_qiangdan"
+                android:background="@drawable/border_round_yellow"
                 android:layout_centerVertical="true"
                 android:gravity="center"
                 android:text="评论"
@@ -95,8 +97,8 @@
                 android:paddingBottom="5dp"
                 android:paddingLeft="10dp"
                 android:paddingRight="10dp"
-                android:textColor="#ffffff"/>
-        </RelativeLayout>
+                android:textColor="@android:color/white"/>
+        </LinearLayout>
     </LinearLayout>
 
 </LinearLayout>

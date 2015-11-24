@@ -59,7 +59,7 @@ public class ProjectStatusFragment extends BaseFragment {
     private View contentLayout;
     private int currentPage = 1;
     private PublishedProjectStatusAdapter adapter;
-
+    private String category;
 
     public ProjectStatusFragment() {
         // Required empty public constructor
@@ -100,6 +100,7 @@ public class ProjectStatusFragment extends BaseFragment {
                 currentInviteType = null;
             }
         }
+        category = getUser().getCategory();
     }
 
     @Override
@@ -134,19 +135,30 @@ public class ProjectStatusFragment extends BaseFragment {
 
     @Override
     public void initData() {
-        adapter = new PublishedProjectStatusAdapter(new ArrayList<ReleaseProject>(), currentStatus);
-        adapter.setOnEvaluateClickListener(new PublishedProjectStatusAdapter.OnEvaluateClickListener() {
-            @Override
-            public void onGrabClick(View view, ReleaseProject releaseProject) { //评论
-                Intent intent = new Intent(getActivity(), EvaluateActivity.class);
-                Bundle bundle = new Bundle();
-                bundle.putParcelable(Constants.KEY_RELEASED_PROJECT_STR, releaseProject);
-                intent.putExtras(bundle);
-                startActivity(intent);
-            }
-        });
+        adapter = new PublishedProjectStatusAdapter(new ArrayList<ReleaseProject>(),category,
+            currentStatus, currentInviteType);
+        setAdapterListeners();
         ptr.setAdapter(adapter);
 
+    }
+
+    private void setAdapterListeners() {
+
+        switch (currentStatus) {
+            case COMPLETE:  //已完成
+                adapter.setOnEvaluateClickListener(new PublishedProjectStatusAdapter.OnEvaluateClickListener() {
+                    @Override
+                    public void onGrabClick(View view, ReleaseProject releaseProject) { //评论
+                        Intent intent = new Intent(getActivity(), EvaluateActivity.class);
+                        Bundle bundle = new Bundle();
+                        bundle.putParcelable(Constants.KEY_RELEASED_PROJECT_STR, releaseProject);
+                        bundle.putString(Constants.KEY_PROJECT_ID, releaseProject.getId());
+                        intent.putExtras(bundle);
+                        startActivity(intent);
+                    }
+                });
+                break;
+        }
     }
 
     @Override

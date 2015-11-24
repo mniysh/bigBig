@@ -890,6 +890,21 @@ public class DataAccessUtil {
     public static RequestHandle recommendWorkers(AsyncHttpResponseHandler asyncHttpResponseHandler){
         return doGet(RequestUrl.recommended_workers, null, asyncHttpResponseHandler);
     }
+
+    /**
+     * 2-24.根据角色显示人员列表（个人中心）（开发商、个人、工人）
+     * @param projectId 工程id
+     * @param category  工长headman 劳务公司company
+     * @param asyncHttpResponseHandler
+     * @return
+     */
+    public static RequestHandle peopleCategory(String projectId, String
+        category, AsyncHttpResponseHandler asyncHttpResponseHandler) {
+
+        RequestParams params = new RequestParams();
+        params.put("category", category);
+        return doGet(RequestUrl.people_category + projectId, null, asyncHttpResponseHandler);
+    }
     /**
      * 2-8.工头获取符合工种工人列表（邀请）
      * @param project_id
@@ -1021,7 +1036,7 @@ public class DataAccessUtil {
     }
 
     /**
-     * 2-24.交易账单
+     * 2-22.交易账单
      * @param page
      * @param search_time
      * @param asyncHttpResponseHandler
@@ -1036,6 +1051,8 @@ public class DataAccessUtil {
 
         return doGet(RequestUrl.account, params, asyncHttpResponseHandler);
     }
+
+
 
     /**
      * 1-14、积分列表

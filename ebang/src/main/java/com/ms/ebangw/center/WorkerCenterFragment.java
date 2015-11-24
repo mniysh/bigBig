@@ -14,6 +14,7 @@ import com.ms.ebangw.activity.AccountActivity;
 import com.ms.ebangw.activity.EvaluateListActivity;
 import com.ms.ebangw.activity.JiFenActivity;
 import com.ms.ebangw.activity.ProjectStatusActivity;
+import com.ms.ebangw.center.worker.InviteMineActivity;
 import com.ms.ebangw.commons.Constants;
 import com.ms.ebangw.fragment.BaseFragment;
 import com.ms.ebangw.fragment.HeadInfoFragment;
@@ -34,10 +35,12 @@ public class WorkerCenterFragment extends BaseFragment {
     TextView tvGrab;
     @Bind(R.id.tv_trade)
     TextView tvTrade;
-    @Bind(R.id.tv_evaluate)
+    @Bind(R.id.tv_show)
     TextView tvEvaluate;
     @Bind(R.id.tv_jifen)
     TextView tvJifen;
+    @Bind(R.id.tv_invite_me)
+    TextView tvInviteMe;
 
     private String mParam1;
     private String mParam2;
@@ -89,8 +92,15 @@ public class WorkerCenterFragment extends BaseFragment {
                 Intent intent = new Intent(mActivity, ProjectStatusActivity.class);
                 Bundle bundle = new Bundle();
                 bundle.putString(Constants.KEY_PROJECT_TYPE, ProjectStatusActivity.TYPE_GRAB);
-                bundle.putString(Constants.KEY_CATEGORY, Constants.WORKER);
                 intent.putExtras(bundle);
+                startActivity(intent);
+            }
+        });
+
+        tvInviteMe.setOnClickListener(new View.OnClickListener() {      //交易
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(mActivity, InviteMineActivity.class);
                 startActivity(intent);
             }
         });

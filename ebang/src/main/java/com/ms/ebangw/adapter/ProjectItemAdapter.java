@@ -105,12 +105,6 @@ public class ProjectItemAdapter extends BaseAdapter {
         return convertView;
     }
 
-    /**
-     * This class contains all butterknife-injected Views & Layouts from layout file 'home_project_itemitem.xml'
-     * for easy to all layout elements.
-     *
-     * @author ButterKnifeZelezny, plugin for Android Studio by Avast Developers (http://github.com/avast)
-     */
     static class ViewHolder {
         @Bind(R.id.head)
         ImageView head;
@@ -122,7 +116,7 @@ public class ProjectItemAdapter extends BaseAdapter {
         TextView tvDescription;
         @Bind(R.id.tv_money)
         TextView tvMoney;
-        @Bind(R.id.tv_grab_num)
+        @Bind(R.id.tv_grab_description)
         TextView tvGrabNum;
         @Bind(R.id.tv_grab)
         TextView tvGrab;

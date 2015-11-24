@@ -77,7 +77,7 @@
         </LinearLayout>
 
         <TextView
-            android:id="@+id/tv_remove_relation"
+            android:id="@+id/tv_agree"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"

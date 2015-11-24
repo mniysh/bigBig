@@ -37,7 +37,7 @@ public class InvestorCenterFragment extends BaseFragment {
     TextView tvPublished;
     @Bind(R.id.tv_trade)
     TextView tvTrade;
-    @Bind(R.id.tv_evaluate)
+    @Bind(R.id.tv_show)
     TextView tvEvaluate;
     @Bind(R.id.tv_jifen)
     TextView tvJifen;

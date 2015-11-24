@@ -50,9 +50,9 @@ public class EvaluateActivity extends BaseActivity {
     CheckBox cbIsAnonymity;
     @Bind(R.id.btn_publish)
     Button btnPublish;
-    @Bind(R.id.tv_grab_num)
+    @Bind(R.id.tv_grab_description)
     TextView tvGrabNum;
-    @Bind(R.id.tv_evaluate)
+    @Bind(R.id.tv_show)
     TextView tvEvaluate;
     @Bind(R.id.et_content)
     TextView etContent;

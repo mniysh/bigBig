@@ -79,7 +79,7 @@ public class ProjectStatusActivity extends BaseActivity {
         Bundle extras = getIntent().getExtras();
         if (null != extras) {
             currentType = extras.getString(Constants.KEY_PROJECT_TYPE, TYPE_GRAB);
-            currentInviteType = extras.getString(Constants.KEY_PROJECT_TYPE_INVITE, INVITE_TYPE_INVITE);
+            currentInviteType = extras.getString(Constants.KEY_PROJECT_TYPE_INVITE);
         }
         initView();
         initData();

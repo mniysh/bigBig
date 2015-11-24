@@ -8,8 +8,9 @@ import android.widget.TextView;
 
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.ms.ebangw.R;
-import com.ms.ebangw.adapter.RecommendedWorkersAdapter;
-import com.ms.ebangw.bean.Worker;
+import com.ms.ebangw.adapter.PeopleCategoryAdapter;
+import com.ms.ebangw.bean.People;
+import com.ms.ebangw.commons.Constants;
 import com.ms.ebangw.exception.ResponseException;
 import com.ms.ebangw.service.DataAccessUtil;
 import com.ms.ebangw.service.DataParseUtil;
@@ -24,47 +25,47 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+
 /**
- * 工长中心的工人管理列表
+ * 工长或劳务公司列表  (工人,开发商）
  *
  * @author wangkai
  */
-public class PeopleManageActivity extends BaseActivity {
-    private Handler handler;
+public class PeopleCategoryActivity extends BaseActivity {
 
+    public static final String LIST_TYPE_HEADMAN = "headman";  //查看工长还是劳务公司
+    public static final String LIST_TYPE_COMPANY = "company";
     @Bind(R.id.listView)
     ListView listView;
     @Bind(R.id.slideBar)
     QuickindexBar slideBar;
     @Bind(R.id.tv_zimu)
     TextView tvZimu;
-    private String project_id;
 
+    private String listType;
+    private Handler handler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_recommened_works);
+        setContentView(R.layout.activity_people_category);
         ButterKnife.bind(this);
-        initView();
-        initData();
+        Bundle extras = getIntent().getExtras();
+        if (null != extras) {
+            listType = extras.getString(Constants.KEY_CATEGORY_LIST_TYPE, LIST_TYPE_HEADMAN);
+        }
+
     }
 
     @Override
     public void initView() {
         initTitle(null, "返回", "人员管理", null, null);
         handler = new Handler();
-//        Intent intent = getIntent();
-//        staff = intent.getExtras().getParcelable(Constants.KEY_RELEASED_PROJECT_STAFF);
-//        project_id = staff.getProject_id();
-//        craft_id = staff.getCraft_id();
-
-
     }
 
     @Override
     public void initData() {
-        loadWorkers();
+        load();
     }
 
     // 显示在屏幕中间的字母
@@ -82,9 +83,9 @@ public class PeopleManageActivity extends BaseActivity {
         }, 1500);
     }
 
-    private void loadWorkers() {
+    private void load() {
 
-        DataAccessUtil.recommendWorkers(new JsonHttpResponseHandler() {
+        DataAccessUtil.peopleCategory("", "", new JsonHttpResponseHandler() {
             @Override
             public void onStart() {
                 showProgressDialog();
@@ -95,10 +96,10 @@ public class PeopleManageActivity extends BaseActivity {
 
                 dismissLoadingDialog();
                 try {
-                    List<Worker> workerList = DataParseUtil.recommendedWorkers(response);
+                    List<People> list = DataParseUtil.peopleCategory(response);
 
-                    if (null != workerList && workerList.size() > 0) {
-                        initWorksList(workerList);
+                    if (null != list && list.size() > 0) {
+                        initPeoplesList(list);
                     }
                 } catch (ResponseException e) {
                     e.printStackTrace();
@@ -115,15 +116,13 @@ public class PeopleManageActivity extends BaseActivity {
         });
     }
 
-    private void initWorksList(final List<Worker> workerList) {
-        Collections.sort(workerList);
-        RecommendedWorkersAdapter adapter = new RecommendedWorkersAdapter(workerList, new RecommendedWorkersAdapter.OnRemoveRelationListener() {
+    private void initPeoplesList(final List<People> list) {
+        Collections.sort(list);
+        PeopleCategoryAdapter adapter = new PeopleCategoryAdapter(list, new PeopleCategoryAdapter.OnAgreeListener() {
             @Override
-            public void onRemove(Worker worker) {
-                removeRelation(worker.getId());
+            public void onAgree(People people) {
+
             }
-
-
         });
         listView.setAdapter(adapter);
         slideBar.setOnSlideTouchListener(new QuickindexBar.OnSlideTouchListener() {
@@ -131,10 +130,10 @@ public class PeopleManageActivity extends BaseActivity {
             @Override
             public void onBack(String str) {
                 showZimu(str);
-                if (workerList != null && workerList.size() > 0) {
-                    int size = workerList.size();
+                if (list != null && list.size() > 0) {
+                    int size = list.size();
                     for (int i = 0; i < size; i++) {
-                        if (workerList.get(i).getPinyin().substring(0, 1).equals(str)) {
+                        if (list.get(i).getPinyin().substring(0, 1).equals(str)) {
                             listView.setSelection(i);
                             break;
                         }
@@ -143,38 +142,4 @@ public class PeopleManageActivity extends BaseActivity {
             }
         });
     }
-
-    /**
-     * 解除关系
-     */
-    private void removeRelation(String workerId) {
-
-        DataAccessUtil.removeRelation(workerId, new JsonHttpResponseHandler(){
-            @Override
-            public void onStart() {
-                showProgressDialog();
-            }
-
-            @Override
-            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-
-                dismissLoadingDialog();
-                try {
-                    String recommend = DataParseUtil.removeRelation(response);  // 0:推荐工长的工人小于约定人数   1:推荐工长的工人大于等于约定人
-
-                } catch (ResponseException e) {
-                    e.printStackTrace();
-                    T.show(e.getMessage());
-                }
-            }
-
-            @Override
-            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
-                super.onFailure(statusCode, headers, responseString, throwable);
-                dismissLoadingDialog();
-            }
-        });
-
-    }
-
 }

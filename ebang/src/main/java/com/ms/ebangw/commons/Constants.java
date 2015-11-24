@@ -199,6 +199,10 @@ public class Constants {
 	public static final String KEY_PROJECT_TYPE_INVITE = "invite";
 
 
+	public static final String KEY_INVITE_CATEGORY = "invite_category";
+	public static final String KEY_CATEGORY_LIST_TYPE = "category_list_type";
+	public static final String KEY_PROJECT_ID = "project_id";
+
 	public static final String CONTEND_STATUS_CONTEND = "contend";
 	public static final String CONTEND_STATUS_SUCCEED = "succeed";
 	public static final String CONTEND_STATUS_FAILED = "failed";
