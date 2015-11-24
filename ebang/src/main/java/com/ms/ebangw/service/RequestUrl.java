@@ -248,7 +248,7 @@ public class RequestUrl {
      *complete//完成
      *execute//执行中
      */
-    public static final String grab_status = domain + "/api/index/index/grab-status";
+    public static final String grab_status = domain + "/api/user/grab/index";
 
     /**
      * 1-15、劳务公司认证接口

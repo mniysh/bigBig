@@ -1,4 +1,4 @@
-package com.ms.ebangw.fragment;
+package com.ms.ebangw.center;
 
 
 import android.app.FragmentManager;
@@ -23,8 +23,10 @@ import com.ms.ebangw.activity.EvaluateListActivity;
 import com.ms.ebangw.activity.InviteFriendsActivity;
 import com.ms.ebangw.activity.JiFenActivity;
 import com.ms.ebangw.activity.PeopleManageActivity;
-import com.ms.ebangw.activity.PublishedProjectActivity;
+import com.ms.ebangw.activity.ProjectStatusActivity;
 import com.ms.ebangw.bean.User;
+import com.ms.ebangw.fragment.BaseFragment;
+import com.ms.ebangw.fragment.HeadInfoFragment;
 import com.ms.ebangw.release.ReleaseActivity;
 import com.ms.ebangw.utils.DensityUtils;
 import com.ms.ebangw.utils.QRCodeUtil;
@@ -125,7 +127,7 @@ public class LabourCompanyCenterFragment extends BaseFragment {
         tvGrab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(mActivity, PublishedProjectActivity.class);
+                Intent intent = new Intent(mActivity, ProjectStatusActivity.class);
                 startActivity(intent);
             }
         });

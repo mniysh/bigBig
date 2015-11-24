@@ -16,6 +16,7 @@ import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.ms.ebangw.R;
 import com.ms.ebangw.activity.EvaluateActivity;
+import com.ms.ebangw.activity.ProjectStatusActivity;
 import com.ms.ebangw.adapter.PublishedProjectStatusAdapter;
 import com.ms.ebangw.bean.ReleaseProject;
 import com.ms.ebangw.commons.Constants;
@@ -39,31 +40,28 @@ import butterknife.ButterKnife;
  *
  * @author wangkai
  */
-public class PublishedProjectStatusFragment extends BaseFragment {
+public class ProjectStatusFragment extends BaseFragment {
     /**
      * 已发布工程的状态 待审核 wating_audit， 待通过， 进行中  已结束
-     * wating_audit//待审核
-     * sign_wating//待通过
-     *   execute//执行中
-     *   complete//完成
      */
     public static final String AUDIT = "waiting_audit";
     public static final String WAITING = "sign_waiting";
     public static final String EXECUTE = "execute";
     public static final String COMPLETE = "complete";
 
-    private static final String PROJECT_STATUS = "project_status";
 
     @Bind(R.id.ptr)
     PullToRefreshListView ptr;
 
-    private String status = WAITING;
+    private String currentStatus = WAITING;
+    private String currentType;
+    private String currentInviteType;
     private View contentLayout;
     private int currentPage = 1;
     private PublishedProjectStatusAdapter adapter;
 
 
-    public PublishedProjectStatusFragment() {
+    public ProjectStatusFragment() {
         // Required empty public constructor
     }
 
@@ -72,10 +70,20 @@ public class PublishedProjectStatusFragment extends BaseFragment {
     public @interface ProjectStatus {
     }
 
-    public static PublishedProjectStatusFragment newInstance(@ProjectStatus String projectStatus) {
-        PublishedProjectStatusFragment fragment = new PublishedProjectStatusFragment();
+    /**
+     *
+     * @param projectStatus
+     * @param selectedType
+     * @param inviteType
+     * @return
+     */
+    public static ProjectStatusFragment newInstance(@ProjectStatus String
+        projectStatus, @ProjectStatusActivity.SelectedType String selectedType, String inviteType) {
+        ProjectStatusFragment fragment = new ProjectStatusFragment();
         Bundle args = new Bundle();
-        args.putString(PROJECT_STATUS, projectStatus);
+        args.putString(Constants.KEY_PROJECT_STATUS, projectStatus);
+        args.putString(Constants.KEY_PROJECT_TYPE, selectedType);
+        args.putString(Constants.KEY_PROJECT_TYPE_INVITE, inviteType);
         fragment.setArguments(args);
         return fragment;
     }
@@ -84,14 +92,20 @@ public class PublishedProjectStatusFragment extends BaseFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            status = getArguments().getString(PROJECT_STATUS);
+            currentStatus = getArguments().getString(Constants.KEY_PROJECT_STATUS);
+            currentType = getArguments().getString(Constants.KEY_PROJECT_TYPE);
+            if (TextUtils.equals(currentType, ProjectStatusActivity.TYPE_INVITE)) { //工人--》邀请我的
+                currentInviteType = getArguments().getString(Constants.KEY_PROJECT_TYPE_INVITE);
+            }else {
+                currentInviteType = null;
+            }
         }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        contentLayout = inflater.inflate(R.layout.fragment_published_project_status, container, false);
+        contentLayout = inflater.inflate(R.layout.fragment_project_status, container, false);
         ButterKnife.bind(this, contentLayout);
         initView();
         initData();
@@ -100,7 +114,7 @@ public class PublishedProjectStatusFragment extends BaseFragment {
 
     @Override
     public void initView() {
-        if (TextUtils.equals(status, EXECUTE)) {        //进行中只有一项
+        if (TextUtils.equals(currentStatus, EXECUTE)) {        //进行中只有一项
             ptr.setMode(PullToRefreshBase.Mode.DISABLED);
         }else {
             ptr.setMode(PullToRefreshBase.Mode.BOTH);
@@ -120,7 +134,7 @@ public class PublishedProjectStatusFragment extends BaseFragment {
 
     @Override
     public void initData() {
-        adapter = new PublishedProjectStatusAdapter(new ArrayList<ReleaseProject>(), status);
+        adapter = new PublishedProjectStatusAdapter(new ArrayList<ReleaseProject>(), currentStatus);
         adapter.setOnEvaluateClickListener(new PublishedProjectStatusAdapter.OnEvaluateClickListener() {
             @Override
             public void onGrabClick(View view, ReleaseProject releaseProject) { //评论
@@ -148,11 +162,12 @@ public class PublishedProjectStatusFragment extends BaseFragment {
     }
 
     public void loadProjects() {
-        DataAccessUtil.grabStatus(currentPage + "", status, handler);
+        currentPage = 1;
+        DataAccessUtil.grabStatus(currentPage + "", currentStatus, currentType, currentInviteType, handler);
     }
 
     public void loadMoreProjects() {
-        DataAccessUtil.grabStatus(currentPage + "", status, loadMoreHandler);
+        DataAccessUtil.grabStatus(currentPage + "", currentStatus,currentType, currentInviteType, loadMoreHandler);
     }
 
     private AsyncHttpResponseHandler handler = new JsonHttpResponseHandler() {

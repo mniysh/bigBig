@@ -10,7 +10,7 @@ import android.widget.TextView;
 import com.ms.ebangw.R;
 import com.ms.ebangw.bean.ReleaseProject;
 import com.ms.ebangw.commons.Constants;
-import com.ms.ebangw.fragment.PublishedProjectStatusFragment;
+import com.ms.ebangw.fragment.ProjectStatusFragment;
 import com.ms.ebangw.service.DataAccessUtil;
 import com.squareup.picasso.Picasso;
 
@@ -25,7 +25,7 @@ public class PublishedProjectStatusAdapter extends BaseAdapter {
     private String status;
 
     public PublishedProjectStatusAdapter(List<ReleaseProject> projectList,
-                                         @PublishedProjectStatusFragment.ProjectStatus String
+                                         @ProjectStatusFragment.ProjectStatus String
                                          projectStatus) {
         this.list = projectList;
         this.status = projectStatus;
@@ -83,16 +83,16 @@ public class PublishedProjectStatusAdapter extends BaseAdapter {
         }
 
         switch (status) {
-            case PublishedProjectStatusFragment.WAITING:
+            case ProjectStatusFragment.WAITING:
                 holder.tvEvaluate.setVisibility(View.GONE);
                 holder.tvGrabNum.setVisibility(View.VISIBLE);
 
                 break;
-            case PublishedProjectStatusFragment.EXECUTE:
+            case ProjectStatusFragment.EXECUTE:
                 holder.tvEvaluate.setVisibility(View.GONE);
                 holder.tvGrabNum.setVisibility(View.GONE);
                 break;
-            case PublishedProjectStatusFragment.COMPLETE:
+            case ProjectStatusFragment.COMPLETE:
                 holder.tvEvaluate.setVisibility(View.VISIBLE);
                 holder.tvGrabNum.setVisibility(View.GONE);
                 holder.tvEvaluate.setOnClickListener(new View.OnClickListener() {

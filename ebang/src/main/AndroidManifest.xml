@@ -490,7 +490,7 @@
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name=".activity.PublishedProjectActivity"
+            android:name=".activity.ProjectStatusActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:screenOrientation="portrait" >
         </activity>

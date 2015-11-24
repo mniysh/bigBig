@@ -193,6 +193,12 @@ public class Constants {
 	public static final String KEY_WORKER_SHOW_FAILED = "failed";
 	public static final String KEY_WORKER_SHOW_SUCCEED = "succeed";
 
+	public static final String KEY_PROJECT_STATUS = "project_status";
+	public static final String KEY_PROJECT_TYPE = "type";
+	public static final String KEY_PROJECT_CATEGORY = "category";
+	public static final String KEY_PROJECT_TYPE_INVITE = "invite";
+
+
 	public static final String CONTEND_STATUS_CONTEND = "contend";
 	public static final String CONTEND_STATUS_SUCCEED = "succeed";
 	public static final String CONTEND_STATUS_FAILED = "failed";

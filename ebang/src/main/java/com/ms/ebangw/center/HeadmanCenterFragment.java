@@ -1,4 +1,4 @@
-package com.ms.ebangw.fragment;
+package com.ms.ebangw.center;
 
 
 import android.app.FragmentManager;
@@ -18,8 +18,18 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.ms.ebangw.R;
+import com.ms.ebangw.activity.AccountActivity;
+import com.ms.ebangw.activity.EvaluateListActivity;
+import com.ms.ebangw.activity.InviteFriendsActivity;
+import com.ms.ebangw.activity.JiFenActivity;
 import com.ms.ebangw.activity.PeopleManageActivity;
+import com.ms.ebangw.activity.ProjectStatusActivity;
 import com.ms.ebangw.bean.User;
+import com.ms.ebangw.commons.Constants;
+import com.ms.ebangw.fragment.BaseFragment;
+import com.ms.ebangw.fragment.HeadInfoFragment;
+import com.ms.ebangw.release.ReleaseActivity;
+import com.ms.ebangw.utils.DensityUtils;
 import com.ms.ebangw.utils.QRCodeUtil;
 
 import java.io.File;
@@ -28,11 +38,11 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 
 /**
- * 劳务中心
+ * 工长中心
  *
  * @author wangkai
  */
-public class LabourCenterFragment extends BaseFragment {
+public class HeadmanCenterFragment extends BaseFragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
@@ -50,23 +60,28 @@ public class LabourCenterFragment extends BaseFragment {
     TextView tvTrade;
     @Bind(R.id.tv_evaluate)
     TextView tvEvaluate;
-    @Bind(R.id.tv_jifen)
-    TextView tvFen;
     @Bind(R.id.tv_people_manage)
     TextView tvPeopleManage;
     @Bind(R.id.tv_invite_friend)
     TextView tvInviteFriend;
     @Bind(R.id.ll_verItems)
     LinearLayout llVerItems;
+    @Bind(R.id.tv_jifen)
+    TextView tvJifen;
+    @Bind(R.id.tv_publish)
+    TextView tvPublish;
+    @Bind(R.id.tv_published)
+    TextView tvPublished;
 
 
     private String mParam1;
     private String mParam2;
     private ViewGroup contentLayout;
     private FragmentManager fm;
+    private User user;
 
-    public static LabourCenterFragment newInstance(String param1, String param2) {
-        LabourCenterFragment fragment = new LabourCenterFragment();
+    public static HeadmanCenterFragment newInstance(String param1, String param2) {
+        HeadmanCenterFragment fragment = new HeadmanCenterFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -74,7 +89,7 @@ public class LabourCenterFragment extends BaseFragment {
         return fragment;
     }
 
-    public LabourCenterFragment() {
+    public HeadmanCenterFragment() {
         // Required empty public constructor
     }
 
@@ -91,7 +106,7 @@ public class LabourCenterFragment extends BaseFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        contentLayout = (ViewGroup) inflater.inflate(R.layout.fragment_labour_center, null);
+        contentLayout = (ViewGroup) inflater.inflate(R.layout.fragment_headman_center, null);
         ButterKnife.bind(this, contentLayout);
         initView();
         initData();
@@ -102,11 +117,83 @@ public class LabourCenterFragment extends BaseFragment {
     public void initView() {
         fm.beginTransaction().replace(R.id.fl_head_info, HeadInfoFragment.newInstance("", ""))
             .commit();
+
+        tvPublish.setOnClickListener(new View.OnClickListener() {   //发布
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(mActivity, ReleaseActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        tvPublished.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {   //已发布
+                Intent intent = new Intent(mActivity, ProjectStatusActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putString(Constants.KEY_PROJECT_TYPE, ProjectStatusActivity.TYPE_PUBLISH);
+                bundle.putString(Constants.KEY_CATEGORY, Constants.HEADMAN);
+                intent.putExtras(bundle);
+                startActivity(intent);
+            }
+        });
+
+        tvGrab.setOnClickListener(new View.OnClickListener() {  //抢单
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(mActivity, ProjectStatusActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putString(Constants.KEY_PROJECT_TYPE, ProjectStatusActivity.TYPE_GRAB);
+                bundle.putString(Constants.KEY_CATEGORY, Constants.HEADMAN);
+                intent.putExtras(bundle);
+                startActivity(intent);
+            }
+        });
+
+        tvTrade.setOnClickListener(new View.OnClickListener() {      //交易
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(mActivity, AccountActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        tvEvaluate.setOnClickListener(new View.OnClickListener() {      //收到的评价列表
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(mActivity, EvaluateListActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        tvJifen.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(mActivity, JiFenActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        tvPeopleManage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(mActivity, PeopleManageActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        tvInviteFriend.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(mActivity, InviteFriendsActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     @Override
     public void initData() {
-        User user = getUser();
+        user = getUser();
 
         if (user != null) {
             String recommend = user.getRecommend();
@@ -116,6 +203,8 @@ public class LabourCenterFragment extends BaseFragment {
                 setEnoughWorkerView();
             }
         }
+
+
     }
 
     /**
@@ -124,21 +213,23 @@ public class LabourCenterFragment extends BaseFragment {
     private void setEnoughWorkerView() {
         llVerItems.setVisibility(View.VISIBLE);
         eweimaLayout.setVisibility(View.GONE);
-        tvPeopleManage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(mActivity, PeopleManageActivity.class);
-                startActivity(intent);
-            }
-        });
+
     }
 
     /**
      * 推荐人数不够时， 显示二维码
      */
     private void setNoEnoughWorkerView() {
-        llVerItems.setVisibility(View.GONE);
+        llVerItems.setVisibility(View.VISIBLE);
+        tvGrab.setVisibility(View.GONE);
+        tvTrade.setVisibility(View.GONE);
+        tvEvaluate.setVisibility(View.GONE);
+        tvJifen.setVisibility(View.GONE);
+        tvPeopleManage.setVisibility(View.GONE);
+        tvInviteFriend.setVisibility(View.GONE);
         eweimaLayout.setVisibility(View.VISIBLE);
+        tvInviteCode.setText("邀请码：" + user.getInvite_code());
+
         initInviteQR();
     }
 
@@ -146,7 +237,7 @@ public class LabourCenterFragment extends BaseFragment {
      * 初始化二维码图片
      */
     private void initInviteQR() {
-        eweimaLayout.setVisibility(View.VISIBLE);
+//        eweimaLayout.setVisibility(View.VISIBLE);
         String state = Environment.getExternalStorageState();
         if (state.equals(Environment.MEDIA_MOUNTED)) {
             File directory = Environment.getExternalStorageDirectory();
@@ -163,7 +254,10 @@ public class LabourCenterFragment extends BaseFragment {
                     int width = ivEweima.getWidth();
                     int height = ivEweima.getHeight();
                     Bitmap logoBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.logo_144);
-                    boolean b = QRCodeUtil.createQRImage(getUser().getId(), width, height, logoBitmap, path);
+                    if (width <= 0) {
+                        width = DensityUtils.dp2px(mActivity, 200);
+                    }
+                    boolean b = QRCodeUtil.createQRImage(getUser().getId(), width, width, logoBitmap, path);
                     if (b) {
                         Bitmap bitmap = BitmapFactory.decodeFile(path);
                         ivEweima.setImageBitmap(bitmap);

@@ -950,14 +950,20 @@ public class DataAccessUtil {
      * 2-18 抢单 4种状态 抢单 待通过, 进行中, 已结束（工头）  get
      * @param page 分页
      * @param status wating_audit//待审核   sign_wating//待通过   execute//执行中 complete//完成
+     * @param type  grab//抢单 （工长、劳务公司、工人）   publish//发布 （开发商、个人、工长）  invite//邀请我的（只有工人有）
+     * @param invite  选填  agree//同意 invite//邀请中   根据type选择填写，如果type=invite,此字段必须填，如果type=grab,
+     *                此字段传空字符串
      * @param asyncHttpResponseHandler
      * @return
      */
-    public static RequestHandle grabStatus(String page, String status, AsyncHttpResponseHandler
+    public static RequestHandle grabStatus(String page, String status, String
+        type,  String invite, AsyncHttpResponseHandler
         asyncHttpResponseHandler){
         RequestParams params = new RequestParams();
         params.put("page", page);
         params.put("status", status);
+        params.put("type", type);
+        params.put("invite", invite);
         return doGet(RequestUrl.grab_status, params, asyncHttpResponseHandler);
     }
 

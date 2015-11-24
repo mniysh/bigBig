@@ -23,20 +23,6 @@ public class ReleaseActivity extends BaseActivity {
     private List<WorkType> data;
     private ReleaseWorkTypeFragment releaseWorkTypeFragment;
 
-    @Override
-    public void initView() {
-        fm = getFragmentManager();
-        if(selectWorkType == null){
-            selectWorkType = new ArrayList<>();
-
-        }
-    }
-
-    @Override
-    public void initData() {
-        categroy = getUser().getCategory();
-        fm.beginTransaction().replace(R.id.fl_release, SelectCraftFragment.newInstance(categroy, "")).commit();
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +39,22 @@ public class ReleaseActivity extends BaseActivity {
         }
 
     }
+
+    @Override
+    public void initView() {
+        fm = getFragmentManager();
+        if(selectWorkType == null){
+            selectWorkType = new ArrayList<>();
+
+        }
+    }
+
+    @Override
+    public void initData() {
+        categroy = getUser().getCategory();
+        fm.beginTransaction().replace(R.id.fl_release, SelectCraftFragment.newInstance(categroy, "")).commit();
+    }
+
     public void onEvent(WorkTypeEvent event) {
         WorkType workType = event.getWorkType();
         boolean isAdd = event.isAdd();
