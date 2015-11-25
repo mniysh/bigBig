@@ -1,5 +1,6 @@
 package com.ms.ebangw.adapter;
 
+import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -22,10 +23,13 @@ import butterknife.ButterKnife;
  * 2015-10-30 13:44
  */
 public class PeopleCategoryAdapter extends BaseAdapter {
+    private String category;
     private List<People> list;
     private OnAgreeListener onAgreeListener;
 
-    public PeopleCategoryAdapter(List<People> list, OnAgreeListener onAgreeListener) {
+    public PeopleCategoryAdapter(String category, List<People> list, OnAgreeListener
+        onAgreeListener) {
+        this.category = category;
         this.list = list;
         this.onAgreeListener = onAgreeListener;
     }
@@ -73,6 +77,13 @@ public class PeopleCategoryAdapter extends BaseAdapter {
             holder.tvPy.setVisibility(View.VISIBLE);
             holder.tvPy.setText(firstChar);
         }
+
+        if (TextUtils.equals(category, Constants.WORKER)) {
+            holder.tvAgree.setText("同意");
+        }else {
+            holder.tvAgree.setText("雇佣");
+        }
+
         holder.tvName.setText(people.getReal_name());
         Picasso.with(parent.getContext()).load(DataAccessUtil.getImageUrl(people.getHead_image())).
             placeholder(R.drawable.worker_avatar).into(holder.ivAvatar);

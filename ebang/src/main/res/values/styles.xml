@@ -348,4 +348,13 @@
         <item name="tabSelectedTextColor">@color/project_status_tab_text</item>
     </style>
 
+    <style name="confirm_btn">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">#434343</item>
+        <item name="android:paddingLeft">10dp</item>
+        <item name="android:paddingRight">10dp</item>
+        <item name="android:paddingTop">5dp</item>
+        <item name="android:paddingBottom">5dp</item>
+        <item name="android:background">@drawable/border_round_white</item>
+    </style>
 </resources>

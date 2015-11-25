@@ -19,6 +19,15 @@ public class People implements Comparable<People>{
     private String phone;
     private String head_image;
     private String real_name;
+    /**
+     *   //当开发商、个人选择工长（2-4接口）或工人同意（2-14接口）     传递 此ID
+     */
+    private String isContend;
+    /**
+     * //选择中 contend  失败 failed    成功succeed
+     */
+    private String contend_id;
+
 
     public void setLogin_id(String login_id) {
         this.login_id = login_id;
@@ -54,6 +63,22 @@ public class People implements Comparable<People>{
 
     public String getPinyin() {
         return PinYinUtils.getPinyin(real_name);
+    }
+
+    public String getContend_id() {
+        return contend_id;
+    }
+
+    public void setContend_id(String contend_id) {
+        this.contend_id = contend_id;
+    }
+
+    public String getIsContend() {
+        return isContend;
+    }
+
+    public void setIsContend(String isContend) {
+        this.isContend = isContend;
     }
 
     @Override

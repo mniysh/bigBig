@@ -221,25 +221,6 @@ public class RequestUrl {
      */
     public static final String founds = domain + "/api/index/index/founds";
 
-//    /**
-//     * 2-25.抢单 待审核（开发商）
-//     */
-//    public static final String grab_headman_audit = domain + "/api/developers/project/waiting-audit";
-//
-//    /**
-//     *2-18.抢单 待通过（工头）  get
-//     */
-//    public static final String grab_headman_waiting = domain + "/api/headman/project/single-waiting";
-//
-//     /**
-//     *2-19.抢单 执行中（工头）   get
-//     */
-//    public static final String grab_headman_execute = domain + "/api/headman/project/execute";
-//
-//     /**
-//     *2-20.抢单 已结束（工头）
-//     */
-//    public static final String grab_headman_complete = domain + "/api/headman/project/complete";
 
     /**
      * 2-18.抢单 4种状态
@@ -292,6 +273,11 @@ public class RequestUrl {
      */
     public static final String people_category = domain + "/api/user/grab/show-people-by-category/";
 
+    /**
+     * 2-14.工人同意工长邀请参与工程    get
+     * /api/worker/project/agree-invite/+邀请表ID
+     */
+    public static final String agree_invite = domain + "/api/worker/project/agree-invite/";
 
 
 

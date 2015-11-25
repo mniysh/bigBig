@@ -19,6 +19,7 @@ import com.ms.ebangw.activity.EvaluateActivity;
 import com.ms.ebangw.activity.ProjectStatusActivity;
 import com.ms.ebangw.adapter.PublishedProjectStatusAdapter;
 import com.ms.ebangw.bean.ReleaseProject;
+import com.ms.ebangw.center.worker.InviteMineUserActivity;
 import com.ms.ebangw.commons.Constants;
 import com.ms.ebangw.exception.ResponseException;
 import com.ms.ebangw.service.DataAccessUtil;
@@ -35,6 +36,7 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+
 /**
  * 已发布的工程状态 待通过 进行中 已结束
  *
@@ -71,14 +73,13 @@ public class ProjectStatusFragment extends BaseFragment {
     }
 
     /**
-     *
      * @param projectStatus
      * @param selectedType
      * @param inviteType
      * @return
      */
     public static ProjectStatusFragment newInstance(@ProjectStatus String
-        projectStatus, @ProjectStatusActivity.SelectedType String selectedType, String inviteType) {
+                                                        projectStatus, @ProjectStatusActivity.SelectedType String selectedType, String inviteType) {
         ProjectStatusFragment fragment = new ProjectStatusFragment();
         Bundle args = new Bundle();
         args.putString(Constants.KEY_PROJECT_STATUS, projectStatus);
@@ -96,7 +97,7 @@ public class ProjectStatusFragment extends BaseFragment {
             currentType = getArguments().getString(Constants.KEY_PROJECT_TYPE);
             if (TextUtils.equals(currentType, ProjectStatusActivity.TYPE_INVITE)) { //工人--》邀请我的
                 currentInviteType = getArguments().getString(Constants.KEY_PROJECT_TYPE_INVITE);
-            }else {
+            } else {
                 currentInviteType = null;
             }
         }
@@ -117,7 +118,7 @@ public class ProjectStatusFragment extends BaseFragment {
     public void initView() {
         if (TextUtils.equals(currentStatus, EXECUTE)) {        //进行中只有一项
             ptr.setMode(PullToRefreshBase.Mode.DISABLED);
-        }else {
+        } else {
             ptr.setMode(PullToRefreshBase.Mode.BOTH);
         }
         ptr.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2<ListView>() {
@@ -135,8 +136,8 @@ public class ProjectStatusFragment extends BaseFragment {
 
     @Override
     public void initData() {
-        adapter = new PublishedProjectStatusAdapter(new ArrayList<ReleaseProject>(),category,
-            currentStatus, currentInviteType);
+        adapter = new PublishedProjectStatusAdapter(new ArrayList<ReleaseProject>(), category,
+            currentType, currentStatus, currentInviteType);
         setAdapterListeners();
         ptr.setAdapter(adapter);
 
@@ -144,21 +145,106 @@ public class ProjectStatusFragment extends BaseFragment {
 
     private void setAdapterListeners() {
 
-        switch (currentStatus) {
-            case COMPLETE:  //已完成
-                adapter.setOnEvaluateClickListener(new PublishedProjectStatusAdapter.OnEvaluateClickListener() {
-                    @Override
-                    public void onGrabClick(View view, ReleaseProject releaseProject) { //评论
-                        Intent intent = new Intent(getActivity(), EvaluateActivity.class);
-                        Bundle bundle = new Bundle();
-                        bundle.putParcelable(Constants.KEY_RELEASED_PROJECT_STR, releaseProject);
-                        bundle.putString(Constants.KEY_PROJECT_ID, releaseProject.getId());
-                        intent.putExtras(bundle);
-                        startActivity(intent);
-                    }
-                });
-                break;
+        String category = getUser().getCategory();
+        if (TextUtils.isEmpty(category)) {
+            return;
         }
+
+        if (TextUtils.equals(category, Constants.WORKER)) {   //工人
+            setWorkerAdapterListener();
+        }
+
+        if (TextUtils.equals(category, Constants.DEVELOPERS)) {
+            setDevelopersAdapterListener();
+        }
+    }
+
+    private void setDevelopersAdapterListener() {
+        if (TextUtils.equals(currentType, ProjectStatusActivity.TYPE_PUBLISH)) {
+            switch (currentStatus) {
+                case WAITING:
+
+                    break;
+
+                case EXECUTE:
+                    setContactListener();
+                    break;
+
+                case COMPLETE:
+                    setEvaluateListener();
+                    break;
+
+
+            }
+        }
+    }
+
+    private void setWorkerAdapterListener() {
+        if (TextUtils.equals(currentType, ProjectStatusActivity.TYPE_GRAB)) {   //工人抢单
+            if (TextUtils.equals(currentStatus, COMPLETE)) {
+                setEvaluateListener();
+                return;
+            }
+        }
+
+        //邀请相关
+        if (TextUtils.equals(currentInviteType, ProjectStatusActivity.INVITE_TYPE_INVITE)) {
+            //待接受邀请的
+            switch (currentStatus) {
+                case WAITING:
+                case EXECUTE:
+                    adapter.setOnEvaluateClickListener(new PublishedProjectStatusAdapter.OnEvaluateClickListener() {
+                        @Override
+                        public void onGrabClick(View view, ReleaseProject releaseProject) { //查看邀请我的
+                            Intent intent = new Intent(getActivity(), InviteMineUserActivity.class);
+                            Bundle bundle = new Bundle();
+                            bundle.putParcelable(Constants.KEY_RELEASED_PROJECT_STR, releaseProject);
+                            intent.putExtras(bundle);
+                            startActivity(intent);
+                        }
+                    });
+
+                    break;
+                case COMPLETE:  //已完成
+                    setEvaluateListener();
+                    break;
+            }
+
+        } else { //已接受邀请的
+            setContactListener();   //点击联系
+        }
+    }
+
+    /**
+     * 设置点击评价
+     */
+    private void setEvaluateListener() {
+        adapter.setOnEvaluateClickListener(new PublishedProjectStatusAdapter.OnEvaluateClickListener() {
+            @Override
+            public void onGrabClick(View view, ReleaseProject releaseProject) { //评论
+                Intent intent = new Intent(getActivity(), EvaluateActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putParcelable(Constants.KEY_RELEASED_PROJECT_STR, releaseProject);
+                intent.putExtras(bundle);
+                startActivity(intent);
+            }
+        });
+    }
+
+    /**
+     * 点击联系
+     */
+    private void setContactListener() {
+        adapter.setOnEvaluateClickListener(new PublishedProjectStatusAdapter.OnEvaluateClickListener() {
+            @Override
+            public void onGrabClick(View view, ReleaseProject releaseProject) { //评论
+//                Intent intent = new Intent(getActivity(), EvaluateActivity.class);
+//                Bundle bundle = new Bundle();
+//                bundle.putParcelable(Constants.KEY_RELEASED_PROJECT_STR, releaseProject);
+//                intent.putExtras(bundle);
+//                startActivity(intent);
+            }
+        });
     }
 
     @Override
@@ -179,7 +265,7 @@ public class ProjectStatusFragment extends BaseFragment {
     }
 
     public void loadMoreProjects() {
-        DataAccessUtil.grabStatus(currentPage + "", currentStatus,currentType, currentInviteType, loadMoreHandler);
+        DataAccessUtil.grabStatus(currentPage + "", currentStatus, currentType, currentInviteType, loadMoreHandler);
     }
 
     private AsyncHttpResponseHandler handler = new JsonHttpResponseHandler() {

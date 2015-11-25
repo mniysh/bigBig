@@ -24,13 +24,14 @@ import butterknife.ButterKnife;
 public class PublishedProjectStatusAdapter extends BaseAdapter {
     private List<ReleaseProject> list;
     private String status;
+    private String currentType;
     private String category;
     private String inviteType;
 
-    public PublishedProjectStatusAdapter(List<ReleaseProject> projectList,String category,
-                                         @ProjectStatusFragment.ProjectStatus String
-                                         projectStatus, String inviteType) {
+    public PublishedProjectStatusAdapter(List<ReleaseProject> projectList, String category, String
+        currentType, @ProjectStatusFragment.ProjectStatus String projectStatus, String inviteType) {
         this.list = projectList;
+        this.currentType = currentType;
         this.category = category;
         this.status = projectStatus;
         this.inviteType = inviteType;
@@ -64,12 +65,12 @@ public class PublishedProjectStatusAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         ViewHolder holder;
-        ReleaseProject project = list.get(position);
+        final ReleaseProject project = list.get(position);
         if (convertView == null) {
             convertView = View.inflate(parent.getContext(), R.layout.published_project_status_item, null);
             holder = new ViewHolder(convertView);
             convertView.setTag(holder);
-        }else {
+        } else {
             holder = (ViewHolder) convertView.getTag();
         }
 
@@ -82,28 +83,31 @@ public class PublishedProjectStatusAdapter extends BaseAdapter {
             Picasso.with(parent.getContext()).load(DataAccessUtil.getImageUrl(imageUrl)).error(R.drawable.head)
                 .placeholder(R.drawable.head).
                 into(holder.head);
-        }else {
+        } else {
             holder.head.setImageResource(R.drawable.head);
         }
 
+//        if(TextUtils.equals(category, Constants.WORKER)) {   //工人
+//
+//        }
         switch (category) {
-        case Constants.DEVELOPERS:
+            case Constants.DEVELOPERS:
 
                 break;
 
-         case Constants.HEADMAN:
+            case Constants.HEADMAN:
 
                 break;
 
-         case Constants.WORKER:
+            case Constants.WORKER:
+                setWorkerItem(holder);
+                break;
+
+            case Constants.INVESTOR:
 
                 break;
 
-         case Constants.INVESTOR:
-
-                break;
-
-         case Constants.COMPANY:
+            case Constants.COMPANY:
 
                 break;
 
@@ -131,12 +135,19 @@ public class PublishedProjectStatusAdapter extends BaseAdapter {
         holder.tvDescription.setText(description);
 //        holder.tvGrabDescription.setText(grab_num + "人抢单");
         holder.tvMoney.setText("总工资:" + project_money + " 元");
-
+        holder.tvShow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (null != onEvaluateClickListener) {
+                    onEvaluateClickListener.onGrabClick(v, project);
+                }
+            }
+        });
         convertView.setTag(Constants.KEY_RELEASED_PROJECT, project);
         return convertView;
     }
 
-    private void setDevelopersItem(ViewHolder holder, String status, final ReleaseProject project) {
+    private void setDevelopersItem(ViewHolder holder) {
         switch (status) {
             case ProjectStatusFragment.WAITING:
                 holder.tvShow.setVisibility(View.GONE);
@@ -150,45 +161,40 @@ public class PublishedProjectStatusAdapter extends BaseAdapter {
             case ProjectStatusFragment.COMPLETE:
                 holder.tvShow.setVisibility(View.VISIBLE);
                 holder.tvGrabDescription.setVisibility(View.GONE);
-                holder.tvShow.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        if (null != onEvaluateClickListener) {
-                            onEvaluateClickListener.onGrabClick(v, project);
-                        }
-                    }
-                });
+
                 break;
         }
     }
 
-    private void setWorkerItem(ViewHolder holder, String status, final ReleaseProject project) {
-        switch (status) {
-            case ProjectStatusFragment.WAITING:
-            case ProjectStatusFragment.EXECUTE:
+    private void setWorkerItem(ViewHolder holder) {
+        if (TextUtils.equals(currentType, ProjectStatusActivity.TYPE_GRAB)) {   //工人抢单
+            if (TextUtils.equals(status, ProjectStatusFragment.COMPLETE)) {
+                holder.tvShow.setText("评论");
+            } else {
                 holder.tvShow.setVisibility(View.GONE);
-                holder.tvGrabDescription.setVisibility(View.VISIBLE);
-                if (TextUtils.equals(inviteType, ProjectStatusActivity.INVITE_TYPE_INVITE)) {
-                //待接受邀请
-                    holder.tvShow.setText("查看邀请我的");
-                }else {
-                    holder.tvShow.setText("点击联系");
-                }
-
-                break;
-            case ProjectStatusFragment.COMPLETE:
-                holder.tvShow.setVisibility(View.VISIBLE);
-                holder.tvGrabDescription.setVisibility(View.GONE);
-                holder.tvShow.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        if (null != onEvaluateClickListener) {
-                            onEvaluateClickListener.onGrabClick(v, project);
-                        }
-                    }
-                });
-                break;
+            }
+            return;
         }
+
+        if (TextUtils.equals(inviteType, ProjectStatusActivity.INVITE_TYPE_INVITE)) {
+            switch (status) {
+                case ProjectStatusFragment.WAITING:
+                case ProjectStatusFragment.EXECUTE:
+                    holder.tvShow.setVisibility(View.GONE);
+                    holder.tvGrabDescription.setVisibility(View.VISIBLE);
+                    holder.tvShow.setText("查看邀请我的");
+                    break;
+                case ProjectStatusFragment.COMPLETE:
+                    holder.tvShow.setVisibility(View.VISIBLE);
+                    holder.tvGrabDescription.setVisibility(View.GONE);
+                    holder.tvShow.setText("评论");
+                    break;
+            }
+
+        } else {
+            holder.tvShow.setText("点击联系");
+        }
+
     }
 
     static class ViewHolder {
@@ -215,7 +221,6 @@ public class PublishedProjectStatusAdapter extends BaseAdapter {
     public interface OnEvaluateClickListener {
         void onGrabClick(View view, ReleaseProject releaseProject);
     }
-
 
     private OnEvaluateClickListener onEvaluateClickListener;
 
