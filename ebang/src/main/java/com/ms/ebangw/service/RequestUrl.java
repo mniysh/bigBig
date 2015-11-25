@@ -198,7 +198,7 @@ public class RequestUrl {
      */
     public static final String project_info_detail = domain + "/api/index/index/project-info/";
     /**
-     * 2-23.首页工程详情 +工程ID(个人)
+     * 2-23.首页工程详情 +工程ID(工长的工程)
      */
     public static final String project_info_detail_invistor = domain + "/api/index/index/headman-project-info/";
 

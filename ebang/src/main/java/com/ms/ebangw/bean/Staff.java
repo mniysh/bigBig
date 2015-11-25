@@ -40,6 +40,7 @@ public class Staff implements Parcelable {
     private String craft_name;
     private String isContend;
 
+
     public String getIsContend() {
         return isContend;
     }

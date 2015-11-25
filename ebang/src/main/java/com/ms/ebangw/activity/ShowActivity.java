@@ -93,6 +93,7 @@ public class ShowActivity extends BaseActivity {
                 showListView.setVisibility(View.VISIBLE);
                 lBelowShow.setVisibility(View.GONE);
                 bQiangdan.setText("已抢单");
+                detailAdapter.notifyDataSetChanged();
                 loadHeadwork();
             }
             if (TextUtils.equals(categroy, Constants.WORKER) ) {
@@ -110,8 +111,6 @@ public class ShowActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.act_show);
         ButterKnife.bind(this);
-
-
         initView();
         initViewOper();
         initData();
@@ -159,26 +158,7 @@ public class ShowActivity extends BaseActivity {
             projectId = releaseProject.getId();
             projectType = releaseProject.getProject_type();
         }
-
-//
-//        if (TextUtils.equals(category, Constants.DEVELOPERS)) {
-//
-//            lBelowShow.setVisibility(View.VISIBLE);
-//            showListView.setVisibility(View.GONE);
-//            bQiangdan.setText("立刻抢单");
-//            loadHeadwork();
-//        }
-
         if (TextUtils.equals(category, Constants.WORKER) || TextUtils.equals(category, Constants.INVESTOR)) {
-            if (TextUtils.equals(category, Constants.WORKER)) {
-//                SharedPreferences sharedPreferences = getSharedPreferences("isContend", Context.MODE_PRIVATE);
-//                String isContend = sharedPreferences.getString("isContend","process");
-            }
-            if (TextUtils.equals(category, Constants.INVESTOR)) {
-                SharedPreferences sharedPreferences = getSharedPreferences("isHave", Context.MODE_PRIVATE);
-                String isHave = sharedPreferences.getString("isHave", "process");
-            }
-
             showListView.setVisibility(View.VISIBLE);
             lBelowShow.setVisibility(View.GONE);
             loadInvistor();
@@ -194,8 +174,8 @@ public class ShowActivity extends BaseActivity {
 
     @Override
     public void initData() {
-        if (TextUtils.equals(category, Constants.HEADMAN)) {
-
+        if (TextUtils.equals(category, Constants.HEADMAN) || TextUtils.equals(category, Constants.COMPANY)) {
+            loadHeadwork();
 
         } else if (TextUtils.equals(category, Constants.WORKER)) {
 
@@ -255,7 +235,7 @@ public class ShowActivity extends BaseActivity {
 //        });
 //    }
 
-    //个人，，，还没写完
+    //首页工程详情（工长的工程）
     private void loadInvistor() {
         showListView.setVisibility(View.VISIBLE);
         lBelowShow.setVisibility(View.GONE);
@@ -420,8 +400,11 @@ public class ShowActivity extends BaseActivity {
         int aHeight = 0;
         for (int i = 0; i < listadapter.getCount(); i++) {
             View listItem = listadapter.getView(i, null, listview2);
-            listItem.measure(0, 0);
-            aHeight += listItem.getMeasuredHeight();
+            if(listItem != null){
+
+                listItem.measure(0, 0);
+                aHeight += listItem.getMeasuredHeight();
+            }
         }
 
         ViewGroup.LayoutParams params = listview2.getLayoutParams();

@@ -66,9 +66,10 @@ public class SelectHeadmanAdapter extends BaseAdapter {
             convertView = View.inflate(parent.getContext(), R.layout.item_show_headman, null);
         }
         final CheckBox cb = ViewHolder.get(convertView , R.id.gridView);
+        cb.setText(headmans.get(position).getReal_name());
         if(TextUtils.equals(contend_status, Constants.CONTEND_STATUS_SUCCEED)){
             cb.setChecked(true);
-            if(dataLinshi != null){
+            if(dataLinshi != null && dataLinshi.size() > 0){
                 dataLinshi.remove(0);
             }
             dataLinshi.add(headmans.get(position));
@@ -77,7 +78,7 @@ public class SelectHeadmanAdapter extends BaseAdapter {
         }else{
             cb.setChecked(false);
         }
-        cb.setText(headmans.get(position).getReal_name());
+
         cb.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {

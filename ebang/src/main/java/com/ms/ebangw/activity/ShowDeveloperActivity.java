@@ -111,6 +111,7 @@ public class ShowDeveloperActivity extends BaseActivity {
     private LinearLayout window;
     private Button confirmBt, cancleBt;
     private TextView messgaeTv;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         // TODO Auto-generated method stub
@@ -199,7 +200,7 @@ public class ShowDeveloperActivity extends BaseActivity {
         pw.setBackgroundDrawable(new BitmapDrawable());
 
         pw.showAtLocation(selectBt, Gravity.CENTER_VERTICAL, 0, 0);
-        messgaeTv.setText("确定雇佣工长" + headman.getReal_name() + "吗？");
+        messgaeTv.setText("确定雇佣"+"\r\n" + headman.getReal_name() + "吗？");
         confirmBt.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -303,9 +304,9 @@ public class ShowDeveloperActivity extends BaseActivity {
             }
 
             @Override
-            public void onFinish() {
-                super.onFinish();
-                dismissLoadingDialog();
+            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                super.onFailure(statusCode, headers, responseString, throwable);
+                L.d(responseString);
             }
         });
     }

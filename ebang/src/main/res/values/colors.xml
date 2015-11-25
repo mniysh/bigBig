@@ -59,6 +59,7 @@
     <!--用户中心-->
     <color name="user_center_desc">#676666</color>
     <color name="user_center_desc_left">#383838</color>
+    <color name="gray_light">#f0f0f0</color>
 
 
 </resources>
