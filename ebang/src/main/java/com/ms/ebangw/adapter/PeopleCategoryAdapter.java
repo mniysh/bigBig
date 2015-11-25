@@ -96,7 +96,7 @@ public class PeopleCategoryAdapter extends BaseAdapter {
                 }
             }
         });
-        convertView.setTag(Constants.KEY_WORKER, people);
+        convertView.setTag(Constants.KEY_PEOPLE, people);
         return convertView;
     }
 

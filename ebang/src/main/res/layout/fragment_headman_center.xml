@@ -34,7 +34,7 @@
                 />
 
             <TextView
-                android:id="@+id/tv_published"
+                android:id="@+id/tv_grab"
                 style="@style/user_center_item_ver"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -43,7 +43,7 @@
                 />
 
             <TextView
-                android:id="@+id/tv_published"
+                android:id="@+id/tv_grab"
                 style="@style/user_center_item_ver"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

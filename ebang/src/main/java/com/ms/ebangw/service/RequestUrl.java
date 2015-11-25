@@ -279,6 +279,18 @@ public class RequestUrl {
      */
     public static final String agree_invite = domain + "/api/worker/project/agree-invite/";
 
+    /**
+     * 2-25  根据工程显示工种（个人中心）（工长、劳务公司）
+     * /api/user/grab/show-craft-by-project/工程ID
+     */
+    public static final String show_craft = domain + "/api/user/grab/show-craft-by-project/";
+
+    /**
+     * 2-26  根据工种显示人员（个人中心）（工长、劳务公司）
+     * /api/user/grab/show-people-by-craft/工程ID/工种ID
+     */
+    public static final String show_people = domain + "/api/user/grab/show-people-by-craft/";
+
 
 
 

@@ -33,7 +33,7 @@ public class InvestorCenterFragment extends BaseFragment {
     private static final String ARG_PARAM2 = "param2";
     @Bind(R.id.fl_head_info)
     FrameLayout flHeadInfo;
-    @Bind(R.id.tv_published)
+    @Bind(R.id.tv_grab)
     TextView tvPublished;
     @Bind(R.id.tv_trade)
     TextView tvTrade;
