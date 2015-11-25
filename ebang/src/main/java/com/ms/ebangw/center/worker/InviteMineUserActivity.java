@@ -8,6 +8,7 @@ import android.widget.TextView;
 import com.ms.ebangw.R;
 import com.ms.ebangw.activity.BaseActivity;
 import com.ms.ebangw.activity.PeopleCategoryActivity;
+import com.ms.ebangw.bean.ReleaseProject;
 import com.ms.ebangw.commons.Constants;
 
 import butterknife.Bind;
@@ -18,7 +19,7 @@ import butterknife.ButterKnife;
  * @author wangkai
  */
 public class InviteMineUserActivity extends BaseActivity implements View.OnClickListener {
-
+    private ReleaseProject project;
 
     @Bind(R.id.tv_headman)
     TextView tvHeadman;
@@ -30,6 +31,10 @@ public class InviteMineUserActivity extends BaseActivity implements View.OnClick
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_invite_mine_user);
         ButterKnife.bind(this);
+        Bundle extras = getIntent().getExtras();
+        if (null != extras) {
+            project = extras.getParcelable(Constants.KEY_RELEASED_PROJECT_STR);
+        }
         initView();
         initData();
     }
@@ -48,7 +53,7 @@ public class InviteMineUserActivity extends BaseActivity implements View.OnClick
     @Override
     public void onClick(View v) {
         Bundle bundle = new Bundle();
-//        bundle.putString(Constants.KEY_PROJECT_TYPE, ProjectStatusActivity.TYPE_INVITE);
+        bundle.putString(Constants.KEY_PROJECT_ID, project.getId());
         switch (v.getId()) {
             case R.id.tv_headman:
                 bundle.putString(Constants.KEY_CATEGORY_LIST_TYPE, PeopleCategoryActivity.LIST_TYPE_HEADMAN);

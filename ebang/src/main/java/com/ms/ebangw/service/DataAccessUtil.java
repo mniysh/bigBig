@@ -920,11 +920,33 @@ public class DataAccessUtil {
         return doGet(RequestUrl.friend_workers, params, asyncHttpResponseHandler);
     }
 
+    /**
+     * 2-9.工头邀请工人 加被邀请者的id
+     * @param workerId
+     * @param project_id
+     * @param craft_id
+     * @param asyncHttpResponseHandler
+     * @return
+     */
     public static RequestHandle inviteWorker(String workerId , String project_id, String craft_id,AsyncHttpResponseHandler asyncHttpResponseHandler){
         RequestParams params = new RequestParams();
         params.put("project_id",project_id);
         params.put("craft_id", craft_id);
         return doGet(RequestUrl.headman_invite_worker+workerId, params, asyncHttpResponseHandler);
+    }
+
+    /**
+     *  2-14.工人同意工长邀请参与工程
+     *  @param contend_id 邀请表Id
+     * @param type  agree(同意)、 refused（拒绝）
+     * @param asyncHttpResponseHandler
+     * @return
+     */
+    public static RequestHandle agreeInvite(String contend_id, String type, AsyncHttpResponseHandler
+        asyncHttpResponseHandler){
+        RequestParams params = new RequestParams();
+        params.put("type",type);
+        return doGet(RequestUrl.agree_invite + contend_id, params, asyncHttpResponseHandler);
     }
 
     /**

@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.ms.ebangw.R;
 import com.ms.ebangw.activity.AccountActivity;
 import com.ms.ebangw.activity.ProjectStatusActivity;
+import com.ms.ebangw.commons.Constants;
 import com.ms.ebangw.fragment.BaseFragment;
 import com.ms.ebangw.fragment.HeadInfoFragment;
 import com.ms.ebangw.release.ReleaseActivity;
@@ -28,7 +29,7 @@ public class DevelopersCenterFragment extends BaseFragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-    @Bind(R.id.tv_grab)
+    @Bind(R.id.tv_published)
     TextView tvPublished;
     @Bind(R.id.tv_trade)
     TextView tvTrade;
@@ -94,6 +95,9 @@ public class DevelopersCenterFragment extends BaseFragment {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(mActivity, ProjectStatusActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putString(Constants.KEY_PROJECT_TYPE, ProjectStatusActivity.TYPE_PUBLISH);
+                intent.putExtras(bundle);
                 startActivity(intent);
             }
         });
