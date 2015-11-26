@@ -102,18 +102,9 @@ public class RequestUrl {
      */
     public static final  String modify_nickName = domain + "/api/user/index/change-nickname";
     /**
-     * 2-1.开发商发布页面
+     * 2-1.发布接口（开发商/个人/工长）
      */
-    public static  final  String developer_release = domain + "/api/developers/project/add-total";
-    /**
-     * 工头发布接口
-     */
-    public static  final  String headman_release = domain + "/api/headman/project/add-total";
-
-    /**
-     * 2-3.个人发布页面
-     */
-    public static final String investor_release = domain +"/api/investor/project/add-total" ;
+    public static  final  String release_project = domain + "/api/index/index/add-total";
 
     /**
      * 3-6. 获取全部省市区数据   get方式

@@ -16,6 +16,7 @@ import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.ms.ebangw.R;
 import com.ms.ebangw.activity.EvaluateActivity;
+import com.ms.ebangw.activity.LookWorkmateActivity;
 import com.ms.ebangw.activity.ProjectStatusActivity;
 import com.ms.ebangw.adapter.PublishedProjectStatusAdapter;
 import com.ms.ebangw.bean.ReleaseProject;
@@ -163,9 +164,23 @@ public class ProjectStatusFragment extends BaseFragment {
         }
 
         if (TextUtils.equals(category, Constants.HEADMAN)) {   //工长
-
+            setHeadmanAdapterListener();
         }
 
+    }
+
+    private void setHeadmanAdapterListener() {
+        switch (currentStatus) {
+            case AUDIT:
+                break;
+            case WAITING:
+            case EXECUTE:
+                setLookWorkmateListener();
+                break;
+            case COMPLETE:
+                setEvaluateListener();
+                break;
+        }
     }
 
     private void setLabourCompanyAdapterListener() {
@@ -206,26 +221,28 @@ public class ProjectStatusFragment extends BaseFragment {
         if (TextUtils.equals(currentType, ProjectStatusActivity.TYPE_GRAB)) {   //工人抢单
             if (TextUtils.equals(currentStatus, COMPLETE)) {
                 setEvaluateListener();
-                return;
             }
         }
 
+        if (TextUtils.equals(currentType, ProjectStatusActivity.TYPE_INVITE)) { //邀请我的
+
+            if (TextUtils.equals(currentInviteType, ProjectStatusActivity.INVITE_TYPE_INVITE)) {
+                //待接受邀请的
+                switch (currentStatus) {
+                    case WAITING:
+                    case EXECUTE:
+                        setInviteMineUserListener();
+                        break;
+                    case COMPLETE:  //已完成
+                        setEvaluateListener();
+                        break;
+                }
+
+            } else { //已接受邀请的
+                setContactListener();   //点击联系
+            }
+        }
         //邀请相关
-        if (TextUtils.equals(currentInviteType, ProjectStatusActivity.INVITE_TYPE_INVITE)) {
-            //待接受邀请的
-            switch (currentStatus) {
-                case WAITING:
-                case EXECUTE:
-                    setInviteMineUserListener();
-                    break;
-                case COMPLETE:  //已完成
-                    setEvaluateListener();
-                    break;
-            }
-
-        } else { //已接受邀请的
-            setContactListener();   //点击联系
-        }
     }
 
     /**
@@ -235,7 +252,11 @@ public class ProjectStatusFragment extends BaseFragment {
         adapter.setOnEvaluateClickListener(new PublishedProjectStatusAdapter.OnEvaluateClickListener() {
             @Override
             public void onGrabClick(View view, ReleaseProject releaseProject) {
-
+                Intent intent = new Intent(mActivity, LookWorkmateActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putParcelable(Constants.KEY_RELEASED_PROJECT_STR, releaseProject);
+                intent.putExtras(bundle);
+                startActivity(intent);
             }
         });
     }

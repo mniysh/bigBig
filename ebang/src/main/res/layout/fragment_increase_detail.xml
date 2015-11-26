@@ -61,7 +61,8 @@
         <LinearLayout
 
             android:layout_width="match_parent"
-            android:layout_height="@dimen/authen_item_height"
+            android:layout_height="wrap_content"
+            android:minHeight="@dimen/authen_item_height"
             android:gravity="center_vertical"
             android:orientation="horizontal"
             >
@@ -73,25 +74,18 @@
                 android:text="*工地坐标："
                 />
 
-
-            <EditText
-                android:id="@+id/et_address"
+            <TextView
+                android:id="@+id/tv_address"
                 style="@style/authorization_edit"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:drawableLeft="@drawable/marker"
                 android:hint="请选择"
                 android:textColorHint="@color/auther_red"
                 android:drawablePadding="5dp"
-                android:editable="false"
+                android:gravity="center_vertical"
                 />
-            <TextView
-                android:visibility="gone"
-                android:id="@+id/tv_selectMapAdd"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="选择的位置"
-                />
+
         </LinearLayout>
 
 
@@ -131,10 +125,10 @@
                 android:layout_height="wrap_content"
                 android:text="*开始时间："
                 />
-            <EditText
+            <TextView
                 style="@style/authorization_edit"
                 android:id="@+id/tv_start_time"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:editable="false"
                 android:layout_height="wrap_content"
                 android:text="请选择"
@@ -152,11 +146,11 @@
                 android:layout_height="wrap_content"
                 android:text="*结束时间："
                 />
-            <EditText
+            <TextView
                 android:editable="false"
                 style="@style/authorization_edit"
                 android:id="@+id/tv_end_time"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="请选择"
                 />

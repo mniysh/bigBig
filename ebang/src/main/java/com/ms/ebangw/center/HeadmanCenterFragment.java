@@ -31,6 +31,7 @@ import com.ms.ebangw.fragment.HeadInfoFragment;
 import com.ms.ebangw.release.ReleaseActivity;
 import com.ms.ebangw.utils.DensityUtils;
 import com.ms.ebangw.utils.QRCodeUtil;
+import com.ms.ebangw.utils.SPUtils;
 
 import java.io.File;
 
@@ -203,8 +204,6 @@ public class HeadmanCenterFragment extends BaseFragment {
                 setEnoughWorkerView();
             }
         }
-
-
     }
 
     /**
@@ -227,8 +226,10 @@ public class HeadmanCenterFragment extends BaseFragment {
         tvJifen.setVisibility(View.GONE);
         tvPeopleManage.setVisibility(View.GONE);
         tvInviteFriend.setVisibility(View.GONE);
+        tvPublish.setVisibility(View.GONE);
+        tvPublished.setVisibility(View.GONE);
         eweimaLayout.setVisibility(View.VISIBLE);
-        tvInviteCode.setText("邀请码：" + user.getInvite_code());
+        tvInviteCode.setText("邀请码：" + SPUtils.get(Constants.KEY_INVITE_CODE, ""));
 
         initInviteQR();
     }

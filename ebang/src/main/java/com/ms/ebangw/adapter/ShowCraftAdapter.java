@@ -70,7 +70,7 @@ public class ShowCraftAdapter extends BaseAdapter {
             holder.tvPy.setText(firstChar);
         }
 
-        holder.tvCraftName.setText(showedCraft.getCtaft_name());
+        holder.tvCraftName.setText(showedCraft.getCraft_name());
         String count = showedCraft.getCount();
         if (!TextUtils.isEmpty(count)) {
             try {

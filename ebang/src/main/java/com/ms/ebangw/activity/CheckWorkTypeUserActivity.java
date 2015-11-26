@@ -72,7 +72,7 @@ public class CheckWorkTypeUserActivity extends BaseActivity {
     public void initView() {
 
         if (showedCraft != null) {
-            initTitle(null, "返回", showedCraft.getCtaft_name(), null, null);
+            initTitle(null, "返回", showedCraft.getCraft_name(), null, null);
         }
         handler = new Handler();
     }
@@ -163,7 +163,7 @@ public class CheckWorkTypeUserActivity extends BaseActivity {
             spannableStringBuilder.append(spannableString).append(spannableString1);
             tvDescriptionNum.setText(spannableStringBuilder);
 
-            initTitle(null, "返回", showedCraft.getCtaft_name(), "继续邀请", new View.OnClickListener() {
+            initTitle(null, "返回", showedCraft.getCraft_name(), "继续邀请", new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(CheckWorkTypeUserActivity.this, SelectWorkerActivity.class);
@@ -177,7 +177,7 @@ public class CheckWorkTypeUserActivity extends BaseActivity {
                 }
             });
         } else {
-            initTitle(null, "返回", showedCraft.getCtaft_name(), null, null);
+            initTitle(null, "返回", showedCraft.getCraft_name(), null, null);
             tvDescriptionNum.setVisibility(View.GONE);
         }
     }

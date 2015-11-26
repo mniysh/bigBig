@@ -209,4 +209,6 @@ public class Constants {
 	public static final int KEY_PEOPLE = R.drawable.border_bg;
 	public static final int KEY_SHOW_CRAFT = R.drawable.border_bg;
 	public static final String KEY_SHOWED_CRAFT = "showed_craft";
+	public static final String KEY_INVITE_CODE = "invite_code";
+	public static final String KEY_USER_ACCOUNT = "user_account";
 }

@@ -85,8 +85,13 @@ public class PeopleCategoryAdapter extends BaseAdapter {
         }
 
         holder.tvName.setText(people.getReal_name());
-        Picasso.with(parent.getContext()).load(DataAccessUtil.getImageUrl(people.getHead_image())).
-            placeholder(R.drawable.worker_avatar).into(holder.ivAvatar);
+        String head_image = people.getHead_image();
+        if (!TextUtils.isEmpty(head_image)) {
+            Picasso.with(parent.getContext()).load(DataAccessUtil.getImageUrl(head_image)).
+                placeholder(R.drawable.worker_avatar).into(holder.ivAvatar);
+        }else {
+            holder.ivAvatar.setImageResource(R.drawable.worker_avatar);
+        }
         holder.tvAgree.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

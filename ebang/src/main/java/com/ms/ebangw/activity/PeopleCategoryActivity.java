@@ -162,7 +162,7 @@ public class PeopleCategoryActivity extends BaseActivity {
         dialog.setListener(new ConfirmDialog.OnConfirmListener() {
             @Override
             public void onClick(boolean isAgree) {
-                if (!isAgree) {
+                if (!isAgree || TextUtils.isEmpty(category)) {
                     return;
                 }
                 switch (category) {
