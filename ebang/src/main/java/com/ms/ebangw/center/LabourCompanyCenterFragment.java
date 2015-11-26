@@ -25,6 +25,7 @@ import com.ms.ebangw.activity.JiFenActivity;
 import com.ms.ebangw.activity.PeopleManageActivity;
 import com.ms.ebangw.activity.ProjectStatusActivity;
 import com.ms.ebangw.bean.User;
+import com.ms.ebangw.commons.Constants;
 import com.ms.ebangw.fragment.BaseFragment;
 import com.ms.ebangw.fragment.HeadInfoFragment;
 import com.ms.ebangw.release.ReleaseActivity;
@@ -128,6 +129,9 @@ public class LabourCompanyCenterFragment extends BaseFragment {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(mActivity, ProjectStatusActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putString(Constants.KEY_PROJECT_TYPE, ProjectStatusActivity.TYPE_GRAB);
+                intent.putExtras(bundle);
                 startActivity(intent);
             }
         });

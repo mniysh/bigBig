@@ -1074,7 +1074,28 @@ public class DataAccessUtil {
         return doGet(RequestUrl.account, params, asyncHttpResponseHandler);
     }
 
+    /**
+     * 2-25  根据工程显示工种（个人中心）（工长、劳务公司）
+     * @param projectId
+     * @param asyncHttpResponseHandler
+     * @return
+     */
+    public static RequestHandle showCraft(String projectId, AsyncHttpResponseHandler
+        asyncHttpResponseHandler){
+        return doGet(RequestUrl.show_craft + projectId, null, asyncHttpResponseHandler);
+    }
 
+    /**
+     * 2-26  根据工种显示人员（个人中心）（工长、劳务公司）
+     * @param projectId
+     * @param workTypeId
+     * @param asyncHttpResponseHandler
+     * @return
+     */
+    public static RequestHandle showPeople(String projectId, String workTypeId, AsyncHttpResponseHandler
+        asyncHttpResponseHandler){
+        return doGet(RequestUrl.show_people + projectId + "/" + workTypeId, null, asyncHttpResponseHandler);
+    }
 
     /**
      * 1-14、积分列表

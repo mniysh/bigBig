@@ -17,6 +17,7 @@ import com.ms.ebangw.bean.People;
 import com.ms.ebangw.bean.ProjectInfoDetail;
 import com.ms.ebangw.bean.Province;
 import com.ms.ebangw.bean.ReleaseProject;
+import com.ms.ebangw.bean.ShowedCraft;
 import com.ms.ebangw.bean.TotalRegion;
 import com.ms.ebangw.bean.Trade;
 import com.ms.ebangw.bean.UploadImageResult;
@@ -408,6 +409,22 @@ public class DataParseUtil {
         String dataList = data.optString("dataList");
         Gson gson = new Gson();
         List<People> list = gson.fromJson(dataList, new TypeToken<List<People>>() {
+        }.getType());
+
+        return list;
+    }
+
+    /**
+     * 2-25  根据工程显示工种（个人中心）（工长、劳务公司）
+     * @param jsonObject
+     * @return
+     * @throws ResponseException
+     */
+    public static List<ShowedCraft> showCraft(JSONObject jsonObject) throws ResponseException {
+        JSONObject data = processData(jsonObject);
+        String dataList = data.optString("dataList");
+        Gson gson = new Gson();
+        List<ShowedCraft> list = gson.fromJson(dataList, new TypeToken<List<ShowedCraft>>() {
         }.getType());
 
         return list;

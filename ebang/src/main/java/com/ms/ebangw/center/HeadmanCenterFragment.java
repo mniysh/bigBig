@@ -54,7 +54,7 @@ public class HeadmanCenterFragment extends BaseFragment {
     LinearLayout eweimaLayout;
     @Bind(R.id.fl_head_info)
     FrameLayout flHeadInfo;
-    @Bind(R.id.tv_published)
+    @Bind(R.id.tv_grab)
     TextView tvGrab;
     @Bind(R.id.tv_trade)
     TextView tvTrade;

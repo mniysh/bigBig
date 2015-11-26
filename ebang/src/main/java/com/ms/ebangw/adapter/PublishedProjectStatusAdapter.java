@@ -92,7 +92,8 @@ public class PublishedProjectStatusAdapter extends BaseAdapter {
 //        }
         switch (category) {
             case Constants.DEVELOPERS:
-
+            case Constants.INVESTOR:
+                setDevelopersItem(holder, project);
                 break;
 
             case Constants.HEADMAN:
@@ -103,12 +104,8 @@ public class PublishedProjectStatusAdapter extends BaseAdapter {
                 setWorkerItem(holder);
                 break;
 
-            case Constants.INVESTOR:
-
-                break;
-
             case Constants.COMPANY:
-
+                setLabourCompanyItem(holder);
                 break;
 
         }
@@ -147,21 +144,45 @@ public class PublishedProjectStatusAdapter extends BaseAdapter {
         return convertView;
     }
 
-    private void setDevelopersItem(ViewHolder holder) {
-        switch (status) {
-            case ProjectStatusFragment.WAITING:
-                holder.tvShow.setVisibility(View.GONE);
-                holder.tvGrabDescription.setVisibility(View.VISIBLE);
+    private void setLabourCompanyItem(ViewHolder holder) {
+        if (TextUtils.equals(currentType, ProjectStatusActivity.TYPE_GRAB)) {
+            switch (status) {
+                case ProjectStatusFragment.WAITING:
+                case ProjectStatusFragment.EXECUTE:
+                    holder.tvShow.setVisibility(View.VISIBLE);
+                    holder.tvGrabDescription.setVisibility(View.GONE);
+                    holder.tvShow.setText("查看工友");
 
-                break;
-            case ProjectStatusFragment.EXECUTE:
+                    break;
+                case ProjectStatusFragment.COMPLETE:
+                    holder.tvShow.setVisibility(View.VISIBLE);
+                    holder.tvGrabDescription.setVisibility(View.GONE);
+                    holder.tvShow.setText("评论");
+                    break;
+            }
+        }
+    }
+
+    private void setDevelopersItem(ViewHolder holder, ReleaseProject project) {
+        switch (status) {
+            case ProjectStatusFragment.AUDIT:
                 holder.tvShow.setVisibility(View.GONE);
                 holder.tvGrabDescription.setVisibility(View.GONE);
+                break;
+            case ProjectStatusFragment.WAITING:
+                holder.tvShow.setVisibility(View.VISIBLE);
+                holder.tvGrabDescription.setVisibility(View.VISIBLE);
+                holder.tvShow.setText("查看抢单人员");
+                break;
+            case ProjectStatusFragment.EXECUTE:
+                holder.tvShow.setVisibility(View.VISIBLE);
+                holder.tvGrabDescription.setVisibility(View.VISIBLE);
+                holder.tvShow.setText("联系他");
                 break;
             case ProjectStatusFragment.COMPLETE:
                 holder.tvShow.setVisibility(View.VISIBLE);
                 holder.tvGrabDescription.setVisibility(View.GONE);
-
+                holder.tvShow.setText("评论");
                 break;
         }
     }

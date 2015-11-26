@@ -154,8 +154,31 @@ public class ProjectStatusFragment extends BaseFragment {
             setWorkerAdapterListener();
         }
 
-        if (TextUtils.equals(category, Constants.DEVELOPERS)) {
+        if (TextUtils.equals(category, Constants.DEVELOPERS) || TextUtils.equals(category, Constants.INVESTOR)) {//个人与开发商逻辑一样
             setDevelopersAdapterListener();
+        }
+
+        if (TextUtils.equals(category, Constants.COMPANY)) {   //劳务公司
+            setLabourCompanyAdapterListener();
+        }
+
+        if (TextUtils.equals(category, Constants.HEADMAN)) {   //工长
+
+        }
+
+    }
+
+    private void setLabourCompanyAdapterListener() {
+        if (TextUtils.equals(currentType, ProjectStatusActivity.TYPE_GRAB)) {
+            switch (currentStatus) {
+                case WAITING:
+                case EXECUTE:
+                    setLookWorkmateListener();
+                    break;
+                case COMPLETE:
+                    setEvaluateListener();
+                    break;
+            }
         }
     }
 
@@ -163,7 +186,7 @@ public class ProjectStatusFragment extends BaseFragment {
         if (TextUtils.equals(currentType, ProjectStatusActivity.TYPE_PUBLISH)) {
             switch (currentStatus) {
                 case WAITING:
-
+                    setInviteMineUserListener();
                     break;
 
                 case EXECUTE:
@@ -193,17 +216,7 @@ public class ProjectStatusFragment extends BaseFragment {
             switch (currentStatus) {
                 case WAITING:
                 case EXECUTE:
-                    adapter.setOnEvaluateClickListener(new PublishedProjectStatusAdapter.OnEvaluateClickListener() {
-                        @Override
-                        public void onGrabClick(View view, ReleaseProject releaseProject) { //查看邀请我的
-                            Intent intent = new Intent(getActivity(), InviteMineUserActivity.class);
-                            Bundle bundle = new Bundle();
-                            bundle.putParcelable(Constants.KEY_RELEASED_PROJECT_STR, releaseProject);
-                            intent.putExtras(bundle);
-                            startActivity(intent);
-                        }
-                    });
-
+                    setInviteMineUserListener();
                     break;
                 case COMPLETE:  //已完成
                     setEvaluateListener();
@@ -213,6 +226,34 @@ public class ProjectStatusFragment extends BaseFragment {
         } else { //已接受邀请的
             setContactListener();   //点击联系
         }
+    }
+
+    /**
+     * 查看工友 （劳务公司，工长）
+     */
+    private void setLookWorkmateListener() {
+        adapter.setOnEvaluateClickListener(new PublishedProjectStatusAdapter.OnEvaluateClickListener() {
+            @Override
+            public void onGrabClick(View view, ReleaseProject releaseProject) {
+
+            }
+        });
+    }
+
+    /**
+     * (工人)查看邀请我的 或 (开发商)查看抢单人员
+     */
+    private void setInviteMineUserListener() {
+        adapter.setOnEvaluateClickListener(new PublishedProjectStatusAdapter.OnEvaluateClickListener() {
+            @Override
+            public void onGrabClick(View view, ReleaseProject releaseProject) { //
+                Intent intent = new Intent(getActivity(), InviteMineUserActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putParcelable(Constants.KEY_RELEASED_PROJECT_STR, releaseProject);
+                intent.putExtras(bundle);
+                startActivity(intent);
+            }
+        });
     }
 
     /**

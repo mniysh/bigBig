@@ -206,4 +206,6 @@ public class Constants {
 	public static final String CONTEND_STATUS_CONTEND = "contend";
 	public static final String CONTEND_STATUS_SUCCEED = "succeed";
 	public static final String CONTEND_STATUS_FAILED = "failed";
+	public static final int KEY_PEOPLE = R.drawable.border_bg;
+	public static final int KEY_SHOW_CRAFT = R.drawable.border_bg;
 }
