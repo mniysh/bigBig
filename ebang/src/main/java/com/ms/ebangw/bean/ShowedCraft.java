@@ -1,12 +1,15 @@
 package com.ms.ebangw.bean;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.ms.ebangw.utils.PinYinUtils;
 
 /**
  * User: WangKai(123940232@qq.com)
  * 2015-11-25 16:46
  */
-public class ShowedCraft implements Comparable<ShowedCraft>{
+public class ShowedCraft implements Comparable<ShowedCraft>, Parcelable{
 
     /**
      * craft_id : 32
@@ -61,4 +64,37 @@ public class ShowedCraft implements Comparable<ShowedCraft>{
             .getCtaft_name()));
     }
 
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.craft_id);
+        dest.writeString(this.staff_account);
+        dest.writeString(this.ctaft_name);
+        dest.writeString(this.count);
+    }
+
+    public ShowedCraft() {
+    }
+
+    protected ShowedCraft(Parcel in) {
+        this.craft_id = in.readString();
+        this.staff_account = in.readString();
+        this.ctaft_name = in.readString();
+        this.count = in.readString();
+    }
+
+    public static final Creator<ShowedCraft> CREATOR = new Creator<ShowedCraft>() {
+        public ShowedCraft createFromParcel(Parcel source) {
+            return new ShowedCraft(source);
+        }
+
+        public ShowedCraft[] newArray(int size) {
+            return new ShowedCraft[size];
+        }
+    };
 }

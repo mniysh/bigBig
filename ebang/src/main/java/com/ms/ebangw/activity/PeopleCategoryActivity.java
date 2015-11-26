@@ -61,6 +61,8 @@ public class PeopleCategoryActivity extends BaseActivity {
             listType = extras.getString(Constants.KEY_CATEGORY_LIST_TYPE, LIST_TYPE_HEADMAN);
             projectId = extras.getString(Constants.KEY_PROJECT_ID);
         }
+        initView();
+        initData();
     }
 
     @Override

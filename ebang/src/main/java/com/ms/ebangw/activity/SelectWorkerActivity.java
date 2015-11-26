@@ -1,6 +1,5 @@
 package com.ms.ebangw.activity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
@@ -62,10 +61,15 @@ public class SelectWorkerActivity extends BaseActivity {
     public void initView() {
         initTitle(null, "返回", "邀请工友", null, null);
         handler = new Handler();
-        Intent intent = getIntent();
-        staff = intent.getExtras().getParcelable(Constants.KEY_RELEASED_PROJECT_STAFF);
-        project_id = staff.getProject_id();
-        craft_id = staff.getCraft_id();
+        Bundle extras = getIntent().getExtras();
+        if (null != extras) {
+            staff = extras.getParcelable(Constants.KEY_RELEASED_PROJECT_STAFF);
+            if (null != staff) {
+                project_id = staff.getProject_id();
+                craft_id = staff.getCraft_id();
+            }
+
+        }
 
 
     }
