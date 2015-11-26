@@ -542,6 +542,8 @@
         </activity>
         <activity android:name=".activity.LookWorkmateActivity">
         </activity>
+        <activity android:name=".activity.CheckWorkTypeUserActivity">
+        </activity>
     </application>
 
 </manifest>

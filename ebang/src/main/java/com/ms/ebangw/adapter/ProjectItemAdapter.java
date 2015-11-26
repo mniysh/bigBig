@@ -118,7 +118,7 @@ public class ProjectItemAdapter extends BaseAdapter {
         TextView tvMoney;
         @Bind(R.id.tv_grab_description)
         TextView tvGrabNum;
-        @Bind(R.id.tv_grab)
+        @Bind(R.id.tv_published)
         TextView tvGrab;
 
         ViewHolder(View view) {

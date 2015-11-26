@@ -1,5 +1,6 @@
 package com.ms.ebangw.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
@@ -107,7 +108,9 @@ public class LookWorkmateActivity extends BaseActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 ShowedCraft showedCraft = (ShowedCraft) view.getTag(Constants.KEY_SHOW_CRAFT);
+                Intent intent = new Intent(LookWorkmateActivity.this, CheckWorkTypeUserActivity.class);
 
+                startActivity(intent);
             }
         });
 

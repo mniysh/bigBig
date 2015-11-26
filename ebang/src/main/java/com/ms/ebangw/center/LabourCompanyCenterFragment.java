@@ -54,7 +54,7 @@ public class LabourCompanyCenterFragment extends BaseFragment {
     LinearLayout eweimaLayout;
     @Bind(R.id.fl_head_info)
     FrameLayout flHeadInfo;
-    @Bind(R.id.tv_grab)
+    @Bind(R.id.tv_published)
     TextView tvGrab;
     @Bind(R.id.tv_trade)
     TextView tvTrade;

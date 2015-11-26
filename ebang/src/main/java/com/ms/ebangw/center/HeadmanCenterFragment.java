@@ -70,7 +70,7 @@ public class HeadmanCenterFragment extends BaseFragment {
     TextView tvJifen;
     @Bind(R.id.tv_publish)
     TextView tvPublish;
-    @Bind(R.id.tv_grab)
+    @Bind(R.id.tv_published)
     TextView tvPublished;
 
 
