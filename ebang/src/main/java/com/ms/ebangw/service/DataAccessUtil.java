@@ -870,7 +870,7 @@ public class DataAccessUtil {
     }
 
     /**
-     * 2-23.首页工程详情（个人）
+     * 2-23.首页工程详情（工长的工程）
      * @param projectId
      * @param asyncHttpResponseHandler
      * @return

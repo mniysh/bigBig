@@ -133,7 +133,12 @@ public class ShowDeveloperActivity extends BaseActivity {
             projectType = releaseProject.getProject_type();
         }
         showListView.setVisibility(View.GONE);
-        loadDevelopers();
+        if (TextUtils.equals(projectType, Constants.HEADMAN)) {
+
+        } else {
+
+            loadDevelopers();
+        }
         initView();
         initViewOper();
         initData();
@@ -150,7 +155,7 @@ public class ShowDeveloperActivity extends BaseActivity {
 
 
     public void initView() {
-        window = (LinearLayout) this.getLayoutInflater().inflate(R.layout.window_select_headman,null, false);
+        window = (LinearLayout) this.getLayoutInflater().inflate(R.layout.window_select_headman, null, false);
         confirmBt = (Button) window.findViewById(R.id.bt_confirm);
         cancleBt = (Button) window.findViewById(R.id.bt_cancel);
         messgaeTv = (TextView) window.findViewById(R.id.tv_message);
@@ -182,7 +187,7 @@ public class ShowDeveloperActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 if (headman != null) {
-                    if(TextUtils.equals(headman.getContend_status(), Constants.CONTEND_STATUS_SUCCEED)){
+                    if (TextUtils.equals(headman.getContend_status(), Constants.CONTEND_STATUS_SUCCEED)) {
                         T.show("您已选择了工长");
                         return;
                     }
@@ -195,12 +200,13 @@ public class ShowDeveloperActivity extends BaseActivity {
 
 
     }
-    private void showWindow(){
+
+    private void showWindow() {
         final PopupWindow pw = new PopupWindow(window, 331, 345);
         pw.setBackgroundDrawable(new BitmapDrawable());
 
         pw.showAtLocation(selectBt, Gravity.CENTER_VERTICAL, 0, 0);
-        messgaeTv.setText("确定雇佣"+"\r\n" + headman.getReal_name() + "吗？");
+        messgaeTv.setText("确定雇佣" + "\r\n" + headman.getReal_name() + "吗？");
         confirmBt.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -219,17 +225,18 @@ public class ShowDeveloperActivity extends BaseActivity {
         backgroundAlpha(0.5f);
 
     }
-    private void selectHeadman(){
+
+    private void selectHeadman() {
         String project_id = headman.getProject_id();
         String contend_id = headman.getId();
 
-        DataAccessUtil.selectHeadman(project_id, contend_id, new JsonHttpResponseHandler(){
+        DataAccessUtil.selectHeadman(project_id, contend_id, new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                 super.onSuccess(statusCode, headers, response);
                 try {
                     boolean b = DataParseUtil.processDataResult(response);
-                    if(b){
+                    if (b) {
                         T.show("选择工长成功");
                     }
                 } catch (ResponseException e) {
@@ -246,6 +253,54 @@ public class ShowDeveloperActivity extends BaseActivity {
         });
     }
 
+    //调用2-23接口（projectType返回值是headman）
+    private void loadOther() {
+        DataAccessUtil.projectInfoDetailInvistor(projectId, new JsonHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                super.onSuccess(statusCode, headers, response);
+                try {
+                    ProjectInfoDetail detail = DataParseUtil.projectInfoDetail(response);
+                    if (null != detail) {
+                        int developersId = detail.getDevelopers_id();
+                        headmans = detail.getHeadmans();
+                        headmanCount = headmans.size();
+                        lBelowShow.setVisibility(View.GONE);
+                        tTitle.setText(detail.getTitle());
+                        tAddress.setText(detail.getAddress());
+                        tDescription.setText(detail.getDescription());
+                        tEndTime.setText(detail.getEnd_time());
+                        tStartTime.setText(detail.getStart_time());
+                        tLinkman.setText(detail.getLink_man());
+                        tLinkPhone.setText(detail.getLink_phone());
+                        if (detail.getImages() != null) {
+                            imageUrl = detail.getImages().get(0);
+                        }
+//                        iOneImg.setImageURI(detail.getImages());
+                        if (!TextUtils.isEmpty(imageUrl)) {
+                            Picasso.with(ShowDeveloperActivity.this).load(DataAccessUtil.getImageUrl(imageUrl)).placeholder(R.drawable.head).into(iOneImg);
+//                            Picasso.with(ShowActivity.this).load(DataAccessUtil.getImageUrl(imageUrl)).placeholder(R.drawable.head).into(iTwoImg);
+                        } else {
+                            iOneImg.setImageResource(R.drawable.head);
+//                            iTwoImg.setImageResource(R.drawable.head);
+                        }
+
+                    }
+                } catch (ResponseException e) {
+                    e.printStackTrace();
+                    T.show(e.getMessage());
+                }
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                super.onFailure(statusCode, headers, responseString, throwable);
+                L.d(responseString);
+            }
+        });
+    }
+
+    //调用2-12的接口（首页工程列表每个工程的projectType返回值除headman外）
     private void loadDevelopers() {
         DataAccessUtil.projectInfoDetail(projectId, new JsonHttpResponseHandler() {
 
@@ -329,17 +384,18 @@ public class ShowDeveloperActivity extends BaseActivity {
         params.height = aHeight + listview2.getDividerHeight() * (listadapter.getCount() - 1);
         listview2.setLayoutParams(params);
     }
-    public void onEvent(HeadmanEven even){
-        if(even != null && even.ischeck()){
+
+    public void onEvent(HeadmanEven even) {
+        if (even != null && even.ischeck()) {
             headman = even.getHeadman();
-        }else{
+        } else {
             headman = null;
         }
 
 
     }
-    public void backgroundAlpha(float bgAlpha)
-    {
+
+    public void backgroundAlpha(float bgAlpha) {
         WindowManager.LayoutParams lp = getWindow().getAttributes();
         lp.alpha = bgAlpha; //0.0-1.0
         getWindow().setAttributes(lp);
