@@ -51,8 +51,8 @@ import butterknife.ButterKnife;
 import de.greenrobot.event.EventBus;
 
 /**
- * 企业的展示页面
- * 现在布局还有最底面的列表，打算用listview来实现
+ * 企业和个人的展示页面
+ *
  *
  * @author admin xupeng
  */
@@ -134,9 +134,8 @@ public class ShowDeveloperActivity extends BaseActivity {
         }
         showListView.setVisibility(View.GONE);
         if (TextUtils.equals(projectType, Constants.HEADMAN)) {
-
+            loadOther();
         } else {
-
             loadDevelopers();
         }
         initView();
@@ -263,8 +262,6 @@ public class ShowDeveloperActivity extends BaseActivity {
                     ProjectInfoDetail detail = DataParseUtil.projectInfoDetail(response);
                     if (null != detail) {
                         int developersId = detail.getDevelopers_id();
-                        headmans = detail.getHeadmans();
-                        headmanCount = headmans.size();
                         lBelowShow.setVisibility(View.GONE);
                         tTitle.setText(detail.getTitle());
                         tAddress.setText(detail.getAddress());
@@ -300,11 +297,9 @@ public class ShowDeveloperActivity extends BaseActivity {
         });
     }
 
-    //调用2-12的接口（首页工程列表每个工程的projectType返回值除headman外）
+    //调用2-12的接口（首页工程列表每个工程的projectType返回值除headman外全部调用此接口）
     private void loadDevelopers() {
         DataAccessUtil.projectInfoDetail(projectId, new JsonHttpResponseHandler() {
-
-
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                 try {
@@ -324,8 +319,6 @@ public class ShowDeveloperActivity extends BaseActivity {
                         } else {
                             lBelowShow.setVisibility(View.GONE);
                         }
-
-
                         tTitle.setText(detail.getTitle());
                         tAddress.setText(detail.getAddress());
                         tDescription.setText(detail.getDescription());
@@ -346,11 +339,9 @@ public class ShowDeveloperActivity extends BaseActivity {
                         }
                         if (headmans != null) {
 
-                            adapter = new SelectHeadmanAdapter(headmans);
+                            adapter = new SelectHeadmanAdapter(headmans, category);
                             gridView.setAdapter(adapter);
                         }
-
-
                     }
                 } catch (ResponseException e) {
                     e.printStackTrace();

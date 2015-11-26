@@ -145,7 +145,7 @@ public class HomeFragment extends BaseFragment {
                     categroy = user.getCategory();
                     String projectType = releaseProject.getProject_type();
                     Intent intent;
-                    if(TextUtils.equals(categroy,Constants.DEVELOPERS)){
+                    if(TextUtils.equals(categroy,Constants.DEVELOPERS) || TextUtils.equals(categroy,Constants.INVESTOR)){
                             intent = new Intent(getActivity(), ShowDeveloperActivity.class);
                         }else{
                             intent = new Intent(getActivity(), ShowActivity.class);
@@ -168,7 +168,7 @@ public class HomeFragment extends BaseFragment {
                 ReleaseProject project = (ReleaseProject) view.getTag(Constants.KEY_RELEASED_PROJECT);
                 categroy = user.getCategory();
                 Intent intent;
-                if(TextUtils.equals(categroy,Constants.DEVELOPERS)){
+                if(TextUtils.equals(categroy,Constants.DEVELOPERS) || TextUtils.equals(categroy, Constants.INVESTOR)){
                     intent = new Intent(getActivity(), ShowDeveloperActivity.class);
                 }else{
                     intent = new Intent(getActivity(), ShowActivity.class);

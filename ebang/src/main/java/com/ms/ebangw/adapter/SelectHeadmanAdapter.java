@@ -29,9 +29,10 @@ public class SelectHeadmanAdapter extends BaseAdapter {
 //    private HomeActivity activity;
     private SelectHeadman headman;
     private List<SelectHeadman> dataLinshi;
-
-    public SelectHeadmanAdapter(List<SelectHeadman> headmans) {
+    private String categroy;
+    public SelectHeadmanAdapter(List<SelectHeadman> headmans,String categroy) {
         this.headmans = headmans;
+        this.categroy = categroy;
 //        this.activity = activity;
     }
 
@@ -88,7 +89,7 @@ public class SelectHeadmanAdapter extends BaseAdapter {
                         EventBus.getDefault().post(new HeadmanEven(headmans.get(position),true));
 
                     } else {
-                        T.show("只能选择一个工长或劳务公司");
+                        T.show("只能选择一个");
                         cb.setChecked(false);
                     }
                 } else {

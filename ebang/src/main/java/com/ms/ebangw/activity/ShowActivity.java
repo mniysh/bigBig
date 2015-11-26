@@ -82,6 +82,7 @@ public class ShowActivity extends BaseActivity {
     private Staff staff;
     private String projectType;
     private String userId;
+    private String isContend;
 
     private BroadcastReceiver br = new BroadcastReceiver() {
 
@@ -89,16 +90,28 @@ public class ShowActivity extends BaseActivity {
         public void onReceive(Context context, Intent in) {
             // TODO Auto-generated method stub
             String categroy = in.getStringExtra("key");
-            if (TextUtils.equals(categroy, Constants.HEADMAN) || TextUtils.equals(categroy, Constants.COMPANY)) {
-                showListView.setVisibility(View.VISIBLE);
-                lBelowShow.setVisibility(View.GONE);
-                bQiangdan.setText("已抢单");
-                detailAdapter.notifyDataSetChanged();
-                loadHeadwork();
+            if (TextUtils.equals(categroy, Constants.HEADMAN) || TextUtils.equals(categroy, Constants.COMPANY) ) {
+                if(TextUtils.equals(projectType, Constants.HEADMAN)){
+                    showListView.setVisibility(View.VISIBLE);
+                    lBelowShow.setVisibility(View.GONE);
+                    detailAdapter.notifyDataSetChanged();
+                    loadInvistor();
+                }else{
+                    showListView.setVisibility(View.VISIBLE);
+                    lBelowShow.setVisibility(View.GONE);
+                    detailAdapter.notifyDataSetChanged();
+                    loadHeadwork();
+                }
             }
             if (TextUtils.equals(categroy, Constants.WORKER) ) {
-                detailAdapter.notifyDataSetChanged();
-                loadInvistor();
+                if(TextUtils.equals(projectType, Constants.HEADMAN)){
+
+                    detailAdapter.notifyDataSetChanged();
+                    loadInvistor();
+                }else {
+                    detailAdapter.notifyDataSetChanged();
+                    loadHeadwork();
+                }
             }
 
         }
@@ -157,11 +170,20 @@ public class ShowActivity extends BaseActivity {
         if (releaseProject != null) {
             projectId = releaseProject.getId();
             projectType = releaseProject.getProject_type();
+
+
         }
-        if (TextUtils.equals(category, Constants.WORKER) || TextUtils.equals(category, Constants.INVESTOR)) {
-            showListView.setVisibility(View.VISIBLE);
-            lBelowShow.setVisibility(View.GONE);
-            loadInvistor();
+        if (TextUtils.equals(category, Constants.WORKER)) {
+            if(TextUtils.equals(projectType, Constants.HEADMAN)){
+
+                showListView.setVisibility(View.VISIBLE);
+                lBelowShow.setVisibility(View.GONE);
+                loadInvistor();
+            }else {
+                showListView.setVisibility(View.VISIBLE);
+                lBelowShow.setVisibility(View.GONE);
+                loadHeadwork();
+            }
         }
     }
 
@@ -175,67 +197,16 @@ public class ShowActivity extends BaseActivity {
     @Override
     public void initData() {
         if (TextUtils.equals(category, Constants.HEADMAN) || TextUtils.equals(category, Constants.COMPANY)) {
-            loadHeadwork();
-
-        } else if (TextUtils.equals(category, Constants.WORKER)) {
-
+            if(TextUtils.equals(projectType, Constants.HEADMAN)){
+                loadInvistor();
+            }else{
+                loadHeadwork();
+            }
         }
     }
 
-//    private void loadDevelopers() {
-//        DataAccessUtil.projectInfoDetail(projectId, new JsonHttpResponseHandler() {
-//
-//
-//            @Override
-//            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-//                try {
-//                    ProjectInfoDetail detail = DataParseUtil.projectInfoDetail(response);
-//                    if (null != detail) {
-//                        int developersId = detail.getDevelopers_id();
-//                        int id = Integer.valueOf(userId);
-//                        if (developersId == id) {
-//                            lBelowShow.setVisibility(View.VISIBLE);
-//
-//                        } else {
-//                            lBelowShow.setVisibility(View.GONE);
-//                        }
-//
-//
-//                        tTitle.setText(detail.getTitle());
-//                        tAddress.setText(detail.getAddress());
-//                        tDescription.setText(detail.getDescription());
-//                        tEndTime.setText(detail.getEnd_time());
-//                        tStartTime.setText(detail.getStart_time());
-//                        tLinkman.setText(detail.getLink_man());
-//                        tLinkPhone.setText(detail.getLink_phone());
-//                        if (detail.getImages() != null) {
-//                            imageUrl = detail.getImages().get(0);
-//                        }
-////                        iOneImg.setImageURI(detail.getImages());
-//                        if (!TextUtils.isEmpty(imageUrl)) {
-//                            Picasso.with(ShowActivity.this).load(DataAccessUtil.getImageUrl(imageUrl)).placeholder(R.drawable.head).into(iOneImg);
-////                            Picasso.with(ShowActivity.this).load(DataAccessUtil.getImageUrl(imageUrl)).placeholder(R.drawable.head).into(iTwoImg);
-//                        } else {
-//                            iOneImg.setImageResource(R.drawable.head);
-////                            iTwoImg.setImageResource(R.drawable.head);
-//                        }
-//
-//                    }
-//                } catch (ResponseException e) {
-//                    e.printStackTrace();
-//                }
-//
-//            }
-//
-//            @Override
-//            public void onFinish() {
-//                super.onFinish();
-//                dismissLoadingDialog();
-//            }
-//        });
-//    }
 
-    //首页工程详情（工长的工程）
+    //2-23首页工程详情（工长的工程）projectType返回值是headman所有的身份调用此接口
     private void loadInvistor() {
         showListView.setVisibility(View.VISIBLE);
         lBelowShow.setVisibility(View.GONE);
@@ -248,7 +219,9 @@ public class ShowActivity extends BaseActivity {
 
                     if (projectInfoDetail != null) {
                         int developersId = projectInfoDetail.getDevelopers_id();
-
+                        String userId = user.getId();
+                        String isContend = projectInfoDetail.getIsContend();
+                        int id = Integer.valueOf(userId);
 
                         tTitle.setText(projectInfoDetail.getTitle());
                         tAddress.setText(projectInfoDetail.getAddress());
@@ -270,11 +243,11 @@ public class ShowActivity extends BaseActivity {
                         }
                         List<Staff> staffs = projectInfoDetail.getStaffs();
                         if (null != staffs && staffs.size() > 0) {
-                            detailAdapter = new ProjectItemdetailAdapter(staffs, user, developersId, new ProjectItemdetailAdapter.OnGrabClickListener() {
+                            detailAdapter = new ProjectItemdetailAdapter(staffs, user, developersId, isContend,new ProjectItemdetailAdapter.OnGrabClickListener() {
                                 @Override
                                 public void onGrabClick(View view, Staff staff) {
 //                                    T.show("自定义2");
-                                    Intent intent = new Intent(ShowActivity.this, QiangDanActivity.class);
+                                    Intent intent = new Intent(ShowActivity.this, SelectWorkerActivity.class);
                                     Bundle bundle = new Bundle();
                                     bundle.putParcelable(Constants.KEY_RELEASED_PROJECT_STR, releaseProject);
                                     bundle.putParcelable(Constants.KEY_RELEASED_PROJECT_STAFF, staff);
@@ -306,7 +279,7 @@ public class ShowActivity extends BaseActivity {
         });
 
     }
-    //工长
+    //2-12.首页工程详细（projectType返回值headman除外的所有身份调用此接口）
 
     private void loadHeadwork() {
 
@@ -318,13 +291,14 @@ public class ShowActivity extends BaseActivity {
                 try {
                     ProjectInfoDetail detail = DataParseUtil.projectInfoDetail(response);
                     if (null != detail) {
+                        String IsContend = detail.getIsContend();
                         int id = Integer.valueOf(userId);
                         int developersId = detail.getDevelopers_id();
-                        if (developersId == id) {
+                        if (developersId == id || projectType.equals(Constants.INVESTOR)) {
                             lBelowShow.setVisibility(View.GONE);
                             showListView.setVisibility(View.VISIBLE);
                         } else {
-                            String IsContend = detail.getIsContend();
+
                             if (TextUtils.equals(IsContend, "contend") || TextUtils.equals(IsContend, "process")) {
                                 showListView.setVisibility(View.VISIBLE);
                                 lBelowShow.setVisibility(View.GONE);
@@ -353,7 +327,7 @@ public class ShowActivity extends BaseActivity {
                         }
                         List<Staff> staffs = detail.getStaffs();
                         if (null != staffs && staffs.size() > 0) {
-                            detailAdapter = new ProjectItemdetailAdapter(staffs, user, developersId, new ProjectItemdetailAdapter.OnGrabClickListener() {
+                            detailAdapter = new ProjectItemdetailAdapter(staffs, user, developersId,isContend, new ProjectItemdetailAdapter.OnGrabClickListener() {
                                 @Override
                                 public void onGrabClick(View view, Staff staff) {
                                     Intent intent = new Intent(ShowActivity.this, SelectWorkerActivity.class);

@@ -33,14 +33,16 @@ public class ProjectItemdetailAdapter extends BaseAdapter {
     private String categroy;
     private User user;
     private int developersId;
+    private String isContentProject;
 
     private OnGrabClickListener onGrabClickListener;
 
-    public ProjectItemdetailAdapter(List<Staff> projectList, User user,int developersId,OnGrabClickListener onGrabClickListener) {
+    public ProjectItemdetailAdapter(List<Staff> projectList, User user,int developersId, String isContentProject,OnGrabClickListener onGrabClickListener) {
         this.list = projectList;
         this.user = user;
         this.onGrabClickListener = onGrabClickListener;
         this.developersId = developersId;
+        this.isContentProject = isContentProject;
 
     }
 
@@ -70,7 +72,7 @@ public class ProjectItemdetailAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         categroy = user.getCategory();
-        if(TextUtils.equals(categroy,Constants.WORKER) ||TextUtils.equals(categroy, Constants.INVESTOR)){
+        if(TextUtils.equals(categroy,Constants.WORKER)){
             ViewHolder holder;
             final Staff project = list.get(position);
             String isContend = project.getIsContend();
@@ -81,18 +83,7 @@ public class ProjectItemdetailAdapter extends BaseAdapter {
             } else {
                 holder = (ViewHolder) convertView.getTag();
             }
-//                "id": 49,
-//                "craft_id": 1,
-//                "money": 100,
-//                "status": "prepare",
-//                "project_id": 7,
-//                "staff_account": 2,
-//                "staff_description": null,
-//                "start_time": "2015-10-28 00:00:00",
-//                "end_time": "2015-10-29 00:00:00",
-//                "account_days": 2,
-//                "craft_name": "工程管理"
-//        String imageUrl = project.getImages();
+
             String money = project.getMoney();
             String staff_account = project.getStaff_account();
             String craft_name = project.getCraft_name();
@@ -104,7 +95,7 @@ public class ProjectItemdetailAdapter extends BaseAdapter {
             holder.tvCraftName.setText(craft_name);
             holder.tvStartTime.setText(start_time);
             holder.tvEndTime.setText(end_time);
-            holder.tHead.setText((position+1)+"");
+            holder.tHead.setText((position + 1) + "");
             holder.totalNowTv.setVisibility(View.GONE);
             String id = user.getId();
 
@@ -162,7 +153,7 @@ public class ProjectItemdetailAdapter extends BaseAdapter {
 
             convertView.setTag(Constants.KEY_RELEASED_PROJECT, project);
         }
-        if(TextUtils.equals(categroy, Constants.HEADMAN)){
+        if(TextUtils.equals(categroy, Constants.HEADMAN) || TextUtils.equals(categroy, Constants.COMPANY)){
             ViewHolder holder;
             final Staff project = list.get(position);
             if (convertView == null) {
@@ -181,12 +172,20 @@ public class ProjectItemdetailAdapter extends BaseAdapter {
             String userId = user.getId();
             int id = Integer.valueOf(userId);
             if(id == developersId){
-                holder.totalNowTv.setVisibility(View.GONE);
-                holder.tvXuanRen.setVisibility(View.GONE);
-            }else{
                 holder.totalNowTv.setVisibility(View.VISIBLE);
-                holder.tvXuanRen.setVisibility(View.VISIBLE);
+                holder.tvXuanRen.setVisibility(View.GONE);
+                holder.totalNowTv.setText("已经选择" + project.getTotal_invitation() + "人,成功选择" + project.getTotal_agree()
+                        + "人,还差" + project.getTotal_surplus() + "人");
+            }else{
+                if(TextUtils.equals(isContentProject, Constants.CONTEND_STATUS_CONTEND)){
 
+                    holder.totalNowTv.setVisibility(View.VISIBLE);
+                    holder.tvXuanRen.setVisibility(View.VISIBLE);
+                    holder.tvXuanRen.setText("选工友");
+                    holder.totalNowTv.setText("成功选择" +project.getTotal_agree()
+                            + "人,还差" +project.getTotal_surplus() + "人");
+
+                }
             }
 //            if(project.getTotal_invitation().equals("")){
 //                holder.totalNowTv.setVisibility(View.GONE);
@@ -199,8 +198,7 @@ public class ProjectItemdetailAdapter extends BaseAdapter {
             holder.tvEndTime.setText(end_time);
             holder.tHead.setText((position+1)+"");
 //            holder.totalNowTv.setVisibility(View.VISIBLE);
-            holder.totalNowTv.setText("已经选择"+project.getTotal_invitation() + "人,成功选择" +project.getTotal_agree()
-                    + "人,还差" +project.getTotal_surplus() + "人");
+
             holder.tHead.setTag(position);
 
 //        SharedPreferences sharedPreferences = Global.getSharedPreferences("test",Context.MODE_PRIVATE);
