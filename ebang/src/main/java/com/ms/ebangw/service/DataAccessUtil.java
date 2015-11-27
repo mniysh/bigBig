@@ -903,7 +903,7 @@ public class DataAccessUtil {
 
         RequestParams params = new RequestParams();
         params.put("category", category);
-        return doGet(RequestUrl.people_category + projectId, null, asyncHttpResponseHandler);
+        return doGet(RequestUrl.people_category + projectId, params, asyncHttpResponseHandler);
     }
     /**
      * 2-8.工头获取符合工种工人列表（邀请）
