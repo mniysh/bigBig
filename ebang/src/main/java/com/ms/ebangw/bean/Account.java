@@ -20,7 +20,7 @@ public class Account {
     private String pay_money;
     private String income_money;
     private String  page;
-    private List<Trade> trades;
+    private List<Trade> trade;
 
     public String getPay_money() {
         return pay_money;
@@ -46,11 +46,11 @@ public class Account {
         this.page = page;
     }
 
-    public List<Trade> getTrades() {
-        return trades;
+    public List<Trade> getTrade() {
+        return trade;
     }
 
-    public void setTrades(List<Trade> trades) {
-        this.trades = trades;
+    public void setTrade(List<Trade> trade) {
+        this.trade = trade;
     }
 }

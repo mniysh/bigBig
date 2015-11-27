@@ -15,7 +15,6 @@ import android.widget.TextView;
 
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
-import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.ms.ebangw.R;
 import com.ms.ebangw.adapter.AccountDetailAdapter;
@@ -142,48 +141,32 @@ public class AccountActivity extends BaseActivity {
 
     private void load() {
         currentPage = 1;
-
-        DataAccessUtil.account(currentPage + "", getDateStr(), new AsyncHttpResponseHandler() {
+        DataAccessUtil.account(currentPage + "", getDateStr(), new JsonHttpResponseHandler() {
             @Override
-             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
-
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                currentPage++;
+                try {
+                    Account account = DataParseUtil.account(response);
+                    setPayAndIncome(account);
+                    List<Trade> list = DataParseUtil.tradeDetail(response);
+                    if (adapter != null && list != null && list.size() > 0) {
+                        adapter.setList(list);
+                        adapter.notifyDataSetChanged();
+                    }
+                } catch (ResponseException e) {
+                    e.printStackTrace();
+                    T.show(e.getMessage());
+                }
             }
 
             @Override
-            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
-
+            public void onFinish() {
+                super.onFinish();
+                if (null != ptr) {
+                    ptr.onRefreshComplete();
+                }
             }
-
-
         });
-
-
-//        DataAccessUtil.account(currentPage + "", getDateStr(), new JsonHttpResponseHandler() {
-//            @Override
-//            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-//                currentPage++;
-//                try {
-//                    Account account = DataParseUtil.account(response);
-//                    setPayAndIncome(account);
-//                    List<Trade> list = DataParseUtil.tradeDetail(response);
-//                    if (adapter != null && list != null && list.size() > 0) {
-//                        adapter.setList(list);
-//                        adapter.notifyDataSetChanged();
-//                    }
-//                } catch (ResponseException e) {
-//                    e.printStackTrace();
-//                    T.show(e.getMessage());
-//                }
-//            }
-//
-//            @Override
-//            public void onFinish() {
-//                super.onFinish();
-//                if (null != ptr) {
-//                    ptr.onRefreshComplete();
-//                }
-//            }
-//        });
 
     }
 
@@ -196,7 +179,7 @@ public class AccountActivity extends BaseActivity {
                 try {
                     Account account = DataParseUtil.account(response);
                     setPayAndIncome(account);
-                    List<Trade> list = account.getTrades();
+                    List<Trade> list = account.getTrade();
                     if (adapter != null && list != null && list.size() > 0) {
                         adapter.getList().addAll(list);
                         adapter.notifyDataSetChanged();
