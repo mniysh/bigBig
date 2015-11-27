@@ -93,10 +93,14 @@ public class EvaluateActivity extends BaseActivity {
 
     private void commit() {
         String id = project.getId();
+
         String content = etContent.getText().toString().trim();
-        if (TextUtils.isEmpty(content)) {
-            T.show("请输入评价内容");
-            return;
+        String evaluateType = getEvaluateType();
+        if (TextUtils.equals(evaluateType, "bad")) {   //差评不能少于五字
+            if (TextUtils.isEmpty(content) && content.length() < 5) {
+                T.show("差评不能少于五字");
+                return;
+            }
         }
 
         String isAnonymity = "0";
@@ -104,7 +108,7 @@ public class EvaluateActivity extends BaseActivity {
             isAnonymity = "1";
         }
 
-        DataAccessUtil.evaluate(id, content, isAnonymity, getEvaluateType(), new JsonHttpResponseHandler() {
+        DataAccessUtil.evaluate(id, content, isAnonymity, evaluateType, new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                 try {
