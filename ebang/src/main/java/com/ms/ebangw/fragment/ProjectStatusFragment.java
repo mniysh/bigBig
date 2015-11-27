@@ -8,6 +8,7 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
@@ -18,6 +19,8 @@ import com.ms.ebangw.R;
 import com.ms.ebangw.activity.EvaluateActivity;
 import com.ms.ebangw.activity.LookWorkmateActivity;
 import com.ms.ebangw.activity.ProjectStatusActivity;
+import com.ms.ebangw.activity.ShowActivity;
+import com.ms.ebangw.activity.ShowDeveloperActivity;
 import com.ms.ebangw.adapter.PublishedProjectStatusAdapter;
 import com.ms.ebangw.bean.ReleaseProject;
 import com.ms.ebangw.center.worker.InviteMineUserActivity;
@@ -174,8 +177,11 @@ public class ProjectStatusFragment extends BaseFragment {
             case AUDIT:
                 break;
             case WAITING:
+                setLookWorkmateListener();
+                break;
             case EXECUTE:
                 setLookWorkmateListener();
+                setOnItemClickListener();
                 break;
             case COMPLETE:
                 setEvaluateListener();
@@ -255,6 +261,7 @@ public class ProjectStatusFragment extends BaseFragment {
                 Intent intent = new Intent(mActivity, LookWorkmateActivity.class);
                 Bundle bundle = new Bundle();
                 bundle.putParcelable(Constants.KEY_RELEASED_PROJECT_STR, releaseProject);
+                bundle.putString(Constants.KEY_PROJECT_TYPE, currentType);
                 intent.putExtras(bundle);
                 startActivity(intent);
             }
@@ -287,6 +294,29 @@ public class ProjectStatusFragment extends BaseFragment {
                 Intent intent = new Intent(getActivity(), EvaluateActivity.class);
                 Bundle bundle = new Bundle();
                 bundle.putParcelable(Constants.KEY_RELEASED_PROJECT_STR, releaseProject);
+                intent.putExtras(bundle);
+                startActivity(intent);
+            }
+        });
+    }
+
+    /**
+     * 点击工程item跳转事件
+     */
+    private void setOnItemClickListener() {
+        ptr.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                ReleaseProject project = (ReleaseProject) view.getTag(Constants.KEY_RELEASED_PROJECT);
+                String category = getUser().getCategory();
+                Intent intent;
+                if(TextUtils.equals(category,Constants.DEVELOPERS) || TextUtils.equals(category, Constants.INVESTOR)){
+                    intent = new Intent(getActivity(), ShowDeveloperActivity.class);
+                }else{
+                    intent = new Intent(getActivity(), ShowActivity.class);
+                }
+                Bundle bundle = new Bundle();
+                bundle.putParcelable(Constants.KEY_RELEASED_PROJECT_STR, project);
                 intent.putExtras(bundle);
                 startActivity(intent);
             }

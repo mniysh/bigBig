@@ -1092,9 +1092,12 @@ public class DataAccessUtil {
      * @param asyncHttpResponseHandler
      * @return
      */
-    public static RequestHandle showPeople(String projectId, String workTypeId, AsyncHttpResponseHandler
+    public static RequestHandle showPeople(String projectId, String workTypeId,
+                                           String type, AsyncHttpResponseHandler
         asyncHttpResponseHandler){
-        return doGet(RequestUrl.show_people + projectId + "/" + workTypeId, null, asyncHttpResponseHandler);
+        RequestParams params = new RequestParams();
+        params.put("type", type);
+        return doGet(RequestUrl.show_people + projectId + "/" + workTypeId, params, asyncHttpResponseHandler);
     }
 
     /**

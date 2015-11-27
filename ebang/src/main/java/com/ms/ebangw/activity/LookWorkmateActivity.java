@@ -36,6 +36,7 @@ import butterknife.ButterKnife;
 public class LookWorkmateActivity extends BaseActivity {
     private Handler handler;
     private ReleaseProject releaseProject;
+    private String currentType;
     @Bind(R.id.listView)
     ListView listView;
     @Bind(R.id.slideBar)
@@ -52,6 +53,7 @@ public class LookWorkmateActivity extends BaseActivity {
         Bundle extras = getIntent().getExtras();
         if (null != extras) {
             releaseProject = extras.getParcelable(Constants.KEY_RELEASED_PROJECT_STR);
+            currentType = extras.getString(Constants.KEY_PROJECT_TYPE);
         }
         initView();
         initData();
@@ -112,6 +114,7 @@ public class LookWorkmateActivity extends BaseActivity {
                 Bundle bundle = new Bundle();
                 bundle.putParcelable(Constants.KEY_SHOWED_CRAFT, showedCraft);
                 bundle.putString(Constants.KEY_PROJECT_ID, releaseProject.getId());
+                bundle.putString(Constants.KEY_PROJECT_TYPE, currentType);
                 intent.putExtras(bundle);
                 startActivity(intent);
             }

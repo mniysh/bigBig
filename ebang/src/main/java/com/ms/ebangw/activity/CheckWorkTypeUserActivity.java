@@ -46,6 +46,7 @@ public class CheckWorkTypeUserActivity extends BaseActivity {
     private Handler handler;
     private ShowedCraft showedCraft;
     private String projectId;
+    private String currentType;
 
     @Bind(R.id.listView)
     ListView listView;
@@ -61,8 +62,9 @@ public class CheckWorkTypeUserActivity extends BaseActivity {
         ButterKnife.bind(this);
         Bundle extras = getIntent().getExtras();
         if (null != extras) {
-            showedCraft = extras.getParcelable(Constants.KEY_RELEASED_PROJECT_STR);
+            showedCraft = extras.getParcelable(Constants.KEY_SHOWED_CRAFT);
             projectId = extras.getString(Constants.KEY_PROJECT_ID);
+            currentType = extras.getString(Constants.KEY_PROJECT_TYPE);
         }
         initView();
         initData();
@@ -100,7 +102,8 @@ public class CheckWorkTypeUserActivity extends BaseActivity {
     private void load() {
         if (showedCraft != null) {
 
-            DataAccessUtil.showPeople(projectId, showedCraft.getCraft_id(), new JsonHttpResponseHandler() {
+            DataAccessUtil.showPeople(projectId, showedCraft.getCraft_id(), currentType, new
+                JsonHttpResponseHandler() {
                 @Override
                 public void onStart() {
                     showProgressDialog();
