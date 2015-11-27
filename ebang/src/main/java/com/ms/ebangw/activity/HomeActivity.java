@@ -7,7 +7,6 @@ import android.content.res.Configuration;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.support.design.widget.TabLayout;
 import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.widget.RadioButton;
@@ -17,25 +16,19 @@ import com.loopj.android.http.JsonHttpResponseHandler;
 import com.ms.ebangw.MyApplication;
 import com.ms.ebangw.R;
 import com.ms.ebangw.bean.User;
-import com.ms.ebangw.bean.WorkType;
-import com.ms.ebangw.commons.Constants;
-import com.ms.ebangw.event.BottomTitleClickEvent;
-import com.ms.ebangw.event.OnCheckedWorkTypeEvent;
-import com.ms.ebangw.event.RefreshUserEvent;
-import com.ms.ebangw.event.WorkTypeEvent;
-import com.ms.ebangw.exception.ResponseException;
-import com.ms.ebangw.fragment.AuthenticationFragment;
 import com.ms.ebangw.center.DevelopersCenterFragment;
-import com.ms.ebangw.fragment.FoundFragment;
 import com.ms.ebangw.center.HeadmanCenterFragment;
-import com.ms.ebangw.fragment.HomeFragment;
 import com.ms.ebangw.center.InvestorCenterFragment;
 import com.ms.ebangw.center.LabourCompanyCenterFragment;
-import com.ms.ebangw.fragment.ServiceFragment;
 import com.ms.ebangw.center.WorkerCenterFragment;
+import com.ms.ebangw.commons.Constants;
+import com.ms.ebangw.event.BottomTitleClickEvent;
+import com.ms.ebangw.event.RefreshUserEvent;
+import com.ms.ebangw.exception.ResponseException;
+import com.ms.ebangw.fragment.AuthenticationFragment;
+import com.ms.ebangw.fragment.CommunityFragment;
+import com.ms.ebangw.fragment.HomeFragment;
 import com.ms.ebangw.release.IncreaseDetailFragment;
-import com.ms.ebangw.release.ReleaseActivity;
-import com.ms.ebangw.release.ReleaseWorkTypeFragment;
 import com.ms.ebangw.service.DataAccessUtil;
 import com.ms.ebangw.service.DataParseUtil;
 import com.ms.ebangw.userAuthen.InfoCommitSuccessFragment;
@@ -46,8 +39,6 @@ import com.umeng.update.UmengUpdateAgent;
 import org.apache.http.Header;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Set;
 
 import butterknife.Bind;
@@ -62,22 +53,17 @@ import de.greenrobot.event.EventBus;
  * @author admin
  */
 public class HomeActivity extends BaseActivity {
-    @Bind(R.id.tl_tab)
-    TabLayout tabLayout;
+    @Bind(R.id.rb_social_contact)
+    RadioButton rbSocialContact;
     private FragmentManager fm;
     private long exitTime = 0;
-    private List<WorkType> data;
-    private FoundFragment foundFragment;
-    private ServiceFragment serviceFragment;
-    private ReleaseWorkTypeFragment releaseWorkTypeFragment;
-    private List<WorkType> selectWorkType;
 
     @Bind(R.id.radioGroup)
     RadioGroup radioGroup;
     @Bind(R.id.rb_mine)
     public RadioButton mineRb;
     @Bind(R.id.rb_home)
-    public RadioButton lotteryRb;
+    public RadioButton homeRb;
 
     private static final int MSG_SET_ALIAS = 1001;
     private final Handler mHandler = new Handler() {
@@ -95,6 +81,7 @@ public class HomeActivity extends BaseActivity {
             }
         }
     };
+    private CommunityFragment communityFragment;
 
 
     @Override
@@ -119,25 +106,13 @@ public class HomeActivity extends BaseActivity {
     }
 
     public void initView() {
-//        initTabs();
-        selectWorkType = new ArrayList<>();
     }
-
-    public List<WorkType> getSelectWorkType() {
-        return selectWorkType;
-    }
-
 
     @Override
     public void initData() {
-
         loadUserInformation();
-        foundFragment = new FoundFragment();
-        serviceFragment = new ServiceFragment();
-        User user = getUser();
-        final String categroy = user.getCategory();
-
-        releaseWorkTypeFragment = new ReleaseWorkTypeFragment();
+        communityFragment = new CommunityFragment();
+//        releaseWorkTypeFragment = new ReleaseWorkTypeFragment();
 
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
@@ -145,37 +120,16 @@ public class HomeActivity extends BaseActivity {
                 switch (checkedId) {
                     case R.id.rb_home:
                         fm.beginTransaction().replace(R.id.fl_content, new HomeFragment()).commit();
-//                        fm.beginTransaction().replace(R.id.fl_content, lotteryFra
-// gment).commit();
                         break;
-                    case R.id.rb_discovery:
-                        fm.beginTransaction().replace(R.id.fl_content, foundFragment).commit();
-//                        fm.beginTransaction().replace(R.id.fl_content, workerHomeFragment).commit();
-                        break;
-                    case R.id.rb_release:
-                        Bundle bundle = new Bundle();
-                        bundle.putString(Constants.RELEASE_WORKTYPE_KEY, categroy);
-                        Intent intentRelease = new Intent(HomeActivity.this, ReleaseActivity.class);
-                        intentRelease.putExtras(bundle);
-                        startActivity(intentRelease);
 
-//                        startActivity(new Intent());
-//                        fm.beginTransaction().replace(R.id.fl_content, new SelectCraftFragment().newInstance(categroy, "")).commit();
-//                        fm.beginTransaction().replace(R.id.fl_content, new SelectCraftFragment()).commit();
-//                        fm.beginTransaction().replace(R.id.fl_content, eMallFragment).commit();
-                        break;
-                    case R.id.rb_service:
-                        // L.locationpois_item("xxx","被点击");
-                        fm.beginTransaction().replace(R.id.fl_content, serviceFragment).commit();
-//                        fm.beginTransaction().replace(R.id.fl_content, eMallFragment).commit();
+                    case R.id.rb_social_contact:
+                        fm.beginTransaction().replace(R.id.fl_content, communityFragment).commit();
                         break;
 
                     case R.id.rb_mine:
 
                         L.d("xxx", "返回值是" + isLogin());
                         if (isLogin()) {
-                            User user = getUser();
-                            String category = user.getCategory();
                             setAuthStatus();
 
                         } else {
@@ -190,20 +144,10 @@ public class HomeActivity extends BaseActivity {
     }
 
 
-    public void onEvent(WorkTypeEvent event) {
-        WorkType workType = event.getWorkType();
-        boolean isAdd = event.isAdd();
-        if (workType != null && isAdd) {
-            selectWorkType.add(workType);
-        } else {
-            selectWorkType.remove(workType);
-        }
-    }
-
     /**
      * 根据人员类型跳转到相应的内容
      * category	//用户已认证类型  worker(工人)/headman(工头)/developers(开发商)/investor(个人)  null（未认证）
-     * <p>
+     * <p/>
      * /认证中
      * status: 			   状态游客guest
      * auth_developers(认证开发者中)/
@@ -211,9 +155,9 @@ public class HomeActivity extends BaseActivity {
      * auth_headman(认证工头中)/
      * auth_investor(认证个人中)/
      * auth_company(认证劳务公司中)/
-     * <p>
+     * <p/>
      * complete（完成认证)
-     * <p>
+     * <p/>
      * auth_developers_fail（认证开发商失败）
      * auth_worker_fail（认证务工失败）
      * auth_headman_fail（认证工头失败）
@@ -326,18 +270,6 @@ public class HomeActivity extends BaseActivity {
     public void onEvent(RefreshUserEvent event) {
         L.d("RefreshUserEvent");
         loadUserInformation();
-
-//		String category = event.getCategory(); //认证提交后
-//		User user = getUser();
-//		switch (category) {
-//			case Constants.INVESTOR:
-//				user.setStatus();
-//
-//				break;
-//
-//
-//		}
-
     }
 
     public String getTitleByStatus(String status) {
@@ -379,8 +311,6 @@ public class HomeActivity extends BaseActivity {
         if (resultCode == Constants.REQUEST_EXIT) {
             radioGroup.getChildAt(0).performClick();
         }
-
-
     }
 
 
@@ -402,9 +332,6 @@ public class HomeActivity extends BaseActivity {
             MyApplication.getInstance().setFlag_home(b);
             radioGroup.getChildAt(0).performClick();
         }
-//        radioGroup.getChildAt(4).performClick();
-
-
     }
 
     @Override
@@ -448,7 +375,6 @@ public class HomeActivity extends BaseActivity {
         DataAccessUtil.userInformation(new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-
 
                 try {
                     User user = DataParseUtil.userInformation(response);
@@ -520,25 +446,24 @@ public class HomeActivity extends BaseActivity {
         EventBus.getDefault().unregister(this);
     }
 
-
     /**
      * 接收选中的工种，发布界面的工种页面
      *
      * @param event 点击事件
      */
-    public void onEvent(OnCheckedWorkTypeEvent event) {
-        if (event == null) {
-            return;
-        }
-        WorkType workType = event.getWorkType();
-        boolean b = event.isSelected();
-        if (event != null && b) {
-
-            data.add(workType);
-            releaseWorkTypeFragment = ReleaseWorkTypeFragment.newInstance(workType);
-        } else if (event != null && !b) {
-            data.remove(workType);
-        }
-    }
+//    public void onEvent(OnCheckedWorkTypeEvent event) {
+//        if (event == null) {
+//            return;
+//        }
+//        WorkType workType = event.getWorkType();
+//        boolean b = event.isSelected();
+//        if (event != null && b) {
+//
+//            data.add(workType);
+//            releaseWorkTypeFragment = ReleaseWorkTypeFragment.newInstance(workType);
+//        } else if (event != null && !b) {
+//            data.remove(workType);
+//        }
+//    }
 
 }

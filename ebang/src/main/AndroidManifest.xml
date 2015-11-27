@@ -544,6 +544,8 @@
         </activity>
         <activity android:name=".activity.CheckWorkTypeUserActivity">
         </activity>
+        <activity android:name=".activity.InviteWithCashActivity">
+        </activity>
     </application>
 
 </manifest>

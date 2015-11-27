@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.ms.ebangw.R;
 import com.ms.ebangw.activity.AccountActivity;
+import com.ms.ebangw.activity.InviteWithCashActivity;
 import com.ms.ebangw.activity.ProjectStatusActivity;
 import com.ms.ebangw.commons.Constants;
 import com.ms.ebangw.fragment.BaseFragment;
@@ -35,6 +36,8 @@ public class DevelopersCenterFragment extends BaseFragment {
     TextView tvTrade;
     @Bind(R.id.tv_publish)
     TextView tvPublish;
+    @Bind(R.id.tv_invite_with_cash)
+    TextView tvInviteWithCash;
 
     private String mParam1;
     private String mParam2;
@@ -106,6 +109,14 @@ public class DevelopersCenterFragment extends BaseFragment {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(mActivity, AccountActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        tvInviteWithCash.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(mActivity, InviteWithCashActivity.class);
                 startActivity(intent);
             }
         });

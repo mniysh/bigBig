@@ -3,23 +3,14 @@ package com.ms.ebangw.setting;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.loopj.android.http.JsonHttpResponseHandler;
 import com.ms.ebangw.MyApplication;
 import com.ms.ebangw.R;
 import com.ms.ebangw.activity.BaseActivity;
 import com.ms.ebangw.bean.User;
-import com.ms.ebangw.exception.ResponseException;
-import com.ms.ebangw.scancode.MipcaActivityCapture;
-import com.ms.ebangw.service.DataAccessUtil;
-import com.ms.ebangw.service.DataParseUtil;
 import com.ms.ebangw.utils.L;
 import com.ms.ebangw.utils.T;
-
-import org.apache.http.Header;
-import org.json.JSONObject;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -28,9 +19,9 @@ import butterknife.OnClick;
  * 设置页面
  */
 public class SettingActivity extends BaseActivity {
-    private final int REQUESTCODENAME = 111;
-    private final int REQUESTCODEPHONE = 222;
-    private final static int SCANNIN_GREQUEST_CODE = 1;
+    private static final int REQUESTCODENAME = 111;
+    private static final int REQUESTCODEPHONE = 222;
+
 
     @Bind(R.id.tv_nickName)
     TextView tvNickName;
@@ -48,12 +39,6 @@ public class SettingActivity extends BaseActivity {
     TextView tvPassModify;
     @Bind(R.id.tv_realNameModify)
     TextView tvRealNameModify;
-    /**
-     * 扫码推荐工长
-     */
-    @Bind(R.id.ll_recommend_handman)
-    LinearLayout recommendHandmanLayout;
-
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -69,13 +54,6 @@ public class SettingActivity extends BaseActivity {
             tPhone.setText(phone);
         }
 
-        if (requestCode == SCANNIN_GREQUEST_CODE && resultCode == RESULT_OK) {
-            Bundle bundle = data.getExtras();
-            //显示扫描到的内容
-            String result = bundle.getString("result");
-            L.d("二维码扫描结果: " + result);
-            workerRecommendHeadman(result);
-        }
     }
 
     @Override
@@ -110,20 +88,9 @@ public class SettingActivity extends BaseActivity {
             }
         });
 
-        recommendHandmanLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent();
-                intent.setClass(SettingActivity.this, MipcaActivityCapture.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivityForResult(intent, SCANNIN_GREQUEST_CODE);
-
-            }
-        });
         tvRealNameModify.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                
 
             }
         });
@@ -187,29 +154,5 @@ public class SettingActivity extends BaseActivity {
 //        });
 //    }
 
-    /**
-     * 工人扫码推荐工长
-     * @param headmanId
-     */
-    private void workerRecommendHeadman(String headmanId) {
-        DataAccessUtil.workerRecommendHeadman(headmanId, new JsonHttpResponseHandler(){
 
-            @Override
-            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-
-                try {
-                    boolean b = DataParseUtil.processDataResult(response);
-
-                } catch (ResponseException e) {
-                    e.printStackTrace();
-                    T.show(e.getMessage());
-                }
-            }
-
-            @Override
-            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
-                super.onFailure(statusCode, headers, responseString, throwable);
-            }
-        });
-    }
 }

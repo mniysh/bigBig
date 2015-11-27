@@ -114,6 +114,11 @@ public class User implements Serializable {
 	 */
 	private String invite_code;
 
+	/**
+	 *
+	 */
+	private String is_have_headman;
+
 
 
 	public User() {
@@ -296,6 +301,14 @@ public class User implements Serializable {
 		this.invite_code = invite_code;
 	}
 
+	public String getIs_have_headman() {
+		return is_have_headman;
+	}
+
+	public void setIs_have_headman(String is_have_headman) {
+		this.is_have_headman = is_have_headman;
+	}
+
 	@Override
 	public String toString() {
 		return "User{" +
@@ -321,6 +334,7 @@ public class User implements Serializable {
 			", card_image_back='" + card_image_back + '\'' +
 			", total_score='" + total_score + '\'' +
 			", invite_code='" + invite_code + '\'' +
+			", is_have_headman='" + is_have_headman + '\'' +
 			'}';
 	}
 }

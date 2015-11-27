@@ -88,6 +88,7 @@ public class ReleaseActivity extends BaseActivity {
         }
         WorkType workType = event.getWorkType();
         boolean b = event.isSelected();
+
         if (event != null && b) {
 
             data.add(workType);

@@ -21,6 +21,7 @@ import com.ms.ebangw.R;
 import com.ms.ebangw.activity.AccountActivity;
 import com.ms.ebangw.activity.EvaluateListActivity;
 import com.ms.ebangw.activity.InviteFriendsActivity;
+import com.ms.ebangw.activity.InviteWithCashActivity;
 import com.ms.ebangw.activity.JiFenActivity;
 import com.ms.ebangw.activity.PeopleManageActivity;
 import com.ms.ebangw.activity.ProjectStatusActivity;
@@ -73,6 +74,8 @@ public class HeadmanCenterFragment extends BaseFragment {
     TextView tvPublish;
     @Bind(R.id.tv_published)
     TextView tvPublished;
+    @Bind(R.id.tv_invite_with_cash)
+    TextView tvInviteWithCash;
 
 
     private String mParam1;
@@ -190,6 +193,14 @@ public class HeadmanCenterFragment extends BaseFragment {
                 startActivity(intent);
             }
         });
+
+        tvInviteWithCash.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(mActivity, InviteWithCashActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     @Override
@@ -228,6 +239,7 @@ public class HeadmanCenterFragment extends BaseFragment {
         tvInviteFriend.setVisibility(View.GONE);
         tvPublish.setVisibility(View.GONE);
         tvPublished.setVisibility(View.GONE);
+        tvInviteWithCash.setVisibility(View.GONE);
         eweimaLayout.setVisibility(View.VISIBLE);
         tvInviteCode.setText("邀请码：" + SPUtils.get(Constants.KEY_INVITE_CODE, ""));
 

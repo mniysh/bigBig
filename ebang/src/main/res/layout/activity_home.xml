@@ -41,40 +41,16 @@
             android:padding="5dp"
             />
 
-        <RadioButton
-            android:id="@+id/rb_discovery"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="wrap_content"
-            android:text="发现"
-            android:gravity="center"
-            android:button="@drawable/empty"
-            android:drawableTop="@drawable/home_descovery_selector"
-            android:textColor="@color/home_bottom_selector"
-            android:padding="5dp"
-            />
-        <RadioButton
-            android:id="@+id/rb_release"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="wrap_content"
-            android:text="发布"
-            android:gravity="center"
-            android:button="@drawable/empty"
-            android:drawableTop="@drawable/home_descovery_selector"
-            android:textColor="@color/home_bottom_selector"
-            android:padding="5dp"
-            />
 
         <RadioButton
-            android:id="@+id/rb_service"
+            android:id="@+id/rb_social_contact"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="wrap_content"
-            android:text="邀友返现"
+            android:text="社区"
             android:gravity="center"
             android:button="@drawable/empty"
-            android:drawableTop="@drawable/home_release_selector"
+            android:drawableTop="@drawable/home_community_selector"
             android:textColor="@color/home_bottom_selector"
             android:padding="5dp"
             />
@@ -92,6 +68,8 @@
             android:drawableTop="@drawable/home_mine_selector"
             android:textColor="@color/home_bottom_selector"
             />
+
+
     </RadioGroup>
 
     <android.support.design.widget.TabLayout
