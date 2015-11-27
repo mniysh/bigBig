@@ -110,7 +110,7 @@ public class InfoCommitSuccessFragment extends BaseFragment {
 
                 if (mActivity instanceof HomeActivity) {
                     HomeActivity homeActivity = (HomeActivity) mActivity;
-                    homeActivity.lotteryRb.performClick();
+                    homeActivity.homeRb.performClick();
                 } else {
                     MyApplication.getInstance().setFlag_home(true);
                     mActivity.finish();

@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.ms.ebangw.R;
 import com.ms.ebangw.activity.AccountActivity;
 import com.ms.ebangw.activity.EvaluateListActivity;
+import com.ms.ebangw.activity.InviteWithCashActivity;
 import com.ms.ebangw.activity.JiFenActivity;
 import com.ms.ebangw.activity.ProjectStatusActivity;
 import com.ms.ebangw.fragment.BaseFragment;
@@ -43,6 +44,8 @@ public class InvestorCenterFragment extends BaseFragment {
     TextView tvJifen;
     @Bind(R.id.tv_publish)
     TextView tvPublish;
+    @Bind(R.id.tv_invite_with_cash)
+    TextView tvInviteWithCash;
 
     private String mParam1;
     private String mParam2;
@@ -126,6 +129,14 @@ public class InvestorCenterFragment extends BaseFragment {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(mActivity, JiFenActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        tvInviteWithCash.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(mActivity, InviteWithCashActivity.class);
                 startActivity(intent);
             }
         });

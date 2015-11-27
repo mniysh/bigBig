@@ -38,7 +38,7 @@
                 style="@style/user_center_item_ver"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:drawableLeft="@drawable/grab"
+                android:drawableLeft="@drawable/published"
                 android:text="@string/published"
                 />
 
@@ -92,6 +92,15 @@
                 android:layout_height="wrap_content"
                 android:drawableLeft="@drawable/invite_friend"
                 android:text="@string/invite_friend"
+                />
+
+            <TextView
+                android:id="@+id/tv_invite_with_cash"
+                style="@style/user_center_item_ver"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/invite_with_cash"
+                android:text="@string/invite_pay"
                 />
 
             <include

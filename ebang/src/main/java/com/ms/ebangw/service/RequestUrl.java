@@ -282,6 +282,11 @@ public class RequestUrl {
      */
     public static final String show_people = domain + "/api/user/grab/show-people-by-craft/";
 
+    /**
+     * 邀友返现
+     */
+    public static final String invite_friends = domain + "/phone/activity/main/index";
+
 
 
 

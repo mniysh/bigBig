@@ -9,12 +9,12 @@ dependencies {
     //    compile 'com.android.support:recyclerview-v7:23.1.0'
     compile 'com.jakewharton:butterknife:7.0.1'
     compile 'com.umeng.analytics:analytics:latest.integration'
-    compile 'com.android.support:support-v13:23.1.0'
+    compile 'com.android.support:support-v13:23.1.1'
     compile 'com.squareup.picasso:picasso:2.5.2'
     compile 'com.belerweb:pinyin4j:2.5.0'
-    compile 'com.android.support:design:23.1.0'
+    compile 'com.android.support:design:23.1.1'
     compile 'com.loopj.android:android-async-http:1.4.8'
-    compile 'com.android.support:support-v4:23.1.0'
+    compile 'com.android.support:support-v4:23.1.1'
 }
 
 android {
@@ -63,6 +63,18 @@ android {
             debuggable true
             minifyEnabled false
             signingConfig signingConfigs.config
+            applicationVariants.all { variant ->
+                variant.outputs.each { output ->
+                    def outputFile = output.outputFile
+                    if (outputFile != null && outputFile.name.endsWith('.apk')) {
+                        // 输出apk名称为vvpinche_2.2.3_wandoujia.apk
+                        def fileName = "ebang_${defaultConfig.versionName}_${variant.productFlavors[0].name}_debug.apk"
+                        // 输出apk名称为vvpinche.wandoujia.apk
+                        //def fileName = "vvpinche_${defaultConfig.versionName}_${variant.productFlavors[0].name}.apk"
+                        output.outputFile = new File(outputFile.parent, fileName)
+                    }
+                }
+            }
         }
     }
 
