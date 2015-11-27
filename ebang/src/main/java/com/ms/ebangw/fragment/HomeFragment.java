@@ -54,6 +54,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 /*
  * 主页的主页页面
+ *
  */
 public class HomeFragment extends BaseFragment {
     private int[] images = {R.drawable.banner_aaa, R.drawable.banner_bb
