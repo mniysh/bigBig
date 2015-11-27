@@ -15,9 +15,9 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.loopj.android.http.JsonHttpResponseHandler;
 import com.ms.ebangw.MyApplication;
 import com.ms.ebangw.R;
-import com.ms.ebangw.setting.SettingActivity;
 import com.ms.ebangw.bean.UploadImageResult;
 import com.ms.ebangw.bean.User;
 import com.ms.ebangw.commons.Constants;
@@ -25,11 +25,18 @@ import com.ms.ebangw.crop.CropImageActivity;
 import com.ms.ebangw.crop.FroyoAlbumDirFactory;
 import com.ms.ebangw.crop.GetPathFromUri4kitkat;
 import com.ms.ebangw.dialog.SelectPhotoDialog;
+import com.ms.ebangw.exception.ResponseException;
+import com.ms.ebangw.scancode.MipcaActivityCapture;
 import com.ms.ebangw.service.DataAccessUtil;
+import com.ms.ebangw.service.DataParseUtil;
 import com.ms.ebangw.setting.SettingAllActivity;
 import com.ms.ebangw.utils.BitmapUtil;
 import com.ms.ebangw.utils.L;
+import com.ms.ebangw.utils.T;
 import com.squareup.picasso.Picasso;
+
+import org.apache.http.Header;
+import org.json.JSONObject;
 
 import java.io.File;
 import java.io.IOException;
@@ -56,7 +63,7 @@ public class HeadInfoFragment extends BaseFragment {
 
     private String mParam1;
     private String mParam2;
-
+    private final static int SCANNIN_GREQUEST_CODE = 1;
     private ViewGroup contentLayout;
     @Bind(R.id.tv_name)
     TextView nameTv;
@@ -66,6 +73,10 @@ public class HeadInfoFragment extends BaseFragment {
     TextView rankTv;
     @Bind(R.id.iv_head)
     ImageView headIv;
+    @Bind(R.id.tv_left)
+    TextView tvLeft;
+    @Bind(R.id.iv_back)
+    ImageView ivBack;
 
     public HeadInfoFragment() {
         // Required empty public constructor
@@ -120,6 +131,12 @@ public class HeadInfoFragment extends BaseFragment {
         } else if (requestCode == REQUEST_CROP) {        //剪切后返回
             L.d("AuthenticationFragment-->" + "REQUEST_CROP");
             handleCropBitmap(data);
+        }else if (requestCode == SCANNIN_GREQUEST_CODE && resultCode == mActivity.RESULT_OK) {
+            Bundle bundle = data.getExtras();
+            //显示扫描到的内容
+            String result = bundle.getString("result");
+            L.d("二维码扫描结果: " + result);
+            workerRecommendHeadman(result);
         }
     }
 
@@ -135,8 +152,8 @@ public class HeadInfoFragment extends BaseFragment {
     }
 
     @Override
-    public void onResume() {
-        super.onResume();
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
         initTitle(null, null, "我的信息", "设置", new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -148,12 +165,37 @@ public class HeadInfoFragment extends BaseFragment {
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        User user = getUser();
+
+        if (TextUtils.equals(user.getCategory(), Constants.WORKER) && !TextUtils.equals("1", user
+            .getIs_have_headman())) {
+            ivBack.setVisibility(View.VISIBLE);
+            ivBack.setImageResource(R.drawable.scan_code);
+            ivBack.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent();
+                    intent.setClass(mActivity, MipcaActivityCapture.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivityForResult(intent, SCANNIN_GREQUEST_CODE);
+                }
+            });
+        }else {
+            ivBack.setVisibility(View.GONE);
+        }
+
+    }
+
+    @Override
     public void initView() {
 
     }
 
     @Override
     public void initData() {
+
         initHeadInfo();
         mAlbumStorageDirFactory = new FroyoAlbumDirFactory();
     }
@@ -341,5 +383,31 @@ public class HeadInfoFragment extends BaseFragment {
             String imageUrl = DataAccessUtil.getImageUrl(head_image);
             Picasso.with(mActivity).load(Uri.parse(imageUrl)).into(headIv);
         }
+    }
+
+    /**
+     * 工人扫码推荐工长
+     * @param headmanId
+     */
+    private void workerRecommendHeadman(String headmanId) {
+        DataAccessUtil.workerRecommendHeadman(headmanId, new JsonHttpResponseHandler(){
+
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+
+                try {
+                    boolean b = DataParseUtil.processDataResult(response);
+
+                } catch (ResponseException e) {
+                    e.printStackTrace();
+                    T.show(e.getMessage());
+                }
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                super.onFailure(statusCode, headers, responseString, throwable);
+            }
+        });
     }
 }

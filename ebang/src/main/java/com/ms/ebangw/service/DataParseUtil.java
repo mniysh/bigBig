@@ -109,6 +109,7 @@ public class DataParseUtil {
                 String card_image_front = realMessageObj.getString("card_image_front");
                 String card_image_back = realMessageObj.getString("card_image_back");
                 String craft = realMessageObj.getString("craft");
+                String is_have_headman = realMessageObj.getString("is_have_headman"); //
 
                 baseUser.setArea(area);
                 baseUser.setReal_name(real_name);
@@ -116,6 +117,7 @@ public class DataParseUtil {
                 baseUser.setCard_image_front(card_image_front);
                 baseUser.setCard_image_back(card_image_back);
                 baseUser.setCraft(craft);
+                baseUser.setIs_have_headman(is_have_headman);
 
             }
             return baseUser;

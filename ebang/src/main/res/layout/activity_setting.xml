@@ -191,34 +191,6 @@
             />
     </LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/ll_recommend_handman"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:paddingBottom="10dp"
-        android:paddingLeft="15dp"
-        android:gravity="center_vertical"
-        android:paddingTop="10dp">
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_weight="1"
-            android:text="扫码推荐工长"
-            android:drawableLeft="@drawable/scan_code"
-            android:drawablePadding="10dp"
-            android:textColor="@color/black"
-            android:textSize="16dp"
-            />
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/right_arrow"
-            />
-    </LinearLayout>
 
     <View
         android:layout_width="match_parent"
