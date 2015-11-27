@@ -21,7 +21,7 @@ import com.ms.ebangw.bean.Craft;
 import com.ms.ebangw.bean.DeveloperReleaseInfo;
 import com.ms.ebangw.bean.Staff;
 import com.ms.ebangw.bean.WorkType;
-import com.ms.ebangw.event.OnCheckedWorkTypeEvent;
+import com.ms.ebangw.event.WorkTypeEvent;
 import com.ms.ebangw.exception.ResponseException;
 import com.ms.ebangw.fragment.BaseFragment;
 import com.ms.ebangw.service.DataAccessUtil;
@@ -291,12 +291,11 @@ public class SelectCraftFragment extends BaseFragment {
      *处理发布的工种
      * @param event
      */
-    public void onEvent(OnCheckedWorkTypeEvent event) {
+    public void onEvent(WorkTypeEvent event) {
         L.d("OnCheckedWorkTypeEvent");
-        boolean selected = event.isSelected();
         WorkType workType = event.getWorkType();
 
-        if (selected) {
+        if (event.isAdd()) {
             workTypeSet.add(workType);
         } else {
             workTypeSet.remove(workType);
