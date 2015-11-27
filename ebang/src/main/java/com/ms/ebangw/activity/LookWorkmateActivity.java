@@ -109,7 +109,10 @@ public class LookWorkmateActivity extends BaseActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 ShowedCraft showedCraft = (ShowedCraft) view.getTag(Constants.KEY_SHOW_CRAFT);
                 Intent intent = new Intent(LookWorkmateActivity.this, CheckWorkTypeUserActivity.class);
-
+                Bundle bundle = new Bundle();
+                bundle.putParcelable(Constants.KEY_SHOWED_CRAFT, showedCraft);
+                bundle.putString(Constants.KEY_PROJECT_ID, releaseProject.getId());
+                intent.putExtras(bundle);
                 startActivity(intent);
             }
         });

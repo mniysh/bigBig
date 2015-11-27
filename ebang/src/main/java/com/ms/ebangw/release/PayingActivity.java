@@ -34,8 +34,8 @@ public class PayingActivity extends BaseActivity {
     ImageView imageView;
     @Bind(R.id.tv_paying_money)
     TextView moneyTv;
-    @Bind(R.id.but_phone)
-    Button phoneBt;
+    @Bind(R.id.tv_phone)
+    TextView phoneTv;
     @Bind(R.id.bt_goCenter)
     Button goCenterBt;
 
@@ -63,7 +63,7 @@ public class PayingActivity extends BaseActivity {
             projectMoney = releaseProject.getProject_money();
         }
         setReleaseInfo();
-        phoneBt.setOnClickListener(new View.OnClickListener() {
+        phoneTv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent();
@@ -76,7 +76,7 @@ public class PayingActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 MyApplication.getInstance().setFlag_home(true);
-                PayingActivity.this.finish();
+                finish();
 
             }
         });

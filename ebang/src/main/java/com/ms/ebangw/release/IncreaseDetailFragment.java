@@ -137,15 +137,11 @@ public class IncreaseDetailFragment extends BaseFragment {
     ImageView picture03Iv;
     //工期开始结束时间
     @Bind(R.id.tv_start_time)
-    EditText startTimeTv;
+    TextView startTimeTv;
     @Bind(R.id.tv_end_time)
-    EditText endTimeTv;
-    @Bind(R.id.tv_selectMapAdd)
-    TextView selectAdd;
-    @Bind(R.id.et_address)
-    EditText selectAddEt;
-
-
+    TextView endTimeTv;
+    @Bind(R.id.tv_address)
+    TextView selectAddTv;
 
 
     private String province, city , area, detailAddress, title, link_name, link_phone,
@@ -175,7 +171,7 @@ public class IncreaseDetailFragment extends BaseFragment {
 
     }
     //地图获取信息
-    @OnClick({R.id.et_address, R.id.tv_selectMapAdd})
+    @OnClick({R.id.tv_address})
     public void getMap(){
 
         Intent intent = new Intent(mActivity, SelectMapLocActivity.class);
@@ -196,7 +192,7 @@ public class IncreaseDetailFragment extends BaseFragment {
                 SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
                 String dateStr = simpleDateFormat.format(calendar.getTime());
                 startTimeTv.setText(dateStr);
-                endTimeTv.setTag(calendar.getTimeInMillis());
+                startTimeTv.setTag(calendar.getTimeInMillis());
             }
 
         });
@@ -510,9 +506,7 @@ public class IncreaseDetailFragment extends BaseFragment {
                 LatLng location = poiInfo.location;
                 latitude = (float)location.latitude;
                 longitude = (float)location.longitude;
-                selectAddEt.setVisibility(View.GONE);
-                selectAdd.setVisibility(View.VISIBLE);
-                selectAdd.setText(selectMapAdd);
+                selectAddTv.setText(selectMapAdd);
                 L.d("latitude: " + latitude + " , longitude: " + longitude);
             }
         }
@@ -572,16 +566,6 @@ public class IncreaseDetailFragment extends BaseFragment {
                     if (DataParseUtil.processDataResult(response)) {
                         UploadImageResult result = DataParseUtil.upLoadImage(response);
                         String id = result.getId();
-//                        AuthInfo authInfo = ((InvestorAuthenActivity) mActivity).getAuthInfo();
-//                        if (type == TYPE_FRONT) {
-//                            isFrontUploaded = true;
-//                            authInfo.setFrontImageId(id);
-//                        }
-//
-//                        if (type == TYPE_BACK) {
-//                            isBackUploaded = true;
-//                            authInfo.setBackImageId(id);
-//                        }
                         T.show("上传图片成功");
                     } else {
                         T.show("上传图片失败,请重试");
@@ -631,132 +615,52 @@ public class IncreaseDetailFragment extends BaseFragment {
         return file;
     }
 
-    public void getAreaId(){
-
-
-
-    }
-
-    /**
-     * 开发商发布
-     */
     @OnClick(R.id.btn_release)
-    public void developerRelease() {
-       // private String province, city , area, detailAddress, title, link_name, link_phone, description;
+    public void releaseProject() {
         User user = getUser();
         if(user == null){
             return;
         }
         getData();
 
-        if(isRight() && TextUtils.equals(categroy, "developer")){
-            DataAccessUtil.developerRelease(title, description,link_name,link_phone,
-                     provinceId, cityId,detailAddress,
-                    longitude, latitude, image_ary,startTime, endTime,totalMoney, staff,
-                    new JsonHttpResponseHandler(){
+        if(isRight()){
+            DataAccessUtil.releaseProject(title, description, link_name, link_phone,
+                provinceId, cityId, detailAddress,
+                longitude, latitude, image_ary, startTime, endTime, totalMoney, staff,
+                new JsonHttpResponseHandler() {
 
-                        @Override
-                        public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                            super.onSuccess(statusCode, headers, response);
+                    @Override
+                    public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                        super.onSuccess(statusCode, headers, response);
 
-                            try {
-                                releaseProject = new ReleaseProject();
-                                boolean b = DataParseUtil.processDataResult(response);
-                                if(b){
-                                    T.show("开发商发布成功");
-                                    releaseProject = DataParseUtil.getProjectInfo(response);
-                                    Bundle  bundle = new Bundle();
-                                    bundle.putParcelable(Constants.KEY_RELEASE_PROJECT,releaseProject);
-                                    Intent intent = new Intent((ReleaseActivity)mActivity,PayingActivity.class );
-                                    intent.putExtras(bundle);
-                                    startActivity(intent);
-                                }
-                            } catch (ResponseException e) {
-                                e.printStackTrace();
-                                T.show(e.getMessage());
+                        try {
+                            releaseProject = new ReleaseProject();
+                            boolean b = DataParseUtil.processDataResult(response);
+                            if (b) {
+                                T.show("开发商发布成功");
+                                releaseProject = DataParseUtil.getProjectInfo(response);
+                                Bundle bundle = new Bundle();
+                                bundle.putParcelable(Constants.KEY_RELEASE_PROJECT, releaseProject);
+                                Intent intent = new Intent(mActivity, PayingActivity.class);
+                                intent.putExtras(bundle);
+                                startActivity(intent);
+                                mActivity.finish();
                             }
-
+                        } catch (ResponseException e) {
+                            e.printStackTrace();
+                            T.show(e.getMessage());
                         }
 
-                        @Override
-                        public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
-                            super.onFailure(statusCode, headers, responseString, throwable);
-                            L.d(responseString);
-                        }
-                    } );
+                    }
+
+                    @Override
+                    public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                        super.onFailure(statusCode, headers, responseString, throwable);
+                        L.d(responseString);
+                    }
+                });
         }
-        if(isRight() && TextUtils.equals(categroy, "headman")){
-            DataAccessUtil.developerRelease(title, description,link_name,link_phone,
-                     provinceId, cityId,detailAddress,
-                    longitude, latitude, image_ary,startTime, endTime,totalMoney, staff,
-                    new JsonHttpResponseHandler(){
 
-                        @Override
-                        public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                            super.onSuccess(statusCode, headers, response);
-
-                            try {
-                                releaseProject = new ReleaseProject();
-                                boolean b = DataParseUtil.processDataResult(response);
-                                if(b){
-                                    T.show("工长发布成功");
-//                                    releaseProject = DataParseUtil.getProjectInfo(response);
-//                                    Bundle  bundle = new Bundle();
-//                                    bundle.putParcelable(Constants.KEY_RELEASE_PROJECT,releaseProject);
-//                                    Intent intent = new Intent((ReleaseActivity)mActivity,PayingActivity.class );
-//                                    intent.putExtras(bundle);
-//                                    startActivity(intent);
-                                }
-                            } catch (ResponseException e) {
-                                e.printStackTrace();
-                                T.show(e.getMessage());
-                            }
-
-                        }
-
-                        @Override
-                        public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
-                            super.onFailure(statusCode, headers, responseString, throwable);
-                            L.d(responseString);
-                        }
-                    } );
-        }
-        if(isRight() && TextUtils.equals(categroy, "investor")){
-            DataAccessUtil.investorRelease(title, description,link_name,link_phone,
-                    provinceId, cityId,detailAddress,
-                    longitude, latitude, image_ary,startTime, endTime,totalMoney, staff,
-                    new JsonHttpResponseHandler(){
-                        @Override
-                        public void onStart() {
-                            super.onStart();
-                            showProgressDialog("请稍后");
-                            T.show("开始");
-                        }
-
-                        @Override
-                        public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                            super.onSuccess(statusCode, headers, response);
-                            try {
-                                boolean b = DataParseUtil.processDataResult(response);
-                                if (b){
-                                    T.show("个人发布成功");
-                                    dismissLoadingDialog();
-                                }
-                            } catch (ResponseException e) {
-                                e.printStackTrace();
-                                T.show(e.getMessage());
-                                dismissLoadingDialog();
-                            }
-                        }
-
-                        @Override
-                        public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
-                            super.onFailure(statusCode, headers, responseString, throwable);
-                            L.d(responseString);
-                            dismissLoadingDialog();
-                        }
-                    });
-        }
     }
 
     public void settingImage(Intent intent) {

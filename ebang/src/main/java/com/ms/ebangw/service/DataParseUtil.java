@@ -9,6 +9,7 @@ import com.ms.ebangw.adapter.Evaluate;
 import com.ms.ebangw.bean.Account;
 import com.ms.ebangw.bean.Area;
 import com.ms.ebangw.bean.Bank;
+import com.ms.ebangw.bean.CheckedWorkTypeUser;
 import com.ms.ebangw.bean.City;
 import com.ms.ebangw.bean.Craft;
 import com.ms.ebangw.bean.HomeProjectInfo;
@@ -429,6 +430,21 @@ public class DataParseUtil {
 
         return list;
     }
+
+    /**
+     * 2-26  根据工种显示人员（个人中心）（工长、劳务公司）
+     * @param jsonObject
+     * @return
+     * @throws ResponseException
+     */
+    public static CheckedWorkTypeUser showPeople(JSONObject jsonObject) throws ResponseException {
+        String dataStr = processDataStr(jsonObject);
+        Gson gson = new Gson();
+        CheckedWorkTypeUser checkedWorkTypeUser = gson.fromJson(dataStr, CheckedWorkTypeUser.class);
+
+        return checkedWorkTypeUser;
+    }
+
 
     /**
      * 2-7.工头获取符合工种工人列表（邀请）

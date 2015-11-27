@@ -61,6 +61,8 @@ public class PeopleCategoryActivity extends BaseActivity {
             listType = extras.getString(Constants.KEY_CATEGORY_LIST_TYPE, LIST_TYPE_HEADMAN);
             projectId = extras.getString(Constants.KEY_PROJECT_ID);
         }
+        initView();
+        initData();
     }
 
     @Override
@@ -160,7 +162,7 @@ public class PeopleCategoryActivity extends BaseActivity {
         dialog.setListener(new ConfirmDialog.OnConfirmListener() {
             @Override
             public void onClick(boolean isAgree) {
-                if (!isAgree) {
+                if (!isAgree || TextUtils.isEmpty(category)) {
                     return;
                 }
                 switch (category) {

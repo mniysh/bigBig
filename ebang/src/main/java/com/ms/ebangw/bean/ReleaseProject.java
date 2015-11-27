@@ -56,6 +56,8 @@ public class ReleaseProject implements Parcelable{
     private String project_type_name;
     private String grab_num;
     private String distance;
+    private String real_name;
+
 
     public String getCount() {
         return count;
@@ -207,6 +209,14 @@ public class ReleaseProject implements Parcelable{
         this.distance = distance;
     }
 
+    public String getReal_name() {
+        return real_name;
+    }
+
+    public void setReal_name(String real_name) {
+        this.real_name = real_name;
+    }
+
 
     @Override
     public int describeContents() {
@@ -233,6 +243,7 @@ public class ReleaseProject implements Parcelable{
         dest.writeString(this.project_type_name);
         dest.writeString(this.grab_num);
         dest.writeString(this.distance);
+        dest.writeString(this.real_name);
     }
 
     protected ReleaseProject(Parcel in) {
@@ -254,6 +265,7 @@ public class ReleaseProject implements Parcelable{
         this.project_type_name = in.readString();
         this.grab_num = in.readString();
         this.distance = in.readString();
+        this.real_name = in.readString();
     }
 
     public static final Creator<ReleaseProject> CREATOR = new Creator<ReleaseProject>() {

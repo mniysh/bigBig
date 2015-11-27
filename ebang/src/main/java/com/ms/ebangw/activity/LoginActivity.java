@@ -13,12 +13,14 @@ import com.loopj.android.http.JsonHttpResponseHandler;
 import com.ms.ebangw.MyApplication;
 import com.ms.ebangw.R;
 import com.ms.ebangw.bean.User;
+import com.ms.ebangw.commons.Constants;
 import com.ms.ebangw.db.UserDao;
 import com.ms.ebangw.exception.ResponseException;
 import com.ms.ebangw.findpassword.SetPhoneActivity;
 import com.ms.ebangw.service.DataAccessUtil;
 import com.ms.ebangw.service.DataParseUtil;
 import com.ms.ebangw.utils.L;
+import com.ms.ebangw.utils.SPUtils;
 import com.ms.ebangw.utils.T;
 import com.ms.ebangw.utils.VerifyUtils;
 
@@ -40,8 +42,6 @@ public class LoginActivity extends BaseActivity{
     EditText passwordEt;        //密码
     @Bind(R.id.act_login_but_login)
     Button loginBtn;            //登录
-//    @Bind(R.id.tv_register)
-//    TextView registerTv;        //注册
     @Bind(R.id.tv_find_password)       //找回密码
     TextView findPwdTv;
 
@@ -67,15 +67,11 @@ public class LoginActivity extends BaseActivity{
 
     @Override
     public void initData() {
-
-//        registerTv.setOnClickListener(new OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                startActivity(new Intent(LoginActivity.this, RegisterActivity.class));
-//
-//            }
-//        });
-
+        String userAccount = (String) SPUtils.get(Constants.KEY_USER_ACCOUNT, "");
+        if (!TextUtils.isEmpty(userAccount)) {
+            accountEt.setText(userAccount);
+            passwordEt.requestFocus();
+        }
         findPwdTv.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -140,8 +136,9 @@ public class LoginActivity extends BaseActivity{
                     User user = DataParseUtil.login(response);
 
                     if(null != user) {
-
                         MyApplication.getInstance().saveUser(user);     //保存或更新User信息
+                        SPUtils.put(Constants.KEY_INVITE_CODE, user.getInvite_code());
+                        SPUtils.put(Constants.KEY_USER_ACCOUNT, user.getPhone());
                         //跳转到主页
                         Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
                         startActivity(intent);

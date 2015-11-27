@@ -77,7 +77,6 @@ public class PublishedProjectStatusAdapter extends BaseAdapter {
         String imageUrl = project.getImages();
         String title = project.getTitle();
         String description = project.getDescription();
-        String grab_num = project.getGrab_num();
         String project_money = project.getProject_money();
         if (!TextUtils.isEmpty(imageUrl)) {
             Picasso.with(parent.getContext()).load(DataAccessUtil.getImageUrl(imageUrl)).error(R.drawable.head)
@@ -87,9 +86,6 @@ public class PublishedProjectStatusAdapter extends BaseAdapter {
             holder.head.setImageResource(R.drawable.head);
         }
 
-//        if(TextUtils.equals(category, Constants.WORKER)) {   //工人
-//
-//        }
         switch (category) {
             case Constants.DEVELOPERS:
             case Constants.INVESTOR:
@@ -97,11 +93,11 @@ public class PublishedProjectStatusAdapter extends BaseAdapter {
                 break;
 
             case Constants.HEADMAN:
-
+                setHeadmanItem(holder);
                 break;
 
             case Constants.WORKER:
-                setWorkerItem(holder);
+                setWorkerItem(holder, project);
                 break;
 
             case Constants.COMPANY:
@@ -110,27 +106,8 @@ public class PublishedProjectStatusAdapter extends BaseAdapter {
 
         }
 
-        switch (status) {
-            case ProjectStatusFragment.WAITING:
-                holder.tvShow.setVisibility(View.GONE);
-                holder.tvGrabDescription.setVisibility(View.VISIBLE);
-
-                break;
-            case ProjectStatusFragment.EXECUTE:
-                holder.tvShow.setVisibility(View.GONE);
-                holder.tvGrabDescription.setVisibility(View.GONE);
-                break;
-            case ProjectStatusFragment.COMPLETE:
-                holder.tvShow.setVisibility(View.VISIBLE);
-                holder.tvGrabDescription.setVisibility(View.GONE);
-
-                break;
-
-        }
-
         holder.tvTitle.setText(title);
         holder.tvDescription.setText(description);
-//        holder.tvGrabDescription.setText(grab_num + "人抢单");
         holder.tvMoney.setText("总工资:" + project_money + " 元");
         holder.tvShow.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -142,6 +119,28 @@ public class PublishedProjectStatusAdapter extends BaseAdapter {
         });
         convertView.setTag(Constants.KEY_RELEASED_PROJECT, project);
         return convertView;
+    }
+
+    private void setHeadmanItem(ViewHolder holder) {
+        switch (status) {
+            case ProjectStatusFragment.AUDIT:
+                holder.tvShow.setVisibility(View.GONE);
+                holder.tvGrabDescription.setVisibility(View.GONE);
+                break;
+
+            case ProjectStatusFragment.WAITING:
+            case ProjectStatusFragment.EXECUTE:
+                holder.tvShow.setVisibility(View.VISIBLE);
+                holder.tvGrabDescription.setVisibility(View.GONE);
+                holder.tvShow.setText("查看工友");
+
+                break;
+            case ProjectStatusFragment.COMPLETE:
+                holder.tvShow.setVisibility(View.VISIBLE);
+                holder.tvGrabDescription.setVisibility(View.GONE);
+                holder.tvShow.setText("评论");
+                break;
+        }
     }
 
     private void setLabourCompanyItem(ViewHolder holder) {
@@ -171,12 +170,13 @@ public class PublishedProjectStatusAdapter extends BaseAdapter {
                 break;
             case ProjectStatusFragment.WAITING:
                 holder.tvShow.setVisibility(View.VISIBLE);
-                holder.tvGrabDescription.setVisibility(View.VISIBLE);
+                holder.tvGrabDescription.setVisibility(View.GONE);
                 holder.tvShow.setText("查看抢单人员");
                 break;
             case ProjectStatusFragment.EXECUTE:
                 holder.tvShow.setVisibility(View.VISIBLE);
                 holder.tvGrabDescription.setVisibility(View.VISIBLE);
+                holder.tvGrabDescription.setText("雇佣：" + project.getReal_name());
                 holder.tvShow.setText("联系他");
                 break;
             case ProjectStatusFragment.COMPLETE:
@@ -187,23 +187,14 @@ public class PublishedProjectStatusAdapter extends BaseAdapter {
         }
     }
 
-    private void setWorkerItem(ViewHolder holder) {
+    private void setWorkerItem(ViewHolder holder, ReleaseProject project) {
         if (TextUtils.equals(currentType, ProjectStatusActivity.TYPE_GRAB)) {   //工人抢单
-            if (TextUtils.equals(status, ProjectStatusFragment.COMPLETE)) {
-                holder.tvShow.setText("评论");
-            } else {
-                holder.tvShow.setVisibility(View.GONE);
-            }
-            return;
-        }
-
-        if (TextUtils.equals(inviteType, ProjectStatusActivity.INVITE_TYPE_INVITE)) {
             switch (status) {
                 case ProjectStatusFragment.WAITING:
                 case ProjectStatusFragment.EXECUTE:
                     holder.tvShow.setVisibility(View.GONE);
                     holder.tvGrabDescription.setVisibility(View.VISIBLE);
-                    holder.tvShow.setText("查看邀请我的");
+                    holder.tvGrabDescription.setText("工长：" + project.getReal_name());
                     break;
                 case ProjectStatusFragment.COMPLETE:
                     holder.tvShow.setVisibility(View.VISIBLE);
@@ -211,9 +202,29 @@ public class PublishedProjectStatusAdapter extends BaseAdapter {
                     holder.tvShow.setText("评论");
                     break;
             }
+        }
 
-        } else {
-            holder.tvShow.setText("点击联系");
+        if (TextUtils.equals(currentType, ProjectStatusActivity.TYPE_INVITE)) {
+            if (TextUtils.equals(inviteType, ProjectStatusActivity.INVITE_TYPE_INVITE)) {
+                switch (status) {
+                    case ProjectStatusFragment.WAITING:
+                    case ProjectStatusFragment.EXECUTE:
+                        holder.tvShow.setVisibility(View.VISIBLE);
+                        holder.tvGrabDescription.setVisibility(View.GONE);
+                        holder.tvShow.setText("查看邀请我的");
+                        break;
+                    case ProjectStatusFragment.COMPLETE:
+                        holder.tvShow.setVisibility(View.VISIBLE);
+                        holder.tvGrabDescription.setVisibility(View.GONE);
+                        holder.tvShow.setText("评论");
+                        break;
+                }
+
+            } else {
+                holder.tvShow.setVisibility(View.VISIBLE);
+                holder.tvShow.setText("点击联系");
+            }
+
         }
 
     }

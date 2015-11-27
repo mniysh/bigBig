@@ -80,6 +80,7 @@
                 android:layout_centerVertical="true"
                 android:layout_toLeftOf="@+id/tv_show"
                 android:text="1人抢单"
+                android:visibility="gone"
                 />
 
             <TextView

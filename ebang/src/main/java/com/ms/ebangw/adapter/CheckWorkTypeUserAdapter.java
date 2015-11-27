@@ -1,6 +1,5 @@
 package com.ms.ebangw.adapter;
 
-import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -22,12 +21,12 @@ import butterknife.ButterKnife;
  * User: WangKai(123940232@qq.com)
  * 2015-10-30 13:44
  */
-public class PeopleCategoryAdapter extends BaseAdapter {
+public class CheckWorkTypeUserAdapter extends BaseAdapter {
     private String category;
     private List<People> list;
     private OnAgreeListener onAgreeListener;
 
-    public PeopleCategoryAdapter(String category, List<People> list, OnAgreeListener
+    public CheckWorkTypeUserAdapter(String category, List<People> list, OnAgreeListener
         onAgreeListener) {
         this.category = category;
         this.list = list;
@@ -53,7 +52,7 @@ public class PeopleCategoryAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         ViewHolder holder;
         if (convertView == null) {
-            convertView = View.inflate(parent.getContext(), R.layout.people_category_item, null);
+            convertView = View.inflate(parent.getContext(), R.layout.check_work_type_user_item, null);
             holder = new ViewHolder(convertView);
             convertView.setTag(holder);
         } else {
@@ -78,21 +77,11 @@ public class PeopleCategoryAdapter extends BaseAdapter {
             holder.tvPy.setText(firstChar);
         }
 
-        if (TextUtils.equals(category, Constants.WORKER)) {
-            holder.tvAgree.setText("同意");
-        }else {
-            holder.tvAgree.setText("雇佣");
-        }
 
         holder.tvName.setText(people.getReal_name());
-        String head_image = people.getHead_image();
-        if (!TextUtils.isEmpty(head_image)) {
-            Picasso.with(parent.getContext()).load(DataAccessUtil.getImageUrl(head_image)).
-                placeholder(R.drawable.worker_avatar).into(holder.ivAvatar);
-        }else {
-            holder.ivAvatar.setImageResource(R.drawable.worker_avatar);
-        }
-        holder.tvAgree.setOnClickListener(new View.OnClickListener() {
+        Picasso.with(parent.getContext()).load(DataAccessUtil.getImageUrl(people.getHead_image())).
+            placeholder(R.drawable.worker_avatar).into(holder.ivAvatar);
+        holder.tvContact.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (null != onAgreeListener) {
@@ -126,8 +115,8 @@ public class PeopleCategoryAdapter extends BaseAdapter {
         CircleImageView ivAvatar;
         @Bind(R.id.tv_name)
         TextView tvName;
-        @Bind(R.id.tv_agree)
-        TextView tvAgree;
+        @Bind(R.id.tv_contact)
+        TextView tvContact;
 
         ViewHolder(View view) {
             ButterKnife.bind(this, view);

@@ -54,12 +54,6 @@ public class PeopleManageActivity extends BaseActivity {
     public void initView() {
         initTitle(null, "返回", "人员管理", null, null);
         handler = new Handler();
-//        Intent intent = getIntent();
-//        staff = intent.getExtras().getParcelable(Constants.KEY_RELEASED_PROJECT_STAFF);
-//        project_id = staff.getProject_id();
-//        craft_id = staff.getCraft_id();
-
-
     }
 
     @Override
