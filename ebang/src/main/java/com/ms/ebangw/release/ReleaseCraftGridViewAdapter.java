@@ -8,12 +8,10 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 
 import com.ms.ebangw.R;
-import com.ms.ebangw.activity.HomeActivity;
 import com.ms.ebangw.bean.WorkType;
 import com.ms.ebangw.commons.Constants;
 import com.ms.ebangw.dialog.SelectWorTypeDialog;
-import com.ms.ebangw.event.OnCheckedWorkTypeEvent;
-import com.ms.ebangw.utils.T;
+import com.ms.ebangw.event.WorkTypeEvent;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -76,10 +74,8 @@ public class ReleaseCraftGridViewAdapter extends BaseAdapter{
                 WorkType type = (WorkType) buttonView.getTag(Constants.KEY_WORK_TYPE);
                 if (isChecked) {
                     showSelectWorkTypeDialog(cb, type);
-                    selectedWorkTypes.add(type);
                 } else {
-                    selectedWorkTypes.remove(type);
-                    EventBus.getDefault().post(new OnCheckedWorkTypeEvent(type, false));
+                    EventBus.getDefault().post(new WorkTypeEvent(type, false));
                 }
             }
         });
@@ -94,7 +90,7 @@ public class ReleaseCraftGridViewAdapter extends BaseAdapter{
             public void onStaffSelected(WorkType workType, boolean isSelected) {
                 if (isSelected) {
                     //T.show("adapter能收到");
-                    EventBus.getDefault().post(new OnCheckedWorkTypeEvent(workType, true));
+                    EventBus.getDefault().post(new WorkTypeEvent(workType, true));
                 }else {
                     cb.toggle();
                 }

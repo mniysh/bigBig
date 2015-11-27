@@ -7,7 +7,6 @@ import android.os.Bundle;
 import com.ms.ebangw.R;
 import com.ms.ebangw.activity.BaseActivity;
 import com.ms.ebangw.bean.WorkType;
-import com.ms.ebangw.event.OnCheckedWorkTypeEvent;
 import com.ms.ebangw.event.WorkTypeEvent;
 
 import java.util.ArrayList;
@@ -20,9 +19,6 @@ public class ReleaseActivity extends BaseActivity {
     private FragmentManager fm ;
     private String categroy;
     private List<WorkType> selectWorkType;
-    private List<WorkType> data;
-    private ReleaseWorkTypeFragment releaseWorkTypeFragment;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,7 +41,6 @@ public class ReleaseActivity extends BaseActivity {
         fm = getFragmentManager();
         if(selectWorkType == null){
             selectWorkType = new ArrayList<>();
-
         }
     }
 
@@ -81,21 +76,4 @@ public class ReleaseActivity extends BaseActivity {
         super.onDestroy();
         EventBus.getDefault().unregister(this);
     }
-
-    public void onEvent(OnCheckedWorkTypeEvent event) {
-        if (event == null) {
-            return;
-        }
-        WorkType workType = event.getWorkType();
-        boolean b = event.isSelected();
-
-        if (event != null && b) {
-
-            data.add(workType);
-            releaseWorkTypeFragment = ReleaseWorkTypeFragment.newInstance(workType);
-        } else if (event != null && !b) {
-            data.remove(workType);
-        }
-    }
-
 }
