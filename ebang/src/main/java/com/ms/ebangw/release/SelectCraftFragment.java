@@ -103,7 +103,6 @@ public class SelectCraftFragment extends BaseFragment {
             categroy = getArguments().getString(CATEGROY);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
-
     }
 
     @Override
@@ -175,9 +174,6 @@ public class SelectCraftFragment extends BaseFragment {
     @OnClick(R.id.btn_next)
     public void goNext() {
         if(releaseGoNext() ){
-//            Bundle bundle = new Bundle();
-//            bundle.putString(Constants.KEY_RELEASE_PROJECT,getStaff(workTypeSet));
-
             ReleaseActivity homeActivity = (ReleaseActivity) mActivity;
             homeActivity.goDeveloperRelease(getStaff(workTypeSet), categroy);
         }
@@ -241,9 +237,6 @@ public class SelectCraftFragment extends BaseFragment {
                     dismissLoadingDialog();
                 }
             });
-
-
-
 
         return craft;
     }
@@ -331,10 +324,8 @@ public class SelectCraftFragment extends BaseFragment {
                 int count  = Integer.parseInt(staff.getStaff_account());
                 totalMoney += money * count;
             }
-
         }
         totalMoneyTv.setText("总金额：" + totalMoney + " 元");
-
     }
 
 }

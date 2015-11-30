@@ -38,6 +38,7 @@
             android:button="@drawable/empty"
             android:drawableTop="@drawable/home_page_selector"
             android:textColor="@color/home_bottom_selector"
+            android:singleLine="true"
             android:padding="5dp"
             />
 
@@ -52,6 +53,7 @@
             android:button="@drawable/empty"
             android:drawableTop="@drawable/home_community_selector"
             android:textColor="@color/home_bottom_selector"
+            android:singleLine="true"
             android:padding="5dp"
             />
 
@@ -64,6 +66,7 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:text="我的"
+            android:singleLine="true"
             android:button="@drawable/empty"
             android:drawableTop="@drawable/home_mine_selector"
             android:textColor="@color/home_bottom_selector"
