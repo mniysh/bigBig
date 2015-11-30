@@ -12,7 +12,6 @@ import android.widget.FrameLayout;
 import android.widget.Spinner;
 
 import com.ms.ebangw.R;
-import com.ms.ebangw.bean.Area;
 import com.ms.ebangw.bean.City;
 import com.ms.ebangw.bean.Province;
 
@@ -70,7 +69,7 @@ public class ProvinceAndCityView extends FrameLayout {
 
 
 
-    public void initSpinner() {
+    private void initSpinner() {
         if (null == provinces) {
             return;
         }
