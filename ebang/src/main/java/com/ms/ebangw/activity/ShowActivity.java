@@ -212,6 +212,12 @@ public class ShowActivity extends BaseActivity {
         lBelowShow.setVisibility(View.GONE);
         DataAccessUtil.projectInfoDetailInvistor(projectId, new JsonHttpResponseHandler() {
             @Override
+            public void onStart() {
+                super.onStart();
+                showProgressDialog();
+            }
+
+            @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                 super.onSuccess(statusCode, headers, response);
                 try {
@@ -241,6 +247,7 @@ public class ShowActivity extends BaseActivity {
                             iOneImg.setImageResource(R.drawable.head);
 //                            iTwoImg.setImageResource(R.drawable.head);
                         }
+                        dismissLoadingDialog();
                         List<Staff> staffs = projectInfoDetail.getStaffs();
                         if (null != staffs && staffs.size() > 0) {
                             detailAdapter = new ProjectItemdetailAdapter(staffs, user, developersId, isContend,new ProjectItemdetailAdapter.OnGrabClickListener() {
@@ -266,6 +273,7 @@ public class ShowActivity extends BaseActivity {
                 } catch (ResponseException e) {
                     e.printStackTrace();
                     T.show(e.getMessage());
+                    dismissLoadingDialog();
                 }
 
             }
@@ -274,6 +282,7 @@ public class ShowActivity extends BaseActivity {
             public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
                 super.onFailure(statusCode, headers, responseString, throwable);
                 L.d(responseString);
+                dismissLoadingDialog();
 
             }
         });
@@ -285,6 +294,11 @@ public class ShowActivity extends BaseActivity {
 
         DataAccessUtil.projectInfoDetail(projectId, new JsonHttpResponseHandler() {
 
+            @Override
+            public void onStart() {
+                super.onStart();
+                showProgressDialog();
+            }
 
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
@@ -325,6 +339,7 @@ public class ShowActivity extends BaseActivity {
                             iOneImg.setImageResource(R.drawable.head);
 
                         }
+                        dismissLoadingDialog();
                         List<Staff> staffs = detail.getStaffs();
                         if (null != staffs && staffs.size() > 0) {
                             detailAdapter = new ProjectItemdetailAdapter(staffs, user, developersId,isContend, new ProjectItemdetailAdapter.OnGrabClickListener() {
@@ -348,13 +363,17 @@ public class ShowActivity extends BaseActivity {
                 } catch (ResponseException e) {
                     e.printStackTrace();
                     T.show(e.getMessage());
+                    dismissLoadingDialog();
 
                 }
             }
 
+
+
             @Override
-            public void onFinish() {
-                super.onFinish();
+            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                super.onFailure(statusCode, headers, responseString, throwable);
+                L.d(responseString);
                 dismissLoadingDialog();
             }
         });

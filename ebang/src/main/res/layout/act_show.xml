@@ -58,7 +58,7 @@
                     android:id="@+id/tv_address"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="北京市海淀区增光路"
+
                     android:textColor="#555555" />
 
                 <View
@@ -91,7 +91,7 @@
                     android:id="@+id/tv_start_time"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="2015年8月8日"
+
                     android:textColor="#555555" />
 
                 <View
@@ -124,7 +124,7 @@
                     android:id="@+id/tv_end_time"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="2016年8月8日"
+
                     android:textColor="#555555" />
 
                 <View
@@ -155,7 +155,7 @@
                     android:id="@+id/tv_link_man"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="赵某某"
+
                     android:textColor="#555555" />
 
                 <View
@@ -185,7 +185,7 @@
                     android:id="@+id/tv_link_phone"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="15555555555"
+
                     android:textColor="#555555" />
             </LinearLayout>
 
@@ -213,7 +213,7 @@
                     android:id="@+id/tv_description"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="填写内容填写描述的内容填写描述的内容填写描述的内容填写描述的内容填写描述的内容填写描述的内容"
+
                     android:paddingTop="5dp"
                     android:textColor="#555555"
                     />
