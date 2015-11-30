@@ -141,15 +141,8 @@ public class WorkTypeActivity extends BaseActivity {
 
     @OnClick(R.id.btn_ok)
     public void commitSelectedTypes() {
-        int selectedNum = getSelectedWorkTypes().size();
-        if(selectedNum > 5 || selectedNum < 1){
-            T.show("工种最少选择1个最多选5个");
-            return;
-        }
-
         Bundle bundle = new Bundle();
-
-        bundle.putParcelableArrayList(Constants.KEY_SELECTED_WORKTYPES,getSelectedWorkTypes());
+        bundle.putParcelableArrayList(Constants.KEY_SELECTED_WORKTYPES, getSelectedWorkTypes());
         Intent intent = new Intent();
         intent.putExtras(bundle);
         setResult(RESULT_OK, intent);

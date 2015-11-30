@@ -113,9 +113,6 @@ public class WorkerBaseInfoFragment extends BaseFragment {
 			@Override
 			public void onClick(View v) {
 				Intent intent = new Intent(mActivity, WorkTypeActivity.class);
-//				if (workTypes != null && workTypes.size() > 0) {
-//
-//				}
 				Bundle bundle = new Bundle();
 				bundle.putParcelableArrayList(Constants.KEY_SELECTED_WORKTYPES, workTypes);
 				intent.putExtras(bundle);
