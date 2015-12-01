@@ -167,7 +167,7 @@
                 <EditText
                     android:id="@+id/et_business_age"
                     style="@style/authorization_edit"
-                    android:layout_width="30dp"
+                    android:layout_width="50dp"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="5dp"
                     android:background="@drawable/border_gray"
