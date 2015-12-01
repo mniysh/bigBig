@@ -378,8 +378,8 @@ public class HomeActivity extends BaseActivity {
 
                 try {
                     User user = DataParseUtil.userInformation(response);
+                    L.d(user.toString());
                     if (null != user) {
-                        L.d(user.toString());
                         user.setApp_token(getUser().getApp_token());
                         MyApplication.getInstance().saveUser(user);
                         L.d(user.toString());
