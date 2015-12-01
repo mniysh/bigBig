@@ -175,20 +175,22 @@ public class ProjectItemdetailAdapter extends BaseAdapter {
                 holder.totalNowTv.setText("已经选择" + project.getTotal_invitation() + "人,成功选择" + project.getTotal_agree()
                         + "人,还差" + project.getTotal_surplus() + "人");
             }else{
+//
                 if(TextUtils.equals(isContentProject, Constants.CONTEND_STATUS_CONTEND)){
-
                     holder.totalNowTv.setVisibility(View.VISIBLE);
                     holder.tvXuanRen.setVisibility(View.VISIBLE);
                     holder.tvXuanRen.setText("选工友");
                     holder.totalNowTv.setText("成功选择" +project.getTotal_agree()
                             + "人,还差" +project.getTotal_surplus() + "人");
 
+                }else{
+                    holder.tvXuanRen.setVisibility(View.VISIBLE);
+                    holder.totalNowTv.setVisibility(View.VISIBLE);
+                    holder.totalNowTv.setText("成功选择" + project.getTotal_agree()
+                            + "人,还差" + project.getTotal_surplus() + "人");
                 }
             }
-//            if(project.getTotal_invitation().equals("")){
-//                holder.totalNowTv.setVisibility(View.GONE);
-//                holder.tvXuanRen.setVisibility(View.GONE);
-//            }
+
             holder.tvMoney.setText(money);
             holder.tvStaffAccount.setText(staff_account);
             holder.tvCraftName.setText(craft_name);
@@ -199,12 +201,7 @@ public class ProjectItemdetailAdapter extends BaseAdapter {
 
             holder.tHead.setTag(position);
 
-//        SharedPreferences sharedPreferences = Global.getSharedPreferences("test",Context.MODE_PRIVATE);
-//        String IsContend = sharedPreferences.getString("IsContend","");
-//        if (IsContend!="complete"){
-//            holder.tvXuanRen.setVisibility(View.GONE);
-//        }else{
-//            holder.tvXuanRen.setVisibility(View.VISIBLE);
+
             holder.tvXuanRen.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

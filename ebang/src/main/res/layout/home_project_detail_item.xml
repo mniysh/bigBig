@@ -181,7 +181,7 @@
     <TextView
     android:id="@+id/tv_now_status"
     android:layout_marginLeft="40dp"
-    android:text="已经选择100人，成功选择3人，还差2人"
+
     android:textColor="@color/orange"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content" />
