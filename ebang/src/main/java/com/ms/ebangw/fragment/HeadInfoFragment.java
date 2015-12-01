@@ -397,6 +397,9 @@ public class HeadInfoFragment extends BaseFragment {
 
                 try {
                     boolean b = DataParseUtil.processDataResult(response);
+                    if(b){
+                        T.show("成功推荐工长");
+                    }
 
                 } catch (ResponseException e) {
                     e.printStackTrace();
@@ -407,6 +410,7 @@ public class HeadInfoFragment extends BaseFragment {
             @Override
             public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
                 super.onFailure(statusCode, headers, responseString, throwable);
+                L.d(responseString);
             }
         });
     }

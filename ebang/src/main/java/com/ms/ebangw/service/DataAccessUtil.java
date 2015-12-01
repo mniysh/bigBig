@@ -765,9 +765,9 @@ public class DataAccessUtil {
      */
     public static RequestHandle workerRecommendHeadman(String id, AsyncHttpResponseHandler
                                            asyncHttpResponseHandler){
-        RequestParams params = new RequestParams();
-        params.put("id", id);
-        return doGet(RequestUrl.worker_recommend_headman, null, asyncHttpResponseHandler);
+//        RequestParams params = new RequestParams();
+//        params.put("id", id);
+        return doGet(RequestUrl.worker_recommend_headman + id, null, asyncHttpResponseHandler);
     }
 
 
