@@ -11,12 +11,17 @@ dependencies {
     compile 'com.umeng.analytics:analytics:latest.integration'
     compile 'com.android.support:support-v13:23.1.1'
     compile 'com.squareup.picasso:picasso:2.5.2'
-    compile 'com.belerweb:pinyin4j:2.5.0'
+//    compile 'com.belerweb:pinyin4j:2.5.0'
     compile 'com.android.support:design:23.1.1'
     compile 'com.loopj.android:android-async-http:1.4.8'
+//    compile files('libs/easemobchat_2.2.4.jar')
 }
 
 android {
+    packagingOptions{
+        exclude 'META-INF/maven/com.belerweb/pinyin4j/pom.properties'
+    }
+
     signingConfigs {
         config {
             keyAlias KEY_ALIAS
@@ -33,6 +38,7 @@ android {
         targetSdkVersion 22
         versionCode 4
         versionName "1.0.3"
+        multiDexEnabled = true
         signingConfig signingConfigs.config
         manifestPlaceholders = [UMENG_CHANNEL_VALUE: "umeng"]
     }

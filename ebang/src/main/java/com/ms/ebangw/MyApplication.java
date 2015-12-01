@@ -1,9 +1,11 @@
 package com.ms.ebangw;
 
 import android.app.Activity;
-import android.app.Application;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.support.multidex.MultiDex;
+import android.support.multidex.MultiDexApplication;
 
 import com.baidu.location.BDLocation;
 import com.baidu.location.LocationClient;
@@ -23,7 +25,7 @@ import java.util.Set;
 
 //import com.baidu.mapapi.SDKInitializer;
 
-public class MyApplication extends Application {
+public class MyApplication extends MultiDexApplication {
 
     public static MyApplication instance;
     public Bitmap mBitmap;
@@ -88,6 +90,12 @@ public class MyApplication extends Application {
         }
 
 
+    }
+
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(base);
+        MultiDex.install(base);
     }
 
     /**
