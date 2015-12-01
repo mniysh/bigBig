@@ -7,8 +7,60 @@ The following files were *not* copied into the new Gradle project; you
 should evaluate whether these are still needed in your project and if
 so manually move them:
 
+* LICENSE
+* README.md
+* build.xml
 * ic_launcher-web.png
 * proguard-project.txt
+* simpledemo\
+* simpledemo\.project
+* simpledemo\AndroidManifest.xml
+* simpledemo\ic_launcher-web.png
+* simpledemo\proguard-project.txt
+* simpledemo\project.properties
+* simpledemo\res\
+* simpledemo\res\color\
+* simpledemo\res\color\em_main_botton_text_color.xml
+* simpledemo\res\drawable-hdpi\
+* simpledemo\res\drawable-hdpi\em_contact_list_normal.png
+* simpledemo\res\drawable-hdpi\em_contact_list_selected.png
+* simpledemo\res\drawable-hdpi\em_conversation_normal.png
+* simpledemo\res\drawable-hdpi\em_conversation_selected.png
+* simpledemo\res\drawable-hdpi\em_settings_normal.png
+* simpledemo\res\drawable-hdpi\em_settings_selected.png
+* simpledemo\res\drawable-hdpi\em_unread_count_bg.9.png
+* simpledemo\res\drawable-hdpi\ic_launcher.png
+* simpledemo\res\drawable-mdpi\
+* simpledemo\res\drawable-mdpi\ic_launcher.png
+* simpledemo\res\drawable-xhdpi\
+* simpledemo\res\drawable-xhdpi\ic_launcher.png
+* simpledemo\res\drawable-xxhdpi\
+* simpledemo\res\drawable-xxhdpi\ic_launcher.png
+* simpledemo\res\drawable\
+* simpledemo\res\drawable\em_main_bottom_item_bg.xml
+* simpledemo\res\drawable\em_tab_chat_bg.xml
+* simpledemo\res\drawable\em_tab_contact_list_bg.xml
+* simpledemo\res\drawable\em_tab_setting_bg.xml
+* simpledemo\res\layout\
+* simpledemo\res\layout\activity_chat.xml
+* simpledemo\res\layout\activity_login.xml
+* simpledemo\res\layout\activity_main.xml
+* simpledemo\res\layout\fragment_settings.xml
+* simpledemo\res\values-w820dp\
+* simpledemo\res\values-w820dp\dimens.xml
+* simpledemo\res\values\
+* simpledemo\res\values\dimens.xml
+* simpledemo\res\values\strings.xml
+* simpledemo\src\
+* simpledemo\src\com\
+* simpledemo\src\com\easemob\
+* simpledemo\src\com\easemob\easeuisimpledemo\
+* simpledemo\src\com\easemob\easeuisimpledemo\DemoApplication.java
+* simpledemo\src\com\easemob\easeuisimpledemo\ui\
+* simpledemo\src\com\easemob\easeuisimpledemo\ui\ChatActivity.java
+* simpledemo\src\com\easemob\easeuisimpledemo\ui\LoginActivity.java
+* simpledemo\src\com\easemob\easeuisimpledemo\ui\MainActivity.java
+* simpledemo\src\com\easemob\easeuisimpledemo\ui\SettingsFragment.java
 
 Replaced Jars with Dependencies:
 --------------------------------
@@ -21,50 +73,25 @@ dependency we picked, which could render the project not compileable.
 You can disable the jar replacement in the import wizard and try again:
 
 android-support-v4.jar => com.android.support:support-v4:19.+
-android-support-v7-appcompat.jar => com.android.support:appcompat-v7:19.+
-
-Replaced Libraries with Dependencies:
--------------------------------------
-The importer recognized the following library projects as third party
-libraries and replaced them with Gradle dependencies instead. This has
-the advantage that more explicit version information is known, and the
-libraries can be updated automatically. However, it is possible that
-the source files in your project were of an older version than the
-dependency we picked, which could render the project not compileable.
-You can disable the library replacement in the import wizard and try
-again:
-
-actionbarsherlock =>
-    com.actionbarsherlock:actionbarsherlock:4.4.0@aar
-    com.android.support:support-v4:19.+
 
 Moved Files:
 ------------
 Android Gradle projects use a different directory structure than ADT
 Eclipse projects. Here's how the projects were restructured:
 
-* AndroidManifest.xml => appcompat0\src\main\AndroidManifest.xml
-* assets\ => appcompat0\src\main\assets\
-* libs\ => appcompat0\src\main\java\
-* libs\android-async-http-1.4.5.jar => appcompat0\libs\android-async-http-1.4.5.jar
-* libs\androidquery.jar => appcompat0\libs\androidquery.jar
-* libs\Baidu-Frontia-Android-2.0.7.jar => appcompat0\libs\Baidu-Frontia-Android-2.0.7.jar
-* libs\com.umeng.message.lib.jar => appcompat0\libs\com.umeng.message.lib.jar
-* libs\mframework.jar => appcompat0\libs\mframework.jar
-* libs\mta-sdk-1.6.2.jar => appcompat0\libs\mta-sdk-1.6.2.jar
-* libs\open_sdk_r4889.jar => appcompat0\libs\open_sdk_r4889.jar
-* libs\ShareSDK-Core-2.4.1.jar => appcompat0\libs\ShareSDK-Core-2.4.1.jar
-* libs\ShareSDK-QQ-2.4.1.jar => appcompat0\libs\ShareSDK-QQ-2.4.1.jar
-* libs\ShareSDK-QZone-2.4.1.jar => appcompat0\libs\ShareSDK-QZone-2.4.1.jar
-* libs\ShareSDK-ShortMessage-2.4.1.jar => appcompat0\libs\ShareSDK-ShortMessage-2.4.1.jar
-* libs\ShareSDK-SinaWeibo-2.4.1.jar => appcompat0\libs\ShareSDK-SinaWeibo-2.4.1.jar
-* libs\ShareSDK-Wechat-2.4.1.jar => appcompat0\libs\ShareSDK-Wechat-2.4.1.jar
-* libs\ShareSDK-Wechat-Core-2.4.1.jar => appcompat0\libs\ShareSDK-Wechat-Core-2.4.1.jar
-* libs\umeng-analytics-v5.4.2.jar => appcompat0\libs\umeng-analytics-v5.4.2.jar
-* libs\universal-image-loader-1.9.4-SNAPSHOT.jar => appcompat0\libs\universal-image-loader-1.9.4-SNAPSHOT.jar
-* lint.xml => appcompat0\lint.xml
-* res\ => appcompat0\src\main\res\
-* src\ => appcompat0\src\main\java\
+* AndroidManifest.xml => easeUI\src\main\AndroidManifest.xml
+* libs\armeabi\libBaiduMapSDK_v3_2_0_15.so => easeUI\src\main\jniLibs\armeabi\libBaiduMapSDK_v3_2_0_15.so
+* libs\armeabi\libbspatch.so => easeUI\src\main\jniLibs\armeabi\libbspatch.so
+* libs\armeabi\liblocSDK3.so => easeUI\src\main\jniLibs\armeabi\liblocSDK3.so
+* libs\armeabi\libvi_voslib.so => easeUI\src\main\jniLibs\armeabi\libvi_voslib.so
+* libs\baidumapapi_v3_2_0.jar => easeUI\libs\baidumapapi_v3_2_0.jar
+* libs\easemobchat_2.2.4.jar => easeUI\libs\easemobchat_2.2.4.jar
+* libs\glide-3.6.1.jar => easeUI\libs\glide-3.6.1.jar
+* libs\google-play-services.jar => easeUI\libs\google-play-services.jar
+* libs\locSDK_3.3.jar => easeUI\libs\locSDK_3.3.jar
+* libs\org.apache.http.legacy.jar => easeUI\libs\org.apache.http.legacy.jar
+* res\ => easeUI\src\main\res\
+* src\ => easeUI\src\main\java\
 
 Missing Android Support Repository:
 -----------------------------------

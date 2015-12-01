@@ -301,7 +301,6 @@ public class SelectMapLocActivity extends BaseActivity implements BDLocationList
 
 
 
-
             } else {
                 poiAdapter.setPois(poiInfos);
                 poiAdapter.notifyDataSetChanged();

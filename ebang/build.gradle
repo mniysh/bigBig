@@ -13,7 +13,8 @@ dependencies {
     compile 'com.squareup.picasso:picasso:2.5.2'
     compile 'com.android.support:design:23.1.1'
     compile 'com.loopj.android:android-async-http:1.4.8'
-//    compile files('libs/easemobchat_2.2.4.jar')
+//        compile files('libs/easemobchat_2.2.4.jar')
+    compile project(':easeUI')
 }
 
 android {
