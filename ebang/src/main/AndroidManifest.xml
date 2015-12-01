@@ -546,6 +546,8 @@
         </activity>
         <activity android:name=".activity.InviteWithCashActivity">
         </activity>
+        <activity android:name=".social.MySocialListActivity">
+        </activity>
     </application>
 
 </manifest>

@@ -29,7 +29,6 @@ import com.ms.ebangw.bean.WorkerFriend;
 import com.ms.ebangw.exception.ResponseException;
 import com.ms.ebangw.utils.L;
 
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.Iterator;
@@ -89,42 +88,37 @@ public class DataParseUtil {
         if (data == null) {
             return null;
         }
-        try {
-            User baseUser = null;
-            if (data.has("base_message")) {
-                String base_message = data.getString("base_message");
-                Gson gson = new Gson();
-                baseUser = gson.fromJson(base_message, User.class);
-                if (null != base_message) {
-                    baseUser.setApp_token(user.getApp_token());
-                }
+        User baseUser = null;
+        if (data.has("base_message")) {
+            String base_message = data.optString("base_message");
+            Gson gson = new Gson();
+            baseUser = gson.fromJson(base_message, User.class);
+            if (null != base_message) {
+                baseUser.setApp_token(user.getApp_token());
             }
-
-            if (data.has("real_message") && null != baseUser) {
-
-                JSONObject realMessageObj = data.getJSONObject("real_message");
-                String area = realMessageObj.getString("area");
-                String real_name = realMessageObj.getString("real_name");
-                String identity_card = realMessageObj.getString("identity_card");
-                String card_image_front = realMessageObj.getString("card_image_front");
-                String card_image_back = realMessageObj.getString("card_image_back");
-                String craft = realMessageObj.getString("craft");
-                String is_have_headman = realMessageObj.getString("is_have_headman"); //
-
-                baseUser.setArea(area);
-                baseUser.setReal_name(real_name);
-                baseUser.setIdentity_card(identity_card);
-                baseUser.setCard_image_front(card_image_front);
-                baseUser.setCard_image_back(card_image_back);
-                baseUser.setCraft(craft);
-                baseUser.setIs_have_headman(is_have_headman);
-
-            }
-            return baseUser;
-        } catch (JSONException e) {
-            e.printStackTrace();
         }
-        return null;
+
+        if (data.has("real_message") && null != baseUser) {
+
+            JSONObject realMessageObj = data.optJSONObject("real_message");
+            String area = realMessageObj.optString("area");
+            String real_name = realMessageObj.optString("real_name");
+            String identity_card = realMessageObj.optString("identity_card");
+            String card_image_front = realMessageObj.optString("card_image_front");
+            String card_image_back = realMessageObj.optString("card_image_back");
+            String craft = realMessageObj.optString("craft");
+            String is_have_headman = realMessageObj.optString("is_have_headman");
+
+            baseUser.setArea(area);
+            baseUser.setReal_name(real_name);
+            baseUser.setIdentity_card(identity_card);
+            baseUser.setCard_image_front(card_image_front);
+            baseUser.setCard_image_back(card_image_back);
+            baseUser.setCraft(craft);
+            baseUser.setIs_have_headman(is_have_headman);
+
+        }
+        return baseUser;
     }
 
 
@@ -235,28 +229,23 @@ public class DataParseUtil {
             if (!cityobj.has(id)) {
                 continue;
             }
-            try {
-                String datacity = cityobj.getString(id);
-                List<City> citys = gson.fromJson(datacity, new TypeToken<List<City>>() {
-                }.getType());
-                City city;
-                for (int j = 0; j < citys.size(); j++) {
-                    city = citys.get(j);
-                    String idCity = city.getId();
-                    if (!areaObj.has(idCity)) {
-                        continue;
-                    }
-                    String dataArea = areaObj.getString(idCity);
-                    List<Area> areas = gson.fromJson(dataArea, new TypeToken<List<Area>>() {
-                    }.getType());
-                    city.setAreas(areas);
-
+            String datacity = cityobj.optString(id);
+            List<City> citys = gson.fromJson(datacity, new TypeToken<List<City>>() {
+            }.getType());
+            City city;
+            for (int j = 0; j < citys.size(); j++) {
+                city = citys.get(j);
+                String idCity = city.getId();
+                if (!areaObj.has(idCity)) {
+                    continue;
                 }
-                province.setCitys(citys);
+                String dataArea = areaObj.optString(idCity);
+                List<Area> areas = gson.fromJson(dataArea, new TypeToken<List<Area>>() {
+                }.getType());
+                city.setAreas(areas);
 
-            } catch (JSONException e) {
-                e.printStackTrace();
             }
+            province.setCitys(citys);
 
         }
 
@@ -282,74 +271,70 @@ public class DataParseUtil {
             return null;
         }
         Gson gson = new Gson();
-        try {
-            String first = data.getString("first");
-            List<WorkType> mainWorkTypes = gson.fromJson(first, new TypeToken<List<WorkType>>() {
-            }.getType());
+        String first = data.optString("first");
+        List<WorkType> mainWorkTypes = gson.fromJson(first, new TypeToken<List<WorkType>>() {
+        }.getType());
 
-            JSONObject secondObj = data.getJSONObject("second");
-            JSONObject thirdObj = data.getJSONObject("third");
+        JSONObject secondObj = data.optJSONObject("second");
+        JSONObject thirdObj = data.optJSONObject("third");
 
-            for (int i = 0; i < mainWorkTypes.size(); i++) {
-                WorkType type = mainWorkTypes.get(i);
-                String mainTypeId = type.getId();
-                if (TextUtils.equals("1", mainTypeId)) {            //工程管理
-                    craft.setProjectManage(type);
-                    if (secondObj.has(mainTypeId)) {
-                        String arrayStr = secondObj.getString(mainTypeId);
-                        List<WorkType> secondWorkTypes = gson.fromJson(arrayStr, new TypeToken<List<WorkType>>() {
-                        }.getType());
-                        type.setWorkTypes(secondWorkTypes);
-                    }
+        for (int i = 0; i < mainWorkTypes.size(); i++) {
+            WorkType type = mainWorkTypes.get(i);
+            String mainTypeId = type.getId();
+            if (TextUtils.equals("1", mainTypeId)) {            //工程管理
+                craft.setProjectManage(type);
+                if (secondObj.has(mainTypeId)) {
+                    String arrayStr = secondObj.optString(mainTypeId);
+                    List<WorkType> secondWorkTypes = gson.fromJson(arrayStr, new TypeToken<List<WorkType>>() {
+                    }.getType());
+                    type.setWorkTypes(secondWorkTypes);
+                }
 
-                } else if (TextUtils.equals("14", mainTypeId)) {     //建筑类
-                    craft.setBuilding(type);
-                    if (secondObj.has(mainTypeId)) {
-                        String arrayStr = secondObj.getString(mainTypeId);
-                        List<WorkType> secondWorkTypes = gson.fromJson(arrayStr, new TypeToken<List<WorkType>>() {
-                        }.getType());
-                        for (int j = 0; j < secondWorkTypes.size(); j++) {
-                            WorkType secondType = secondWorkTypes.get(j);
-                            String secondTypeId = secondType.getId();
-                            if (thirdObj.has(secondTypeId)) {
-                                String thirdArrayStr = thirdObj.getString(secondTypeId);
-                                List<WorkType> thirdWorkTypes = gson.fromJson(thirdArrayStr, new TypeToken<List<WorkType>>() {
-                                }.getType());
-                                secondType.setWorkTypes(thirdWorkTypes);
-                            }
+            } else if (TextUtils.equals("14", mainTypeId)) {     //建筑类
+                craft.setBuilding(type);
+                if (secondObj.has(mainTypeId)) {
+                    String arrayStr = secondObj.optString(mainTypeId);
+                    List<WorkType> secondWorkTypes = gson.fromJson(arrayStr, new TypeToken<List<WorkType>>() {
+                    }.getType());
+                    for (int j = 0; j < secondWorkTypes.size(); j++) {
+                        WorkType secondType = secondWorkTypes.get(j);
+                        String secondTypeId = secondType.getId();
+                        if (thirdObj.has(secondTypeId)) {
+                            String thirdArrayStr = thirdObj.optString(secondTypeId);
+                            List<WorkType> thirdWorkTypes = gson.fromJson(thirdArrayStr, new TypeToken<List<WorkType>>() {
+                            }.getType());
+                            secondType.setWorkTypes(thirdWorkTypes);
                         }
-                        type.setWorkTypes(secondWorkTypes);
                     }
-                } else if (TextUtils.equals("68", mainTypeId)) {     //装修类
-                    craft.setFitment(type);
-                    if (secondObj.has(mainTypeId)) {
-                        String arrayStr = secondObj.getString(mainTypeId);
-                        List<WorkType> secondWorkTypes = gson.fromJson(arrayStr, new TypeToken<List<WorkType>>() {
-                        }.getType());
-                        for (int j = 0; j < secondWorkTypes.size(); j++) {
-                            WorkType secondType = secondWorkTypes.get(j);
-                            String secondTypeId = secondType.getId();
-                            if (thirdObj.has(secondTypeId)) {
-                                String thirdArrayStr = thirdObj.getString(secondTypeId);
-                                List<WorkType> thirdWorkTypes = gson.fromJson(thirdArrayStr, new TypeToken<List<WorkType>>() {
-                                }.getType());
-                                secondType.setWorkTypes(thirdWorkTypes);
-                            }
+                    type.setWorkTypes(secondWorkTypes);
+                }
+            } else if (TextUtils.equals("68", mainTypeId)) {     //装修类
+                craft.setFitment(type);
+                if (secondObj.has(mainTypeId)) {
+                    String arrayStr = secondObj.optString(mainTypeId);
+                    List<WorkType> secondWorkTypes = gson.fromJson(arrayStr, new TypeToken<List<WorkType>>() {
+                    }.getType());
+                    for (int j = 0; j < secondWorkTypes.size(); j++) {
+                        WorkType secondType = secondWorkTypes.get(j);
+                        String secondTypeId = secondType.getId();
+                        if (thirdObj.has(secondTypeId)) {
+                            String thirdArrayStr = thirdObj.optString(secondTypeId);
+                            List<WorkType> thirdWorkTypes = gson.fromJson(thirdArrayStr, new TypeToken<List<WorkType>>() {
+                            }.getType());
+                            secondType.setWorkTypes(thirdWorkTypes);
                         }
-                        type.setWorkTypes(secondWorkTypes);
                     }
-                } else if (TextUtils.equals("88", mainTypeId)) {     //其他
-                    craft.setOther(type);
-                    if (secondObj.has(mainTypeId)) {
-                        String arrayStr = secondObj.getString(mainTypeId);
-                        List<WorkType> secondWorkTypes = gson.fromJson(arrayStr, new TypeToken<List<WorkType>>() {
-                        }.getType());
-                        type.setWorkTypes(secondWorkTypes);
-                    }
+                    type.setWorkTypes(secondWorkTypes);
+                }
+            } else if (TextUtils.equals("88", mainTypeId)) {     //其他
+                craft.setOther(type);
+                if (secondObj.has(mainTypeId)) {
+                    String arrayStr = secondObj.optString(mainTypeId);
+                    List<WorkType> secondWorkTypes = gson.fromJson(arrayStr, new TypeToken<List<WorkType>>() {
+                    }.getType());
+                    type.setWorkTypes(secondWorkTypes);
                 }
             }
-        } catch (JSONException e) {
-            e.printStackTrace();
         }
 
         return craft;
@@ -591,35 +576,31 @@ public class DataParseUtil {
     public static ReleaseProject getProjectInfo(JSONObject jsonObject) throws ResponseException {
         ReleaseProject releaseProject = new ReleaseProject();
         JSONObject data = processData(jsonObject);
-        try {
-//            T.show("能进来");
-            String id = data.getString("id");
-            String no = data.getString("no");
-            String province = data.getString("province");
-            String city = data.getString("city");
-            String area_other = data.getString("area_other");
-            String account_staffs = data.getString("account_staffs");
-            String total_money = data.getString("total_money");
-            String project_money = data.getString("project_money");
-            String image = data.getString("image");
-            String title = data.getString("title");
-            String count = data.getString("description");
-            releaseProject.setCount(count);
-            releaseProject.setTitle(title);
-            releaseProject.setProject_money(project_money);
-            releaseProject.setId(id);
-            releaseProject.setNo(no);
-            releaseProject.setProvince(province);
-            releaseProject.setCity(city);
-            releaseProject.setAccount_staff(account_staffs);
-            releaseProject.setArea_other(area_other);
-            releaseProject.setTotal_money(total_money);
-            releaseProject.setProject_money(project_money);
-            releaseProject.setImage_par(image);
+        //            T.show("能进来");
+        String id = data.optString("id");
+        String no = data.optString("no");
+        String province = data.optString("province");
+        String city = data.optString("city");
+        String area_other = data.optString("area_other");
+        String account_staffs = data.optString("account_staffs");
+        String total_money = data.optString("total_money");
+        String project_money = data.optString("project_money");
+        String image = data.optString("image");
+        String title = data.optString("title");
+        String count = data.optString("description");
+        releaseProject.setCount(count);
+        releaseProject.setTitle(title);
+        releaseProject.setProject_money(project_money);
+        releaseProject.setId(id);
+        releaseProject.setNo(no);
+        releaseProject.setProvince(province);
+        releaseProject.setCity(city);
+        releaseProject.setAccount_staff(account_staffs);
+        releaseProject.setArea_other(area_other);
+        releaseProject.setTotal_money(total_money);
+        releaseProject.setProject_money(project_money);
+        releaseProject.setImage_par(image);
 
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
         return releaseProject;
     }
 
@@ -637,20 +618,16 @@ public class DataParseUtil {
             return false;
         }
 
-        try {
-            String code = jsonObject.getString("code");
-            L.d("xxx", jsonObject.getString("code"));
-            String message = jsonObject.getString("message");
-            if (TextUtils.equals("200", code)) {        //数据正确
-                return true;
-            } else {
-                processData(jsonObject);
+        String code = jsonObject.optString("code");
+        L.d("xxx", jsonObject.optString("code"));
+        String message = jsonObject.optString("message");
+        if (TextUtils.equals("200", code)) {        //数据正确
+            return true;
+        } else {
+            processData(jsonObject);
 
-            }
-
-        } catch (JSONException e) {
-            e.printStackTrace();
         }
+
         return false;
     }
 
@@ -660,18 +637,14 @@ public class DataParseUtil {
             return null;
         }
 
-        try {
-            String code = jsonObject.getString("code");
-            String message = jsonObject.getString("message");
-            if (TextUtils.equals("200", code)) {        //数据正确
-                return jsonObject.optString("data", "");
-            } else {
-                processData(jsonObject);
-            }
-
-        } catch (JSONException e) {
-            e.printStackTrace();
+        String code = jsonObject.optString("code");
+        String message = jsonObject.optString("message");
+        if (TextUtils.equals("200", code)) {        //数据正确
+            return jsonObject.optString("data", "");
+        } else {
+            processData(jsonObject);
         }
+
         return null;
     }
 
@@ -684,41 +657,35 @@ public class DataParseUtil {
      */
     public static JSONObject processData(JSONObject jsonObject) throws ResponseException {
 
-        try {
-
-            String code = jsonObject.getString("code");
-            String message = jsonObject.getString("message");
-            if (TextUtils.equals("200", code)) {        //数据正确
-                return jsonObject.getJSONObject("data");
-            } else {
-                String dataStr = jsonObject.optString("data", "");
-                String errorMessage = "";
-                if (!TextUtils.isEmpty(dataStr) && !TextUtils.equals("null", dataStr) && !TextUtils.equals("NULL", dataStr)) {
-                    JSONObject data = jsonObject.getJSONObject("data");
-                    if (data != null) {
-                        Iterator<String> keys = data.keys();
-                        while (keys.hasNext()) {
-                            String next = keys.next();
-                            errorMessage = data.getString(next);
-                        }
+        String code = jsonObject.optString("code");
+        String message = jsonObject.optString("message");
+        if (TextUtils.equals("200", code)) {        //数据正确
+            return jsonObject.optJSONObject("data");
+        } else {
+            String dataStr = jsonObject.optString("data");
+            String errorMessage = "";
+            if (!TextUtils.isEmpty(dataStr) && !TextUtils.equals("null", dataStr) && !TextUtils.equals("NULL", dataStr)) {
+                JSONObject data = jsonObject.optJSONObject("data");
+                if (data != null) {
+                    Iterator<String> keys = data.keys();
+                    while (keys.hasNext()) {
+                        String next = keys.next();
+                        errorMessage = data.optString(next);
                     }
-                }
-
-                if (TextUtils.equals("501", code)) {
-                    MyApplication.getInstance().logout();
-                    L.d("用户未登录：" + jsonObject.toString());
-                }
-
-                if (TextUtils.isEmpty(errorMessage)) {
-                    throw new ResponseException(code, message);
-                } else {
-                    throw new ResponseException(code, errorMessage);
                 }
             }
 
-        } catch (JSONException e) {
-            e.printStackTrace();
-            return null;
+            if (TextUtils.equals("501", code)) {
+                MyApplication.getInstance().logout();
+                L.d("用户未登录：" + jsonObject.toString());
+            }
+
+            if (TextUtils.isEmpty(errorMessage)) {
+                throw new ResponseException(code, message);
+            } else {
+                throw new ResponseException(code, errorMessage);
+            }
         }
+
     }
 }

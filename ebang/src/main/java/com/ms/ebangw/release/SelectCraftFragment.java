@@ -21,7 +21,8 @@ import com.ms.ebangw.bean.Craft;
 import com.ms.ebangw.bean.DeveloperReleaseInfo;
 import com.ms.ebangw.bean.Staff;
 import com.ms.ebangw.bean.WorkType;
-//import com.ms.ebangw.event.OnCheckedWorkTypeEvent;
+import com.ms.ebangw.commons.Constants;
+import com.ms.ebangw.event.WorkTypeEvent;
 import com.ms.ebangw.exception.ResponseException;
 import com.ms.ebangw.fragment.BaseFragment;
 import com.ms.ebangw.service.DataAccessUtil;
@@ -98,7 +99,7 @@ public class SelectCraftFragment extends BaseFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        EventBus.getDefault().register(this);
+        EventBus.getDefault().register(this);
         if (getArguments() != null) {
             categroy = getArguments().getString(CATEGROY);
             mParam2 = getArguments().getString(ARG_PARAM2);
@@ -109,7 +110,7 @@ public class SelectCraftFragment extends BaseFragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
-//        EventBus.getDefault().unregister(this);
+        EventBus.getDefault().unregister(this);
     }
 
     @Override
@@ -118,20 +119,19 @@ public class SelectCraftFragment extends BaseFragment {
         contentLayout = (ViewGroup) inflater.inflate(R.layout.fragment_select_craft, container,
             false);
         ButterKnife.bind(this, contentLayout);
-        if(TextUtils.equals(categroy, "developers") || TextUtils.equals(categroy, "investor") || TextUtils.equals(categroy,"headman")){
-
+        if(TextUtils.equals(categroy, Constants.WORKER)){   //工人不能发布信息
+            T.show("您的身份不正确,务工用户用不可发布信息。");
+            totalMoneyTv.setVisibility(View.GONE);
+            nextBt.setVisibility(View.GONE);
+            radioGroup.setVisibility(View.GONE);
+        }else{
             totalMoneyTv.setVisibility(View.VISIBLE);
             nextBt.setVisibility(View.VISIBLE);
             radioGroup.setVisibility(View.VISIBLE);
             initView();
             initData();
-        }else{
-            T.show("您的身份不正确,务工用户用不可发布信息。");
-
-            totalMoneyTv.setVisibility(View.GONE);
-            nextBt.setVisibility(View.GONE);
-            radioGroup.setVisibility(View.GONE);
         }
+
         return contentLayout;
 
 
@@ -287,22 +287,21 @@ public class SelectCraftFragment extends BaseFragment {
         viewPager.removeAllViews();
     }
 
-//    /**
-//     *处理发布的工种
-//     * @param event
-//     */
-//    public void onEvent(OnCheckedWorkTypeEvent event) {
-//        L.d("OnCheckedWorkTypeEvent");
-//        boolean selected = event.isSelected();
-//        WorkType workType = event.getWorkType();
-//
-//        if (selected) {
-//            workTypeSet.add(workType);
-//        } else {
-//            workTypeSet.remove(workType);
-//        }
-//        notifyWorkTypeChanged();
-//    }
+    /**
+     *处理发布的工种
+     * @param event
+     */
+    public void onEvent(WorkTypeEvent event) {
+        L.d("OnCheckedWorkTypeEvent");
+        WorkType workType = event.getWorkType();
+
+        if (event.isAdd()) {
+            workTypeSet.add(workType);
+        } else {
+            workTypeSet.remove(workType);
+        }
+        notifyWorkTypeChanged();
+    }
 
     public Set<WorkType> getWorkTypeSet(){
         return workTypeSet;

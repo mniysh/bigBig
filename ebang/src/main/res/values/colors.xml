@@ -61,5 +61,10 @@
     <color name="user_center_desc_left">#383838</color>
     <color name="gray_light">#f0f0f0</color>
 
+    <!--社区-->
+    <color name="party_release_bg">#f8f7f7</color>
+    <color name="party_text_black">#323232</color>
+    <color name="party_text_gray">#acacac</color>
+
 
 </resources>

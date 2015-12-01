@@ -28,7 +28,7 @@ import com.ms.ebangw.commons.Constants;
 import com.ms.ebangw.exception.ResponseException;
 import com.ms.ebangw.service.DataAccessUtil;
 import com.ms.ebangw.service.DataParseUtil;
-import com.ms.ebangw.utils.T;
+import com.ms.ebangw.utils.L;
 
 import org.apache.http.Header;
 import org.json.JSONObject;
@@ -372,7 +372,7 @@ public class ProjectStatusFragment extends BaseFragment {
                 }
             } catch (ResponseException e) {
                 e.printStackTrace();
-                T.show(e.getMessage());
+                L.d(e.getMessage());
             }
         }
 
@@ -397,7 +397,7 @@ public class ProjectStatusFragment extends BaseFragment {
                 }
             } catch (ResponseException e) {
                 e.printStackTrace();
-                T.show(e.getMessage());
+                L.d(e.getMessage());
             }
         }
 

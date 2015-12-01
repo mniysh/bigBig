@@ -32,6 +32,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:minHeight="@dimen/authen_item_height"
                 android:layout_marginTop="5dp"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
@@ -67,7 +68,8 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="@dimen/authen_item_height"
+            android:layout_height="wrap_content"
+            android:minHeight="@dimen/authen_item_height"
             android:gravity="center_vertical"
             android:orientation="horizontal"
             >
@@ -85,6 +87,8 @@
                 style="@style/authorization_edit"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:maxLength="20"
+                android:singleLine="false"
                 />
         </LinearLayout>
 
@@ -113,7 +117,8 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="@dimen/authen_item_height"
+            android:layout_height="wrap_content"
+            android:minHeight="@dimen/authen_item_height"
             android:gravity="center_vertical"
             android:orientation="horizontal"
 
@@ -133,6 +138,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="请填写常住地址"
+                android:singleLine="false"
                 />
         </LinearLayout>
 
@@ -161,10 +167,13 @@
                 <EditText
                     android:id="@+id/et_business_age"
                     style="@style/authorization_edit"
-                    android:layout_width="30dp"
+                    android:layout_width="50dp"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="5dp"
                     android:background="@drawable/border_gray"
+                    android:singleLine="true"
+                    android:inputType="number"
+                    android:maxLength="3"
                     />
 
                 <TextView
@@ -223,7 +232,8 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="@dimen/authen_item_height"
+            android:layout_height="wrap_content"
+            android:minHeight="@dimen/authen_item_height"
             android:gravity="center_vertical"
             android:orientation="horizontal"
 
@@ -241,6 +251,8 @@
                 style="@style/authorization_edit"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:maxLength="20"
+                android:singleLine="false"
                 />
         </LinearLayout>
 
@@ -444,7 +456,8 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="@dimen/authen_item_height"
+            android:layout_height="wrap_content"
+            android:minHeight="@dimen/authen_item_height"
             android:gravity="center_vertical"
             android:orientation="horizontal"
 
@@ -463,12 +476,16 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="请输入对公帐户"
+                android:inputType="number"
+                android:maxLength="30"
+                android:singleLine="false"
                 />
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="@dimen/authen_item_height"
+            android:layout_height="wrap_content"
+            android:minHeight="@dimen/authen_item_height"
             android:gravity="center_vertical"
             android:orientation="horizontal"
 
@@ -487,6 +504,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="请输入对公帐户"
+                android:maxLength="30"
+                android:inputType="number"
+                android:singleLine="false"
                 />
         </LinearLayout>
 

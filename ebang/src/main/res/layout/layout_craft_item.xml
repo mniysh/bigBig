@@ -16,7 +16,7 @@
         android:padding="5dp"
         android:singleLine="true"
         android:text="建筑结构"
-        android:textColor="@android:color/black"
+        android:textColor="@color/black"
         android:textSize="14sp" />
 
 
