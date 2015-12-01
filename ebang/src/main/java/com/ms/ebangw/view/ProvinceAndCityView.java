@@ -80,12 +80,10 @@ public class ProvinceAndCityView extends FrameLayout {
 
 
         provinceSp.setAdapter(adapter01);
-        provinceSp.setSelection(0, true);
 
         adapter02 = new ArrayAdapter<>(mContext, R.layout.layout_spinner_item, provinces
             .get(0).getCitys());
         citySp.setAdapter(adapter02);
-        citySp.setSelection(0, true);
 
 //        adapter03 = new ArrayAdapter<Area>(mContext, R.layout.layout_spinner_item, provinces.get(0).getCitys().get(0).getAreas());
 //        areaSp.setAdapter(adapter03);
@@ -118,27 +116,8 @@ public class ProvinceAndCityView extends FrameLayout {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view,
                                        int position, long id) {
-//                currentCity = citys.get(position);
-//
-//                adapter02 = new ArrayAdapter<>(mContext,
-//                    R.layout.layout_spinner_item, citys);
-//
-//                citySp.setAdapter(adapter02);
                 currentCity = citys.get(position);
                 city = currentCity.getName();
-//                areas = currentCity.getAreas();
-//
-//                if(areas == null){
-//                    areaSp.setVisibility(View.GONE);
-//                    return;
-//                }else{
-//                    areaSp.setVisibility(View.VISIBLE);
-//                    adapter03 = new ArrayAdapter<>(mContext,
-//                            R.layout.layout_spinner_item, areas);
-//
-//                    areaSp.setAdapter(adapter03);
-//                }
-
             }
 
             @Override
@@ -147,20 +126,8 @@ public class ProvinceAndCityView extends FrameLayout {
             }
         });
 
-//        areaSp.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-//            @Override
-//            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-//                currentArea = areas.get(position);
-//
-////                adapter03 = new ArrayAdapter<Area>(mContext, R.layout.layout_spinner_item, areas);
-////                areaSp.setAdapter(adapter03);
-//            }
-//
-//            @Override
-//            public void onNothingSelected(AdapterView<?> parent) {
-//
-//            }
-//        });
+        provinceSp.setSelection(0, true);
+        citySp.setSelection(0, true);
     }
 
     public void setProvinces(List<Province> provinces) {
