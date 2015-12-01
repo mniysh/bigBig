@@ -108,10 +108,8 @@ public class ProjectItemdetailAdapter extends BaseAdapter {
 //        if (IsContend!="complete"){
 //            holder.tvXuanRen.setVisibility(View.GONE);
 //        }else{
-            categroy = user.getCategory();
-            if(TextUtils.equals(categroy, Constants.INVESTOR)){
-                holder.tvXuanRen.setVisibility(View.GONE);
-            }
+
+
             if(TextUtils.equals(categroy, Constants.WORKER)){
                 holder.tvXuanRen.setVisibility(View.VISIBLE);
                 if(TextUtils.equals(isContend, Constants.KEY_WORKER_SHOW_FILL)){

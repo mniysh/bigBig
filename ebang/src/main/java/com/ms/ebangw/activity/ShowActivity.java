@@ -254,7 +254,13 @@ public class ShowActivity extends BaseActivity {
                                 @Override
                                 public void onGrabClick(View view, Staff staff) {
 //                                    T.show("自定义2");
-                                    Intent intent = new Intent(ShowActivity.this, SelectWorkerActivity.class);
+                                    Intent intent ;
+                                    if(TextUtils.equals(category, Constants.WORKER)){
+                                        intent = new Intent(ShowActivity.this, QiangDanActivity.class);
+                                    }else{
+                                        intent = new Intent(ShowActivity.this,SelectWorkerActivity.class);
+                                    }
+//                                    Intent intent = new Intent(ShowActivity.this, SelectWorkerActivity.class);
                                     Bundle bundle = new Bundle();
                                     bundle.putParcelable(Constants.KEY_RELEASED_PROJECT_STR, releaseProject);
                                     bundle.putParcelable(Constants.KEY_RELEASED_PROJECT_STAFF, staff);
@@ -345,7 +351,13 @@ public class ShowActivity extends BaseActivity {
                             detailAdapter = new ProjectItemdetailAdapter(staffs, user, developersId,isContend, new ProjectItemdetailAdapter.OnGrabClickListener() {
                                 @Override
                                 public void onGrabClick(View view, Staff staff) {
-                                    Intent intent = new Intent(ShowActivity.this, SelectWorkerActivity.class);
+                                    Intent intent ;
+                                    if(TextUtils.equals(category, Constants.WORKER)){
+                                        intent = new Intent(ShowActivity.this, QiangDanActivity.class);
+                                    }else{
+                                        intent = new Intent(ShowActivity.this, SelectWorkerActivity.class);
+                                    }
+//                                    Intent intent = new Intent(ShowActivity.this, SelectWorkerActivity.class);
                                     Bundle bundle = new Bundle();
                                     bundle.putParcelable(Constants.KEY_RELEASED_PROJECT_STR, releaseProject);
                                     bundle.putParcelable(Constants.KEY_RELEASED_PROJECT_STAFF, staff);
