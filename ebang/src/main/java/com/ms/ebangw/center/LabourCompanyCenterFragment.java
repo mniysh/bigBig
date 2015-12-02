@@ -119,7 +119,7 @@ public class LabourCompanyCenterFragment extends BaseFragment {
         fm.beginTransaction().replace(R.id.fl_head_info, HeadInfoFragment.newInstance("", ""))
             .commit();
 
-
+        tvPublish.setVisibility(View.GONE);
         tvPublish.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

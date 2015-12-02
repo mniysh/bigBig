@@ -184,7 +184,7 @@ public class ProjectItemdetailAdapter extends BaseAdapter {
                             + "人,还差" +project.getTotal_surplus() + "人");
 
                 }else{
-                    holder.tvXuanRen.setVisibility(View.VISIBLE);
+                    holder.tvXuanRen.setVisibility(View.GONE);
                     holder.totalNowTv.setVisibility(View.VISIBLE);
                     holder.totalNowTv.setText("成功选择" + project.getTotal_agree()
                             + "人,还差" + project.getTotal_surplus() + "人");
