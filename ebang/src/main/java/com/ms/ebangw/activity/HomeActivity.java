@@ -56,6 +56,7 @@ public class HomeActivity extends BaseActivity {
     @Bind(R.id.rb_social_contact)
     RadioButton rbSocialContact;
     private FragmentManager fm;
+    private CommunityFragment communityFragment;
     private long exitTime = 0;
 
     @Bind(R.id.radioGroup)
@@ -81,7 +82,6 @@ public class HomeActivity extends BaseActivity {
             }
         }
     };
-    private CommunityFragment communityFragment;
 
 
     @Override

@@ -15,7 +15,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 
 /**
- * 积分Adapter
+ * 发布的活动Adapter
  * User: WangKai(123940232@qq.com)
  * 2015-11-12 09:09
  */
