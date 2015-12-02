@@ -22,6 +22,7 @@ import com.ms.ebangw.R;
 import com.ms.ebangw.bean.ReleaseProject;
 import com.ms.ebangw.bean.Staff;
 import com.ms.ebangw.commons.Constants;
+import com.ms.ebangw.dialog.QiangDanDialog;
 import com.ms.ebangw.exception.ResponseException;
 import com.ms.ebangw.service.DataAccessUtil;
 import com.ms.ebangw.service.DataParseUtil;
@@ -158,13 +159,16 @@ public class QiangDanActivity extends BaseNextAvtivity {
                 try {
                     boolean b = DataParseUtil.processDataResult(response);
                     if (b) {
-                        showWindowSucceed(lSmilllayout, categroy);
+//                        showWindowSucceed(lSmilllayout, categroy);
+                        showDialogSucceed("succeed");
 
                     }
                 } catch (ResponseException e) {
                     e.printStackTrace();
-                    showWindowFailed(lSadlayout,e.getMessage());
+//                    showWindowFailed(lSadlayout, e.getMessage());
+                        showDialogSucceed("failed");
                 }
+
 
             }
 
@@ -191,13 +195,15 @@ public class QiangDanActivity extends BaseNextAvtivity {
                 try {
                     boolean b = DataParseUtil.processDataResult(response);
                     if (b) {
-                        showWindowSucceed(lSmilllayout, categroy);
+//                        showWindowSucceed(lSmilllayout, categroy);
+                        showDialogSucceed("succeed");
 
                     }
                 } catch (ResponseException e) {
                     e.printStackTrace();
                     //T.show(e.getMessage());
-                    showWindowFailed(lSadlayout, e.getMessage());
+//                    showWindowFailed(lSadlayout, e.getMessage());
+                    showDialogSucceed("failed");
 
                 }
 
@@ -213,6 +219,14 @@ public class QiangDanActivity extends BaseNextAvtivity {
 
 
     }
+    private void showDialogSucceed(String flag){
+        QiangDanDialog dialog = QiangDanDialog.newInstance(flag, "");
+        dialog.show(getFragmentManager(),"qiangdan");
+
+
+
+    }
+
     private void showWindowSucceed(View view, final String categroy){
 
 
