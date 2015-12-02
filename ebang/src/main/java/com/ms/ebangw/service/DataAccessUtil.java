@@ -1115,6 +1115,61 @@ public class DataAccessUtil {
         return doGet(RequestUrl.score, params, asyncHttpResponseHandler);
     }
 
+
+    /**
+     * 4-1.发布社区活动接口 post
+     * @param titile
+     * @param province
+     * @param city
+     * @param area_other    地址
+     * @param number_people
+     * @param start_time
+     * @param end_time
+     * @param theme
+     * @param activi_image
+     * @param asyncHttpResponseHandler
+     * @return
+     */
+    public static RequestHandle socialPublish(String title, String province, String city,
+                                              String area_other, String number_people, String start_time,
+                                              String end_time, String theme, String activi_image,
+                                              AsyncHttpResponseHandler asyncHttpResponseHandler){
+
+        RequestParams params = new RequestParams();
+        params.put("title", title);
+        params.put("province", province);
+        params.put("city", city);
+        params.put("area_other", area_other);
+        params.put("number_people", number_people);
+        params.put("start_time", start_time);
+        params.put("end_time", end_time);
+        params.put("theme", theme);
+        params.put("activi_image", activi_image);
+
+        return doPost(RequestUrl.social_publish, params, asyncHttpResponseHandler);
+    }
+
+    /**
+     * 4-2.社区活动首页展示接口
+     * @param page
+     * @param provinceId
+     * @param cityId
+     * @param asyncHttpResponseHandler
+     * @return
+     */
+    public static RequestHandle socialShow(String page, String provinceId, String cityId,
+                                              AsyncHttpResponseHandler asyncHttpResponseHandler){
+
+        RequestParams params = new RequestParams();
+        params.put("page", page);
+        params.put("province", provinceId);
+        params.put("area", cityId);
+
+        return doGet(RequestUrl.social_show, params, asyncHttpResponseHandler);
+    }
+
+
+
     public static RequestHandle doPost(String url, RequestParams params, AsyncHttpResponseHandler asyncHttpResponseHandler) {
 
         if (!NetUtils.isConnected(MyApplication.getInstance())) {

@@ -491,7 +491,7 @@ public class IncreaseDetailFragment extends BaseFragment {
             myApplication.imagePath = path;
             Intent intent = new Intent(mActivity, CropImageActivity.class);
             Bundle bundle = new Bundle();
-            bundle.putString(Constants.KEY_HEAD_IMAGE_STR,"publicImage");
+            bundle.putString(Constants.KEY_UPLOAD_IMAGE_TYPE,"publicImage");
             bundle.putBoolean(Constants.KEY_HEAD_IMAGE,true);
             intent.putExtras(bundle);
             startActivityForResult(intent, Constants.REQUEST_CROP);
@@ -530,7 +530,7 @@ public class IncreaseDetailFragment extends BaseFragment {
         myApplication.imagePath = mCurrentPhotoPath;
         Intent intent = new Intent(mActivity, CropImageActivity.class);
         Bundle bundle = new Bundle();
-        bundle.putString(Constants.KEY_HEAD_IMAGE_STR,"publicImage");
+        bundle.putString(Constants.KEY_UPLOAD_IMAGE_TYPE,"publicImage");
         bundle.putBoolean(Constants.KEY_HEAD_IMAGE,true);
         intent.putExtras(bundle);
         startActivityForResult(intent, Constants.REQUEST_CROP);

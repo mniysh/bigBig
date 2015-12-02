@@ -14,6 +14,7 @@ import com.ms.ebangw.bean.City;
 import com.ms.ebangw.bean.Craft;
 import com.ms.ebangw.bean.HomeProjectInfo;
 import com.ms.ebangw.bean.JiFen;
+import com.ms.ebangw.bean.Party;
 import com.ms.ebangw.bean.People;
 import com.ms.ebangw.bean.ProjectInfoDetail;
 import com.ms.ebangw.bean.Province;
@@ -565,6 +566,24 @@ public class DataParseUtil {
         return list;
     }
 
+    /**
+     * 4-2.社区活动首页展示接口
+     * @param jsonObject
+     * @return
+     * @throws ResponseException
+     */
+    public static List<Party> socialShow(JSONObject jsonObject) throws ResponseException {
+        String dataStr = processDataStr(jsonObject);
+        if (TextUtils.isEmpty(dataStr)) {
+            return null;
+        }
+        Gson gson = new Gson();
+        List<Party> list = gson.fromJson(dataStr, new TypeToken<List<Party>>() {
+        }.getType());
+
+        return list;
+    }
+
 
     /**
      * 2-1.发布接口（开发商）
@@ -638,9 +657,8 @@ public class DataParseUtil {
         }
 
         String code = jsonObject.optString("code");
-        String message = jsonObject.optString("message");
         if (TextUtils.equals("200", code)) {        //数据正确
-            return jsonObject.optString("data", "");
+            return jsonObject.optString("data");
         } else {
             processData(jsonObject);
         }

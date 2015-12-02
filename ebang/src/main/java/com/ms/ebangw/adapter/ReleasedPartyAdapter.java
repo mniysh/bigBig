@@ -1,13 +1,19 @@
 package com.ms.ebangw.adapter;
 
 import android.content.Context;
+import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.ms.ebangw.R;
-import com.ms.ebangw.bean.JiFen;
+import com.ms.ebangw.bean.Party;
+import com.ms.ebangw.commons.Constants;
+import com.ms.ebangw.service.DataAccessUtil;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -21,18 +27,18 @@ import butterknife.ButterKnife;
  */
 public class ReleasedPartyAdapter extends BaseAdapter {
     private Context context;
-    private List<JiFen> list;
+    private List<Party> list;
 
-    public ReleasedPartyAdapter(Context context, List<JiFen> list) {
+    public ReleasedPartyAdapter(Context context, List<Party> list) {
         this.context = context;
         this.list = list;
     }
 
-    public void setList(List<JiFen> list) {
+    public void setList(List<Party> list) {
         this.list = list;
     }
 
-    public List<JiFen> getList() {
+    public List<Party> getList() {
         return list;
     }
 
@@ -54,7 +60,7 @@ public class ReleasedPartyAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         ViewHolder holder;
-        JiFen jiFen = list.get(position);
+        Party party = list.get(position);
         if (convertView == null) {
             convertView = View.inflate(parent.getContext(), R.layout.released_party_item, null);
             holder = new ViewHolder(convertView);
@@ -63,34 +69,44 @@ public class ReleasedPartyAdapter extends BaseAdapter {
             holder = (ViewHolder) convertView.getTag();
         }
 
-        String action_title = jiFen.getAction_title();
-        String action_describe = jiFen.getAction_describe();
-        String score_value = jiFen.getScore_value();
-        String time = jiFen.getCreated_at();
+        String real_name = party.getReal_name();
+        String head_image = party.getHead_image();
+        String title = party.getTitle();
+        String created_at = party.getCreated_at();
+        String theme = party.getTheme();
+        List<String> active_image = party.getActive_image();
 
-        holder.tvTitle.setText(action_title);
-        holder.tvDescription.setText(action_describe);
-        holder.tvScore.setText(score_value);
-        holder.tvTime.setText(time);
+        holder.tvStatus.setVisibility(View.GONE);
+        holder.tvName.setText(real_name);
+        holder.tvTitle.setText(title);
+        holder.tvContent.setText(theme);
+        holder.tvReleaseDate.setText(created_at);
+        if (!TextUtils.isEmpty(head_image)) {
+            Picasso.with(parent.getContext()).load(DataAccessUtil.getImageUrl(head_image)).
+                placeholder(R.drawable.worker_avatar).into(holder.ivAvatar);
+        } else {
+            holder.ivAvatar.setImageResource(R.drawable.worker_avatar);
+        }
 
+        convertView.setTag(Constants.KEY_PARTY, party);
         return convertView;
     }
 
-    /**
-     * This class contains all butterknife-injected Views & Layouts from layout file 'jifen_item.xml'
-     * for easy to all layout elements.
-     *
-     * @author ButterKnifeZelezny, plugin for Android Studio by Avast Developers (http://github.com/avast)
-     */
     static class ViewHolder {
+        @Bind(R.id.iv_avatar)
+        ImageView ivAvatar;
+        @Bind(R.id.tv_name)
+        TextView tvName;
+        @Bind(R.id.tv_status)
+        TextView tvStatus;
         @Bind(R.id.tv_title)
         TextView tvTitle;
-        @Bind(R.id.tv_description)
-        TextView tvDescription;
-        @Bind(R.id.tv_score)
-        TextView tvScore;
-        @Bind(R.id.tv_time)
-        TextView tvTime;
+        @Bind(R.id.tv_content)
+        TextView tvContent;
+        @Bind(R.id.rv)
+        RecyclerView rv;
+        @Bind(R.id.tv_release_date)
+        TextView tvReleaseDate;
 
         ViewHolder(View view) {
             ButterKnife.bind(this, view);

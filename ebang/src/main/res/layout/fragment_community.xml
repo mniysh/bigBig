@@ -4,6 +4,8 @@
               android:layout_height="match_parent"
               android:background="@android:color/white"
               android:orientation="vertical"
+              android:showDividers="middle"
+              android:divider="@drawable/divider_line_gray"
               tools:context=".social.ReleasedPartyFragment">
 
     <include layout="@layout/layout_common_title"/>
@@ -16,6 +18,7 @@
         android:drawableLeft="@drawable/release_party"
         android:gravity="center_vertical"
         android:padding="10dp"
+        android:drawablePadding="5dp"
         android:text="发布活动"
         android:textColor="@color/party_text_black"
         android:textSize="20sp"
@@ -30,7 +33,8 @@
         >
 
         <TextView
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
+            android:layout_weight="1"
             android:layout_height="wrap_content"
             android:text="最新活动"
             android:textColor="@color/party_text_gray"
@@ -40,7 +44,9 @@
         <com.ms.ebangw.view.ProvinceAndCityView
             android:id="@+id/pac"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+
+            />
 
     </LinearLayout>
 

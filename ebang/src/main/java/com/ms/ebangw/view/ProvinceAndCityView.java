@@ -26,6 +26,7 @@ public class ProvinceAndCityView extends FrameLayout {
     private ViewGroup layout;
     private Spinner provinceSp;
     private Spinner citySp;
+    private OnAreaChangedListener onAreaChangedListener;
 
     private Context mContext;
 
@@ -118,6 +119,9 @@ public class ProvinceAndCityView extends FrameLayout {
                                        int position, long id) {
                 currentCity = citys.get(position);
                 city = currentCity.getName();
+                if (onAreaChangedListener != null) {
+                    onAreaChangedListener.onAreaChanged(getProvinceId(), getCityId());
+                }
             }
 
             @Override
@@ -158,12 +162,12 @@ public class ProvinceAndCityView extends FrameLayout {
         }
         return null;
     }
-//    public String getAreaId(){
-//        if(null != currentArea){
-//            return currentArea.getId();
-//        }
-//        return null;
-//    }
 
+    public interface OnAreaChangedListener{
+       void onAreaChanged(String provinceId, String cityId);
+    }
 
+    public void setOnAreaChangedListener(OnAreaChangedListener onAreaChangedListener) {
+        this.onAreaChangedListener = onAreaChangedListener;
+    }
 }

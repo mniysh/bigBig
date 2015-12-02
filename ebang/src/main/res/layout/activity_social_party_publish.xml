@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true">
+
+    <LinearLayout
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:divider="@drawable/divider_line_gray"
+        android:showDividers="middle"
+        tools:context="com.ms.ebangw.social.SocialPartyPublishActivity">
+
+        <include layout="@layout/layout_common_title"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:minHeight="@dimen/authen_item_height"
+            android:orientation="horizontal"
+            >
+
+            <TextView
+                style="@style/social_publish_text"
+                android:layout_height="wrap_content"
+                android:text="标题："
+                />
+
+
+            <EditText
+                android:id="@+id/et_title"
+                style="@style/social_publish_edit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="请输入标题"
+                android:maxLength="10"
+                android:textColorHighlight="#f2f2f2"
+                android:textColorHint="@color/auth_hint"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:minHeight="@dimen/authen_item_height"
+            android:orientation="horizontal"
+            >
+
+            <TextView
+                style="@style/social_publish_text"
+                android:layout_height="wrap_content"
+                android:text="区域："
+                />
+
+
+            <com.ms.ebangw.view.ProvinceAndCityView
+                android:id="@+id/pac"
+                style="@style/social_publish_edit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:minHeight="@dimen/authen_item_height"
+            android:orientation="horizontal"
+            >
+
+            <TextView
+                style="@style/social_publish_text"
+                android:layout_height="wrap_content"
+                android:text="工地地址："
+                />
+
+
+            <EditText
+                android:id="@+id/et_address"
+                style="@style/social_publish_edit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="请填写工地地址"
+                android:maxLength="10"
+                android:textColorHighlight="#f2f2f2"
+                android:textColorHint="@color/auth_hint"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:minHeight="@dimen/authen_item_height"
+            android:orientation="horizontal"
+            >
+
+            <TextView
+                style="@style/social_publish_text"
+                android:layout_height="wrap_content"
+                android:text="人数："
+                />
+
+
+            <EditText
+                android:id="@+id/et_people_num"
+                style="@style/social_publish_edit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="请填具体人数"
+                android:inputType="number"
+                android:maxLength="4"
+                android:textColorHighlight="#f2f2f2"
+                android:textColorHint="@color/auth_hint"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:minHeight="@dimen/authen_item_height"
+            android:orientation="horizontal"
+            >
+
+            <TextView
+                style="@style/social_publish_text"
+                android:layout_height="wrap_content"
+                android:text="开始时间："
+                />
+
+
+            <TextView
+                android:id="@+id/tv_start_time"
+                style="@style/social_publish_edit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableRight="@drawable/calendar"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:minHeight="@dimen/authen_item_height"
+            android:orientation="horizontal"
+            >
+
+            <TextView
+                style="@style/social_publish_text"
+                android:layout_height="wrap_content"
+                android:text="结束时间："
+                />
+
+
+            <TextView
+                android:id="@+id/tv_end_time"
+                style="@style/social_publish_edit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableRight="@drawable/calendar"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="@dimen/authen_item_height"
+            android:orientation="horizontal"
+            >
+
+            <TextView
+                style="@style/social_publish_text"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left"
+                android:text="活动主题："
+                />
+
+
+            <EditText
+                android:id="@+id/et_theme"
+                style="@style/social_publish_edit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:minLines="3"
+                android:textColorHighlight="#f2f2f2"
+                android:textColorHint="@color/auth_hint"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="@dimen/authen_item_height"
+            android:orientation="vertical"
+            >
+
+            <TextView
+                style="@style/social_publish_text"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left"
+                android:text="上传照片："
+                />
+
+
+            <ImageView
+                android:id="@+id/iv_pic"
+                style="@style/social_publish_edit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/camera_gray"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_gravity="center_horizontal"
+            android:layout_margin="10dp"
+            >
+
+            <TextView
+                android:id="@+id/tv_commit"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:background="@color/common_yellow"
+                android:text="提交"
+                android:gravity="center"
+                android:textColor="@android:color/white"
+                android:textSize="16sp"
+                android:padding="10dp"
+                />
+
+            <TextView
+                android:id="@+id/tv_preview"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:background="@color/blue_title"
+                android:text="预览"
+                android:gravity="center"
+                android:layout_marginLeft="20dp"
+                android:textColor="@android:color/white"
+                android:textSize="16sp"
+                android:padding="10dp"
+                />
+
+        </LinearLayout>
+
+    </LinearLayout>
+</ScrollView>

@@ -51,7 +51,7 @@
     <!--标题栏-->
     <color name="titleBar_bg">#0076a9</color>
     <color name="titleBar_arrow_pressed">#660076a9</color> <!--标题栏返回箭头按下的颜色-->
-    <color name="common_divider_line">#d7d7d7</color>
+    <color name="common_divider_line">#55d7d7d7</color>
 
     <!--认证页面-->
     <color name="auth_hint">#383838</color>
