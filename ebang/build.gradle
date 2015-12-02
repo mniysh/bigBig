@@ -2,7 +2,7 @@ apply plugin: 'com.android.application'
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
-    testCompile 'junit:junit:4.12'
+    //    testCompile 'junit:junit:4.12'
     compile project(':social_sdk_library_project')
     compile project(':convenientbanner')
     compile project(':pullToRefreshLibrary')
@@ -11,10 +11,11 @@ dependencies {
     compile 'com.umeng.analytics:analytics:latest.integration'
     compile 'com.android.support:support-v13:23.1.1'
     compile 'com.squareup.picasso:picasso:2.5.2'
-    compile 'com.android.support:design:23.1.1'
+    //    compile 'com.android.support:design:23.1.1'
     compile 'com.loopj.android:android-async-http:1.4.8'
-//        compile files('libs/easemobchat_2.2.4.jar')
+    //    compile files('libs/easemobchat_2.2.4.jar')
     compile project(':easeUI')
+    compile project(':commondependencylibrary')
 }
 
 android {
@@ -78,6 +79,10 @@ android {
             jniLibs.srcDir 'libs'           //处理.so库
         }
 
+    }
+
+    dexOptions {
+        javaMaxHeapSize "4g"
     }
 
     productFlavors {
