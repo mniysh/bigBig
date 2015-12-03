@@ -19,8 +19,8 @@ import com.ms.ebangw.R;
 import com.ms.ebangw.bean.AuthInfo;
 import com.ms.ebangw.bean.UploadImageResult;
 import com.ms.ebangw.commons.Constants;
+import com.ms.ebangw.crop.CropImageActivity;
 import com.ms.ebangw.fragment.CropEnableFragment;
-import com.ms.ebangw.userAuthen.developers.DevelopersAuthenActivity;
 import com.ms.ebangw.utils.BitmapUtil;
 import com.ms.ebangw.utils.L;
 import com.ms.ebangw.utils.T;
@@ -42,18 +42,6 @@ public class InvestorIdentityCardFragment extends CropEnableFragment {
 
 
     private View contentLayout;
-    /**正面身份证选择图片*/
-    @Bind(R.id.btn_select_front)
-    Button uploadFrontBtn;
-    /**背面身份证选择图片*/
-    @Bind(R.id.btn_select_back)
-    Button uploadBackBtn;
-    /**正面身份证拍照*/
-    @Bind(R.id.btn_photo_front)
-    Button photoFrontBtn;
-    /**反面身份证拍照*/
-    @Bind(R.id.btn_photo_back)
-    Button photoBackBtn;
     @Bind(R.id.iv_front)
     ImageView frontIv;
     @Bind(R.id.iv_back)
@@ -106,6 +94,24 @@ public class InvestorIdentityCardFragment extends CropEnableFragment {
             backIv.setImageBitmap(bitmap);
             isBackUploaded = true;
         }
+    }
+
+    /**
+     * 选择正面或反面图片
+     * @param view
+     */
+    @OnClick({R.id.btn_select_front, R.id.btn_select_back})
+    public void selectGallery(View view) {
+        selectPhoto(view, CropImageActivity.TYPE_PRIVATE);
+    }
+
+    /**
+     * 选择正面或反面拍照
+     * @param view
+     */
+    @OnClick({R.id.btn_photo_front, R.id.btn_photo_back})
+    public void selectCamera(View view) {
+        captureImageByCamera(view, CropImageActivity.TYPE_PRIVATE);
     }
 
     @OnClick(R.id.btn_next)

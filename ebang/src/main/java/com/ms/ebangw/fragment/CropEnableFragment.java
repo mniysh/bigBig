@@ -46,6 +46,7 @@ public abstract class CropEnableFragment extends BaseFragment implements OnCropI
         super.onCreate(savedInstanceState);
         if (null != savedInstanceState) {
             mCurrentPhotoPath = savedInstanceState.getString(Constants.KEY_CURRENT_IMAGE_PATH);
+            L.d("CropEnableFragment oncreate: " + mCurrentPhotoPath);
         }
     }
 

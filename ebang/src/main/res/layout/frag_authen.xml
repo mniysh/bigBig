@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical" >
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
 
     <FrameLayout
         android:id="@+id/fl_head_info"
@@ -10,104 +10,105 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="10dp"/>
 
-    <LinearLayout
-        android:id="@+id/ll_no_auth"
-        android:layout_width="fill_parent"
+    <ScrollView
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/white"
-        android:orientation="vertical" >
+        >
 
-        <LinearLayout
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/white"
-            android:orientation="vertical" >
+                <LinearLayout
+                android:id="@+id/ll_no_auth"
+                android:layout_width="fill_parent"
+                android:layout_height="match_parent"
+                android:background="@color/white"
+                android:orientation="vertical">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:padding="10dp"
-                android:text="请完善认证"
-                android:textColor="@color/gray_text"
-                android:textSize="20dp" />
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:padding="10dp"
+                        android:text="请完善认证"
+                        android:textColor="@color/gray_text"
+                        android:textSize="20dp"/>
+                </LinearLayout>
+
+                <View style="@style/aaa_hor"/>
+                <!--worker/headman/developers/investor-->
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="25dp"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:id="@+id/btn_investor"
+                        style="@style/textColor"
+                        android:layout_width="103dp"
+                        android:layout_height="57dp"
+                        android:background="@color/but_gerenrenzheng"
+                        android:text="个人认证"/>
+
+                    <Button
+                        android:id="@+id/btn_worker"
+                        style="@style/textColor"
+                        android:layout_width="103dp"
+                        android:layout_height="57dp"
+                        android:layout_marginLeft="25dp"
+                        android:background="@color/but_wugong"
+                        android:text="务工人"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="25dp"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:id="@+id/btn_headman"
+                        style="@style/textColor"
+                        android:layout_width="103dp"
+                        android:layout_height="57dp"
+                        android:background="@color/but_gongzhang"
+                        android:text="工长"/>
+
+                    <Button
+                        android:id="@+id/btn_developers"
+                        style="@style/textColor"
+                        android:layout_width="103dp"
+                        android:layout_height="57dp"
+                        android:layout_marginLeft="25dp"
+                        android:background="@color/but_kaifashang"
+
+                        android:text="开发商"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="25dp"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:id="@+id/btn_labour_company"
+                        style="@style/textColor"
+                        android:layout_width="103dp"
+                        android:layout_height="57dp"
+                        android:background="@color/but_gongzhang"
+                        android:text="劳务公司"/>
+
+                </LinearLayout>
+
         </LinearLayout>
 
-        <View style="@style/aaa_hor" />
-<!--worker/headman/developers/investor-->
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="25dp"
-            android:orientation="horizontal" >
-
-            <Button
-                android:id="@+id/btn_investor"
-                android:layout_width="103dp"
-                android:layout_height="57dp"
-                android:background="@color/but_gerenrenzheng"
-                style="@style/textColor"
-                android:text="个人认证" />
-            <Button
-                android:id="@+id/btn_worker"
-                android:layout_width="103dp"
-                android:layout_height="57dp"
-                android:layout_marginLeft="25dp"
-                android:background="@color/but_wugong"
-                style="@style/textColor"
-                android:text="务工人" />
-        </LinearLayout>
-        <LinearLayout
-            android:layout_marginTop="25dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:orientation="horizontal" >
-
-            <Button
-                android:id="@+id/btn_headman"
-                android:layout_width="103dp"
-                android:layout_height="57dp"
-                android:background="@color/but_gongzhang"
-                style="@style/textColor"
-                android:text="工长" />
-            <Button
-                android:id="@+id/btn_developers"
-                android:layout_width="103dp"
-                android:layout_height="57dp"
-                android:background="@color/but_kaifashang"
-                style="@style/textColor"
-                android:layout_marginLeft="25dp"
-
-                android:text="开发商" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_marginTop="25dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:orientation="horizontal" >
-
-            <Button
-                android:id="@+id/btn_labour_company"
-                android:layout_width="103dp"
-                android:layout_height="57dp"
-                android:background="@color/but_gongzhang"
-                style="@style/textColor"
-                android:text="劳务公司" />
-
-        </LinearLayout>
-    </LinearLayout>
-
-    <include
-        android:id="@+id/ll_authed"
-        android:visibility="gone"
-        layout="@layout/layout_personal_info"/>
-
-    <include
-        android:id="@+id/ll_eweima"
-        android:visibility="visible"
-        layout="@layout/layout_invite_worker_qr_code"/>
+    </ScrollView>
 </LinearLayout>

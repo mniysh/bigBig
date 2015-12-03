@@ -135,10 +135,13 @@ public abstract class BaseFragment extends Fragment {
         }
         if (null == mLoadingDialog) {
             mLoadingDialog = LoadingDialog.newInstance(message) ;
+            mLoadingDialog.setStyle(DialogFragment.STYLE_NO_TITLE, 0);
         }
-        mLoadingDialog.setStyle(DialogFragment.STYLE_NO_TITLE, 0);
         if (isVisible()) {
             mLoadingDialog.show(getFragmentManager(), TAG);
+//            getFragmentManager().beginTransaction().show(mLoadingDialog).commit();
+        }else {
+
         }
     }
 
@@ -151,8 +154,9 @@ public abstract class BaseFragment extends Fragment {
      * 关闭进度对话框
      */
     public void dismissLoadingDialog() {
-        if (null != mLoadingDialog && null != mLoadingDialog.getActivity()&& mLoadingDialog.isVisible()) {
+        if (null != mLoadingDialog ) {
             mLoadingDialog.dismissAllowingStateLoss();
+            mLoadingDialog = null;
         }
     }
     @Override

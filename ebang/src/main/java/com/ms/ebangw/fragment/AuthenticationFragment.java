@@ -4,17 +4,13 @@ import android.app.FragmentManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import com.ms.ebangw.R;
-import com.ms.ebangw.bean.User;
 import com.ms.ebangw.userAuthen.developers.DevelopersAuthenActivity;
 import com.ms.ebangw.userAuthen.headman.HeadmanAuthenActivity;
 import com.ms.ebangw.userAuthen.investor.InvestorAuthenActivity;
@@ -44,22 +40,22 @@ public class AuthenticationFragment extends BaseFragment implements OnClickListe
 
     private View mContentView;
 
-    @Bind(R.id.tv_realName)
-    TextView realNameTv;
-    @Bind(R.id.tv_phone2)
-    TextView phone2Tv;
-    @Bind(R.id.tv_gender)
-    TextView genderTv;
-    @Bind(R.id.tv_native_place)
-    TextView nativePlaceTv;
-    @Bind(R.id.tv_work_type)
-    TextView workTypeTv;
-    @Bind(R.id.ll_authed)
-    LinearLayout detailLayout;
-    @Bind(R.id.ll_no_auth)
-    LinearLayout noAuthLayout;
-    @Bind(R.id.ll_workType)
-    LinearLayout LWorkType;
+//    @Bind(R.id.tv_realName)
+//    TextView realNameTv;
+//    @Bind(R.id.tv_phone2)
+//    TextView phone2Tv;
+//    @Bind(R.id.tv_gender)
+//    TextView genderTv;
+//    @Bind(R.id.tv_native_place)
+//    TextView nativePlaceTv;
+//    @Bind(R.id.tv_work_type)
+//    TextView workTypeTv;
+//    @Bind(R.id.ll_authed)
+//    LinearLayout detailLayout;
+//    @Bind(R.id.ll_no_auth)
+//    LinearLayout noAuthLayout;
+//    @Bind(R.id.ll_workType)
+//    LinearLayout LWorkType;
 
     @Override
     public View onCreateView(LayoutInflater inflater,
@@ -73,6 +69,7 @@ public class AuthenticationFragment extends BaseFragment implements OnClickListe
 
 
     public void initView() {
+        fm = getFragmentManager();
         fm.beginTransaction().replace(R.id.fl_head_info, HeadInfoFragment.newInstance("", "")).commit();
 
           btnInvestor.setOnClickListener(this);
@@ -83,48 +80,9 @@ public class AuthenticationFragment extends BaseFragment implements OnClickListe
 
     }
 
-    public void initCompletedUser() {
-        noAuthLayout.setVisibility(View.GONE);
-        detailLayout.setVisibility(View.VISIBLE);
-        LWorkType.setVisibility(View.GONE);
-        User user = getUser();
-        String real_name = user.getReal_name();
-        String gender = user.getGender();
-        String phone = user.getPhone();
-        String area = user.getArea();
-        String craft = user.getCraft();
-        realNameTv.setText(real_name);
-        genderTv.setText(gender);
-        phone2Tv.setText(phone);
-        nativePlaceTv.setText(area);
-
-        if (TextUtils.equals(craft, "null") || TextUtils.isEmpty(craft) || TextUtils.equals(craft,
-            "Null")) {
-            LWorkType.setVisibility(View.GONE);
-
-        } else {
-            LWorkType.setVisibility(View.VISIBLE);
-            workTypeTv.setText(craft);
-        }
-    }
-
-    public void initNoAuthUser() {
-        noAuthLayout.setVisibility(View.VISIBLE);
-        detailLayout.setVisibility(View.GONE);
-    }
-
     @Override
     public void initData() {
-        User user = getUser();
-        String status = user.getStatus();        //认证状态
-        switch (status) {
-            case "guest":                        //未申请
-                initNoAuthUser();
-                break;
-            case "complete":                //认证审核通过
-                initCompletedUser();
-                break;
-        }
+
     }
 
     @Override
