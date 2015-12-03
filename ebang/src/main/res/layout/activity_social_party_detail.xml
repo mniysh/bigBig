@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.ms.ebangw.social.SocialPartyDetailActivity">
+
+    <include layout="@layout/layout_common_title"/>
+
+    <LinearLayout
+        style="@style/social_detail_item"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        >
+
+        <TextView
+            style="@style/social_publish_text"
+            android:layout_height="wrap_content"
+            android:text="标题："
+            />
+
+        <TextView
+            android:id="@+id/tv_title"
+            style="@style/social_detail_text"
+            android:layout_height="wrap_content"
+            />
+
+    </LinearLayout>
+
+    <LinearLayout
+        style="@style/social_detail_item"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        >
+
+        <TextView
+            style="@style/social_publish_text"
+            android:layout_height="wrap_content"
+            android:text="区域："
+            />
+
+        <TextView
+            android:id="@+id/tv_area"
+
+            style="@style/social_detail_text"
+            android:layout_height="wrap_content"
+            android:text=""
+            />
+
+    </LinearLayout>
+
+    <LinearLayout
+        style="@style/social_detail_item"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        >
+
+        <TextView
+            style="@style/social_publish_text"
+            android:layout_height="wrap_content"
+            android:text="详细地址："
+            />
+
+        <TextView
+            android:id="@+id/tv_address"
+
+            style="@style/social_detail_text"
+            android:layout_height="wrap_content"
+            android:text=""
+            />
+
+    </LinearLayout>
+
+    <LinearLayout
+        style="@style/social_detail_item"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        >
+
+        <TextView
+            style="@style/social_publish_text"
+            android:layout_height="wrap_content"
+            android:text="人数："
+            />
+
+        <TextView
+            android:id="@+id/tv_people_num"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            style="@style/social_detail_text"
+            android:layout_height="wrap_content"
+            android:text=""
+            />
+
+        <TextView
+            android:id="@+id/tv_added_num"
+
+            style="@style/social_detail_text"
+            android:layout_height="wrap_content"
+            android:textColor="@color/common_yellow"
+            />
+
+    </LinearLayout>
+
+    <LinearLayout
+        style="@style/social_detail_item"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        >
+
+        <TextView
+            style="@style/social_publish_text"
+            android:layout_height="wrap_content"
+            android:text="开始时间："
+            />
+
+        <TextView
+            android:id="@+id/tv_start_time"
+
+            style="@style/social_detail_text"
+            android:layout_height="wrap_content"
+            android:text=""
+            />
+
+    </LinearLayout>
+
+    <LinearLayout
+        style="@style/social_detail_item"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        >
+
+        <TextView
+            style="@style/social_publish_text"
+            android:layout_height="wrap_content"
+            android:text="结束时间："
+            />
+
+        <TextView
+            android:id="@+id/tv_end_time"
+
+            style="@style/social_detail_text"
+            android:layout_height="wrap_content"
+            android:text=""
+            />
+
+    </LinearLayout>
+
+    <LinearLayout
+        style="@style/social_detail_item"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        >
+
+        <TextView
+            style="@style/social_publish_text"
+            android:layout_height="wrap_content"
+            android:text="活动主题："
+            />
+
+        <TextView
+            android:id="@+id/tv_theme"
+
+            style="@style/social_detail_text"
+            android:layout_height="wrap_content"
+            android:text=""
+            />
+
+    </LinearLayout>
+
+    <LinearLayout
+        style="@style/social_detail_item"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        >
+
+        <TextView
+            style="@style/social_publish_text"
+            android:layout_height="wrap_content"
+            android:text="照片："
+            />
+
+        <ImageView
+            style="@style/social_detail_text"
+            android:layout_height="wrap_content"
+            />
+
+    </LinearLayout>
+
+</LinearLayout>

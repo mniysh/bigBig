@@ -584,6 +584,24 @@ public class DataParseUtil {
         return list;
     }
 
+    /**
+     * 4-3.社区活动首页点击查看详情接口
+     * @param jsonObject
+     * @return
+     * @throws ResponseException
+     */
+    public static Party socialPartyDetail(JSONObject jsonObject) throws ResponseException {
+        String dataStr = processDataStr(jsonObject);
+        if (TextUtils.isEmpty(dataStr)) {
+            return null;
+        }
+        Gson gson = new Gson();
+        Party party = gson.fromJson(dataStr, Party.class);
+
+        return party;
+    }
+
+
 
     /**
      * 2-1.发布接口（开发商）

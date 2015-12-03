@@ -9,18 +9,7 @@ import java.util.List;
  */
 public class Party {
 
-    /**
-     * id : 5
-     * real_name : 杨李鹏
-     * gender : male
-     * head_image :
-     * title : 阿萨德
-     * theme : 孔垂楠草草哦按搜拉长
-     * created_at : 2015-12-01 12:05:14
-     * active_image : ["http://www.labour.com/uploads/images/0a05a403aacdfd2429b92c95527011f0.jpg"]
-     */
-
-    private String id;
+    private String active_id;
     private String real_name;
     private String gender;
     private String head_image;
@@ -29,9 +18,23 @@ public class Party {
     private String created_at;
     private List<String> active_image;
 
-    public void setId(String id) {
-        this.id = id;
-    }
+
+    private String province;
+    private String city;
+    private String area_other;
+    private String number_people;
+    private String start_time;
+    private String end_time;
+    private String price;
+    /**
+     * （flag=1就展示报名人数，为2就展示正在审核中,3为审核失败，4为已结束）
+     */
+    private String flag;
+    /**
+     * (如果状态flag=1的话，就会查看报名人数)
+     */
+    private String apply_count;
+
 
     public void setReal_name(String real_name) {
         this.real_name = real_name;
@@ -61,8 +64,12 @@ public class Party {
         this.active_image = active_image;
     }
 
-    public String getId() {
-        return id;
+    public String getActive_id() {
+        return active_id;
+    }
+
+    public void setActive_id(String active_id) {
+        this.active_id = active_id;
     }
 
     public String getReal_name() {
@@ -91,5 +98,77 @@ public class Party {
 
     public List<String> getActive_image() {
         return active_image;
+    }
+
+    public String getProvince() {
+        return province;
+    }
+
+    public void setProvince(String province) {
+        this.province = province;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getArea_other() {
+        return area_other;
+    }
+
+    public void setArea_other(String area_other) {
+        this.area_other = area_other;
+    }
+
+    public String getNumber_people() {
+        return number_people;
+    }
+
+    public void setNumber_people(String number_people) {
+        this.number_people = number_people;
+    }
+
+    public String getStart_time() {
+        return start_time;
+    }
+
+    public void setStart_time(String start_time) {
+        this.start_time = start_time;
+    }
+
+    public String getEnd_time() {
+        return end_time;
+    }
+
+    public void setEnd_time(String end_time) {
+        this.end_time = end_time;
+    }
+
+    public String getPrice() {
+        return price;
+    }
+
+    public void setPrice(String price) {
+        this.price = price;
+    }
+
+    public String getFlag() {
+        return flag;
+    }
+
+    public void setFlag(String flag) {
+        this.flag = flag;
+    }
+
+    public String getApply_count() {
+        return apply_count;
+    }
+
+    public void setApply_count(String apply_count) {
+        this.apply_count = apply_count;
     }
 }

@@ -581,6 +581,8 @@
         </activity>
         <activity android:name=".activity.CropEnableActivity">
         </activity>
+        <activity android:name=".social.SocialPartyDetailActivity">
+        </activity>
     </application>
 
 </manifest>

@@ -19,6 +19,7 @@ import com.ms.ebangw.bean.Province;
 import com.ms.ebangw.exception.ResponseException;
 import com.ms.ebangw.service.DataAccessUtil;
 import com.ms.ebangw.service.DataParseUtil;
+import com.ms.ebangw.social.MySocialListActivity;
 import com.ms.ebangw.social.SocialPartyPublishActivity;
 import com.ms.ebangw.utils.T;
 import com.ms.ebangw.view.ProvinceAndCityView;
@@ -72,7 +73,7 @@ public class CommunityFragment extends BaseFragment {
         initTitle(null, null, "社区", "我的列表", new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                startActivity(new Intent(mActivity, MySocialListActivity.class));
             }
         });
     }
@@ -117,7 +118,24 @@ public class CommunityFragment extends BaseFragment {
         });
 
         adapter = new ReleasedPartyAdapter(mActivity, new ArrayList<Party>());
+
+//        ListView listView = ptr.getRefreshableView();
+//        ptr.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//                Party party = (com.ms.ebangw.bean.Party) view.getTag(Constants.KEY_PARTY);
+//                String partyId = party.getId();
+//                Bundle bundle = new Bundle();
+//                bundle.putString(Constants.KEY_PART_ID, partyId);
+//                Intent intent = new Intent(mActivity, SocialPartyDetailActivity.class);
+//                intent.putExtras(bundle);
+//                startActivity(intent);
+//
+//            }
+//        });
+
         ptr.setAdapter(adapter);
+
         load();
 
     }

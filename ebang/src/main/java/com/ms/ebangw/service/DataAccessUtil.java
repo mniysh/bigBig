@@ -1170,6 +1170,36 @@ public class DataAccessUtil {
         return doGet(RequestUrl.social_show, params, asyncHttpResponseHandler);
     }
 
+    /**
+     * 4-3.社区活动首页点击查看详情接口   get
+     * @param active_id
+     * @param asyncHttpResponseHandler
+     * @return
+     */
+    public static RequestHandle socialPartyDetail(String active_id,
+                                              AsyncHttpResponseHandler asyncHttpResponseHandler){
+
+        RequestParams params = new RequestParams();
+        params.put("active_id", active_id);
+
+        return doGet(RequestUrl.social_detail, params, asyncHttpResponseHandler);
+    }
+
+
+    /**
+     * 4-4.社区活动报名
+     * @param active_id
+     * @param asyncHttpResponseHandler
+     * @return
+     */
+    public static RequestHandle socialPartyApply(String active_id,
+                                                  AsyncHttpResponseHandler asyncHttpResponseHandler){
+
+        RequestParams params = new RequestParams();
+        params.put("active_id", active_id);
+
+        return doGet(RequestUrl.social_apply, params, asyncHttpResponseHandler);
+    }
 
 
     public static RequestHandle doPost(String url, RequestParams params, AsyncHttpResponseHandler asyncHttpResponseHandler) {

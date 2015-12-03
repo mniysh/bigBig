@@ -1,6 +1,8 @@
 package com.ms.ebangw.adapter;
 
 import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.View;
@@ -13,6 +15,7 @@ import com.ms.ebangw.R;
 import com.ms.ebangw.bean.Party;
 import com.ms.ebangw.commons.Constants;
 import com.ms.ebangw.service.DataAccessUtil;
+import com.ms.ebangw.social.SocialPartyDetailActivity;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -58,9 +61,9 @@ public class ReleasedPartyAdapter extends BaseAdapter {
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(int position, View convertView, final ViewGroup parent) {
         ViewHolder holder;
-        Party party = list.get(position);
+        final Party party = list.get(position);
         if (convertView == null) {
             convertView = View.inflate(parent.getContext(), R.layout.released_party_item, null);
             holder = new ViewHolder(convertView);
@@ -88,6 +91,18 @@ public class ReleasedPartyAdapter extends BaseAdapter {
             holder.ivAvatar.setImageResource(R.drawable.worker_avatar);
         }
 
+        convertView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Party party = (com.ms.ebangw.bean.Party) v.getTag(Constants.KEY_PARTY);
+                String partyId = party.getActive_id();
+                Bundle bundle = new Bundle();
+                bundle.putString(Constants.KEY_PART_ID, partyId);
+                Intent intent = new Intent(parent.getContext(), SocialPartyDetailActivity.class);
+                intent.putExtras(bundle);
+                parent.getContext().startActivity(intent);
+            }
+        });
         convertView.setTag(Constants.KEY_PARTY, party);
         return convertView;
     }

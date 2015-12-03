@@ -56,7 +56,6 @@ public class HomeActivity extends BaseActivity {
     @Bind(R.id.rb_social_contact)
     RadioButton rbSocialContact;
     private FragmentManager fm;
-    private CommunityFragment communityFragment;
     private long exitTime = 0;
 
     @Bind(R.id.radioGroup)
@@ -111,7 +110,6 @@ public class HomeActivity extends BaseActivity {
     @Override
     public void initData() {
         loadUserInformation();
-        communityFragment = new CommunityFragment();
 //        releaseWorkTypeFragment = new ReleaseWorkTypeFragment();
 
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
@@ -123,7 +121,7 @@ public class HomeActivity extends BaseActivity {
                         break;
 
                     case R.id.rb_social_contact:
-                        fm.beginTransaction().replace(R.id.fl_content, communityFragment).commit();
+                        fm.beginTransaction().replace(R.id.fl_content, new CommunityFragment()).commit();
                         break;
 
                     case R.id.rb_mine:

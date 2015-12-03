@@ -214,4 +214,5 @@ public class Constants {
 	public static final int KEY_PARTY = R.drawable.camera_gray;
 	public static final String KEY_CROP_IMAGE_PATH = "crop_image_path";
 	public static final String KEY_ORIGIN_IMAGE_PATH = "origin_image_path";
+	public static final String KEY_PART_ID = "party_id";
 }

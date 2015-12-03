@@ -16,7 +16,6 @@ import com.ms.ebangw.R;
 import com.ms.ebangw.activity.CropEnableActivity;
 import com.ms.ebangw.bean.TotalRegion;
 import com.ms.ebangw.bean.UploadImageResult;
-import com.ms.ebangw.crop.AlbumStorageDirFactory;
 import com.ms.ebangw.crop.CropImageActivity;
 import com.ms.ebangw.dialog.DatePickerFragment;
 import com.ms.ebangw.dialog.SelectPhotoDialog;
@@ -24,6 +23,7 @@ import com.ms.ebangw.exception.ResponseException;
 import com.ms.ebangw.service.DataAccessUtil;
 import com.ms.ebangw.service.DataParseUtil;
 import com.ms.ebangw.utils.BitmapUtil;
+import com.ms.ebangw.utils.JsonUtil;
 import com.ms.ebangw.utils.T;
 import com.ms.ebangw.view.ProvinceAndCityView;
 
@@ -38,14 +38,11 @@ import java.util.List;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
+/**
+ * 社区，发布
+ * @author wangkai
+ */
 public class SocialPartyPublishActivity extends CropEnableActivity {
-    private final int REQUEST_PICK = 4;
-    private final int REQUEST_CAMERA = 6;
-    private final int REQUEST_CROP = 8;
-    private static final String JPEG_FILE_PREFIX = "IMG_";
-    private static final String JPEG_FILE_SUFFIX = ".jpg";
-    private String mCurrentPhotoPath;
-    private AlbumStorageDirFactory mAlbumStorageDirFactory = null;
     private List<String> mImageUrls;
 
     @Bind(R.id.et_title)
@@ -190,7 +187,7 @@ public class SocialPartyPublishActivity extends CropEnableActivity {
         theme = etTheme.getText().toString().trim();
 
         Gson gson = new Gson();
-        imagesJson = gson.toJson(mImageUrls);
+        imagesJson = JsonUtil.createGsonString(mImageUrls);
 
         if (isRight()) {
             DataAccessUtil.socialPublish(title, pac.getProvinceId(), pac.getCityId(), address, num,
@@ -276,7 +273,7 @@ public class SocialPartyPublishActivity extends CropEnableActivity {
     @Override
     public void onCropImageSuccess(View view, String cropedImagePath, UploadImageResult imageResult) {
         super.onCropImageSuccess(view, cropedImagePath, imageResult);
-            mImageUrls.add(imageResult.getUrl());
+            mImageUrls.add(imageResult.getName());
             Bitmap bitmap = BitmapUtil.getImage(cropedImagePath);
             ivPic.setImageBitmap(bitmap);
     }

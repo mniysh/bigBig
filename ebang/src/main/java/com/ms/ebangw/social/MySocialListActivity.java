@@ -7,6 +7,7 @@ import com.ms.ebangw.R;
 
 /**
  * 社区--我的列表
+ * @author wangkai
  */
 public class MySocialListActivity extends AppCompatActivity {
 
