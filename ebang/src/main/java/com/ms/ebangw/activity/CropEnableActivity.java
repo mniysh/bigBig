@@ -13,6 +13,7 @@ import com.ms.ebangw.bean.UploadImageResult;
 import com.ms.ebangw.commons.Constants;
 import com.ms.ebangw.commons.OnCropImageCallback;
 import com.ms.ebangw.crop.CropImageActivity;
+import com.ms.ebangw.crop.GetPathFromUri4kitkat;
 import com.ms.ebangw.utils.L;
 
 import java.io.File;
@@ -49,12 +50,40 @@ public abstract class CropEnableActivity extends BaseActivity implements OnCropI
         }
     }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(resultCode == RESULT_OK){
+            if (requestCode == REQUEST_CAMERA ) { //拍照返回
+                handleBigCameraPhoto();
+
+            }else if (requestCode == REQUEST_PICK) {
+                Uri uri = data.getData();
+                Log.d("way", "uri: " + uri);
+
+                try {
+                    String path = GetPathFromUri4kitkat.getPath(this, uri);
+                    goCropActivity(path);
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+            }else if (requestCode == REQUEST_CROP) {        //剪切后返回
+                UploadImageResult imageResult = data.getParcelableExtra(Constants.KEY_UPLOAD_IMAGE_RESULT);
+                String cropedImagePath = data.getStringExtra(Constants.KEY_CROP_IMAGE_PATH);
+                onCropImageSuccess(currentView, cropedImagePath, imageResult);
+            }
+        }
+    }
+
+
     /**
      * 选择相册图片
      * @param view
      * @param imageType 图片的处理类型，公开的，私有的
      */
-    public void selectPhoto(View view, @CropImageActivity.ImageType String imageType) {
+    protected void selectPhoto(View view, @CropImageActivity.ImageType String imageType) {
         // 选择图片
         Intent intent = new Intent();
         intent.setAction(Intent.ACTION_PICK);
@@ -69,7 +98,7 @@ public abstract class CropEnableActivity extends BaseActivity implements OnCropI
     /**
      * 拍照
      */
-    public void captureImageByCamera(View view, @CropImageActivity.ImageType String imageType) {
+    protected void captureImageByCamera(View view, @CropImageActivity.ImageType String imageType) {
 
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 

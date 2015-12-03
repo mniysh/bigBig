@@ -1,13 +1,9 @@
 package com.ms.ebangw.social;
 
 import android.app.DatePickerDialog;
-import android.content.Intent;
-import android.net.Uri;
+import android.graphics.Bitmap;
 import android.os.Bundle;
-import android.os.Environment;
-import android.provider.MediaStore;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -18,28 +14,24 @@ import com.loopj.android.http.JsonHttpResponseHandler;
 import com.ms.ebangw.R;
 import com.ms.ebangw.activity.CropEnableActivity;
 import com.ms.ebangw.bean.TotalRegion;
-import com.ms.ebangw.commons.Constants;
+import com.ms.ebangw.bean.UploadImageResult;
 import com.ms.ebangw.crop.AlbumStorageDirFactory;
 import com.ms.ebangw.crop.CropImageActivity;
-import com.ms.ebangw.crop.GetPathFromUri4kitkat;
 import com.ms.ebangw.dialog.DatePickerFragment;
 import com.ms.ebangw.dialog.SelectPhotoDialog;
 import com.ms.ebangw.exception.ResponseException;
 import com.ms.ebangw.service.DataAccessUtil;
 import com.ms.ebangw.service.DataParseUtil;
-import com.ms.ebangw.utils.L;
+import com.ms.ebangw.utils.BitmapUtil;
 import com.ms.ebangw.utils.T;
 import com.ms.ebangw.view.ProvinceAndCityView;
 
 import org.apache.http.Header;
 import org.json.JSONObject;
 
-import java.io.File;
-import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 import butterknife.Bind;
@@ -92,83 +84,11 @@ public class SocialPartyPublishActivity extends CropEnableActivity {
 
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == RESULT_OK) {
-
-            if (requestCode == REQUEST_CAMERA) { //拍照返回
-                handleBigCameraPhoto();
-
-            } else if (requestCode == REQUEST_PICK) {
-                Uri uri = data.getData();
-                Log.d("way", "uri: " + uri);
-
-                try {
-                    String path = GetPathFromUri4kitkat.getPath(this, uri);
-                    goCropActivity(path);
-
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-
-            } else if (requestCode == REQUEST_CROP) {        //剪切后返回
-                L.d("AuthenticationFragment-->" + "REQUEST_CROP");
-                handleCropBitmap(data);
-            }
-        }
 
 
-    }
-
-    public void handleCropBitmap(Intent intent) {
-//        if (intent != null) {
-//            UploadImageResult imageResult = intent.getParcelableExtra(Constants.KEY_UPLOAD_IMAGE_RESULT);
-//            MyApplication myApplication = (MyApplication) getApplication();
-//            mImageUrls.add(imageResult.getUrl());
-//            Bitmap bitmap = BitmapUtil.getImage(imagePath);
-//            ivPic.setImageBitmap(bitmap);
-//        }
-    }
 
 
-    public void goCropActivity(String imagePath) {
 
-        Bundle bundle = new Bundle();
-        bundle.putString(Constants.KEY_UPLOAD_IMAGE_TYPE, CropImageActivity.TYPE_PUBLIC);
-        bundle.putString(Constants.KEY_ORIGIN_IMAGE_PATH, imagePath);
-        Intent intent = new Intent(this, CropImageActivity.class);
-        intent.putExtras(bundle);
-        startActivityForResult(intent, REQUEST_CROP);
-
-    }
-
-    private void handleBigCameraPhoto() {
-
-        if (mCurrentPhotoPath != null) {
-            setPic(mCurrentPhotoPath, 400, 800);
-            galleryAddPic();
-            mCurrentPhotoPath = null;
-        }
-    }
-
-    private void setPic(String path, int targetW, int targetH) {
-        Bundle bundle = new Bundle();
-        bundle.putString(Constants.KEY_UPLOAD_IMAGE_TYPE, CropImageActivity.TYPE_PUBLIC);
-        bundle.putString(Constants.KEY_ORIGIN_IMAGE_PATH, path);
-        Intent intent = new Intent(this, CropImageActivity.class);
-        intent.putExtras(bundle);
-        startActivityForResult(intent, REQUEST_CROP);
-
-    }
-
-    private void galleryAddPic() {
-        Intent mediaScanIntent = new Intent("android.intent.action.MEDIA_SCANNER_SCAN_FILE");
-        File f = new File(mCurrentPhotoPath);
-        Uri contentUri = Uri.fromFile(f);
-        mediaScanIntent.setData(contentUri);
-        sendBroadcast(mediaScanIntent);
-    }
 
 
     @Override
@@ -194,52 +114,9 @@ public class SocialPartyPublishActivity extends CropEnableActivity {
         ivPic.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivityForResult(new Intent(SocialPartyPublishActivity.this, CropImageActivity
-                    .class), 1001);
+                showSelectPhotoDialog();
             }
         });
-    }
-
-    //拍照与选择图片剪切相关
-
-    public void selectPhoto() {
-        // 选择图片
-        Intent intent = new Intent();
-        intent.setAction(Intent.ACTION_PICK);
-        intent.setType("image/*");
-        startActivityForResult(intent, REQUEST_PICK);
-    }
-
-
-    /**
-     * 拍照
-     */
-    public void captureImageByCamera() {
-
-        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-
-        File f;
-
-        try {
-            f = createImageFile();
-            mCurrentPhotoPath = f.getAbsolutePath();
-            if (takePictureIntent.resolveActivity(getPackageManager()) != null && f != null) {
-                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(f));
-                startActivityForResult(takePictureIntent, REQUEST_CAMERA);
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-            f = null;
-            mCurrentPhotoPath = null;
-        }
-    }
-
-    private File createImageFile() throws IOException {
-        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-        String imageFileName = JPEG_FILE_PREFIX + timeStamp + "_";
-        File dir = Environment.getExternalStorageDirectory();
-        File imageF = File.createTempFile(imageFileName, JPEG_FILE_SUFFIX, dir);
-        return imageF;
     }
 
 
@@ -258,7 +135,6 @@ public class SocialPartyPublishActivity extends CropEnableActivity {
         });
 
         selectPhotoDialog.show(getFragmentManager(), "SelectPhotoDialog");
-//        captureImageByCamera();
 
     }
 
@@ -378,4 +254,11 @@ public class SocialPartyPublishActivity extends CropEnableActivity {
         return true;
     }
 
+    @Override
+    public void onCropImageSuccess(View view, String cropedImagePath, UploadImageResult imageResult) {
+        super.onCropImageSuccess(view, cropedImagePath, imageResult);
+            mImageUrls.add(imageResult.getUrl());
+            Bitmap bitmap = BitmapUtil.getImage(cropedImagePath);
+            ivPic.setImageBitmap(bitmap);
+    }
 }
