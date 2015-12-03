@@ -80,7 +80,7 @@ public class SelectPhotoDialog extends DialogFragment {
             @Override
             public void onClick(View v) {
                 if (selectListener != null) {
-                    selectListener.onCameraSelected();
+                    selectListener.onCameraSelected(v);
                     dismiss();
                 }
             }
@@ -90,7 +90,7 @@ public class SelectPhotoDialog extends DialogFragment {
             @Override
             public void onClick(View v) {
                 if (selectListener != null) {
-                    selectListener.onPhotoSelected();
+                    selectListener.onPhotoSelected(v);
                     dismiss();
                 }
             }
@@ -98,8 +98,8 @@ public class SelectPhotoDialog extends DialogFragment {
     }
 
     public interface OnSelectListener{
-        void onCameraSelected();
-        void onPhotoSelected();
+        void onCameraSelected(View view);
+        void onPhotoSelected(View view);
 
     }
 

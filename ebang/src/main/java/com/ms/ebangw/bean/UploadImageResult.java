@@ -12,6 +12,7 @@ public class UploadImageResult implements Parcelable {
     private String id;
     private String name;
     private String url;
+    private String imagePath;
 
 
     public String getId() {
@@ -38,8 +39,13 @@ public class UploadImageResult implements Parcelable {
         this.url = url;
     }
 
+    public String getImagePath() {
+        return imagePath;
+    }
 
-
+    public void setImagePath(String imagePath) {
+        this.imagePath = imagePath;
+    }
 
     @Override
     public String toString() {
@@ -47,6 +53,7 @@ public class UploadImageResult implements Parcelable {
             "id='" + id + '\'' +
             ", name='" + name + '\'' +
             ", url='" + url + '\'' +
+            ", imagePath='" + imagePath + '\'' +
             '}';
     }
 
@@ -60,6 +67,7 @@ public class UploadImageResult implements Parcelable {
         dest.writeString(this.id);
         dest.writeString(this.name);
         dest.writeString(this.url);
+        dest.writeString(this.imagePath);
     }
 
     public UploadImageResult() {
@@ -69,9 +77,10 @@ public class UploadImageResult implements Parcelable {
         this.id = in.readString();
         this.name = in.readString();
         this.url = in.readString();
+        this.imagePath = in.readString();
     }
 
-    public static final Parcelable.Creator<UploadImageResult> CREATOR = new Parcelable.Creator<UploadImageResult>() {
+    public static final Creator<UploadImageResult> CREATOR = new Creator<UploadImageResult>() {
         public UploadImageResult createFromParcel(Parcel source) {
             return new UploadImageResult(source);
         }

@@ -3,7 +3,6 @@ package com.ms.ebangw;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.support.multidex.MultiDex;
 import android.support.multidex.MultiDexApplication;
 
@@ -28,8 +27,6 @@ import java.util.Set;
 public class MyApplication extends MultiDexApplication {
 
     public static MyApplication instance;
-    public Bitmap mBitmap;
-    public String imagePath;
     private int flag_sub;
     private String phone;
     private String password;

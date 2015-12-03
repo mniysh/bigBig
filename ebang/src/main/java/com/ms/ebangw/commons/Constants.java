@@ -212,4 +212,6 @@ public class Constants {
 	public static final String KEY_INVITE_CODE = "invite_code";
 	public static final String KEY_USER_ACCOUNT = "user_account";
 	public static final int KEY_PARTY = R.drawable.camera_gray;
+	public static final String KEY_CROP_IMAGE_PATH = "crop_image_path";
+	public static final String KEY_ORIGIN_IMAGE_PATH = "origin_image_path";
 }
