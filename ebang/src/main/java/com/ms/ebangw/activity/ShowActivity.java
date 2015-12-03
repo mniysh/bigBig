@@ -311,7 +311,7 @@ public class ShowActivity extends BaseActivity {
                 try {
                     ProjectInfoDetail detail = DataParseUtil.projectInfoDetail(response);
                     if (null != detail) {
-                        String IsContend = detail.getIsContend();
+                        String isContend = detail.getIsContend();
                         int id = Integer.valueOf(userId);
                         int developersId = detail.getDevelopers_id();
                         if (developersId == id || projectType.equals(Constants.INVESTOR)) {
@@ -319,7 +319,7 @@ public class ShowActivity extends BaseActivity {
                             showListView.setVisibility(View.VISIBLE);
                         } else {
 
-                            if (TextUtils.equals(IsContend, "contend") || TextUtils.equals(IsContend, "process")) {
+                            if (TextUtils.equals(isContend, "contend") || TextUtils.equals(isContend, "process")) {
                                 showListView.setVisibility(View.VISIBLE);
                                 lBelowShow.setVisibility(View.GONE);
                             } else {

@@ -165,24 +165,47 @@
             />
 
 
-        <Button
+        <!--<Button-->
 
-            android:layout_marginRight="10dp"
-            android:id="@+id/bt_xuan_ren"
-            android:layout_width="wrap_content"
-            android:layout_height="30dp"
-            android:layout_gravity="center"
-            android:layout_marginLeft="10dp"
-            android:background="@drawable/bk_but"
-            android:text="选工友"
-            android:textColor="#fff"
-            android:visibility="visible" />
+            <!--android:layout_marginRight="10dp"-->
+            <!--android:id="@+id/bt_xuan_ren"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="30dp"-->
+            <!--android:layout_gravity="center"-->
+            <!--android:layout_marginLeft="10dp"-->
+            <!--android:background="@drawable/bk_but"-->
+            <!--android:text="选工友"-->
+            <!--android:textColor="#fff"-->
+            <!--android:visibility="visible" />-->
     </LinearLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:layout_height="wrap_content">
+
+
+
     <TextView
     android:id="@+id/tv_now_status"
     android:layout_marginLeft="40dp"
 
+    android:layout_gravity="center_vertical"
     android:textColor="@color/orange"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content" />
+
+        <Button
+
+        android:layout_marginRight="20dp"
+        android:id="@+id/bt_xuan_ren"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:layout_gravity="center"
+        android:layout_alignParentRight="true"
+        android:layout_marginLeft="10dp"
+        android:background="@drawable/bk_but"
+        android:text="选工友"
+        android:textColor="#fff"
+        android:visibility="visible" />
+    </RelativeLayout>
 </LinearLayout>

@@ -160,13 +160,13 @@ public class QiangDanActivity extends BaseNextAvtivity {
                     boolean b = DataParseUtil.processDataResult(response);
                     if (b) {
 //                        showWindowSucceed(lSmilllayout, categroy);
-                        showDialogSucceed("succeed");
+                        showDialogSucceed("succeed", "请尽快选择工友");
 
                     }
                 } catch (ResponseException e) {
                     e.printStackTrace();
 //                    showWindowFailed(lSadlayout, e.getMessage());
-                        showDialogSucceed("failed");
+                        showDialogSucceed("failed", e.getMessage());
                 }
 
 
@@ -196,14 +196,14 @@ public class QiangDanActivity extends BaseNextAvtivity {
                     boolean b = DataParseUtil.processDataResult(response);
                     if (b) {
 //                        showWindowSucceed(lSmilllayout, categroy);
-                        showDialogSucceed("succeed");
+                        showDialogSucceed("succeed", "请尽快选择工友");
 
                     }
                 } catch (ResponseException e) {
                     e.printStackTrace();
                     //T.show(e.getMessage());
 //                    showWindowFailed(lSadlayout, e.getMessage());
-                    showDialogSucceed("failed");
+                    showDialogSucceed("failed", e.getMessage());
 
                 }
 
@@ -219,9 +219,21 @@ public class QiangDanActivity extends BaseNextAvtivity {
 
 
     }
-    private void showDialogSucceed(String flag){
-        QiangDanDialog dialog = QiangDanDialog.newInstance(flag, "");
+    private void showDialogSucceed(String flag, String message){
+        QiangDanDialog dialog = QiangDanDialog.newInstance(flag, message);
         dialog.show(getFragmentManager(),"qiangdan");
+        dialog.setOnBackListener(new QiangDanDialog.onBackListener() {
+            @Override
+            public void onBack(boolean b) {
+                QiangDanActivity.this.finish();
+                if(b){
+                    Intent intentSucceed = new Intent();
+                    intentSucceed.setAction(Constants.KEY_QIANGDAN_SUCCEED);
+                    intentSucceed.putExtra("key", categroy);
+                    sendBroadcast(intentSucceed);
+                }
+            }
+        });
 
 
 
