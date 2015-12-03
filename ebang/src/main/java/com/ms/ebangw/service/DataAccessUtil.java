@@ -1132,7 +1132,8 @@ public class DataAccessUtil {
      */
     public static RequestHandle socialPublish(String title, String province, String city,
                                               String area_other, String number_people, String start_time,
-                                              String end_time, String theme, String activi_image,
+                                              String end_time, String price, String theme, String
+                                                  activi_image,
                                               AsyncHttpResponseHandler asyncHttpResponseHandler){
 
         RequestParams params = new RequestParams();
@@ -1143,6 +1144,7 @@ public class DataAccessUtil {
         params.put("number_people", number_people);
         params.put("start_time", start_time);
         params.put("end_time", end_time);
+        params.put("price", price);
         params.put("theme", theme);
         params.put("activi_image", activi_image);
 

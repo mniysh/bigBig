@@ -10,6 +10,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.ms.ebangw.R;
 import com.ms.ebangw.activity.CropEnableActivity;
@@ -67,12 +68,17 @@ public class SocialPartyPublishActivity extends CropEnableActivity {
     TextView tvCommit;
     @Bind(R.id.tv_preview)
     TextView tvPreview;
+    @Bind(R.id.et_price)
+    EditText etPrice;
+
     private String title;
     private String address;
     private String num;
     private String startTime;
     private String endTime;
     private String theme;
+    private String imagesJson;
+    private String price;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -178,13 +184,17 @@ public class SocialPartyPublishActivity extends CropEnableActivity {
         title = etTitle.getText().toString().trim();
         address = etAddress.getText().toString().trim();
         num = etPeopleNum.getText().toString().trim();
+        price = etPrice.getText().toString().trim();
         startTime = tvStartTime.getText().toString().trim();
         endTime = tvEndTime.getText().toString().trim();
         theme = etTheme.getText().toString().trim();
 
+        Gson gson = new Gson();
+        imagesJson = gson.toJson(mImageUrls);
+
         if (isRight()) {
             DataAccessUtil.socialPublish(title, pac.getProvinceId(), pac.getCityId(), address, num,
-                startTime, endTime, theme, "", new JsonHttpResponseHandler() {
+                startTime, endTime, price, theme, imagesJson, new JsonHttpResponseHandler() {
                     @Override
                     public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                         try {
@@ -236,6 +246,11 @@ public class SocialPartyPublishActivity extends CropEnableActivity {
             return false;
         }
 
+        if (TextUtils.isEmpty(price)) {
+            T.show("请输价格");
+            return false;
+        }
+
         if (TextUtils.isEmpty(startTime)) {
             T.show("请输入开始时间");
             return false;
@@ -248,6 +263,10 @@ public class SocialPartyPublishActivity extends CropEnableActivity {
 
         if (TextUtils.isEmpty(theme)) {
             T.show("请输入活动主题");
+            return false;
+        }
+         if (TextUtils.isEmpty(imagesJson)) {
+            T.show("请上传照片");
             return false;
         }
 
