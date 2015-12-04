@@ -580,6 +580,7 @@
         </activity>
 
         <activity android:name=".chat.ChatActivity"/>
+        <activity android:name="com.easemob.easeui.ui.EaseBaiduMapActivity"/>
     </application>
 
 </manifest>

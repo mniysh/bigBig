@@ -12,6 +12,10 @@ import android.view.KeyEvent;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
+import com.easemob.EMCallBack;
+import com.easemob.chat.EMChatManager;
+import com.easemob.chat.EMGroupManager;
+import com.easemob.easeui.utils.EaseCommonUtils;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.ms.ebangw.MyApplication;
 import com.ms.ebangw.R;
@@ -100,6 +104,7 @@ public class HomeActivity extends BaseActivity {
             initData();
             initUMengUpdate();
             initJpush();
+            loginEase();
             radioGroup.getChildAt(0).performClick();
         }
     }
@@ -138,6 +143,37 @@ public class HomeActivity extends BaseActivity {
                 }
             }
         });
+
+    }
+
+    /**
+     * 登录环信
+     */
+    private void loginEase() {
+        User user = getUser();
+        if (null != user && EaseCommonUtils.isNetWorkConnected(this)) {
+
+            EMChatManager.getInstance().login(user.getId(), user.getPhone(), new EMCallBack() {
+                @Override
+                public void onSuccess() {
+                    L.d("环信登录成功");
+                    EMGroupManager.getInstance().loadAllGroups();
+                    EMChatManager.getInstance().loadAllConversations();
+                }
+
+                @Override
+                public void onError(int i, String s) {
+                    L.d("登陆聊天服务器失败！ " + i + "  " + s);
+                }
+
+                @Override
+                public void onProgress(int i, String s) {
+
+                }
+            });
+        }
+
+
 
     }
 

@@ -1,10 +1,5 @@
 package com.easemob.easeui.controller;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-
 import android.app.Activity;
 import android.app.ActivityManager;
 import android.content.Context;
@@ -19,6 +14,11 @@ import com.easemob.chat.EMMessage;
 import com.easemob.easeui.domain.EaseEmojicon;
 import com.easemob.easeui.domain.EaseUser;
 import com.easemob.easeui.model.EaseNotifier;
+
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 
 public final class EaseUI {
     private static final String TAG = EaseUI.class.getSimpleName();
@@ -163,7 +163,7 @@ public final class EaseUI {
     
     /**
      * 设置用户属性提供者
-     * @param provider
+     * @param userProvider
      */
     public void setUserProfileProvider(EaseUserProfileProvider userProvider){
         this.userProvider = userProvider;
