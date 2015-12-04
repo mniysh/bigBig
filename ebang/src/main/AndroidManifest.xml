@@ -583,6 +583,11 @@
         </activity>
         <activity android:name=".social.SocialPartyDetailActivity">
         </activity>
+        <activity
+            android:name=".social.SocialPartyPreviewActivity"
+            android:label="@string/title_activity_social_party_preview"
+            android:theme="@style/AppTheme">
+        </activity>
     </application>
 
 </manifest>

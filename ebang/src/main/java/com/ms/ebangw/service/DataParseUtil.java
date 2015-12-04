@@ -585,6 +585,24 @@ public class DataParseUtil {
     }
 
     /**
+     * 4-4.社区活动我的列表
+     * @param jsonObject
+     * @return
+     * @throws ResponseException
+     */
+    public static List<Party> socialMyPartyList(JSONObject jsonObject) throws ResponseException {
+        String dataStr = processDataStr(jsonObject);
+        if (TextUtils.isEmpty(dataStr)) {
+            return null;
+        }
+        Gson gson = new Gson();
+        List<Party> list = gson.fromJson(dataStr, new TypeToken<List<Party>>() {
+        }.getType());
+
+        return list;
+    }
+
+    /**
      * 4-3.社区活动首页点击查看详情接口
      * @param jsonObject
      * @return

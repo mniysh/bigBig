@@ -1,5 +1,8 @@
 package com.ms.ebangw.bean;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.util.List;
 
 /**
@@ -7,7 +10,7 @@ import java.util.List;
  * User: WangKai(123940232@qq.com)
  * 2015-12-02 14:13
  */
-public class Party {
+public class Party implements Parcelable{
 
     private String active_id;
     private String real_name;
@@ -19,7 +22,10 @@ public class Party {
     private List<String> active_image;
 
 
+
     private String province;
+    private String provinceId;
+    private String cityId;
     private String city;
     private String area_other;
     private String number_people;
@@ -171,4 +177,84 @@ public class Party {
     public void setApply_count(String apply_count) {
         this.apply_count = apply_count;
     }
+
+    public String getProvinceId() {
+        return provinceId;
+    }
+
+    public void setProvinceId(String provinceId) {
+        this.provinceId = provinceId;
+    }
+
+    public String getCityId() {
+        return cityId;
+    }
+
+    public void setCityId(String cityId) {
+        this.cityId = cityId;
+    }
+
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.active_id);
+        dest.writeString(this.real_name);
+        dest.writeString(this.gender);
+        dest.writeString(this.head_image);
+        dest.writeString(this.title);
+        dest.writeString(this.theme);
+        dest.writeString(this.created_at);
+        dest.writeStringList(this.active_image);
+        dest.writeString(this.province);
+        dest.writeString(this.provinceId);
+        dest.writeString(this.cityId);
+        dest.writeString(this.city);
+        dest.writeString(this.area_other);
+        dest.writeString(this.number_people);
+        dest.writeString(this.start_time);
+        dest.writeString(this.end_time);
+        dest.writeString(this.price);
+        dest.writeString(this.flag);
+        dest.writeString(this.apply_count);
+    }
+
+    public Party() {
+    }
+
+    protected Party(Parcel in) {
+        this.active_id = in.readString();
+        this.real_name = in.readString();
+        this.gender = in.readString();
+        this.head_image = in.readString();
+        this.title = in.readString();
+        this.theme = in.readString();
+        this.created_at = in.readString();
+        this.active_image = in.createStringArrayList();
+        this.province = in.readString();
+        this.provinceId = in.readString();
+        this.cityId = in.readString();
+        this.city = in.readString();
+        this.area_other = in.readString();
+        this.number_people = in.readString();
+        this.start_time = in.readString();
+        this.end_time = in.readString();
+        this.price = in.readString();
+        this.flag = in.readString();
+        this.apply_count = in.readString();
+    }
+
+    public static final Creator<Party> CREATOR = new Creator<Party>() {
+        public Party createFromParcel(Parcel source) {
+            return new Party(source);
+        }
+
+        public Party[] newArray(int size) {
+            return new Party[size];
+        }
+    };
 }

@@ -1118,7 +1118,7 @@ public class DataAccessUtil {
 
     /**
      * 4-1.发布社区活动接口 post
-     * @param titile
+     * @param title
      * @param province
      * @param city
      * @param area_other    地址
@@ -1126,14 +1126,14 @@ public class DataAccessUtil {
      * @param start_time
      * @param end_time
      * @param theme
-     * @param activi_image
+     * @param active_image
      * @param asyncHttpResponseHandler
      * @return
      */
     public static RequestHandle socialPublish(String title, String province, String city,
                                               String area_other, String number_people, String start_time,
                                               String end_time, String price, String theme, String
-                                                  activi_image,
+                                                  active_image,
                                               AsyncHttpResponseHandler asyncHttpResponseHandler){
 
         RequestParams params = new RequestParams();
@@ -1146,7 +1146,7 @@ public class DataAccessUtil {
         params.put("end_time", end_time);
         params.put("price", price);
         params.put("theme", theme);
-        params.put("activi_image", activi_image);
+        params.put("active_image", active_image);
 
         return doPost(RequestUrl.social_publish, params, asyncHttpResponseHandler);
     }
@@ -1199,6 +1199,23 @@ public class DataAccessUtil {
         params.put("active_id", active_id);
 
         return doGet(RequestUrl.social_apply, params, asyncHttpResponseHandler);
+    }
+
+    /**
+     * 4-4.社区活动我的列表
+     * @param page
+     * @param flag  flag:1代表进行中，2代表审核中，4代表已结束，3代表审核失败，不传代表全部
+     * @param asyncHttpResponseHandler
+     * @return
+     */
+    public static RequestHandle socialMyPartyList(String page, String flag,
+                                                  AsyncHttpResponseHandler asyncHttpResponseHandler){
+
+        RequestParams params = new RequestParams();
+        params.put("page", page);
+        params.put("flag", flag);
+
+        return doGet(RequestUrl.social_my_list, params, asyncHttpResponseHandler);
     }
 
 

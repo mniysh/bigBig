@@ -215,4 +215,5 @@ public class Constants {
 	public static final String KEY_CROP_IMAGE_PATH = "crop_image_path";
 	public static final String KEY_ORIGIN_IMAGE_PATH = "origin_image_path";
 	public static final String KEY_PART_ID = "party_id";
+	public static final String KEY_PARTY_STR = "party";
 }

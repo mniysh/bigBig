@@ -1,6 +1,7 @@
 package com.ms.ebangw.social;
 
 import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -10,18 +11,20 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.google.gson.Gson;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.ms.ebangw.R;
 import com.ms.ebangw.activity.CropEnableActivity;
+import com.ms.ebangw.bean.Party;
 import com.ms.ebangw.bean.TotalRegion;
 import com.ms.ebangw.bean.UploadImageResult;
+import com.ms.ebangw.commons.Constants;
 import com.ms.ebangw.crop.CropImageActivity;
 import com.ms.ebangw.dialog.DatePickerFragment;
 import com.ms.ebangw.dialog.SelectPhotoDialog;
 import com.ms.ebangw.exception.ResponseException;
 import com.ms.ebangw.service.DataAccessUtil;
 import com.ms.ebangw.service.DataParseUtil;
+import com.ms.ebangw.setting.SocialPartyUtil;
 import com.ms.ebangw.utils.BitmapUtil;
 import com.ms.ebangw.utils.JsonUtil;
 import com.ms.ebangw.utils.T;
@@ -68,14 +71,14 @@ public class SocialPartyPublishActivity extends CropEnableActivity {
     @Bind(R.id.et_price)
     EditText etPrice;
 
-    private String title;
-    private String address;
-    private String num;
-    private String startTime;
-    private String endTime;
-    private String theme;
-    private String imagesJson;
-    private String price;
+//    private String title;
+//    private String address;
+//    private String num;
+//    private String startTime;
+//    private String endTime;
+//    private String theme;
+//    private String imagesJson;
+//    private String price;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -120,6 +123,25 @@ public class SocialPartyPublishActivity extends CropEnableActivity {
                 showSelectPhotoDialog();
             }
         });
+
+        tvPreview.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                preview();
+
+            }
+        });
+
+        tvCommit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                publishParty();
+
+            }
+        });
+
     }
 
 
@@ -166,31 +188,55 @@ public class SocialPartyPublishActivity extends CropEnableActivity {
     public void initData() {
 
         mImageUrls = new ArrayList<>();
-        tvCommit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                publishParty();
-            }
-        });
+
+    }
+
+    private Party getPreviewParty() {
+        String title = etTitle.getText().toString().trim();
+        String address = etAddress.getText().toString().trim();
+        String num = etPeopleNum.getText().toString().trim();
+        String price = etPrice.getText().toString().trim();
+        String startTime = tvStartTime.getText().toString().trim();
+        String endTime = tvEndTime.getText().toString().trim();
+        String theme = etTheme.getText().toString().trim();
+
+        Party party = new Party();
+        party.setTitle(title);
+        party.setProvince(pac.getCurrentProvince().getName());
+        party.setCity(pac.getCurrentCity().getName());
+        party.setArea_other(address);
+        party.setNumber_people(num);
+        party.setPrice(price);
+        party.setStart_time(startTime);
+        party.setEnd_time(endTime);
+        party.setTheme(theme);
+        party.setProvinceId(pac.getProvinceId());
+        party.setCityId(pac.getCityId());
+        party.setActive_image(mImageUrls);
+
+        return party;
+
     }
 
     /**
      * 发布
      */
-    private void publishParty() {
-        title = etTitle.getText().toString().trim();
-        address = etAddress.getText().toString().trim();
-        num = etPeopleNum.getText().toString().trim();
-        price = etPrice.getText().toString().trim();
-        startTime = tvStartTime.getText().toString().trim();
-        endTime = tvEndTime.getText().toString().trim();
-        theme = etTheme.getText().toString().trim();
+    public void publishParty() {
+        Party party = getPreviewParty();
+        if (SocialPartyUtil.isRight(party)) {
 
-        Gson gson = new Gson();
-        imagesJson = JsonUtil.createGsonString(mImageUrls);
+            String title = party.getTitle();
+            String address = party.getArea_other();
+            String num = party.getNumber_people();
+            String provinceId = party.getProvinceId();
+            String cityId = party.getCityId();
+            String startTime = party.getStart_time();
+            String endTime = party.getEnd_time();
+            String theme = party.getTheme();
+            String imagesJson = JsonUtil.createGsonString(party.getActive_image());
+            String price = party.getPrice();
 
-        if (isRight()) {
-            DataAccessUtil.socialPublish(title, pac.getProvinceId(), pac.getCityId(), address, num,
+            DataAccessUtil.socialPublish(title, provinceId, cityId, address, num,
                 startTime, endTime, price, theme, imagesJson, new JsonHttpResponseHandler() {
                     @Override
                     public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
@@ -220,55 +266,16 @@ public class SocialPartyPublishActivity extends CropEnableActivity {
         }
     }
 
-    private void preview() {
-
-
+    public void preview() {
+        Bundle bundle = new Bundle();
+        bundle.putParcelable(Constants.KEY_PARTY_STR, getPreviewParty());
+        Intent intent = new Intent(SocialPartyPublishActivity.this, SocialPartyPreviewActivity.class);
+        intent.putExtras(bundle);
+        startActivity(intent);
 
     }
 
-    private boolean isRight() {
 
-        if (TextUtils.isEmpty(title)) {
-            T.show("请输入标题");
-            return false;
-        }
-
-        if (TextUtils.isEmpty(address)) {
-            T.show("请输入工地地址");
-            return false;
-        }
-
-        if (TextUtils.isEmpty(num)) {
-            T.show("请输入人数");
-            return false;
-        }
-
-        if (TextUtils.isEmpty(price)) {
-            T.show("请输价格");
-            return false;
-        }
-
-        if (TextUtils.isEmpty(startTime)) {
-            T.show("请输入开始时间");
-            return false;
-        }
-
-        if (TextUtils.isEmpty(endTime)) {
-            T.show("请输入结束时间");
-            return false;
-        }
-
-        if (TextUtils.isEmpty(theme)) {
-            T.show("请输入活动主题");
-            return false;
-        }
-         if (TextUtils.isEmpty(imagesJson)) {
-            T.show("请上传照片");
-            return false;
-        }
-
-        return true;
-    }
 
     @Override
     public void onCropImageSuccess(View view, String cropedImagePath, UploadImageResult imageResult) {

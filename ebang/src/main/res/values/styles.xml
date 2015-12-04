@@ -29,7 +29,7 @@
     </style>
 
     <declare-styleable name="CompoundButton">
-        <attr name="android:button" />
+        <attr name="android:button"/>
     </declare-styleable>
 
     <style name="ratingbar">
@@ -194,6 +194,7 @@
         <item name="android:layout_marginLeft">10dp</item>
 
     </style>
+
     <style name="settingMessage">
         <item name="android:background">@color/gray_back</item>
         <item name="android:textColor">@color/black</item>
@@ -202,6 +203,7 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_width">match_parent</item>
     </style>
+
     <style name="settingMessage_title">
 
         <item name="android:textColor">@color/black</item>
@@ -210,6 +212,7 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_width">match_parent</item>
     </style>
+
     <style name="settingMessage_content">
         <item name="android:textColor">@color/gray</item>
         <item name="android:textSize">14sp</item>
@@ -328,6 +331,7 @@
         <item name="android:gravity">center</item>
         <item name="android:layout_marginBottom">5dp</item>
     </style>
+
     <style name="select_headman">
         <item name="android:textColor">@color/white</item>
         <item name="android:background">@drawable/border_round_yellow</item>

@@ -44,6 +44,8 @@ public class SocialPartyDetailActivity extends BaseActivity {
     TextView tvTitle;
     @Bind(R.id.tv_added_num)
     TextView tvAddedNum;
+    @Bind(R.id.tv_contact)
+    TextView tvContact;
 
     private String partyId;
 
@@ -63,12 +65,22 @@ public class SocialPartyDetailActivity extends BaseActivity {
 
     @Override
     public void initView() {
-        initTitle(null, "返回", "预览", "报名", new View.OnClickListener() {
+        initTitle(null, "返回", "活动详情", "报名", new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 apply();
             }
         });
+        tvContact.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                contactPeople();
+            }
+        });
+    }
+
+    private void contactPeople() {
+
     }
 
     @Override
@@ -94,7 +106,7 @@ public class SocialPartyDetailActivity extends BaseActivity {
     }
 
     private void apply() {
-        DataAccessUtil.socialPartyApply(partyId, new JsonHttpResponseHandler(){
+        DataAccessUtil.socialPartyApply(partyId, new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                 super.onSuccess(statusCode, headers, response);
@@ -133,16 +145,16 @@ public class SocialPartyDetailActivity extends BaseActivity {
 
                     break;
 
-                  case "2":
-                      tvAddedNum.setText("审核中");
+                case "2":
+                    tvAddedNum.setText("审核中");
                     break;
 
-                  case "3":
-                      tvAddedNum.setText("审核失败");
+                case "3":
+                    tvAddedNum.setText("审核失败");
                     break;
 
-                  case "4":
-                      tvAddedNum.setText("已结束");
+                case "4":
+                    tvAddedNum.setText("已结束");
                     break;
             }
         }
