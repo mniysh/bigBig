@@ -9,6 +9,7 @@ import android.support.multidex.MultiDexApplication;
 import com.baidu.location.BDLocation;
 import com.baidu.location.LocationClient;
 import com.baidu.location.LocationClientOption;
+import com.easemob.easeui.controller.EaseUI;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.ms.ebangw.activity.LoginActivity;
 import com.ms.ebangw.bean.Craft;
@@ -86,6 +87,7 @@ public class MyApplication extends MultiDexApplication {
             dataUrl = new ArrayList<String>();
         }
 
+        initEase();
 
     }
 
@@ -93,6 +95,13 @@ public class MyApplication extends MultiDexApplication {
     protected void attachBaseContext(Context base) {
         super.attachBaseContext(base);
         MultiDex.install(base);
+    }
+
+    /**
+     * 环信初始化
+     */
+    private void initEase() {
+        EaseUI.getInstance().init(this);
     }
 
     /**

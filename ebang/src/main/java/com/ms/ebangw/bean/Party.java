@@ -21,6 +21,7 @@ public class Party implements Parcelable{
     private String created_at;
     private List<String> active_image;
 
+    private String user_id;
 
 
     private String province;
@@ -195,6 +196,15 @@ public class Party implements Parcelable{
     }
 
 
+    public String getUser_id() {
+        return user_id;
+    }
+
+    public void setUser_id(String user_id) {
+        this.user_id = user_id;
+    }
+
+
     @Override
     public int describeContents() {
         return 0;
@@ -210,6 +220,7 @@ public class Party implements Parcelable{
         dest.writeString(this.theme);
         dest.writeString(this.created_at);
         dest.writeStringList(this.active_image);
+        dest.writeString(this.user_id);
         dest.writeString(this.province);
         dest.writeString(this.provinceId);
         dest.writeString(this.cityId);
@@ -235,6 +246,7 @@ public class Party implements Parcelable{
         this.theme = in.readString();
         this.created_at = in.readString();
         this.active_image = in.createStringArrayList();
+        this.user_id = in.readString();
         this.province = in.readString();
         this.provinceId = in.readString();
         this.cityId = in.readString();

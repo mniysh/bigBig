@@ -1,8 +1,8 @@
 apply plugin: 'com.android.library'
 
 android {
-    compileSdkVersion 19
-    buildToolsVersion "19.1.0"
+    compileSdkVersion 23
+    buildToolsVersion "23.0.0"
 
     defaultConfig {
         minSdkVersion 9
@@ -19,10 +19,9 @@ android {
 
 dependencies {
     provided files('libs/baidumapapi_v3_2_0.jar')
-    provided files('libs/easemobchat_2.2.4.jar')
     provided files('libs/glide-3.6.1.jar')
     provided files('libs/google-play-services.jar')
-    provided files('libs/locSDK_3.3.jar')
     provided files('libs/org.apache.http.legacy.jar')
     provided files('libs/android-support-v4.jar')
+    compile files('libs/easemobchat_2.2.4.jar')
 }

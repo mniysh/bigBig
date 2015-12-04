@@ -13,6 +13,7 @@ import com.ms.ebangw.commons.Constants;
 import com.ms.ebangw.exception.ResponseException;
 import com.ms.ebangw.service.DataAccessUtil;
 import com.ms.ebangw.service.DataParseUtil;
+import com.ms.ebangw.utils.ChartUtil;
 import com.ms.ebangw.utils.T;
 
 import org.apache.http.Header;
@@ -48,6 +49,7 @@ public class SocialPartyDetailActivity extends BaseActivity {
     TextView tvContact;
 
     private String partyId;
+    private Party party;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,7 +76,10 @@ public class SocialPartyDetailActivity extends BaseActivity {
         tvContact.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                contactPeople();
+                if (null != party) {
+                    String user_id = party.getUser_id();
+                    ChartUtil.chatBySingle(SocialPartyDetailActivity.this, user_id);
+                }
             }
         });
     }
@@ -93,7 +98,7 @@ public class SocialPartyDetailActivity extends BaseActivity {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                 try {
-                    Party party = DataParseUtil.socialPartyDetail(response);
+                    party = DataParseUtil.socialPartyDetail(response);
                     if (null != party) {
                         setPartyDetail(party);
                     }
