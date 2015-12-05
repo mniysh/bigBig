@@ -578,9 +578,12 @@
             android:label="@string/title_activity_social_party_preview"
             android:theme="@style/AppTheme">
         </activity>
-
+<!--环信-->
         <activity android:name=".chat.ChatActivity"/>
         <activity android:name="com.easemob.easeui.ui.EaseBaiduMapActivity"/>
+        <activity android:name="com.easemob.easeui.ui.EaseShowBigImageActivity"/>
+        <activity android:name="com.easemob.easeui.ui.EaseShowNormalFileActivity"/>
+        <activity android:name="com.easemob.easeui.ui.EaseShowVideoActivity"/>
     </application>
 
 </manifest>
