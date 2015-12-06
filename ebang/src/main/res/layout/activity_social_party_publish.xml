@@ -248,6 +248,18 @@
                 />
         </LinearLayout>
 
+        <com.ms.ebangw.view.MyGridView
+            android:id="@+id/gv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:numColumns="auto_fit"
+            android:columnWidth="100dp"
+            android:stretchMode="columnWidth"
+            android:listSelector="#00000000"
+            >
+
+        </com.ms.ebangw.view.MyGridView>
+
         <LinearLayout
             android:layout_width="200dp"
             android:layout_height="wrap_content"
@@ -284,6 +296,8 @@
                 />
 
         </LinearLayout>
+
+
 
     </LinearLayout>
 </ScrollView>

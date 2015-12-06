@@ -8,12 +8,14 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.ms.ebangw.R;
 import com.ms.ebangw.activity.CropEnableActivity;
+import com.ms.ebangw.adapter.PartyImageAddAdapter;
 import com.ms.ebangw.bean.Party;
 import com.ms.ebangw.bean.TotalRegion;
 import com.ms.ebangw.bean.UploadImageResult;
@@ -43,9 +45,12 @@ import butterknife.ButterKnife;
 
 /**
  * 社区，发布
+ *
  * @author wangkai
  */
 public class SocialPartyPublishActivity extends CropEnableActivity {
+    @Bind(R.id.gv)
+    GridView gv;
     private List<String> mImageUrls;
 
     @Bind(R.id.et_title)
@@ -89,12 +94,6 @@ public class SocialPartyPublishActivity extends CropEnableActivity {
         initData();
 
     }
-
-
-
-
-
-
 
 
     @Override
@@ -160,7 +159,6 @@ public class SocialPartyPublishActivity extends CropEnableActivity {
         });
 
         selectPhotoDialog.show(getFragmentManager(), "SelectPhotoDialog");
-
     }
 
     private void showDateSelectDialog(final String type) {
@@ -188,7 +186,18 @@ public class SocialPartyPublishActivity extends CropEnableActivity {
     public void initData() {
 
         mImageUrls = new ArrayList<>();
+        initGridView();
+    }
 
+    private void initGridView() {
+        List<String> images = new ArrayList<>();
+        images.add("http://img5.imgtn.bdimg.com/it/u=1478257864,2882073929&fm=21&gp=0.jpg");
+        images.add("http://img0.imgtn.bdimg.com/it/u=1231062057,3852413437&fm=21&gp=0.jpg");
+        images.add("http://img5.imgtn.bdimg.com/it/u=1020667791,3260921600&fm=21&gp=0.jpg");
+        images.add("http://img4.imgtn.bdimg.com/it/u=828291890,997706858&fm=21&gp=0.jpg");
+        images.add("camera");
+        PartyImageAddAdapter adapter = new PartyImageAddAdapter(this, images);
+        gv.setAdapter(adapter);
     }
 
     private Party getPreviewParty() {
@@ -276,12 +285,11 @@ public class SocialPartyPublishActivity extends CropEnableActivity {
     }
 
 
-
     @Override
     public void onCropImageSuccess(View view, String cropedImagePath, UploadImageResult imageResult) {
         super.onCropImageSuccess(view, cropedImagePath, imageResult);
-            mImageUrls.add(imageResult.getName());
-            Bitmap bitmap = BitmapUtil.getImage(cropedImagePath);
-            ivPic.setImageBitmap(bitmap);
+        mImageUrls.add(imageResult.getName());
+        Bitmap bitmap = BitmapUtil.getImage(cropedImagePath);
+        ivPic.setImageBitmap(bitmap);
     }
 }
