@@ -155,6 +155,8 @@ public class CommunityFragment extends BaseFragment {
                 } catch (ResponseException e) {
                     e.printStackTrace();
                     T.show(e.getMessage());
+                    adapter.setList(null);
+                    adapter.notifyDataSetChanged();
                 }
             }
 

@@ -50,6 +50,9 @@ public class ReleasedPartyAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
+        if(list == null){
+            return  0;
+        }
         return list.size();
     }
 
@@ -66,6 +69,9 @@ public class ReleasedPartyAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, final ViewGroup parent) {
         ViewHolder holder;
+        if(list != null){
+
+
         final Party party = list.get(position);
         if (convertView == null) {
             convertView = View.inflate(parent.getContext(), R.layout.released_party_item, null);
@@ -115,6 +121,7 @@ public class ReleasedPartyAdapter extends BaseAdapter {
             }
         });
         convertView.setTag(Constants.KEY_PARTY, party);
+        }
         return convertView;
     }
 
