@@ -694,7 +694,12 @@ public class DataParseUtil {
 
         String code = jsonObject.optString("code");
         if (TextUtils.equals("200", code)) {        //数据正确
-            return jsonObject.optString("data");
+            String data = jsonObject.optString("data");
+            if (TextUtils.isEmpty(data)) {
+                return null;
+            }else {
+                return data;
+            }
         } else {
             processData(jsonObject);
         }

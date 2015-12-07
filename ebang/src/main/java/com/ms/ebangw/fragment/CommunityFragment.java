@@ -100,14 +100,7 @@ public class CommunityFragment extends BaseFragment {
     public void initData() {
         provinces = getProvinces();
         pac.setProvinces(provinces);
-        pac.setOnAreaChangedListener(new ProvinceAndCityView.OnAreaChangedListener() {
-            @Override
-            public void onAreaChanged(String provinceId, String cityId) {
-                currentProvinceId = provinceId;
-                currentCityId = cityId;
-                load();
-            }
-        });
+
 
         tvReleaseParty.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -118,25 +111,21 @@ public class CommunityFragment extends BaseFragment {
         });
 
         adapter = new ReleasedPartyAdapter(mActivity, new ArrayList<Party>());
-
-//        ListView listView = ptr.getRefreshableView();
-//        ptr.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//                Party party = (com.ms.ebangw.bean.Party) view.getTag(Constants.KEY_PARTY);
-//                String partyId = party.getId();
-//                Bundle bundle = new Bundle();
-//                bundle.putString(Constants.KEY_PART_ID, partyId);
-//                Intent intent = new Intent(mActivity, SocialPartyDetailActivity.class);
-//                intent.putExtras(bundle);
-//                startActivity(intent);
-//
-//            }
-//        });
-
         ptr.setAdapter(adapter);
 
-        load();
+        pac.post(new Runnable() {
+            @Override
+            public void run() {
+                pac.setOnAreaChangedListener(new ProvinceAndCityView.OnAreaChangedListener() {
+                    @Override
+                    public void onAreaChanged(String provinceId, String cityId) {
+                        currentProvinceId = provinceId;
+                        currentCityId = cityId;
+                        load();
+                    }
+                });
+            }
+        });
 
     }
 
@@ -148,10 +137,13 @@ public class CommunityFragment extends BaseFragment {
                 currentPage++;
                 try {
                     List<Party> list = DataParseUtil.socialShow(response);
-                    if (adapter != null && list != null && list.size() > 0) {
+                    if (adapter != null && list != null) {
                         adapter.setList(list);
-                        adapter.notifyDataSetChanged();
+                    }else {
+                        adapter.getList().clear();
                     }
+                    adapter.notifyDataSetChanged();
+
                 } catch (ResponseException e) {
                     e.printStackTrace();
                     T.show(e.getMessage());

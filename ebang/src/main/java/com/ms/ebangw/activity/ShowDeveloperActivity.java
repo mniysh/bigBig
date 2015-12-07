@@ -1,10 +1,7 @@
 package com.ms.ebangw.activity;
 
-import android.content.BroadcastReceiver;
-import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.SharedPreferences;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -27,7 +24,6 @@ import com.ms.ebangw.R;
 import com.ms.ebangw.adapter.ProjectItemdetailAdapter;
 import com.ms.ebangw.adapter.SelectHeadmanAdapter;
 import com.ms.ebangw.bean.HeadmanEven;
-import com.ms.ebangw.bean.Message;
 import com.ms.ebangw.bean.ProjectInfoDetail;
 import com.ms.ebangw.bean.ReleaseProject;
 import com.ms.ebangw.bean.SelectHeadman;

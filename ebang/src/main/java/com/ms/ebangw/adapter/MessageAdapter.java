@@ -3,46 +3,31 @@ package com.ms.ebangw.adapter;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.ms.ebangw.R;
-import com.ms.ebangw.activity.MessageCenterActivit;
-import com.ms.ebangw.bean.Message;
-import com.ms.ebangw.view.ViewHolder;
+import com.ms.ebangw.bean.SystemMessage;
 
 import java.util.List;
 
 /**
- *
+ *  系统消息
  * Created by admin on 2015/9/22.
  */
 public class MessageAdapter extends BaseAdapter{
-    private List<Message> datas;
-    private TextView tTitle;
-    private TextView tTime;
-    private TextView tContent;
-    private TextView tState;
-    private ImageView iHean;
-    private MessageCenterActivit act;
+    private List<SystemMessage> list;
 
-    public MessageAdapter(List<Message> datas, MessageCenterActivit act) {
-        this.datas = datas;
-        this.act = act;
+    public MessageAdapter(List<SystemMessage> list) {
+        this.list = list;
     }
 
     @Override
     public int getCount() {
-
-        if(datas==null){
-            return 0;
-        }
-        return datas.size();
+        return list.size();
     }
 
     @Override
     public Object getItem(int position) {
-        return datas.get(position);
+        return list.get(position);
     }
 
     @Override
@@ -53,28 +38,11 @@ public class MessageAdapter extends BaseAdapter{
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         if(convertView==null){
-            convertView=act.getLayoutInflater().inflate(R.layout.item_message,null);
+            convertView = View.inflate(parent.getContext(), R.layout.item_message, null);
 
         }
-        tTitle= ViewHolder.get(convertView,R.id.tv_title);
-        tTime=ViewHolder.get(convertView,R.id.tv_time);
-        tContent=ViewHolder.get(convertView,R.id.tv_content);
-        tState=ViewHolder.get(convertView,R.id.tv_state);
-        iHean=ViewHolder.get(convertView,R.id.iv_head);
-//        setdata(position);
-
 
         return convertView;
     }
 
-    private void setdata(int p) {
-        tTitle.setText(datas.get(p).getTitle());
-        tTime.setText(datas.get(p).getTime());
-        tContent.setText(datas.get(p).getContent());
-        tState.setText(datas.get(p).getState());
-        //还有一个头像的处理暂时不会
-
-
-
-    }
 }
