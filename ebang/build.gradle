@@ -7,12 +7,13 @@ dependencies {
     compile project(':convenientbanner')
     compile project(':pullToRefreshLibrary')
     compile project(':commondependencylibrary')
+    compile project(':easeUI')
     compile 'com.jakewharton:butterknife:7.0.1'
     compile 'com.umeng.analytics:analytics:latest.integration'
     compile 'com.android.support:support-v13:23.1.1'
     compile 'com.squareup.picasso:picasso:2.5.2'
     compile 'com.loopj.android:android-async-http:1.4.8'
-    compile project(':easeUI')
+    compile 'com.android.support:support-v4:23.1.1'
 }
 
 android {

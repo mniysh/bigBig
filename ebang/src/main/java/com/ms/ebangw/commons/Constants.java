@@ -216,4 +216,5 @@ public class Constants {
 	public static final String KEY_ORIGIN_IMAGE_PATH = "origin_image_path";
 	public static final String KEY_PART_ID = "party_id";
 	public static final String KEY_PARTY_STR = "party";
+	public static final int KEY_SYS_MESSAGE = R.drawable.msg_red_dot;
 }

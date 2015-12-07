@@ -319,6 +319,17 @@ public class RequestUrl {
      */
     public static final String social_update_publish = domain + "/api/social/social/update-publish";
 
+    /**
+     * 3-18、获取系统消息接口    get
+     */
+    public static final String system_message = domain + "/api/user/index/message";
+
+    /**
+     * 3-19、设置指定消息已读    get
+     * api/user/index/read-message/(+该消息的id)
+     */
+    public static final String sys_msg_already = domain + "/api/user/index/read-message/";
+
 
 
 

@@ -11,13 +11,16 @@ public class SystemMessage {
      * title : 测试
      * content : 消息
      * created_at : 时间
-     * is_read : 0
+     * is_read : 0  /是否已读  0未读  1已读
      */
 
     private String id;
     private String title;
     private String content;
     private String created_at;
+    /**
+     * /是否已读  0未读  1已读
+     */
     private String is_read;
 
     public void setId(String id) {
