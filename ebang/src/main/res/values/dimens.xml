@@ -1,7 +1,7 @@
 <resources>
 
     <!-- Default screen margins, per the Android Design guidelines. -->
-    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <!--<dimen name="activity_horizontal_margin">16dp</dimen>-->
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="thumnail_default_width">100dp</dimen>
     <dimen name="thumnail_default_height">100dp</dimen>
@@ -25,4 +25,10 @@
 
     <!--已发布-->
     <dimen name="left_radius">20dp</dimen>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+
+
+    <dimen name="social_party_image_width">100dp</dimen>
+    <dimen name="social_party_image_height">100dp</dimen>
 </resources>

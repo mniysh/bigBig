@@ -9,7 +9,6 @@ import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
 import android.provider.MediaStore;
 import android.text.SpannableString;
 import android.text.Spanned;
@@ -29,7 +28,6 @@ import com.baidu.mapapi.model.LatLng;
 import com.baidu.mapapi.search.core.PoiInfo;
 import com.google.gson.Gson;
 import com.loopj.android.http.JsonHttpResponseHandler;
-import com.ms.ebangw.MyApplication;
 import com.ms.ebangw.R;
 import com.ms.ebangw.activity.SelectMapLocActivity;
 import com.ms.ebangw.bean.Province;
@@ -39,10 +37,9 @@ import com.ms.ebangw.bean.UploadImageResult;
 import com.ms.ebangw.bean.User;
 import com.ms.ebangw.commons.Constants;
 import com.ms.ebangw.crop.CropImageActivity;
-import com.ms.ebangw.crop.GetPathFromUri4kitkat;
 import com.ms.ebangw.dialog.DatePickerFragment;
 import com.ms.ebangw.exception.ResponseException;
-import com.ms.ebangw.fragment.BaseFragment;
+import com.ms.ebangw.fragment.CropEnableFragment;
 import com.ms.ebangw.service.DataAccessUtil;
 import com.ms.ebangw.service.DataParseUtil;
 import com.ms.ebangw.utils.BitmapUtil;
@@ -69,7 +66,7 @@ import butterknife.OnClick;
  * 发布  ---- >填写信息
  *@author wangkai
  */
-public class IncreaseDetailFragment extends BaseFragment {
+public class IncreaseDetailFragment extends CropEnableFragment {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
     private static final int REQUEST_CAMERA = 2;
@@ -147,8 +144,6 @@ public class IncreaseDetailFragment extends BaseFragment {
     private String province, city , area, detailAddress, title, link_name, link_phone,
         description, startTime, totalMoney, endTime, selectMapAdd;
     private String provinceId, cityId, areaId;
-    private String mCurrentPhotoPath;
-    private MyApplication myApplication;
     private ReleaseProject releaseProject;
     private String categroy;
     private static  final String KEY_CATEGROY = "key_categroy";
@@ -228,7 +223,6 @@ public class IncreaseDetailFragment extends BaseFragment {
         loader = ImageLoaderutils.getInstance(mActivity);
 
         if (null != savedInstanceState) {
-            mCurrentPhotoPath = savedInstanceState.getString(Constants.KEY_CURRENT_IMAGE_PATH);
             releaseInfo = savedInstanceState.getParcelable(Constants.KEY_RELEASE_INFO);
             dataFilePath = savedInstanceState.getStringArrayList("duang");
             imageNames = savedInstanceState.getStringArrayList(Constants.KEY_PROJECT_IMAGES);
@@ -250,7 +244,6 @@ public class IncreaseDetailFragment extends BaseFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         contentLayout = (ViewGroup) inflater.inflate(R.layout.fragment_increase_detail, container,
             false);
         ButterKnife.bind(this, contentLayout);
@@ -329,22 +322,6 @@ public class IncreaseDetailFragment extends BaseFragment {
     }
 
     /**
-     *
-     *  RequestParams params = new RequestParams();
-     params.put("title",title);
-     params.put("description",description);
-     params.put("link_man",link_man);
-     params.put("link_phone",link_phone);
-     params.put("province",province);
-     params.put("city",city);
-     params.put("area_other",area_other);
-     params.put("point_longitude",point_longitude);
-     params.put("point_dimension",point_dimension);
-     params.put("start_time",start_time);
-     params.put("end_time", end_time);
-     params.put("project_money",project_money);
-     params.put("image_ary",image_ary);
-     params.put("staffs", staffs);
      *
      * @param data
      * @return
@@ -436,105 +413,44 @@ public class IncreaseDetailFragment extends BaseFragment {
 
     }
 
-    /*** 打开照相机     */
-    @OnClick(R.id.btn_camera)
-    public void openCamera(){
-        Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        File file = new File(Environment.getExternalStorageDirectory() + "/Images");
-        if(!file.exists()){
-            file.mkdirs();
-        }
-        imageFile = new File(Environment.getExternalStorageDirectory() + "/Images/",
-            "cameraImg" + String.valueOf(System.currentTimeMillis()) + ".png");
-
-        mCurrentPhotoPath = imageFile.getAbsolutePath();
-        Uri mUri = Uri.fromFile(imageFile);
-        cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, mUri);
-        cameraIntent.putExtra("return-data", true);
-        startActivityForResult(cameraIntent, Constants.REQUEST_CAMERA);
+    /**
+     * 图片
+     * @param view
+     */
+    @OnClick(R.id.btn_pick)
+    public void selectGallery(View view) {
+        selectPhoto(view, CropImageActivity.TYPE_PUBLIC);
     }
 
     /**
-     * 手机选照片
+     * 拍照
+     * @param view
      */
-    @OnClick(R.id.btn_pick)
-    public void selectImageFromPhone(){
-        Intent intent = new Intent();
-        intent.setAction(Intent.ACTION_PICK);
-        intent.setType("image/*");
-        startActivityForResult(intent,Constants.REQUEST_PICK);
-
+    @OnClick(R.id.btn_camera)
+    public void selectCamera(View view) {
+        captureImageByCamera(view, CropImageActivity.TYPE_PUBLIC);
     }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if( mActivity.RESULT_OK != -1){
-            return;
-        }
-        if(requestCode == Constants.REQUEST_CAMERA ){
-            //照相上传
-            Uri uri ;
-            if(data == null){
-                uri = Uri.fromFile(new File(mCurrentPhotoPath));
-            }else{
-                uri = data.getData();
-            }
-            beginCrop(uri);
-
-        }else if(requestCode == Constants.REQUEST_PICK){
-            //手机内部选图处理
-
-            Uri uri = data.getData();
-            String path = GetPathFromUri4kitkat.getPath(mActivity,uri);
-            myApplication = (MyApplication) mActivity.getApplication();
-            myApplication.imagePath = path;
-            Intent intent = new Intent(mActivity, CropImageActivity.class);
-            Bundle bundle = new Bundle();
-            bundle.putString(Constants.KEY_HEAD_IMAGE_STR,"publicImage");
-            bundle.putBoolean(Constants.KEY_HEAD_IMAGE,true);
-            intent.putExtras(bundle);
-            startActivityForResult(intent, Constants.REQUEST_CROP);
-        }else if(requestCode == Constants.REQUEST_CROP){
-            //剪切后的处理
-            settingImage(data);
-        }else if(requestCode == MAP_LOCATION ) {//地图选点结果
-            if (null != data) {
-                Bundle extras = data.getExtras();
-                PoiInfo poiInfo = extras.getParcelable(Constants.KEY_POIINFO_STR);
-                selectMapAdd = poiInfo.address;
-                LatLng location = poiInfo.location;
-                latitude = (float)location.latitude;
-                longitude = (float)location.longitude;
-                selectAddTv.setText(selectMapAdd);
-                L.d("latitude: " + latitude + " , longitude: " + longitude);
+        if (resultCode == mActivity.RESULT_OK) {
+            if (requestCode == MAP_LOCATION) {//地图选点结果
+                if (null != data) {
+                    Bundle extras = data.getExtras();
+                    PoiInfo poiInfo = extras.getParcelable(Constants.KEY_POIINFO_STR);
+                    selectMapAdd = poiInfo.address;
+                    LatLng location = poiInfo.location;
+                    latitude = (float) location.latitude;
+                    longitude = (float) location.longitude;
+                    selectAddTv.setText(selectMapAdd);
+                    L.d("latitude: " + latitude + " , longitude: " + longitude);
+                }
             }
         }
     }
 
-    public void handleCrop(int resultCode, Intent result) {
 
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-
-
-    }
-
-    private void beginCrop(Uri source) {
-        Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-//        mCurrentPhotoPath = imageFile.getAbsolutePath();
-        myApplication = (MyApplication) mActivity.getApplication();
-        myApplication.imagePath = mCurrentPhotoPath;
-        Intent intent = new Intent(mActivity, CropImageActivity.class);
-        Bundle bundle = new Bundle();
-        bundle.putString(Constants.KEY_HEAD_IMAGE_STR,"publicImage");
-        bundle.putBoolean(Constants.KEY_HEAD_IMAGE,true);
-        intent.putExtras(bundle);
-        startActivityForResult(intent, Constants.REQUEST_CROP);
-    }
 
     public void setDeveloperReleaseInfo() {
 
@@ -663,37 +579,26 @@ public class IncreaseDetailFragment extends BaseFragment {
 
     }
 
-    public void settingImage(Intent intent) {
-        if(intent == null){
-            return;
-        }
-
-        UploadImageResult upLoadImageResult = intent.getParcelableExtra(Constants.KEY_UPLOAD_IMAGE_RESULT);
-        String id = upLoadImageResult.getId();
-        String name = upLoadImageResult.getName();
-        String imagePath = myApplication.imagePath;
-        String url = upLoadImageResult.getUrl();
-        Bitmap bitmap = BitmapUtil.getImage(imagePath);
-
+    @Override
+    public void onCropImageSuccess(View view, String cropedImagePath, UploadImageResult imageResult) {
+        super.onCropImageSuccess(view, cropedImagePath, imageResult);
 
         int size = dataFilePath.size();
         if (size == 3) {        //只有三张图片，如果大于三张，删除第一张
             dataFilePath.remove(0);
             imageNames.remove(0);
         }
-        dataFilePath.add(imagePath);
-        imageNames.add(name);
+        dataFilePath.add(cropedImagePath);
+        imageNames.add(imageResult.getName());
         if(dataFilePath != null){
             for (int i = 0; i <dataFilePath.size() ; i++) {
                 picList.get(i).setImageBitmap(BitmapUtil.getImage(dataFilePath.get(i)));
             }
         }
-
     }
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
-        outState.putString(Constants.KEY_CURRENT_IMAGE_PATH, mCurrentPhotoPath);
         outState.putParcelable(Constants.KEY_RELEASE_INFO, releaseInfo);
         outState.putStringArrayList(Constants.KEY_PROJECT_IMAGES, imageNames);
         outState.putStringArrayList("duang",dataFilePath);

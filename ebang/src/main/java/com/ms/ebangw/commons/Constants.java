@@ -93,7 +93,7 @@ public class Constants {
 	/*验证码*/
 	public final static String KEY_VERIFY_CODE = "verify_code";
 	public final static String KEY_HEAD_IMAGE = "head_image";
-	public final static String KEY_HEAD_IMAGE_STR = "head_image_str";
+	public final static String KEY_UPLOAD_IMAGE_TYPE = "upload_image_type";
 	public final static String KEY_WHICH_PHOTO = "whichPhoto";
 	public final static String KEY_CURRENT_IMAGE_PATH = "current_image_path";
 	public final static String KEY_FRONT_IMAGE_PATH = "front_image_path";
@@ -211,4 +211,9 @@ public class Constants {
 	public static final String KEY_SHOWED_CRAFT = "showed_craft";
 	public static final String KEY_INVITE_CODE = "invite_code";
 	public static final String KEY_USER_ACCOUNT = "user_account";
+	public static final int KEY_PARTY = R.drawable.camera_gray;
+	public static final String KEY_CROP_IMAGE_PATH = "crop_image_path";
+	public static final String KEY_ORIGIN_IMAGE_PATH = "origin_image_path";
+	public static final String KEY_PART_ID = "party_id";
+	public static final String KEY_PARTY_STR = "party";
 }

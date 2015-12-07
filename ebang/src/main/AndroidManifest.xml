@@ -105,6 +105,27 @@
     <uses-feature android:name="android.hardware.camera.autofocus"/>
 
     <!-- 极光推送 权限  end -->
+
+
+    <!-- 环信  权限 start -->
+    <!-- Required -->
+    <uses-permission android:name="android.permission.VIBRATE"/>
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.RECORD_AUDIO"/>
+    <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_MOCK_LOCATION"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.GET_TASKS"/>
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.WAKE_LOCK"/>
+    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS"/>
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+
+    <!-- 环信  权限 end -->
     <application
         android:name=".MyApplication"
         android:allowBackup="true"
@@ -143,10 +164,6 @@
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:screenOrientation="portrait"/>
         <activity
-            android:name=".activity.RecommendActivity"
-            android:configChanges="keyboardHidden|orientation|screenSize"
-            android:screenOrientation="portrait"/>
-        <activity
             android:name=".activity.CompanyIntroduceActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:screenOrientation="portrait"/>
@@ -156,10 +173,6 @@
             android:screenOrientation="portrait"/>
         <activity
             android:name=".activity.NoticeActivity"
-            android:configChanges="keyboardHidden|orientation|screenSize"
-            android:screenOrientation="portrait"/>
-        <activity
-            android:name=".activity.ChatActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:screenOrientation="portrait"/>
         <activity
@@ -302,6 +315,14 @@
             android:enabled="true"
             android:process=":remote">
         </service>
+
+        <!-- 环信 -->
+        <!-- 设置环信应用的appkey -->
+        <meta-data
+            android:name="EASEMOB_APPKEY"
+            android:value="ebngw#ybwy"/>
+        <!-- 声明sdk所需的service SDK核心功能 -->
+        <service android:name="com.easemob.chat.EMChatService"/>
 
         <!-- 极光推送  start -->
 
@@ -548,6 +569,21 @@
         </activity>
         <activity android:name=".social.MySocialListActivity">
         </activity>
+        <activity android:name=".social.SocialPartyPublishActivity">
+        </activity>
+        <activity android:name=".social.SocialPartyDetailActivity">
+        </activity>
+        <activity
+            android:name=".social.SocialPartyPreviewActivity"
+            android:label="@string/title_activity_social_party_preview"
+            android:theme="@style/AppTheme">
+        </activity>
+<!--环信-->
+        <activity android:name=".chat.ChatActivity"/>
+        <activity android:name="com.easemob.easeui.ui.EaseBaiduMapActivity"/>
+        <activity android:name="com.easemob.easeui.ui.EaseShowBigImageActivity"/>
+        <activity android:name="com.easemob.easeui.ui.EaseShowNormalFileActivity"/>
+        <activity android:name="com.easemob.easeui.ui.EaseShowVideoActivity"/>
     </application>
 
 </manifest>

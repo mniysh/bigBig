@@ -1115,6 +1115,110 @@ public class DataAccessUtil {
         return doGet(RequestUrl.score, params, asyncHttpResponseHandler);
     }
 
+
+    /**
+     * 4-1.发布社区活动接口 post
+     * @param title
+     * @param province
+     * @param city
+     * @param area_other    地址
+     * @param number_people
+     * @param start_time
+     * @param end_time
+     * @param theme
+     * @param active_image
+     * @param asyncHttpResponseHandler
+     * @return
+     */
+    public static RequestHandle socialPublish(String title, String province, String city,
+                                              String area_other, String number_people, String start_time,
+                                              String end_time, String price, String theme, String
+                                                  active_image,
+                                              AsyncHttpResponseHandler asyncHttpResponseHandler){
+
+        RequestParams params = new RequestParams();
+        params.put("title", title);
+        params.put("province", province);
+        params.put("city", city);
+        params.put("area_other", area_other);
+        params.put("number_people", number_people);
+        params.put("start_time", start_time);
+        params.put("end_time", end_time);
+        params.put("price", price);
+        params.put("theme", theme);
+        params.put("active_image", active_image);
+
+        return doPost(RequestUrl.social_publish, params, asyncHttpResponseHandler);
+    }
+
+    /**
+     * 4-2.社区活动首页展示接口
+     * @param page
+     * @param provinceId
+     * @param cityId
+     * @param asyncHttpResponseHandler
+     * @return
+     */
+    public static RequestHandle socialShow(String page, String provinceId, String cityId,
+                                              AsyncHttpResponseHandler asyncHttpResponseHandler){
+
+        RequestParams params = new RequestParams();
+        params.put("page", page);
+        params.put("province", provinceId);
+        params.put("area", cityId);
+
+        return doGet(RequestUrl.social_show, params, asyncHttpResponseHandler);
+    }
+
+    /**
+     * 4-3.社区活动首页点击查看详情接口   get
+     * @param active_id
+     * @param asyncHttpResponseHandler
+     * @return
+     */
+    public static RequestHandle socialPartyDetail(String active_id,
+                                              AsyncHttpResponseHandler asyncHttpResponseHandler){
+
+        RequestParams params = new RequestParams();
+        params.put("active_id", active_id);
+
+        return doGet(RequestUrl.social_detail, params, asyncHttpResponseHandler);
+    }
+
+
+    /**
+     * 4-4.社区活动报名
+     * @param active_id
+     * @param asyncHttpResponseHandler
+     * @return
+     */
+    public static RequestHandle socialPartyApply(String active_id,
+                                                  AsyncHttpResponseHandler asyncHttpResponseHandler){
+
+        RequestParams params = new RequestParams();
+        params.put("active_id", active_id);
+
+        return doGet(RequestUrl.social_apply, params, asyncHttpResponseHandler);
+    }
+
+    /**
+     * 4-4.社区活动我的列表
+     * @param page
+     * @param flag  flag:1代表进行中，2代表审核中，4代表已结束，3代表审核失败，不传代表全部
+     * @param asyncHttpResponseHandler
+     * @return
+     */
+    public static RequestHandle socialMyPartyList(String page, String flag,
+                                                  AsyncHttpResponseHandler asyncHttpResponseHandler){
+
+        RequestParams params = new RequestParams();
+        params.put("page", page);
+        params.put("flag", flag);
+
+        return doGet(RequestUrl.social_my_list, params, asyncHttpResponseHandler);
+    }
+
+
     public static RequestHandle doPost(String url, RequestParams params, AsyncHttpResponseHandler asyncHttpResponseHandler) {
 
         if (!NetUtils.isConnected(MyApplication.getInstance())) {

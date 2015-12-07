@@ -44,7 +44,7 @@
     </style>
 
     <declare-styleable name="CompoundButton">
-        <attr name="android:button" />
+        <attr name="android:button"/>
     </declare-styleable>
 
     <style name="ratingbar">
@@ -209,6 +209,7 @@
         <item name="android:layout_marginLeft">10dp</item>
 
     </style>
+
     <style name="settingMessage">
         <item name="android:background">@color/gray_back</item>
         <item name="android:textColor">@color/black</item>
@@ -217,6 +218,7 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_width">match_parent</item>
     </style>
+
     <style name="settingMessage_title">
 
         <item name="android:textColor">@color/black</item>
@@ -225,6 +227,7 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_width">match_parent</item>
     </style>
+
     <style name="settingMessage_content">
         <item name="android:textColor">@color/gray</item>
         <item name="android:textSize">14sp</item>
@@ -343,6 +346,7 @@
         <item name="android:gravity">center</item>
         <item name="android:layout_marginBottom">5dp</item>
     </style>
+
     <style name="select_headman">
         <item name="android:textColor">@color/white</item>
         <item name="android:background">@drawable/border_round_yellow</item>
@@ -387,6 +391,42 @@
         <item name="android:gravity">center_vertical</item>
         <item name="android:textSize">16sp</item>
 
+
+    </style>
+
+    <!--社交-->
+    <style name="social_publish_text">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:textColor">@color/auth_description</item>
+        <item name="android:textSize">@dimen/authen_item_text</item>
+        <item name="android:padding">5dp</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:layout_gravity">center_vertical</item>
+    </style>
+
+    <style name="social_publish_edit">
+        <item name="android:textColor">@color/black_overlay</item>
+        <item name="android:textSize">@dimen/authen_item_text</item>
+        <!--<item name="android:background">@drawable/border_gray</item>-->
+        <item name="android:background">@null</item>
+        <item name="android:layout_marginRight">10dp</item>
+        <item name="android:padding">5dp</item>
+        <item name="android:textColorHint">@color/black</item>
+    </style>
+
+    <!--社区详情-->
+    <style name="social_detail_text">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:textColor">@color/black_overlay</item>
+        <item name="android:textSize">@dimen/authen_item_text</item>
+        <item name="android:background">@null</item>
+        <item name="android:layout_marginRight">10dp</item>
+        <item name="android:padding">5dp</item>
+    </style>
+
+    <style name="social_detail_item">
+        <item name="android:minHeight">40dp</item>
+        <item name="android:gravity">center_vertical</item>
 
     </style>
 </resources>

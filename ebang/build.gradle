@@ -2,18 +2,17 @@ apply plugin: 'com.android.application'
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
-    testCompile 'junit:junit:4.12'
+    //    testCompile 'junit:junit:4.12'
     compile project(':social_sdk_library_project')
     compile project(':convenientbanner')
     compile project(':pullToRefreshLibrary')
-    //    compile 'com.android.support:recyclerview-v7:23.1.0'
+    compile project(':commondependencylibrary')
     compile 'com.jakewharton:butterknife:7.0.1'
     compile 'com.umeng.analytics:analytics:latest.integration'
     compile 'com.android.support:support-v13:23.1.1'
     compile 'com.squareup.picasso:picasso:2.5.2'
-    compile 'com.belerweb:pinyin4j:2.5.0'
-    compile 'com.android.support:design:23.1.1'
     compile 'com.loopj.android:android-async-http:1.4.8'
+    compile project(':easeUI')
 }
 
 android {
@@ -33,6 +32,7 @@ android {
         targetSdkVersion 22
         versionCode 4
         versionName "1.0.3"
+        multiDexEnabled = true
         signingConfig signingConfigs.config
         manifestPlaceholders = [UMENG_CHANNEL_VALUE: "umeng"]
     }
@@ -76,6 +76,10 @@ android {
             jniLibs.srcDir 'libs'           //处理.so库
         }
 
+    }
+
+    dexOptions {
+        javaMaxHeapSize "4g"
     }
 
     productFlavors {

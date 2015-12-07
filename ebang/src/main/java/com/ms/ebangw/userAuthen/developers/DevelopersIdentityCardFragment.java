@@ -1,18 +1,13 @@
 package com.ms.ebangw.userAuthen.developers;
 
 
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
-import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
-import android.provider.MediaStore;
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.TextUtils;
 import android.text.style.ForegroundColorSpan;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,23 +15,17 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.ms.ebangw.MyApplication;
 import com.ms.ebangw.R;
 import com.ms.ebangw.bean.AuthInfo;
 import com.ms.ebangw.bean.UploadImageResult;
 import com.ms.ebangw.commons.Constants;
 import com.ms.ebangw.crop.CropImageActivity;
-import com.ms.ebangw.crop.FroyoAlbumDirFactory;
-import com.ms.ebangw.crop.GetPathFromUri4kitkat;
-import com.ms.ebangw.fragment.BaseFragment;
+import com.ms.ebangw.fragment.CropEnableFragment;
 import com.ms.ebangw.utils.BitmapUtil;
 import com.ms.ebangw.utils.L;
 import com.ms.ebangw.utils.T;
 
 import java.io.File;
-import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -46,21 +35,8 @@ import butterknife.OnClick;
  * 身份证照片上传
  * @author wangkai
  */
-public class DevelopersIdentityCardFragment extends BaseFragment {
+public class DevelopersIdentityCardFragment extends CropEnableFragment {
     private static final String CATEGORY = "category";
-    private final int REQUEST_PICK = 4;
-    private final int REQUEST_CAMERA = 6;
-    private final int REQUEST_CROP = 8;
-    private String mCurrentPhotoPath;
-    private static final String JPEG_FILE_PREFIX = "IMG_";
-    private static final String JPEG_FILE_SUFFIX = ".jpg";
-    private com.ms.ebangw.crop.AlbumStorageDirFactory mAlbumStorageDirFactory = null;
-
-    private String whichPhoto;
-    private String category;
-    private File imageFile;
-    private final int TYPE_FRONT = 1;
-    private final int TYPE_BACK = 2;
 
     private String frontImagePath;
     private String backImagePath;
@@ -95,19 +71,6 @@ public class DevelopersIdentityCardFragment extends BaseFragment {
         return fragment;
     }
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            category = getArguments().getString(Constants.KEY_CATEGORY);
-        }
-
-
-        if (savedInstanceState != null) {
-            mCurrentPhotoPath = savedInstanceState.getString(Constants.KEY_CURRENT_IMAGE_PATH);
-            whichPhoto = savedInstanceState.getString(Constants.KEY_WHICH_PHOTO);
-        }
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -119,41 +82,6 @@ public class DevelopersIdentityCardFragment extends BaseFragment {
         return contentLayout;
     }
 
-    /**
-     * 选择正面照片
-     */
-    @OnClick(R.id.btn_select_front)
-    public void selectFrontPhoto() {
-        whichPhoto = Constants.PHOTO_FRONT;
-        selectPhoto();
-    }
-
-    /**
-     * 选择反面照片
-     */
-    @OnClick(R.id.btn_select_back)
-    public void selectBackPhoto() {
-        whichPhoto = Constants.PHOTO_BACK;
-        selectPhoto();
-    }
-
-    /**
-     * 拍正面身份证照
-     */
-    @OnClick(R.id.btn_photo_front)
-    public void takeFrontPhoto() {
-        whichPhoto = Constants.PHOTO_FRONT;
-        captureImageByCamera();
-    }
-
-    /**
-     * 拍背面身份证照
-     */
-    @OnClick(R.id.btn_photo_back)
-    public void takeBackPhoto() {
-        whichPhoto = Constants.PHOTO_BACK;
-        captureImageByCamera();
-    }
 
     @Override
     public void initView() {
@@ -172,33 +100,26 @@ public class DevelopersIdentityCardFragment extends BaseFragment {
     }
 
     @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if(resultCode != mActivity.RESULT_OK){
-            return;
-        }
+    public void initData() {
 
-        if (requestCode == REQUEST_CAMERA ) { //拍照返回
-            handleBigCameraPhoto();
+    }
 
-        }else if (requestCode == REQUEST_PICK) {//手机内部选图返回
-            Uri uri = data.getData();
-            Log.d("way", "uri: " + uri);
+    /**
+     * 选择正面或反面图片
+     * @param view
+     */
+    @OnClick({R.id.btn_select_front, R.id.btn_select_back})
+    public void selectGallery(View view) {
+        selectPhoto(view, CropImageActivity.TYPE_PRIVATE);
+    }
 
-            try {
-                //通过uri获取文件绝对路径
-                String path = GetPathFromUri4kitkat.getPath(mActivity, uri);
-                MyApplication myApplication = (MyApplication) mActivity.getApplication();
-                myApplication.imagePath = path;
-                goCropActivity();
-
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-
-        }else if (requestCode == REQUEST_CROP) {        //剪切后返回
-            handleCropBitmap(data);
-        }
+    /**
+     * 选择正面或反面拍照
+     * @param view
+     */
+    @OnClick({R.id.btn_photo_front, R.id.btn_photo_back})
+    public void selectCamera(View view) {
+        captureImageByCamera(view, CropImageActivity.TYPE_PRIVATE);
     }
 
     @OnClick(R.id.btn_next)
@@ -206,7 +127,6 @@ public class DevelopersIdentityCardFragment extends BaseFragment {
         if (isIdentifyCardUploaded()) {
             ((DevelopersAuthenActivity) mActivity).goVerifyBank();
         }
-
     }
 
     private boolean isIdentifyCardUploaded() {
@@ -219,14 +139,6 @@ public class DevelopersIdentityCardFragment extends BaseFragment {
         }
         return true;
     }
-
-    @Override
-    public void initData() {
-        mAlbumStorageDirFactory = new FroyoAlbumDirFactory();
-
-    }
-
-
 
     /**
      * 把*变成红色
@@ -242,158 +154,38 @@ public class DevelopersIdentityCardFragment extends BaseFragment {
         }
     }
 
-    /*图片剪切==================*/
-    public void handleCropBitmap(Intent intent) {
-        if (intent == null) {
-            return;
-        }
-        //图片剪切回来封装成一个对象接收
-        UploadImageResult imageResult = intent.getParcelableExtra(Constants.KEY_UPLOAD_IMAGE_RESULT);
-        MyApplication myApplication = (MyApplication) mActivity.getApplication();
-        //拿出绝对路径（在手机选图和拍照时都有存储）
-        String imagePath = myApplication.imagePath;
-        String id = imageResult.getId();
-        AuthInfo authInfo = ((DevelopersAuthenActivity) mActivity).getAuthInfo();
-        Bitmap bitmap = BitmapUtil.getImage(imagePath);
-        switch (whichPhoto) {
-            case Constants.PHOTO_FRONT:
-                frontIv.setImageBitmap(bitmap);
-                authInfo.setFrontImageId(id);
-                isFrontUploaded = true;
-                frontImagePath = imagePath;
-                break;
-
-            case Constants.PHOTO_BACK:
-                backIv.setImageBitmap(bitmap);
-                authInfo.setBackImageId(id);
-                isBackUploaded = true;
-                backImagePath = imagePath;
-                break;
-        }
-    }
-
-    public void goCropActivity() {
-        //跳转到图片处理页面
-        Intent intent = new Intent(mActivity, CropImageActivity.class);
-        startActivityForResult(intent, REQUEST_CROP);
-
-    }
-
-    private void handleBigCameraPhoto() {
-
-        if (mCurrentPhotoPath != null) {
-            setPic(mCurrentPhotoPath , 400, 800);
-            galleryAddPic();
-            mCurrentPhotoPath = null;
-        }
-    }
-
-    private void galleryAddPic() {
-        Intent mediaScanIntent = new Intent("android.intent.action.MEDIA_SCANNER_SCAN_FILE");
-        File f = new File(mCurrentPhotoPath);
-        Uri contentUri = Uri.fromFile(f);
-        mediaScanIntent.setData(contentUri);
-        mActivity.sendBroadcast(mediaScanIntent);
-    }
-
-
-    private void setPic(String path, int targetW, int targetH) {
-        //下面这两句应该就是缓存一下绝对路径，应该是没啥别的用处
-        MyApplication application = (MyApplication) mActivity.getApplication();
-        application.imagePath = path;
-
-        Intent intent = new Intent(mActivity, CropImageActivity.class);
-        startActivityForResult(intent, REQUEST_CROP);
-
-    }
-
-
-    //拍照与选择图片剪切相关
-
-    public void selectPhoto() {
-        // 选择图片
-        Intent intent = new Intent();
-        intent.setAction(Intent.ACTION_PICK);
-        intent.setType("image/*");
-        startActivityForResult(intent, REQUEST_PICK);
-    }
-
-
-    /**
-     * 拍照
-     */
-    public void captureImageByCamera() {
-
-        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-
-        File f;
-
-        try {
-            f = setUpPhotoFile();
-            //此处也有一个获取文件绝对路径，应该是重复了，上面方法内应经有了获取
-            mCurrentPhotoPath = f.getAbsolutePath();
-            takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(f));
-        } catch (IOException e) {
-            e.printStackTrace();
-            f = null;
-            mCurrentPhotoPath = null;
-        }
-
-        startActivityForResult(takePictureIntent, REQUEST_CAMERA);
-    }
-    //此处抛出异常，谁调用谁处理
-    private File setUpPhotoFile() throws IOException {
-
-        File f = createImageFile();
-        //获取文件的绝对路径
-        mCurrentPhotoPath = f.getAbsolutePath();
-
-        return f;
-    }
-    //获取图片文件
-    private File createImageFile() throws IOException {
-        // Create an image file name
-        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-        String imageFileName = JPEG_FILE_PREFIX + timeStamp + "_";
-        File albumF = getAlbumDir();
-        //最终根据前缀，后缀，和上面的filr对象获得图片文件
-        File imageF = File.createTempFile(imageFileName, JPEG_FILE_SUFFIX, albumF);
-        return imageF;
-    }
-
-
-    private File getAlbumDir() {
-        File storageDir = null;
-        //判断内存卡是否挂载
-        if (Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState())) {
-            //获取问价路径，但是还没有文件
-            storageDir = mAlbumStorageDirFactory.getAlbumStorageDir(getAlbumName());
-
-            if (storageDir != null) {
-                if (! storageDir.mkdirs()) {
-                    if (! storageDir.exists()){
-                        Log.d("CameraSample", "failed to create directory");
-                        return null;
-                    }
-                }
-            }
-
-        } else {
-            Log.v(getString(R.string.app_name), "External storage is not mounted READ/WRITE.");
-        }
-
-        return storageDir;
-    }
-
-    private String getAlbumName() {
-        return "crop";
-    }
 
 
     @Override
+    public void onCropImageSuccess(View view, String cropedImagePath, UploadImageResult imageResult) {
+        super.onCropImageSuccess(view, cropedImagePath, imageResult);
+
+        String id = imageResult.getId();
+        AuthInfo authInfo = ((DevelopersAuthenActivity) mActivity).getAuthInfo();
+        Bitmap bitmap = BitmapUtil.getImage(cropedImagePath);
+        switch (view.getId()) {
+            case R.id.btn_photo_front:
+            case R.id.btn_select_front:
+                frontIv.setImageBitmap(bitmap);
+                authInfo.setFrontImageId(id);
+                isFrontUploaded = true;
+                frontImagePath = cropedImagePath;
+                break;
+
+            case R.id.btn_photo_back:
+            case R.id.btn_select_back:
+                backIv.setImageBitmap(bitmap);
+                authInfo.setBackImageId(id);
+                isBackUploaded = true;
+                backImagePath = cropedImagePath;
+                break;
+        }
+    }
+
+    @Override
     public void onSaveInstanceState(Bundle outState) {
-        outState.putString(Constants.KEY_CURRENT_IMAGE_PATH, mCurrentPhotoPath);
-        outState.putString(Constants.KEY_WHICH_PHOTO, whichPhoto);
+//        outState.putString(Constants.KEY_CURRENT_IMAGE_PATH, mCurrentPhotoPath);
+//        outState.putString(Constants.KEY_WHICH_PHOTO, whichPhoto);
         outState.putString(Constants.KEY_FRONT_IMAGE_PATH, frontImagePath);
         outState.putString(Constants.KEY_BACK_IMAGE_PATH, backImagePath);
         L.d("Fragment onSaveInstanceState: " + outState);

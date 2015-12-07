@@ -2,11 +2,63 @@
               xmlns:tools="http://schemas.android.com/tools"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
+              android:background="@android:color/white"
               android:orientation="vertical"
-              tools:context="com.ms.ebangw.fragment.CommunityFragment">
+              android:showDividers="middle"
+              android:divider="@drawable/divider_line_gray"
+              tools:context=".social.ReleasedPartyFragment">
 
     <include layout="@layout/layout_common_title"/>
 
+    <TextView
+        android:id="@+id/tv_release_party"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/party_release_bg"
+        android:drawableLeft="@drawable/release_party"
+        android:gravity="center_vertical"
+        android:padding="10dp"
+        android:drawablePadding="5dp"
+        android:text="发布活动"
+        android:textColor="@color/party_text_black"
+        android:textSize="20sp"
+        />
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:padding="10dp"
+        >
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="最新活动"
+            android:textColor="@color/party_text_gray"
+            android:textSize="16sp"
+            />
+
+        <com.ms.ebangw.view.ProvinceAndCityView
+            android:id="@+id/pac"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            />
+
+    </LinearLayout>
+
+
+    <com.handmark.pulltorefresh.library.PullToRefreshListView
+        android:id="@+id/ptr"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/white"
+        >
+
+
+    </com.handmark.pulltorefresh.library.PullToRefreshListView>
 
 </LinearLayout>

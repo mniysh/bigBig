@@ -287,6 +287,38 @@ public class RequestUrl {
      */
     public static final String invite_friends = domain + "/phone/activity/main/index";
 
+    /**
+     * 4-1.发布社区活动接口 post
+     */
+    public static final String social_publish = domain + "/api/social/social/publish";
+
+    /**
+     * 4-2.社区活动首页展示接口   get
+     */
+    public static final String social_show = domain + "/api/social/social/social";
+
+
+    /**
+     *4-3.社区活动首页点击查看详情接口
+     */
+    public static final String social_detail = domain + "/api/social/social/details-publish";
+
+
+    /**
+     *4-4.社区活动报名
+     */
+    public static final String social_apply = domain + "/api/social/social/apply";
+
+    /**
+     *4-4.社区活动我的列表
+     */
+    public static final String social_my_list = domain + "/api/social/social/my-list";
+
+    /**
+     *4-5.修改社区活动接口
+     */
+    public static final String social_update_publish = domain + "/api/social/social/update-publish";
+
 
 
 

@@ -127,4 +127,5 @@
     <string name="invite_pay">邀友返现</string>
     <string name="about_ebang">\u3000\u3000亿帮无忧是中国领先的电子商务平台，是深受广大农民工欢迎的网购零售平台。作为国内首家专注于农民工服务的电商平台，亿帮无忧以“打造全球最大的专注于农民工的电子商务平台”为战略目标和企业愿景，积极布局服务网络，截止２０１５年１０月，亿帮无忧已经形成了网络化的产业格局完善的和运营体系，服务用户遍及全国。</string>
     <string name="about_eweima">扫描下载客户端，加入亿帮无忧</string>
+    <string name="title_activity_social_party_preview">SocialPartyPreviewActivity</string>
 </resources>

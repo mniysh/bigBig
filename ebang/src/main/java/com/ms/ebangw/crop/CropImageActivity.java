@@ -3,13 +3,13 @@ package com.ms.ebangw.crop;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.support.annotation.StringDef;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestHandle;
-import com.ms.ebangw.MyApplication;
 import com.ms.ebangw.R;
 import com.ms.ebangw.activity.BaseActivity;
 import com.ms.ebangw.bean.UploadImageResult;
@@ -29,7 +29,10 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.ArrayList;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -40,7 +43,9 @@ import butterknife.OnClick;
  * 2015-10-02 08:43
  */
 public class CropImageActivity extends BaseActivity {
-    MyApplication application;
+    public static final String TYPE_PRIVATE = "private";
+    public static final String TYPE_PUBLIC = "public";
+    public static final String TYPE_HEAD = "headImage";
 
     @Bind(R.id.btn_cancel)
     Button cancelBtn;
@@ -48,13 +53,9 @@ public class CropImageActivity extends BaseActivity {
     Button okBtn;
     @Bind(R.id.cropImageView)
     CropImageView mImageView;
-    private String filePath;
-    private Bitmap mBitmap;
-    private boolean isHeadImage = false;
     private RequestHandle handle;
-    private String headImageStr;
-    private ArrayList<String> dataUrl;
-//    private List<String> imagenNames;
+    private String imageType;
+    private String savedImagePath;
 
     @Override
     public void initView() {
@@ -65,21 +66,15 @@ public class CropImageActivity extends BaseActivity {
                 finish();
             }
         });
-//        imagenNames = new ArrayList<>();
     }
 
-    @Override
-    public void initData() {
-        Bundle extras = getIntent().getExtras();
-        if (null != extras) {
-            isHeadImage = extras.getBoolean(Constants.KEY_HEAD_IMAGE, false);
-            headImageStr = extras.getString(Constants.KEY_HEAD_IMAGE_STR,"1");
-        }
+    /**
+     * 要上传的图片的类型， 公共的，私有的， 头像
+     */
+    @StringDef({TYPE_PRIVATE, TYPE_PUBLIC, TYPE_HEAD})
+    @Retention(RetentionPolicy.SOURCE)
+    public @interface ImageType{}
 
-        if (isHeadImage && TextUtils.equals(headImageStr,"headImage")) {
-            mImageView.setCropMode(CropImageView.CropMode.RATIO_1_1);
-        }
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,10 +84,7 @@ public class CropImageActivity extends BaseActivity {
         initView();
         initData();
 
-        application = (MyApplication) getApplication();
-        String path = application.imagePath;
-        Bitmap bitmap = BitmapUtil.getImage(path);
-        mImageView.setImageBitmap(bitmap);
+
     }
 
     /** 保存方法 */
@@ -105,17 +97,18 @@ public class CropImageActivity extends BaseActivity {
             cacheDir.mkdirs();
 
         }
-        File f = new File(cacheDir, "crop.png");
-        if (f.exists()) {
-            f.delete();
-        }
+        SimpleDateFormat format = new SimpleDateFormat("yyyy_MM_dd_HHMMss");
+        String s = format.format(new Date());
+        File f = new File(cacheDir, s + "_crop.png");
+//        if (f.exists()) {
+//            f.delete();
+//        }
         try {
             FileOutputStream out = new FileOutputStream(f);
             bitmap.compress(Bitmap.CompressFormat.PNG, 100, out);
             out.flush();
             out.close();
             L.d("已经保存");
-
             if (!bitmap.isRecycled()) {
                 bitmap.recycle();
             }
@@ -125,7 +118,6 @@ public class CropImageActivity extends BaseActivity {
             e.printStackTrace();
         }
 
-
         return f;
     }
 
@@ -133,23 +125,46 @@ public class CropImageActivity extends BaseActivity {
     @OnClick(R.id.btn_ok)
     public void uploadImage (){
         Bitmap croppedBitmap = mImageView.getCroppedBitmap();
-        application.mBitmap = croppedBitmap;
         File file = saveBitmap(croppedBitmap);
-        if (isHeadImage && TextUtils.equals(headImageStr,"headImage")) {
-            uploadAvatarImage(file);
-        }else if(isHeadImage && TextUtils.equals(headImageStr, "publicImage")){
-            uploadPublicImage(file);
+        if (file.exists()) {
+            savedImagePath = file.getAbsolutePath();
+            if (!TextUtils.isEmpty(imageType)) {
+                switch (imageType) {
+                    case TYPE_HEAD:
+                        uploadAvatarImage(file);
+                        break;
+                    case TYPE_PUBLIC:
+                        uploadPublicImage(file);
+                        break;
+                    case TYPE_PRIVATE:
+                        uploadPrivateImage(file);
+                        break;
+                }
+            }
         }
-        else{
-            uploadCommonImage(file);
+    }
+
+    @Override
+    public void initData() {
+        Bundle extras = getIntent().getExtras();
+        if (null != extras) {
+            imageType = extras.getString(Constants.KEY_UPLOAD_IMAGE_TYPE);
+            String originImagePath = extras.getString(Constants.KEY_ORIGIN_IMAGE_PATH);;
+            if (TextUtils.equals(imageType, TYPE_HEAD)) {
+                mImageView.setCropMode(CropImageView.CropMode.RATIO_1_1);
+            }
+
+            Bitmap bitmap = BitmapUtil.getImage(originImagePath);
+            mImageView.setImageBitmap(bitmap);
         }
 
     }
 
+
     /**
-     * 通用图片上传方式
+     * 私有图片上传方式
      */
-    public void uploadCommonImage(File file) {
+    public void uploadPrivateImage(File file) {
 
         handle = DataAccessUtil.uploadImage(file, new JsonHttpResponseHandler(){
             @Override
@@ -161,16 +176,11 @@ public class CropImageActivity extends BaseActivity {
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                 super.onSuccess(statusCode, headers, response);
 
-
                 try {
                     UploadImageResult imageResult = DataParseUtil.upLoadImage(response);
-                    String name = imageResult.getName();
-
-//                    User user = getUser();
-//                    L.locationpois_item(user.toString());
-//                    L.locationpois_item(imageResult.toString());
                     Intent intent = new Intent();
                     intent.putExtra(Constants.KEY_UPLOAD_IMAGE_RESULT, imageResult);
+                    intent.putExtra(Constants.KEY_CROP_IMAGE_PATH, savedImagePath);
                     setResult(RESULT_OK, intent);
                     finish();
                     T.show("图片上传成功");
@@ -180,15 +190,23 @@ public class CropImageActivity extends BaseActivity {
             }
 
             @Override
+            public void onFinish() {
+                super.onFinish();
+                dismissLoadingDialog();
+            }
+
+            @Override
             public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
                 super.onFailure(statusCode, headers, responseString, throwable);
                 T.show("图片上传失败，请重试");
-                dismissLoadingDialog();
             }
         });
-
-
     }
+
+    /**
+     * 公开的图片
+     * @param file
+     */
     public void uploadPublicImage(File file) {
 
         handle = DataAccessUtil.uploadPublicImage(file, new JsonHttpResponseHandler(){
@@ -203,17 +221,9 @@ public class CropImageActivity extends BaseActivity {
 
                 try {
                     UploadImageResult imageResult = DataParseUtil.upLoadImage(response);
-
-                    String name = imageResult.getName();
-                    String url = imageResult.getUrl();
-
-
-
-//                    User user = getUser();
-//                    L.locationpois_item(user.toString());
-//                    L.locationpois_item(imageResult.toString());
                     Intent intent = new Intent();
                     intent.putExtra(Constants.KEY_UPLOAD_IMAGE_RESULT, imageResult);
+                    intent.putExtra(Constants.KEY_CROP_IMAGE_PATH, savedImagePath);
                     setResult(RESULT_OK, intent);
                     finish();
                     T.show("发布图片上传成功");
@@ -223,10 +233,15 @@ public class CropImageActivity extends BaseActivity {
             }
 
             @Override
+            public void onFinish() {
+                super.onFinish();
+                dismissLoadingDialog();
+            }
+
+            @Override
             public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
                 super.onFailure(statusCode, headers, responseString, throwable);
                 T.show("图片上传失败，请重试");
-                dismissLoadingDialog();
             }
         });
 
@@ -248,9 +263,9 @@ public class CropImageActivity extends BaseActivity {
 
                 try {
                     UploadImageResult imageResult = DataParseUtil.upLoadImage(response);
-//                    L.locationpois_item(imageResult.toString());
                     Intent intent = new Intent();
                     intent.putExtra(Constants.KEY_UPLOAD_IMAGE_RESULT, imageResult);
+                    intent.putExtra(Constants.KEY_CROP_IMAGE_PATH, savedImagePath);
                     setResult(RESULT_OK, intent);
                     finish();
                     T.show("头像上传成功");
@@ -266,6 +281,14 @@ public class CropImageActivity extends BaseActivity {
                 dismissLoadingDialog();
             }
         });
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (null != handle && !handle.isCancelled()) {
+            handle.cancel(true);
+        }
     }
 }
 

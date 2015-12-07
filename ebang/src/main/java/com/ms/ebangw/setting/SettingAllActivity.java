@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.widget.Button;
 import android.widget.LinearLayout;
 
+import com.easemob.EMCallBack;
+import com.easemob.chat.EMChatManager;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.ms.ebangw.MyApplication;
 import com.ms.ebangw.R;
@@ -81,7 +83,24 @@ public class SettingAllActivity extends BaseActivity {
             }
         });
 
+        //此方法为异步方法 环信退出
+        EMChatManager.getInstance().logout(new EMCallBack() {
 
+            @Override
+            public void onSuccess() {
+                L.d("环信退出");
+            }
+
+            @Override
+            public void onProgress(int progress, String status) {
+
+            }
+
+            @Override
+            public void onError(int code, String message) {
+
+            }
+        });
 
     }
 

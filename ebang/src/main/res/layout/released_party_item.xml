@@ -68,7 +68,7 @@
                 android:layout_below="@+id/tv_name"
                 android:text="老乡会，有来的吗？"
                 android:textColor="@color/party_text_black"
-                android:textSize="20sp"
+                android:textSize="18sp"
                 />
 
         </RelativeLayout>
@@ -82,7 +82,7 @@
         android:layout_marginBottom="10dp"
         android:layout_marginLeft="80dp"
         android:layout_marginTop="10dp"
-        android:background="@color/gray"
+        android:background="@drawable/divider_line_gray"
         />
 
     <LinearLayout
@@ -100,14 +100,13 @@
             android:layout_below="@id/tv_name"
             android:text="河南郑州老乡会，老乡会，有来的吗？"
             android:textColor="@color/party_text_gray"
-            android:textSize="20sp"
+            android:textSize="18sp"
             />
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/rv"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
+            android:layout_height="100dp"
             />
 
         <TextView
@@ -118,7 +117,7 @@
             android:layout_below="@id/tv_name"
             android:text="发布日期:2015年10月20日"
             android:textColor="@color/party_text_gray"
-            android:textSize="20sp"
+            android:textSize="14sp"
             />
     </LinearLayout>
 

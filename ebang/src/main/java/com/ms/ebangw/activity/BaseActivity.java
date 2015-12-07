@@ -129,8 +129,9 @@ public abstract class BaseActivity extends AppCompatActivity {
         }
         if (null == mLoadingDialog) {
             mLoadingDialog = LoadingDialog.newInstance(message);
+            mLoadingDialog.setStyle(DialogFragment.STYLE_NO_TITLE, 0);
         }
-        mLoadingDialog.setStyle(DialogFragment.STYLE_NO_TITLE, 0);
+
         mLoadingDialog.show(getFragmentManager(), TAG);
     }
 
@@ -142,8 +143,9 @@ public abstract class BaseActivity extends AppCompatActivity {
      * 关闭进度对话框
      */
     public void dismissLoadingDialog() {
-        if (null != mLoadingDialog && null != mLoadingDialog.getActivity() && mLoadingDialog.isVisible()) {
+        if (null != mLoadingDialog) {
             mLoadingDialog.dismiss();
+            mLoadingDialog = null;
         }
     }
 
