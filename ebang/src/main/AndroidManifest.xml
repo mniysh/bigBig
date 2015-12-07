@@ -440,15 +440,19 @@
             android:screenOrientation="portrait"/>
         <activity
             android:name=".setting.ModifyPhoneActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
             android:screenOrientation="portrait"/>
         <activity
             android:name=".setting.ModifyPhone02Activity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
             android:screenOrientation="portrait"/>
         <activity
             android:name=".setting.ModifyPasswordAvtivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
             android:screenOrientation="portrait"/>
         <activity
             android:name=".activity.MessageCenterActivit"
+            android:configChanges="keyboardHidden|orientation|screenSize"
             android:screenOrientation="portrait"/>
         <activity
             android:name=".web.WebActivity"
@@ -482,6 +486,7 @@
         </activity>
         <activity
             android:name=".scancode.MipcaActivityCapture"
+            android:configChanges="keyboardHidden|orientation|screenSize"
             android:screenOrientation="portrait"/>
         <activity
             android:name=".activity.PeopleManageActivity"
@@ -513,7 +518,9 @@
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:screenOrientation="portrait">
         </activity>
-        <activity android:name=".setting.FeedbackSettingActivity"/>
+        <activity android:name=".setting.FeedbackSettingActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            />
         <activity
             android:name=".activity.EvaluateActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
@@ -555,26 +562,56 @@
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:screenOrientation="portrait">
         </activity>
-        <activity android:name=".center.worker.InviteMineActivity">
+        <activity android:name=".center.worker.InviteMineActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="portrait"
+            >
         </activity>
-        <activity android:name=".center.worker.InviteMineUserActivity">
+        <activity android:name=".center.worker.InviteMineUserActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="portrait"
+            >
         </activity>
-        <activity android:name=".activity.PeopleCategoryActivity">
+        <activity android:name=".activity.PeopleCategoryActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="portrait"
+            >
         </activity>
-        <activity android:name=".activity.LookWorkmateActivity">
+        <activity android:name=".activity.LookWorkmateActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="portrait"
+            >
         </activity>
-        <activity android:name=".activity.CheckWorkTypeUserActivity">
+        <activity android:name=".activity.CheckWorkTypeUserActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="portrait"
+            >
         </activity>
-        <activity android:name=".activity.InviteWithCashActivity">
+        <activity android:name=".activity.InviteWithCashActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="portrait"
+            >
         </activity>
-        <activity android:name=".social.MySocialListActivity">
+        <activity android:name=".social.MySocialListActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="portrait"
+            >
         </activity>
-        <activity android:name=".social.SocialPartyPublishActivity">
+        <activity android:name=".social.SocialPartyPublishActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="portrait"
+
+            >
         </activity>
-        <activity android:name=".social.SocialPartyDetailActivity">
+        <activity android:name=".social.SocialPartyDetailActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="portrait"
+            >
         </activity>
         <activity
             android:name=".social.SocialPartyPreviewActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="portrait"
             android:label="@string/title_activity_social_party_preview"
             android:theme="@style/AppTheme">
         </activity>
