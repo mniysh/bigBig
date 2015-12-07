@@ -150,7 +150,7 @@ public class HomeActivity extends BaseActivity {
      * 登录环信
      */
     private void loginEase() {
-        User user = getUser();
+        final User user = getUser();
         if (null != user && EaseCommonUtils.isNetWorkConnected(this)) {
 
             EMChatManager.getInstance().login(user.getId(), user.getPhone(), new EMCallBack() {
@@ -159,6 +159,8 @@ public class HomeActivity extends BaseActivity {
                     L.d("环信登录成功");
                     EMGroupManager.getInstance().loadAllGroups();
                     EMChatManager.getInstance().loadAllConversations();
+                    //设置此昵称以后，在与iOS客户端demo聊天过程中，iOS一侧会显示此昵称而不是环信ID，如果对方使用安卓客户端则此设置不生效
+                    EMChatManager.getInstance().updateCurrentUserNick(user.getReal_name());
                 }
 
                 @Override
