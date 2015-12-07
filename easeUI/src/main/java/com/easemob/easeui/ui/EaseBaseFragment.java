@@ -10,7 +10,7 @@ import android.view.inputmethod.InputMethodManager;
 import com.easemob.easeui.R;
 import com.easemob.easeui.widget.EaseTitleBar;
 
-public abstract class EaseBaseFragment extends Fragment{
+public abstract class EaseBaseFragment extends Fragment {
     protected EaseTitleBar titleBar;
     protected InputMethodManager inputMethodManager;
 

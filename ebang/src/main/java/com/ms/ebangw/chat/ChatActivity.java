@@ -8,7 +8,7 @@ import com.ms.ebangw.R;
 import com.ms.ebangw.activity.BaseActivity;
 
 /**
- * 聊天页面，需要fragment的使用{@link #EaseChatFragment}
+ * 聊天页面，需要fragment的使用{@link EaseChatFragment}
  *
  */
 public class ChatActivity extends BaseActivity {

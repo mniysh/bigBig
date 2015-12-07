@@ -46,7 +46,8 @@ public class EaseConversationListFragment extends EaseBaseFragment{
     protected FrameLayout errorItemContainer;
 
     protected boolean isConflict;
-    
+    private View searchBar;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.ease_fragment_conversation_list, container, false);
@@ -70,6 +71,13 @@ public class EaseConversationListFragment extends EaseBaseFragment{
         // 搜索框中清除button
         clearSearch = (ImageButton) getView().findViewById(R.id.search_clear);
         errorItemContainer = (FrameLayout) getView().findViewById(R.id.fl_error_item);
+        hiddenSearchBar();
+    }
+
+    private void hiddenSearchBar() {
+        searchBar = getView().findViewById(R.id.search_bar);
+        searchBar.setVisibility(View.GONE);
+        hideTitleBar();
     }
     
     @Override
