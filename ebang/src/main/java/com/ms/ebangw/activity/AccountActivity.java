@@ -140,6 +140,7 @@ public class AccountActivity extends BaseActivity {
     }
 
     private void load() {
+
         currentPage = 1;
         DataAccessUtil.account(currentPage + "", getDateStr(), new JsonHttpResponseHandler() {
             @Override

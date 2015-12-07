@@ -59,15 +59,15 @@ public class AuthenticationFragment extends BaseFragment implements OnClickListe
     private static final String JPEG_FILE_PREFIX = "IMG_";
     private static final String JPEG_FILE_SUFFIX = ".jpg";
     @Bind(R.id.btn_investor)
-    Button btnInvestor;
+    TextView btnInvestor;
     @Bind(R.id.btn_worker)
-    Button btnWorker;
+    TextView btnWorker;
     @Bind(R.id.btn_headman)
-    Button btnHeadman;
+    TextView btnHeadman;
     @Bind(R.id.btn_developers)
-    Button btnDevelopers;
+    TextView btnDevelopers;
     @Bind(R.id.btn_labour_company)
-    Button btnLabourCompany;
+    TextView btnLabourCompany;
     private AlbumStorageDirFactory mAlbumStorageDirFactory = null;
     private String mCurrentPhotoPath;
 

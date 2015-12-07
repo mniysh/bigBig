@@ -181,11 +181,12 @@ public class DevelopersIdentityCardFragment extends BaseFragment {
         if (requestCode == REQUEST_CAMERA ) { //拍照返回
             handleBigCameraPhoto();
 
-        }else if (requestCode == REQUEST_PICK) {
+        }else if (requestCode == REQUEST_PICK) {//手机内部选图返回
             Uri uri = data.getData();
             Log.d("way", "uri: " + uri);
 
             try {
+                //通过uri获取文件绝对路径
                 String path = GetPathFromUri4kitkat.getPath(mActivity, uri);
                 MyApplication myApplication = (MyApplication) mActivity.getApplication();
                 myApplication.imagePath = path;
@@ -246,9 +247,10 @@ public class DevelopersIdentityCardFragment extends BaseFragment {
         if (intent == null) {
             return;
         }
+        //图片剪切回来封装成一个对象接收
         UploadImageResult imageResult = intent.getParcelableExtra(Constants.KEY_UPLOAD_IMAGE_RESULT);
         MyApplication myApplication = (MyApplication) mActivity.getApplication();
-
+        //拿出绝对路径（在手机选图和拍照时都有存储）
         String imagePath = myApplication.imagePath;
         String id = imageResult.getId();
         AuthInfo authInfo = ((DevelopersAuthenActivity) mActivity).getAuthInfo();
@@ -271,7 +273,7 @@ public class DevelopersIdentityCardFragment extends BaseFragment {
     }
 
     public void goCropActivity() {
-
+        //跳转到图片处理页面
         Intent intent = new Intent(mActivity, CropImageActivity.class);
         startActivityForResult(intent, REQUEST_CROP);
 
@@ -296,7 +298,7 @@ public class DevelopersIdentityCardFragment extends BaseFragment {
 
 
     private void setPic(String path, int targetW, int targetH) {
-
+        //下面这两句应该就是缓存一下绝对路径，应该是没啥别的用处
         MyApplication application = (MyApplication) mActivity.getApplication();
         application.imagePath = path;
 
@@ -328,6 +330,7 @@ public class DevelopersIdentityCardFragment extends BaseFragment {
 
         try {
             f = setUpPhotoFile();
+            //此处也有一个获取文件绝对路径，应该是重复了，上面方法内应经有了获取
             mCurrentPhotoPath = f.getAbsolutePath();
             takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(f));
         } catch (IOException e) {
@@ -338,20 +341,22 @@ public class DevelopersIdentityCardFragment extends BaseFragment {
 
         startActivityForResult(takePictureIntent, REQUEST_CAMERA);
     }
-
+    //此处抛出异常，谁调用谁处理
     private File setUpPhotoFile() throws IOException {
 
         File f = createImageFile();
+        //获取文件的绝对路径
         mCurrentPhotoPath = f.getAbsolutePath();
 
         return f;
     }
-
+    //获取图片文件
     private File createImageFile() throws IOException {
         // Create an image file name
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
         String imageFileName = JPEG_FILE_PREFIX + timeStamp + "_";
         File albumF = getAlbumDir();
+        //最终根据前缀，后缀，和上面的filr对象获得图片文件
         File imageF = File.createTempFile(imageFileName, JPEG_FILE_SUFFIX, albumF);
         return imageF;
     }
@@ -359,9 +364,9 @@ public class DevelopersIdentityCardFragment extends BaseFragment {
 
     private File getAlbumDir() {
         File storageDir = null;
-
+        //判断内存卡是否挂载
         if (Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState())) {
-
+            //获取问价路径，但是还没有文件
             storageDir = mAlbumStorageDirFactory.getAlbumStorageDir(getAlbumName());
 
             if (storageDir != null) {
