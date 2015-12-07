@@ -8,7 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.widget.Button;
+import android.widget.TextView;
 
 import com.ms.ebangw.R;
 import com.ms.ebangw.userAuthen.developers.DevelopersAuthenActivity;
@@ -35,30 +35,10 @@ public class AuthenticationFragment extends BaseFragment implements OnClickListe
     @Bind(R.id.btn_developers)
     TextView btnDevelopers;
     @Bind(R.id.btn_labour_company)
-    Button btnLabourCompany;
-    private FragmentManager fm;
     TextView btnLabourCompany;
-    private AlbumStorageDirFactory mAlbumStorageDirFactory = null;
-    private String mCurrentPhotoPath;
+    private FragmentManager fm;
 
     private View mContentView;
-
-//    @Bind(R.id.tv_realName)
-//    TextView realNameTv;
-//    @Bind(R.id.tv_phone2)
-//    TextView phone2Tv;
-//    @Bind(R.id.tv_gender)
-//    TextView genderTv;
-//    @Bind(R.id.tv_native_place)
-//    TextView nativePlaceTv;
-//    @Bind(R.id.tv_work_type)
-//    TextView workTypeTv;
-//    @Bind(R.id.ll_authed)
-//    LinearLayout detailLayout;
-//    @Bind(R.id.ll_no_auth)
-//    LinearLayout noAuthLayout;
-//    @Bind(R.id.ll_workType)
-//    LinearLayout LWorkType;
 
     @Override
     public View onCreateView(LayoutInflater inflater,
