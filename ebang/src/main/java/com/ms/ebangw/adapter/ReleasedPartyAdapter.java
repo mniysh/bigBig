@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Html;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
@@ -91,7 +92,8 @@ public class ReleasedPartyAdapter extends BaseAdapter {
         holder.tvStatus.setVisibility(View.GONE);
         holder.tvName.setText(real_name);
         holder.tvTitle.setText(title);
-        holder.tvContent.setText(theme);
+        holder.tvContent.setText(Html.fromHtml(theme));
+
         holder.tvReleaseDate.setText(created_at);
         if (!TextUtils.isEmpty(head_image)) {
             Picasso.with(parent.getContext()).load(DataAccessUtil.getImageUrl(head_image)).

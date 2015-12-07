@@ -2,14 +2,12 @@ package com.ms.ebangw.social;
 
 import android.app.DatePickerDialog;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.GridView;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.loopj.android.http.JsonHttpResponseHandler;
@@ -27,7 +25,6 @@ import com.ms.ebangw.exception.ResponseException;
 import com.ms.ebangw.service.DataAccessUtil;
 import com.ms.ebangw.service.DataParseUtil;
 import com.ms.ebangw.setting.SocialPartyUtil;
-import com.ms.ebangw.utils.BitmapUtil;
 import com.ms.ebangw.utils.JsonUtil;
 import com.ms.ebangw.utils.T;
 import com.ms.ebangw.view.ProvinceAndCityView;
@@ -49,10 +46,10 @@ import butterknife.ButterKnife;
  * @author wangkai
  */
 public class SocialPartyPublishActivity extends CropEnableActivity {
+    public final static String CAMERA = "camera";
+
     @Bind(R.id.gv)
     GridView gv;
-    private List<String> mImageUrls;
-
     @Bind(R.id.et_title)
     EditText etTitle;
     @Bind(R.id.pac)
@@ -67,23 +64,14 @@ public class SocialPartyPublishActivity extends CropEnableActivity {
     TextView tvEndTime;
     @Bind(R.id.et_theme)
     EditText etTheme;
-    @Bind(R.id.iv_pic)
-    ImageView ivPic;
+
     @Bind(R.id.tv_commit)
     TextView tvCommit;
     @Bind(R.id.tv_preview)
     TextView tvPreview;
     @Bind(R.id.et_price)
     EditText etPrice;
-
-//    private String title;
-//    private String address;
-//    private String num;
-//    private String startTime;
-//    private String endTime;
-//    private String theme;
-//    private String imagesJson;
-//    private String price;
+    private PartyImageAddAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -116,13 +104,6 @@ public class SocialPartyPublishActivity extends CropEnableActivity {
             }
         });
 
-        ivPic.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showSelectPhotoDialog();
-            }
-        });
-
         tvPreview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -140,7 +121,6 @@ public class SocialPartyPublishActivity extends CropEnableActivity {
 
             }
         });
-
     }
 
 
@@ -185,18 +165,19 @@ public class SocialPartyPublishActivity extends CropEnableActivity {
     @Override
     public void initData() {
 
-        mImageUrls = new ArrayList<>();
         initGridView();
     }
 
     private void initGridView() {
-        List<String> images = new ArrayList<>();
-        images.add("http://img5.imgtn.bdimg.com/it/u=1478257864,2882073929&fm=21&gp=0.jpg");
-        images.add("http://img0.imgtn.bdimg.com/it/u=1231062057,3852413437&fm=21&gp=0.jpg");
-        images.add("http://img5.imgtn.bdimg.com/it/u=1020667791,3260921600&fm=21&gp=0.jpg");
-        images.add("http://img4.imgtn.bdimg.com/it/u=828291890,997706858&fm=21&gp=0.jpg");
-        images.add("camera");
-        PartyImageAddAdapter adapter = new PartyImageAddAdapter(this, images);
+        ArrayList<String> list = new ArrayList<>();
+        list.add(CAMERA);
+        adapter = new PartyImageAddAdapter(this, list);
+        adapter.setCameraClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showSelectPhotoDialog();
+            }
+        });
         gv.setAdapter(adapter);
     }
 
@@ -221,7 +202,10 @@ public class SocialPartyPublishActivity extends CropEnableActivity {
         party.setTheme(theme);
         party.setProvinceId(pac.getProvinceId());
         party.setCityId(pac.getCityId());
-        party.setActive_image(mImageUrls);
+
+        List<String> list = adapter.getList();
+        list.remove(CAMERA);
+        party.setActive_image(list);
 
         return party;
 
@@ -288,8 +272,21 @@ public class SocialPartyPublishActivity extends CropEnableActivity {
     @Override
     public void onCropImageSuccess(View view, String cropedImagePath, UploadImageResult imageResult) {
         super.onCropImageSuccess(view, cropedImagePath, imageResult);
-        mImageUrls.add(imageResult.getName());
-        Bitmap bitmap = BitmapUtil.getImage(cropedImagePath);
-        ivPic.setImageBitmap(bitmap);
+        updateImages(imageResult.getUrl());
+    }
+
+    /**
+     * 上传成功后更新图片列表
+     * @param imageUrl
+     */
+    public void updateImages(String  imageUrl) {
+        List<String> list = adapter.getList();
+        if (null != list) {
+            if (list.contains(CAMERA)) {
+                list.add(list.indexOf(CAMERA), imageUrl);
+            }
+
+            adapter.notifyDataSetChanged();
+        }
     }
 }

@@ -143,7 +143,7 @@ public abstract class CropEnableActivity extends BaseActivity implements OnCropI
     private void setPic(String path, int targetW, int targetH) {
 
         Bundle bundle = new Bundle();
-        bundle.putString(Constants.KEY_UPLOAD_IMAGE_TYPE, CropImageActivity.TYPE_PRIVATE);
+        bundle.putString(Constants.KEY_UPLOAD_IMAGE_TYPE, imageType);
         bundle.putString(Constants.KEY_ORIGIN_IMAGE_PATH, path);
         Intent intent = new Intent(this, CropImageActivity.class);
         intent.putExtras(bundle);

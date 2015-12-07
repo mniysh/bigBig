@@ -23,6 +23,7 @@ import java.util.List;
 public class PartyImageAddAdapter extends BaseAdapter {
     private Activity activity;
     private List<String> list;
+    private View.OnClickListener cameraClickListener;
 
     public PartyImageAddAdapter(Activity activity, List<String> list) {
         this.activity = activity;
@@ -55,10 +56,30 @@ public class PartyImageAddAdapter extends BaseAdapter {
         imageView.setLayoutParams(params);
         if (TextUtils.equals("camera", s)) {
             imageView.setImageResource(R.drawable.camera_gray);
+            if (null != cameraClickListener) {
+                imageView.setOnClickListener(cameraClickListener);
+            }
         }else {
-            Picasso.with(context).load(Uri.parse(list.get(position))).into(imageView);
+            Picasso.with(context).load(Uri.parse(list.get(position))).resize(perWidth, perWidth)
+                .centerCrop().into(imageView);
 
         }
         return imageView;
+    }
+
+    public View.OnClickListener getCameraClickListener() {
+        return cameraClickListener;
+    }
+
+    public void setCameraClickListener(View.OnClickListener cameraClickListener) {
+        this.cameraClickListener = cameraClickListener;
+    }
+
+    public List<String> getList() {
+        return list;
+    }
+
+    public void setList(List<String> list) {
+        this.list = list;
     }
 }
