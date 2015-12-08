@@ -47,6 +47,7 @@ import butterknife.ButterKnife;
  */
 public class SocialPartyPublishActivity extends CropEnableActivity {
     public final static String CAMERA = "camera";
+    public final static int REQUEST_PREVIEW = 88;
 
     @Bind(R.id.gv)
     GridView gv;
@@ -73,6 +74,8 @@ public class SocialPartyPublishActivity extends CropEnableActivity {
     EditText etPrice;
     private PartyImageAddAdapter adapter;
 
+    private List<String> imageNames;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -83,6 +86,13 @@ public class SocialPartyPublishActivity extends CropEnableActivity {
 
     }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK && requestCode == REQUEST_PREVIEW) {
+            finish();
+        }
+    }
 
     @Override
     public void initView() {
@@ -164,7 +174,7 @@ public class SocialPartyPublishActivity extends CropEnableActivity {
 
     @Override
     public void initData() {
-
+        imageNames = new ArrayList<>();
         initGridView();
     }
 
@@ -206,6 +216,7 @@ public class SocialPartyPublishActivity extends CropEnableActivity {
         List<String> list = adapter.getList();
         list.remove(CAMERA);
         party.setActive_image(list);
+        party.setImageNames(imageNames);
 
         return party;
 
@@ -226,7 +237,7 @@ public class SocialPartyPublishActivity extends CropEnableActivity {
             String startTime = party.getStart_time();
             String endTime = party.getEnd_time();
             String theme = party.getTheme();
-            String imagesJson = JsonUtil.createGsonString(party.getActive_image());
+            String imagesJson = JsonUtil.createGsonString(party.getImageNames());
             String price = party.getPrice();
 
             DataAccessUtil.socialPublish(title, provinceId, cityId, address, num,
@@ -236,6 +247,7 @@ public class SocialPartyPublishActivity extends CropEnableActivity {
                         try {
                             boolean b = DataParseUtil.processDataResult(response);
                             if (b) {
+                                T.show("发布成功");
                                 finish();
                             }
                         } catch (ResponseException e) {
@@ -264,7 +276,7 @@ public class SocialPartyPublishActivity extends CropEnableActivity {
         bundle.putParcelable(Constants.KEY_PARTY_STR, getPreviewParty());
         Intent intent = new Intent(SocialPartyPublishActivity.this, SocialPartyPreviewActivity.class);
         intent.putExtras(bundle);
-        startActivity(intent);
+        startActivityForResult(intent, REQUEST_PREVIEW);
 
     }
 
@@ -272,18 +284,22 @@ public class SocialPartyPublishActivity extends CropEnableActivity {
     @Override
     public void onCropImageSuccess(View view, String cropedImagePath, UploadImageResult imageResult) {
         super.onCropImageSuccess(view, cropedImagePath, imageResult);
-        updateImages(imageResult.getUrl());
+        updateImages(imageResult);
     }
 
     /**
      * 上传成功后更新图片列表
-     * @param imageUrl
+     * @param imageResult
      */
-    public void updateImages(String  imageUrl) {
+    public void updateImages(UploadImageResult imageResult) {
+        if(null == imageResult) return;
+        String  imageUrl = imageResult.getUrl();
+
         List<String> list = adapter.getList();
-        if (null != list) {
+        if (null != list && !TextUtils.isEmpty(imageUrl)) {
             if (list.contains(CAMERA)) {
-                list.add(list.indexOf(CAMERA), imageUrl);
+                list.add(list.indexOf(CAMERA), imageResult.getUrl());
+                imageNames.add(imageResult.getName());
             }
 
             adapter.notifyDataSetChanged();

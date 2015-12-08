@@ -187,12 +187,14 @@
         <TextView
             style="@style/social_publish_text"
             android:layout_height="wrap_content"
+            android:layout_gravity="left"
             android:text="照片："
             />
 
-        <ImageView
-            style="@style/social_detail_text"
-            android:layout_height="wrap_content"
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
             />
 
     </LinearLayout>
@@ -210,6 +212,7 @@
         android:paddingRight="30dp"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="20dp"
+        android:textColor="@android:color/white"
         />
 
 </LinearLayout>

@@ -1,6 +1,9 @@
 package com.ms.ebangw.social;
 
+import android.app.DialogFragment;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
@@ -8,8 +11,10 @@ import android.widget.TextView;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.ms.ebangw.R;
 import com.ms.ebangw.activity.BaseActivity;
+import com.ms.ebangw.adapter.PartyImageAdapter;
 import com.ms.ebangw.bean.Party;
 import com.ms.ebangw.commons.Constants;
+import com.ms.ebangw.dialog.PartyApplyResultDialog;
 import com.ms.ebangw.exception.ResponseException;
 import com.ms.ebangw.service.DataAccessUtil;
 import com.ms.ebangw.service.DataParseUtil;
@@ -18,6 +23,8 @@ import com.ms.ebangw.utils.T;
 
 import org.apache.http.Header;
 import org.json.JSONObject;
+
+import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -47,6 +54,8 @@ public class SocialPartyDetailActivity extends BaseActivity {
     TextView tvAddedNum;
     @Bind(R.id.tv_contact)
     TextView tvContact;
+    @Bind(R.id.rv)
+    RecyclerView rv;
 
     private String partyId;
     private Party party;
@@ -118,8 +127,16 @@ public class SocialPartyDetailActivity extends BaseActivity {
                 try {
                     boolean b = DataParseUtil.processDataResult(response);
                     if (b) {
-                        T.show("报名成功");
-                        finish();
+                        String message = response.optString("message");
+                        JSONObject dataObj = response.optJSONObject("data");
+                        if (null != dataObj && dataObj.has("status")) {
+                            String status = dataObj.optString("status");
+                            if (TextUtils.equals("1", status)) {
+                                showResultDialog(message, "确定");
+                            }else {
+                                showResultDialog(message, "查看其它活动");
+                            }
+                        }
                     }
                 } catch (ResponseException e) {
                     e.printStackTrace();
@@ -127,6 +144,20 @@ public class SocialPartyDetailActivity extends BaseActivity {
                 }
             }
         });
+    }
+
+    private void showResultDialog(String content, String btnDescription) {
+
+        final PartyApplyResultDialog dialog = PartyApplyResultDialog.newInstance(content, btnDescription);
+        dialog.setListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+                finish();
+            }
+        });
+        dialog.setStyle(DialogFragment.STYLE_NO_TITLE, 0);
+        dialog.show(getFragmentManager(), "dialog");
 
 
     }
@@ -146,7 +177,7 @@ public class SocialPartyDetailActivity extends BaseActivity {
         if (!TextUtils.isEmpty(flag)) {
             switch (flag) {
                 case "1":
-                    tvAddedNum.setText(party.getApply_count());
+                    tvAddedNum.setText("已有 " + party.getApply_count() + " 人报名");
 
                     break;
 
@@ -161,6 +192,20 @@ public class SocialPartyDetailActivity extends BaseActivity {
                 case "4":
                     tvAddedNum.setText("已结束");
                     break;
+            }
+        }
+
+        initImages(party);
+    }
+
+    private void initImages(Party party) {
+        if (null != party) {
+            List<String> active_image = party.getActive_image();
+            if (null != active_image && active_image.size() > 0) {
+                PartyImageAdapter imageAdapter = new PartyImageAdapter(active_image);
+                LinearLayoutManager manager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
+                rv.setLayoutManager(manager);
+                rv.setAdapter(imageAdapter);
             }
         }
     }

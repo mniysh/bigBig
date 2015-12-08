@@ -136,7 +136,12 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
     public void showProgressDialog() {
-        showProgressDialog(null);
+        try {
+            showProgressDialog(null);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 
     /**
