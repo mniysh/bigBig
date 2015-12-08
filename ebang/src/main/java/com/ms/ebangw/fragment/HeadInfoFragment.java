@@ -30,6 +30,7 @@ import com.ms.ebangw.service.DataParseUtil;
 import com.ms.ebangw.setting.SettingAllActivity;
 import com.ms.ebangw.utils.BitmapUtil;
 import com.ms.ebangw.utils.L;
+import com.ms.ebangw.utils.StringUtils;
 import com.ms.ebangw.utils.T;
 import com.squareup.picasso.Picasso;
 
@@ -185,24 +186,8 @@ public class HeadInfoFragment extends CropEnableFragment {
         if (null != user) {
             String phone = user.getPhone();
 
-//            /**
-//             * 把*变成红色
-//             */
-//            public void setStarRed() {
-//                int[] resId = new int[]{R.id.tv_a, R.id.tv_b, R.id.tv_c, R.id.tv_d, R.id.tv_e};
-//                for (int i = 0; i < resId.length; i++) {
-//                    TextView a = (TextView) contentLayout.findViewById(resId[i]);
-//                    String s = a.getText().toString();
-//                    SpannableString spannableString = new SpannableString(s);
-//                    spannableString.setSpan(new ForegroundColorSpan(Color.RED), 0, 1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-//                    a.setText(spannableString);
-//                }
-//            }
-            SpannableString spannableString = new SpannableString(phone);
-//            spannableString.setSpan(new String("*"),2, 5, Spanned.);
 
-
-            phoneTv.setText(user.getPhone());
+            phoneTv.setText(StringUtils.setPhone(phone));
             nameTv.setText(user.getNick_name());
         }
     }

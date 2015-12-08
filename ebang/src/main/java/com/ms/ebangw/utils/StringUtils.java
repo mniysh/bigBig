@@ -41,5 +41,12 @@ public class StringUtils {
 //		lp.alpha = bgAlpha; //0.0-1.0
 //		getWindow().setAttributes(lp);
 //	}
+	public static  String  setPhone(String phone){
+		StringBuilder stringBuilder = new StringBuilder();
+		String beginStr = phone.substring(0,3);
+		String endStr = phone.substring(phone.length()-4,phone.length()-1);
+		stringBuilder.append(beginStr).append("****").append(endStr);
+		return stringBuilder.toString();
+	}
 }
 
