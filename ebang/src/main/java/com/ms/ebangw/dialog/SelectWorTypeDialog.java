@@ -53,6 +53,8 @@ public class SelectWorTypeDialog extends DialogFragment {
     Button okBtn;
     @Bind(R.id.btn_no)
     Button noBtn;
+    @Bind(R.id.et_need)
+    EditText needEt;
 
     public static SelectWorTypeDialog newInstance(WorkType workType) {
         SelectWorTypeDialog fragment = new SelectWorTypeDialog();
@@ -151,12 +153,14 @@ public class SelectWorTypeDialog extends DialogFragment {
                     String peopleNum = peopleNumEt.getText().toString().trim();
                     String start = startDateTv.getText().toString().trim();
                     String end = endDateTv.getText().toString().trim();
+                    String need = needEt.getText().toString().trim();
                     Staff staff = new Staff();
                     staff.setCraft_id(workType.getId());
                     staff.setMoney(price);
                     staff.setStaff_account(peopleNum);
                     staff.setStart_time(start);
                     staff.setEnd_time(end);
+                    staff.setStaff_description(need);
                     workType.setStaff(staff);
                     //添加的
                     //EventBus.getDefault().post(new OnCheckedWorkTypeEvent(workType, true));
@@ -182,6 +186,7 @@ public class SelectWorTypeDialog extends DialogFragment {
         String peopleNum = peopleNumEt.getText().toString().trim();
         String start = startDateTv.getText().toString().trim();
         String end = endDateTv.getText().toString().trim();
+        String need = needEt.getText().toString().trim();
 
         if (TextUtils.isEmpty(price)) {
             T.show("请输入出价");
@@ -209,7 +214,6 @@ public class SelectWorTypeDialog extends DialogFragment {
             T.show("结束时间应该在开始时间之后");
             return false;
         }
-
         return true;
     }
 

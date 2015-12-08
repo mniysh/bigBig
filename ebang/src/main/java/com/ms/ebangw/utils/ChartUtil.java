@@ -21,7 +21,7 @@ public class ChartUtil {
      */
     private static  void chatTo(Context context ,String userId, int type) {
         Bundle bundle = new Bundle();
-            bundle.putInt(EaseConstant.EXTRA_CHAT_TYPE, type);
+        bundle.putInt(EaseConstant.EXTRA_CHAT_TYPE, type);
 
         bundle.putString("userId", userId);
 

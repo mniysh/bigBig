@@ -41,6 +41,8 @@ public class Staff implements Parcelable {
     private String isContend;
 
 
+
+
     public String getIsContend() {
         return isContend;
     }

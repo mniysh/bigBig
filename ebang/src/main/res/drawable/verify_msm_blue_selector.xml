@@ -4,7 +4,7 @@
         <shape android:shape="rectangle" >
 
             <corners android:radius="@dimen/base_button_radios"/>
-            <solid android:color="@color/titleBar_bg"/>
+            <solid android:color="@color/staff_cancle"/>
 
 
         </shape>

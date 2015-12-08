@@ -1,41 +1,37 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:tools="http://schemas.android.com/tools"
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:background="@drawable/border_gray_round_corner"
-              android:orientation="vertical"
-              android:paddingLeft="10dp"
-              android:paddingRight="10dp"
-              tools:context="com.ms.ebangw.dialog.SelectWorTypeDialog">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#EDF1F3"
+    android:orientation="vertical"
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp"
+    tools:context="com.ms.ebangw.dialog.SelectWorTypeDialog">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center_vertical"
-        android:orientation="horizontal"
-        android:layout_marginTop="20dp"
         android:layout_marginBottom="5dp"
-        >
+        android:layout_marginTop="20dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
 
         <TextView
             style="@style/release_select_dialog_text"
-            android:text="出价:"
-            />
+            android:text="出价:" />
 
         <EditText
             android:id="@+id/et_price"
             style="@style/release_select_dialog_edit"
             android:inputType="number"
-            android:maxLength="5"
-            />
+            android:maxLength="5" />
 
         <TextView
-            android:layout_width="wrap_content"
             style="@style/release_select_dialog_text"
-            android:text="元/天"
+            android:layout_width="wrap_content"
             android:inputType="number"
             android:maxLength="5"
-            />
+            android:text="元/天" />
 
 
     </LinearLayout>
@@ -43,28 +39,25 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"
         android:gravity="center_vertical"
         android:orientation="horizontal"
-        android:layout_marginBottom="5dp"
 
         >
 
         <TextView
             style="@style/release_select_dialog_text"
-            android:text="人数:"
-            />
+            android:text="人数:" />
 
         <EditText
             android:id="@+id/et_people_num"
             style="@style/release_select_dialog_edit"
-            android:inputType="number"
-            />
+            android:inputType="number" />
 
         <TextView
-            android:layout_width="wrap_content"
             style="@style/release_select_dialog_text"
-            android:text="人"
-            />
+            android:layout_width="wrap_content"
+            android:text="人" />
 
 
     </LinearLayout>
@@ -72,23 +65,20 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center_vertical"
-        android:orientation="horizontal"
         android:layout_marginBottom="5dp"
-        >
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
 
         <TextView
             style="@style/release_select_dialog_text"
-            android:text="上门时间:"
-            />
+            android:text="上门时间:" />
 
         <TextView
 
             android:id="@+id/tv_start_date"
-            android:layout_width="wrap_content"
             style="@style/release_select_dialog_text"
-            android:text="请选择上门时间"
-            />
+            android:layout_width="wrap_content"
+            android:text="请选择上门时间" />
 
     </LinearLayout>
 
@@ -96,51 +86,78 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
-        android:orientation="horizontal"
-        >
+        android:orientation="horizontal">
 
         <TextView
             style="@style/release_select_dialog_text"
-            android:text="结束时间:"
-            />
+            android:text="结束时间:" />
 
 
         <TextView
             android:id="@+id/tv_end_date"
-            android:layout_width="wrap_content"
             style="@style/release_select_dialog_text"
-            android:text="请选择结束时间"
-            />
+            android:layout_width="wrap_content"
+            android:text="请选择结束时间" />
 
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:paddingTop="10dp"
-        android:paddingBottom="10dp"
-        android:gravity="center_horizontal"
-        >
-        <Button
-            android:id="@+id/btn_ok"
-            android:layout_width="wrap_content"
-            android:layout_height="40dp"
-            android:background="@drawable/verify_msm_blue_selector"
-            android:text="确定"
-            android:textColor="@color/white"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
 
-            />
+        <TextView
+            style="@style/release_select_dialog_text"
+            android:text="需求描述:" />
+
+
+        <EditText
+            android:padding="5dp"
+            android:id="@+id/et_need"
+            android:layout_width="240dp"
+            android:layout_height="50dp"
+            android:textColor="@color/black"
+            android:gravity="top"
+            android:hint="请输入需求"
+            android:textSize="12sp"
+            android:background="@color/white"
+            android:maxLength="200"
+            android:minLines="2" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal"
+        android:paddingBottom="10dp"
+        android:paddingTop="10dp">
 
         <Button
             android:id="@+id/btn_no"
             android:layout_width="wrap_content"
-            android:layout_height="40dp"
-            android:background="@drawable/verify_msm_yellow_selector"
-            android:layout_marginLeft="20dp"
-            android:text="退出"
+            android:layout_height="wrap_content"
+            android:minHeight="30dp"
+            android:background="@drawable/verify_msm_blue_selector"
+            android:text="取消"
             android:textColor="@color/white"
+
             />
+
+        <Button
+
+            android:id="@+id/btn_ok"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:minHeight="30dp"
+
+            android:layout_marginLeft="20dp"
+
+            android:background="@drawable/verify_msm_yellow_selector"
+            android:text="确定"
+            android:textColor="@color/white" />
 
     </LinearLayout>
 </LinearLayout>
