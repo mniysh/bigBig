@@ -9,6 +9,7 @@ import com.ms.ebangw.adapter.Evaluate;
 import com.ms.ebangw.bean.Account;
 import com.ms.ebangw.bean.Area;
 import com.ms.ebangw.bean.Bank;
+import com.ms.ebangw.bean.BannerImage;
 import com.ms.ebangw.bean.CheckedWorkTypeUser;
 import com.ms.ebangw.bean.City;
 import com.ms.ebangw.bean.Craft;
@@ -616,6 +617,24 @@ public class DataParseUtil {
         }
         Gson gson = new Gson();
         List<Party> list = gson.fromJson(dataStr, new TypeToken<List<Party>>() {
+        }.getType());
+
+        return list;
+    }
+
+    /**
+     * 3-17、首页banner图接口 get
+     * @param jsonObject
+     * @return
+     * @throws ResponseException
+     */
+    public static List<BannerImage> banner(JSONObject jsonObject) throws ResponseException {
+        String dataStr = processDataStr(jsonObject);
+        if (TextUtils.isEmpty(dataStr)) {
+            return null;
+        }
+        Gson gson = new Gson();
+        List<BannerImage> list = gson.fromJson(dataStr, new TypeToken<List<BannerImage>>() {
         }.getType());
 
         return list;

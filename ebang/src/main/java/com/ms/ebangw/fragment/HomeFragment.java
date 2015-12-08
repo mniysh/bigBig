@@ -11,7 +11,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 
@@ -23,7 +22,6 @@ import com.handmark.pulltorefresh.library.PullToRefreshScrollView;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.ms.ebangw.MyApplication;
 import com.ms.ebangw.R;
-import com.ms.ebangw.activity.DiscoveryActivity;
 import com.ms.ebangw.activity.MessageCenterActivit;
 import com.ms.ebangw.activity.ShowActivity;
 import com.ms.ebangw.activity.ShowDeveloperActivity;
@@ -57,17 +55,12 @@ import butterknife.OnClick;
  *
  */
 public class HomeFragment extends BaseFragment {
-    private int[] images = {R.drawable.banner_aaa, R.drawable.banner_bb
-    };// 滑动图片数据
+    private int[] images = {R.drawable.banner_aaa, R.drawable.banner_bb};// 滑动图片数据
     private int[] imgclass = {R.drawable.home_build, R.drawable.home_zxiu, R.drawable.home_life, R.drawable.home_business};
-    private String[] txtclass = {"建筑", "装修", "生活", "商业"};
-//    private List<FoundBean> datas;
     private View mContentLayout;
     public LocationClient mLocationClient = null;
     @Bind(R.id.lv_projects)
     MyListView listView;
-    @Bind(R.id.home_search)
-    EditText etSearch;
 
     @Bind(R.id.convenientBanner)
     ConvenientBanner convenientBanner;//顶部广告栏控件
@@ -124,15 +117,6 @@ public class HomeFragment extends BaseFragment {
                 loadMoreHomeProjectInfo();
             }
         });
-
-        etSearch.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (hasFocus) {
-                    startActivity(new Intent(mActivity, DiscoveryActivity.class));
-                }
-            }
-        });
     }
 
     @Override
@@ -182,7 +166,7 @@ public class HomeFragment extends BaseFragment {
             }
         });
         getLocation();
-        initBanner();
+        loadBanner();
     }
 
     public void getLocation() {
@@ -195,27 +179,41 @@ public class HomeFragment extends BaseFragment {
         }
     }
 
-    public void initBanner() {
+    public void initBanner(List<BannerImage> bannerImages) {
         convenientBanner.setPages(new CBViewHolderCreator<BannerImageHoderView>() {
                 @Override
                 public BannerImageHoderView createHolder() {
                     return new BannerImageHoderView();
                 }
-            }, getImages())
+            }, bannerImages)
             //设置两个点图片作为翻页指示器，不设置则没有指示器，可以根据自己需求自行配合自己的指示器,不需要圆点指示器可用不设
             .setPageIndicator(new int[]{R.drawable.point_normal, R.drawable.point_able})
                 //设置翻页的效果，不需要翻页效果可用不设
-            .setPageTransformer(ConvenientBanner.Transformer.DefaultTransformer);
+            .setPageTransformer(ConvenientBanner.Transformer.TabletTransformer);
     }
 
-    private List<BannerImage> getImages() {
-        List<BannerImage> list = new ArrayList<>();
-        for (int i = 0; i < 7; i++) {
-            BannerImage bannerImage = new BannerImage();
-            bannerImage.setImgResId(getResId("ic_test_" + i, R.drawable.class));
-            list.add(bannerImage);
-        }
-        return list;
+
+    private void loadBanner() {
+        DataAccessUtil.banner(new JsonHttpResponseHandler(){
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                super.onSuccess(statusCode, headers, response);
+                try {
+                    List<BannerImage> list = DataParseUtil.banner(response);
+                    if (null != list) {
+                        initBanner(list);
+                    }
+                } catch (ResponseException e) {
+                    e.printStackTrace();
+                }
+
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                super.onFailure(statusCode, headers, responseString, throwable);
+            }
+        });
     }
 
     /**
@@ -255,38 +253,6 @@ public class HomeFragment extends BaseFragment {
         super.onDestroyView();
         butterknife.ButterKnife.unbind(this);
     }
-
-//    @Override
-//    public void onClick(View v) {
-//        Intent intent = new Intent(mActivity, NextPageActivity.class);
-//        Bundle bundle = new Bundle();
-//        switch (v.getId()) {
-////            case R.id.fragment_home_lin_recommend01:
-////            case R.id.fragment_home_lin_recommend02:
-////            case R.id.fragment_home_lin_recommend03:
-////                startActivity(new Intent(mActivity, RecommendActivity.class));
-////                break;
-////            case R.id.iv_building:
-////                intent.putExtras(bundle);
-////                startActivity(intent);
-////                break;
-////            case R.id.iv_decorater:
-////                intent.putExtras(bundle);
-////                startActivity(intent);
-////                break;
-////            case R.id.iv_projectManage:
-////                intent.putExtras(bundle);
-////                startActivity(intent);
-////                break;
-////            case R.id.iv_other:
-////                intent.putExtras(bundle);
-////                startActivity(intent);
-////
-////                break;
-////            default:
-////                break;
-//        }
-//    }
 
     private int currentPage = 0;
     public void loadHomeProjectInfo() {

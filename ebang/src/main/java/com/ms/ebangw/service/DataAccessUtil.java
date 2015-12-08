@@ -1202,6 +1202,15 @@ public class DataAccessUtil {
     }
 
     /**
+     * 3-17、首页banner图接口 get
+     * @param asyncHttpResponseHandler
+     * @return
+     */
+    public static RequestHandle banner(AsyncHttpResponseHandler asyncHttpResponseHandler){
+        return doGet(RequestUrl.banner, null, asyncHttpResponseHandler);
+    }
+
+    /**
      * 3-18、获取系统消息接口    get
      * @param page 分页
      * @param asyncHttpResponseHandler

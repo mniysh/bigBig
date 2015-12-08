@@ -85,6 +85,7 @@ public class HomeActivity extends BaseActivity {
             }
         }
     };
+    private CommunityFragment communityFragment;
 
 
     @Override
@@ -115,8 +116,6 @@ public class HomeActivity extends BaseActivity {
     @Override
     public void initData() {
         loadUserInformation();
-//        releaseWorkTypeFragment = new ReleaseWorkTypeFragment();
-
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
@@ -126,7 +125,10 @@ public class HomeActivity extends BaseActivity {
                         break;
 
                     case R.id.rb_social_contact:
-                        fm.beginTransaction().replace(R.id.fl_content, new CommunityFragment()).commit();
+                        if (null == communityFragment) {
+                            communityFragment = CommunityFragment.newInstance();
+                        }
+                        fm.beginTransaction().replace(R.id.fl_content, communityFragment).commit();
                         break;
 
                     case R.id.rb_mine:
@@ -169,14 +171,9 @@ public class HomeActivity extends BaseActivity {
                 }
 
                 @Override
-                public void onProgress(int i, String s) {
-
-                }
+                public void onProgress(int i, String s) { }
             });
         }
-
-
-
     }
 
 
@@ -479,28 +476,9 @@ public class HomeActivity extends BaseActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        L.d("==onDestroy");
+        L.d("HomeActivity: onDestroy");
+        ButterKnife.unbind(this);
         EventBus.getDefault().unregister(this);
     }
-
-    /**
-     * 接收选中的工种，发布界面的工种页面
-     *
-     * @param event 点击事件
-     */
-//    public void onEvent(OnCheckedWorkTypeEvent event) {
-//        if (event == null) {
-//            return;
-//        }
-//        WorkType workType = event.getWorkType();
-//        boolean b = event.isSelected();
-//        if (event != null && b) {
-//
-//            data.add(workType);
-//            releaseWorkTypeFragment = ReleaseWorkTypeFragment.newInstance(workType);
-//        } else if (event != null && !b) {
-//            data.remove(workType);
-//        }
-//    }
 
 }

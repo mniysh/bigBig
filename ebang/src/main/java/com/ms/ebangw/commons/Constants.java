@@ -219,4 +219,5 @@ public class Constants {
 	public static final int KEY_SYS_MESSAGE = R.drawable.msg_red_dot;
 	public static final String KEY_SYS_MESSAGE_STR = "system_message";
 	public static final String KEY_SYS_MESSAGE_ID = "system_message_id";
+	public static final int KEY_BANNER_IMAGE = R.drawable.back_star;
 }

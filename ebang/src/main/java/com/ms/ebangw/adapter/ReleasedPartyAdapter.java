@@ -20,7 +20,6 @@ import com.ms.ebangw.service.DataAccessUtil;
 import com.ms.ebangw.social.SocialPartyDetailActivity;
 import com.squareup.picasso.Picasso;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
@@ -86,8 +85,7 @@ public class ReleasedPartyAdapter extends BaseAdapter {
         String title = party.getTitle();
         String created_at = party.getCreated_at();
         String theme = party.getTheme();
-//        List<String> active_image = party.getActive_image();
-        List<String> active_image = getTestImageUrls();
+        List<String> active_image = party.getActive_image();
         if (null != active_image && active_image.size() > 0) {
             PartyImageAdapter imageAdapter = new PartyImageAdapter(active_image);
             LinearLayoutManager manager = new LinearLayoutManager(parent.getContext(), LinearLayoutManager.HORIZONTAL, false);
@@ -123,35 +121,6 @@ public class ReleasedPartyAdapter extends BaseAdapter {
         convertView.setTag(Constants.KEY_PARTY, party);
         }
         return convertView;
-    }
-
-    private List<String> getTestImageUrls() {
-        List<String> images = new ArrayList<>();
-        images.add("http://img5.imgtn.bdimg.com/it/u=1478257864,2882073929&fm=21&gp=0.jpg");
-        images.add("http://img0.imgtn.bdimg.com/it/u=1231062057,3852413437&fm=21&gp=0.jpg");
-        images.add("http://img5.imgtn.bdimg.com/it/u=1020667791,3260921600&fm=21&gp=0.jpg");
-        images.add("http://img4.imgtn.bdimg.com/it/u=828291890,997706858&fm=21&gp=0.jpg");
-        images.add("http://img5.imgtn.bdimg.com/it/u=1478257864,2882073929&fm=21&gp=0.jpg");
-        images.add("http://img0.imgtn.bdimg.com/it/u=1231062057,3852413437&fm=21&gp=0.jpg");
-        images.add("http://img5.imgtn.bdimg.com/it/u=1020667791,3260921600&fm=21&gp=0.jpg");
-        images.add("http://img4.imgtn.bdimg.com/it/u=828291890,997706858&fm=21&gp=0.jpg");
-        images.add("http://img5.imgtn.bdimg.com/it/u=1478257864,2882073929&fm=21&gp=0.jpg");
-        images.add("http://img0.imgtn.bdimg.com/it/u=1231062057,3852413437&fm=21&gp=0.jpg");
-        images.add("http://img5.imgtn.bdimg.com/it/u=1020667791,3260921600&fm=21&gp=0.jpg");
-        images.add("http://img4.imgtn.bdimg.com/it/u=828291890,997706858&fm=21&gp=0.jpg");
-        images.add("http://img5.imgtn.bdimg.com/it/u=1478257864,2882073929&fm=21&gp=0.jpg");
-        images.add("http://img0.imgtn.bdimg.com/it/u=1231062057,3852413437&fm=21&gp=0.jpg");
-        images.add("http://img5.imgtn.bdimg.com/it/u=1020667791,3260921600&fm=21&gp=0.jpg");
-        images.add("http://img4.imgtn.bdimg.com/it/u=828291890,997706858&fm=21&gp=0.jpg");
-        images.add("http://img5.imgtn.bdimg.com/it/u=1478257864,2882073929&fm=21&gp=0.jpg");
-        images.add("http://img0.imgtn.bdimg.com/it/u=1231062057,3852413437&fm=21&gp=0.jpg");
-        images.add("http://img5.imgtn.bdimg.com/it/u=1020667791,3260921600&fm=21&gp=0.jpg");
-        images.add("http://img4.imgtn.bdimg.com/it/u=828291890,997706858&fm=21&gp=0.jpg");
-        images.add("http://img5.imgtn.bdimg.com/it/u=1478257864,2882073929&fm=21&gp=0.jpg");
-        images.add("http://img0.imgtn.bdimg.com/it/u=1231062057,3852413437&fm=21&gp=0.jpg");
-        images.add("http://img5.imgtn.bdimg.com/it/u=1020667791,3260921600&fm=21&gp=0.jpg");
-        images.add("http://img4.imgtn.bdimg.com/it/u=828291890,997706858&fm=21&gp=0.jpg");
-        return images;
     }
 
     static class ViewHolder {

@@ -38,24 +38,14 @@
                     android:layout_marginRight="10dp"
                     android:src="@drawable/logo_48"/>
 
-                <EditText
-                    android:id="@+id/home_search"
-                    android:layout_width="wrap_content"
-                    android:layout_height="30dp"
-                    android:layout_gravity="center_vertical"
+                <TextView
+                    android:layout_width="0dp"
                     android:layout_weight="1"
-                    android:background="@drawable/search_bg"
-                    android:drawableLeft="@drawable/home_search"
-                    android:drawablePadding="10dp"
-                    android:hint="请输入您要搜索的内容"
-                    android:imeOptions="actionSearch"
-
-                    android:paddingBottom="5dp"
-                    android:paddingLeft="10dp"
-                    android:paddingTop="5dp"
-                    android:singleLine="true"
-                    android:textColorHint="#bbbbbb"
-                    android:textSize="14sp"/>
+                    android:layout_height="wrap_content"
+                    android:text="@string/app_name"
+                    android:textColor="@android:color/white"
+                    android:gravity="center"
+                    android:textSize="18sp"/>
 
                 <TextView
                     android:id="@+id/tv_message"

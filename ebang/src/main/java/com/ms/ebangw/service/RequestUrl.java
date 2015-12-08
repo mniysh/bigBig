@@ -330,6 +330,12 @@ public class RequestUrl {
      */
     public static final String sys_msg_already = domain + "/api/user/index/read-message/";
 
+    /**
+     * 3-17、首页banner图接口
+     */
+    public static final String banner = domain + "/api/common/article/banner";
+
+
 
 
 
