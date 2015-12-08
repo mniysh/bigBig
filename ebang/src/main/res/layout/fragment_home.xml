@@ -26,8 +26,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/common_titlebar_height"
                 android:background="#0074A4"
-                android:focusable="true"
-                android:focusableInTouchMode="true"
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
 
@@ -64,7 +62,6 @@
                 android:id="@+id/convenientBanner"
                 android:layout_width="match_parent"
                 android:layout_height="120dp"/>
-
 
 
             <LinearLayout
