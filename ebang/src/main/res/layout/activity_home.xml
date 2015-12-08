@@ -57,8 +57,6 @@
             android:padding="5dp"
             />
 
-
-
         <RadioButton
             android:id="@+id/rb_mine"
             android:layout_width="0dp"

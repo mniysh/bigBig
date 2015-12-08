@@ -59,36 +59,11 @@
             android:src="@drawable/right_arrow"
             />
     </LinearLayout>
-    <View
-        style="@style/big_hor_line"
-        />
-    <LinearLayout
-        android:id="@+id/ll_update"
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:padding="10dp"
 
-        android:layout_height="wrap_content">
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:src="@drawable/check_ref"
-            />
-        <TextView
-            style="@style/settingStyle"
-            android:text="检查更新"
-            />
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_height="wrap_content"
-            android:src="@drawable/right_arrow"
-            />
-    </LinearLayout>
     <View
         style="@style/big_hor_line"
         />
+
     <LinearLayout
         android:id="@+id/ll_feedback"
         android:orientation="horizontal"

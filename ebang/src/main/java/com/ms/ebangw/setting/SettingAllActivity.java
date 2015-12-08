@@ -19,9 +19,6 @@ import com.ms.ebangw.service.DataAccessUtil;
 import com.ms.ebangw.service.DataParseUtil;
 import com.ms.ebangw.utils.L;
 import com.ms.ebangw.utils.T;
-import com.umeng.update.UmengUpdateAgent;
-import com.umeng.update.UmengUpdateListener;
-import com.umeng.update.UpdateResponse;
 
 import org.apache.http.Header;
 import org.json.JSONObject;
@@ -35,8 +32,6 @@ public class SettingAllActivity extends BaseActivity {
     LinearLayout lSecurity;
     @Bind(R.id.ll_message)
     LinearLayout lMessage;
-    @Bind(R.id.ll_update)
-    LinearLayout lUpdate;
     @Bind(R.id.ll_feedback)
     LinearLayout lFeedback;
     @Bind(R.id.ll_about_our)
@@ -124,10 +119,7 @@ public class SettingAllActivity extends BaseActivity {
         startActivity(intent);
 
     }
-    @OnClick(R.id.ll_update)
-    public void goUpdateSetting(){
-        initUmengUpdata();
-    }
+
 
     @OnClick(R.id.ll_feedback)
     public void goFeelbackSetting(){
@@ -140,19 +132,5 @@ public class SettingAllActivity extends BaseActivity {
         Intent intent = new Intent(this, AboutActivity.class);
         startActivity(intent);
     }
-    private void initUmengUpdata() {
-        UmengUpdateAgent.setUpdateListener(new UmengUpdateListener() {
-            @Override
-            public void onUpdateReturned(int i, UpdateResponse updateResponse) {
-                boolean hasUpdata = false;
-                if (updateResponse != null) {
-                    hasUpdata = updateResponse.hasUpdate;
-                }
-                if(!hasUpdata){
-                    T.show("已经是最新版本");
-                }
-            }
-        });
-        UmengUpdateAgent.update(this);
-    }
+
 }

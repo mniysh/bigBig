@@ -622,6 +622,8 @@
         <activity android:name="com.easemob.easeui.ui.EaseShowVideoActivity"/>
         <activity android:name=".activity.SystemDetailActivity">
         </activity>
+        <activity android:name=".social.PartyPublishSuccessActivity">
+        </activity>
     </application>
 
 </manifest>
