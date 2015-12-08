@@ -67,6 +67,8 @@
                 android:paddingBottom="8dp"
                 android:paddingLeft="8dp"
                 android:paddingRight="15dp"
+                android:singleLine="true"
+                android:maxLength="20"
                 android:paddingTop="8dp"
                 android:hint="请输入昵称"
 

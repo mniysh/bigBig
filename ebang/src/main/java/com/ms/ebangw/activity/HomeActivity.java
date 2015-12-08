@@ -8,6 +8,8 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
+import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -93,6 +95,9 @@ public class HomeActivity extends BaseActivity {
         setContentView(R.layout.activity_home);
         ButterKnife.bind(this);
         EventBus.getDefault().register(this);
+//        DisplayMetrics metrics = new DisplayMetrics();
+//        getWindowManager().getDefaultDisplay().getMetrics(metrics);
+//        Log.d("xxx", "屏幕分辨率为" + metrics.widthPixels + "+" + metrics.heightPixels);
         fm = getFragmentManager();
         L.d("HomeActivity onCreate, savedInstanceState=  " + savedInstanceState);
         if (savedInstanceState != null) {
