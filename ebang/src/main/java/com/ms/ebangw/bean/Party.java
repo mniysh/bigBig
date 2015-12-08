@@ -20,6 +20,7 @@ public class Party implements Parcelable{
     private String theme;
     private String created_at;
     private List<String> active_image;
+    private List<String> imageNames;
 
     private String user_id;
 
@@ -204,6 +205,16 @@ public class Party implements Parcelable{
         this.user_id = user_id;
     }
 
+    public Party() {
+    }
+
+    public List<String> getImageNames() {
+        return imageNames;
+    }
+
+    public void setImageNames(List<String> imageNames) {
+        this.imageNames = imageNames;
+    }
 
     @Override
     public int describeContents() {
@@ -220,6 +231,7 @@ public class Party implements Parcelable{
         dest.writeString(this.theme);
         dest.writeString(this.created_at);
         dest.writeStringList(this.active_image);
+        dest.writeStringList(this.imageNames);
         dest.writeString(this.user_id);
         dest.writeString(this.province);
         dest.writeString(this.provinceId);
@@ -234,9 +246,6 @@ public class Party implements Parcelable{
         dest.writeString(this.apply_count);
     }
 
-    public Party() {
-    }
-
     protected Party(Parcel in) {
         this.active_id = in.readString();
         this.real_name = in.readString();
@@ -246,6 +255,7 @@ public class Party implements Parcelable{
         this.theme = in.readString();
         this.created_at = in.readString();
         this.active_image = in.createStringArrayList();
+        this.imageNames = in.createStringArrayList();
         this.user_id = in.readString();
         this.province = in.readString();
         this.provinceId = in.readString();

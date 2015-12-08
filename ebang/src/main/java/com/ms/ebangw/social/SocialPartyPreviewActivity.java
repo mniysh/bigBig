@@ -1,12 +1,15 @@
 package com.ms.ebangw.social;
 
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
 
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.ms.ebangw.R;
 import com.ms.ebangw.activity.BaseActivity;
+import com.ms.ebangw.adapter.PartyImageAdapter;
 import com.ms.ebangw.bean.Party;
 import com.ms.ebangw.commons.Constants;
 import com.ms.ebangw.exception.ResponseException;
@@ -18,6 +21,8 @@ import com.ms.ebangw.utils.T;
 
 import org.apache.http.Header;
 import org.json.JSONObject;
+
+import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -42,6 +47,8 @@ public class SocialPartyPreviewActivity extends BaseActivity {
     TextView tvTheme;
     @Bind(R.id.tv_commit)
     TextView tvCommit;
+    @Bind(R.id.rv)
+    RecyclerView rv;
 
 
     private Party party;
@@ -85,7 +92,7 @@ public class SocialPartyPreviewActivity extends BaseActivity {
 
     @Override
     public void initData() {
-
+        initImages(party);
     }
 
     /**
@@ -101,7 +108,7 @@ public class SocialPartyPreviewActivity extends BaseActivity {
             String startTime = party.getStart_time();
             String endTime = party.getEnd_time();
             String theme = party.getTheme();
-            String imagesJson = JsonUtil.createGsonString(party.getActive_image());
+            String imagesJson = JsonUtil.createGsonString(party.getImageNames());
             String price = party.getPrice();
 
             DataAccessUtil.socialPublish(title, party.getProvinceId(), party.getCityId(), address, num,
@@ -111,6 +118,8 @@ public class SocialPartyPreviewActivity extends BaseActivity {
                         try {
                             boolean b = DataParseUtil.processDataResult(response);
                             if (b) {
+                                setResult(RESULT_OK);
+                                T.show("发布成功");
                                 finish();
                             }
                         } catch (ResponseException e) {
@@ -131,6 +140,18 @@ public class SocialPartyPreviewActivity extends BaseActivity {
                         showProgressDialog();
                     }
                 });
+        }
+    }
+
+    private void initImages(Party party) {
+        if (null != party) {
+            List<String> active_image = party.getActive_image();
+            if (null != active_image && active_image.size() > 0) {
+                PartyImageAdapter imageAdapter = new PartyImageAdapter(active_image);
+                LinearLayoutManager manager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
+                rv.setLayoutManager(manager);
+                rv.setAdapter(imageAdapter);
+            }
         }
     }
 }
