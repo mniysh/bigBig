@@ -56,6 +56,11 @@ public class CommunityFragment extends BaseFragment {
         // Required empty public constructor
     }
 
+    public static CommunityFragment newInstance() {
+        CommunityFragment fragment = new CommunityFragment();
+        return fragment;
+    }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -63,7 +68,6 @@ public class CommunityFragment extends BaseFragment {
         contentLayout = (ViewGroup) inflater.inflate(R.layout.fragment_community, container, false);
         ButterKnife.bind(this, contentLayout);
         initView();
-        initData();
         return contentLayout;
     }
 
@@ -76,6 +80,12 @@ public class CommunityFragment extends BaseFragment {
                 startActivity(new Intent(mActivity, MySocialListActivity.class));
             }
         });
+    }
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        initData();
     }
 
     @Override

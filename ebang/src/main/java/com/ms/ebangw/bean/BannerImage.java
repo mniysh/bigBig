@@ -6,31 +6,34 @@ package com.ms.ebangw.bean;
  * 2015-11-04 10:55
  */
 public class BannerImage {
-    private String imageUrl;
-    private String webUrl;
-    private int imgResId;
 
-    public String getImageUrl() {
-        return imageUrl;
+    /**
+     * image_url : http://xxx/28b75ee52ae4c46d163104cef7a39a6d.jpg
+     * article_url : http://xxx/phone/common/article/content/1/3
+     */
+
+    /**
+     * 图片地址
+     */
+    private String image_url;
+    /**
+     * 文章地址
+     */
+    private String article_url;
+
+    public void setImage_url(String image_url) {
+        this.image_url = image_url;
     }
 
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
+    public void setArticle_url(String article_url) {
+        this.article_url = article_url;
     }
 
-    public String getWebUrl() {
-        return webUrl;
+    public String getImage_url() {
+        return image_url;
     }
 
-    public void setWebUrl(String webUrl) {
-        this.webUrl = webUrl;
-    }
-
-    public int getImgResId() {
-        return imgResId;
-    }
-
-    public void setImgResId(int imgResId) {
-        this.imgResId = imgResId;
+    public String getArticle_url() {
+        return article_url;
     }
 }

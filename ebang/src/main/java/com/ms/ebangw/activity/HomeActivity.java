@@ -87,6 +87,7 @@ public class HomeActivity extends BaseActivity {
             }
         }
     };
+    private CommunityFragment communityFragment;
 
 
     @Override
@@ -120,8 +121,6 @@ public class HomeActivity extends BaseActivity {
     @Override
     public void initData() {
         loadUserInformation();
-//        releaseWorkTypeFragment = new ReleaseWorkTypeFragment();
-
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
@@ -131,7 +130,10 @@ public class HomeActivity extends BaseActivity {
                         break;
 
                     case R.id.rb_social_contact:
-                        fm.beginTransaction().replace(R.id.fl_content, new CommunityFragment()).commit();
+                        if (null == communityFragment) {
+                            communityFragment = CommunityFragment.newInstance();
+                        }
+                        fm.beginTransaction().replace(R.id.fl_content, communityFragment).commit();
                         break;
 
                     case R.id.rb_mine:
@@ -155,7 +157,7 @@ public class HomeActivity extends BaseActivity {
      * 登录环信
      */
     private void loginEase() {
-        User user = getUser();
+        final User user = getUser();
         if (null != user && EaseCommonUtils.isNetWorkConnected(this)) {
 
             EMChatManager.getInstance().login(user.getId(), user.getPhone(), new EMCallBack() {
@@ -164,6 +166,8 @@ public class HomeActivity extends BaseActivity {
                     L.d("环信登录成功");
                     EMGroupManager.getInstance().loadAllGroups();
                     EMChatManager.getInstance().loadAllConversations();
+                    //设置此昵称以后，在与iOS客户端demo聊天过程中，iOS一侧会显示此昵称而不是环信ID，如果对方使用安卓客户端则此设置不生效
+                    EMChatManager.getInstance().updateCurrentUserNick(user.getReal_name());
                 }
 
                 @Override
@@ -172,14 +176,9 @@ public class HomeActivity extends BaseActivity {
                 }
 
                 @Override
-                public void onProgress(int i, String s) {
-
-                }
+                public void onProgress(int i, String s) { }
             });
         }
-
-
-
     }
 
 
@@ -482,28 +481,9 @@ public class HomeActivity extends BaseActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        L.d("==onDestroy");
+        L.d("HomeActivity: onDestroy");
+        ButterKnife.unbind(this);
         EventBus.getDefault().unregister(this);
     }
-
-    /**
-     * 接收选中的工种，发布界面的工种页面
-     *
-     * @param event 点击事件
-     */
-//    public void onEvent(OnCheckedWorkTypeEvent event) {
-//        if (event == null) {
-//            return;
-//        }
-//        WorkType workType = event.getWorkType();
-//        boolean b = event.isSelected();
-//        if (event != null && b) {
-//
-//            data.add(workType);
-//            releaseWorkTypeFragment = ReleaseWorkTypeFragment.newInstance(workType);
-//        } else if (event != null && !b) {
-//            data.remove(workType);
-//        }
-//    }
 
 }

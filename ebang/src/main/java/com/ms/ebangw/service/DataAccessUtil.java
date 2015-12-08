@@ -1202,12 +1202,42 @@ public class DataAccessUtil {
     }
 
     /**
-     * 4-4.社区活动我的列表
-     * @param page
-     * @param flag  flag:1代表进行中，2代表审核中，4代表已结束，3代表审核失败，不传代表全部
+     * 3-17、首页banner图接口 get
      * @param asyncHttpResponseHandler
      * @return
      */
+    public static RequestHandle banner(AsyncHttpResponseHandler asyncHttpResponseHandler){
+        return doGet(RequestUrl.banner, null, asyncHttpResponseHandler);
+    }
+
+    /**
+     * 3-18、获取系统消息接口    get
+     * @param page 分页
+     * @param asyncHttpResponseHandler
+     * @return
+     */
+    public static RequestHandle systemMessage(String page, AsyncHttpResponseHandler
+        asyncHttpResponseHandler){
+
+        RequestParams params = new RequestParams();
+        params.put("page", page);
+
+        return doGet(RequestUrl.system_message, params, asyncHttpResponseHandler);
+    }
+
+    /**
+     * 3-19、设置指定消息已读    get
+     *地址：api/user/index/read-message/(+该消息的id)
+     * @param messageId
+     * @param asyncHttpResponseHandler
+     * @return
+     */
+    public static RequestHandle sysMsgAlready(String messageId, AsyncHttpResponseHandler
+        asyncHttpResponseHandler){
+        return doGet(RequestUrl.sys_msg_already + messageId, null, asyncHttpResponseHandler);
+    }
+
+
     public static RequestHandle socialMyPartyList(String page, String flag,
                                                   AsyncHttpResponseHandler asyncHttpResponseHandler){
 
@@ -1233,9 +1263,6 @@ public class DataAccessUtil {
         L.d(TAG, "doPost: " + url + "?" + params.toString());
         return mClient.post(url, params, asyncHttpResponseHandler);
     }
-
-
-
 
 
 

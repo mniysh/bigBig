@@ -366,10 +366,13 @@ public class ProjectStatusFragment extends BaseFragment {
             currentPage++;
             try {
                 List<ReleaseProject> list = DataParseUtil.grabStatus(response);
-                if (adapter != null && list != null && list.size() > 0) {
+                if (adapter != null && list != null) {
                     adapter.setList(list);
-                    adapter.notifyDataSetChanged();
+                }else {
+                    adapter.getList().clear();
                 }
+                adapter.notifyDataSetChanged();
+
             } catch (ResponseException e) {
                 e.printStackTrace();
                 L.d(e.getMessage());
