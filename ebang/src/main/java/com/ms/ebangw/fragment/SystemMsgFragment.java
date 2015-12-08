@@ -1,20 +1,25 @@
 package com.ms.ebangw.fragment;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.ms.ebangw.R;
+import com.ms.ebangw.activity.SystemDetailActivity;
 import com.ms.ebangw.adapter.SystemMessageAdapter;
 import com.ms.ebangw.bean.SystemMessage;
+import com.ms.ebangw.commons.Constants;
 import com.ms.ebangw.exception.ResponseException;
 import com.ms.ebangw.service.DataAccessUtil;
 import com.ms.ebangw.service.DataParseUtil;
@@ -35,6 +40,7 @@ import butterknife.ButterKnife;
  * @author wangkai.
  */
 public class SystemMsgFragment extends Fragment {
+    private static final int ALREADY_READ = 111;
 
     @Bind(R.id.ptr)
     PullToRefreshListView ptr;
@@ -63,7 +69,7 @@ public class SystemMsgFragment extends Fragment {
         initData();
     }
 
-    private void initData() {
+    public void initData() {
         ptr.setMode(PullToRefreshBase.Mode.BOTH);
         ptr.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2<ListView>() {
             @Override
@@ -81,9 +87,47 @@ public class SystemMsgFragment extends Fragment {
         adapter = new SystemMessageAdapter(messages);
         ptr.setAdapter(adapter);
 
+        ptr.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                SystemMessage message = (SystemMessage) view.getTag(Constants.KEY_SYS_MESSAGE);
+                Bundle bundle = new Bundle();
+                bundle.putParcelable(Constants.KEY_SYS_MESSAGE_STR, message);
+
+                Intent intent = new Intent(getActivity(), SystemDetailActivity.class);
+                intent.putExtras(bundle);
+                startActivityForResult(intent, ALREADY_READ);
+            }
+        });
+
         load();
     }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == getActivity().RESULT_OK && requestCode == ALREADY_READ) {
+            Bundle extras = data.getExtras();
+            if (null != extras) {
+                String msgId =  extras.getString(Constants.KEY_SYS_MESSAGE_ID, "-100");
+                updateMessageStatus(msgId);
+            }
+
+        }
+    }
+
+    private void updateMessageStatus(String messageId) {
+        int size = adapter.getList().size();
+        SystemMessage msg;
+        for (int i = 0; i < size; i++) {
+            msg = adapter.getList().get(i);
+            if (TextUtils.equals(msg.getId(), messageId)) {
+                msg.setIs_read("1");
+                adapter.notifyDataSetChanged();
+                return;
+            }
+        }
+    }
 
     private void load() {
         currentPage = 1;
