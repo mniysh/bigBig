@@ -100,9 +100,6 @@ public class PayingActivity extends BaseActivity {
                     super.onStart();
                     showProgressDialog();
                 }
-
-
-
                 @Override
                 public void onSuccess(int i, Header[] headers, byte[] bytes) {
 
