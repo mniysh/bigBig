@@ -11,7 +11,6 @@ import com.easemob.easeui.EaseConstant;
 import com.easemob.easeui.ui.EaseConversationListFragment;
 import com.ms.ebangw.R;
 import com.ms.ebangw.adapter.CommonV4FragmentPagerAdapter;
-import com.ms.ebangw.bean.EMUser;
 import com.ms.ebangw.fragment.SystemMsgFragment;
 import com.ms.ebangw.utils.ChartUtil;
 
@@ -73,10 +72,7 @@ public class MessageCenterActivit extends BaseActivity {
             public void onListItemClicked(EMConversation conversation) {
 
                 String userName = conversation.getUserName();
-                EMUser emUser = new EMUser();
-                emUser.setUserId(userName);
-                emUser.setType(EaseConstant.CHATTYPE_SINGLE);
-                ChartUtil.chatTo(MessageCenterActivit.this, emUser);
+                ChartUtil.chatTo(MessageCenterActivit.this, userName, EaseConstant.CHATTYPE_SINGLE);
             }
         });
 

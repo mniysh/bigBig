@@ -36,6 +36,10 @@ import com.easemob.easeui.widget.chatrow.EaseChatRowText;
 import com.easemob.easeui.widget.chatrow.EaseChatRowVideo;
 import com.easemob.easeui.widget.chatrow.EaseChatRowVoice;
 import com.easemob.easeui.widget.chatrow.EaseCustomChatRowProvider;
+import com.ms.ebangw.bean.EMUser;
+import com.ms.ebangw.db.EMUserDao;
+
+import java.util.List;
 
 public class EaseMessageAdapter extends BaseAdapter{
 
@@ -263,7 +267,9 @@ public class EaseMessageAdapter extends BaseAdapter{
 			convertView = createChatRow(context, message, position);
 		}
 		String userName = message.getUserName();
-
+		EMUserDao dao = new EMUserDao(parent.getContext());
+		List<EMUser> allEmUser = dao.getAllEmUser();
+//		convertView.findViewById()
 		//缓存的view的message很可能不是当前item的，传入当前message和position更新ui
 		((EaseChatRow)convertView).setUpView(message, position, itemClickListener);
 		

@@ -28,13 +28,13 @@ public class EMUser implements Parcelable, Serializable{
     /**
      * 昵称
      */
-    @DatabaseField(columnName = "nickName")
-    private String nickName;
+    @DatabaseField(columnName = "real_name")
+    private String real_name;
     /**
      *头像
      */
-    @DatabaseField(columnName = "avatarUrl")
-    private String avatarUrl;
+    @DatabaseField(columnName = "head_image")
+    private String head_image;
 
     public String getUserId() {
         return userId;
@@ -44,33 +44,28 @@ public class EMUser implements Parcelable, Serializable{
         this.userId = userId;
     }
 
-
-
-    public String getNickName() {
-        return nickName;
-    }
-
-    public void setNickName(String nickName) {
-        this.nickName = nickName;
-    }
-
-    public String getAvatarUrl() {
-        return avatarUrl;
-    }
-
-    public void setAvatarUrl(String avatarUrl) {
-        this.avatarUrl = avatarUrl;
-    }
-
-    public EMUser() {
-    }
-
     public int getType() {
         return type;
     }
 
     public void setType(int type) {
         this.type = type;
+    }
+
+    public String getReal_name() {
+        return real_name;
+    }
+
+    public void setReal_name(String real_name) {
+        this.real_name = real_name;
+    }
+
+    public String getHead_image() {
+        return head_image;
+    }
+
+    public void setHead_image(String head_image) {
+        this.head_image = head_image;
     }
 
 
@@ -83,15 +78,18 @@ public class EMUser implements Parcelable, Serializable{
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(this.userId);
         dest.writeInt(this.type);
-        dest.writeString(this.nickName);
-        dest.writeString(this.avatarUrl);
+        dest.writeString(this.real_name);
+        dest.writeString(this.head_image);
+    }
+
+    public EMUser() {
     }
 
     protected EMUser(Parcel in) {
         this.userId = in.readString();
         this.type = in.readInt();
-        this.nickName = in.readString();
-        this.avatarUrl = in.readString();
+        this.real_name = in.readString();
+        this.head_image = in.readString();
     }
 
     public static final Creator<EMUser> CREATOR = new Creator<EMUser>() {

@@ -13,7 +13,6 @@ import com.loopj.android.http.JsonHttpResponseHandler;
 import com.ms.ebangw.R;
 import com.ms.ebangw.activity.BaseActivity;
 import com.ms.ebangw.adapter.PartyImageAdapter;
-import com.ms.ebangw.bean.EMUser;
 import com.ms.ebangw.bean.Party;
 import com.ms.ebangw.commons.Constants;
 import com.ms.ebangw.dialog.PartyApplyResultDialog;
@@ -89,11 +88,8 @@ public class SocialPartyDetailActivity extends BaseActivity {
             public void onClick(View v) {
                 if (null != party) {
                     String user_id = party.getUser_id();
-                    EMUser emUser = new EMUser();
-                    emUser.setUserId(user_id);
-                    emUser.setType(EaseConstant.CHATTYPE_SINGLE);
 
-                    ChartUtil.chatTo(SocialPartyDetailActivity.this, emUser);
+                    ChartUtil.chatTo(SocialPartyDetailActivity.this, user_id, EaseConstant.CHATTYPE_SINGLE);
                 }
             }
         });

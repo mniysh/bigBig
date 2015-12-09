@@ -30,6 +30,7 @@ public abstract class EaseBaseFragment extends Fragment {
     public void ShowTitleBar(){
         if(titleBar != null){
             titleBar.setVisibility(View.VISIBLE);
+
         }
     }
     

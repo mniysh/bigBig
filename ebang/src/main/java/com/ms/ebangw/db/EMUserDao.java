@@ -69,8 +69,9 @@ public class EMUserDao {
 
 
 
-    public EMUser getUserById(int id) {
+    public EMUser getUserById(int  id) {
         try {
+
             return dao.queryForId(id);
         } catch (SQLException e) {
             e.printStackTrace();

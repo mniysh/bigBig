@@ -13,6 +13,7 @@ import com.ms.ebangw.bean.BannerImage;
 import com.ms.ebangw.bean.CheckedWorkTypeUser;
 import com.ms.ebangw.bean.City;
 import com.ms.ebangw.bean.Craft;
+import com.ms.ebangw.bean.EMUser;
 import com.ms.ebangw.bean.HomeProjectInfo;
 import com.ms.ebangw.bean.JiFen;
 import com.ms.ebangw.bean.Party;
@@ -356,6 +357,19 @@ public class DataParseUtil {
         Gson gson = new Gson();
         HomeProjectInfo info = gson.fromJson(dataStr, HomeProjectInfo.class);
         return info;
+    }
+
+    /**
+     *  4-6.通过用户id查询真实名字和头像
+     * @param jsonObject
+     * @return
+     * @throws ResponseException
+     */
+    public static EMUser queryAvatar(JSONObject jsonObject) throws ResponseException {
+        String dataStr = processDataStr(jsonObject);
+        Gson gson = new Gson();
+        EMUser emUser = gson.fromJson(dataStr, EMUser.class);
+        return emUser;
     }
 
     /**
