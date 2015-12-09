@@ -287,6 +287,7 @@ public class HomeFragment extends BaseFragment {
                         List<ReleaseProject> projectList = info.getProject();
                         setRecommendedDeveploersInfo(deveoperList);
                         setRecommendedDevelopersProjects(projectList);
+                        dismissLoadingDialog();
                     }
                 } catch (ResponseException e) {
                     e.printStackTrace();

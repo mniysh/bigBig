@@ -28,7 +28,7 @@
             android:drawableLeft="@drawable/right"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1.5"
+            android:layout_weight="1.2"
             android:text="会员昵称"
             android:textColor="@color/black"
             android:textSize="16dp"
@@ -48,13 +48,16 @@
             android:id="@+id/tv_nameModify"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginRight="10dp"
-            android:layout_weight="1"
-            android:clickable="true"
-            android:gravity="center_horizontal"
             android:text="修改"
-            android:textColor="@color/auther_red"
-            android:textSize="16dp"
+            android:textSize="14sp"
+            android:drawableRight="@drawable/right_arrow"
+            android:layout_weight="1"
+
+            android:clickable="true"
+            android:gravity="center"
+
+
+
             />
     </LinearLayout>
     <LinearLayout
@@ -72,7 +75,7 @@
             android:drawableLeft="@drawable/right"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1.5"
+            android:layout_weight="1.2"
             android:text="实名认证"
             android:textColor="@color/black"
             android:textSize="16dp"
@@ -83,20 +86,33 @@
             android:layout_height="1dp"
             android:layout_weight="2"/>
 
-
-
         <TextView
-            android:id="@+id/tv_realNameModify"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="10dp"
-            android:layout_weight="1"
-            android:clickable="true"
-            android:gravity="center_horizontal"
-            android:text="修改"
-            android:textColor="@color/auther_red"
-            android:textSize="16dp"
-            />
+        android:id="@+id/tv_realNameModify"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+
+        android:layout_weight="1"
+        android:clickable="true"
+        android:gravity="center_horizontal"
+        android:src="@drawable/right_arrow"
+
+        android:textSize="16dp"
+        />
+
+
+
+        <!--<ImageView-->
+            <!--android:id="@+id/tv_realNameModify"-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_height="wrap_content"-->
+
+            <!--android:layout_weight="1"-->
+            <!--android:clickable="true"-->
+            <!--android:gravity="center_horizontal"-->
+            <!--android:src="@drawable/right_arrow"-->
+            <!--android:textColor="@color/auther_red"-->
+            <!--android:textSize="16dp"-->
+            <!--/>-->
     </LinearLayout>
 
 
@@ -114,7 +130,7 @@
             android:drawableLeft="@drawable/right"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1.5"
+            android:layout_weight="1.2"
             android:text="手机验证"
             android:textColor="@color/black"
             android:textSize="16dp"
@@ -134,13 +150,15 @@
             android:id="@+id/tv_phoneModify"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginRight="10dp"
+
             android:layout_weight="1"
             android:clickable="true"
-            android:gravity="center_horizontal"
+            android:gravity="center"
             android:text="修改"
-            android:textColor="@color/auther_red"
-            android:textSize="16dp"
+            android:textSize="14sp"
+
+            android:drawableRight="@drawable/right_arrow"
+
             />
     </LinearLayout>
 
@@ -160,7 +178,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:layout_weight="1.5"
+            android:layout_weight="1.2"
             android:text="登录密码"
             android:textColor="@color/black"
             android:textSize="16dp"
@@ -181,13 +199,13 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:layout_marginRight="10dp"
+android:text="修改"
+
             android:layout_weight="1"
             android:clickable="true"
-            android:gravity="center_horizontal"
-            android:text="修改"
-            android:textColor="@color/auther_red"
-            android:textSize="16dp"
+            android:gravity="center"
+            android:drawableRight="@drawable/right_arrow"
+
             />
     </LinearLayout>
 
