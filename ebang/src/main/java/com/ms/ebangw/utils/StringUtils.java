@@ -61,12 +61,17 @@ public class StringUtils {
 	 * @return
 	 */
 	public static  String setRealName(String realName ){
-//		StringBuilder sb = new StringBuilder();
+		StringBuilder sb = new StringBuilder();
 //		String modifyNameStr = realName.substring(1,realName.length()-1);
 //		sb.append("*").append(modifyNameStr);
 		char[] a = realName.toCharArray();
 		String aa = realName.replace(a[0], '*');
-		return aa;
+		String endChar = String .valueOf(a[a.length - 1]);
+		for (int i = 0; i < a.length-1; i++) {
+			sb.append("*");
+		}
+
+		return sb.append(endChar).toString();
 
 	}
 	public static String setString(String time){
