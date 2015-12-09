@@ -13,6 +13,7 @@ import com.ms.ebangw.bean.BannerImage;
 import com.ms.ebangw.bean.CheckedWorkTypeUser;
 import com.ms.ebangw.bean.City;
 import com.ms.ebangw.bean.Craft;
+import com.ms.ebangw.bean.EMUser;
 import com.ms.ebangw.bean.HomeProjectInfo;
 import com.ms.ebangw.bean.JiFen;
 import com.ms.ebangw.bean.Party;
@@ -359,6 +360,19 @@ public class DataParseUtil {
     }
 
     /**
+     *  4-6.通过用户id查询真实名字和头像
+     * @param jsonObject
+     * @return
+     * @throws ResponseException
+     */
+    public static EMUser queryAvatar(JSONObject jsonObject) throws ResponseException {
+        String dataStr = processDataStr(jsonObject);
+        Gson gson = new Gson();
+        EMUser emUser = gson.fromJson(dataStr, EMUser.class);
+        return emUser;
+    }
+
+    /**
      * 2-12.首页工程详情
      *
      * @param jsonObject
@@ -474,13 +488,16 @@ public class DataParseUtil {
      */
     public static List<ReleaseProject> founds(JSONObject jsonObject) throws ResponseException {
         JSONObject data = processData(jsonObject);
-        String arrayStr = data.optString("project");
+        if (null != data) {
+            String arrayStr = data.optString("project");
 
-        Gson gson = new Gson();
-        List<ReleaseProject> list = gson.fromJson(arrayStr, new TypeToken<List<ReleaseProject>>() {
-        }.getType());
+            Gson gson = new Gson();
+            List<ReleaseProject> list = gson.fromJson(arrayStr, new TypeToken<List<ReleaseProject>>() {
+            }.getType());
 
-        return list;
+            return list;
+        }
+        return null;
     }
 
     /**
@@ -492,13 +509,15 @@ public class DataParseUtil {
      */
     public static List<ReleaseProject> grabStatus(JSONObject jsonObject) throws ResponseException {
         JSONObject data = processData(jsonObject);
-        String arrayStr = data.optString("project");
+        if (null != data) {
+            String arrayStr = data.optString("project");
+            Gson gson = new Gson();
+            List<ReleaseProject> list = gson.fromJson(arrayStr, new TypeToken<List<ReleaseProject>>() {
+            }.getType());
 
-        Gson gson = new Gson();
-        List<ReleaseProject> list = gson.fromJson(arrayStr, new TypeToken<List<ReleaseProject>>() {
-        }.getType());
-
-        return list;
+            return list;
+        }
+        return null;
     }
 
     /**
@@ -510,13 +529,15 @@ public class DataParseUtil {
      */
     public static List<Evaluate> evaluateList(JSONObject jsonObject) throws ResponseException {
         JSONObject data = processData(jsonObject);
-        String arrayStr = data.optString("evaluate");
+        if (null != data) {
+            String arrayStr = data.optString("evaluate");
+            Gson gson = new Gson();
+            List<Evaluate> list = gson.fromJson(arrayStr, new TypeToken<List<Evaluate>>() {
+            }.getType());
 
-        Gson gson = new Gson();
-        List<Evaluate> list = gson.fromJson(arrayStr, new TypeToken<List<Evaluate>>() {
-        }.getType());
-
-        return list;
+            return list;
+        }
+        return null;
     }
 
 
@@ -529,13 +550,17 @@ public class DataParseUtil {
      */
     public static List<Trade> tradeDetail(JSONObject jsonObject) throws ResponseException {
         JSONObject data = processData(jsonObject);
-        String arrayStr = data.optString("trade");
+        if (null != data) {
 
-        Gson gson = new Gson();
-        List<Trade> list = gson.fromJson(arrayStr, new TypeToken<List<Trade>>() {
-        }.getType());
+            String arrayStr = data.optString("trade");
 
-        return list;
+            Gson gson = new Gson();
+            List<Trade> list = gson.fromJson(arrayStr, new TypeToken<List<Trade>>() {
+            }.getType());
+
+            return list;
+        }
+        return null;
     }
 
     /**

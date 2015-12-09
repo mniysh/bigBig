@@ -25,7 +25,7 @@
 
         <TextView
             android:drawablePadding="5dp"
-            android:drawableLeft="@drawable/right"
+            android:drawableLeft="@drawable/nickname"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1.5"
@@ -38,7 +38,7 @@
             android:id="@+id/tv_nickName"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
+
             android:layout_weight="2"
             android:text="放手机号或户名"
             android:textSize="16dp"
@@ -48,13 +48,16 @@
             android:id="@+id/tv_nameModify"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginRight="10dp"
-            android:layout_weight="1"
-            android:clickable="true"
-            android:gravity="center_horizontal"
             android:text="修改"
-            android:textColor="@color/auther_red"
-            android:textSize="16dp"
+            android:textSize="14sp"
+            android:drawableRight="@drawable/right_arrow"
+            android:layout_weight="1"
+
+            android:clickable="true"
+            android:gravity="center"
+
+
+
             />
     </LinearLayout>
     <LinearLayout
@@ -69,7 +72,7 @@
 
 
         <TextView
-            android:drawableLeft="@drawable/right"
+            android:drawableLeft="@drawable/real_name_auth"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1.5"
@@ -78,25 +81,38 @@
             android:textSize="16dp"
             android:drawablePadding="5dp"
             />
-        <View
-            android:layout_width="0dp"
-            android:layout_height="1dp"
-            android:layout_weight="2"/>
-
-
+        <!--<View-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_height="1dp"-->
+            <!--android:layout_weight="2"/>-->
 
         <TextView
-            android:id="@+id/tv_realNameModify"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="10dp"
-            android:layout_weight="1"
-            android:clickable="true"
-            android:gravity="center_horizontal"
-            android:text="修改"
-            android:textColor="@color/auther_red"
-            android:textSize="16dp"
-            />
+        android:id="@+id/tv_realNameModify"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+
+        android:layout_weight="3"
+        android:clickable="true"
+        android:gravity="center_vertical"
+        android:src="@drawable/right_arrow"
+
+        android:textSize="16dp"
+        />
+
+
+
+        <!--<ImageView-->
+            <!--android:id="@+id/tv_realNameModify"-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_height="wrap_content"-->
+
+            <!--android:layout_weight="1"-->
+            <!--android:clickable="true"-->
+            <!--android:gravity="center_horizontal"-->
+            <!--android:src="@drawable/right_arrow"-->
+            <!--android:textColor="@color/auther_red"-->
+            <!--android:textSize="16dp"-->
+            <!--/>-->
     </LinearLayout>
 
 
@@ -111,7 +127,7 @@
 
         <TextView
             android:drawablePadding="5dp"
-            android:drawableLeft="@drawable/right"
+            android:drawableLeft="@drawable/phone_number_auth"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1.5"
@@ -124,7 +140,7 @@
             android:id="@+id/tv_phone"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
+
             android:layout_weight="2"
             android:text="放手机号"
             android:textSize="16dp"
@@ -134,13 +150,15 @@
             android:id="@+id/tv_phoneModify"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginRight="10dp"
+
             android:layout_weight="1"
             android:clickable="true"
-            android:gravity="center_horizontal"
+            android:gravity="center"
             android:text="修改"
-            android:textColor="@color/auther_red"
-            android:textSize="16dp"
+            android:textSize="14sp"
+
+            android:drawableRight="@drawable/right_arrow"
+
             />
     </LinearLayout>
 
@@ -156,7 +174,7 @@
 
         <TextView
             android:drawablePadding="5dp"
-            android:drawableLeft="@drawable/right"
+            android:drawableLeft="@drawable/password_check"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
@@ -170,7 +188,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:layout_marginLeft="20dp"
+
             android:layout_weight="2"
             android:text="互联网账号存在风险建议您定期修改密码以维护账户安全"
             android:textSize="12dp"
@@ -181,13 +199,13 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:layout_marginRight="10dp"
+android:text="修改"
+
             android:layout_weight="1"
             android:clickable="true"
-            android:gravity="center_horizontal"
-            android:text="修改"
-            android:textColor="@color/auther_red"
-            android:textSize="16dp"
+            android:gravity="center"
+            android:drawableRight="@drawable/right_arrow"
+
             />
     </LinearLayout>
 

@@ -8,6 +8,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
 
+import com.easemob.easeui.EaseConstant;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.ms.ebangw.R;
 import com.ms.ebangw.activity.BaseActivity;
@@ -87,7 +88,8 @@ public class SocialPartyDetailActivity extends BaseActivity {
             public void onClick(View v) {
                 if (null != party) {
                     String user_id = party.getUser_id();
-                    ChartUtil.chatBySingle(SocialPartyDetailActivity.this, user_id);
+
+                    ChartUtil.chatTo(SocialPartyDetailActivity.this, user_id, EaseConstant.CHATTYPE_SINGLE);
                 }
             }
         });

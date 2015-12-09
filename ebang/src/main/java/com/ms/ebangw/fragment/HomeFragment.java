@@ -180,16 +180,19 @@ public class HomeFragment extends BaseFragment {
     }
 
     public void initBanner(List<BannerImage> bannerImages) {
-        convenientBanner.setPages(new CBViewHolderCreator<BannerImageHoderView>() {
+        if (null != convenientBanner) {
+
+            convenientBanner.setPages(new CBViewHolderCreator<BannerImageHoderView>() {
                 @Override
                 public BannerImageHoderView createHolder() {
                     return new BannerImageHoderView();
                 }
             }, bannerImages)
-            //设置两个点图片作为翻页指示器，不设置则没有指示器，可以根据自己需求自行配合自己的指示器,不需要圆点指示器可用不设
-            .setPageIndicator(new int[]{R.drawable.point_normal, R.drawable.point_able})
+                //设置两个点图片作为翻页指示器，不设置则没有指示器，可以根据自己需求自行配合自己的指示器,不需要圆点指示器可用不设
+                .setPageIndicator(new int[]{R.drawable.point_normal, R.drawable.point_able})
                 //设置翻页的效果，不需要翻页效果可用不设
-            .setPageTransformer(ConvenientBanner.Transformer.TabletTransformer);
+                .setPageTransformer(ConvenientBanner.Transformer.TabletTransformer);
+        }
     }
 
 
@@ -287,6 +290,7 @@ public class HomeFragment extends BaseFragment {
                         List<ReleaseProject> projectList = info.getProject();
                         setRecommendedDeveploersInfo(deveoperList);
                         setRecommendedDevelopersProjects(projectList);
+                        dismissLoadingDialog();
                     }
                 } catch (ResponseException e) {
                     e.printStackTrace();

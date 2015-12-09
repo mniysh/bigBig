@@ -1248,6 +1248,20 @@ public class DataAccessUtil {
         return doGet(RequestUrl.social_my_list, params, asyncHttpResponseHandler);
     }
 
+    /**
+     * 4-6.通过用户id查询真实名字和头像
+     */
+    public static RequestHandle queryAvatar(String login_user_id,
+                                            AsyncHttpResponseHandler asyncHttpResponseHandler){
+
+        RequestParams params = new RequestParams();
+        params.put("login_user_id", login_user_id);
+
+        return doGet(RequestUrl.query_avatar, params, asyncHttpResponseHandler);
+    }
+
+
+
 
     public static RequestHandle doPost(String url, RequestParams params, AsyncHttpResponseHandler asyncHttpResponseHandler) {
 

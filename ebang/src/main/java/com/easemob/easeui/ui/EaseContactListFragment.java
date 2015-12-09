@@ -193,6 +193,7 @@ public class EaseContactListFragment extends EaseBaseFragment {
                 try {
                     //加入到黑名单
                     EMContactManager.getInstance().addUserToBlackList(username,false);
+
                     getActivity().runOnUiThread(new Runnable() {
                         public void run() {
                             pd.dismiss();

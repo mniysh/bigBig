@@ -335,6 +335,11 @@ public class RequestUrl {
      */
     public static final String banner = domain + "/api/common/article/banner";
 
+    /**
+     * 4-6.通过用户id查询真实名字和头像
+     */
+    public static final String query_avatar = domain + "/api/social/social/real-message";
+
 
 
 

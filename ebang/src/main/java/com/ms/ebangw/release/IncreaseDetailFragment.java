@@ -147,17 +147,20 @@ public class IncreaseDetailFragment extends CropEnableFragment {
     private ReleaseProject releaseProject;
     private String categroy;
     private static  final String KEY_CATEGROY = "key_categroy";
+    private static final String  KEY_MONEY = "key_money";
     private ArrayList<Bitmap> dataBit ;
     private ArrayList<String> dataFilePath;
+    private long money = 0;
 
 
 
 
-    public static IncreaseDetailFragment newInstance(String param1, String categroy) {
+    public static IncreaseDetailFragment newInstance(String param1, String categroy,long money) {
         IncreaseDetailFragment fragment = new IncreaseDetailFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(KEY_CATEGROY, categroy);
+        args.putLong(KEY_MONEY, money);
         fragment.setArguments(args);
         return fragment;
     }
@@ -218,6 +221,7 @@ public class IncreaseDetailFragment extends CropEnableFragment {
         if (getArguments() != null) {
             staff = getArguments().getString(ARG_PARAM1);
             categroy = getArguments().getString(KEY_CATEGROY);
+            money = getArguments().getLong(KEY_MONEY);
         }
         options = ImageLoaderutils.getOpt();
         loader = ImageLoaderutils.getInstance(mActivity);
@@ -363,6 +367,10 @@ public class IncreaseDetailFragment extends CropEnableFragment {
         }
         if(TextUtils.isEmpty(totalMoney) ){
             T.show("工程总额不能为空");
+            return false;
+        }
+        if(Integer.valueOf(totalMoney) < money){
+            T.show("工程总额不能低于" + money + "元");
             return false;
         }
 
@@ -519,9 +527,9 @@ public class IncreaseDetailFragment extends CropEnableFragment {
                 .ImageColumns.DATA }, null, null, null );
             if ( null != cursor ) {
                 if ( cursor.moveToFirst() ) {
-                    int index = cursor.getColumnIndex( MediaStore.Images.ImageColumns.DATA );
+                    int index = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA);
                     if ( index > -1 ) {
-                        data = cursor.getString( index );
+                        data = cursor.getString(index);
                     }
                 }
                 cursor.close();
@@ -541,40 +549,40 @@ public class IncreaseDetailFragment extends CropEnableFragment {
 
         if(isRight()){
             DataAccessUtil.releaseProject(title, description, link_name, link_phone,
-                provinceId, cityId, detailAddress,
-                longitude, latitude, image_ary, startTime, endTime, totalMoney, staff,
-                new JsonHttpResponseHandler() {
+                    provinceId, cityId, detailAddress,
+                    longitude, latitude, image_ary, startTime, endTime, totalMoney, staff,
+                    new JsonHttpResponseHandler() {
 
-                    @Override
-                    public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                        super.onSuccess(statusCode, headers, response);
+                        @Override
+                        public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                            super.onSuccess(statusCode, headers, response);
 
-                        try {
-                            releaseProject = new ReleaseProject();
-                            boolean b = DataParseUtil.processDataResult(response);
-                            if (b) {
-                                T.show("开发商发布成功");
-                                releaseProject = DataParseUtil.getProjectInfo(response);
-                                Bundle bundle = new Bundle();
-                                bundle.putParcelable(Constants.KEY_RELEASE_PROJECT, releaseProject);
-                                Intent intent = new Intent(mActivity, PayingActivity.class);
-                                intent.putExtras(bundle);
-                                startActivity(intent);
-                                mActivity.finish();
+                            try {
+                                releaseProject = new ReleaseProject();
+                                boolean b = DataParseUtil.processDataResult(response);
+                                if (b) {
+                                    T.show("开发商发布成功");
+                                    releaseProject = DataParseUtil.getProjectInfo(response);
+                                    Bundle bundle = new Bundle();
+                                    bundle.putParcelable(Constants.KEY_RELEASE_PROJECT, releaseProject);
+                                    Intent intent = new Intent(mActivity, PayingActivity.class);
+                                    intent.putExtras(bundle);
+                                    startActivity(intent);
+                                    mActivity.finish();
+                                }
+                            } catch (ResponseException e) {
+                                e.printStackTrace();
+                                T.show(e.getMessage());
                             }
-                        } catch (ResponseException e) {
-                            e.printStackTrace();
-                            T.show(e.getMessage());
+
                         }
 
-                    }
-
-                    @Override
-                    public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
-                        super.onFailure(statusCode, headers, responseString, throwable);
-                        L.d(responseString);
-                    }
-                });
+                        @Override
+                        public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                            super.onFailure(statusCode, headers, responseString, throwable);
+                            L.d(responseString);
+                        }
+                    });
         }
 
     }
@@ -601,7 +609,7 @@ public class IncreaseDetailFragment extends CropEnableFragment {
     public void onSaveInstanceState(Bundle outState) {
         outState.putParcelable(Constants.KEY_RELEASE_INFO, releaseInfo);
         outState.putStringArrayList(Constants.KEY_PROJECT_IMAGES, imageNames);
-        outState.putStringArrayList("duang",dataFilePath);
+        outState.putStringArrayList("duang", dataFilePath);
         super.onSaveInstanceState(outState);
     }
 
