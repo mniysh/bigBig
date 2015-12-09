@@ -488,13 +488,16 @@ public class DataParseUtil {
      */
     public static List<ReleaseProject> founds(JSONObject jsonObject) throws ResponseException {
         JSONObject data = processData(jsonObject);
-        String arrayStr = data.optString("project");
+        if (null != data) {
+            String arrayStr = data.optString("project");
 
-        Gson gson = new Gson();
-        List<ReleaseProject> list = gson.fromJson(arrayStr, new TypeToken<List<ReleaseProject>>() {
-        }.getType());
+            Gson gson = new Gson();
+            List<ReleaseProject> list = gson.fromJson(arrayStr, new TypeToken<List<ReleaseProject>>() {
+            }.getType());
 
-        return list;
+            return list;
+        }
+        return null;
     }
 
     /**
@@ -506,13 +509,15 @@ public class DataParseUtil {
      */
     public static List<ReleaseProject> grabStatus(JSONObject jsonObject) throws ResponseException {
         JSONObject data = processData(jsonObject);
-        String arrayStr = data.optString("project");
+        if (null != data) {
+            String arrayStr = data.optString("project");
+            Gson gson = new Gson();
+            List<ReleaseProject> list = gson.fromJson(arrayStr, new TypeToken<List<ReleaseProject>>() {
+            }.getType());
 
-        Gson gson = new Gson();
-        List<ReleaseProject> list = gson.fromJson(arrayStr, new TypeToken<List<ReleaseProject>>() {
-        }.getType());
-
-        return list;
+            return list;
+        }
+        return null;
     }
 
     /**
@@ -524,13 +529,15 @@ public class DataParseUtil {
      */
     public static List<Evaluate> evaluateList(JSONObject jsonObject) throws ResponseException {
         JSONObject data = processData(jsonObject);
-        String arrayStr = data.optString("evaluate");
+        if (null != data) {
+            String arrayStr = data.optString("evaluate");
+            Gson gson = new Gson();
+            List<Evaluate> list = gson.fromJson(arrayStr, new TypeToken<List<Evaluate>>() {
+            }.getType());
 
-        Gson gson = new Gson();
-        List<Evaluate> list = gson.fromJson(arrayStr, new TypeToken<List<Evaluate>>() {
-        }.getType());
-
-        return list;
+            return list;
+        }
+        return null;
     }
 
 
@@ -543,13 +550,17 @@ public class DataParseUtil {
      */
     public static List<Trade> tradeDetail(JSONObject jsonObject) throws ResponseException {
         JSONObject data = processData(jsonObject);
-        String arrayStr = data.optString("trade");
+        if (null != data) {
 
-        Gson gson = new Gson();
-        List<Trade> list = gson.fromJson(arrayStr, new TypeToken<List<Trade>>() {
-        }.getType());
+            String arrayStr = data.optString("trade");
 
-        return list;
+            Gson gson = new Gson();
+            List<Trade> list = gson.fromJson(arrayStr, new TypeToken<List<Trade>>() {
+            }.getType());
+
+            return list;
+        }
+        return null;
     }
 
     /**
