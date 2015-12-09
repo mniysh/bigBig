@@ -262,6 +262,8 @@ public class EaseMessageAdapter extends BaseAdapter{
 		if(convertView == null){
 			convertView = createChatRow(context, message, position);
 		}
+		String userName = message.getUserName();
+
 		//缓存的view的message很可能不是当前item的，传入当前message和position更新ui
 		((EaseChatRow)convertView).setUpView(message, position, itemClickListener);
 		

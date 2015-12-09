@@ -7,6 +7,7 @@ import com.j256.ormlite.android.apptools.OrmLiteSqliteOpenHelper;
 import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.support.ConnectionSource;
 import com.j256.ormlite.table.TableUtils;
+import com.ms.ebangw.bean.EMUser;
 import com.ms.ebangw.bean.User;
 
 import java.sql.SQLException;
@@ -29,6 +30,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
                          ConnectionSource connectionSource) {
         try {
             TableUtils.createTable(connectionSource, User.class);
+            TableUtils.createTable(connectionSource, EMUser.class);
 //			TableUtils.createTable(connectionSource, Article.class);
 //			TableUtils.createTable(connectionSource, Student.class);
         } catch (SQLException e) {
@@ -41,8 +43,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
                           ConnectionSource connectionSource, int oldVersion, int newVersion) {
         try {
             TableUtils.dropTable(connectionSource, User.class, true);
-//			TableUtils.dropTable(connectionSource, Article.class, true);
-//			TableUtils.dropTable(connectionSource, Student.class, true);
+			TableUtils.dropTable(connectionSource, EMUser.class, true);
             onCreate(database, connectionSource);
         } catch (SQLException e) {
             e.printStackTrace();
