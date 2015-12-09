@@ -26,7 +26,6 @@ import com.ms.ebangw.utils.L;
 import com.ms.ebangw.utils.T;
 
 import org.apache.http.Header;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.File;
@@ -177,17 +176,12 @@ public class InvestorAuthenActivity extends BaseActivity {
 
 					try {
 						boolean b = DataParseUtil.processDataResult(response);
-						L.d("xxx","boolean值"+b);
 						if (b) {
-							T.show(response.getString("message"));
 							saveAuthStatusInLocal();
 							EventBus.getDefault().post(new RefreshUserEvent(Constants.INVESTOR));
 							goResultFragment(Constants.INVESTOR);
 						}
 					} catch (ResponseException e) {
-						e.printStackTrace();
-						T.show(e.getMessage());
-					} catch (JSONException e) {
 						e.printStackTrace();
 						T.show(e.getMessage());
 					}

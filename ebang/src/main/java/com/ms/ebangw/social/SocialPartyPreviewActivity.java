@@ -1,5 +1,6 @@
 package com.ms.ebangw.social;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -120,6 +121,7 @@ public class SocialPartyPreviewActivity extends BaseActivity {
                             if (b) {
                                 setResult(RESULT_OK);
                                 T.show("发布成功");
+                                startActivity(new Intent(SocialPartyPreviewActivity.this, PartyPublishSuccessActivity.class));
                                 finish();
                             }
                         } catch (ResponseException e) {

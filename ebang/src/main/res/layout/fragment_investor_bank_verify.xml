@@ -13,7 +13,6 @@
         android:layout_height="@dimen/authen_item_height"
         android:gravity="center_vertical"
         android:orientation="horizontal"
-
         >
 
         <TextView
