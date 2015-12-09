@@ -272,9 +272,9 @@ public class HomeActivity extends BaseActivity {
     /**
      * 去开发商发布页面
      */
-    public void goDeveloperRelease(String staff, String cate) {
+    public void goDeveloperRelease(String staff, String cate, long money) {
 
-        IncreaseDetailFragment increaseDetailFragment = IncreaseDetailFragment.newInstance(staff, cate);
+        IncreaseDetailFragment increaseDetailFragment = IncreaseDetailFragment.newInstance(staff, cate,money);
         FragmentTransaction transaction = fm.beginTransaction();
         transaction.replace(R.id.fl_content, increaseDetailFragment);
         transaction.addToBackStack(null);

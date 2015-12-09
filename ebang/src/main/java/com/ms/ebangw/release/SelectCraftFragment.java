@@ -183,7 +183,7 @@ public class SelectCraftFragment extends BaseFragment {
 //            bundle.putString(Constants.KEY_RELEASE_PROJECT,getStaff(workTypeSet));
 
             ReleaseActivity homeActivity = (ReleaseActivity) mActivity;
-            homeActivity.goDeveloperRelease(getStaff(workTypeSet), categroy);
+            homeActivity.goDeveloperRelease(getStaff(workTypeSet), categroy, totalMoney);
         }
 
 
