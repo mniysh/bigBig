@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
@@ -56,6 +57,8 @@ public class DevelopersBaseInfoFragment extends BaseFragment {
 	Button nextBtn;
 	@Bind(R.id.et_introduce)
 	EditText introduceEt;
+	@Bind(R.id.ll_phone)
+	LinearLayout llPhone;
 
 	private List<Province> provinces;
 	private Province province;
@@ -93,6 +96,7 @@ public class DevelopersBaseInfoFragment extends BaseFragment {
 	@Override
 	public void initView() {
 		setStarRed();
+		llPhone.setVisibility(View.VISIBLE);
 		contentLayout.findViewById(R.id.ll_introduce).setVisibility(View.VISIBLE);
 	}
 
