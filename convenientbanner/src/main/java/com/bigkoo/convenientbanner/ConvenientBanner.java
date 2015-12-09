@@ -65,7 +65,7 @@ public class ConvenientBanner<T> extends LinearLayout {
     private Runnable adSwitchTask = new Runnable() {
         @Override
         public void run() {
-            if (viewPager != null && turning) {
+            if (viewPager != null && viewPager.getAdapter() != null && turning) {
                 int page = viewPager.getCurrentItem() + 1;
                 viewPager.setCurrentItem(page);
                 timeHandler.postDelayed(adSwitchTask, autoTurningTime);
