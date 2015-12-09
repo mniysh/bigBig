@@ -28,12 +28,16 @@ import com.ms.ebangw.fragment.BaseFragment;
 import com.ms.ebangw.service.DataAccessUtil;
 import com.ms.ebangw.service.DataParseUtil;
 import com.ms.ebangw.utils.L;
+import com.ms.ebangw.utils.StringUtils;
 import com.ms.ebangw.utils.T;
 
 import org.apache.http.Header;
 import org.json.JSONObject;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
@@ -257,13 +261,13 @@ public class SelectCraftFragment extends BaseFragment {
         ReleaseWorkTypeFragment buildingFragment = ReleaseWorkTypeFragment.newInstance(craft.getBuilding());
         ReleaseWorkTypeFragment fitmentFragment = ReleaseWorkTypeFragment.newInstance(craft.getFitment());
         ReleaseWorkTypeFragment projectManageFragment = ReleaseWorkTypeFragment.newInstance(craft.getProjectManage
-            ());
-        ReleaseWorkTypeFragment otherFragment = ReleaseWorkTypeFragment.newInstance(craft.getOther());
+                ());
+//        ReleaseWorkTypeFragment otherFragment = ReleaseWorkTypeFragment.newInstance(craft.getOther());
 
         list.add(buildingFragment);
         list.add(fitmentFragment);
         list.add(projectManageFragment);
-        list.add(otherFragment);
+//        list.add(otherFragment);
 
         SelectTypePagerAdapter pagerAdapter = new SelectTypePagerAdapter(getFragmentManager(),
             list);
@@ -327,9 +331,26 @@ public class SelectCraftFragment extends BaseFragment {
             WorkType next = iterator.next();
             Staff staff = next.getStaff();
             if (null != staff) {
+                String startTime = staff.getStart_time();
+                String endTime = staff .getEnd_time();
+                Calendar c = Calendar.getInstance();
+                long start = 0;
+                long end = 0;
+                try {
+                    c.setTime(new SimpleDateFormat("yyyyMMdd").parse(StringUtils.setString(startTime)));
+                    start = c.getTimeInMillis();
+                    c.setTime(new SimpleDateFormat("yyyyMMdd").parse(StringUtils.setString(endTime)));
+                    end = c.getTimeInMillis();
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+
+
+                int totalDay = (int)((end - start)/86400000);
                 int money = Integer.parseInt(staff.getMoney());
                 int count  = Integer.parseInt(staff.getStaff_account());
-                totalMoney += money * count;
+
+                totalMoney += money * count * (totalDay + 1);
             }
 
         }

@@ -65,9 +65,17 @@ public class StringUtils {
 //		String modifyNameStr = realName.substring(1,realName.length()-1);
 //		sb.append("*").append(modifyNameStr);
 		char[] a = realName.toCharArray();
-		String aa = realName.replace(a[0],'*');
+		String aa = realName.replace(a[0], '*');
 		return aa;
 
+	}
+	public static String setString(String time){
+		String [] a = time.split("-");
+		StringBuffer sb = new StringBuffer();
+		for (String s: a) {
+			sb.append(s);
+		}
+		return  sb.toString();
 	}
 }
 
