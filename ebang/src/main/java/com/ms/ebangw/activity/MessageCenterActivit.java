@@ -7,9 +7,11 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
 import com.easemob.chat.EMConversation;
+import com.easemob.easeui.EaseConstant;
 import com.easemob.easeui.ui.EaseConversationListFragment;
 import com.ms.ebangw.R;
 import com.ms.ebangw.adapter.CommonV4FragmentPagerAdapter;
+import com.ms.ebangw.bean.EMUser;
 import com.ms.ebangw.fragment.SystemMsgFragment;
 import com.ms.ebangw.utils.ChartUtil;
 
@@ -69,7 +71,12 @@ public class MessageCenterActivit extends BaseActivity {
         conversationListFragment.setConversationListItemClickListener(new EaseConversationListFragment.EaseConversationListItemClickListener() {
             @Override
             public void onListItemClicked(EMConversation conversation) {
-                ChartUtil.chatBySingle(MessageCenterActivit.this, conversation.getUserName());
+
+                String userName = conversation.getUserName();
+                EMUser emUser = new EMUser();
+                emUser.setUserId(userName);
+                emUser.setType(EaseConstant.CHATTYPE_SINGLE);
+                ChartUtil.chatTo(MessageCenterActivit.this, emUser);
             }
         });
 

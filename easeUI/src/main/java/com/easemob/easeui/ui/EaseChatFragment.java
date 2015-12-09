@@ -176,7 +176,7 @@ public class EaseChatFragment extends EaseBaseFragment implements EMEventListene
         });
 
         swipeRefreshLayout = messageList.getSwipeRefreshLayout();
-        swipeRefreshLayout.setColorScheme(R.color.holo_blue_bright, R.color.holo_green_light,
+        swipeRefreshLayout.setColorSchemeResources(R.color.holo_blue_bright, R.color.holo_green_light,
                 R.color.holo_orange_light, R.color.holo_red_light);
 
         inputManager = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
