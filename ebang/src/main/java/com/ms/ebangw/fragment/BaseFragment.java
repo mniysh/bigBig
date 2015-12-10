@@ -130,18 +130,19 @@ public abstract class BaseFragment extends Fragment {
      * @param message
      */
     public void showProgressDialog(String message) {
-        if (null != mLoadingDialog) {
-            mLoadingDialog.dismissAllowingStateLoss();
-        }
-        if (null == mLoadingDialog) {
-            mLoadingDialog = LoadingDialog.newInstance(message) ;
-            mLoadingDialog.setStyle(DialogFragment.STYLE_NO_TITLE, 0);
-        }
-        if (isVisible()) {
-            mLoadingDialog.show(getFragmentManager(), TAG);
-//            getFragmentManager().beginTransaction().show(mLoadingDialog).commit();
-        }else {
-
+        try {
+            if (null != mLoadingDialog) {
+                mLoadingDialog.dismissAllowingStateLoss();
+            }
+            if (null == mLoadingDialog) {
+                mLoadingDialog = LoadingDialog.newInstance(message) ;
+                mLoadingDialog.setStyle(DialogFragment.STYLE_NO_TITLE, 0);
+            }
+            if (isVisible()) {
+                mLoadingDialog.show(getFragmentManager(), TAG);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
@@ -155,8 +156,13 @@ public abstract class BaseFragment extends Fragment {
      */
     public void dismissLoadingDialog() {
         if (null != mLoadingDialog ) {
-            mLoadingDialog.dismissAllowingStateLoss();
-            mLoadingDialog = null;
+
+            try {
+                mLoadingDialog.dismissAllowingStateLoss();
+                mLoadingDialog = null;
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
     @Override
