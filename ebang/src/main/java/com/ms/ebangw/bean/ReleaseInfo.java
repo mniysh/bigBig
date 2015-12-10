@@ -13,6 +13,8 @@ public class ReleaseInfo implements Parcelable{
     private String description;
     private String link_man;
     private String link_phone;
+    private String verifyCode;
+
     private String province;
     private String city;
     private String area_other;
@@ -27,58 +29,6 @@ public class ReleaseInfo implements Parcelable{
     public ReleaseInfo() {
         
     }
-
-    protected ReleaseInfo(Parcel in) {
-        id = in.readString();
-        title = in.readString();
-        description = in.readString();
-        link_man = in.readString();
-        link_phone = in.readString();
-        province = in.readString();
-        city = in.readString();
-        area_other = in.readString();
-        point_longitude = in.readFloat();
-        point_dimention = in.readFloat();
-        image_ary = in.readString();
-        start_time = in.readString();
-        end_time = in.readString();
-        project_money = in.readString();
-        staff = in.readString();
-    }
-
-    public static final Creator<ReleaseInfo> CREATE = new Creator<ReleaseInfo>() {
-        @Override
-        public ReleaseInfo createFromParcel(Parcel in) {
-            return new ReleaseInfo(in);
-        }
-
-        @Override
-        public ReleaseInfo[] newArray(int size) {
-            return new ReleaseInfo[size];
-        }
-    };
-
-    @Override
-    public String toString() {
-        return "ReleaseInfo{" +
-                "id='" + id + '\'' +
-                ", title='" + title + '\'' +
-                ", description='" + description + '\'' +
-                ", link_man='" + link_man + '\'' +
-                ", link_phone='" + link_phone + '\'' +
-                ", province='" + province + '\'' +
-                ", city='" + city + '\'' +
-                ", area_other='" + area_other + '\'' +
-                ", point_longitude=" + point_longitude +
-                ", point_dimention=" + point_dimention +
-                ", image_ary='" + image_ary + '\'' +
-                ", start_time='" + start_time + '\'' +
-                ", end_time='" + end_time + '\'' +
-                ", project_money='" + project_money + '\'' +
-                ", staff=" + staff +
-                '}';
-    }
-
 
     public String getId() {
         return id;
@@ -118,6 +68,14 @@ public class ReleaseInfo implements Parcelable{
 
     public void setLink_phone(String link_phone) {
         this.link_phone = link_phone;
+    }
+
+    public String getVerifyCode() {
+        return verifyCode;
+    }
+
+    public void setVerifyCode(String verifyCode) {
+        this.verifyCode = verifyCode;
     }
 
     public String getProvince() {
@@ -200,6 +158,7 @@ public class ReleaseInfo implements Parcelable{
         this.staff = staff;
     }
 
+
     @Override
     public int describeContents() {
         return 0;
@@ -207,36 +166,50 @@ public class ReleaseInfo implements Parcelable{
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-
         dest.writeString(this.id);
         dest.writeString(this.title);
         dest.writeString(this.description);
         dest.writeString(this.link_man);
         dest.writeString(this.link_phone);
+        dest.writeString(this.verifyCode);
         dest.writeString(this.province);
         dest.writeString(this.city);
-        dest.writeFloat(this.point_dimention);
+        dest.writeString(this.area_other);
         dest.writeFloat(this.point_longitude);
+        dest.writeFloat(this.point_dimention);
         dest.writeString(this.image_ary);
         dest.writeString(this.start_time);
         dest.writeString(this.end_time);
         dest.writeString(this.project_money);
         dest.writeString(this.staff);
-        dest.writeString(this.area_other);
-
-
     }
-    public static Parcelable.Creator<ReleaseInfo> CREATOR = new Parcelable.Creator<ReleaseInfo>(){
-        @Override
+
+    protected ReleaseInfo(Parcel in) {
+        this.id = in.readString();
+        this.title = in.readString();
+        this.description = in.readString();
+        this.link_man = in.readString();
+        this.link_phone = in.readString();
+        this.verifyCode = in.readString();
+        this.province = in.readString();
+        this.city = in.readString();
+        this.area_other = in.readString();
+        this.point_longitude = in.readFloat();
+        this.point_dimention = in.readFloat();
+        this.image_ary = in.readString();
+        this.start_time = in.readString();
+        this.end_time = in.readString();
+        this.project_money = in.readString();
+        this.staff = in.readString();
+    }
+
+    public static final Creator<ReleaseInfo> CREATOR = new Creator<ReleaseInfo>() {
         public ReleaseInfo createFromParcel(Parcel source) {
             return new ReleaseInfo(source);
         }
 
-        @Override
         public ReleaseInfo[] newArray(int size) {
             return new ReleaseInfo[size];
         }
     };
-
-
 }

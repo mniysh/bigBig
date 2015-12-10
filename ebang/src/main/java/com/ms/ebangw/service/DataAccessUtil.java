@@ -228,7 +228,8 @@ public class DataAccessUtil {
      * @return
      */
     public static RequestHandle releaseProject(String title, String description, String link_man,
-                                               String link_phone, String province, String city,
+                                               String link_phone,String code, String province,
+                                               String city,
                                                String area_other, float point_longitude,
                                                float point_latitude,
                                                String image_ary, String start_time,
@@ -238,6 +239,7 @@ public class DataAccessUtil {
         params.put("description",description);
         params.put("link_man",link_man);
         params.put("link_phone",link_phone);
+        params.put("code",code);
         params.put("province",province);
         params.put("city",city);
         params.put("area_other",area_other);
@@ -248,7 +250,6 @@ public class DataAccessUtil {
         params.put("project_money",project_money);
         params.put("image_ary",image_ary);
         params.put("staffs", staffs);
-        //T.show("能进来1");
         return doPost(RequestUrl.release_project, params, asyncHttpResponseHandler);
 
     }

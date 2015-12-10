@@ -1,7 +1,7 @@
 <ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-
+    android:scrollbars="none"
     android:layout_height="match_parent">
 
     <LinearLayout
@@ -35,23 +35,26 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="55dp"
-            android:orientation="horizontal"
             android:gravity="center_vertical"
+            android:orientation="horizontal"
             >
+
             <TextView
                 android:id="@+id/tv_b"
                 style="@style/authorization_text"
                 android:layout_height="wrap_content"
                 android:text="*工地地址："
                 />
+
             <EditText
                 android:id="@+id/et_detail_address"
+                style="@style/authorization_edit"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                style="@style/authorization_edit"
                 android:hint="请输入工地详细地址"
                 android:singleLine="true"
                 android:textColorHint="@color/auth_hint"
@@ -62,8 +65,8 @@
 
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:minHeight="@dimen/authen_item_height"
             android:gravity="center_vertical"
+            android:minHeight="@dimen/authen_item_height"
             android:orientation="horizontal"
             >
 
@@ -80,10 +83,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:drawableLeft="@drawable/marker"
-                android:hint="请选择"
-                android:textColorHint="@color/auther_red"
                 android:drawablePadding="5dp"
                 android:gravity="center_vertical"
+                android:hint="请选择"
+                android:textColorHint="@color/auther_red"
                 />
 
         </LinearLayout>
@@ -113,45 +116,51 @@
                 android:textColorHint="@color/auth_hint"
                 />
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="55dp"
-            android:orientation="horizontal"
             android:gravity="center_vertical"
+            android:orientation="horizontal"
             >
+
             <TextView
                 android:id="@+id/tv_d"
                 style="@style/authorization_text"
                 android:layout_height="wrap_content"
                 android:text="*开始时间："
                 />
+
             <TextView
-                style="@style/authorization_edit"
                 android:id="@+id/tv_start_time"
+                style="@style/authorization_edit"
                 android:layout_width="match_parent"
-                android:editable="false"
                 android:layout_height="wrap_content"
+                android:editable="false"
                 android:text="请选择"
                 />
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="55dp"
-            android:orientation="horizontal"
             android:gravity="center_vertical"
+            android:orientation="horizontal"
             >
+
             <TextView
                 android:id="@+id/tv_e"
                 style="@style/authorization_text"
                 android:layout_height="wrap_content"
                 android:text="*结束时间："
                 />
+
             <TextView
-                android:editable="false"
-                style="@style/authorization_edit"
                 android:id="@+id/tv_end_time"
+                style="@style/authorization_edit"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:editable="false"
                 android:text="请选择"
                 />
         </LinearLayout>
@@ -256,18 +265,19 @@
                 android:layout_marginBottom="5dp"
                 android:layout_marginTop="10dp"
                 android:background="@drawable/border_gray"
-                android:minHeight="60dp"
-                android:inputType="textMultiLine"
+                android:gravity="top"
                 android:hint="请输入内容"
+                android:inputType="textMultiLine"
                 android:maxLength="100"
 
                 android:maxLines="4"
-                android:gravity="top"
+                android:minHeight="60dp"
                 android:textColor="@color/black"
                 android:textColorHint="@color/gray_text"
                 />
 
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="@dimen/authen_item_height"
@@ -289,8 +299,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="请输入工程的总金额"
-                android:singleLine="true"
                 android:inputType="number"
+                android:singleLine="true"
                 android:textColorHint="@color/auth_hint"
                 />
         </LinearLayout>
@@ -325,35 +335,76 @@
 
 
 
+            <LinearLayout
+
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/authen_item_height"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                >
+
+                <TextView
+                    android:id="@+id/tv_j"
+                    style="@style/authorization_text"
+                    android:layout_height="wrap_content"
+                    android:text="*联系电话: "
+                    />
+
+                <EditText
+                    android:id="@+id/et_phone"
+                    style="@style/authorization_edit"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="1"
+                    android:hint="请输入联系电话"
+                    android:inputType="phone"
+                    android:maxLength="11"
+                    android:singleLine="true"
+                    android:textColorHint="@color/auth_hint"
+                    />
+
+                <TextView
+                    android:id="@+id/tv_verify_code"
+                    style="@style/authorization_text"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bk_but"
+                    android:layout_marginRight="10dp"
+                    android:gravity="center"
+                    android:text="获取验证码"
+                    android:textColor="@android:color/white"
+                    />
+
+
+            </LinearLayout>
 
 
         <LinearLayout
+            android:id="@+id/ll_verify_layout"
             android:layout_width="match_parent"
             android:layout_height="@dimen/authen_item_height"
             android:gravity="center_vertical"
             android:orientation="horizontal"
             >
-
             <TextView
-                android:id="@+id/tv_j"
+                android:id="@+id/tv_m"
                 style="@style/authorization_text"
                 android:layout_height="wrap_content"
-                android:text="*联系电话: "
+                android:text="*验证码: "
                 />
 
 
             <EditText
-                android:id="@+id/et_phone"
+                android:id="@+id/et_verifyCode"
                 style="@style/authorization_edit"
-                android:layout_width="match_parent"
+                android:layout_width="150dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:hint="请输入联系电话"
-                android:singleLine="true"
+                android:hint="请输入验证码"
                 android:inputType="phone"
-                android:maxLength="11"
-                android:textColorHint="@color/auth_hint"
-                />
+                android:singleLine="true"
+                android:textColorHint="@color/auth_hint"/>
         </LinearLayout>
 
         <LinearLayout
