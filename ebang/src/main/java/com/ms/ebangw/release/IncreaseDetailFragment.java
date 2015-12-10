@@ -139,8 +139,8 @@ public class IncreaseDetailFragment extends CropEnableFragment {
     TextView endTimeTv;
     @Bind(R.id.tv_address)
     TextView selectAddTv;
-
-
+ //    android:id="@+id/tv_h"
+    //    android:id="@+id/et_totalMoney"
     private String province, city , area, detailAddress, title, link_name, link_phone,
         description, startTime, totalMoney, endTime, selectMapAdd;
     private String provinceId, cityId, areaId;

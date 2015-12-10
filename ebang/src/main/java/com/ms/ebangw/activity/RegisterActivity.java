@@ -52,8 +52,6 @@ public class RegisterActivity extends BaseActivity  {
 	 */
 	@Bind(R.id.et_verifyCode)
 	EditText verifyCodeEt;
-
-
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -62,7 +60,6 @@ public class RegisterActivity extends BaseActivity  {
 		initView();
 		initData();
 	}
-
 	public void initView() {
 		initTitle(new OnClickListener() {
 			@Override
@@ -74,7 +71,6 @@ public class RegisterActivity extends BaseActivity  {
 		changeColor();
 		setStarRed();
 	}
-
 	/**
 	 * 变颜色
 	 */
@@ -118,7 +114,6 @@ public class RegisterActivity extends BaseActivity  {
 				}else {
 					smsCodeBtn.setText(what + " 秒");
 				}
-
 				return false;
 			}
 		});
@@ -139,7 +134,6 @@ public class RegisterActivity extends BaseActivity  {
 						Bundle bundle = new Bundle();
 						bundle.putString(Constants.key_phone, phone);
 						bundle.putString(Constants.KEY_VERIFY_CODE, verifyCode);
-
 						Intent intent = new Intent(RegisterActivity.this, RegisterActivity_2.class);
 						intent.putExtras(bundle);
 						startActivity(intent);
@@ -149,6 +143,7 @@ public class RegisterActivity extends BaseActivity  {
 					T.show(e.getMessage());
 				}
 			}
+
 
 			@Override
 			public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
@@ -234,14 +229,12 @@ public class RegisterActivity extends BaseActivity  {
 		};
 		countDownTimer.start();
 	}
-
 	@Override
 	protected void onDestroy() {
 		super.onDestroy();
 		if(countDownTimer != null){
 			countDownTimer.cancel();
 		}
-
 	}
 }
 

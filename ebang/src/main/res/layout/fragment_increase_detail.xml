@@ -243,7 +243,7 @@
                 android:id="@+id/tv_g"
                 style="@style/authorization_text"
                 android:layout_height="wrap_content"
-                android:text="*内容: "
+                android:text="*项目描述: "
                 />
 
 

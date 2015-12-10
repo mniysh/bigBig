@@ -149,7 +149,7 @@ public class ModifyPhoneActivity extends BaseActivity {
 
     @Override
     public void initView() {
-        initTitle(null, "返回", "手机验证", null, null);
+        initTitle(null, "返回", "修改手机号", null, null);
         if(getUser()!=null){
             etPhone.setText(getUser().getPhone());
         }

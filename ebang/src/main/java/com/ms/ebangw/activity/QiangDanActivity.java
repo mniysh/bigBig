@@ -275,8 +275,6 @@ public class QiangDanActivity extends BaseNextAvtivity {
                             pw.dismiss();
                             QiangDanActivity.this.finish();
 //                                        startActivity(new Intent(QiangDanActivity.this, ShowActivity.class)); //ActivityA.this.finish();
-
-
                         }
                     });
                     backgroundAlpha(0.5f);

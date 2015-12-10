@@ -93,7 +93,6 @@
             android:layout_weight="1"
             android:clickable="true"
             android:gravity="center_horizontal"
-            android:text="修改"
             android:textColor="@color/auther_red"
             android:textSize="16dp"
             />

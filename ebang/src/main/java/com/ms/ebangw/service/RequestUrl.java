@@ -334,9 +334,4 @@ public class RequestUrl {
      * 3-17、首页banner图接口
      */
     public static final String banner = domain + "/api/common/article/banner";
-
-
-
-
-
 }

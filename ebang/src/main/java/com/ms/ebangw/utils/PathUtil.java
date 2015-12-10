@@ -27,7 +27,6 @@ public class PathUtil {
         if (Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState())) {
             return Environment.getExternalStorageDirectory().getAbsolutePath();
         }
-
         return context.getCacheDir().getAbsolutePath();
     }
 
@@ -36,7 +35,7 @@ public class PathUtil {
      *
      * @param uri
      * @return String
-     * @Title: getUriString
+     * @Title: getUriStrings
      * @date 2012-11-28 下午1:19:31
      */
     public static String getUri2Path(Uri uri, ContentResolver cr) {
@@ -58,6 +57,4 @@ public class PathUtil {
         }
         return imgPath;
     }
-
-
 }
