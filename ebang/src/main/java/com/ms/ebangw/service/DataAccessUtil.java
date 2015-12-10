@@ -530,7 +530,7 @@ public class DataAccessUtil {
      * @param identity_card 身份证号(18位字符)
      * @param card_image_front  身份证正面(id)
      * @param card_image_back   身份证反面(id)
-     * @param linkman_phone 手机号码(11位数字)
+//     * @param linkman_phone 手机号码(11位数字)
      * @param province  省分(id)
      * @param city  市(id)
      * @param company_name     企业名称
@@ -555,7 +555,7 @@ public class DataAccessUtil {
      */
     public static RequestHandle developerIdentify(String real_name, String identity_card,
                                                   String card_image_front, String card_image_back,
-                                                  String linkman_phone, String province,
+                                                   String province,
                                                   String city, String company_name,
                                                   String business_province, String business_city,
                                                   String address, String business_years,
@@ -574,7 +574,7 @@ public class DataAccessUtil {
         params.put("identity_card",identity_card);
         params.put("card_image_front",card_image_front);
         params.put("card_image_back",card_image_back);
-        params.put("linkman_phone",linkman_phone);
+//        params.put("linkman_phone",linkman_phone);
         params.put("province",province);
         params.put("city",city);
         params.put("company_name",company_name);
@@ -606,7 +606,7 @@ public class DataAccessUtil {
      * @param identity_card 身份证号(18位字符)
      * @param card_image_front  身份证正面(id)
      * @param card_image_back   身份证反面(id)
-     * @param linkman_phone 手机号码(11位数字)
+//     * @param linkman_phone 手机号码(11位数字)
      * @param province  省分(id)
      * @param city  市(id)
      * @param company_name     企业名称
@@ -631,7 +631,7 @@ public class DataAccessUtil {
      */
     public static RequestHandle companyIdentify(String real_name, String identity_card,
                                                   String card_image_front, String card_image_back,
-                                                  String linkman_phone, String province,
+                                                   String province,
                                                   String city, String company_name,
                                                   String business_province, String business_city,
                                                   String address, String business_years,
@@ -650,7 +650,7 @@ public class DataAccessUtil {
         params.put("identity_card",identity_card);
         params.put("card_image_front",card_image_front);
         params.put("card_image_back",card_image_back);
-        params.put("linkman_phone",linkman_phone);
+//        params.put("linkman_phone",linkman_phone);
         params.put("province",province);
         params.put("city",city);
         params.put("company_name",company_name);

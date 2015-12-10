@@ -125,7 +125,7 @@ public class LabourCompanyAuthenActivity extends BaseActivity {
 		String identityCard = authInfo.getIdentityCard();
 		String frontImageId = authInfo.getFrontImageId();
 		String backImageId = authInfo.getBackImageId();
-		String linkmanPhone = authInfo.getPhone();
+//		String linkmanPhone = authInfo.getPhone();
 		String linkman_province = authInfo.getProvinceId();
 		String linkman_city = authInfo.getCityId();
 		String company_name = authInfo.getCompanyName();
@@ -148,7 +148,7 @@ public class LabourCompanyAuthenActivity extends BaseActivity {
 		String accountCityId = authInfo.getPublicAccountCityId();
 
 		DataAccessUtil.companyIdentify(realName, identityCard, frontImageId,
-			backImageId, linkmanPhone, linkman_province,
+			backImageId,  linkman_province,
 			linkman_city, company_name, business_province, business_city,
 			oftenAddress, businessAge, timeState, companyNumber,
 			companyPhone, introduce, publicAccountName,

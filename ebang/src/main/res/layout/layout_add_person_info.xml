@@ -73,7 +73,7 @@
         </LinearLayout>
 
 
-        <LinearLayout
+<!--        <LinearLayout
             android:id="@+id/ll_phone"
             android:layout_width="match_parent"
             android:layout_height="@dimen/authen_item_height"
@@ -101,7 +101,7 @@
                 android:maxLength="11"
                 android:textColorHint="@color/auth_hint"
                 />
-        </LinearLayout>
+        </LinearLayout>-->
 
         <LinearLayout
             android:layout_width="match_parent"
