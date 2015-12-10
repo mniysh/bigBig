@@ -49,7 +49,7 @@ public class LotteryFragment extends BaseFragment {
     private String mParam1;
     private String mParam2;
 
-
+    private boolean shouldGoToAuth = false;
     private ViewGroup contentLayout;
     /**
      * 访问URL
@@ -85,6 +85,8 @@ public class LotteryFragment extends BaseFragment {
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
+
+
 
     @Override
     public void initView() {
@@ -228,7 +230,11 @@ public class LotteryFragment extends BaseFragment {
          */
         @JavascriptInterface
         public void gotoAuth() {
-            EventBus.getDefault().post(new BottomTitleClickEvent(3));
+            if (getUserVisibleHint()) {//界面不在后台
+                EventBus.getDefault().post(new BottomTitleClickEvent(3));
+            }else {
+                shouldGoToAuth = true;
+            }
 
         }
 
@@ -300,5 +306,17 @@ public class LotteryFragment extends BaseFragment {
         return densityDpi;
     }
 
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (isVisibleToUser && shouldGoToAuth) {    //防止WebView在后台加载成功后调用goToAuth
+            EventBus.getDefault().post(new BottomTitleClickEvent(3));
+            shouldGoToAuth = false;
+        }
+    }
 
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+    }
 }

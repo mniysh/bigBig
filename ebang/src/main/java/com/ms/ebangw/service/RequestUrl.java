@@ -332,6 +332,7 @@ public class RequestUrl {
 
     /**
      * 3-17、首页banner图接口
+     * 0普通 1抽奖 2邀友返现
      */
     public static final String banner = domain + "/api/common/article/banner";
 
