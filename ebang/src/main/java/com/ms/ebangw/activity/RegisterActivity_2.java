@@ -107,7 +107,6 @@ public class RegisterActivity_2 extends BaseActivity {
                                     startActivity(intent);
 
                                     //跳转到主页
-
                                     finish();
                                 }
 
