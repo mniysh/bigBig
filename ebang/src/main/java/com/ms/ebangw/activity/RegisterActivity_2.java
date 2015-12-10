@@ -7,6 +7,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.ms.ebangw.MyApplication;
@@ -38,6 +39,10 @@ import butterknife.OnClick;
 public class RegisterActivity_2 extends BaseActivity {
     @Bind(R.id.et_project_invite_code)
     EditText etProjectInviteCode;
+    @Bind(R.id.et_invite_code)
+    EditText etInviteCode;
+    @Bind(R.id.act_login_lin02)
+    LinearLayout actLoginLin02;
     private String phone, verifyCode;
 
     @Bind(R.id.et_password)
@@ -84,37 +89,39 @@ public class RegisterActivity_2 extends BaseActivity {
             e.printStackTrace();
         }
 
+        String inviteCode = etInviteCode.getText().toString().trim();
         String projectInviteCode = etProjectInviteCode.getText().toString().trim();
         if (isInputRight(password, confirmPassword)) {
-            DataAccessUtil.register(null, phone, null, null, verifyCode, password, channel,
+            DataAccessUtil.register(null, phone, null, null, inviteCode, verifyCode, password,
+                channel,
                 projectInviteCode, new
-                JsonHttpResponseHandler() {
-                    @Override
-                    public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                        try {
-                            User user = DataParseUtil.register(response);
+                    JsonHttpResponseHandler() {
+                        @Override
+                        public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                            try {
+                                User user = DataParseUtil.register(response);
 //						L.locationpois_item("xxx", "user的内容注册部分的" + user.toString());
-                            if (null != user) {
-                                MyApplication.getInstance().saveUser(user);
-                                Intent intent = new Intent(RegisterActivity_2.this, HomeActivity.class);
-                                startActivity(intent);
+                                if (null != user) {
+                                    MyApplication.getInstance().saveUser(user);
+                                    Intent intent = new Intent(RegisterActivity_2.this, HomeActivity.class);
+                                    startActivity(intent);
 
-                                //跳转到主页
+                                    //跳转到主页
 
-                                finish();
+                                    finish();
+                                }
+
+                            } catch (ResponseException e) {
+                                e.printStackTrace();
+                                T.show(e.getMessage());
                             }
-
-                        } catch (ResponseException e) {
-                            e.printStackTrace();
-                            T.show(e.getMessage());
                         }
-                    }
 
-                    @Override
-                    public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
-                        super.onFailure(statusCode, headers, responseString, throwable);
-                    }
-                });
+                        @Override
+                        public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                            super.onFailure(statusCode, headers, responseString, throwable);
+                        }
+                    });
         }
 
 
