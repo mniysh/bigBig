@@ -2,12 +2,8 @@ package com.ms.ebangw.userAuthen.developers;
 
 
 import android.graphics.Bitmap;
-import android.graphics.Color;
 import android.os.Bundle;
-import android.text.SpannableString;
-import android.text.Spanned;
 import android.text.TextUtils;
-import android.text.style.ForegroundColorSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,6 +25,7 @@ import com.ms.ebangw.crop.CropImageActivity;
 import com.ms.ebangw.fragment.CropEnableFragment;
 import com.ms.ebangw.utils.BitmapUtil;
 import com.ms.ebangw.utils.T;
+import com.ms.ebangw.utils.UserCenterUtil;
 import com.ms.ebangw.utils.VerifyUtils;
 import com.ms.ebangw.view.ProvinceAndCityView;
 
@@ -138,20 +135,6 @@ public class DevelopersBankVerifyFragment extends CropEnableFragment {
         initData();
 
         return contentLayout;
-    }
-
-    /**
-     * 把*变成红色
-     */
-    public void setStarRed() {
-        int[] resId = new int[]{R.id.tv_a, R.id.tv_b, R.id.tv_c, R.id.tv_d,R.id.tv_e,R.id.tv_f,R.id.tv_g,R.id.tv_h,R.id.tv_k};
-        for (int i = 0; i < resId.length; i++) {
-            TextView a = (TextView) contentLayout.findViewById(resId[i]);
-            String s = a.getText().toString();
-            SpannableString spannableString = new SpannableString(s);
-            spannableString.setSpan(new ForegroundColorSpan(Color.RED), 0, 1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-            a.setText(spannableString);
-        }
     }
 
     /**
@@ -316,7 +299,7 @@ public class DevelopersBankVerifyFragment extends CropEnableFragment {
 
     @Override
     public void initView() {
-        setStarRed();
+        UserCenterUtil.setStarRed(contentLayout);
         VerifyUtils.setBankCard(publicAccountEt);
         VerifyUtils.setBankCard(publicAccountTwoEt);
     }

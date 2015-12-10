@@ -111,7 +111,7 @@
             >
 
             <TextView
-                android:id="@+id/tv_d"
+                android:id="@+id/tv_c"
                 style="@style/authorization_text"
                 android:layout_height="wrap_content"
                 android:text="*性别: "
@@ -160,7 +160,7 @@
             >
 
             <TextView
-                android:id="@+id/tv_e"
+                android:id="@+id/tv_d"
                 style="@style/authorization_text"
                 android:layout_height="wrap_content"
                 android:text="*籍贯: "
@@ -191,7 +191,7 @@
 
 
                 <TextView
-                    android:id="@+id/tv_f"
+                    android:id="@+id/tv_e"
                     style="@style/authorization_text"
                     android:layout_height="wrap_content"
                     android:text="*添加工种: "
@@ -239,7 +239,7 @@
             >
 
             <TextView
-                android:id="@+id/tv_g"
+                android:id="@+id/tv_f"
                 style="@style/authorization_text"
                 android:layout_height="wrap_content"
                 android:text="*企业介绍: "

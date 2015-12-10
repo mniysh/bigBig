@@ -84,7 +84,6 @@ public class HomeFragment extends BaseFragment {
         startActivity(intent);
     }
 
-
     @Override
     public View onCreateView(LayoutInflater inflater,
                              @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {

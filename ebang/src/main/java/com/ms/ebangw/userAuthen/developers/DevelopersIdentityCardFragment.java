@@ -2,18 +2,13 @@ package com.ms.ebangw.userAuthen.developers;
 
 
 import android.graphics.Bitmap;
-import android.graphics.Color;
 import android.os.Bundle;
-import android.text.SpannableString;
-import android.text.Spanned;
 import android.text.TextUtils;
-import android.text.style.ForegroundColorSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.ms.ebangw.R;
 import com.ms.ebangw.bean.AuthInfo;
@@ -24,6 +19,7 @@ import com.ms.ebangw.fragment.CropEnableFragment;
 import com.ms.ebangw.utils.BitmapUtil;
 import com.ms.ebangw.utils.L;
 import com.ms.ebangw.utils.T;
+import com.ms.ebangw.utils.UserCenterUtil;
 
 import java.io.File;
 
@@ -85,7 +81,7 @@ public class DevelopersIdentityCardFragment extends CropEnableFragment {
 
     @Override
     public void initView() {
-        setStarRed();
+        UserCenterUtil.setStarRed(contentLayout);
         if (!TextUtils.isEmpty(frontImagePath)&& new File(frontImagePath).exists()) {
             Bitmap bitmap = BitmapUtil.getImage(frontImagePath);
             frontIv.setImageBitmap(bitmap);
@@ -139,22 +135,6 @@ public class DevelopersIdentityCardFragment extends CropEnableFragment {
         }
         return true;
     }
-
-    /**
-     * 把*变成红色
-     */
-    public void setStarRed() {
-        int[] resId = new int[]{R.id.tv_a, R.id.tv_b};
-        for (int i = 0; i < resId.length; i++) {
-            TextView a = (TextView) contentLayout.findViewById(resId[i]);
-            String s = a.getText().toString();
-            SpannableString spannableString = new SpannableString(s);
-            spannableString.setSpan(new ForegroundColorSpan(Color.RED), 0, 1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-            a.setText(spannableString);
-        }
-    }
-
-
 
     @Override
     public void onCropImageSuccess(View view, String cropedImagePath, UploadImageResult imageResult) {

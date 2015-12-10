@@ -1,12 +1,8 @@
 package com.ms.ebangw.userAuthen.worker;
 
 
-import android.graphics.Color;
 import android.os.Bundle;
-import android.text.SpannableString;
-import android.text.Spanned;
 import android.text.TextUtils;
-import android.text.style.ForegroundColorSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,6 +20,7 @@ import com.ms.ebangw.bean.City;
 import com.ms.ebangw.bean.Province;
 import com.ms.ebangw.fragment.BaseFragment;
 import com.ms.ebangw.utils.T;
+import com.ms.ebangw.utils.UserCenterUtil;
 import com.ms.ebangw.utils.VerifyUtils;
 
 import java.util.List;
@@ -90,21 +87,6 @@ public class WorkerBankVerifyFragment extends BaseFragment {
 
         return contentLayout;
     }
-
-    /**
-     * 把*变成红色
-     */
-    public void setStarRed() {
-        int[] resId = new int[]{R.id.tv_a, R.id.tv_b, R.id.tv_c, R.id.tv_d};
-        for (int i = 0; i < resId.length; i++) {
-            TextView a = (TextView) contentLayout.findViewById(resId[i]);
-            String s = a.getText().toString();
-            SpannableString spannableString = new SpannableString(s);
-            spannableString.setSpan(new ForegroundColorSpan(Color.RED), 0, 1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-            a.setText(spannableString);
-        }
-    }
-
 
     private boolean isInfoCorrect() {
         String realName = accountNameEt.getText().toString().trim();
@@ -236,7 +218,7 @@ public class WorkerBankVerifyFragment extends BaseFragment {
 
     @Override
     public void initView() {
-        setStarRed();
+        UserCenterUtil.setStarRed(contentLayout);
         VerifyUtils.setBankCard(cardEt);
     }
 

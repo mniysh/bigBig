@@ -1,12 +1,8 @@
 package com.ms.ebangw.userAuthen.labourCompany;
 
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.text.SpannableString;
-import android.text.Spanned;
 import android.text.TextUtils;
-import android.text.style.ForegroundColorSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,7 +10,6 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioGroup;
-import android.widget.TextView;
 
 import com.ms.ebangw.R;
 import com.ms.ebangw.bean.AuthInfo;
@@ -23,6 +18,7 @@ import com.ms.ebangw.bean.Province;
 import com.ms.ebangw.commons.Constants;
 import com.ms.ebangw.fragment.BaseFragment;
 import com.ms.ebangw.utils.T;
+import com.ms.ebangw.utils.UserCenterUtil;
 import com.ms.ebangw.utils.VerifyUtils;
 import com.ms.ebangw.view.ProvinceAndCityView;
 
@@ -91,7 +87,7 @@ public class LabourCompanyBaseInfoFragment extends BaseFragment {
 
 	@Override
 	public void initView() {
-		setStarRed();
+		UserCenterUtil.setStarRed(contentLayout);
 		contentLayout.findViewById(R.id.ll_introduce).setVisibility(View.VISIBLE);
 	}
 
@@ -171,23 +167,6 @@ public class LabourCompanyBaseInfoFragment extends BaseFragment {
 		authInfo.setCityId(cityId);
 		authInfo.setIntroduce(introduce);
 		return authInfo;
-	}
-
-	/**
-	 * 把*变成红色
-	 */
-	public void setStarRed() {
-		int[] resId = new int[]{R.id.tv_a, R.id.tv_b, R.id.tv_c, R.id.tv_d, R.id.tv_e, R.id
-			.tv_f, R.id.tv_g};
-		for (int i = 0; i < resId.length; i++) {
-			TextView a = (TextView) contentLayout.findViewById(resId[i]);
-			if (null != a) {
-				String s = a.getText().toString();
-				SpannableString spannableString = new SpannableString(s);
-				spannableString.setSpan(new ForegroundColorSpan(Color.RED), 0, 1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-				a.setText(spannableString);
-			}
-		}
 	}
 
 }
