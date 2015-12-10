@@ -16,14 +16,15 @@ import com.squareup.picasso.Picasso;
 import java.util.List;
 
 /**
+ * 人员管理
  * User: WangKai(123940232@qq.com)
  * 2015-10-30 13:44
  */
-public class RecommendedWorkersAdapter extends BaseAdapter {
+public class PeopleManageAdapter extends BaseAdapter {
     private List<Worker> list;
     private OnRemoveRelationListener onRemoveRelationListener;
 
-    public RecommendedWorkersAdapter(List<Worker> list, OnRemoveRelationListener onRemoveRelationListener) {
+    public PeopleManageAdapter(List<Worker> list, OnRemoveRelationListener onRemoveRelationListener) {
         this.list = list;
         this.onRemoveRelationListener = onRemoveRelationListener;
     }
@@ -48,12 +49,12 @@ public class RecommendedWorkersAdapter extends BaseAdapter {
         ViewHolder holder;
         if (convertView == null) {
             holder = new ViewHolder();
-            convertView = View.inflate(parent.getContext(), R.layout.recommend_worker_item, null);
+            convertView = View.inflate(parent.getContext(), R.layout.people_manage_item, null);
             holder.tv_py = (TextView) convertView.findViewById(R.id.tv_py);
             holder.tv_name = (TextView) convertView.findViewById(R.id.tv_name);
             holder.tv_craft_desc = (TextView) convertView.findViewById(R.id.tv_craft_desc);
             holder.iv_avatar = (ImageView) convertView.findViewById(R.id.iv_avatar);
-            holder.tv_remove_relation = (TextView) convertView.findViewById(R.id.tv_agree);
+            holder.tv_remove_relation = (TextView) convertView.findViewById(R.id.tv_remove);
             convertView.setTag(holder);
         } else {
             holder = (ViewHolder) convertView.getTag();
