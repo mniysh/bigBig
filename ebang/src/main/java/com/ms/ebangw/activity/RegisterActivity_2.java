@@ -92,9 +92,8 @@ public class RegisterActivity_2 extends BaseActivity {
         String inviteCode = etInviteCode.getText().toString().trim();
         String projectInviteCode = etProjectInviteCode.getText().toString().trim();
         if (isInputRight(password, confirmPassword)) {
-            DataAccessUtil.register(null, phone, null, null, inviteCode, verifyCode, password,
-                channel,
-                projectInviteCode, new
+            DataAccessUtil.register(null, phone, null, null, verifyCode,
+                password, channel, inviteCode, projectInviteCode, new
                     JsonHttpResponseHandler() {
                         @Override
                         public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
