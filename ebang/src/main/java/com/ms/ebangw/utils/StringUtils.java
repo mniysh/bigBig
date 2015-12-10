@@ -41,12 +41,46 @@ public class StringUtils {
 //		lp.alpha = bgAlpha; //0.0-1.0
 //		getWindow().setAttributes(lp);
 //	}
+
+	/**
+	 * 处理电话号码
+	 * @param phone
+	 * @return
+	 */
 	public static  String  setPhone(String phone){
 		StringBuilder stringBuilder = new StringBuilder();
 		String beginStr = phone.substring(0,3);
 		String endStr = phone.substring(phone.length()-4,phone.length()-1);
 		stringBuilder.append(beginStr).append("****").append(endStr);
 		return stringBuilder.toString();
+	}
+
+	/**
+	 * 处理姓名
+	 * @param realName
+	 * @return
+	 */
+	public static  String setRealName(String realName ){
+		StringBuilder sb = new StringBuilder();
+//		String modifyNameStr = realName.substring(1,realName.length()-1);
+//		sb.append("*").append(modifyNameStr);
+		char[] a = realName.toCharArray();
+		String aa = realName.replace(a[0], '*');
+		String endChar = String .valueOf(a[a.length - 1]);
+		for (int i = 0; i < a.length-1; i++) {
+			sb.append("*");
+		}
+
+		return sb.append(endChar).toString();
+
+	}
+	public static String setString(String time){
+		String [] a = time.split("-");
+		StringBuffer sb = new StringBuffer();
+		for (String s: a) {
+			sb.append(s);
+		}
+		return  sb.toString();
 	}
 }
 

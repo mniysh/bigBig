@@ -9,6 +9,9 @@ import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.CountDownTimer;
+import android.os.Handler;
+import android.os.Message;
 import android.provider.MediaStore;
 import android.text.SpannableString;
 import android.text.Spanned;
@@ -46,6 +49,7 @@ import com.ms.ebangw.utils.BitmapUtil;
 import com.ms.ebangw.utils.ImageLoaderutils;
 import com.ms.ebangw.utils.L;
 import com.ms.ebangw.utils.T;
+import com.ms.ebangw.utils.VerifyUtils;
 import com.ms.ebangw.view.ProvinceAndCityView;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -83,6 +87,8 @@ public class IncreaseDetailFragment extends CropEnableFragment {
     //经纬度
     private float longitude;
     private float latitude;
+    private CountDownTimer countDownTimer;
+    private Handler mHandler;
 
 //    private String JPEG_FILE_PREFIX =
 
@@ -139,25 +145,33 @@ public class IncreaseDetailFragment extends CropEnableFragment {
     TextView endTimeTv;
     @Bind(R.id.tv_address)
     TextView selectAddTv;
- //    android:id="@+id/tv_h"
-    //    android:id="@+id/et_totalMoney"
-    private String province, city , area, detailAddress, title, link_name, link_phone,
+    @Bind(R.id.et_verifyCode)
+    EditText etVerifyCode;
+    @Bind(R.id.tv_verify_code)
+    TextView tvVerifyCode;
+
+
+
+    private String province, city , area, detailAddress, title, link_name, link_phone, verifyCode,
         description, startTime, totalMoney, endTime, selectMapAdd;
     private String provinceId, cityId, areaId;
     private ReleaseProject releaseProject;
     private String categroy;
     private static  final String KEY_CATEGROY = "key_categroy";
+    private static final String  KEY_MONEY = "key_money";
     private ArrayList<Bitmap> dataBit ;
     private ArrayList<String> dataFilePath;
+    private long money = 0;
 
 
 
 
-    public static IncreaseDetailFragment newInstance(String param1, String categroy) {
+    public static IncreaseDetailFragment newInstance(String param1, String categroy,long money) {
         IncreaseDetailFragment fragment = new IncreaseDetailFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(KEY_CATEGROY, categroy);
+        args.putLong(KEY_MONEY, money);
         fragment.setArguments(args);
         return fragment;
     }
@@ -165,6 +179,56 @@ public class IncreaseDetailFragment extends CropEnableFragment {
     public IncreaseDetailFragment() {
 
     }
+
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if (getArguments() != null) {
+            staff = getArguments().getString(ARG_PARAM1);
+            categroy = getArguments().getString(KEY_CATEGROY);
+            money = getArguments().getLong(KEY_MONEY);
+        }
+        options = ImageLoaderutils.getOpt();
+        loader = ImageLoaderutils.getInstance(mActivity);
+
+        if (null != savedInstanceState) {
+            releaseInfo = savedInstanceState.getParcelable(Constants.KEY_RELEASE_INFO);
+            dataFilePath = savedInstanceState.getStringArrayList("duang");
+            imageNames = savedInstanceState.getStringArrayList(Constants.KEY_PROJECT_IMAGES);
+
+            if(dataUrl != null){
+                T.show("长度是"+dataUrl.size());
+            }
+
+            if (null == picList) {
+                picList = new ArrayList<>();
+                picList.add(picture01Iv);
+                picList.add(picture02Iv);
+                picList.add(picture03Iv);
+            }
+
+        }
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        contentLayout = (ViewGroup) inflater.inflate(R.layout.fragment_increase_detail, container,
+            false);
+        ButterKnife.bind(this, contentLayout);
+        initView();
+        initData();
+
+        return contentLayout;
+    }
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        initTitle("填写信息");
+    }
+
     //地图获取信息
     @OnClick({R.id.tv_address})
     public void getMap(){
@@ -212,53 +276,6 @@ public class IncreaseDetailFragment extends CropEnableFragment {
         datePickerFragment.show(getFragmentManager(), "date");
     }
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            staff = getArguments().getString(ARG_PARAM1);
-            categroy = getArguments().getString(KEY_CATEGROY);
-        }
-        options = ImageLoaderutils.getOpt();
-        loader = ImageLoaderutils.getInstance(mActivity);
-
-        if (null != savedInstanceState) {
-            releaseInfo = savedInstanceState.getParcelable(Constants.KEY_RELEASE_INFO);
-            dataFilePath = savedInstanceState.getStringArrayList("duang");
-            imageNames = savedInstanceState.getStringArrayList(Constants.KEY_PROJECT_IMAGES);
-
-            if(dataUrl != null){
-                T.show("长度是"+dataUrl.size());
-            }
-
-            if (null == picList) {
-                picList = new ArrayList<>();
-                picList.add(picture01Iv);
-                picList.add(picture02Iv);
-                picList.add(picture03Iv);
-            }
-
-        }
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        contentLayout = (ViewGroup) inflater.inflate(R.layout.fragment_increase_detail, container,
-            false);
-        ButterKnife.bind(this, contentLayout);
-        initView();
-        initData();
-
-        return contentLayout;
-    }
-
-    @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        initTitle("填写信息");
-    }
-
     /**
      * 设置星号
      */
@@ -266,7 +283,7 @@ public class IncreaseDetailFragment extends CropEnableFragment {
         int[] arr = {R.id.tv_a,R.id.tv_b,R.id.tv_c,
                 R.id.tv_d,R.id.tv_e,R.id.tv_f,
                 R.id.tv_g,R.id.tv_h,
-                R.id.tv_i,R.id.tv_j,R.id.tv_k,R.id.tv_l};
+                R.id.tv_i,R.id.tv_j,R.id.tv_k,R.id.tv_l, R.id.tv_m};
         for (int i = 0; i < arr.length ; i++) {
             TextView a = (TextView) contentLayout.findViewById(arr[i]);
             if(a != null){
@@ -294,6 +311,7 @@ public class IncreaseDetailFragment extends CropEnableFragment {
         link_name = nameEt.getText().toString().trim();
 
         link_phone = phoneEt.getText().toString().trim();
+        verifyCode = etVerifyCode.getText().toString().trim();
         description = introduceEt.getText().toString().trim();
         provinceId = provinceAndCityView.getProvinceId();
         cityId = provinceAndCityView.getCityId();
@@ -310,6 +328,7 @@ public class IncreaseDetailFragment extends CropEnableFragment {
         releaseInfo.setDescription(description);
         releaseInfo.setLink_man(link_name);
         releaseInfo.setLink_phone(link_phone);
+        releaseInfo.setVerifyCode(verifyCode);
         releaseInfo.setProvince(provinceId);
         releaseInfo.setCity(cityId);
         releaseInfo.setPoint_dimention(latitude);
@@ -353,6 +372,11 @@ public class IncreaseDetailFragment extends CropEnableFragment {
             T.show("电话不可为空");
             return  false;
         }
+         if(TextUtils.isEmpty(verifyCode)){
+            T.show("请输入验证码");
+            return  false;
+        }
+
         if(TextUtils.isEmpty(description)){
             T.show("简介不可为空");
             return  false;
@@ -363,6 +387,10 @@ public class IncreaseDetailFragment extends CropEnableFragment {
         }
         if(TextUtils.isEmpty(totalMoney) ){
             T.show("工程总额不能为空");
+            return false;
+        }
+        if(Integer.valueOf(totalMoney) < money){
+            T.show("工程总额不能低于" + money + "元");
             return false;
         }
 
@@ -410,7 +438,21 @@ public class IncreaseDetailFragment extends CropEnableFragment {
 
         List<Province> provinces = getAreaFromAssets().getProvince();
         provinceAndCityView.setProvinces(provinces);
+        mHandler = new Handler(new Handler.Callback() {
+            @Override
+            public boolean handleMessage(Message msg) {
+                int what = msg.what;
+                if (what == 0) {
+                    tvVerifyCode.setPressed(false);
+                    tvVerifyCode.setClickable(true);
+                    tvVerifyCode.setText("获取验证码");
+                }else {
+                    tvVerifyCode.setText(what + " 秒");
+                }
 
+                return false;
+            }
+        });
     }
 
     /**
@@ -519,9 +561,9 @@ public class IncreaseDetailFragment extends CropEnableFragment {
                 .ImageColumns.DATA }, null, null, null );
             if ( null != cursor ) {
                 if ( cursor.moveToFirst() ) {
-                    int index = cursor.getColumnIndex( MediaStore.Images.ImageColumns.DATA );
+                    int index = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA);
                     if ( index > -1 ) {
-                        data = cursor.getString( index );
+                        data = cursor.getString(index);
                     }
                 }
                 cursor.close();
@@ -540,41 +582,41 @@ public class IncreaseDetailFragment extends CropEnableFragment {
         getData();
 
         if(isRight()){
-            DataAccessUtil.releaseProject(title, description, link_name, link_phone,
-                provinceId, cityId, detailAddress,
-                longitude, latitude, image_ary, startTime, endTime, totalMoney, staff,
-                new JsonHttpResponseHandler() {
+            DataAccessUtil.releaseProject(title, description, link_name, link_phone, verifyCode,
+                    provinceId, cityId, detailAddress,
+                    longitude, latitude, image_ary, startTime, endTime, totalMoney, staff,
+                    new JsonHttpResponseHandler() {
 
-                    @Override
-                    public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                        super.onSuccess(statusCode, headers, response);
+                        @Override
+                        public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                            super.onSuccess(statusCode, headers, response);
 
-                        try {
-                            releaseProject = new ReleaseProject();
-                            boolean b = DataParseUtil.processDataResult(response);
-                            if (b) {
-                                T.show("开发商发布成功");
-                                releaseProject = DataParseUtil.getProjectInfo(response);
-                                Bundle bundle = new Bundle();
-                                bundle.putParcelable(Constants.KEY_RELEASE_PROJECT, releaseProject);
-                                Intent intent = new Intent(mActivity, PayingActivity.class);
-                                intent.putExtras(bundle);
-                                startActivity(intent);
-                                mActivity.finish();
+                            try {
+                                releaseProject = new ReleaseProject();
+                                boolean b = DataParseUtil.processDataResult(response);
+                                if (b) {
+                                    T.show("开发商发布成功");
+                                    releaseProject = DataParseUtil.getProjectInfo(response);
+                                    Bundle bundle = new Bundle();
+                                    bundle.putParcelable(Constants.KEY_RELEASE_PROJECT, releaseProject);
+                                    Intent intent = new Intent(mActivity, PayingActivity.class);
+                                    intent.putExtras(bundle);
+                                    startActivity(intent);
+                                    mActivity.finish();
+                                }
+                            } catch (ResponseException e) {
+                                e.printStackTrace();
+                                T.show(e.getMessage());
                             }
-                        } catch (ResponseException e) {
-                            e.printStackTrace();
-                            T.show(e.getMessage());
+
                         }
 
-                    }
-
-                    @Override
-                    public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
-                        super.onFailure(statusCode, headers, responseString, throwable);
-                        L.d(responseString);
-                    }
-                });
+                        @Override
+                        public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                            super.onFailure(statusCode, headers, responseString, throwable);
+                            L.d(responseString);
+                        }
+                    });
         }
 
     }
@@ -597,12 +639,75 @@ public class IncreaseDetailFragment extends CropEnableFragment {
         }
     }
 
+    @OnClick(R.id.tv_verify_code)
+    public void goRegister2(View view) {
+        String phone = phoneEt.getText().toString().trim();
+        if (VerifyUtils.isPhone(phone)) {
+
+            DataAccessUtil.messageCode(phone, new JsonHttpResponseHandler(){
+                @Override
+                public void onStart() {
+                    executeCountDown();
+                }
+
+                @Override
+                public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                    try {
+                        boolean b = DataParseUtil.messageCode(response);
+                        L.d("xxx",b+"b的值");
+                        if (b) {
+                            T.show("验证码已发送，请注意查收");
+                        }
+
+                    } catch (ResponseException e) {
+                        e.printStackTrace();
+                        T.show(e.getMessage());
+                    }
+                }
+
+                @Override
+                public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                    super.onFailure(statusCode, headers, throwable, errorResponse);
+                }
+            });
+        }else {
+            T.show("请输入正确的手机号");
+
+        }
+    }
+
+    private void executeCountDown() {
+        tvVerifyCode.setPressed(true);
+        tvVerifyCode.setClickable(false);
+        countDownTimer = new CountDownTimer(60000, 1000) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+                mHandler.sendEmptyMessage((int)(millisUntilFinished / 1000));
+            }
+
+            @Override
+            public void onFinish() {
+                mHandler.sendEmptyMessage(0);
+            }
+        };
+        countDownTimer.start();
+    }
+
     @Override
     public void onSaveInstanceState(Bundle outState) {
         outState.putParcelable(Constants.KEY_RELEASE_INFO, releaseInfo);
         outState.putStringArrayList(Constants.KEY_PROJECT_IMAGES, imageNames);
-        outState.putStringArrayList("duang",dataFilePath);
+        outState.putStringArrayList("duang", dataFilePath);
         super.onSaveInstanceState(outState);
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if (countDownTimer != null) {
+            countDownTimer.cancel();
+            countDownTimer = null;
+        }
+        ButterKnife.unbind(this);
+    }
 }

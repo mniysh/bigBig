@@ -25,7 +25,7 @@
             android:layout_height="wrap_content"
             android:background="#fff"
             android:drawablePadding="10dp"
-            android:hint="设置密码"
+            android:hint="密码"
             android:inputType="textPassword"
             android:padding="15dp"
             android:maxLength="12"
@@ -41,6 +41,36 @@
             android:background="#fff"
             android:drawablePadding="10dp"
             android:hint="确认密码"
+            android:inputType="textPassword"
+            android:padding="15dp"
+            android:maxLength="12"
+
+            />
+
+        <EditText
+
+            android:id="@+id/et_invite_code"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:background="#fff"
+            android:drawablePadding="10dp"
+            android:hint="邀请码       可选填"
+            android:inputType="textPassword"
+            android:padding="15dp"
+            android:maxLength="12"
+
+            />
+
+        <EditText
+
+            android:id="@+id/et_project_invite_code"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:background="#fff"
+            android:drawablePadding="10dp"
+            android:hint="项目邀请码   可选填"
             android:inputType="textPassword"
             android:padding="15dp"
             android:maxLength="12"

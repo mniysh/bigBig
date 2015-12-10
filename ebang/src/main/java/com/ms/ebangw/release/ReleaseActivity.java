@@ -62,9 +62,9 @@ public class ReleaseActivity extends BaseActivity {
     public List<WorkType> getSelectWorkType() {
         return selectWorkType;
     }
-    public void goDeveloperRelease(String staff, String cate) {
+    public void goDeveloperRelease(String staff, String cate, long totalMoney) {
 
-        IncreaseDetailFragment increaseDetailFragment = IncreaseDetailFragment.newInstance(staff, cate);
+        IncreaseDetailFragment increaseDetailFragment = IncreaseDetailFragment.newInstance(staff, cate,totalMoney);
         FragmentTransaction transaction = fm.beginTransaction();
         transaction.replace(R.id.fl_release, increaseDetailFragment);
         transaction.addToBackStack(null);

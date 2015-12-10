@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import com.easemob.easeui.EaseConstant;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.loopj.android.http.AsyncHttpResponseHandler;
@@ -28,6 +29,7 @@ import com.ms.ebangw.commons.Constants;
 import com.ms.ebangw.exception.ResponseException;
 import com.ms.ebangw.service.DataAccessUtil;
 import com.ms.ebangw.service.DataParseUtil;
+import com.ms.ebangw.utils.ChartUtil;
 import com.ms.ebangw.utils.L;
 
 import org.apache.http.Header;
@@ -330,11 +332,10 @@ public class ProjectStatusFragment extends BaseFragment {
         adapter.setOnEvaluateClickListener(new PublishedProjectStatusAdapter.OnEvaluateClickListener() {
             @Override
             public void onGrabClick(View view, ReleaseProject releaseProject) { //评论
-//                Intent intent = new Intent(getActivity(), EvaluateActivity.class);
-//                Bundle bundle = new Bundle();
-//                bundle.putParcelable(Constants.KEY_RELEASED_PROJECT_STR, releaseProject);
-//                intent.putExtras(bundle);
-//                startActivity(intent);
+                if (null != releaseProject) {
+                    String developer_id = releaseProject.getDeveloper_id();
+                    ChartUtil.chatTo(mActivity, developer_id, EaseConstant.CHATTYPE_SINGLE);
+                }
             }
         });
     }

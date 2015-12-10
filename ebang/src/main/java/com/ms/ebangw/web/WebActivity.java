@@ -80,7 +80,6 @@ public class WebActivity extends BaseActivity {
                 T.show("网络异常,请检查网络连接");
             }
         }
-
     }
 
 //    @Override
@@ -214,9 +213,7 @@ public class WebActivity extends BaseActivity {
                     } else {
                         p = 3;
                     }
-
                     onSharedResult(p, eCode == StatusCode.ST_CODE_SUCCESSED ? 1 : 0);
-
                 }
 
             });

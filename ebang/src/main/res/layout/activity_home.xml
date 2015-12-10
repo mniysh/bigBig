@@ -68,6 +68,7 @@
             android:button="@drawable/empty"
             android:drawableTop="@drawable/home_mine_selector"
             android:textColor="@color/home_bottom_selector"
+            android:padding="5dp"
             />
 
 

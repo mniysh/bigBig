@@ -3,6 +3,7 @@ package com.ms.ebangw.utils;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 
 import com.easemob.easeui.EaseConstant;
 import com.ms.ebangw.chat.ChatActivity;
@@ -17,20 +18,22 @@ public class ChartUtil {
      * 聊天
      * @param context
      * @param userId
-     * @param type  {@link EaseConstant}
+     * @param  type {@link EaseConstant}
      */
-    private static  void chatTo(Context context ,String userId, int type) {
-        Bundle bundle = new Bundle();
-        bundle.putInt(EaseConstant.EXTRA_CHAT_TYPE, type);
+    public static  void chatTo(Context context , String userId, int  type) {
 
-        bundle.putString("userId", userId);
+        if (!TextUtils.isEmpty(userId)) {
+            Bundle bundle = new Bundle();
+            bundle.putInt(EaseConstant.EXTRA_CHAT_TYPE, type);
+            bundle.putString("userId", userId);
 
-        Intent intent = new Intent(context, ChatActivity.class);
-        intent.putExtras(bundle);
-        context.startActivity(intent);
+            Intent intent = new Intent(context, ChatActivity.class);
+            intent.putExtras(bundle);
+            context.startActivity(intent);
+
+        }
     }
 
-    public static void chatBySingle(Context context, String userId) {
-        chatTo(context, userId, EaseConstant.CHATTYPE_SINGLE);
-    }
+
+
 }  

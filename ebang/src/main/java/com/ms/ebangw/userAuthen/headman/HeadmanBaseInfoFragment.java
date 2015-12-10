@@ -44,8 +44,6 @@ public class HeadmanBaseInfoFragment extends BaseFragment {
 	private ViewGroup contentLayout;
 	private String reallName;
 
-	@Bind(R.id.et_phone)
-	EditText phoneEt;
 	@Bind(R.id.et_account_name)
 	EditText readNameEt;
 	@Bind(R.id.et_identify_card)
@@ -157,7 +155,6 @@ public class HeadmanBaseInfoFragment extends BaseFragment {
 	private boolean isInfoCorrect() {
 		String realName = readNameEt.getText().toString().trim();
 		String cardId = cardEt.getText().toString().trim();
-		String phone = phoneEt.getText().toString().trim();
 		if (TextUtils.isEmpty(realName)) {
 			T.show("请输入真实姓名");
 			return false;
@@ -167,19 +164,11 @@ public class HeadmanBaseInfoFragment extends BaseFragment {
 			return false;
 		}
 
-
-
 		if (!VerifyUtils.isIdentifyCard(cardId)) {
 			T.show("请输入正确的身份证号码");
 			return false;
 		}
-
-		if (!VerifyUtils.isPhone(phone)) {
-			T.show("请输入手机号");
-			return false;
-		}
-
-		return true;
+				return true;
 	}
 
 
@@ -187,8 +176,6 @@ public class HeadmanBaseInfoFragment extends BaseFragment {
 	public AuthInfo getAuthInfo() {
 		String realName = readNameEt.getText().toString().trim();
 		String cardId = cardEt.getText().toString().trim();
-		String phone = phoneEt.getText().toString().trim();
-
 
 		AuthInfo authInfo = new AuthInfo();
 
@@ -235,7 +222,6 @@ public class HeadmanBaseInfoFragment extends BaseFragment {
 		authInfo.setRealName(realName);
 		authInfo.setIdentityCard(cardId);
 		authInfo.setGender(gender);
-		authInfo.setPhone(phone);
 		authInfo.setProvinceId(provinceId);
 		authInfo.setCityId(cityId);
 		return authInfo;

@@ -26,6 +26,10 @@ import java.util.Map;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
+/**
+ * 用户中心， 邀请好友
+ * @author wangkai
+ */
 public class InviteFriendsActivity extends BaseActivity {
     private Handler handler;
     @Bind(R.id.listView)

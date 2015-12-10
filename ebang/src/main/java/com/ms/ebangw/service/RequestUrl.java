@@ -32,11 +32,11 @@ public class RequestUrl {
      */
     public static final String user_information = domain + "/api/user/index/information";
     /**
-     * 4.短信验证码
+     * 4.短信验证码  (普通情况手机号验证)
      */
     public static final  String msg =domain+"/api/user/index/msg";
     /**
-     * 4.1短信验证码
+     * 3-1.短信接口 (注册等相关验证)
      */
     public static final  String msg_registe =domain+"/api/user/index/msg/1";
 
@@ -334,4 +334,14 @@ public class RequestUrl {
      * 3-17、首页banner图接口
      */
     public static final String banner = domain + "/api/common/article/banner";
+
+    /**
+     * 4-6.通过用户id查询真实名字和头像
+     */
+    public static final String query_avatar = domain + "/api/social/social/real-message";
+
+
+
+
+
 }

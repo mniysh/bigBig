@@ -48,8 +48,6 @@ public class WorkerBaseInfoFragment extends BaseFragment {
 	private String category;
 	private ViewGroup contentLayout;
 
-	@Bind(R.id.et_phone)
-	EditText phoneEt;
 	@Bind(R.id.et_account_name)
 	EditText readNameEt;
 	@Bind(R.id.et_identify_card)
@@ -242,7 +240,6 @@ public class WorkerBaseInfoFragment extends BaseFragment {
 	private boolean isInfoCorrect() {
 		String realName = readNameEt.getText().toString().trim();
 		String cardId = cardEt.getText().toString().trim();
-		String phone = phoneEt.getText().toString().trim();
 		String crafts = ((WorkerAuthenActivity) mActivity).getAuthInfo().getCrafts();
 
 		if (TextUtils.isEmpty(realName)) {
@@ -259,10 +256,6 @@ public class WorkerBaseInfoFragment extends BaseFragment {
 			return false;
 		}
 
-		if (!VerifyUtils.isPhone(phone)) {
-			T.show("请输入手机号");
-			return false;
-		}
 
 		if (TextUtils.isEmpty(crafts)) {
 			T.show("请选择工种");
@@ -279,8 +272,6 @@ public class WorkerBaseInfoFragment extends BaseFragment {
 
 		String realName = readNameEt.getText().toString().trim();
 		String cardId = cardEt.getText().toString().trim();
-		String phone = phoneEt.getText().toString().trim();
-
 
 		AuthInfo authInfo = ((WorkerAuthenActivity)mActivity).getAuthInfo();
 
@@ -327,7 +318,6 @@ public class WorkerBaseInfoFragment extends BaseFragment {
 		authInfo.setRealName(realName);
 		authInfo.setIdentityCard(cardId);
 		authInfo.setGender(gender);
-		authInfo.setPhone(phone);
 		authInfo.setProvinceId(provinceId);
 		authInfo.setCityId(cityId);
 		return authInfo;

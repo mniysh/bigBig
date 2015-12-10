@@ -3,6 +3,7 @@ package com.ms.ebangw.setting;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.ms.ebangw.MyApplication;
@@ -10,6 +11,7 @@ import com.ms.ebangw.R;
 import com.ms.ebangw.activity.BaseActivity;
 import com.ms.ebangw.bean.User;
 import com.ms.ebangw.utils.L;
+import com.ms.ebangw.utils.StringUtils;
 import com.ms.ebangw.utils.T;
 
 import butterknife.Bind;
@@ -37,6 +39,8 @@ public class SettingActivity extends BaseActivity {
     TextView tvPhoneModify;
     @Bind(R.id.tv_passModify)
     TextView tvPassModify;
+
+
     @Bind(R.id.tv_realNameModify)
     TextView tvRealNameModify;
 
@@ -61,6 +65,12 @@ public class SettingActivity extends BaseActivity {
         initTitle(null, "返回", "设置", null, null);
         tvNickName.setText(getUser().getNick_name());
         tPhone.setText(getUser().getPhone());
+        String realName = getUser().getReal_name();
+        if(realName != null){
+            tvRealNameModify.setText(StringUtils.setRealName(realName));
+        }else{
+            tvRealNameModify.setText("还没有实名认证");
+        }
     }
 
     @Override

@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
@@ -42,8 +43,6 @@ public class DevelopersBaseInfoFragment extends BaseFragment {
 	private String category;
 	private ViewGroup contentLayout;
 
-	@Bind(R.id.et_phone)
-	EditText phoneEt;
 	@Bind(R.id.et_account_name)
 	EditText readNameEt;
 	@Bind(R.id.et_identify_card)
@@ -120,7 +119,6 @@ public class DevelopersBaseInfoFragment extends BaseFragment {
 	private boolean isInfoCorrect() {
 		String realName = readNameEt.getText().toString().trim();
 		String cardId = cardEt.getText().toString().trim();
-		String phone = phoneEt.getText().toString().trim();
 		String introduce = introduceEt.getText().toString().trim();
 		if (TextUtils.isEmpty(realName)) {
 			T.show("请输入真实姓名");
@@ -133,11 +131,6 @@ public class DevelopersBaseInfoFragment extends BaseFragment {
 
 		if (!VerifyUtils.isIdentifyCard(cardId)) {
 			T.show("请输入正确的身份证号码");
-			return false;
-		}
-
-		if (!VerifyUtils.isPhone(phone)) {
-			T.show("请输入手机号");
 			return false;
 		}
 
@@ -154,7 +147,6 @@ public class DevelopersBaseInfoFragment extends BaseFragment {
 	public AuthInfo getAuthInfo() {
 		String realName = readNameEt.getText().toString().trim();
 		String cardId = cardEt.getText().toString().trim();
-		String phone = phoneEt.getText().toString().trim();
 		String introduce = introduceEt.getText().toString().trim();
 
 		AuthInfo authInfo = new AuthInfo();
@@ -175,7 +167,6 @@ public class DevelopersBaseInfoFragment extends BaseFragment {
 		authInfo.setRealName(realName);
 		authInfo.setGender(gender);
 		authInfo.setIdentityCard(cardId);
-		authInfo.setPhone(phone);
 		authInfo.setProvinceId(provinceId);
 		authInfo.setCityId(cityId);
 		authInfo.setIntroduce(introduce);

@@ -5,6 +5,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -176,7 +177,7 @@ public class EaseChatFragment extends EaseBaseFragment implements EMEventListene
         });
 
         swipeRefreshLayout = messageList.getSwipeRefreshLayout();
-        swipeRefreshLayout.setColorScheme(R.color.holo_blue_bright, R.color.holo_green_light,
+        swipeRefreshLayout.setColorSchemeResources(R.color.holo_blue_bright, R.color.holo_green_light,
                 R.color.holo_orange_light, R.color.holo_red_light);
 
         inputManager = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
@@ -188,11 +189,15 @@ public class EaseChatFragment extends EaseBaseFragment implements EMEventListene
      * 设置属性，监听等
      */
     protected void setUpView() {
-        titleBar.setTitle(toChatUsername);
+//        titleBar.setTitle(toChatUsername);
+        titleBar.setTitle("消息");
+        titleBar.setBackgroundColor(Color.parseColor("#0076a9"));
+        titleBar.setLeftImageResource(R.drawable.jiantou);
         if (chatType == EaseConstant.CHATTYPE_SINGLE) { // 单聊
             // 设置标题
             if(EaseUserUtils.getUserInfo(toChatUsername) != null){
-                titleBar.setTitle(EaseUserUtils.getUserInfo(toChatUsername).getNick());
+//                titleBar.setTitle(EaseUserUtils.getUserInfo(toChatUsername).getNick());
+                titleBar.setTitle("消息");
             }
             titleBar.setRightImageResource(R.drawable.ease_mm_title_remove);
         } else {

@@ -3,115 +3,108 @@ package com.ms.ebangw.db;
 import android.content.Context;
 
 import com.j256.ormlite.dao.Dao;
-import com.ms.ebangw.bean.User;
-import com.ms.ebangw.utils.L;
+import com.ms.ebangw.bean.EMUser;
 
 import java.sql.SQLException;
 import java.util.List;
 
-
-public class UserDao {
-    private Dao<User, Integer> userDaoOpe;
+/**
+ * User: WangKai(123940232@qq.com)
+ * 2015-12-09 09:57
+ */
+public class EMUserDao {
+    private Dao<EMUser, Integer> dao;
     private DatabaseHelper helper;
 
-    public  UserDao(Context context) {
+    public  EMUserDao(Context context) {
         try {
             helper = DatabaseHelper.getHelper(context);
-            userDaoOpe = helper.getDao(User.class);
+            dao = helper.getDao(EMUser.class);
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
+
 
     /**
      * 增加一个用户
      *
-     * @param user
+     * @param emUser
      * @throws SQLException
      */
-    public boolean add(User user) {
+    public boolean add(EMUser emUser) {
 
         try {
-            Dao.CreateOrUpdateStatus orUpdate = userDaoOpe.createOrUpdate(user);
+            Dao.CreateOrUpdateStatus orUpdate = dao.createOrUpdate(emUser);
             if (orUpdate.isUpdated() || orUpdate.isCreated()) {
-                L.d("add User 成功");
                 return true;
             }
 
         } catch (SQLException e) {
             e.printStackTrace();
-            L.d("add User 失败");
         }
         return false;
 
     }
 
-    public boolean update(User user) {
+    public boolean update(EMUser emUser) {
         try {
-            int update = userDaoOpe.update(user);
-            if (update > 0) {
+            Dao.CreateOrUpdateStatus orUpdate = dao.createOrUpdate(emUser);
+            if (orUpdate.isCreated() || orUpdate.isUpdated()) {
                 return true;
             }
         } catch (SQLException e) {
-            L.d("update  User失败");
             e.printStackTrace();
         }
         return false;
     }
 
-    public void delete(User user) {
+    public void delete(EMUser emUser) {
         try {
-            userDaoOpe.delete(user);
+            dao.delete(emUser);
         } catch (SQLException e) {
-            L.d("delete User失败");
             e.printStackTrace();
         }
     }
-    
-    
 
-    public User getUserById(int id) {
+
+
+    public EMUser getUserById(int  id) {
         try {
-            return userDaoOpe.queryForId(id);
+
+            return dao.queryForId(id);
         } catch (SQLException e) {
-            L.d("getUserById 获取User失败");
             e.printStackTrace();
         }
         return null;
     }
 
-    public User getUser() {
+    public List<EMUser> getAllEmUser() {
         try {
-            List<User> users = userDaoOpe.queryForAll();
-            if (null != users && users.size() > 0) {
-                return users.get(0);
-            }
-            
+            return dao.queryForAll();
         } catch (SQLException e) {
-            L.d("获取User失败");
             e.printStackTrace();
         }
         return null;
+
     }
+
 
     public void removeAll() {
 
-        List<User> users;
+        List<EMUser> list;
         try {
-            users = userDaoOpe.queryForAll();
-            if (null != users && users.size() > 0) {
-                int count = users.size();
+            list = dao.queryForAll();
+            if (null != list && list.size() > 0) {
+                int count = list.size();
                 for (int i = 0; i < count; i++) {
-                    User user = users.get(i);
-                    delete(user);
+                    EMUser emUser = list.get(i);
+                    delete(emUser);
                 }
             }
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
-
     }
-
-}
+}  

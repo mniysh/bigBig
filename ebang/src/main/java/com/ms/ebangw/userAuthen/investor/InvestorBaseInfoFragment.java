@@ -44,8 +44,6 @@ public class InvestorBaseInfoFragment extends BaseFragment {
 	private String category;
 	private ViewGroup contentLayout;
 
-	@Bind(R.id.et_phone)
-	EditText phoneEt;
 	@Bind(R.id.et_account_name)
 	EditText readNameEt;
 	@Bind(R.id.et_identify_card)
@@ -158,7 +156,6 @@ public class InvestorBaseInfoFragment extends BaseFragment {
 	private boolean isInfoCorrect() {
 		String realName = readNameEt.getText().toString().trim();
 		String cardId = cardEt.getText().toString().trim();
-		String phone = phoneEt.getText().toString().trim();
 		if (TextUtils.isEmpty(realName)) {
 			T.show("请输入真实姓名");
 			return false;
@@ -173,10 +170,7 @@ public class InvestorBaseInfoFragment extends BaseFragment {
 			return false;
 		}
 
-		if (!VerifyUtils.isPhone(phone)) {
-			T.show("请输入手机号");
-			return false;
-		}
+
 
 		return true;
 	}
@@ -186,8 +180,6 @@ public class InvestorBaseInfoFragment extends BaseFragment {
 	public AuthInfo getAuthInfo() {
 		String realName = readNameEt.getText().toString().trim();
 		String cardId = cardEt.getText().toString().trim();
-		String phone = phoneEt.getText().toString().trim();
-
 
 		AuthInfo authInfo = new AuthInfo();
 
@@ -236,7 +228,6 @@ public class InvestorBaseInfoFragment extends BaseFragment {
 
 		authInfo.setRealName(realName);
 		authInfo.setIdentityCard(cardId);
-		authInfo.setPhone(phone);
 		authInfo.setProvinceId(provinceId);
 		authInfo.setCityId(cityId);
 		authInfo.setGender(gender);

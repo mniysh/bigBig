@@ -96,9 +96,9 @@ public class HomeActivity extends BaseActivity {
         setContentView(R.layout.activity_home);
         ButterKnife.bind(this);
         EventBus.getDefault().register(this);
-//        DisplayMetrics metrics = new DisplayMetrics();
-//        getWindowManager().getDefaultDisplay().getMetrics(metrics);
-//        Log.d("xxx", "屏幕分辨率为" + metrics.widthPixels + "+" + metrics.heightPixels);
+        DisplayMetrics metrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(metrics);
+        Log.d("xxx", "屏幕分辨率为" + metrics.widthPixels + "+" + metrics.heightPixels);
         fm = getFragmentManager();
         L.d("HomeActivity onCreate, savedInstanceState=  " + savedInstanceState);
         if (savedInstanceState != null) {
@@ -272,9 +272,9 @@ public class HomeActivity extends BaseActivity {
     /**
      * 去开发商发布页面
      */
-    public void goDeveloperRelease(String staff, String cate) {
+    public void goDeveloperRelease(String staff, String cate, long money) {
 
-        IncreaseDetailFragment increaseDetailFragment = IncreaseDetailFragment.newInstance(staff, cate);
+        IncreaseDetailFragment increaseDetailFragment = IncreaseDetailFragment.newInstance(staff, cate,money);
         FragmentTransaction transaction = fm.beginTransaction();
         transaction.replace(R.id.fl_content, increaseDetailFragment);
         transaction.addToBackStack(null);
