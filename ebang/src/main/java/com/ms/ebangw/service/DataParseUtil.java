@@ -282,6 +282,9 @@ public class DataParseUtil {
         JSONObject secondObj = data.optJSONObject("second");
         JSONObject thirdObj = data.optJSONObject("third");
 
+        if (null == mainWorkTypes) {
+            return null;
+        }
         for (int i = 0; i < mainWorkTypes.size(); i++) {
             WorkType type = mainWorkTypes.get(i);
             String mainTypeId = type.getId();
@@ -411,12 +414,15 @@ public class DataParseUtil {
      */
     public static List<People> peopleCategory(JSONObject jsonObject) throws ResponseException {
         JSONObject data = processData(jsonObject);
-        String dataList = data.optString("dataList");
-        Gson gson = new Gson();
-        List<People> list = gson.fromJson(dataList, new TypeToken<List<People>>() {
-        }.getType());
+        if (null != data) {
+            String dataList = data.optString("dataList");
+            Gson gson = new Gson();
+            List<People> list = gson.fromJson(dataList, new TypeToken<List<People>>() {
+            }.getType());
 
-        return list;
+            return list;
+        }
+        return null;
     }
 
     /**
@@ -428,11 +434,14 @@ public class DataParseUtil {
     public static List<ShowedCraft> showCraft(JSONObject jsonObject) throws ResponseException {
         JSONObject data = processData(jsonObject);
         String dataList = data.optString("dataList");
-        Gson gson = new Gson();
-        List<ShowedCraft> list = gson.fromJson(dataList, new TypeToken<List<ShowedCraft>>() {
-        }.getType());
+        if (null != data) {
+            Gson gson = new Gson();
+            List<ShowedCraft> list = gson.fromJson(dataList, new TypeToken<List<ShowedCraft>>() {
+            }.getType());
 
-        return list;
+            return list;
+        }
+        return null;
     }
 
     /**
@@ -475,8 +484,11 @@ public class DataParseUtil {
      */
     public static String removeRelation(JSONObject jsonObject) throws ResponseException {
         JSONObject data = processData(jsonObject);
-        String recommend = data.optString("recommend", null);
-        return recommend;
+        if (null != data) {
+            String recommend = data.optString("recommend");
+            return recommend;
+        }
+        return null;
     }
 
     /**
@@ -601,9 +613,6 @@ public class DataParseUtil {
      */
     public static List<Party> socialShow(JSONObject jsonObject) throws ResponseException {
         String dataStr = processDataStr(jsonObject);
-        if (TextUtils.isEmpty(dataStr)) {
-            return null;
-        }
         Gson gson = new Gson();
         List<Party> list = gson.fromJson(dataStr, new TypeToken<List<Party>>() {
         }.getType());
@@ -619,9 +628,6 @@ public class DataParseUtil {
      */
     public static List<SystemMessage> systemMessage(JSONObject jsonObject) throws ResponseException {
         String dataStr = processDataStr(jsonObject);
-        if (TextUtils.isEmpty(dataStr)) {
-            return null;
-        }
         Gson gson = new Gson();
         List<SystemMessage> list = gson.fromJson(dataStr, new TypeToken<List<SystemMessage>>() {
         }.getType());
@@ -694,32 +700,36 @@ public class DataParseUtil {
     public static ReleaseProject getProjectInfo(JSONObject jsonObject) throws ResponseException {
         ReleaseProject releaseProject = new ReleaseProject();
         JSONObject data = processData(jsonObject);
-        //            T.show("能进来");
-        String id = data.optString("id");
-        String no = data.optString("no");
-        String province = data.optString("province");
-        String city = data.optString("city");
-        String area_other = data.optString("area_other");
-        String account_staffs = data.optString("account_staffs");
-        String total_money = data.optString("total_money");
-        String project_money = data.optString("project_money");
-        String image = data.optString("image");
-        String title = data.optString("title");
-        String count = data.optString("description");
-        releaseProject.setCount(count);
-        releaseProject.setTitle(title);
-        releaseProject.setProject_money(project_money);
-        releaseProject.setId(id);
-        releaseProject.setNo(no);
-        releaseProject.setProvince(province);
-        releaseProject.setCity(city);
-        releaseProject.setAccount_staff(account_staffs);
-        releaseProject.setArea_other(area_other);
-        releaseProject.setTotal_money(total_money);
-        releaseProject.setProject_money(project_money);
-        releaseProject.setImage_par(image);
+        if (data != null) {
+            String id = data.optString("id");
+            String no = data.optString("no");
+            String province = data.optString("province");
+            String city = data.optString("city");
+            String area_other = data.optString("area_other");
+            String account_staffs = data.optString("account_staffs");
+            String total_money = data.optString("total_money");
+            String project_money = data.optString("project_money");
+            String image = data.optString("image");
+            String title = data.optString("title");
+            String count = data.optString("description");
+            releaseProject.setCount(count);
+            releaseProject.setTitle(title);
+            releaseProject.setProject_money(project_money);
+            releaseProject.setId(id);
+            releaseProject.setNo(no);
+            releaseProject.setProvince(province);
+            releaseProject.setCity(city);
+            releaseProject.setAccount_staff(account_staffs);
+            releaseProject.setArea_other(area_other);
+            releaseProject.setTotal_money(total_money);
+            releaseProject.setProject_money(project_money);
+            releaseProject.setImage_par(image);
 
-        return releaseProject;
+            return releaseProject;
+
+        }
+        return null;
+        //            T.show("能进来");
     }
 
 

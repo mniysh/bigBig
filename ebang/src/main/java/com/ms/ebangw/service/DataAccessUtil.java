@@ -41,11 +41,14 @@ public class DataAccessUtil {
      * @param code 验证码
      * @param password 密码
      * @param come_from 渠道名称
+     * @param inviteCode 邀请码
+     * @param projectInviteCode 项目邀请码
      * @param asyncHttpResponseHandler 请求
      * @return
      */
     public static RequestHandle register(String name,String phone,String email,String gender,
                                          String code,  String password, String come_from,
+                                         String inviteCode, String projectInviteCode,
                                          AsyncHttpResponseHandler
         asyncHttpResponseHandler ) {
         RequestParams params = new RequestParams();
@@ -58,6 +61,8 @@ public class DataAccessUtil {
 
         //增加渠道标识，注册时提交
         params.put("come_from", come_from);
+        params.put("invite_code", inviteCode);
+        params.put("projectInviteCode", projectInviteCode);
 
         return doPost(RequestUrl.register, params, asyncHttpResponseHandler);
     }
@@ -228,7 +233,8 @@ public class DataAccessUtil {
      * @return
      */
     public static RequestHandle releaseProject(String title, String description, String link_man,
-                                               String link_phone, String province, String city,
+                                               String link_phone,String code, String province,
+                                               String city,
                                                String area_other, float point_longitude,
                                                float point_latitude,
                                                String image_ary, String start_time,
@@ -238,6 +244,7 @@ public class DataAccessUtil {
         params.put("description",description);
         params.put("link_man",link_man);
         params.put("link_phone",link_phone);
+        params.put("code",code);
         params.put("province",province);
         params.put("city",city);
         params.put("area_other",area_other);
@@ -248,7 +255,6 @@ public class DataAccessUtil {
         params.put("project_money",project_money);
         params.put("image_ary",image_ary);
         params.put("staffs", staffs);
-        //T.show("能进来1");
         return doPost(RequestUrl.release_project, params, asyncHttpResponseHandler);
 
     }
@@ -530,7 +536,7 @@ public class DataAccessUtil {
      * @param identity_card 身份证号(18位字符)
      * @param card_image_front  身份证正面(id)
      * @param card_image_back   身份证反面(id)
-     * @param linkman_phone 手机号码(11位数字)
+//     * @param linkman_phone 手机号码(11位数字)
      * @param province  省分(id)
      * @param city  市(id)
      * @param company_name     企业名称
@@ -555,7 +561,7 @@ public class DataAccessUtil {
      */
     public static RequestHandle developerIdentify(String real_name, String identity_card,
                                                   String card_image_front, String card_image_back,
-                                                  String linkman_phone, String province,
+                                                   String province,
                                                   String city, String company_name,
                                                   String business_province, String business_city,
                                                   String address, String business_years,
@@ -574,7 +580,7 @@ public class DataAccessUtil {
         params.put("identity_card",identity_card);
         params.put("card_image_front",card_image_front);
         params.put("card_image_back",card_image_back);
-        params.put("linkman_phone",linkman_phone);
+//        params.put("linkman_phone",linkman_phone);
         params.put("province",province);
         params.put("city",city);
         params.put("company_name",company_name);
@@ -606,7 +612,7 @@ public class DataAccessUtil {
      * @param identity_card 身份证号(18位字符)
      * @param card_image_front  身份证正面(id)
      * @param card_image_back   身份证反面(id)
-     * @param linkman_phone 手机号码(11位数字)
+//     * @param linkman_phone 手机号码(11位数字)
      * @param province  省分(id)
      * @param city  市(id)
      * @param company_name     企业名称
@@ -631,7 +637,7 @@ public class DataAccessUtil {
      */
     public static RequestHandle companyIdentify(String real_name, String identity_card,
                                                   String card_image_front, String card_image_back,
-                                                  String linkman_phone, String province,
+                                                   String province,
                                                   String city, String company_name,
                                                   String business_province, String business_city,
                                                   String address, String business_years,
@@ -650,7 +656,7 @@ public class DataAccessUtil {
         params.put("identity_card",identity_card);
         params.put("card_image_front",card_image_front);
         params.put("card_image_back",card_image_back);
-        params.put("linkman_phone",linkman_phone);
+//        params.put("linkman_phone",linkman_phone);
         params.put("province",province);
         params.put("city",city);
         params.put("company_name",company_name);

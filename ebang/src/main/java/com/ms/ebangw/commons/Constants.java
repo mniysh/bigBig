@@ -220,4 +220,7 @@ public class Constants {
 	public static final String KEY_SYS_MESSAGE_STR = "system_message";
 	public static final String KEY_SYS_MESSAGE_ID = "system_message_id";
 	public static final int KEY_BANNER_IMAGE = R.drawable.back_star;
+	public static final String KEY_WEB_TITLE = "web_title";
+	public static final String KEY_WEB_TYPE = "web_type";
+	public static final String KEY_WEB_URL = "web_title_url";
 }

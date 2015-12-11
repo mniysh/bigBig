@@ -3,16 +3,20 @@ package com.ms.ebangw.activity;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.easemob.easeui.EaseConstant;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.ms.ebangw.R;
-import com.ms.ebangw.adapter.RecommendedWorkersAdapter;
+import com.ms.ebangw.adapter.PeopleManageAdapter;
 import com.ms.ebangw.bean.Worker;
+import com.ms.ebangw.commons.Constants;
 import com.ms.ebangw.exception.ResponseException;
 import com.ms.ebangw.service.DataAccessUtil;
 import com.ms.ebangw.service.DataParseUtil;
+import com.ms.ebangw.utils.ChartUtil;
 import com.ms.ebangw.utils.T;
 import com.ms.ebangw.view.QuickindexBar;
 
@@ -111,7 +115,7 @@ public class PeopleManageActivity extends BaseActivity {
 
     private void initWorksList(final List<Worker> workerList) {
         Collections.sort(workerList);
-        RecommendedWorkersAdapter adapter = new RecommendedWorkersAdapter(workerList, new RecommendedWorkersAdapter.OnRemoveRelationListener() {
+        PeopleManageAdapter adapter = new PeopleManageAdapter(workerList, new PeopleManageAdapter.OnRemoveRelationListener() {
             @Override
             public void onRemove(Worker worker) {
                 removeRelation(worker.getId());
@@ -133,6 +137,17 @@ public class PeopleManageActivity extends BaseActivity {
                             break;
                         }
                     }
+                }
+            }
+        });
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Worker worker = (Worker) view.getTag(Constants.KEY_WORKER);
+                if (worker != null) {
+                    String workerId = worker.getId();
+                    ChartUtil.chatTo(PeopleManageActivity.this, workerId, EaseConstant.CHATTYPE_SINGLE);
                 }
             }
         });

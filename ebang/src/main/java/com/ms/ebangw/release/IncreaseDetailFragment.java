@@ -9,6 +9,9 @@ import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.CountDownTimer;
+import android.os.Handler;
+import android.os.Message;
 import android.provider.MediaStore;
 import android.text.SpannableString;
 import android.text.Spanned;
@@ -46,6 +49,7 @@ import com.ms.ebangw.utils.BitmapUtil;
 import com.ms.ebangw.utils.ImageLoaderutils;
 import com.ms.ebangw.utils.L;
 import com.ms.ebangw.utils.T;
+import com.ms.ebangw.utils.VerifyUtils;
 import com.ms.ebangw.view.ProvinceAndCityView;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -83,6 +87,8 @@ public class IncreaseDetailFragment extends CropEnableFragment {
     //经纬度
     private float longitude;
     private float latitude;
+    private CountDownTimer countDownTimer;
+    private Handler mHandler;
 
 //    private String JPEG_FILE_PREFIX =
 
@@ -139,9 +145,14 @@ public class IncreaseDetailFragment extends CropEnableFragment {
     TextView endTimeTv;
     @Bind(R.id.tv_address)
     TextView selectAddTv;
+    @Bind(R.id.et_verifyCode)
+    EditText etVerifyCode;
+    @Bind(R.id.tv_verify_code)
+    TextView tvVerifyCode;
 
 
-    private String province, city , area, detailAddress, title, link_name, link_phone,
+
+    private String province, city , area, detailAddress, title, link_name, link_phone, verifyCode,
         description, startTime, totalMoney, endTime, selectMapAdd;
     private String provinceId, cityId, areaId;
     private ReleaseProject releaseProject;
@@ -168,52 +179,7 @@ public class IncreaseDetailFragment extends CropEnableFragment {
     public IncreaseDetailFragment() {
 
     }
-    //地图获取信息
-    @OnClick({R.id.tv_address})
-    public void getMap(){
 
-        Intent intent = new Intent(mActivity, SelectMapLocActivity.class);
-        startActivityForResult(intent, MAP_LOCATION);
-    }
-
-
-    @OnClick(R.id.tv_start_time)
-    public void projectStartTime(){
-        DatePickerFragment datePickerFragment = new DatePickerFragment();
-        datePickerFragment.setListener(new DatePickerDialog.OnDateSetListener() {
-            @Override
-            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                Calendar calendar = Calendar.getInstance();
-                calendar.set(Calendar.YEAR, year);
-                calendar.set(Calendar.MONTH, monthOfYear);
-                calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
-                String dateStr = simpleDateFormat.format(calendar.getTime());
-                startTimeTv.setText(dateStr);
-                startTimeTv.setTag(calendar.getTimeInMillis());
-            }
-
-        });
-        datePickerFragment.show(getFragmentManager(), "date");
-    }
-    @OnClick(R.id.tv_end_time)
-    public void projectEndTime(){
-        DatePickerFragment datePickerFragment = new DatePickerFragment();
-        datePickerFragment.setListener(new DatePickerDialog.OnDateSetListener() {
-            @Override
-            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                Calendar calendar = Calendar.getInstance();
-                calendar.set(Calendar.YEAR, year);
-                calendar.set(Calendar.MONTH, monthOfYear);
-                calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
-                String dateStr = simpleDateFormat.format(calendar.getTime());
-                endTimeTv.setText(dateStr);
-                endTimeTv.setTag(calendar.getTimeInMillis());
-            }
-        });
-        datePickerFragment.show(getFragmentManager(), "date");
-    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -263,6 +229,53 @@ public class IncreaseDetailFragment extends CropEnableFragment {
         initTitle("填写信息");
     }
 
+    //地图获取信息
+    @OnClick({R.id.tv_address})
+    public void getMap(){
+
+        Intent intent = new Intent(mActivity, SelectMapLocActivity.class);
+        startActivityForResult(intent, MAP_LOCATION);
+    }
+
+
+    @OnClick(R.id.tv_start_time)
+    public void projectStartTime(){
+        DatePickerFragment datePickerFragment = new DatePickerFragment();
+        datePickerFragment.setListener(new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                Calendar calendar = Calendar.getInstance();
+                calendar.set(Calendar.YEAR, year);
+                calendar.set(Calendar.MONTH, monthOfYear);
+                calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+                String dateStr = simpleDateFormat.format(calendar.getTime());
+                startTimeTv.setText(dateStr);
+                startTimeTv.setTag(calendar.getTimeInMillis());
+            }
+
+        });
+        datePickerFragment.show(getFragmentManager(), "date");
+    }
+    @OnClick(R.id.tv_end_time)
+    public void projectEndTime(){
+        DatePickerFragment datePickerFragment = new DatePickerFragment();
+        datePickerFragment.setListener(new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                Calendar calendar = Calendar.getInstance();
+                calendar.set(Calendar.YEAR, year);
+                calendar.set(Calendar.MONTH, monthOfYear);
+                calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+                String dateStr = simpleDateFormat.format(calendar.getTime());
+                endTimeTv.setText(dateStr);
+                endTimeTv.setTag(calendar.getTimeInMillis());
+            }
+        });
+        datePickerFragment.show(getFragmentManager(), "date");
+    }
+
     /**
      * 设置星号
      */
@@ -270,7 +283,7 @@ public class IncreaseDetailFragment extends CropEnableFragment {
         int[] arr = {R.id.tv_a,R.id.tv_b,R.id.tv_c,
                 R.id.tv_d,R.id.tv_e,R.id.tv_f,
                 R.id.tv_g,R.id.tv_h,
-                R.id.tv_i,R.id.tv_j,R.id.tv_k,R.id.tv_l};
+                R.id.tv_i,R.id.tv_j,R.id.tv_k,R.id.tv_l, R.id.tv_m};
         for (int i = 0; i < arr.length ; i++) {
             TextView a = (TextView) contentLayout.findViewById(arr[i]);
             if(a != null){
@@ -298,6 +311,7 @@ public class IncreaseDetailFragment extends CropEnableFragment {
         link_name = nameEt.getText().toString().trim();
 
         link_phone = phoneEt.getText().toString().trim();
+        verifyCode = etVerifyCode.getText().toString().trim();
         description = introduceEt.getText().toString().trim();
         provinceId = provinceAndCityView.getProvinceId();
         cityId = provinceAndCityView.getCityId();
@@ -314,6 +328,7 @@ public class IncreaseDetailFragment extends CropEnableFragment {
         releaseInfo.setDescription(description);
         releaseInfo.setLink_man(link_name);
         releaseInfo.setLink_phone(link_phone);
+        releaseInfo.setVerifyCode(verifyCode);
         releaseInfo.setProvince(provinceId);
         releaseInfo.setCity(cityId);
         releaseInfo.setPoint_dimention(latitude);
@@ -357,6 +372,11 @@ public class IncreaseDetailFragment extends CropEnableFragment {
             T.show("电话不可为空");
             return  false;
         }
+         if(TextUtils.isEmpty(verifyCode)){
+            T.show("请输入验证码");
+            return  false;
+        }
+
         if(TextUtils.isEmpty(description)){
             T.show("简介不可为空");
             return  false;
@@ -418,7 +438,21 @@ public class IncreaseDetailFragment extends CropEnableFragment {
 
         List<Province> provinces = getAreaFromAssets().getProvince();
         provinceAndCityView.setProvinces(provinces);
+        mHandler = new Handler(new Handler.Callback() {
+            @Override
+            public boolean handleMessage(Message msg) {
+                int what = msg.what;
+                if (what == 0) {
+                    tvVerifyCode.setPressed(false);
+                    tvVerifyCode.setClickable(true);
+                    tvVerifyCode.setText("获取验证码");
+                }else {
+                    tvVerifyCode.setText(what + " 秒");
+                }
 
+                return false;
+            }
+        });
     }
 
     /**
@@ -548,7 +582,7 @@ public class IncreaseDetailFragment extends CropEnableFragment {
         getData();
 
         if(isRight()){
-            DataAccessUtil.releaseProject(title, description, link_name, link_phone,
+            DataAccessUtil.releaseProject(title, description, link_name, link_phone, verifyCode,
                     provinceId, cityId, detailAddress,
                     longitude, latitude, image_ary, startTime, endTime, totalMoney, staff,
                     new JsonHttpResponseHandler() {
@@ -605,6 +639,60 @@ public class IncreaseDetailFragment extends CropEnableFragment {
         }
     }
 
+    @OnClick(R.id.tv_verify_code)
+    public void goRegister2(View view) {
+        String phone = phoneEt.getText().toString().trim();
+        if (VerifyUtils.isPhone(phone)) {
+
+            DataAccessUtil.messageCode(phone, new JsonHttpResponseHandler(){
+                @Override
+                public void onStart() {
+                    executeCountDown();
+                }
+
+                @Override
+                public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                    try {
+                        boolean b = DataParseUtil.messageCode(response);
+                        L.d("xxx",b+"b的值");
+                        if (b) {
+                            T.show("验证码已发送，请注意查收");
+                        }
+
+                    } catch (ResponseException e) {
+                        e.printStackTrace();
+                        T.show(e.getMessage());
+                    }
+                }
+
+                @Override
+                public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                    super.onFailure(statusCode, headers, throwable, errorResponse);
+                }
+            });
+        }else {
+            T.show("请输入正确的手机号");
+
+        }
+    }
+
+    private void executeCountDown() {
+        tvVerifyCode.setPressed(true);
+        tvVerifyCode.setClickable(false);
+        countDownTimer = new CountDownTimer(60000, 1000) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+                mHandler.sendEmptyMessage((int)(millisUntilFinished / 1000));
+            }
+
+            @Override
+            public void onFinish() {
+                mHandler.sendEmptyMessage(0);
+            }
+        };
+        countDownTimer.start();
+    }
+
     @Override
     public void onSaveInstanceState(Bundle outState) {
         outState.putParcelable(Constants.KEY_RELEASE_INFO, releaseInfo);
@@ -613,4 +701,13 @@ public class IncreaseDetailFragment extends CropEnableFragment {
         super.onSaveInstanceState(outState);
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if (countDownTimer != null) {
+            countDownTimer.cancel();
+            countDownTimer = null;
+        }
+        ButterKnife.unbind(this);
+    }
 }

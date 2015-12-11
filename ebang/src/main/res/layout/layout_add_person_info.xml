@@ -73,7 +73,7 @@
         </LinearLayout>
 
 
-        <LinearLayout
+<!--        <LinearLayout
             android:id="@+id/ll_phone"
             android:layout_width="match_parent"
             android:layout_height="@dimen/authen_item_height"
@@ -101,7 +101,7 @@
                 android:maxLength="11"
                 android:textColorHint="@color/auth_hint"
                 />
-        </LinearLayout>
+        </LinearLayout>-->
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -111,7 +111,7 @@
             >
 
             <TextView
-                android:id="@+id/tv_d"
+                android:id="@+id/tv_c"
                 style="@style/authorization_text"
                 android:layout_height="wrap_content"
                 android:text="*性别: "
@@ -160,7 +160,7 @@
             >
 
             <TextView
-                android:id="@+id/tv_e"
+                android:id="@+id/tv_d"
                 style="@style/authorization_text"
                 android:layout_height="wrap_content"
                 android:text="*籍贯: "
@@ -191,7 +191,7 @@
 
 
                 <TextView
-                    android:id="@+id/tv_f"
+                    android:id="@+id/tv_e"
                     style="@style/authorization_text"
                     android:layout_height="wrap_content"
                     android:text="*添加工种: "
@@ -239,7 +239,7 @@
             >
 
             <TextView
-                android:id="@+id/tv_g"
+                android:id="@+id/tv_f"
                 style="@style/authorization_text"
                 android:layout_height="wrap_content"
                 android:text="*企业介绍: "

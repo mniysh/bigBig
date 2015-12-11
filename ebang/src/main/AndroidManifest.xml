@@ -199,7 +199,6 @@
             android:name=".activity.SubmitSuccessActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:screenOrientation="portrait"/>
-
         <activity
             android:name=".activity.ManagerBackActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
@@ -415,7 +414,6 @@
 
         <!-- 极光推送  start -->
 
-
         <activity
             android:name=".activity.PeasantAuthenBackActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
@@ -617,6 +615,8 @@
         <activity android:name=".activity.SystemDetailActivity">
         </activity>
         <activity android:name=".social.PartyPublishSuccessActivity">
+        </activity>
+        <activity android:name=".activity.LotteryActivity">
         </activity>
     </application>
 

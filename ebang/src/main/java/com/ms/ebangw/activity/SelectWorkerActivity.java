@@ -68,10 +68,7 @@ public class SelectWorkerActivity extends BaseActivity {
                 project_id = staff.getProject_id();
                 craft_id = staff.getCraft_id();
             }
-
         }
-
-
     }
 
     @Override

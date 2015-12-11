@@ -93,7 +93,7 @@
                         android:layout_marginRight="10dp"
                         android:layout_weight="1"
                         android:padding="10dp"
-                        android:text="劳务公司推荐"/>
+                        android:text="推荐劳务公司"/>
 
                     <android.support.v7.widget.RecyclerView
                         android:id="@+id/rv"

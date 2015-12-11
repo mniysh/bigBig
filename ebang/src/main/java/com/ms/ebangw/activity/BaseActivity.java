@@ -148,9 +148,13 @@ public abstract class BaseActivity extends AppCompatActivity {
      * 关闭进度对话框
      */
     public void dismissLoadingDialog() {
-        if (null != mLoadingDialog) {
-            mLoadingDialog.dismiss();
-            mLoadingDialog = null;
+        try {
+            if (null != mLoadingDialog) {
+                mLoadingDialog.dismiss();
+                mLoadingDialog = null;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 

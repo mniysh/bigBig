@@ -25,7 +25,7 @@ import com.ms.ebangw.R;
 import com.ms.ebangw.activity.MessageCenterActivit;
 import com.ms.ebangw.activity.ShowActivity;
 import com.ms.ebangw.activity.ShowDeveloperActivity;
-import com.ms.ebangw.adapter.BannerImageHoderView;
+import com.ms.ebangw.adapter.BannerImageHolderView;
 import com.ms.ebangw.adapter.ProjectItemAdapter;
 import com.ms.ebangw.adapter.RecommendedDeveloperAdapter;
 import com.ms.ebangw.bean.BannerImage;
@@ -83,7 +83,6 @@ public class HomeFragment extends BaseFragment {
 
         startActivity(intent);
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater,
@@ -182,10 +181,10 @@ public class HomeFragment extends BaseFragment {
     public void initBanner(List<BannerImage> bannerImages) {
         if (null != convenientBanner) {
 
-            convenientBanner.setPages(new CBViewHolderCreator<BannerImageHoderView>() {
+            convenientBanner.setPages(new CBViewHolderCreator<BannerImageHolderView>() {
                 @Override
-                public BannerImageHoderView createHolder() {
-                    return new BannerImageHoderView();
+                public BannerImageHolderView createHolder() {
+                    return new BannerImageHolderView();
                 }
             }, bannerImages)
                 //设置两个点图片作为翻页指示器，不设置则没有指示器，可以根据自己需求自行配合自己的指示器,不需要圆点指示器可用不设

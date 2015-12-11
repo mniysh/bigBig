@@ -35,13 +35,6 @@
     android:layout_marginLeft="5dp"
     android:text="工程管理"
     />
-
-    <!--<RadioButton-->
-    <!--android:id="@+id/rb_other"-->
-    <!--style="@style/release_but"-->
-    <!--android:layout_marginLeft="10dp"-->
-        <!--android:visibility="gone"-->
-    <!--android:text="其他"/>-->
     </RadioGroup>
     <!--<RadioGroup-->
         <!--android:id="@+id/rg_select_type"-->
