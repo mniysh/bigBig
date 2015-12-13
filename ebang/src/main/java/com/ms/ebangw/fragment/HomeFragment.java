@@ -270,7 +270,7 @@ public class HomeFragment extends BaseFragment {
             @Override
             public void onFinish() {
                 super.onFinish();
-//                dismissLoadingDialog();
+                dismissLoadingDialog();
                 if(ptr != null){
                     ptr.onRefreshComplete();
                 }
