@@ -82,6 +82,7 @@ public class MipcaActivityCapture extends Activity implements Callback {
 		decodeFormats = null;
 		characterSet = null;
 
+
 		playBeep = true;
 		AudioManager audioService = (AudioManager) getSystemService(AUDIO_SERVICE);
 		if (audioService.getRingerMode() != AudioManager.RINGER_MODE_NORMAL) {
