@@ -46,6 +46,11 @@ public class UserDao {
 
     }
 
+    /**
+     * 更新用户
+     * @param user
+     * @return
+     */
     public boolean update(User user) {
         try {
             int update = userDaoOpe.update(user);
